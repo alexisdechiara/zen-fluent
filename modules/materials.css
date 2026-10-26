@@ -1,8 +1,9 @@
 /* ----------------------------- MATERIALS ----------------------------- */
 /* Mica, Mica Alt and Acrylic for the window, the sidebar and the content card.
-   On a transparent window (Windows 11 Mica, macOS, Linux with
-   zen.widget.linux.transparency) the OS paints the backdrop and we only tint it;
-   elsewhere the token is painted solid. */
+   On Windows 11 the backdrop comes from Mica For Everyone (a rule for "zen",
+   backdrop type = zen-fluent.material); Zen keeps the window transparent through
+   widget.windows.mica, so we only tint it. Same on macOS and on Linux with
+   zen.widget.linux.transparency. Elsewhere the token is painted solid. */
 
 /* -------- Base type -------- */
 

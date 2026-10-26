@@ -24,18 +24,28 @@ dans la carte du mod. Sine écrit les valeurs par défaut de `preferences.json`.
    (sans Sine, une préférence absente vaut « désactivée »).
 4. Redémarrer Zen.
 
-### Windows 11 : matériau natif
+### Windows 11 : Mica For Everyone
 
-Zen active `widget.windows.mica` par défaut. Le fond dessiné par Windows dépend de
-`widget.windows.mica.toplevel-backdrop` ; accordez-le avec **Matériau de fond** :
+Le vrai fond Mica / Acrylic est appliqué par
+[Mica For Everyone](https://github.com/MicaForEveryone/MicaForEveryone), comme
+pour Nebula et Arc 2.0 ; Zen Fluent ne fait que le teinter.
 
-| Matériau de fond | `widget.windows.mica.toplevel-backdrop` |
-| ---------------- | --------------------------------------- |
-| Mica             | `1`                                     |
-| Mica Alt         | `3`                                     |
-| Acrylic          | `2` (valeur par défaut de Zen)          |
+1. Installer Mica For Everyone.
+2. **Ajouter une règle** › **Règle de processus** : `zen`.
+3. Choisir le type de fond identique à **Matériau de fond** dans Sine :
 
-Pour des menus sur Mica : `widget.windows.mica.popups` = `2`.
+   | Matériau de fond (Sine) | Mica For Everyone |
+   | ----------------------- | ----------------- |
+   | Mica                    | Mica              |
+   | Mica Alt (Tabbed)       | Tabbed            |
+   | Acrylic                 | Acrylic           |
+
+4. Paramètres Windows › Personnalisation › Couleurs : désactiver
+   **Afficher la couleur d’accentuation sur les barres de titre et les bordures
+   des fenêtres**, sinon la transparence ne s’affiche pas.
+5. Laisser `widget.windows.mica` à `true` (valeur par défaut de Zen) : c’est ce
+   qui garde la fenêtre transparente.
+
 Sur macOS et sur Linux (`zen.widget.linux.transparency`), le mod teinte le fond
 transparent de la fenêtre ; ailleurs, il peint le token correspondant en plein.
 

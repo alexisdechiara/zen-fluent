@@ -7,26 +7,13 @@
   },
   {
     "property": "zen-fluent.material",
-    "label": "Matériau de fond",
+    "label": "Matériau de fond (~le même que la règle « zen » de Mica For Everyone~)",
     "type": "dropdown",
     "defaultValue": "mica",
     "options": [
       { "label": "Mica", "value": "mica" },
-      { "label": "Mica Alt", "value": "mica-alt" },
+      { "label": "Mica Alt (Tabbed)", "value": "mica-alt" },
       { "label": "Acrylic", "value": "acrylic" }
-    ]
-  },
-  {
-    "property": "widget.windows.mica.toplevel-backdrop",
-    "label": "Fond natif Windows 11, à accorder avec le matériau (~redémarrage requis~)",
-    "type": "dropdown",
-    "defaultValue": 1,
-    "restart": true,
-    "disabledOn": ["macos", "linux"],
-    "options": [
-      { "label": "Mica", "value": 1 },
-      { "label": "Mica Alt", "value": 3 },
-      { "label": "Acrylic", "value": 2 }
     ]
   },
   {
