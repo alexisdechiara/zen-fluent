@@ -46,8 +46,37 @@ pour Nebula et Arc 2.0 ; Zen Fluent ne fait que le teinter.
 5. Laisser `widget.windows.mica` à `true` (valeur par défaut de Zen) : c’est ce
    qui garde la fenêtre transparente.
 
-Sur macOS et sur Linux (`zen.widget.linux.transparency`), le mod teinte le fond
-transparent de la fenêtre ; ailleurs, il peint le token correspondant en plein.
+### Linux : transparence et flou du compositeur
+
+Linux n’a pas de Mica : la fenêtre est rendue transparente par Zen et c’est le
+compositeur qui floute ce qu’il y a derrière.
+
+1. `about:config` : `zen.widget.linux.transparency` = `true`, puis redémarrer Zen.
+   Zen Fluent passe alors des teintes pleines aux teintes translucides
+   (Mica 40 %, Mica Alt 55 %, Acrylic 64 %).
+2. Activer le flou selon le bureau :
+   - **KDE Plasma** : installer
+     [Better Blur DX](https://github.com/xarblu/kwin-effects-better-blur-dx),
+     puis Paramètres › Fenêtres › Effets de bureau : désactiver **Flou**, activer
+     **Better Blur DX**, et dans son onglet **Force blur** ajouter la classe `zen`
+     (`zen-browser` pour le paquet AUR `zen-browser-bin`).
+   - **GNOME** : extension [Blur my Shell](https://github.com/aunetx/blur-my-shell),
+     onglet **Applications** : activer le flou des applications, désactiver
+     **Opaque focused window**, opacité au maximum, ajouter `zen` à la liste.
+   - **Hyprland** : `decoration { blur { enabled = true } }` dans `hyprland.conf` ;
+     les fenêtres transparentes sont floutées.
+
+Sans compositeur, la transparence donne un fond noir : laissez la préférence à
+`false`, le mod peint alors le matériau en plein.
+
+### Sans accélération matérielle
+
+En rendu logiciel, Zen marque la fenêtre `zen-no-acrylic` et le flou CSS ne
+fonctionne pas. Les surfaces Acrylic (menus, barre d’adresse, barre compacte,
+Bibliothèque) prennent alors la couleur pleine de repli de WinUI, comme avec
+« Réduire la transparence ».
+
+Sur macOS, le mod teinte le fond transparent de la fenêtre.
 
 ## Réglages
 

@@ -17,10 +17,11 @@
     box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
   }
 
-  /* Active pane: 2px accent outline drawn inside */
+  /* Active pane: 2px accent outline, drawn in the gap (the page would
+     paint over an inner outline) */
   & .browserSidebarContainer.deck-selected:not(.zen-glance-overlay) {
     outline: 2px solid var(--zf-accent) !important;
-    outline-offset: -2px !important;
+    outline-offset: 0 !important;
   }
 }
 

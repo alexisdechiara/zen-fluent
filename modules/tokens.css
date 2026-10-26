@@ -101,6 +101,19 @@
   --zf-duration-slow: 250ms;
 }
 
+/* -------- No blur available (software rendering, reduced transparency):
+   WinUI falls back to the solid Acrylic color -------- */
+
+:root[zen-no-acrylic="true"] {
+  --zf-acrylic: var(--zf-acrylic-solid);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --zf-acrylic: var(--zf-acrylic-solid);
+  }
+}
+
 /* -------- Accent presets -------- */
 
 @media (-moz-pref("zen-fluent.accent", "zen")) {

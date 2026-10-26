@@ -37,12 +37,21 @@ panel {
       --zf-window-bg: light-dark(rgb(252 252 252 / 56%), rgb(44 44 44 / 64%));
     }
   }
+}
 
-  /* Replaces the workspace gradient: the accent tints the material instead */
+/* Replaces the workspace gradient: the accent tints the material instead.
+   Zen writes these variables inline on each background layer, so they are
+   overridden there too. */
+:root,
+.zen-browser-generic-background {
   --zen-main-browser-background: var(--zf-window-bg) !important;
   --zen-main-browser-background-toolbar: var(--zf-window-bg) !important;
   --zen-main-browser-background-old: var(--zf-window-bg) !important;
   --zen-main-browser-background-toolbar-old: var(--zf-window-bg) !important;
+}
+
+#zen-main-app-wrapper.browser-toolbox-background {
+  background-color: var(--zf-window-bg) !important;
 }
 
 /* -------- Mica Alt: the sidebar becomes a command layer -------- */

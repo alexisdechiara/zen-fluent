@@ -133,8 +133,8 @@
     background-color: var(--zf-fill-selected) !important;
   }
 
+  /* The row carries the 44px; the inner box keeps Zen's padding */
   & .urlbarView-row-inner {
-    min-height: 44px !important;
     padding-inline: 14px 12px !important;
     font-size: 14px !important;
     background: transparent !important;
