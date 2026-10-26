@@ -1,0 +1,183 @@
+/* ------------------------------ URLBAR ------------------------------ */
+/* At rest: a WinUI TextBox (control fill, 1px stroke, stronger bottom edge).
+   Open: a floating Acrylic dialog with 44px suggestion rows. */
+
+/* -------- At rest -------- */
+
+#urlbar:not([breakout-extend]) {
+  & .urlbar-background {
+    background-color: var(--zf-fill-control) !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+  }
+
+  &:hover .urlbar-background {
+    background-color: var(--zf-fill-control-hover) !important;
+  }
+
+  &[focused] .urlbar-background {
+    border-bottom: 2px solid var(--zf-accent) !important;
+  }
+
+  & .urlbar-input {
+    font-size: 13px !important;
+  }
+}
+
+#identity-icon-box,
+#identity-permission-box,
+#tracking-protection-icon-container,
+#star-button-box,
+.urlbar-page-action {
+  border-radius: var(--zf-radius-control) !important;
+  background-color: transparent !important;
+  fill: var(--zf-text-secondary) !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+}
+
+/* -------- Options (Firefox-WinUI) -------- */
+
+@media (-moz-pref("zen-fluent.url-pill")) {
+  #urlbar:not([breakout-extend]) .urlbar-background {
+    border-radius: 999px !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.url-transparent")) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+
+    &:hover .urlbar-background {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.url-centered")) {
+  #urlbar:not([focused]) .urlbar-input {
+    text-align: center !important;
+  }
+}
+
+/* -------- Open: floating Acrylic -------- */
+
+#urlbar[breakout-extend] {
+  border-radius: var(--zf-radius-overlay) !important;
+
+  & .urlbar-background {
+    background-color: var(--zf-acrylic) !important;
+    backdrop-filter: var(--zf-acrylic-filter) !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+    outline: none !important;
+  }
+
+  & .urlbar-input {
+    font-size: 16px !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  & .urlbar-input-container {
+    border-bottom: 1px solid var(--zf-stroke-divider);
+  }
+}
+
+#urlbar-search-mode-indicator,
+.searchmode-switcher {
+  border-radius: var(--zf-radius-control) !important;
+  background-color: var(--zf-fill-control) !important;
+  outline: 1px solid var(--zf-stroke-control) !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+}
+
+/* -------- Suggestion rows -------- */
+
+.urlbarView {
+  margin-inline: 4px !important;
+  padding-block: 4px !important;
+}
+
+.urlbarView-row {
+  --zf-row-pill: transparent;
+
+  min-height: 44px !important;
+  border-radius: var(--zf-radius-control) !important;
+  background-color: transparent !important;
+  /* Accent pill painted as a background layer, so no pseudo-element is taken */
+  background-image: linear-gradient(
+    var(--zf-row-pill),
+    var(--zf-row-pill)
+  ) !important;
+  background-size: 3px 16px !important;
+  background-position: 0 50% !important;
+  background-repeat: no-repeat !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &[selected] {
+    --zf-row-pill: var(--zf-accent);
+    background-color: var(--zf-fill-selected) !important;
+  }
+
+  & .urlbarView-row-inner {
+    min-height: 44px !important;
+    padding-inline: 14px 12px !important;
+    font-size: 14px !important;
+    background: transparent !important;
+  }
+
+  & .urlbarView-favicon {
+    width: 16px !important;
+    height: 16px !important;
+    background: none !important;
+    fill: var(--zf-text-secondary) !important;
+  }
+
+  & .urlbarView-title {
+    color: var(--zf-text-primary) !important;
+  }
+
+  & :is(.urlbarView-url, .urlbarView-action, .urlbarView-title-separator) {
+    color: var(--zf-text-tertiary) !important;
+  }
+}
+
+.urlbarView-row:first-child .urlbarView-title {
+  font-weight: 600 !important;
+}
+
+.search-one-offs .searchbar-engine-one-off-item {
+  border-radius: var(--zf-radius-control) !important;
+}
+
+/* -------- Page behind the open bar: smoke -------- */
+
+.browserStack {
+  transition: filter var(--zf-duration-normal) linear !important;
+}
+
+#browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
+  .browserStack {
+  /* ~ the design's smoke layer: rgb(0 0 0 / 30–42%) */
+  filter: brightness(0.64) !important;
+}
+
+@media (-moz-pref("zen-fluent.urlbar-animation", "none")) {
+  .browserStack {
+    transition: none !important;
+  }
+}

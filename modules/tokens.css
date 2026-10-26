@@ -1,0 +1,181 @@
+/* ------------------------------ TOKENS ------------------------------ */
+/* WinUI 3 values (via Firefox-WinUI), renamed --zf-*.
+   Every color is a light-dark() pair, so it follows Zen's color-scheme. */
+
+:root {
+  /* -------- Type -------- */
+  --zf-font:
+    "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui,
+    -apple-system, sans-serif;
+  --zf-font-display:
+    "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui,
+    sans-serif;
+  --zf-font-mono:
+    "Cascadia Mono", "Cascadia Code", consolas, ui-monospace, monospace;
+
+  /* -------- Radii (WinUI) -------- */
+  --zf-radius-control: 4px;
+  --zf-radius-card: 8px;
+  --zf-radius-overlay: 8px;
+
+  /* -------- Accent -------- */
+  --zf-accent-base: AccentColor;
+  --zf-accent: light-dark(
+    color-mix(in srgb, var(--zf-accent-base) 85%, black),
+    color-mix(in srgb, var(--zf-accent-base) 55%, white)
+  );
+  --zf-accent-hover: color-mix(in srgb, var(--zf-accent) 90%, transparent);
+  --zf-accent-pressed: color-mix(in srgb, var(--zf-accent) 80%, transparent);
+  --zf-on-accent: light-dark(#fff, #000);
+
+  /* -------- Materials -------- */
+  --zf-mica: light-dark(
+    color-mix(in srgb, var(--zf-accent-base) 5%, #f3f3f3),
+    color-mix(in srgb, var(--zf-accent-base) 6%, #1f1f1f)
+  );
+  --zf-mica-alt: light-dark(
+    color-mix(in srgb, var(--zf-accent-base) 10%, #dadada),
+    color-mix(in srgb, var(--zf-accent-base) 10%, #0a0a0a)
+  );
+  --zf-acrylic: light-dark(rgb(252 252 252 / 86%), rgb(44 44 44 / 84%));
+  --zf-acrylic-solid: light-dark(#fcfcfc, #2c2c2c);
+  --zf-acrylic-filter: blur(30px) saturate(125%);
+  --zf-page: light-dark(#fff, #1c1c1c);
+  --zf-smoke: light-dark(rgb(0 0 0 / 30%), rgb(0 0 0 / 42%));
+
+  /* -------- Fills -------- */
+  --zf-layer: light-dark(rgb(255 255 255 / 50%), rgb(58 58 58 / 30%));
+  --zf-fill-command: light-dark(rgb(255 255 255 / 70%), rgb(58 58 58 / 45%));
+  --zf-fill-card: light-dark(rgb(255 255 255 / 70%), rgb(255 255 255 / 5.12%));
+  --zf-fill-control: light-dark(
+    rgb(255 255 255 / 70%),
+    rgb(255 255 255 / 6.05%)
+  );
+  --zf-fill-control-hover: light-dark(
+    rgb(249 249 249 / 50%),
+    rgb(255 255 255 / 8.37%)
+  );
+  --zf-fill-subtle-hover: light-dark(
+    rgb(0 0 0 / 3.73%),
+    rgb(255 255 255 / 6.05%)
+  );
+  --zf-fill-subtle-press: light-dark(
+    rgb(0 0 0 / 2.41%),
+    rgb(255 255 255 / 4.19%)
+  );
+  --zf-fill-selected: var(--zf-fill-subtle-hover);
+  --zf-fill-selected-hover: var(--zf-fill-subtle-press);
+  --zf-highlight: light-dark(rgb(255 255 255 / 90%), rgb(255 255 255 / 8%));
+
+  /* -------- Strokes -------- */
+  --zf-stroke-control: light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
+  --zf-stroke-field: light-dark(rgb(0 0 0 / 44.58%), rgb(255 255 255 / 54.42%));
+  --zf-stroke-divider: light-dark(rgb(0 0 0 / 8.03%), rgb(255 255 255 / 8.37%));
+
+  /* -------- Text -------- */
+  --zf-text-primary: light-dark(rgb(0 0 0 / 89.6%), #fff);
+  --zf-text-secondary: light-dark(rgb(0 0 0 / 66%), rgb(255 255 255 / 78.6%));
+  --zf-text-tertiary: light-dark(rgb(0 0 0 / 58%), rgb(255 255 255 / 60%));
+  --zf-text-disabled: light-dark(
+    rgb(0 0 0 / 36.14%),
+    rgb(255 255 255 / 36.28%)
+  );
+
+  /* -------- Elevation -------- */
+  --zf-shadow-tab: 0 1px 2px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 22%));
+  --zf-shadow-card:
+    0 0 0 1px light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 6%)),
+    0 2px 6px light-dark(rgb(0 0 0 / 5%), rgb(0 0 0 / 28%));
+  --zf-shadow-flyout:
+    0 0 0 1px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 30%)),
+    0 8px 16px light-dark(rgb(0 0 0 / 14%), rgb(0 0 0 / 26%));
+  --zf-shadow-dialog:
+    0 0 0 1px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 30%)),
+    0 32px 64px light-dark(rgb(0 0 0 / 19%), rgb(0 0 0 / 37%)),
+    0 2px 21px light-dark(rgb(0 0 0 / 15%), rgb(0 0 0 / 37%));
+
+  /* -------- Motion (WinUI) -------- */
+  --zf-ease: cubic-bezier(0, 0, 0, 1);
+  --zf-duration-fast: 83ms;
+  --zf-duration-normal: 167ms;
+  --zf-duration-slow: 250ms;
+}
+
+/* -------- Accent presets -------- */
+
+@media (-moz-pref("zen-fluent.accent", "zen")) {
+  :root {
+    --zf-accent-base: var(--zen-primary-color);
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "blue")) {
+  :root {
+    --zf-accent-base: #0078d4;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "violet")) {
+  :root {
+    --zf-accent-base: #8764b8;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "mint")) {
+  :root {
+    --zf-accent-base: #00b294;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "orange")) {
+  :root {
+    --zf-accent-base: #ca5010;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "pink")) {
+  :root {
+    --zf-accent-base: #e3008c;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "graphite")) {
+  :root {
+    --zf-accent-base: #69797e;
+  }
+}
+
+/* -------- "Zen" corners: rounder, with gaps -------- */
+
+@media (-moz-pref("zen-fluent.corners", "zen")) {
+  :root {
+    --zf-radius-control: 8px;
+    --zf-radius-card: 10px;
+    --zf-radius-overlay: 12px;
+  }
+}
+
+/* -------- Aptos (Firefox-WinUI) -------- */
+
+@media (-moz-pref("zen-fluent.aptos")) {
+  :root {
+    --zf-font:
+      "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    --zf-font-display:
+      "Aptos Display", "Aptos", "Segoe UI", system-ui, sans-serif;
+  }
+}
+
+/* -------- Hand the accent to Firefox and Zen -------- */
+
+:root {
+  --focus-outline-color: var(--zf-accent) !important;
+  --tab-loading-fill: var(--zf-accent) !important;
+  --toolbar-field-focus-border-color: var(--zf-accent) !important;
+  --button-background-color-primary: var(--zf-accent) !important;
+  --button-primary-hover-bgcolor: var(--zf-accent-hover) !important;
+  --button-primary-active-bgcolor: var(--zf-accent-pressed) !important;
+  --button-primary-color: var(--zf-on-accent) !important;
+  --button-text-color-primary: var(--zf-on-accent) !important;
+  --link-color: var(--zf-accent) !important;
+}

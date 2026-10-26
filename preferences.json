@@ -1,0 +1,229 @@
+[
+  {
+    "type": "separator",
+    "label": "**Apparence**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.material",
+    "label": "Matériau de fond",
+    "type": "dropdown",
+    "defaultValue": "mica",
+    "options": [
+      { "label": "Mica", "value": "mica" },
+      { "label": "Mica Alt", "value": "mica-alt" },
+      { "label": "Acrylic", "value": "acrylic" }
+    ]
+  },
+  {
+    "property": "widget.windows.mica.toplevel-backdrop",
+    "label": "Fond natif Windows 11, à accorder avec le matériau (~redémarrage requis~)",
+    "type": "dropdown",
+    "defaultValue": 1,
+    "restart": true,
+    "disabledOn": ["macos", "linux"],
+    "options": [
+      { "label": "Mica", "value": 1 },
+      { "label": "Mica Alt", "value": 3 },
+      { "label": "Acrylic", "value": 2 }
+    ]
+  },
+  {
+    "property": "zen-fluent.accent",
+    "label": "Couleur d’accent",
+    "type": "dropdown",
+    "defaultValue": "system",
+    "options": [
+      { "label": "Accent Windows", "value": "system" },
+      { "label": "Couleur de l’espace Zen", "value": "zen" },
+      { "label": "Bleu", "value": "blue" },
+      { "label": "Violet", "value": "violet" },
+      { "label": "Menthe", "value": "mint" },
+      { "label": "Orange", "value": "orange" },
+      { "label": "Rose", "value": "pink" },
+      { "label": "Graphite", "value": "graphite" }
+    ]
+  },
+  {
+    "property": "zen-fluent.corners",
+    "label": "Angles et marges",
+    "type": "dropdown",
+    "defaultValue": "winui",
+    "options": [
+      { "label": "WinUI (sans marge)", "value": "winui" },
+      { "label": "Zen (arrondis, avec marges)", "value": "zen" }
+    ]
+  },
+  {
+    "property": "zen-fluent.aptos",
+    "label": "Police Aptos",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "type": "separator",
+    "label": "**Barre latérale**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.pinned-extensions",
+    "label": "Extensions sous les Essentials",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.workspace-indicator",
+    "label": "Indicateur d’espace de travail",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.workspace-style",
+    "label": "Style des icônes d’espace",
+    "type": "dropdown",
+    "defaultValue": "pill",
+    "options": [
+      { "label": "Pastille", "value": "pill" },
+      { "label": "Fond", "value": "fill" },
+      { "label": "Minimal", "value": "minimal" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials-gray",
+    "label": "Icônes des Essentials en gris",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.compact-sidebar-bg",
+    "label": "Fond Acrylic de la barre en mode compact",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "type": "separator",
+    "label": "**Onglets**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.tab-pill",
+    "label": "Pastille d’accent sur l’onglet actif",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.tab-shadow",
+    "label": "Ombre des onglets (~angles Zen~)",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.tab-close-button",
+    "label": "Bouton de fermeture des onglets",
+    "type": "dropdown",
+    "defaultValue": "1",
+    "options": [
+      { "label": "Onglet actif et survol", "value": "1" },
+      { "label": "Survol uniquement", "value": "2" },
+      { "label": "Jamais", "value": "3" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extra-highlights",
+    "label": "Reflets sur l’onglet actif",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "type": "separator",
+    "label": "**Barre d’adresse**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.url-centered",
+    "label": "URL centrée",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.url-pill",
+    "label": "Barre en pilule",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.url-transparent",
+    "label": "Barre transparente",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "type": "separator",
+    "label": "**Fenêtre et menus**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.titlebar-style",
+    "label": "Boutons de fenêtre",
+    "type": "dropdown",
+    "defaultValue": "windows11",
+    "disabledOn": ["macos"],
+    "options": [
+      { "label": "Windows 11", "value": "windows11" },
+      { "label": "Arrondis", "value": "rounded" },
+      { "label": "Arrondis, couleur d’accent", "value": "rounded-accent" },
+      { "label": "Courts", "value": "short" }
+    ]
+  },
+  {
+    "property": "zen-fluent.mac-back-forward",
+    "label": "Flèches façon macOS",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.hide-shortcuts",
+    "label": "Masquer les raccourcis des menus",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "type": "separator",
+    "label": "**Animations**",
+    "margin": "30px 0 20px 0",
+    "size": "18px"
+  },
+  {
+    "property": "zen-fluent.tab-switch-animation",
+    "label": "Animation de changement d’onglet",
+    "type": "dropdown",
+    "defaultValue": "fluent",
+    "options": [
+      { "label": "Fluent (entrée)", "value": "fluent" },
+      { "label": "Fondu", "value": "fade" },
+      { "label": "Aucune", "value": "none" }
+    ]
+  },
+  {
+    "property": "zen-fluent.urlbar-animation",
+    "label": "Animation d’ouverture de la barre d’adresse",
+    "type": "dropdown",
+    "defaultValue": "fade",
+    "options": [
+      { "label": "Fondu", "value": "fade" },
+      { "label": "Zoom", "value": "zoom" },
+      { "label": "Aucune", "value": "none" }
+    ]
+  },
+  {
+    "property": "zen-fluent.button-animations",
+    "label": "Animations des boutons WinUI 3",
+    "type": "checkbox",
+    "defaultValue": true
+  }
+]

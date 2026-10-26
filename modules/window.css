@@ -1,0 +1,89 @@
+/* ------------------------------- WINDOW ------------------------------- */
+/* Caption buttons (Firefox-WinUI's titlebar styles) and navigation arrows. */
+
+@media (-moz-platform: windows) {
+  .titlebar-buttonbox {
+    --zf-caption-width: 46px;
+    --zf-caption-height: 32px;
+    --zf-caption-radius: 0px;
+    --zf-caption-margin: 0px;
+    --zf-caption-color: var(--zf-text-primary);
+
+    @media (-moz-pref("zen-fluent.titlebar-style", "rounded")) or (-moz-pref("zen-fluent.titlebar-style", "rounded-accent")) {
+      --zf-caption-width: 40px;
+      --zf-caption-height: 28px;
+      --zf-caption-radius: var(--zf-radius-control);
+      --zf-caption-margin: 2px 1px;
+    }
+
+    @media (-moz-pref("zen-fluent.titlebar-style", "rounded-accent")) {
+      --zf-caption-color: var(--zf-accent);
+    }
+
+    @media (-moz-pref("zen-fluent.titlebar-style", "short")) {
+      --zf-caption-width: 40px;
+      --zf-caption-height: 28px;
+    }
+  }
+
+  .titlebar-button {
+    width: var(--zf-caption-width) !important;
+    height: var(--zf-caption-height) !important;
+    margin: var(--zf-caption-margin) !important;
+    padding: 0 !important;
+    border-radius: var(--zf-caption-radius) !important;
+    color: var(--zf-caption-color) !important;
+    background-color: transparent !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+
+    & > .toolbarbutton-icon {
+      width: 10px !important;
+      height: 10px !important;
+    }
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+    }
+  }
+
+  .titlebar-close:hover {
+    background-color: #c42b1c !important;
+    color: #fff !important;
+  }
+
+  .titlebar-close:hover:active {
+    background-color: rgb(196 43 28 / 90%) !important;
+  }
+
+  :root:-moz-window-inactive .titlebar-button {
+    color: var(--zf-text-disabled) !important;
+  }
+}
+
+/* -------- Back / forward: WinUI arrows, or macOS chevrons -------- */
+
+#back-button {
+  list-style-image: url("../icons/back.svg") !important;
+}
+
+#forward-button {
+  list-style-image: url("../icons/forward.svg") !important;
+}
+
+#reload-button {
+  list-style-image: url("../icons/reload.svg") !important;
+}
+
+@media (-moz-pref("zen-fluent.mac-back-forward")) {
+  #back-button {
+    list-style-image: url("../icons/back-mac.svg") !important;
+  }
+
+  #forward-button {
+    list-style-image: url("../icons/forward-mac.svg") !important;
+  }
+}

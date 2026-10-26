@@ -1,0 +1,77 @@
+/* ------------------------------ CONTENT ------------------------------ */
+/* Internal pages: new tab and settings (where Sine lives) in WinUI. */
+
+@-moz-document url-prefix("about:newtab"), url-prefix("about:home"),
+  url-prefix("about:privatebrowsing") {
+  body {
+    background-color: var(--zf-page) !important;
+    font-family: var(--zf-font) !important;
+  }
+
+  .search-handoff-button,
+  .search-wrapper input {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+    box-shadow: none !important;
+  }
+
+  .top-site-outer .tile {
+    border-radius: var(--zf-radius-card) !important;
+    background-color: var(--zf-fill-card) !important;
+    box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+  }
+}
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  :root {
+    --in-content-accent-color: var(--zf-accent) !important;
+    --in-content-primary-button-background: var(--zf-accent) !important;
+    --in-content-primary-button-background-hover: var(
+      --zf-accent-hover
+    ) !important;
+    --in-content-primary-button-background-active: var(
+      --zf-accent-pressed
+    ) !important;
+    --in-content-primary-button-text-color: var(--zf-on-accent) !important;
+    --in-content-box-border-color: var(--zf-stroke-control) !important;
+    --border-radius-small: var(--zf-radius-control) !important;
+    --border-radius-medium: var(--zf-radius-card) !important;
+    --focus-outline-color: var(--zf-accent) !important;
+  }
+
+  body {
+    font-family: var(--zf-font) !important;
+  }
+
+  h1 {
+    font-family: var(--zf-font-display) !important;
+    font-weight: 600 !important;
+  }
+
+  groupbox,
+  moz-card,
+  .card {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background-color: var(--zf-fill-card) !important;
+    box-shadow: none !important;
+  }
+
+  input[type="text"],
+  input[type="search"],
+  search-textbox,
+  menulist {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+  }
+
+  code,
+  pre {
+    font-family: var(--zf-font-mono) !important;
+  }
+}

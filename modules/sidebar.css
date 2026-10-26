@@ -1,0 +1,369 @@
+/* ------------------------------ SIDEBAR ------------------------------ */
+/* Tabs, Essentials, folders, workspace indicator and workspace buttons. */
+
+/* ------------------------------- TABS ------------------------------- */
+
+#tabbrowser-tabs {
+  --tab-min-height: 36px !important;
+  --tab-border-radius: var(--zf-radius-control) !important;
+}
+
+#tabbrowser-tabs .tabbrowser-tab:not([zen-essential]) {
+  .tab-background {
+    position: relative !important;
+    overflow: visible !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+  }
+
+  .tab-label {
+    font-size: 13px !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  .tab-icon-image {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  &:hover .tab-background {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  /* WinUI NavigationView: selected = subtle fill */
+  &:is([selected="true"], [visuallyselected="true"], [multiselected="true"])
+    .tab-background {
+    background-color: var(--zf-fill-selected) !important;
+
+    @media (-moz-pref("zen-fluent.extra-highlights")) {
+      box-shadow: inset 0 1px 0 var(--zf-highlight) !important;
+    }
+  }
+
+  &:is([selected="true"], [visuallyselected="true"]):hover .tab-background {
+    background-color: var(--zf-fill-selected-hover) !important;
+  }
+
+  /* Zen corners: selected = raised control, like Zen's own tabs */
+  @media (-moz-pref("zen-fluent.corners", "zen")) {
+    &:is([selected="true"], [visuallyselected="true"]) .tab-background {
+      background-color: var(--zf-fill-control) !important;
+      border-color: var(--zf-stroke-control) !important;
+
+      @media (-moz-pref("zen-fluent.tab-shadow")) {
+        box-shadow: var(--zf-shadow-tab) !important;
+
+        @media (-moz-pref("zen-fluent.extra-highlights")) {
+          box-shadow:
+            var(--zf-shadow-tab),
+            inset 0 1px 0 var(--zf-highlight) !important;
+        }
+      }
+    }
+  }
+
+  /* Accent pill */
+  @media (-moz-pref("zen-fluent.tab-pill")) {
+    &:is([selected="true"], [visuallyselected="true"]) .tab-background::after {
+      content: "" !important;
+      position: absolute !important;
+      inset-inline-start: -1px;
+      top: 50%;
+      width: 3px !important;
+      height: 16px !important;
+      margin-top: -8px;
+      border-radius: 999px !important;
+      background: var(--zf-accent) !important;
+      opacity: 1 !important;
+      filter: none !important;
+      animation: zf-pill-in var(--zf-duration-slow) var(--zf-ease);
+    }
+  }
+}
+
+@keyframes zf-pill-in {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* -------- Close button (Firefox-WinUI) -------- */
+
+.tabbrowser-tab:not([pinned]) .tab-close-button {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 6px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-text-secondary) !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-close-button", "1")) {
+  .tabbrowser-tab:not([pinned], :hover, [selected="true"]) .tab-close-button {
+    display: none !important;
+  }
+
+  .tabbrowser-tab:not([pinned]):is(:hover, [selected="true"])
+    .tab-close-button {
+    display: flex !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-close-button", "2")) {
+  .tabbrowser-tab:not([pinned], :hover) .tab-close-button {
+    display: none !important;
+  }
+
+  .tabbrowser-tab:not([pinned]):hover .tab-close-button {
+    display: flex !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-close-button", "3")) {
+  .tabbrowser-tab .tab-close-button {
+    display: none !important;
+  }
+}
+
+/* -------- New tab and "clear" -------- */
+
+#tabs-newtab-button {
+  min-height: 36px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 13px !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  & .toolbarbutton-icon {
+    background: transparent !important;
+  }
+}
+
+.pinned-tabs-container-separator {
+  & toolbarseparator {
+    border-color: var(--zf-stroke-divider) !important;
+  }
+
+  & .zen-workspace-close-unpinned-tabs-button {
+    border-radius: var(--zf-radius-control) !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+  }
+}
+
+/* ----------------------------- FOLDERS ----------------------------- */
+
+zen-folder > .tab-group-label-container {
+  min-height: 36px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  &::before {
+    border-radius: var(--zf-radius-control) !important;
+    background-color: transparent !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+  }
+
+  &:hover::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  & .tab-group-label {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  & .tab-group-folder-icon {
+    color: var(--zf-accent) !important;
+    fill: var(--zf-accent) !important;
+    stroke: var(--zf-accent) !important;
+  }
+}
+
+/* ---------------------------- ESSENTIALS ---------------------------- */
+
+#zen-essentials {
+  --tab-min-height: 42px !important;
+}
+
+.zen-essentials-container {
+  gap: 6px !important;
+
+  .tabbrowser-tab {
+    .tab-background {
+      position: relative !important;
+      overflow: visible !important;
+      border: 1px solid var(--zf-stroke-control) !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-fill-card) !important;
+      box-shadow: none !important;
+      transition: background-color var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover .tab-background {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    &:is([selected="true"], [visuallyselected="true"]) .tab-background {
+      background-color: var(--zf-fill-control) !important;
+      box-shadow: var(--zf-shadow-tab) !important;
+
+      &::before {
+        content: "" !important;
+        position: absolute !important;
+        inset: auto auto 3px 50% !important;
+        width: 14px !important;
+        height: 3px !important;
+        margin-inline-start: -7px;
+        border-radius: 2px !important;
+        background: var(--zf-accent) !important;
+        opacity: 1 !important;
+        z-index: 1;
+      }
+    }
+
+    .tab-icon-image {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    /* Audio badge, top right */
+    .tab-icon-overlay:is([soundplaying], [muted]) {
+      width: 14px !important;
+      height: 14px !important;
+      padding: 2px !important;
+      border-radius: 7px !important;
+      background-color: var(--zf-accent) !important;
+      fill: var(--zf-on-accent) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-gray")) {
+  .zen-essentials-container
+    .tabbrowser-tab:not(:hover, [selected="true"])
+    .tab-icon-image {
+    filter: grayscale(100%) contrast(75%) !important;
+    transition: filter var(--zf-duration-slow) ease !important;
+  }
+}
+
+/* ------------------------ WORKSPACE INDICATOR ------------------------ */
+
+.zen-current-workspace-indicator {
+  min-height: 28px !important;
+  padding-inline-start: 12px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  & .zen-current-workspace-indicator-name {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--zf-text-secondary) !important;
+  }
+
+  & .zen-current-workspace-indicator-icon {
+    color: var(--zf-accent) !important;
+    fill: var(--zf-accent) !important;
+  }
+
+  &:hover::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+}
+
+@media not (-moz-pref("zen-fluent.workspace-indicator")) {
+  .zen-current-workspace-indicator {
+    display: none !important;
+  }
+}
+
+/* ------------------------- WORKSPACE BUTTONS ------------------------- */
+
+#zen-workspaces-button {
+  gap: 2px !important;
+
+  & toolbarbutton {
+    position: relative !important;
+    width: 32px !important;
+    max-width: 32px !important;
+    height: 32px !important;
+    border-radius: var(--zf-radius-control) !important;
+    color: var(--zf-text-secondary) !important;
+    fill: currentcolor !important;
+    fill-opacity: 1 !important;
+    filter: none !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      opacity var(--zf-duration-normal) linear !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &[active="true"] {
+      color: var(--zf-accent) !important;
+    }
+  }
+
+  /* Pastille (default) */
+  @media (-moz-pref("zen-fluent.workspace-style", "pill")) {
+    & toolbarbutton[active="true"]::after {
+      content: "";
+      position: absolute;
+      inset: auto auto 1px 50%;
+      width: 12px;
+      height: 3px;
+      margin-inline-start: -6px;
+      border-radius: 2px;
+      background: var(--zf-accent);
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.workspace-style", "fill")) {
+    & toolbarbutton[active="true"] {
+      background-color: var(--zf-fill-selected) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.workspace-style", "minimal")) {
+    & toolbarbutton:not([active="true"]) {
+      opacity: 0.45 !important;
+    }
+  }
+}
+
+/* ------------------------- SIDEBAR BUTTONS ------------------------- */
+
+#navigator-toolbox toolbarbutton.toolbarbutton-1 {
+  --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+  --toolbarbutton-hover-background: var(--zf-fill-subtle-hover) !important;
+  --toolbarbutton-active-background: var(--zf-fill-subtle-press) !important;
+  color: var(--zf-text-secondary) !important;
+
+  &[disabled="true"] {
+    color: var(--zf-text-disabled) !important;
+  }
+}

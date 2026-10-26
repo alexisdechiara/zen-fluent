@@ -1,0 +1,123 @@
+/* ----------------------------- MATERIALS ----------------------------- */
+/* Mica, Mica Alt and Acrylic for the window, the sidebar and the content card.
+   On a transparent window (Windows 11 Mica, macOS, Linux with
+   zen.widget.linux.transparency) the OS paints the backdrop and we only tint it;
+   elsewhere the token is painted solid. */
+
+/* -------- Base type -------- */
+
+:root,
+menupopup,
+panel {
+  font-family: var(--zf-font) !important;
+}
+
+/* -------- Window background -------- */
+
+:root {
+  --zf-window-bg: var(--zf-mica);
+
+  @media (-moz-pref("zen-fluent.material", "mica-alt")) {
+    --zf-window-bg: var(--zf-mica-alt);
+  }
+
+  @media (-moz-pref("zen-fluent.material", "acrylic")) {
+    --zf-window-bg: var(--zf-acrylic-solid);
+  }
+
+  @media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
+    --zf-window-bg: color-mix(in srgb, var(--zf-mica) 40%, transparent);
+
+    @media (-moz-pref("zen-fluent.material", "mica-alt")) {
+      --zf-window-bg: color-mix(in srgb, var(--zf-mica-alt) 55%, transparent);
+    }
+
+    @media (-moz-pref("zen-fluent.material", "acrylic")) {
+      --zf-window-bg: light-dark(rgb(252 252 252 / 56%), rgb(44 44 44 / 64%));
+    }
+  }
+
+  /* Replaces the workspace gradient: the accent tints the material instead */
+  --zen-main-browser-background: var(--zf-window-bg) !important;
+  --zen-main-browser-background-toolbar: var(--zf-window-bg) !important;
+  --zen-main-browser-background-old: var(--zf-window-bg) !important;
+  --zen-main-browser-background-toolbar-old: var(--zf-window-bg) !important;
+}
+
+/* -------- Mica Alt: the sidebar becomes a command layer -------- */
+
+@media (-moz-pref("zen-fluent.material", "mica-alt")) {
+  :root:not([zen-compact-mode="true"]) #navigator-toolbox {
+    --zen-navigator-toolbox-background: var(--zf-fill-command);
+    border-inline-end: 1px solid var(--zf-stroke-control) !important;
+  }
+
+  :root:not([zen-compact-mode="true"], [zen-single-toolbar="true"])
+    #navigator-toolbox {
+    border-top: 1px solid var(--zf-stroke-control) !important;
+    border-start-end-radius: var(--zf-radius-overlay) !important;
+  }
+}
+
+/* -------- Content card -------- */
+
+#tabbrowser-tabpanels .browserSidebarContainer {
+  border-radius: var(--zf-radius-overlay) !important;
+  corner-shape: round !important;
+  box-shadow: var(--zf-shadow-card) !important;
+
+  & browser[type="content"]:not([transparent="true"]) {
+    background: var(--zf-page) !important;
+  }
+}
+
+/* WinUI: the page sits flush against the window, rounded on the sidebar's
+   side only, with a 1px stroke (Nebula's "no gaps", WinUI edition). */
+@media (-moz-pref("zen-fluent.corners", "winui")) {
+  #zen-tabbox-wrapper {
+    margin: 0 !important;
+  }
+
+  #tabbrowser-tabpanels:not([zen-split-view="true"])
+    .browserSidebarContainer:not(.zen-glance-overlay) {
+    box-shadow: none !important;
+    border-radius: var(--zf-radius-overlay) 0 0 0 !important;
+    border-top: 1px solid var(--zf-stroke-control);
+    border-inline-start: 1px solid var(--zf-stroke-control);
+
+    :root[zen-right-side="true"] & {
+      border-radius: 0 var(--zf-radius-overlay) 0 0 !important;
+    }
+
+    /* Compact mode: the sidebar is gone, only the toolbar edge remains */
+    :root[zen-compact-mode="true"] & {
+      border-inline-start: 0;
+      border-radius: 0 !important;
+    }
+
+    :root[zen-compact-mode="true"][zen-single-toolbar="true"] & {
+      border-top: 0;
+    }
+  }
+}
+
+/* -------- Compact mode: floating Acrylic sidebar (Arc 2.0) -------- */
+
+@media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
+  :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background {
+    background-color: var(--zf-acrylic) !important;
+    backdrop-filter: var(--zf-acrylic-filter) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+    outline: none !important;
+
+    &::before,
+    &::after {
+      background: transparent !important;
+    }
+  }
+
+  :root[zen-compact-mode="true"] #navigator-toolbox #titlebar {
+    border-radius: var(--zf-radius-overlay) !important;
+  }
+}

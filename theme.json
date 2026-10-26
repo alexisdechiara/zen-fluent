@@ -1,0 +1,18 @@
+{
+  "id": "Zen-Fluent",
+  "homepage": "https://github.com/alexisdechiara/zen-fluent",
+  "author": "alexisdechiara",
+  "name": "Zen Fluent",
+  "description": "Mica, Mica Alt, Acrylic et contrôles WinUI 3 pour Zen. Reprend les options de Firefox-WinUI, Nebula et Arc 2.0.",
+  "version": "0.1.0",
+  "createdAt": "2026-10-26",
+  "updatedAt": "2026-10-26",
+  "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/README.md",
+  "style": {
+    "chrome": "userChrome.css",
+    "content": "userContent.css"
+  },
+  "preferences": "preferences.json",
+  "tags": ["chrome", "content", "fluent", "windows"],
+  "fork": ["zen"]
+}

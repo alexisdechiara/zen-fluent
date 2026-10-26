@@ -1,0 +1,109 @@
+/* ----------------------------- ANIMATIONS ----------------------------- */
+/* WinUI motion: 83ms for state changes, 167–250ms for entrances, eased with
+   the Fluent decelerate curve. Everything respects prefers-reduced-motion. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- Tab switch (Nebula's tab animations, Fluent timing) -------- */
+
+  @media (-moz-pref("zen-fluent.tab-switch-animation", "fluent")) {
+    #tabbrowser-tabpanels:not([zen-split-view="true"])
+      > .browserSidebarContainer.deck-selected:not(.zen-glance-overlay)
+      .browserStack {
+      animation: zf-page-entrance var(--zf-duration-slow) var(--zf-ease);
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.tab-switch-animation", "fade")) {
+    #tabbrowser-tabpanels:not([zen-split-view="true"])
+      > .browserSidebarContainer.deck-selected:not(.zen-glance-overlay)
+      .browserStack {
+      animation: zf-fade-in var(--zf-duration-normal) linear;
+    }
+  }
+
+  /* -------- Urlbar opening -------- */
+
+  @media (-moz-pref("zen-fluent.urlbar-animation", "fade")) {
+    #urlbar[breakout-extend] {
+      animation: zf-fade-in var(--zf-duration-normal) linear;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.urlbar-animation", "zoom")) {
+    #urlbar[breakout-extend] {
+      animation: zf-zoom-in var(--zf-duration-slow) var(--zf-ease);
+    }
+  }
+
+  /* -------- Menus open like a WinUI flyout -------- */
+
+  menupopup:not([type="arrow"]),
+  panel[type="arrow"] {
+    &[animate="open"] {
+      animation: zf-flyout-in var(--zf-duration-slow) var(--zf-ease);
+    }
+  }
+
+  /* -------- Buttons (Firefox-WinUI) -------- */
+
+  @media (-moz-pref("zen-fluent.button-animations")) {
+    :is(toolbarbutton, .tabbrowser-tab, .urlbarView-row, .zen-library-tab) {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        scale var(--zf-duration-fast) linear !important;
+    }
+
+    :is(
+        toolbarbutton,
+        .zen-essentials-container .tabbrowser-tab
+      ):hover:active:not([disabled="true"], :has(.tab-close-button:hover)) {
+      scale: 0.96;
+    }
+  }
+}
+
+@keyframes zf-page-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zf-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zf-zoom-in {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes zf-flyout-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

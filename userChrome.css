@@ -1,0 +1,16 @@
+/* Zen Fluent — https://github.com/alexisdechiara/zen-fluent */
+
+/* tokens first: every module reads the --zf-* variables */
+@import url("modules/tokens.css");
+@import url("modules/materials.css");
+@import url("modules/sidebar.css");
+@import url("modules/extensions.css");
+@import url("modules/urlbar.css");
+@import url("modules/split-glance.css");
+@import url("modules/media.css");
+@import url("modules/library.css");
+@import url("modules/menus.css");
+@import url("modules/window.css");
+@import url("modules/animations.css");
+
+/* Add additional CSS below */
