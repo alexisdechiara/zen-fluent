@@ -89,7 +89,6 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Repère au bord gauche en mode compact.
 - Mode multi-barres : barre d'adresse centrée (560 px max).
 - Barre d'adresse au focus dans la barre latérale.
 - Accent personnalisé (champ texte).

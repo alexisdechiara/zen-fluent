@@ -109,30 +109,31 @@ Sur macOS, le mod teinte le fond transparent de la fenêtre.
 
 ## Réglages
 
-| Groupe           | Réglage                                     | Préférence                        | Origine       |
-| ---------------- | ------------------------------------------- | --------------------------------- | ------------- |
-| Apparence        | Matériau de fond                            | `zen-fluent.material`             | Firefox-WinUI |
-|                  | Couleur d’accent                            | `zen-fluent.accent`               | Zen Fluent    |
-|                  | Angles et marges                            | `zen-fluent.corners`              | Nebula        |
-|                  | Police Aptos                                | `zen-fluent.aptos`                | Firefox-WinUI |
-| Barre latérale   | Extensions sous la barre d’adresse (WinUI)  | `zen-fluent.pinned-extensions`    | Arc 2.0       |
-|                  | Indicateur d’espace de travail              | `zen-fluent.workspace-indicator`  | Nebula        |
-|                  | Style des icônes d’espace                   | `zen-fluent.workspace-style`      | Nebula        |
-|                  | Icônes des Essentials en gris               | `zen-fluent.essentials-gray`      | Nebula        |
-|                  | Fond Acrylic de la barre en mode compact    | `zen-fluent.compact-sidebar-bg`   | Arc 2.0       |
-| Onglets          | Pastille d’accent sur l’onglet actif        | `zen-fluent.tab-pill`             | Zen Fluent    |
-|                  | Ombre des onglets (angles Zen)              | `zen-fluent.tab-shadow`           | Nebula        |
-|                  | Bouton de fermeture                         | `zen-fluent.tab-close-button`     | Firefox-WinUI |
-|                  | Reflets sur l’onglet actif                  | `zen-fluent.extra-highlights`     | Firefox-WinUI |
-| Barre d’adresse  | URL centrée                                 | `zen-fluent.url-centered`         | Firefox-WinUI |
-|                  | Barre en pilule                             | `zen-fluent.url-pill`             | Firefox-WinUI |
-|                  | Barre transparente                          | `zen-fluent.url-transparent`      | Firefox-WinUI |
-| Fenêtre et menus | Boutons de fenêtre                          | `zen-fluent.titlebar-style`       | Firefox-WinUI |
-|                  | Flèches façon macOS                         | `zen-fluent.mac-back-forward`     | Firefox-WinUI |
-|                  | Masquer les raccourcis des menus            | `zen-fluent.hide-shortcuts`       | Firefox-WinUI |
-| Animations       | Animation de changement d’onglet            | `zen-fluent.tab-switch-animation` | Nebula        |
-|                  | Animation d’ouverture de la barre d’adresse | `zen-fluent.urlbar-animation`     | Nebula        |
-|                  | Animations des boutons WinUI 3              | `zen-fluent.button-animations`    | Firefox-WinUI |
+| Groupe           | Réglage                                      | Préférence                        | Origine       |
+| ---------------- | -------------------------------------------- | --------------------------------- | ------------- |
+| Apparence        | Matériau de fond                             | `zen-fluent.material`             | Firefox-WinUI |
+|                  | Couleur d’accent                             | `zen-fluent.accent`               | Zen Fluent    |
+|                  | Angles et marges                             | `zen-fluent.corners`              | Nebula        |
+|                  | Police Aptos                                 | `zen-fluent.aptos`                | Firefox-WinUI |
+| Barre latérale   | Extensions sous la barre d’adresse (WinUI)   | `zen-fluent.pinned-extensions`    | Arc 2.0       |
+|                  | Indicateur d’espace de travail               | `zen-fluent.workspace-indicator`  | Nebula        |
+|                  | Style des icônes d’espace                    | `zen-fluent.workspace-style`      | Nebula        |
+|                  | Icônes des Essentials en gris                | `zen-fluent.essentials-gray`      | Nebula        |
+|                  | Fond Acrylic de la barre en mode compact     | `zen-fluent.compact-sidebar-bg`   | Arc 2.0       |
+|                  | Repère au bord de la fenêtre en mode compact | `zen-fluent.compact-edge-hint`    | Zen Fluent    |
+| Onglets          | Pastille d’accent sur l’onglet actif         | `zen-fluent.tab-pill`             | Zen Fluent    |
+|                  | Ombre des onglets (angles Zen)               | `zen-fluent.tab-shadow`           | Nebula        |
+|                  | Bouton de fermeture                          | `zen-fluent.tab-close-button`     | Firefox-WinUI |
+|                  | Reflets sur l’onglet actif                   | `zen-fluent.extra-highlights`     | Firefox-WinUI |
+| Barre d’adresse  | URL centrée                                  | `zen-fluent.url-centered`         | Firefox-WinUI |
+|                  | Barre en pilule                              | `zen-fluent.url-pill`             | Firefox-WinUI |
+|                  | Barre transparente                           | `zen-fluent.url-transparent`      | Firefox-WinUI |
+| Fenêtre et menus | Boutons de fenêtre                           | `zen-fluent.titlebar-style`       | Firefox-WinUI |
+|                  | Flèches façon macOS                          | `zen-fluent.mac-back-forward`     | Firefox-WinUI |
+|                  | Masquer les raccourcis des menus             | `zen-fluent.hide-shortcuts`       | Firefox-WinUI |
+| Animations       | Animation de changement d’onglet             | `zen-fluent.tab-switch-animation` | Nebula        |
+|                  | Animation d’ouverture de la barre d’adresse  | `zen-fluent.urlbar-animation`     | Nebula        |
+|                  | Animations des boutons WinUI 3               | `zen-fluent.button-animations`    | Firefox-WinUI |
 
 Valeurs des listes : voir `preferences.json`. Toutes les animations s’arrêtent
 avec `prefers-reduced-motion`.
