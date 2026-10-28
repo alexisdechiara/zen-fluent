@@ -89,14 +89,14 @@
   }
 }
 
-/* -------- Open: floating Acrylic -------- */
+/* -------- Open: floating Acrylic (solid: it lies over the page) -------- */
 
 #urlbar[breakout-extend] {
   border-radius: var(--zf-radius-overlay) !important;
 
   & .urlbar-background {
-    background-color: var(--zf-acrylic) !important;
-    backdrop-filter: var(--zf-acrylic-filter) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
     border: 0 !important;
     border-radius: var(--zf-radius-overlay) !important;
     box-shadow: var(--zf-shadow-dialog) !important;

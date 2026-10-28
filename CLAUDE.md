@@ -61,6 +61,13 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Sine 2.3 : carte `.sineItem`, réglages dans `dialog.sineItemPreferenceDialog`
   (séparateur = `vbox:has(> hr)` + `.separator-label`, lignes `hbox`, cases
   `.sineItemPreferenceCheckbox`). Volets Zen : `groupbox[data-category^="paneZen"]`.
+- Firefox ne floute pas le contenu web derrière un `backdrop-filter` : une surface
+  Acrylic posée sur la page la laisse voir nette. Tout ce qui flotte sur la page
+  (barre d'adresse ouverte, barre latérale et barre du haut compactes,
+  Bibliothèque) prend `--zf-acrylic-over-page` (couleur pleine).
+- Mode compact, barre unique : `#zen-appcontent-navbar-wrapper` replié fait 8 px
+  au-dessus de la page ; le mod le passe en `position: absolute` (zone de survol
+  invisible) et neutralise la marge que Zen ajoute avec `has-toolbar-hovered`.
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).

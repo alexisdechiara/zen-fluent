@@ -135,12 +135,13 @@ panel {
   }
 }
 
-/* -------- Compact mode: floating Acrylic sidebar (Arc 2.0) -------- */
+/* -------- Compact mode: floating Acrylic sidebar (Arc 2.0), solid since it
+   lies over the page -------- */
 
 @media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
   :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background {
-    background-color: var(--zf-acrylic) !important;
-    backdrop-filter: var(--zf-acrylic-filter) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
     border-radius: var(--zf-radius-overlay) !important;
     box-shadow: var(--zf-shadow-dialog) !important;
     outline: none !important;
@@ -153,5 +154,43 @@ panel {
 
   :root[zen-compact-mode="true"] #navigator-toolbox #titlebar {
     border-radius: var(--zf-radius-overlay) !important;
+  }
+
+  /* The top bar (window buttons) floats on the same surface when shown */
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]
+    #zen-appcontent-navbar-wrapper:is(
+      [zen-has-hover],
+      [has-popup-menu],
+      [zen-compact-mode-active]
+    ) {
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+  }
+}
+
+/* -------- Compact mode, single toolbar: nothing above the page -------- */
+/* Zen keeps the hidden top bar as an 8px strip above the page. It becomes an
+   invisible hover zone laid over the page instead (in a maximized window it
+   is what brings the bar back), and the bar floats over the page when shown,
+   so the page neither starts lower nor moves. */
+
+:root[zen-compact-mode="true"][zen-single-toolbar="true"]:not(
+    [customizing],
+    [inDOMFullscreen="true"]
+  ) {
+  #zen-appcontent-wrapper {
+    position: relative !important;
+  }
+
+  #zen-appcontent-navbar-wrapper {
+    position: absolute !important;
+    inset: 0 0 auto !important;
+    z-index: 4 !important;
+  }
+
+  /* Zen pulls the page up while the bar shows: nothing to make up for here */
+  #tabbrowser-tabpanels[has-toolbar-hovered] .browserContainer {
+    margin-top: 0 !important;
   }
 }

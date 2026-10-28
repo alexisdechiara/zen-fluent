@@ -12,8 +12,7 @@ zen-library {
 }
 
 #zen-library-panel {
-  background-color: var(--zf-acrylic) !important;
-  backdrop-filter: var(--zf-acrylic-filter) !important;
+  background-color: var(--zf-acrylic-over-page) !important;
   border-start-end-radius: var(--zf-radius-overlay);
   border-end-end-radius: var(--zf-radius-overlay);
   box-shadow: var(--zf-shadow-dialog) !important;
