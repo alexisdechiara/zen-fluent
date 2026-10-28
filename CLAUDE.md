@@ -1,8 +1,9 @@
 # Zen Fluent
 
-Mod Sine pour Zen Browser 1.23+ : Mica, Mica Alt, Acrylic et contrôles WinUI 3.
-Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : français
-(README, libellés de `preferences.json`) ; commentaires du code en anglais.
+Mod Sine pour Zen Browser 1.23+ : Mica, Mica Alt, Acrylic et contrôles WinUI 3, ou
+style Microsoft Edge (`zen-fluent.style`). Reprend les options de Firefox-WinUI,
+Nebula, Arc 2.0 et Zia. Langue du projet : français (README, libellés de
+`preferences.json`) ; commentaires du code en anglais.
 
 ## Structure
 
@@ -10,10 +11,18 @@ Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : fran
 - `modules/tokens.css` : toutes les valeurs `--zf-*` (paires `light-dark()`), accent,
   rayons, police. Les autres modules ne lisent que ces variables.
 - Un module par zone : `materials`, `sidebar`, `extensions`, `urlbar`, `split-glance`,
-  `media`, `library`, `menus`, `tab-preview`, `scrollbars`, `window`, `icons`,
-  `animations`, `content` (pages `about:`, défilement des pages web).
+  `media`, `library`, `menus`, `findbar`, `tooltips`, `tab-preview`, `site-panels`,
+  `dialogs`, `ff-sidebar`, `scrollbars`, `window`, `icons`, `animations` (chrome) ;
+  `content` (pages `about:`, réglages Sine, défilement des pages web) et
+  `dialogs-content` (boîtes de `about:preferences`) dans `userContent.css`.
 - `preferences.json` : réglages Sine, préfixe `zen-fluent.*`, valeurs ASCII sans
-  espaces (Sine les refuse), séparateurs `"type": "separator"` par groupe.
+  espaces (Sine les refuse), `"placeholder": false` sur chaque liste. Groupes
+  repliables : chaque groupe commence par une case `zen-fluent.ui.open-<groupe>`
+  (en-tête SettingsExpander) ; un nouveau groupe = un en-tête + une ligne dans la
+  règle de masquage et une icône dans `content.css`. Une ligne conditionnelle ne
+  doit pas finir un groupe (les coins du bas vont à la dernière ligne). Le groupe
+  « Réglages de Zen » expose des préférences de Zen / Firefox (valeurs par défaut
+  de Zen ; Sine n'écrit `defaultValue` que si la préférence n'existe pas).
 - `icons/` : SVG en `stroke="context-fill"`. `screenshots/` : captures du README.
 
 ## Conventions
@@ -30,8 +39,15 @@ Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : fran
 Sous Windows 11, le fond Mica / Mica Alt / Acrylic vient de **Mica For Everyone**
 (règle pour `zen`). Le mod ne fait que teinter : `zen-fluent.material` choisit la teinte
 à accorder avec la règle MFE. Pas de réglage d'intensité de teinte (abandonné).
+La teinte est peinte une seule fois (une couche à 1 - (1 - a)² = l'ancienne double
+couche) : Mica 64 %, Acrylic 80,64 % clair / 87,04 % sombre. Mica Alt sous
+Windows : rien n'est peint (enveloppe, couches de Zen et voile transparents), c'est
+le Mica Alt de MFE, non teinté ; barre latérale, barres, Bibliothèque et marges
+forment un seul fond (79,75 % sous macOS / Linux transparent). Ce qui flotte sur la
+page prend `--zf-mica-alt` opaque. La Bibliothèque n'a ni surface, ni ombre, ni coins.
 Linux : `zen.widget.linux.transparency` + flou du compositeur (voir README).
-Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pleine.
+Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pleine
+(et le grain `acrylic-noise` disparaît).
 
 ## Ce que Zen 1.23 fait vraiment (vérifié dans le navigateur)
 
@@ -52,7 +68,10 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
   par `content: url()`) ; dossiers : SVG en ligne dans `.tab-group-folder-icon`.
 - Réglage Sine `string` : Sine pose `--<préférence avec des tirets>` sur `:root`
   des fenêtres chrome uniquement (pas dans les pages `about:`) ; typer la valeur
-  avec `@property` pour qu'une saisie invalide ait un repli.
+  avec `@property` pour qu'une saisie invalide ait un repli. Chaque reconstruction
+  ajoute une feuille adoptée sans retirer les anciennes : une préférence effacée
+  garde sa dernière variable jusqu'au redémarrage (en test, filtrer
+  `document.adoptedStyleSheets`).
 - Les feuilles **utilisateur** s'appliquent dans les Shadow DOM (sélecteur simple
   sur l'élément interne) ; `::part()` ne correspond pas depuis elles.
 - Sine : sa feuille de contenu n'est pas injectée dans les pages web (acteur
@@ -60,16 +79,49 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Sine 2.3 : carte `.sineItem`, réglages dans `dialog.sineItemPreferenceDialog`
   (séparateur = `vbox:has(> hr)` + `.separator-label`, lignes `hbox`, cases
   `.sineItemPreferenceCheckbox`). Volets Zen : `groupbox[data-category^="paneZen"]`.
+- Ligne Sine : `id` = propriété, points changés en tirets (casse gardée),
+  `tooltiptext` = propriété. `~…~` d'un libellé devient `<u>` (description grise).
+  `"placeholder": false` retire l'élément « None » (valeur `""`) des listes.
+  Espace sur une case Sine n'est jamais enregistré (Sine n'écoute que `click` sur la
+  `hbox`) : la case interne change seule, d'où l'ouverture d'un groupe pour la
+  session. La boîte est construite au chargement de la page (recharger
+  `about:preferences` pour relire `preferences.json` ; un changement de `#` ne
+  suffit pas).
+- `-moz-pref()` marche en direct dans `about:preferences`, aussi pour une préférence
+  de Firefox (`browser.tabs.hoverPreview.enabled`). `-moz-pref(nom, false)` ne
+  correspond qu'à un `false` explicite : un réglage actif par défaut se lit
+  `not (-moz-pref(nom, false))`.
 - Firefox ne floute pas le contenu web derrière un `backdrop-filter` : une surface
   Acrylic posée sur la page la laisse voir nette. Tout ce qui flotte sur la page
-  (barre d'adresse ouverte, barre latérale et barre du haut compactes,
-  Bibliothèque) prend `--zf-acrylic-over-page` (couleur pleine).
+  (barre d'adresse ouverte, barre latérale et barre du haut compactes, barre de
+  recherche, boîtes de dialogue) prend `--zf-acrylic-over-page` (couleur pleine).
 - Mode compact, barre unique : `#zen-appcontent-navbar-wrapper` replié fait 8 px
   au-dessus de la page ; le mod le passe en `position: absolute` (zone de survol
   invisible) et neutralise la marge que Zen ajoute avec `has-toolbar-hovered`.
 - Sine n'applique les `conditions` d'un réglage qu'au premier changement de
-  préférence, pas à l'ouverture de la boîte : masquer la ligne en CSS
-  (`content.css`, `@media not (-moz-pref(...))`).
+  préférence, pas à l'ouverture de la boîte (`setupPrefObserver` tourne avant que
+  la ligne soit dans la page) : masquer la ligne en CSS (`content.css`,
+  `@media not (-moz-pref(...))`).
+- Les jetons sont aussi déclarés sur `tooltip` : l'infobulle par défaut du
+  document (`tooltiptext`, `title=`) est du contenu anonyme natif, hors de `:root`.
+- Barre latérale de Firefox (Ctrl+B, historique) : ses pages sont des documents
+  chrome qui reçoivent la feuille chrome de Sine ; listes en arbres XUL (`tree`).
+- Zen pose `breakout-extend` dès le focus (barre ouverte en place) : la ligne
+  d'accent suit `[focused]` et `[breakout-extend]`.
+- La Bibliothèque ne recouvre jamais la page, sauf 8 px en mode compact avec les
+  angles WinUI (4 px en Edge) : `library.css` rogne cette bande, la page y reçoit
+  les clics.
+- Firefox 158 lit `--toolbarbutton-background-color-hover` / `-active`, pas
+  `--toolbarbutton-hover-background` ; `--toolbarbutton-icon-size` est résolu sur
+  `:root` (calculer une largeur sur le bouton lui-même).
+- Style Edge : `materials.css` remet `corner-shape: round` partout sous
+  `zen-fluent.style` = `edge` ; carte de page à 4 px, rayon 8, filet 1 px.
+- `#remote-control-box` (robot dans la barre d'adresse) = indicateur de pilotage à
+  distance (Marionette, WebDriver), pas un défaut du mod.
+- La sélection en couleur d'accent (`materials.css`) ne touche que les documents
+  chrome ; `content.css` la reprend pour les pages `about:`, sauf `about:blank` /
+  `about:srcdoc` (cadres des pages web, éditeurs de texte) : `regexp()`, car
+  `url-prefix("about:")` les inclut.
 - `zen.theme.acrylic-sidebar` / `acrylic-urlbar` (fond transparent + flou) :
   neutralisés par les `!important` utilisateur du mod (vérifié).
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
@@ -119,8 +171,19 @@ Les feuilles chrome et utilisateur ne remontent aucune erreur CSS à la console 
 valider les valeurs avec stylelint (`declaration-property-value-no-unknown`).
 Glance ne s'ouvre bien que par un vrai clic (Alt+clic synthétique via les actions
 WebDriver) ; `openGlance()` par script reste bloqué. Les captures d'écran échouent
-tant que la session Windows est verrouillée (`LogonUI`).
+tant que la session Windows est verrouillée (`LogonUI`). Marionette termine le
+script en cours quand une invite de contenu s'ouvre : charger le code dans la
+fenêtre (`loadSubScript`, minuteries) et lire le résultat ensuite. Les listes de la
+boîte Sine s'ouvrent et se choisissent par clic WebDriver (contexte `content`).
+`windowUtils.sendMouseEvent` n'existe plus (Firefox 158). L'onglet
+`about:preferences` doit être au premier plan (sinon aucune mise en page) ; il
+se recharge sur `#sync` : `gotoPref("paneSineMods")`.
 
 ## Reste à faire
 
-Rien de prévu : fonctionnalités et campagne finale faites.
+- Relancer la campagne sous Windows 11 (vrai bureau) pour le lot Edge / Mica Alt /
+  nouveaux réglages : comparer à l'œil la couleur Mica Alt opaque des surfaces sur
+  la page, l'animation « Depuis le bouton » avec les menus Mica, la barre de
+  commandes du menu contextuel.
+- Refaire `screenshots/sine.png` (groupes repliables) et ajouter une capture du
+  style Edge.

@@ -11,8 +11,16 @@
   outline-offset: -1px !important;
   box-shadow: none !important;
 
+  /* Edge: a raised card with the page card's hairline */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    background-color: var(--zf-edge-raised) !important;
+    outline-color: var(--zf-edge-card-stroke) !important;
+    box-shadow: var(--zf-shadow-2) !important;
+  }
+
+  /* zen-fluent.tab-text-size moves the card's text with the tab titles */
   & .zen-media-title {
-    font-size: 13px !important;
+    font-size: calc(13px + var(--zf-text-step)) !important;
     font-weight: 600 !important;
     color: var(--zf-text-primary) !important;
   }
@@ -20,7 +28,7 @@
   & .zen-media-artist,
   & .zen-media-current-time,
   & .zen-media-duration {
-    font-size: 12px !important;
+    font-size: var(--zf-sidebar-font-size-small) !important;
     line-height: 16px !important;
     color: var(--zf-text-tertiary) !important;
   }
@@ -28,6 +36,17 @@
   & toolbarbutton.toolbarbutton-1 {
     --toolbarbutton-border-radius: var(--zf-radius-control) !important;
     color: var(--zf-text-secondary) !important;
+  }
+
+  /* Edge: Fluent 2 subtle fills (the sidebar's generic button rule is an
+     id selector, hence the toolbox here) */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    #navigator-toolbox & toolbarbutton.toolbarbutton-1 {
+      --toolbarbutton-background-color-hover: var(--zf-edge-hover) !important;
+      --toolbarbutton-background-color-active: var(
+        --zf-edge-pressed
+      ) !important;
+    }
   }
 
   /* Play / pause: the one accent button */

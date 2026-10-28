@@ -31,6 +31,24 @@
     list-style-image: url("../icons/reload.svg") !important;
   }
 
+  /* The page context menu's row or command bar (menus.css): its icon reads
+     --menuitem-icon through `content`. The star keeps Zen's filled state. */
+  #context-back > .menu-icon {
+    content: url("../icons/back.svg") !important;
+  }
+
+  #context-forward > .menu-icon {
+    content: url("../icons/forward.svg") !important;
+  }
+
+  #context-reload > .menu-icon {
+    content: url("../icons/reload.svg") !important;
+  }
+
+  #context-stop > .menu-icon {
+    content: url("../icons/close.svg") !important;
+  }
+
   @media (-moz-pref("zen-fluent.mac-back-forward")) {
     #back-button {
       list-style-image: url("../icons/back-mac.svg") !important;
@@ -38,6 +56,14 @@
 
     #forward-button {
       list-style-image: url("../icons/forward-mac.svg") !important;
+    }
+
+    #context-back > .menu-icon {
+      content: url("../icons/back-mac.svg") !important;
+    }
+
+    #context-forward > .menu-icon {
+      content: url("../icons/forward-mac.svg") !important;
     }
   }
 

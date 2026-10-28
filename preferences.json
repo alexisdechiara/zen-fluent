@@ -1,15 +1,33 @@
 [
   {
-    "type": "separator",
-    "label": "**Apparence**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.ui.expand-all",
+    "label": "Afficher tous les réglages",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.ui.open-appearance",
+    "label": "Apparence ~Style, matériau, couleur d’accent, angles et police~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.style",
+    "label": "Style de l’interface",
+    "type": "dropdown",
+    "defaultValue": "winui",
+    "placeholder": false,
+    "options": [
+      { "label": "WinUI 3 (Windows 11)", "value": "winui" },
+      { "label": "Microsoft Edge (Fluent 2)", "value": "edge" }
+    ]
   },
   {
     "property": "zen-fluent.material",
-    "label": "Matériau de fond (~le même que la règle « zen » de Mica For Everyone~)",
+    "label": "Matériau de fond ~le même que la règle « zen » de Mica For Everyone~",
     "type": "dropdown",
     "defaultValue": "mica",
+    "placeholder": false,
     "options": [
       { "label": "Mica", "value": "mica" },
       { "label": "Mica Alt (Tabbed)", "value": "mica-alt" },
@@ -21,6 +39,7 @@
     "label": "Couleur d’accent",
     "type": "dropdown",
     "defaultValue": "system",
+    "placeholder": false,
     "options": [
       { "label": "Accent Windows", "value": "system" },
       { "label": "Couleur de l’espace Zen", "value": "zen" },
@@ -35,7 +54,7 @@
   },
   {
     "property": "zen-fluent.accent-custom",
-    "label": "Couleur personnalisée (~toute couleur CSS : #0078d4, rgb(0 120 212), teal…~)",
+    "label": "Couleur personnalisée ~toute couleur CSS : #0078d4, rgb(0 120 212), teal…~",
     "type": "string",
     "defaultValue": "#0078d4",
     "placeholder": "#0078d4",
@@ -49,26 +68,73 @@
     "label": "Angles et marges",
     "type": "dropdown",
     "defaultValue": "winui",
+    "placeholder": false,
     "options": [
       { "label": "WinUI (sans marge)", "value": "winui" },
       { "label": "Zen (arrondis, avec marges)", "value": "zen" }
     ]
   },
   {
-    "property": "zen-fluent.aptos",
-    "label": "Police Aptos",
+    "property": "zen-fluent.font",
+    "label": "Police",
+    "type": "dropdown",
+    "defaultValue": "segoe",
+    "placeholder": false,
+    "options": [
+      { "label": "Segoe UI Variable", "value": "segoe" },
+      { "label": "Aptos", "value": "aptos" },
+      { "label": "Police du système", "value": "system" },
+      { "label": "Personnalisée", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.font-custom",
+    "label": "Police personnalisée ~un nom de police, par exemple Inter ou Fira Sans~",
+    "type": "string",
+    "defaultValue": "",
+    "placeholder": "Inter",
+    "conditions": [
+      { "if": { "property": "zen-fluent.font", "value": "custom" } }
+    ]
+  },
+  {
+    "property": "zen-fluent.accent-selection",
+    "label": "Sélection de texte en couleur d’accent",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.acrylic-noise",
+    "label": "Grain Acrylic ~menus, panneaux et surfaces flottantes~",
     "type": "checkbox",
     "defaultValue": false
   },
   {
-    "type": "separator",
-    "label": "**Barre latérale**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.ui.open-sidebar",
+    "label": "Barre latérale ~Boutons, extensions, espaces de travail, mode compact~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.button-style",
+    "label": "Style des boutons",
+    "type": "dropdown",
+    "defaultValue": "subtle",
+    "placeholder": false,
+    "options": [
+      { "label": "Discrets (fond au survol)", "value": "subtle" },
+      { "label": "Standards (fond et bordure)", "value": "standard" }
+    ]
+  },
+  {
+    "property": "zen-fluent.hide-forward-disabled",
+    "label": "Masquer le bouton Suivant quand il est inactif",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.pinned-extensions",
-    "label": "Extensions sous la barre d’adresse, style WinUI (~barre unique~)",
+    "label": "Extensions sous la barre d’adresse, style WinUI ~barre unique~",
     "type": "checkbox",
     "defaultValue": true
   },
@@ -83,6 +149,7 @@
     "label": "Style des icônes d’espace",
     "type": "dropdown",
     "defaultValue": "pill",
+    "placeholder": false,
     "options": [
       { "label": "Pastille", "value": "pill" },
       { "label": "Fond", "value": "fill" },
@@ -108,10 +175,28 @@
     "defaultValue": true
   },
   {
-    "type": "separator",
-    "label": "**Onglets**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.ui.open-tabs",
+    "label": "Onglets ~Texte, pastille, ombre, boutons de fermeture, reflets~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.tab-text-size",
+    "label": "Taille du texte des onglets",
+    "type": "dropdown",
+    "defaultValue": "normal",
+    "placeholder": false,
+    "options": [
+      { "label": "Petite", "value": "small" },
+      { "label": "Normale", "value": "normal" },
+      { "label": "Grande", "value": "large" }
+    ]
+  },
+  {
+    "property": "zen-fluent.tab-bold",
+    "label": "Titre de l’onglet actif en gras",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.tab-pill",
@@ -121,7 +206,7 @@
   },
   {
     "property": "zen-fluent.tab-shadow",
-    "label": "Ombre des onglets (~angles Zen~)",
+    "label": "Ombre des onglets ~angles Zen~",
     "type": "checkbox",
     "defaultValue": true
   },
@@ -130,6 +215,7 @@
     "label": "Bouton de fermeture des onglets",
     "type": "dropdown",
     "defaultValue": "1",
+    "placeholder": false,
     "options": [
       { "label": "Onglet actif et survol", "value": "1" },
       { "label": "Survol uniquement", "value": "2" },
@@ -137,16 +223,57 @@
     ]
   },
   {
+    "property": "zen-fluent.collapsed-tab-close",
+    "label": "Bouton de fermeture en barre latérale réduite",
+    "type": "dropdown",
+    "defaultValue": "default",
+    "placeholder": false,
+    "options": [
+      { "label": "Par défaut (coin supérieur gauche)", "value": "default" },
+      { "label": "Pastille dans le coin", "value": "overlay" },
+      { "label": "Masqué", "value": "hidden" }
+    ]
+  },
+  {
     "property": "zen-fluent.extra-highlights",
-    "label": "Reflets sur l’onglet actif",
+    "label": "Reflets sur l’onglet actif, les menus et les panneaux",
     "type": "checkbox",
     "defaultValue": false
   },
   {
-    "type": "separator",
-    "label": "**Barre d’adresse**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.ui.open-urlbar",
+    "label": "Barre d’adresse ~Forme, ligne d’accent, position de l’URL, icônes~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.url-style",
+    "label": "Forme de la barre d’adresse",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Selon le style (zone de texte WinUI, pilule Edge)",
+        "value": "auto"
+      },
+      { "label": "Zone de texte (WinUI)", "value": "textbox" },
+      { "label": "Pilule (Edge)", "value": "pill" },
+      { "label": "Transparente", "value": "transparent" }
+    ]
+  },
+  {
+    "property": "zen-fluent.url-underline",
+    "label": "Ligne d’accent sous la barre d’adresse",
+    "type": "dropdown",
+    "defaultValue": "focus",
+    "placeholder": false,
+    "options": [
+      { "label": "Au focus (WinUI)", "value": "focus" },
+      { "label": "Au focus, animée (Fluent 2)", "value": "animated" },
+      { "label": "Toujours", "value": "always" },
+      { "label": "Jamais", "value": "none" }
+    ]
   },
   {
     "property": "zen-fluent.url-centered",
@@ -155,28 +282,29 @@
     "defaultValue": false
   },
   {
-    "property": "zen-fluent.url-pill",
-    "label": "Barre en pilule",
+    "property": "zen-fluent.url-hide-zoom",
+    "label": "Masquer le niveau de zoom",
     "type": "checkbox",
     "defaultValue": false
   },
   {
-    "property": "zen-fluent.url-transparent",
-    "label": "Barre transparente",
+    "property": "zen-fluent.url-hide-permissions",
+    "label": "Masquer les icônes d’autorisations ~seule la demande affichée garde son icône~",
     "type": "checkbox",
     "defaultValue": false
   },
   {
-    "type": "separator",
-    "label": "**Fenêtre et menus**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.ui.open-window",
+    "label": "Fenêtre et menus ~Boutons de fenêtre, icônes, menus, défilement~",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.titlebar-style",
     "label": "Boutons de fenêtre",
     "type": "dropdown",
     "defaultValue": "windows11",
+    "placeholder": false,
     "disabledOn": ["macos"],
     "options": [
       { "label": "Windows 11", "value": "windows11" },
@@ -187,13 +315,13 @@
   },
   {
     "property": "zen-fluent.fluent-icons",
-    "label": "Icônes Fluent (~décocher pour revenir aux icônes de Zen~)",
+    "label": "Icônes Fluent ~décocher pour revenir aux icônes de Zen~",
     "type": "checkbox",
     "defaultValue": true
   },
   {
     "property": "svg.context-properties.content.enabled",
-    "label": "Autoriser les icônes du mod (~à cocher : sans ce réglage Firefox, Zen garde ses icônes~)",
+    "label": "Autoriser les icônes du mod ~à cocher : sans ce réglage de Firefox, Zen garde ses icônes~",
     "type": "checkbox",
     "defaultValue": true
   },
@@ -204,10 +332,16 @@
     "defaultValue": false
   },
   {
-    "property": "zen-fluent.thin-scrollbars-web",
-    "label": "Barres de défilement fines dans les pages web",
-    "type": "checkbox",
-    "defaultValue": false
+    "property": "zen-fluent.context-navigation",
+    "label": "Précédent / Suivant du menu contextuel",
+    "type": "dropdown",
+    "defaultValue": "icons",
+    "placeholder": false,
+    "options": [
+      { "label": "Icônes (Firefox)", "value": "icons" },
+      { "label": "Liste (WinUI)", "value": "list" },
+      { "label": "Barre de commandes (Explorateur)", "value": "commandbar" }
+    ]
   },
   {
     "property": "zen-fluent.hide-shortcuts",
@@ -216,16 +350,29 @@
     "defaultValue": false
   },
   {
-    "type": "separator",
-    "label": "**Animations**",
-    "margin": "30px 0 20px 0",
-    "size": "18px"
+    "property": "zen-fluent.hide-access-keys",
+    "label": "Masquer les lettres soulignées des menus",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.thin-scrollbars-web",
+    "label": "Barres de défilement fines dans les pages web ~installation à la main uniquement~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.ui.open-animations",
+    "label": "Animations ~Changement d’onglet, barre d’adresse, menus, boutons~",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.tab-switch-animation",
     "label": "Animation de changement d’onglet",
     "type": "dropdown",
     "defaultValue": "fluent",
+    "placeholder": false,
     "options": [
       { "label": "Fluent (entrée)", "value": "fluent" },
       { "label": "Fondu", "value": "fade" },
@@ -237,15 +384,129 @@
     "label": "Animation d’ouverture de la barre d’adresse",
     "type": "dropdown",
     "defaultValue": "fade",
+    "placeholder": false,
     "options": [
       { "label": "Fondu", "value": "fade" },
       { "label": "Zoom", "value": "zoom" },
+      { "label": "Glissement", "value": "slide" },
+      { "label": "Résultats en cascade", "value": "stagger" },
+      { "label": "Cascade vers le haut", "value": "stagger-up" },
+      { "label": "Rebond (Microsoft Store)", "value": "bounce" },
+      { "label": "Aucune", "value": "none" }
+    ]
+  },
+  {
+    "property": "zen-fluent.menu-animation",
+    "label": "Animation des menus",
+    "type": "dropdown",
+    "defaultValue": "flyout",
+    "placeholder": false,
+    "options": [
+      { "label": "Menu volant (WinUI)", "value": "flyout" },
+      { "label": "Depuis le bouton", "value": "popin" },
+      { "label": "Fondu", "value": "fade" },
       { "label": "Aucune", "value": "none" }
     ]
   },
   {
     "property": "zen-fluent.button-animations",
     "label": "Animations des boutons WinUI 3",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.nav-bounce",
+    "label": "Rebond des flèches Précédent / Suivant",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.ui.open-zen",
+    "label": "Réglages de Zen ~Préférences de Zen et de Firefox, mêmes valeurs par défaut~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen.urlbar.behavior",
+    "label": "Barre d’adresse flottante",
+    "type": "dropdown",
+    "defaultValue": "floating-on-type",
+    "placeholder": false,
+    "options": [
+      { "label": "Au clavier", "value": "floating-on-type" },
+      { "label": "Toujours", "value": "float" },
+      { "label": "Jamais", "value": "normal" }
+    ]
+  },
+  {
+    "property": "zen.urlbar.replace-newtab",
+    "label": "Nouvel onglet dans la barre d’adresse flottante",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.urlbar.single-toolbar-show-copy-url",
+    "label": "Bouton Copier le lien ~barre unique~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.urlbar.show-domain-only-in-sidebar",
+    "label": "Domaine seul dans la barre d’adresse ~barre unique~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.urlbar.show-protections-icon",
+    "label": "Icône de protection contre le pistage",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen.urlbar.show-pip-button",
+    "label": "Bouton Image incrustée dans la barre d’adresse",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "browser.tabs.hoverPreview.enabled",
+    "label": "Aperçu des onglets au survol",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "browser.tabs.hoverPreview.showThumbnails",
+    "label": "Miniature de la page dans l’aperçu",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.view.enable-loading-indicator",
+    "label": "Indicateur de chargement des pages",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.view.grey-out-inactive-windows",
+    "label": "Griser les fenêtres inactives",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.splitView.enable-tab-drop",
+    "label": "Glisser un onglet sur la page pour scinder la vue",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled",
+    "label": "Image incrustée en quittant l’onglet d’une vidéo",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "media.videocontrols.picture-in-picture.improved-video-controls.enabled",
+    "label": "Commandes complètes de l’image incrustée ~avance, recul, barre de progression~",
     "type": "checkbox",
     "defaultValue": true
   }

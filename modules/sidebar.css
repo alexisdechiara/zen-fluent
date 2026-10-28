@@ -20,7 +20,7 @@
   }
 
   .tab-label {
-    font-size: 13px !important;
+    font-size: var(--zf-sidebar-font-size) !important;
     color: var(--zf-text-primary) !important;
   }
 
@@ -49,7 +49,7 @@
   }
 
   /* Zen corners: selected = raised control, like Zen's own tabs */
-  @media (-moz-pref("zen-fluent.corners", "zen")) {
+  @media (-moz-pref("zen-fluent.corners", "zen")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
     &:is([selected], [visuallyselected]) > .tab-stack > .tab-background {
       background-color: var(--zf-fill-control) !important;
       border-color: var(--zf-stroke-control) !important;
@@ -66,8 +66,8 @@
     }
   }
 
-  /* Accent pill */
-  @media (-moz-pref("zen-fluent.tab-pill")) {
+  /* Accent pill (WinUI only: Edge marks the tab by raising it) */
+  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
     &:is([selected], [visuallyselected]):not([zen-glance-tab])
       > .tab-stack
       > .tab-background::after {
@@ -97,6 +97,62 @@
   }
 }
 
+/* Edge: plain 8px rows; the selected tab is a raised white (light) or
+   lighter (dark) surface with Fluent's shadow2, without an accent */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  #tabbrowser-tabs .tabbrowser-tab:not([zen-essential]) {
+    > .tab-stack > .tab-background {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        box-shadow var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-edge-hover) !important;
+    }
+
+    /* Hovered too: it outranks the WinUI selected-hover fill above */
+    &:is([selected], [visuallyselected], [multiselected])
+      > .tab-stack
+      > .tab-background,
+    &:is([selected], [visuallyselected]):hover > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-edge-raised) !important;
+      box-shadow: var(--zf-shadow-2) !important;
+
+      @media (-moz-pref("zen-fluent.extra-highlights")) {
+        box-shadow:
+          var(--zf-shadow-2),
+          inset 0 1px 0 var(--zf-highlight) !important;
+      }
+    }
+  }
+
+  /* Favicon 8px from the row's edge, title 8px after it (Zen: 9.3 / 10) */
+  #navigator-toolbox[zen-sidebar-expanded="true"]
+    #tabbrowser-tabs
+    .tabbrowser-tab:not([zen-essential])
+    :is(
+      .tab-throbber,
+      .tab-icon-pending,
+      .tab-icon-image,
+      .tab-sharing-icon-overlay,
+      .tab-icon-overlay
+    ) {
+    margin-inline: 2px 8px !important;
+  }
+}
+
+/* Semibold title on the selected tab. Rows have a fixed width, so only the
+   text runs longer; the row and its neighbours keep their size. */
+@media (-moz-pref("zen-fluent.tab-bold")) {
+  #tabbrowser-tabs
+    .tabbrowser-tab:not([zen-essential]):is([selected], [visuallyselected])
+    .tab-label {
+    font-weight: 600 !important;
+  }
+}
+
 /* -------- Close button (Firefox-WinUI) -------- */
 
 .tabbrowser-tab:not([pinned]) .tab-close-button {
@@ -113,6 +169,76 @@
   &:hover:active {
     background-color: var(--zf-fill-subtle-press) !important;
   }
+
+  /* Edge: a circle with an 8px glyph */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    padding: 8px !important;
+    border-radius: 50% !important;
+
+    &:hover {
+      background-color: var(--zf-edge-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-edge-pressed) !important;
+    }
+  }
+}
+
+/* -------- Close button, collapsed sidebar -------- */
+/* Firefox lays the 24px button over the tile's top-left corner, on hover
+   and on the selected tab, half over the favicon. Overlay: a 16px Acrylic
+   badge 2px inside the top-end corner instead (Firefox-WinUI); hidden: none
+   at all, close from the menu or with a middle click. The tab content is
+   2px taller than the tile at the top. */
+
+@media (-moz-pref("zen-fluent.collapsed-tab-close", "overlay")) {
+  #tabbrowser-tabs[orient="vertical"]:not([expanded])
+    .tabbrowser-tab:not([pinned])
+    .tab-close-button {
+    inset: 4px 2px auto auto !important;
+    width: 16px !important;
+    height: 16px !important;
+    padding: 4px !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-acrylic-solid) !important;
+    background-image: none !important;
+    outline: 1px solid var(--zf-stroke-control) !important;
+    outline-offset: -1px !important;
+    box-shadow: var(--zf-shadow-tab) !important;
+    color: var(--zf-text-primary) !important;
+
+    &:-moz-locale-dir(rtl) {
+      inset: 4px auto auto 2px !important;
+    }
+
+    &:hover {
+      background-color: var(--zf-acrylic-solid) !important;
+      background-image: linear-gradient(
+        var(--zf-fill-subtle-hover),
+        var(--zf-fill-subtle-hover)
+      ) !important;
+    }
+
+    &:hover:active {
+      background-image: linear-gradient(
+        var(--zf-fill-subtle-press),
+        var(--zf-fill-subtle-press)
+      ) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: 50% !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.collapsed-tab-close", "hidden")) {
+  #tabbrowser-tabs[orient="vertical"]:not([expanded])
+    .tabbrowser-tab
+    .tab-close-button {
+    display: none !important;
+  }
 }
 
 @media (-moz-pref("zen-fluent.tab-close-button", "1")) {
@@ -120,8 +246,10 @@
     display: none !important;
   }
 
+  /* Zen collapses the button (visibility) until the row is hovered */
   .tabbrowser-tab:not([pinned]):is(:hover, [selected]) .tab-close-button {
     display: flex !important;
+    visibility: visible !important;
   }
 }
 
@@ -147,7 +275,7 @@
   min-height: 36px !important;
   border-radius: var(--zf-radius-control) !important;
   color: var(--zf-text-secondary) !important;
-  font-size: 13px !important;
+  font-size: var(--zf-sidebar-font-size) !important;
 
   &:hover {
     background-color: var(--zf-fill-subtle-hover) !important;
@@ -155,6 +283,12 @@
 
   & .toolbarbutton-icon {
     background: transparent !important;
+  }
+
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    &:hover {
+      background-color: var(--zf-edge-hover) !important;
+    }
   }
 }
 
@@ -166,10 +300,19 @@
   & .zen-workspace-close-unpinned-tabs-button {
     border-radius: var(--zf-radius-control) !important;
     color: var(--zf-text-secondary) !important;
-    font-size: 12px !important;
+    font-size: var(--zf-sidebar-font-size-small) !important;
 
     &:hover {
       background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    /* Edge: text buttons are pills */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: 999px !important;
+
+      &:hover {
+        background-color: var(--zf-edge-hover) !important;
+      }
     }
   }
 }
@@ -191,9 +334,16 @@ zen-folder > .tab-group-label-container {
   }
 
   & .tab-group-label {
-    font-size: 13px !important;
+    font-size: var(--zf-sidebar-font-size) !important;
     font-weight: 600 !important;
     color: var(--zf-text-primary) !important;
+  }
+
+  /* Edge: same row as a tab */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    &:hover::before {
+      background-color: var(--zf-edge-hover) !important;
+    }
   }
 }
 
@@ -273,6 +423,35 @@ zen-folder {
   }
 }
 
+/* Edge: 12px tiles (8 + the 4px gap), a faint field at rest; the selected
+   one is raised (shadow4) instead of carrying an accent dash */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  .zen-essentials-container .tabbrowser-tab {
+    .tab-background {
+      border-color: var(--zf-edge-field-stroke) !important;
+      border-radius: 12px !important;
+      background-color: var(--zf-edge-tile) !important;
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        box-shadow var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover .tab-background {
+      background-color: var(--zf-edge-tile-hover) !important;
+    }
+
+    &:is([selected], [visuallyselected]) .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-edge-raised) !important;
+      box-shadow: var(--zf-shadow-4) !important;
+
+      &::before {
+        content: none !important;
+      }
+    }
+  }
+}
+
 @media (-moz-pref("zen-fluent.essentials-gray")) {
   .zen-essentials-container
     .tabbrowser-tab:not(:hover, [selected])
@@ -290,7 +469,7 @@ zen-folder {
   border-radius: var(--zf-radius-control) !important;
 
   & .zen-current-workspace-indicator-name {
-    font-size: 12px !important;
+    font-size: var(--zf-sidebar-font-size-small) !important;
     font-weight: 600 !important;
     color: var(--zf-text-secondary) !important;
   }
@@ -303,6 +482,26 @@ zen-folder {
   &:hover::before {
     background-color: var(--zf-fill-subtle-hover) !important;
     border-radius: var(--zf-radius-control) !important;
+  }
+
+  /* Edge: a 32px pill, like its account button; the name lines up with
+     the favicons, 8px inside the pill */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    #navigator-toolbox[zen-sidebar-expanded="true"] & {
+      padding-inline-start: 15px !important;
+    }
+
+    &::before {
+      top: 50% !important;
+      height: 32px !important;
+      margin-top: -16px !important;
+      border-radius: 16px !important;
+    }
+
+    &:is(:hover, [open="true"])::before {
+      background-color: var(--zf-edge-hover) !important;
+      border-radius: 16px !important;
+    }
   }
 }
 
@@ -337,6 +536,12 @@ zen-folder {
 
     &[active="true"] {
       color: var(--zf-accent) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      &:hover {
+        background-color: var(--zf-edge-hover) !important;
+      }
     }
   }
 
@@ -415,14 +620,152 @@ zen-folder {
 }
 
 /* ------------------------- SIDEBAR BUTTONS ------------------------- */
+/* Firefox paints a toolbar button on its icon box (or badge stack) from
+   the --toolbarbutton-background-color* variables, sized by
+   --toolbarbutton-padding-inner (around a 16px glyph) and spaced by
+   --toolbarbutton-padding-outer. Zen sets the hover fill on :root. */
 
 #navigator-toolbox toolbarbutton.toolbarbutton-1 {
   --toolbarbutton-border-radius: var(--zf-radius-control) !important;
-  --toolbarbutton-hover-background: var(--zf-fill-subtle-hover) !important;
-  --toolbarbutton-active-background: var(--zf-fill-subtle-press) !important;
+  --toolbarbutton-background-color-hover: var(
+    --zf-fill-subtle-hover
+  ) !important;
+  --toolbarbutton-background-color-active: var(
+    --zf-fill-subtle-press
+  ) !important;
   color: var(--zf-text-secondary) !important;
 
   &[disabled="true"] {
     color: var(--zf-text-disabled) !important;
+  }
+}
+
+/* Edge: 32px buttons (16px glyph, 8px padding), radius 8, 4px apart, in the
+   sidebar and in the top toolbar (multiple toolbars). The new-tab row, the
+   media card and the workspace icons keep their own geometry. */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-padding-inner: 8px !important;
+    --toolbarbutton-padding-outer: 2px !important;
+    --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+    --toolbarbutton-background-color-hover: var(--zf-edge-hover) !important;
+    --toolbarbutton-background-color-active: var(--zf-edge-pressed) !important;
+  }
+
+  /* Zen drops the spacing when the top row runs out of room */
+  #zen-sidebar-top-buttons[overflowing] toolbarbutton.toolbarbutton-1 {
+    --toolbarbutton-padding-outer: 0px !important;
+  }
+}
+
+/* Standard buttons (WinUI Button): a control fill and the elevation stroke
+   at rest. Edge style (Fluent 2 Button): the address bar's field and
+   hairline, a darker hairline on hover, a pressed fill one step down. */
+@media (-moz-pref("zen-fluent.button-style", "standard")) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-background-color: var(--zf-fill-control) !important;
+    --toolbarbutton-background-color-hover: var(
+      --zf-fill-control-hover
+    ) !important;
+    --toolbarbutton-background-color-active: var(
+      --zf-fill-control-press
+    ) !important;
+    --toolbarbutton-background-color-disabled: var(
+      --zf-fill-control-disabled
+    ) !important;
+    --zf-button-stroke: var(--zf-elevation-control);
+    --zf-button-stroke-hover: var(--zf-button-stroke);
+    --zf-button-stroke-pressed: inset 0 0 0 1px var(--zf-stroke-control);
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      --toolbarbutton-background-color: var(--zf-edge-field) !important;
+      --toolbarbutton-background-color-hover: var(
+        --zf-edge-field-hover
+      ) !important;
+      --toolbarbutton-background-color-active: light-dark(
+        #f5f5f5,
+        rgb(0 0 0 / 30%)
+      ) !important;
+      --toolbarbutton-background-color-disabled: transparent !important;
+      --zf-button-stroke: inset 0 0 0 1px var(--zf-edge-field-stroke);
+      --zf-button-stroke-hover: inset 0 0 0 1px
+        var(--zf-edge-field-stroke-hover);
+      --zf-button-stroke-pressed: var(--zf-button-stroke-hover);
+    }
+
+    &
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke) !important;
+
+      @media not (prefers-reduced-motion: reduce) {
+        transition: background-color var(--zf-duration-fast) linear !important;
+      }
+    }
+
+    &:not([disabled]):hover
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke-hover) !important;
+    }
+
+    &:not([disabled]):is(:hover:active, [open], [checked])
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke-pressed) !important;
+    }
+  }
+}
+
+/* -------- Forward hidden while there is nothing to go forward to -------- */
+/* Like Edge. The button folds to nothing instead of vanishing, so the
+   buttons after it slide over rather than jump. */
+
+@media (-moz-pref("zen-fluent.hide-forward-disabled")) {
+  :root:not([customizing]) #forward-button {
+    /* The button's own width: Firefox's --toolbarbutton-icon-size is
+       resolved on :root, before Edge's padding */
+    max-width: calc(
+      16px + 2 * var(--toolbarbutton-padding-inner) + 2 *
+        var(--toolbarbutton-padding-outer)
+    ) !important;
+    overflow: clip !important;
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        max-width var(--zf-duration-normal) var(--zf-ease),
+        padding var(--zf-duration-normal) var(--zf-ease),
+        opacity var(--zf-duration-fast) linear !important;
+    }
+
+    /* max-height: also gone when the buttons stand in a column */
+    &[disabled] {
+      min-width: 0 !important;
+      max-width: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      padding: 0 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
   }
 }

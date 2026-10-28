@@ -45,8 +45,9 @@
     --panel-border-radius: calc(
       var(--zf-radius-overlay) * var(--zen-squircle-value)
     ) !important;
-    /* Its 1px ring is the flyout stroke */
-    --panel-box-shadow: var(--zf-shadow-flyout) !important;
+    /* Its 1px ring is the flyout stroke; menus.css's extra highlight */
+    --panel-box-shadow:
+      var(--zf-shadow-flyout), var(--zf-flyout-highlight, 0 0 transparent) !important;
     /* Room for the 16px blur, 8px down */
     --panel-box-shadow-margin: 24px !important;
   }
@@ -175,6 +176,16 @@
     /* The snapshot is taken on a transparent background */
     @media not (forced-colors) {
       background-color: var(--zf-page) !important;
+    }
+  }
+}
+
+/* Edge: concentric with the 12px card it sits 8px inside */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  #tab-preview-panel .tab-preview-thumbnail-container {
+    &:not(.hide-thumbnail):empty,
+    & > canvas {
+      border-radius: calc(var(--zf-radius-overlay) - 8px) !important;
     }
   }
 }

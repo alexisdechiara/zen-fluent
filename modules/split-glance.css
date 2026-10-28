@@ -7,7 +7,8 @@
   --zen-split-column-gap: 4px !important;
   --zen-split-row-gap: 4px !important;
 
-  @media (-moz-pref("zen-fluent.corners", "zen")) {
+  /* Edge keeps 4px gaps whatever the corners */
+  @media (-moz-pref("zen-fluent.corners", "zen")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
     --zen-split-column-gap: 8px !important;
     --zen-split-row-gap: 8px !important;
   }
@@ -15,6 +16,12 @@
   & .browserSidebarContainer {
     border-radius: var(--zf-radius-overlay) !important;
     box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+
+    /* Edge: each pane is the page card (materials.css), 8px and a hairline */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: var(--zf-radius-card) !important;
+      box-shadow: 0 0 0 1px var(--zf-edge-card-stroke) !important;
+    }
   }
 
   /* Active pane: 2px accent outline, drawn in the gap (the page would
@@ -45,6 +52,16 @@
   &:hover {
     background-color: var(--zf-fill-subtle-hover) !important;
   }
+
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    &:hover {
+      background-color: var(--zf-edge-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-edge-pressed) !important;
+    }
+  }
 }
 
 .zen-split-view-splitter:hover {
@@ -53,6 +70,7 @@
 
 /* ------------------------------- GLANCE ------------------------------- */
 
+/* Edge: the dialog shadow is Fluent's shadow64 with a hairline (tokens) */
 .browserSidebarContainer.zen-glance-overlay {
   border-radius: var(--zf-radius-overlay) !important;
   box-shadow: var(--zf-shadow-dialog) !important;

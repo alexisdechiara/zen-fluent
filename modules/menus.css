@@ -55,19 +55,36 @@ panel {
   }
 }
 
+/* Extra highlights: a 1px light along the top edge, inside the stroke. It
+   rides on Firefox's shadow token, which the content box (the arrowscrollbox
+   of a menu, the slot of a panel) reads: ::part() does not match from user
+   sheets, and a panel's viewstack sits inside its padding. With Mica popups
+   Windows draws the shadow, so the light replaces Firefox's clipped one. */
+@media (-moz-pref("zen-fluent.extra-highlights")) and (not (forced-colors)) {
+  menupopup,
+  panel {
+    --zf-flyout-highlight: inset 0 1px 0 var(--zf-highlight);
+
+    @media (-moz-windows-mica-popups) {
+      --panel-box-shadow: var(--zf-flyout-highlight) !important;
+    }
+  }
+}
+
 /* Without Mica popups the flyout is drawn in CSS: its 1px ring is the
    stroke, and the 16px blur 8px down needs a 24px margin. Zen also divides
    the content radius by its squircle value there (menus and arrow panels).
-   WinUI corners are plain arcs (materials.css): the divisor becomes 1, so
-   the token, which other rules read too, stays as is. On Linux only when
-   popups have alpha; otherwise popup.css squares them. */
+   WinUI and Edge corners are plain arcs (materials.css): the divisor becomes
+   1, so the token, which other rules read too, stays as is. On Linux only
+   when popups have alpha; otherwise popup.css squares them. */
 @media ((-moz-platform: windows) and (not (-moz-windows-mica-popups))) or ((-moz-platform: linux) and (-moz-gtk-csd-transparency-available)) {
   menupopup,
   panel:where([type="arrow"]:not(#feature-callout)) {
-    --panel-box-shadow: var(--zf-shadow-flyout) !important;
+    --panel-box-shadow:
+      var(--zf-shadow-flyout), var(--zf-flyout-highlight, 0 0 transparent) !important;
     --panel-box-shadow-margin: 24px !important;
 
-    @media (-moz-pref("zen-fluent.corners", "winui")) {
+    @media (-moz-pref("zen-fluent.corners", "winui")) or (-moz-pref("zen-fluent.style", "edge")) {
       --zen-squircle-value: 1 !important;
     }
   }
@@ -112,6 +129,25 @@ panel .subviewbutton.panel-subview-footer-button {
     ) {
     color: var(--zf-text-disabled) !important;
     opacity: 1 !important;
+  }
+}
+
+/* -------- Edge style: Fluent 2 menus -------- */
+/* Flyout 12 = item 8 + padding 4 (tokens.css), shadow16 under a 1px stroke.
+   Rows take Fluent 2's subtle fills, whose pressed step is lighter than
+   hover in dark; after the WinUI ones above, which they replace. */
+@media (-moz-pref("zen-fluent.style", "edge")) and (not (forced-colors)) {
+  menupopup,
+  panel {
+    --panel-item-hover-bgcolor: var(--zf-edge-hover) !important;
+    --panel-item-active-bgcolor: var(--zf-edge-pressed) !important;
+  }
+
+  panel {
+    --button-background-color-menu-hover: var(--zf-edge-hover) !important;
+    --button-background-color-menu-active: var(--zf-edge-pressed) !important;
+    --button-background-color-ghost-hover: var(--zf-edge-hover) !important;
+    --button-background-color-ghost-active: var(--zf-edge-pressed) !important;
   }
 }
 
@@ -168,6 +204,81 @@ menupopup menuseparator {
 
   .subviewbutton[shortcut]:not([disabled])::after {
     color: transparent !important;
+  }
+}
+
+/* -------- Hide access keys (Edge-Frfox) -------- */
+/* A menu label draws its value through -moz-label-content, which underlines
+   the access key; the plain attribute draws the same text without it */
+
+@media (-moz-pref("zen-fluent.hide-access-keys")) {
+  :where(menuitem, menu) > .menu-text[value]:not([value=""])::before {
+    content: attr(value) !important;
+  }
+}
+
+/* -------- Page context menu: Back, Forward, Reload, Bookmark -------- */
+/* Firefox's row of icons by default. Its items have no label, only an
+   aria-label (localized), drawn here by ::after. */
+
+/* WinUI list (Firefox-WinUI's default): four ordinary rows. Zen's page menu
+   has no other icon, and a MenuFlyout lines every label up: text only. */
+@media (-moz-pref("zen-fluent.context-navigation", "list")) {
+  #context-navigation {
+    flex-direction: column !important;
+
+    & > .menuitem-iconic {
+      flex: none !important;
+      justify-content: flex-start !important;
+      padding-block: var(--menuitem-padding-block) !important;
+      padding-inline: var(--menuitem-padding-inline) !important;
+
+      & > .menu-icon {
+        display: none !important;
+      }
+
+      &::after {
+        flex: 1;
+        overflow: hidden;
+        content: attr(aria-label);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+/* WinUI CommandBar (as in File Explorer): AppBarButtons, label under a 16px
+   icon, 64px tall, labels wrapped on two lines at most. Icons stay on one
+   line when a label wraps (top-aligned, like an AppBarButton). */
+@media (-moz-pref("zen-fluent.context-navigation", "commandbar")) {
+  #context-navigation > .menuitem-iconic {
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+    min-height: 64px !important;
+    padding: 12px 2px 8px !important;
+
+    & > .menu-icon {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    &::after {
+      display: -webkit-box;
+      overflow: hidden;
+      max-width: 100%;
+      content: attr(aria-label);
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
   }
 }
 

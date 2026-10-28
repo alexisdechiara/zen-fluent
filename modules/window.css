@@ -8,6 +8,8 @@
     --zf-caption-radius: 0px;
     --zf-caption-margin: 0px;
     --zf-caption-color: var(--zf-text-primary);
+    --zf-caption-color-hover: var(--zf-caption-color);
+    --zf-caption-color-press: var(--zf-caption-color);
 
     @media (-moz-pref("zen-fluent.titlebar-style", "rounded")) or (-moz-pref("zen-fluent.titlebar-style", "rounded-accent")) {
       --zf-caption-width: 40px;
@@ -16,8 +18,10 @@
       --zf-caption-margin: 2px 1px;
     }
 
+    /* The glyph takes the accent on hover and press only (Firefox-WinUI) */
     @media (-moz-pref("zen-fluent.titlebar-style", "rounded-accent")) {
-      --zf-caption-color: var(--zf-accent);
+      --zf-caption-color-hover: var(--zf-accent);
+      --zf-caption-color-press: var(--zf-accent-pressed);
     }
 
     @media (-moz-pref("zen-fluent.titlebar-style", "short")) {
@@ -45,10 +49,12 @@
 
     &:hover {
       background-color: var(--zf-fill-subtle-hover) !important;
+      color: var(--zf-caption-color-hover) !important;
     }
 
     &:hover:active {
       background-color: var(--zf-fill-subtle-press) !important;
+      color: var(--zf-caption-color-press) !important;
     }
   }
 
@@ -59,6 +65,7 @@
 
   .titlebar-close:hover:active {
     background-color: rgb(196 43 28 / 90%) !important;
+    color: #fff !important;
   }
 
   :root:-moz-window-inactive .titlebar-button {

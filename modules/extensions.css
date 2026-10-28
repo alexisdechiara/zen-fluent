@@ -25,6 +25,57 @@
       &[open] {
         background-color: var(--zf-fill-subtle-press) !important;
       }
+
+      /* Standard buttons (zen-fluent.button-style): fill and stroke at rest */
+      @media (-moz-pref("zen-fluent.button-style", "standard")) {
+        background-color: var(--zf-fill-control) !important;
+        box-shadow: var(--zf-elevation-control) !important;
+
+        &:hover {
+          background-color: var(--zf-fill-control-hover) !important;
+        }
+
+        &:hover:active,
+        &[open] {
+          background-color: var(--zf-fill-control-press) !important;
+          box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+        }
+      }
+    }
+
+    /* Edge: 32px buttons 4px apart, radius 8, Fluent 2 subtle fills */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      gap: 4px !important;
+      grid-template-columns: repeat(auto-fill, 32px) !important;
+
+      & .unified-extensions-item-action-button {
+        width: 32px !important;
+
+        &:hover {
+          background-color: var(--zf-edge-hover) !important;
+        }
+
+        &:hover:active,
+        &[open] {
+          background-color: var(--zf-edge-pressed) !important;
+        }
+
+        @media (-moz-pref("zen-fluent.button-style", "standard")) {
+          background-color: var(--zf-edge-field) !important;
+          box-shadow: inset 0 0 0 1px var(--zf-edge-field-stroke) !important;
+
+          &:hover {
+            background-color: var(--zf-edge-field-hover) !important;
+            box-shadow: inset 0 0 0 1px var(--zf-edge-field-stroke-hover) !important;
+          }
+
+          &:hover:active,
+          &[open] {
+            background-color: light-dark(#f5f5f5, rgb(0 0 0 / 30%)) !important;
+            box-shadow: inset 0 0 0 1px var(--zf-edge-field-stroke-hover) !important;
+          }
+        }
+      }
     }
 
     /* Badge (unread count, blocked requests…) in the accent color */
@@ -37,7 +88,7 @@
       color: var(--zf-on-accent) !important;
       font-size: 9px !important;
       line-height: 14px !important;
-      box-shadow: 0 0 0 1.5px var(--zf-window-bg) !important;
+      box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
     }
   }
 }

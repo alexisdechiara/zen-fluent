@@ -8,8 +8,8 @@
    tooltip (every tooltiptext and chrome title=). That one is native anonymous
    content: no author styles, nothing inherited from :root. It reads the
    tokens tokens.css declares on `tooltip`, and the UA's font: message-box is
-   overridden longhand by longhand. Round corners in both corner modes come
-   from materials.css. */
+   overridden longhand by longhand. Round corners in both corner modes and
+   the Edge style come from materials.css; Edge's radius (8) from tokens.css. */
 
 tooltip {
   appearance: none !important;

@@ -14,8 +14,8 @@
   }
 }
 
-/* Zen corners, and split view (whose panes are cards too): a card like the
-   page, across Zen's gap */
+/* Zen corners, Edge, and split view (whose panes are cards too): a card
+   like the page, across Zen's gap */
 #zen-tabbox-wrapper #sidebar-box {
   border-radius: var(--zf-radius-overlay) !important;
   corner-shape: round !important;
@@ -28,11 +28,29 @@
       box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
     }
   }
+
+  /* Edge: the page card's 8px, hairline and light-only shadow2
+     (materials.css) */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    border-radius: var(--zf-radius-card) !important;
+
+    @media not (forced-colors) {
+      box-shadow:
+        0 0 0 1px var(--zf-edge-card-stroke),
+        0 0 2px light-dark(rgb(0 0 0 / 6%), transparent),
+        0 1px 2px light-dark(rgb(0 0 0 / 7%), transparent) !important;
+
+      #tabbrowser-tabbox[zen-split-view="true"] > & {
+        box-shadow: 0 0 0 1px var(--zf-edge-card-stroke) !important;
+      }
+    }
+  }
 }
 
 /* WinUI corners: flush with the page, which hands over the rounded corner
-   and the stroke on Zen's sidebar side; a divider marks the seam */
-@media (-moz-pref("zen-fluent.corners", "winui")) and (not (forced-colors)) {
+   and the stroke on Zen's sidebar side; a divider marks the seam. Edge
+   keeps the card. */
+@media (-moz-pref("zen-fluent.corners", "winui")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
   #tabbrowser-tabbox[sidebar-panel-open]:not([zen-split-view="true"]) {
     gap: 0 !important;
 
@@ -231,7 +249,7 @@
 {
   /* Same size as the tab labels; the search field reads the input tokens */
   :root {
-    font-size: 13px !important;
+    font-size: var(--zf-sidebar-font-size) !important;
 
     --input-text-min-height: 32px !important;
     --input-text-border-radius: var(--zf-radius-control) !important;
@@ -448,8 +466,9 @@
     }
   }
 
-  /* Accent pill, kept while the tree is unfocused (WinUI keeps it too) */
-  @media (-moz-pref("zen-fluent.tab-pill")) and (not (forced-colors)) {
+  /* Accent pill, kept while the tree is unfocused (WinUI keeps it too);
+     none in Edge style, as on the tabs */
+  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
     .sidebar-placesTreechildren::-moz-tree-row(selected) {
       background-image: linear-gradient(
         var(--zf-accent),
@@ -576,7 +595,7 @@
   }
 
   /* Accent pill, as on the tabs */
-  @media (-moz-pref("zen-fluent.tab-pill")) and (not (forced-colors)) {
+  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
     .item.selected > .item-title-container::before {
       content: "";
       position: absolute;

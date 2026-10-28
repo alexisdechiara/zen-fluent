@@ -16,6 +16,13 @@ tooltip {
   --zf-font-mono:
     "Cascadia Mono", "Cascadia Code", consolas, ui-monospace, monospace;
 
+  /* Sidebar text: tab titles and folder labels, then the smaller labels
+     (workspace name, "clear" button). zen-fluent.tab-text-size moves both
+     by --zf-text-step. */
+  --zf-text-step: 0px;
+  --zf-sidebar-font-size: calc(13px + var(--zf-text-step));
+  --zf-sidebar-font-size-small: calc(12px + var(--zf-text-step));
+
   /* -------- Radii (WinUI) -------- */
   --zf-radius-control: 4px;
   --zf-radius-card: 8px;
@@ -60,6 +67,10 @@ tooltip {
   --zf-layer: light-dark(rgb(255 255 255 / 50%), rgb(58 58 58 / 30%));
   --zf-fill-command: light-dark(rgb(255 255 255 / 70%), rgb(58 58 58 / 45%));
   --zf-fill-card: light-dark(rgb(255 255 255 / 70%), rgb(255 255 255 / 5.12%));
+  --zf-fill-card-secondary: light-dark(
+    rgb(246 246 246 / 50%),
+    rgb(255 255 255 / 3.26%)
+  );
   --zf-fill-control: light-dark(
     rgb(255 255 255 / 70%),
     rgb(255 255 255 / 6.05%)
@@ -67,6 +78,11 @@ tooltip {
   --zf-fill-control-hover: light-dark(
     rgb(249 249 249 / 50%),
     rgb(255 255 255 / 8.37%)
+  );
+  /* ControlFillColorTertiary: a standard Button while pressed */
+  --zf-fill-control-press: light-dark(
+    rgb(249 249 249 / 30%),
+    rgb(255 255 255 / 3.26%)
   );
   --zf-fill-subtle-hover: light-dark(
     rgb(0 0 0 / 3.73%),
@@ -103,6 +119,12 @@ tooltip {
     rgb(0 0 0 / 21.69%),
     rgb(255 255 255 / 15.81%)
   );
+  /* ControlElevationBorderBrush, drawn inside the box: the stroke, darker
+     at the bottom in light, lighter at the top in dark */
+  --zf-elevation-control:
+    inset 0 0 0 1px var(--zf-stroke-control),
+    inset 0 -1px 0 light-dark(rgb(0 0 0 / 10%), transparent),
+    inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / 2.5%));
 
   /* -------- Text -------- */
   --zf-text-primary: light-dark(rgb(0 0 0 / 89.6%), #fff);
@@ -231,15 +253,139 @@ tooltip {
   }
 }
 
-/* -------- Aptos (Firefox-WinUI) -------- */
+/* -------- Edge style (Fluent 2), measured on Edge 156 -------- */
 
-@media (-moz-pref("zen-fluent.aptos")) {
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  :root,
+  tooltip {
+    /* Buttons, tabs and the content card: 8px; flyouts 12 = 8 + 4 padding */
+    --zf-radius-control: 8px;
+    --zf-radius-card: 8px;
+    --zf-radius-overlay: 12px;
+
+    /* Pill field: 32px tall, 28px inner circles inset 2px */
+    --zf-pill-h: 32px;
+    --zf-pill-inset: 2px;
+
+    /* Field: white on Mica in light, a step darker than its surround in dark */
+    --zf-edge-field: light-dark(#fff, rgb(0 0 0 / 24%));
+    --zf-edge-field-hover: light-dark(#fff, rgb(0 0 0 / 18%));
+    --zf-edge-field-focus: light-dark(#fff, #1f1f1f);
+    --zf-edge-field-stroke: light-dark(rgb(0 0 0 / 5%), rgb(255 255 255 / 10%));
+    --zf-edge-field-stroke-hover: light-dark(
+      rgb(0 0 0 / 10%),
+      rgb(255 255 255 / 16%)
+    );
+
+    /* Raised surfaces (selected tab, Essentials tile) */
+    --zf-edge-raised: light-dark(#fff, rgb(255 255 255 / 8.5%));
+    --zf-edge-card-stroke: light-dark(rgb(0 0 0 / 7%), rgb(255 255 255 / 4.5%));
+    --zf-edge-url-dim: light-dark(#707070, #9c9c9c);
+
+    /* Subtle buttons and rows (Fluent 2 colorSubtleBackgroundHover /
+       Pressed over the toolbar): pressed is darker in light, lighter than
+       hover in dark */
+    --zf-edge-hover: light-dark(rgb(0 0 0 / 4%), rgb(255 255 255 / 8%));
+    --zf-edge-pressed: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 5%));
+
+    /* Essentials tiles at rest: a faint field, white once selected */
+    --zf-edge-tile: light-dark(rgb(255 255 255 / 45%), rgb(255 255 255 / 4%));
+    --zf-edge-tile-hover: light-dark(
+      rgb(255 255 255 / 75%),
+      rgb(255 255 255 / 7%)
+    );
+
+    /* Type: 12px tab titles (measured) */
+    --zf-sidebar-font-size: calc(12px + var(--zf-text-step));
+
+    /* Motion: Fluent 2 durationFaster / Fast / Gentle, same curve */
+    --zf-duration-fast: 100ms;
+    --zf-duration-normal: 150ms;
+    --zf-duration-slow: 250ms;
+
+    /* Fluent 2 shadows */
+    --zf-shadow-a: light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 24%));
+    --zf-shadow-k: light-dark(rgb(0 0 0 / 14%), rgb(0 0 0 / 28%));
+    --zf-shadow-2: 0 0 2px var(--zf-shadow-a), 0 1px 2px var(--zf-shadow-k);
+    --zf-shadow-4: 0 0 2px var(--zf-shadow-a), 0 2px 4px var(--zf-shadow-k);
+    --zf-shadow-16: 0 0 2px var(--zf-shadow-a), 0 8px 16px var(--zf-shadow-k);
+    --zf-shadow-28: 0 0 8px var(--zf-shadow-a), 0 14px 28px var(--zf-shadow-k);
+    --zf-shadow-64: 0 0 8px var(--zf-shadow-a), 0 32px 64px var(--zf-shadow-k);
+    --zf-shadow-tab: var(--zf-shadow-2);
+    --zf-shadow-flyout:
+      0 0 0 1px var(--zf-edge-field-stroke), var(--zf-shadow-16);
+    --zf-shadow-dialog:
+      0 0 0 1px var(--zf-edge-field-stroke), var(--zf-shadow-64);
+    --zf-shadow-card: 0 0 0 1px var(--zf-edge-card-stroke);
+  }
+}
+
+/* -------- Font: Segoe UI Variable (default), Aptos, system, custom -------- */
+
+@media (-moz-pref("zen-fluent.font", "aptos")) {
   :root,
   tooltip {
     --zf-font:
       "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
     --zf-font-display:
-      "Aptos Display", "Aptos", "Segoe UI", system-ui, sans-serif;
+      "Aptos Display", "Aptos", "Segoe UI Variable Display", "Segoe UI",
+      system-ui, sans-serif;
+  }
+}
+
+/* The OS UI font: Segoe UI on Windows, the GTK font on Linux, SF on macOS */
+@media (-moz-pref("zen-fluent.font", "system")) {
+  :root,
+  tooltip {
+    --zf-font: system-ui, "Segoe UI Variable Text", "Segoe UI", sans-serif;
+    --zf-font-display:
+      system-ui, "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  }
+}
+
+/* Custom: Sine turns the string pref zen-fluent.font-custom into
+   --zen-fluent-font-custom on the chrome windows' root. Registered so that
+   an entry that is not a family name (or a list of them) falls back to
+   Segoe UI Variable instead of dropping font-family altogether. Accepted
+   (checked): Inter / Fira Sans / "Fira Sans" / Inter, Arial / "A", "B";
+   a mixed list (Segoe UI, Arial or "A", B) falls back, as does 12px. The
+   default tooltip and about: pages don't get the variable and keep the
+   fallback. */
+@property --zf-font-custom {
+  syntax: "<custom-ident>+ | <custom-ident># | <string>#";
+  inherits: true;
+  initial-value: "Segoe UI Variable Text";
+}
+
+@media (-moz-pref("zen-fluent.font", "custom")) {
+  :root {
+    --zf-font-custom: var(--zen-fluent-font-custom);
+  }
+
+  :root,
+  tooltip {
+    --zf-font:
+      var(--zf-font-custom), "Segoe UI Variable Text", "Segoe UI Variable",
+      "Segoe UI", system-ui, sans-serif;
+    --zf-font-display:
+      var(--zf-font-custom), "Segoe UI Variable Display", "Segoe UI Variable",
+      "Segoe UI", system-ui, sans-serif;
+  }
+}
+
+/* -------- Sidebar text size -------- */
+
+@media (-moz-pref("zen-fluent.tab-text-size", "small")) {
+  :root,
+  tooltip {
+    --zf-text-step: -1px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-text-size", "large")) {
+  :root,
+  tooltip {
+    --zf-text-step: 1px;
   }
 }
 
