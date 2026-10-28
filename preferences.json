@@ -56,7 +56,7 @@
   },
   {
     "property": "zen-fluent.pinned-extensions",
-    "label": "Extensions sous les Essentials",
+    "label": "Extensions sous la barre d’adresse, style WinUI (~barre unique~)",
     "type": "checkbox",
     "defaultValue": true
   },

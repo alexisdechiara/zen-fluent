@@ -1,59 +1,18 @@
 /* ------------------------- PINNED EXTENSIONS ------------------------- */
-/* Extensions pinned to the toolbar move under the Essentials as a 6-column
-   row (Arc 2.0 / Nebula technique: the customization target wraps, the tab
-   list takes a full line under the extensions). */
+/* Zen 1.23 (single toolbar) moves the extensions pinned to the toolbar into
+   #zen-overflow-extensions-list, right under the urlbar. Zen draws them as
+   filled pills; Zen Fluent turns the row into WinUI subtle buttons. */
 
 @media (-moz-pref("zen-fluent.pinned-extensions")) {
-  :root[customizing] #TabsToolbar-customization-target {
-    visibility: visible !important;
-  }
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --uei-icon-size: 16px !important;
 
-  .zen-workspace-pinned-tabs-section {
-    display: flex !important;
-    flex-direction: column;
-  }
+    gap: 2px !important;
+    padding: 6px 0 0 !important;
+    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr)) !important;
 
-  :root[zen-single-toolbar="true"] #nav-bar {
-    margin-bottom: 8px !important;
-  }
-
-  #TabsToolbar-customization-target {
-    --zf-extensions-gap: 2px;
-
-    display: flex !important;
-    flex-flow: row wrap !important;
-    align-content: flex-start !important;
-    gap: var(--zf-extensions-gap) !important;
-
-    /* The media card stays out of the wrapping row */
-    & > #zen-media-controls-toolbar {
-      position: absolute !important;
-      inset: auto 0 0 !important;
-      width: 100% !important;
-    }
-
-    & #tabbrowser-tabs {
-      min-width: 100% !important;
-      margin-top: 6px !important;
-      height: calc(100% - 38px) !important;
-    }
-
-    &:has(> #zen-media-controls-toolbar:not([hidden])) #tabbrowser-tabs {
-      height: calc(
-        100% - 38px - var(--zen-media-collapsed-height, 2.5rem) -
-          var(--zen-media-stack-gap, 6px)
-      ) !important;
-    }
-
-    & .unified-extensions-item,
-    & > toolbarbutton:not(#tabs-newtab-button),
-    & > toolbaritem:not(#tabbrowser-tabs, #zen-media-controls-toolbar) {
-      order: -1 !important;
-      flex: 1 1 32px !important;
-      max-width: calc((100% - 5 * var(--zf-extensions-gap)) / 6) !important;
+    & .unified-extensions-item-action-button {
       height: 32px !important;
-      margin: 0 !important;
-      padding: 0 !important;
       border-radius: var(--zf-radius-control) !important;
       background-color: transparent !important;
       transition: background-color var(--zf-duration-fast) linear !important;
@@ -62,33 +21,23 @@
         background-color: var(--zf-fill-subtle-hover) !important;
       }
 
-      &:hover:active {
+      &:hover:active,
+      &[open] {
         background-color: var(--zf-fill-subtle-press) !important;
       }
     }
 
-    & .unified-extensions-item-action-button {
-      padding: 0 !important;
-      justify-content: center !important;
-    }
-
-    & .unified-extensions-item stack,
-    & toolbarbutton {
-      --toolbarbutton-hover-background: transparent !important;
-      --toolbarbutton-active-background: transparent !important;
-      background: none !important;
-    }
-
+    /* Badge (unread count, blocked requests…) in the accent color */
     & .toolbarbutton-badge {
-      display: none !important;
-    }
-  }
-
-  /* Collapsed sidebar: one extension per line, centered */
-  :root:not([zen-sidebar-expanded="true"]) #TabsToolbar-customization-target {
-    & .unified-extensions-item {
-      max-width: none !important;
-      flex-basis: 100% !important;
+      min-width: 14px !important;
+      height: 14px !important;
+      padding: 0 3px !important;
+      border-radius: 7px !important;
+      background-color: var(--zf-accent) !important;
+      color: var(--zf-on-accent) !important;
+      font-size: 9px !important;
+      line-height: 14px !important;
+      box-shadow: 0 0 0 1.5px var(--zf-window-bg) !important;
     }
   }
 }

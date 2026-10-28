@@ -106,7 +106,7 @@ Sur macOS, le mod teinte le fond transparent de la fenêtre.
 |                  | Couleur d’accent                            | `zen-fluent.accent`               | Zen Fluent    |
 |                  | Angles et marges                            | `zen-fluent.corners`              | Nebula        |
 |                  | Police Aptos                                | `zen-fluent.aptos`                | Firefox-WinUI |
-| Barre latérale   | Extensions sous les Essentials              | `zen-fluent.pinned-extensions`    | Arc 2.0       |
+| Barre latérale   | Extensions sous la barre d’adresse (WinUI)  | `zen-fluent.pinned-extensions`    | Arc 2.0       |
 |                  | Indicateur d’espace de travail              | `zen-fluent.workspace-indicator`  | Nebula        |
 |                  | Style des icônes d’espace                   | `zen-fluent.workspace-style`      | Nebula        |
 |                  | Icônes des Essentials en gris               | `zen-fluent.essentials-gray`      | Nebula        |
@@ -141,7 +141,7 @@ zen-fluent/
    ├─ tokens.css         → --zf-* sombre / clair, accent, rayons, police
    ├─ materials.css      → mica, mica-alt, acrylic, carte de contenu
    ├─ sidebar.css        → onglets, Essentials, dossiers, espaces
-   ├─ extensions.css     → extensions épinglées
+   ├─ extensions.css     → extensions sous la barre d’adresse
    ├─ urlbar.css         → barre flottante Acrylic
    ├─ split-glance.css   → vue scindée, Glance
    ├─ media.css          → lecteur, image incrustée
