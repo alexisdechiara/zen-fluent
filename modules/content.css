@@ -1,5 +1,6 @@
 /* ------------------------------ CONTENT ------------------------------ */
-/* Internal pages: new tab and settings (where Sine lives) in WinUI. */
+/* Internal pages: new tab and settings (where Sine lives) in WinUI, and the
+   optional thin scrollbars for web pages. */
 
 @-moz-document url-prefix("about:newtab"), url-prefix("about:home"),
   url-prefix("about:privatebrowsing") {
@@ -129,6 +130,16 @@
     --page-nav-button-border-radius: var(--zf-radius-control) !important;
   }
 
+  /* User sheets reach into shadow trees: the nav button's full-height
+     indicator becomes the 3x16 WinUI pill */
+  button[role="tab"]:has(> .page-nav-icon)::before {
+    inset-block: 50% auto !important;
+    height: 16px !important;
+    margin-top: -8px !important;
+    border-radius: 999px !important;
+    corner-shape: round !important;
+  }
+
   moz-box-group,
   moz-box-item,
   moz-box-button,
@@ -172,5 +183,24 @@
   code,
   pre {
     font-family: var(--zf-font-mono) !important;
+  }
+}
+
+/* ----------------------- WEB PAGES: SCROLLBARS ----------------------- */
+/* Optional thin WinUI scrollbars everywhere. Not !important: a page that
+   sets its own scrollbar (or hides it with scrollbar-width: none) wins. */
+
+@media (-moz-pref("zen-fluent.thin-scrollbars-web")) {
+  :root {
+    scrollbar-color: var(--zf-scrollbar-thumb) transparent;
+  }
+
+  :root,
+  * {
+    scrollbar-width: thin;
+  }
+
+  :hover {
+    scrollbar-color: var(--zf-scrollbar-thumb-hover) transparent;
   }
 }
