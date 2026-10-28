@@ -40,10 +40,13 @@ déjà : la cocher à la main.
 ### Icônes Fluent
 
 Le mod remplace les icônes de Zen par des icônes Fluent au trait (`icons/`,
-tracés de la maquette) : précédent, suivant, actualiser, nouvel onglet,
-Bibliothèque, mode compact, extensions, menu, dossiers (ouvert / fermé), et les
-icônes d’espace « porte-documents » et « code » (les autres icônes d’espace
-restent celles de Zen). **Icônes Fluent** décochée, Zen garde les siennes.
+tracés de la maquette quand elle en a) : précédent, suivant, actualiser,
+nouvel onglet, fermeture d’onglet, Bibliothèque, mode compact, extensions, menu,
+dossiers (ouvert / fermé), chevron d’espace, copie du lien et réglages du site
+dans la barre d’adresse, boutons de Glance et de la vue scindée, lecteur
+(lecture, pause, pistes, son, image incrustée), tout le menu ≡, et les icônes
+d’espace « porte-documents » et « code » (les autres icônes d’espace restent
+celles de Zen). **Icônes Fluent** décochée, Zen garde les siennes.
 
 Ces icônes prennent la couleur du thème par `context-fill`, que Firefox réserve
 aux fichiers internes tant que `svg.context-properties.content.enabled` vaut

@@ -58,6 +58,160 @@
     }
   }
 
+  #stop-button,
+  .tab-close-button {
+    list-style-image: url("../icons/close.svg") !important;
+  }
+
+  .zen-current-workspace-indicator-chevron {
+    list-style-image: url("../icons/chevron-right.svg") !important;
+  }
+
+  .zen-workspace-close-unpinned-tabs-button {
+    list-style-image: url("../icons/arrow-down.svg") !important;
+  }
+
+  /* -------- Urlbar: copy link, site settings -------- */
+
+  #zen-copy-url-button image {
+    list-style-image: url("../icons/link.svg") !important;
+  }
+
+  #zen-site-data-icon-button image {
+    list-style-image: url("../icons/site-settings.svg") !important;
+  }
+
+  /* -------- Glance and split view -------- */
+
+  .zen-glance-sidebar-close {
+    list-style-image: url("../icons/close.svg") !important;
+  }
+
+  .zen-glance-sidebar-open {
+    list-style-image: url("../icons/open-in-tab.svg") !important;
+  }
+
+  .zen-glance-sidebar-split {
+    list-style-image: url("../icons/split.svg") !important;
+  }
+
+  .zen-tab-rearrange-button {
+    list-style-image: url("../icons/drag.svg") !important;
+  }
+
+  .zen-tab-unsplit-button {
+    list-style-image: url("../icons/minus.svg") !important;
+  }
+
+  /* -------- Media card -------- */
+
+  .zen-media-playpause-button {
+    list-style-image: url("../icons/media-play.svg") !important;
+  }
+
+  .zen-media-card.playing .zen-media-playpause-button {
+    list-style-image: url("../icons/media-pause.svg") !important;
+  }
+
+  .zen-media-nexttrack-button {
+    list-style-image: url("../icons/media-next.svg") !important;
+  }
+
+  .zen-media-previoustrack-button {
+    list-style-image: url("../icons/media-previous.svg") !important;
+  }
+
+  .zen-media-mute-button {
+    list-style-image: url("../icons/media-unmute.svg") !important;
+  }
+
+  .zen-media-card[muted] .zen-media-mute-button {
+    list-style-image: url("../icons/media-mute.svg") !important;
+  }
+
+  .zen-media-pip-button {
+    list-style-image: url("../icons/pip.svg") !important;
+  }
+
+  .zen-media-close-button {
+    list-style-image: url("../icons/close.svg") !important;
+  }
+
+  /* -------- App menu (≡) -------- */
+
+  #appMenu-new-tab-button2 {
+    list-style-image: url("../icons/new-tab.svg") !important;
+  }
+
+  #appMenu-new-window-button2,
+  #appMenu-new-zen-unsynced-window-button {
+    list-style-image: url("../icons/window.svg") !important;
+  }
+
+  #appMenu-new-private-window-button2 {
+    list-style-image: url("../icons/private-window.svg") !important;
+  }
+
+  #appMenu-history-button {
+    list-style-image: url("../icons/history.svg") !important;
+  }
+
+  #appMenu-bookmarks-button {
+    list-style-image: url("../icons/bookmarks.svg") !important;
+  }
+
+  #appMenu-downloads-button {
+    list-style-image: url("../icons/downloads.svg") !important;
+  }
+
+  #appMenu-passwords-button {
+    list-style-image: url("../icons/passwords.svg") !important;
+  }
+
+  #appMenu-extensions-themes-button {
+    list-style-image: url("../icons/extension.svg") !important;
+  }
+
+  #appMenu-print-button2 {
+    list-style-image: url("../icons/print.svg") !important;
+  }
+
+  #appMenu-save-file-button2 {
+    list-style-image: url("../icons/save.svg") !important;
+  }
+
+  #appMenu-find-button2 {
+    list-style-image: url("../icons/find.svg") !important;
+  }
+
+  #appMenu-zoomReduce-button2 {
+    list-style-image: url("../icons/minus.svg") !important;
+  }
+
+  #appMenu-zoomEnlarge-button2 {
+    list-style-image: url("../icons/new-tab.svg") !important;
+  }
+
+  #appMenu-fullscreen-button2 {
+    list-style-image: url("../icons/fullscreen.svg") !important;
+  }
+
+  #appMenu-settings-button {
+    list-style-image: url("../icons/settings.svg") !important;
+  }
+
+  #appMenu-more-button2 {
+    list-style-image: url("../icons/more.svg") !important;
+  }
+
+  #appMenu-help-button2 {
+    list-style-image: url("../icons/help.svg") !important;
+  }
+
+  #appMenu-quit-button2 {
+    list-style-image: url("../icons/exit.svg") !important;
+  }
+
   /* -------- Spaces: the selectable icons the design draws -------- */
 
   img.zen-workspace-icon[src$="/selectable/briefcase.svg"] {

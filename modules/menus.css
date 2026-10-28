@@ -114,6 +114,18 @@ menupopup menuseparator {
   }
 }
 
+/* -------- Tooltips: WinUI ToolTip instead of the native one -------- */
+
+tooltip {
+  appearance: none !important;
+  padding: 5px 8px 7px !important;
+  border: 1px solid var(--zf-stroke-control) !important;
+  border-radius: var(--zf-radius-control) !important;
+  background-color: var(--zf-acrylic-solid) !important;
+  color: var(--zf-text-primary) !important;
+  font: 12px / 16px var(--zf-font) !important;
+}
+
 /* -------- Ctrl+Tab and status panel -------- */
 
 #ctrlTab-panel {

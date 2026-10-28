@@ -64,6 +64,7 @@ export default {
           "toolbaritem",
           "toolbarbutton",
           "toolbarseparator",
+          "tooltip",
           "vbox",
           "zen-folder",
           "zen-library",
