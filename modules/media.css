@@ -95,10 +95,12 @@
     clip-path: none !important;
   }
 
-  #controls .control-item:not(#scrubber, #audio-scrubber, .timestamp) {
+  /* Buttons only: the gradient, timestamp and sliders are control items too */
+  #controls .control-button {
     width: 28px !important;
     height: 28px !important;
     border-radius: 14px !important;
+    corner-shape: round !important;
     background-color: rgb(0 0 0 / 55%) !important;
     color: #fff !important;
     fill: #fff !important;
@@ -108,9 +110,11 @@
     }
   }
 
-  #playpause {
+  #controls #playpause {
     width: 44px !important;
+    max-width: none !important;
     height: 44px !important;
+    flex-shrink: 0 !important;
     border-radius: 22px !important;
     background-color: rgb(0 0 0 / 50%) !important;
   }

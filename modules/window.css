@@ -34,11 +34,13 @@
     border-radius: var(--zf-caption-radius) !important;
     color: var(--zf-caption-color) !important;
     background-color: transparent !important;
+    justify-content: center !important;
     transition: background-color var(--zf-duration-fast) linear !important;
 
-    & > .toolbarbutton-icon {
-      width: 10px !important;
-      height: 10px !important;
+    /* Firefox draws the glyph in ::before; without its padding, the empty
+       label would take the free space and push the glyph to the left */
+    & > .toolbarbutton-text {
+      display: none !important;
     }
 
     &:hover {

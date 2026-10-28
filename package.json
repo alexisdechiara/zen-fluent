@@ -2,8 +2,8 @@
   "name": "zen-fluent",
   "private": true,
   "scripts": {
-    "lint": "prettier . --check && stylelint '**/*.css'",
-    "lint:fix": "prettier . --write && stylelint '**/*.css' --fix"
+    "lint": "prettier . --check && stylelint \"**/*.css\"",
+    "lint:fix": "prettier . --write && stylelint \"**/*.css\" --fix"
   },
   "devDependencies": {
     "prettier": "^3.8.3",

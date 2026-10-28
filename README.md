@@ -6,8 +6,8 @@ Le mod reprend les options de [Firefox-WinUI](https://github.com/Lockframe/Firef
 [Arc 2.0](https://github.com/YashjitPal/Arc-2.0), et se règle depuis [Sine](https://github.com/CosmoCreeper/Sine).
 
 Conçu pour Zen 1.23 : barre latérale verticale, Essentials, dossiers, vue scindée,
-Glance, lecteur multimédia, Bibliothèque. Testé avec Zen 1.23.4b sous Linux
-(le lecteur multimédia et les boutons de fenêtre Windows restent à vérifier).
+Glance, lecteur multimédia, Bibliothèque. Testé avec Zen 1.23.4b sous Linux et
+sous Windows 11 avec Mica For Everyone.
 
 ![Zen Fluent, Mica sombre](screenshots/dark-mica.png)
 
@@ -65,6 +65,15 @@ pour Nebula et Arc 2.0 ; Zen Fluent ne fait que le teinter.
    des fenêtres**, sinon la transparence ne s’affiche pas.
 5. Laisser `widget.windows.mica` à `true` (valeur par défaut de Zen) : c’est ce
    qui garde la fenêtre transparente.
+6. Si Zen n’est pas dans le même mode clair / sombre que Windows, régler
+   **Couleur de la barre de titre** de la règle sur **Par défaut** : avec
+   **Système**, Windows dessine le Mica du thème système sous la teinte du mod
+   (Zen sombre sur Mica clair donne un fond gris).
+
+L’image incrustée s’ouvre au changement d’onglet si
+`media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled` vaut
+`true` (`about:config`). Tant que la vidéo est incrustée, Zen masque la carte du
+lecteur dans la barre latérale ; elle revient quand l’incrustation se ferme.
 
 ### Linux : transparence et flou du compositeur
 

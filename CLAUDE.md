@@ -46,6 +46,15 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
+  Zen la masque (`hidden`) tant que la vidéo est en image incrustée.
+- Zen met `corner-shape: superellipse(2.3)` sur tous les éléments (Windows) : un
+  rayon de 50 % donne un carré arrondi. `materials.css` remet `round` (WinUI) et
+  sur les cercles / pilules ; ajouter là tout nouvel élément rond.
+- Boutons de fenêtre : glyphe Segoe Fluent Icons en `::before`, pas
+  `.toolbarbutton-icon`. En barre unique, ils n'apparaissent qu'au survol du haut
+  de la page (`zen-has-hover` sur `#zen-appcontent-navbar-wrapper`).
+- Image incrustée : `#controls .control-button` pour les boutons ; `#timestamp`,
+  `#controls-bottom-gradient` et les curseurs sont aussi des `.control-item`.
 - Le source de Zen (`zen-browser/desktop`, dossier `src/zen`) fait foi pour les sélecteurs.
 
 ## Tests
@@ -61,10 +70,16 @@ appliquée en direct puis vérifiée sur le style calculé **de l'élément affi
 (pas de son conteneur), console filtrée sur les erreurs CSS, captures dans
 `screenshots/` sans chemins locaux visibles (servir les pages sous de vraies adresses).
 
+Sous Windows (Zen Twilight installé est resté en 1.21t) : `zen.exe` 1.23 avec
+`-no-remote -profile <profil de test>`, Sine copié depuis un profil existant
+(`chrome/utils`, `chrome/JS`), le mod en jonction `chrome/sine-mods/Zen-Fluent`
+vers le dépôt et déclaré dans `sine-mods/mods.json`. Rechargement à chaud :
+`ChromeUtils.clearResourceCache()` puis `windowUtils.removeSheet` / `loadSheet`
+de `chrome://sine/content/chrome.css`. Le fond Mica n'apparaît pas dans les
+captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
+
 ## Reste à faire
 
-- Windows 11 : boutons de fenêtre (4 styles), rendu avec Mica For Everyone, lecteur
-  multimédia et image incrustée.
 - Pages internes (`about:preferences`, nouvel onglet) et menus de l'application.
 - Repère au bord gauche en mode compact.
 - Mode multi-barres : barre d'adresse centrée (560 px max).
