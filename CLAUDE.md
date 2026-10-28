@@ -43,6 +43,9 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Extensions épinglées (barre unique) : `#zen-overflow-extensions-list`, sous la barre
   d'adresse. L'ancienne technique Arc/Nebula (`#TabsToolbar-customization-target`) ne
   marche plus.
+- Icônes du mod (`icons/`, `stroke="context-fill"`) : invisibles sans
+  `svg.context-properties.content.enabled` (fichiers hors `chrome://`) ; toute
+  surcharge d'icône se met derrière `-moz-pref()` de cette préférence.
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
@@ -89,7 +92,6 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Mode multi-barres : barre d'adresse centrée (560 px max).
 - Barre d'adresse au focus dans la barre latérale.
 - Accent personnalisé (champ texte).
 - Barres de défilement fines WinUI.

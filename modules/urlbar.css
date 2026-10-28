@@ -69,6 +69,19 @@
   }
 }
 
+/* -------- Multiple toolbars: centered, 560px at most (design) -------- */
+
+:root:not([zen-single-toolbar="true"]) {
+  #urlbar-container {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+  }
+
+  #urlbar:not([zen-floating-urlbar="true"]) {
+    max-width: 560px !important;
+  }
+}
+
 /* -------- Open: floating Acrylic -------- */
 
 #urlbar[breakout-extend] {
