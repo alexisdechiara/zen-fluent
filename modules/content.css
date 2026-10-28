@@ -217,6 +217,14 @@
     background-color: var(--zf-fill-card) !important;
   }
 
+  /* Sine only applies a setting's "conditions" once a pref changes, not
+     when the dialog opens: hide the custom color until it is the accent */
+  @media not (-moz-pref("zen-fluent.accent", "custom")) {
+    #zen-fluent-accent-custom {
+      display: none !important;
+    }
+  }
+
   .sineItemTitle {
     font-family: var(--zf-font-display) !important;
     font-size: 20px !important;
