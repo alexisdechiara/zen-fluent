@@ -37,7 +37,9 @@ export default {
       {
         ignoreTypes: [
           "browser",
+          "checkbox",
           "content-search-handoff-ui",
+          "description",
           "groupbox",
           "hbox",
           "menu",
@@ -52,6 +54,7 @@ export default {
           "moz-card",
           "moz-page-nav",
           "moz-page-nav-button",
+          "moz-toggle",
           "panel",
           "scrollbox",
           "search-textbox",

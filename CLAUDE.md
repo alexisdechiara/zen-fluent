@@ -54,6 +54,9 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
   sur l'élément interne) ; `::part()` ne correspond pas depuis elles.
 - Sine : sa feuille de contenu n'est pas injectée dans les pages web (acteur
   `SineUserContent` refusé pour `webIsolated`), seulement dans les pages `about:`.
+- Sine 2.3 : carte `.sineItem`, réglages dans `dialog.sineItemPreferenceDialog`
+  (séparateur = `vbox:has(> hr)` + `.separator-label`, lignes `hbox`, cases
+  `.sineItemPreferenceCheckbox`). Volets Zen : `groupbox[data-category^="paneZen"]`.
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
@@ -100,5 +103,4 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Pages de réglages Zen et Sine en WinUI (cartes, interrupteurs, listes).
 - Icônes Fluent pour les boutons de Zen.

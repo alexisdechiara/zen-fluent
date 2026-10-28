@@ -140,6 +140,26 @@
     corner-shape: round !important;
   }
 
+  /* WinUI ToggleSwitch: 40x20, 12px knob, accent when on */
+  moz-toggle {
+    --toggle-width: 40px !important;
+    --toggle-height: 20px !important;
+    --toggle-dot-margin: 3px !important;
+    --toggle-border-color: var(--zf-text-secondary) !important;
+    --toggle-border-color-hover: var(--zf-text-secondary) !important;
+    --toggle-border-color-active: var(--zf-text-secondary) !important;
+    --toggle-dot-background-color: var(--zf-text-secondary) !important;
+    --toggle-background-color: transparent !important;
+    --toggle-background-color-hover: var(--zf-fill-subtle-hover) !important;
+    --toggle-background-color-active: var(--zf-fill-subtle-press) !important;
+    --toggle-background-color-pressed: var(--zf-accent) !important;
+    --toggle-background-color-pressed-hover: var(--zf-accent-hover) !important;
+    --toggle-background-color-pressed-active: var(
+      --zf-accent-pressed
+    ) !important;
+    --toggle-dot-background-color-on-pressed: var(--zf-on-accent) !important;
+  }
+
   moz-box-group,
   moz-box-item,
   moz-box-button,
@@ -183,6 +203,244 @@
   code,
   pre {
     font-family: var(--zf-font-mono) !important;
+  }
+
+  /* ------------------------------ SINE ------------------------------ */
+  /* The mod list and the settings dialog, after the design's "Réglages du
+     skin dans Sine": one card, group headers on a layer, divided rows,
+     ToggleSwitches and 32px ComboBoxes. */
+
+  .sineItem {
+    padding: 16px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background-color: var(--zf-fill-card) !important;
+  }
+
+  .sineItemTitle {
+    font-family: var(--zf-font-display) !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+    font-weight: 600 !important;
+  }
+
+  .sineItemDescription {
+    font-size: 13px !important;
+    color: var(--zf-text-secondary) !important;
+  }
+
+  /* Settings dialog: a WinUI ContentDialog over smoke */
+  dialog.sineItemPreferenceDialog {
+    padding: 0 !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    background-color: var(--zf-solid-base) !important;
+    color: var(--zf-text-primary) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+
+    &::backdrop {
+      background: var(--zf-smoke) !important;
+      backdrop-filter: none !important;
+    }
+  }
+
+  .sineItemPreferenceDialogTopBar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 24px 24px 12px !important;
+    border: 0 !important;
+    background-color: var(--zf-solid-base);
+
+    & > button {
+      height: 32px !important;
+      padding: 0 12px !important;
+    }
+  }
+
+  .sineItemPreferenceDialogContent {
+    box-sizing: border-box;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 24px 24px !important;
+    overflow: hidden;
+    border: 1px solid var(--zf-stroke-control);
+    border-radius: var(--zf-radius-card);
+    background-color: var(--zf-fill-card);
+
+    /* Group header: Sine draws it as a label over an <hr> */
+    & > vbox:has(> hr) {
+      margin: 0 !important;
+      padding: 6px 16px !important;
+      border-top: 1px solid var(--zf-stroke-divider);
+      background-color: var(--zf-layer);
+      font-size: 12px !important;
+      line-height: 16px;
+
+      &:first-child {
+        border-top: 0;
+      }
+
+      & > hr {
+        display: none !important;
+      }
+
+      & > .separator-label {
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        background: none !important;
+        color: var(--zf-text-secondary) !important;
+        font-weight: 600;
+      }
+    }
+
+    /* Rows */
+    & > hbox {
+      box-sizing: border-box;
+      min-height: 56px !important;
+      gap: 16px;
+      align-items: center !important;
+      padding: 8px 16px !important;
+      border-top: 1px solid var(--zf-stroke-divider);
+      font-size: 14px !important;
+
+      & > .sineItemPreferenceLabel {
+        flex: 1;
+        margin: 0 !important;
+      }
+    }
+
+    & menulist {
+      min-width: 170px;
+      height: 32px !important;
+      margin: 0 !important;
+      padding: 0 10px 0 12px !important;
+      font-size: 14px !important;
+    }
+
+    & input[type="text"] {
+      min-width: 170px;
+      height: 32px;
+      margin: 0 !important;
+      padding: 0 10px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  /* --------------------------- ZEN SETTINGS --------------------------- */
+  /* Zen's own panes (Look and Feel, Tab Management…): each group is a card
+     with a heading, toggles on the right and 32px ComboBoxes */
+
+  groupbox[data-category^="paneZen"] {
+    padding: 16px !important;
+
+    & > label > h2 {
+      margin: 0 !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+    }
+
+    & > description {
+      font-size: 13px !important;
+      color: var(--zf-text-secondary) !important;
+    }
+
+    & checkbox {
+      flex-direction: row-reverse !important;
+      gap: 16px;
+      min-height: 32px;
+    }
+
+    & menulist {
+      min-width: 170px;
+      height: 32px !important;
+      padding: 0 10px 0 12px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  #zenLayoutList img {
+    border-radius: var(--zf-radius-card) !important;
+  }
+
+  #zenLayoutList > .selected > img {
+    border-color: var(--zf-accent) !important;
+  }
+
+  /* ------------------------- TOGGLE SWITCHES ------------------------- */
+  /* Sine's and Zen's checkboxes become WinUI ToggleSwitches on the right;
+     the knob is a background dot sliding from one end to the other */
+
+  .sineItemPreferenceCheckbox {
+    flex-direction: row-reverse !important;
+
+    & > checkbox {
+      margin: 0 !important;
+    }
+
+    & .checkbox-label-box {
+      display: none !important;
+    }
+  }
+
+  :is(.sineItemPreferenceCheckbox, groupbox[data-category^="paneZen"])
+    .checkbox-check {
+    appearance: none !important;
+    box-sizing: border-box;
+    width: 40px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    border: 1px solid var(--zf-text-secondary) !important;
+    border-radius: 10px !important;
+    corner-shape: round !important;
+    list-style-image: none !important;
+    background-color: transparent !important;
+    background-image: radial-gradient(
+      circle,
+      var(--zf-text-secondary) 6px,
+      transparent 6.5px
+    ) !important;
+    background-repeat: no-repeat !important;
+    background-size: 18px 18px !important;
+    background-position: 0 50% !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear,
+      background-position var(--zf-duration-normal) var(--zf-ease) !important;
+  }
+
+  :is(
+      .sineItemPreferenceCheckbox:hover,
+      groupbox[data-category^="paneZen"] checkbox:hover
+    )
+    .checkbox-check {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  :is(.sineItemPreferenceCheckbox, groupbox[data-category^="paneZen"])
+    checkbox[checked]
+    .checkbox-check {
+    border-color: var(--zf-accent) !important;
+    background-color: var(--zf-accent) !important;
+    background-image: radial-gradient(
+      circle,
+      var(--zf-on-accent) 6px,
+      transparent 6.5px
+    ) !important;
+    background-position: 100% 50% !important;
+  }
+
+  :is(
+      .sineItemPreferenceCheckbox:hover,
+      groupbox[data-category^="paneZen"] checkbox:hover
+    )
+    checkbox[checked]
+    .checkbox-check,
+  groupbox[data-category^="paneZen"] checkbox[checked]:hover .checkbox-check {
+    background-color: var(--zf-accent-hover) !important;
   }
 }
 

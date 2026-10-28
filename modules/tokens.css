@@ -41,6 +41,7 @@
   --zf-acrylic-solid: light-dark(#fcfcfc, #2c2c2c);
   --zf-acrylic-filter: blur(30px) saturate(125%);
   --zf-page: light-dark(#fff, #1c1c1c);
+  --zf-solid-base: light-dark(#f3f3f3, #202020);
   --zf-smoke: light-dark(rgb(0 0 0 / 30%), rgb(0 0 0 / 42%));
 
   /* -------- Fills -------- */

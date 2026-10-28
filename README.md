@@ -182,7 +182,7 @@ zen-fluent/
    ├─ scrollbars.css     → barres de défilement fines
    ├─ window.css         → boutons de fenêtre, flèches
    ├─ animations.css     → transitions WinUI
-   └─ content.css        → pages about:, défilement des pages web
+   └─ content.css        → pages about:, réglages Zen et Sine, pages web
 ```
 
 Les couleurs sont des paires `light-dark()` : le mode clair ou sombre suit
