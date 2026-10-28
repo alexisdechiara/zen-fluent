@@ -1,0 +1,86 @@
+/* ------------------------------- ICONS ------------------------------- */
+/* Fluent stroke icons (icons/, drawn on a 16px grid, after the design) in
+   place of Zen's. They take their color from context-fill, which Firefox only
+   grants to files outside chrome:// when svg.context-properties.content.enabled
+   is on; without it they would be invisible, so Zen keeps its own icons. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Navigation: WinUI arrows, or macOS chevrons -------- */
+
+  #back-button {
+    list-style-image: url("../icons/back.svg") !important;
+  }
+
+  #forward-button {
+    list-style-image: url("../icons/forward.svg") !important;
+  }
+
+  #reload-button {
+    list-style-image: url("../icons/reload.svg") !important;
+  }
+
+  @media (-moz-pref("zen-fluent.mac-back-forward")) {
+    #back-button {
+      list-style-image: url("../icons/back-mac.svg") !important;
+    }
+
+    #forward-button {
+      list-style-image: url("../icons/forward-mac.svg") !important;
+    }
+  }
+
+  /* -------- Sidebar and toolbar buttons -------- */
+
+  #tabs-newtab-button,
+  #zen-create-new-button,
+  #new-tab-button {
+    list-style-image: url("../icons/new-tab.svg") !important;
+  }
+
+  #zen-toggle-compact-mode {
+    list-style-image: url("../icons/sidebar.svg") !important;
+  }
+
+  #unified-extensions-button {
+    list-style-image: url("../icons/extension.svg") !important;
+  }
+
+  #PanelUI-menu-button {
+    list-style-image: url("../icons/menu.svg") !important;
+  }
+
+  /* Zen animates a sprite here; the Fluent icon is a plain image */
+  #zen-library-button {
+    list-style-image: url("../icons/library.svg") !important;
+
+    & .zen-library-sprite {
+      display: none !important;
+    }
+  }
+
+  /* -------- Spaces: the selectable icons the design draws -------- */
+
+  img.zen-workspace-icon[src$="/selectable/briefcase.svg"] {
+    content: url("../icons/workspace-briefcase.svg") !important;
+  }
+
+  img.zen-workspace-icon[src$="/selectable/code.svg"] {
+    content: url("../icons/workspace-code.svg") !important;
+  }
+
+  /* -------- Folders: open / closed instead of Zen's animated folder -------- */
+
+  .tab-group-folder-icon {
+    background: url("../icons/folder-open.svg") center / 16px no-repeat !important;
+    -moz-context-properties: fill, fill-opacity;
+    fill: var(--zf-accent);
+
+    & > svg {
+      visibility: hidden !important;
+    }
+  }
+
+  zen-folder[collapsed] .tab-group-folder-icon {
+    background-image: url("../icons/folder.svg") !important;
+  }
+}

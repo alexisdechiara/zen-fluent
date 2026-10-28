@@ -10,7 +10,8 @@ Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : fran
 - `modules/tokens.css` : toutes les valeurs `--zf-*` (paires `light-dark()`), accent,
   rayons, police. Les autres modules ne lisent que ces variables.
 - Un module par zone : `materials`, `sidebar`, `extensions`, `urlbar`, `split-glance`,
-  `media`, `library`, `menus`, `scrollbars`, `window`, `animations`, `content`
+  `media`, `library`, `menus`, `scrollbars`, `window`, `icons`, `animations`,
+  `content`
   (pages `about:`, défilement des pages web).
 - `preferences.json` : réglages Sine, préfixe `zen-fluent.*`, valeurs ASCII sans
   espaces (Sine les refuse), séparateurs `"type": "separator"` par groupe.
@@ -45,8 +46,11 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
   d'adresse. L'ancienne technique Arc/Nebula (`#TabsToolbar-customization-target`) ne
   marche plus.
 - Icônes du mod (`icons/`, `stroke="context-fill"`) : invisibles sans
-  `svg.context-properties.content.enabled` (fichiers hors `chrome://`) ; toute
-  surcharge d'icône se met derrière `-moz-pref()` de cette préférence.
+  `svg.context-properties.content.enabled` (fichiers hors `chrome://`) ; toutes
+  les surcharges d'icônes sont dans `icons.css`, derrière cette préférence et
+  `zen-fluent.fluent-icons`. Bibliothèque : sprite animé `.zen-library-sprite` ;
+  espaces : `img.zen-workspace-icon[src$="/selectable/<nom>.svg"]` (remplacé
+  par `content: url()`) ; dossiers : SVG en ligne dans `.tab-group-folder-icon`.
 - Réglage Sine `string` : Sine pose `--<préférence avec des tirets>` sur `:root`
   des fenêtres chrome uniquement (pas dans les pages `about:`) ; typer la valeur
   avec `@property` pour qu'une saisie invalide ait un repli.
@@ -103,4 +107,4 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Icônes Fluent pour les boutons de Zen.
+Rien : toutes les fonctionnalités sont là, reste la campagne de tests finale.

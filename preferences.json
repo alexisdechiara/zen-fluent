@@ -186,8 +186,14 @@
     ]
   },
   {
+    "property": "zen-fluent.fluent-icons",
+    "label": "Icônes Fluent (~décocher pour revenir aux icônes de Zen~)",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "svg.context-properties.content.enabled",
-    "label": "Icônes du mod (~à cocher : sans ce réglage Firefox, Zen garde ses icônes~)",
+    "label": "Autoriser les icônes du mod (~à cocher : sans ce réglage Firefox, Zen garde ses icônes~)",
     "type": "checkbox",
     "defaultValue": true
   },

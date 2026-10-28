@@ -34,15 +34,21 @@ Mica For Everyone, le fond laisse transparaître le bureau.
 
 Paramètres › Sine › Mods : installer **Zen Fluent**, puis régler les options
 dans la carte du mod. Sine écrit les valeurs par défaut de `preferences.json`,
-sauf pour **Icônes du mod**, une préférence de Firefox qui existe déjà : la
-cocher à la main.
+sauf pour **Autoriser les icônes du mod**, une préférence de Firefox qui existe
+déjà : la cocher à la main.
 
-### Icônes du mod
+### Icônes Fluent
 
-Les icônes du mod prennent la couleur du thème par `context-fill`, que Firefox
-réserve aux fichiers internes tant que `svg.context-properties.content.enabled`
-vaut `false`. Tant que cette préférence n’est pas à `true` (case **Icônes du
-mod** dans Sine, ou `about:config`), Zen garde ses propres icônes.
+Le mod remplace les icônes de Zen par des icônes Fluent au trait (`icons/`,
+tracés de la maquette) : précédent, suivant, actualiser, nouvel onglet,
+Bibliothèque, mode compact, extensions, menu, dossiers (ouvert / fermé), et les
+icônes d’espace « porte-documents » et « code » (les autres icônes d’espace
+restent celles de Zen). **Icônes Fluent** décochée, Zen garde les siennes.
+
+Ces icônes prennent la couleur du thème par `context-fill`, que Firefox réserve
+aux fichiers internes tant que `svg.context-properties.content.enabled` vaut
+`false`. Tant que cette préférence n’est pas à `true` (case **Autoriser les
+icônes du mod** dans Sine, ou `about:config`), Zen garde aussi ses icônes.
 
 ### À la main
 
@@ -140,7 +146,8 @@ Sur macOS, le mod teinte le fond transparent de la fenêtre.
 |                  | Barre en pilule                                 | `zen-fluent.url-pill`                    | Firefox-WinUI |
 |                  | Barre transparente                              | `zen-fluent.url-transparent`             | Firefox-WinUI |
 | Fenêtre et menus | Boutons de fenêtre                              | `zen-fluent.titlebar-style`              | Firefox-WinUI |
-|                  | Icônes du mod                                   | `svg.context-properties.content.enabled` | Firefox       |
+|                  | Icônes Fluent                                   | `zen-fluent.fluent-icons`                | Zen Fluent    |
+|                  | Autoriser les icônes du mod                     | `svg.context-properties.content.enabled` | Firefox       |
 |                  | Flèches façon macOS                             | `zen-fluent.mac-back-forward`            | Firefox-WinUI |
 |                  | Masquer les raccourcis des menus                | `zen-fluent.hide-shortcuts`              | Firefox-WinUI |
 |                  | Barres de défilement fines dans les pages web   | `zen-fluent.thin-scrollbars-web`         | Zen Fluent    |
@@ -168,7 +175,7 @@ zen-fluent/
 ├─ preferences.json
 ├─ userChrome.css        → @import des modules
 ├─ userContent.css       → nouvel onglet, pages internes
-├─ icons/                → flèches WinUI et macOS, actualiser
+├─ icons/                → icônes Fluent (stroke="context-fill")
 └─ modules/
    ├─ tokens.css         → --zf-* sombre / clair, accent, rayons, police
    ├─ materials.css      → mica, mica-alt, acrylic, carte de contenu
@@ -180,7 +187,8 @@ zen-fluent/
    ├─ library.css        → Bibliothèque (Zen 1.23)
    ├─ menus.css          → menus contextuels, panneaux
    ├─ scrollbars.css     → barres de défilement fines
-   ├─ window.css         → boutons de fenêtre, flèches
+   ├─ window.css         → boutons de fenêtre
+   ├─ icons.css          → icônes Fluent
    ├─ animations.css     → transitions WinUI
    └─ content.css        → pages about:, réglages Zen et Sine, pages web
 ```

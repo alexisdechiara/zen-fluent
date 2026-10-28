@@ -1,5 +1,5 @@
 /* ------------------------------- WINDOW ------------------------------- */
-/* Caption buttons (Firefox-WinUI's titlebar styles) and navigation arrows. */
+/* Caption buttons (Firefox-WinUI's titlebar styles). */
 
 @media (-moz-platform: windows) {
   .titlebar-buttonbox {
@@ -63,34 +63,5 @@
 
   :root:-moz-window-inactive .titlebar-button {
     color: var(--zf-text-disabled) !important;
-  }
-}
-
-/* -------- Back / forward: WinUI arrows, or macOS chevrons -------- */
-/* The icons take their color from context-fill, which Firefox only grants to
-   files outside chrome:// when svg.context-properties.content.enabled is on;
-   without it they would be invisible, so Zen keeps its own icons. */
-
-@media (-moz-pref("svg.context-properties.content.enabled")) {
-  #back-button {
-    list-style-image: url("../icons/back.svg") !important;
-  }
-
-  #forward-button {
-    list-style-image: url("../icons/forward.svg") !important;
-  }
-
-  #reload-button {
-    list-style-image: url("../icons/reload.svg") !important;
-  }
-
-  @media (-moz-pref("zen-fluent.mac-back-forward")) {
-    #back-button {
-      list-style-image: url("../icons/back-mac.svg") !important;
-    }
-
-    #forward-button {
-      list-style-image: url("../icons/forward-mac.svg") !important;
-    }
   }
 }
