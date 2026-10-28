@@ -1,8 +1,11 @@
 /* ------------------------------ TOKENS ------------------------------ */
 /* WinUI 3 values (via Firefox-WinUI), renamed --zf-*.
-   Every color is a light-dark() pair, so it follows Zen's color-scheme. */
+   Every color is a light-dark() pair, so it follows Zen's color-scheme.
+   They are also declared on tooltip: the document's default tooltip is native
+   anonymous content and inherits nothing from :root. */
 
-:root {
+:root,
+tooltip {
   /* -------- Type -------- */
   --zf-font:
     "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui,
@@ -27,6 +30,11 @@
   --zf-accent-hover: color-mix(in srgb, var(--zf-accent) 90%, transparent);
   --zf-accent-pressed: color-mix(in srgb, var(--zf-accent) 80%, transparent);
   --zf-on-accent: light-dark(#fff, #000);
+  --zf-accent-disabled: light-dark(
+    rgb(0 0 0 / 21.69%),
+    rgb(255 255 255 / 15.81%)
+  );
+  --zf-on-accent-disabled: light-dark(#fff, rgb(255 255 255 / 53.02%));
 
   /* -------- Materials -------- */
   --zf-mica: light-dark(
@@ -71,11 +79,30 @@
   --zf-fill-selected: var(--zf-fill-subtle-hover);
   --zf-fill-selected-hover: var(--zf-fill-subtle-press);
   --zf-highlight: light-dark(rgb(255 255 255 / 90%), rgb(255 255 255 / 8%));
+  --zf-layer-alt: light-dark(#fff, rgb(255 255 255 / 5.12%));
+  --zf-fill-control-disabled: light-dark(
+    rgb(249 249 249 / 30%),
+    rgb(255 255 255 / 4.19%)
+  );
+  /* ControlAlt: the unchecked CheckBox box */
+  --zf-fill-control-alt: light-dark(rgb(0 0 0 / 2.41%), rgb(0 0 0 / 10%));
+  --zf-fill-control-alt-hover: light-dark(
+    rgb(0 0 0 / 5.78%),
+    rgb(255 255 255 / 4.19%)
+  );
+  --zf-fill-control-alt-press: light-dark(
+    rgb(0 0 0 / 9.24%),
+    rgb(255 255 255 / 6.98%)
+  );
 
   /* -------- Strokes -------- */
   --zf-stroke-control: light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
   --zf-stroke-field: light-dark(rgb(0 0 0 / 44.58%), rgb(255 255 255 / 54.42%));
   --zf-stroke-divider: light-dark(rgb(0 0 0 / 8.03%), rgb(255 255 255 / 8.37%));
+  --zf-stroke-strong-disabled: light-dark(
+    rgb(0 0 0 / 21.69%),
+    rgb(255 255 255 / 15.81%)
+  );
 
   /* -------- Text -------- */
   --zf-text-primary: light-dark(rgb(0 0 0 / 89.6%), #fff);
@@ -85,6 +112,14 @@
     rgb(0 0 0 / 36.14%),
     rgb(255 255 255 / 36.28%)
   );
+
+  /* -------- Status (WinUI SystemFillColor*) -------- */
+  --zf-critical: light-dark(#c42b1c, #ff99a4);
+  --zf-critical-bg: light-dark(#fde7e9, #442726);
+  --zf-caution: light-dark(#9d5d00, #fce100);
+  --zf-caution-bg: light-dark(#fff4ce, #433519);
+  --zf-success: light-dark(#0f7b0f, #6ccb5f);
+  --zf-success-bg: light-dark(#dff6dd, #393d1b);
 
   /* -------- Scrollbars: faint at rest, ControlStrongFill on hover -------- */
   --zf-scrollbar-thumb: var(--zf-text-disabled);
@@ -188,7 +223,8 @@
 /* -------- "Zen" corners: rounder, with gaps -------- */
 
 @media (-moz-pref("zen-fluent.corners", "zen")) {
-  :root {
+  :root,
+  tooltip {
     --zf-radius-control: 8px;
     --zf-radius-card: 10px;
     --zf-radius-overlay: 12px;
@@ -198,7 +234,8 @@
 /* -------- Aptos (Firefox-WinUI) -------- */
 
 @media (-moz-pref("zen-fluent.aptos")) {
-  :root {
+  :root,
+  tooltip {
     --zf-font:
       "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
     --zf-font-display:

@@ -1,0 +1,690 @@
+/* ------------------------------ DIALOGS ------------------------------ */
+/* Prompts (alert, confirm, prompt, logins, select) and the other dialogs
+   SubDialog loads (print, Clear history, bookmark properties, preference
+   dialogs, Zen share) as a WinUI ContentDialog over smoke: opaque card,
+   20px title, Button row with the default AccentButton, TextBox, CheckBox.
+   The frame lives in browser.xhtml; the dialog documents get this sheet too,
+   as chrome:// documents. */
+
+/* -------- Smoke -------- */
+
+/* The stacks take the page card's corners, so the smoke does not spill past
+   its rounded corner */
+.dialogStack,
+.dialogStack > .dialogOverlay {
+  border-radius: inherit !important;
+  corner-shape: inherit !important;
+}
+
+/* Firefox's light-theme smoke is white; WinUI darkens in both themes. The
+   window-modal overlay stays clear (its ::backdrop is the smoke), and the
+   overlay that hides the page during a cross-site login stays opaque. */
+@media not (forced-colors) {
+  .dialogOverlay[topmost="true"]:not(
+      [hideContent="true"],
+      #window-modal-dialog > *
+    ),
+  #window-modal-dialog::backdrop {
+    background-color: var(--zf-smoke) !important;
+  }
+}
+
+/* -------- Card -------- */
+
+.dialogBox:not(.spotlightBox) {
+  /* Firefox overlaps tab prompts with the toolbar and pushes window-modal
+     ones down to it: a ContentDialog sits centered */
+  margin-top: 0 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--zf-radius-overlay) !important;
+
+  /* Zen's fade-in runs when the box is created, before the dialog shows:
+     the entrance below starts at the reveal instead */
+  animation: none !important;
+}
+
+.tab-prompt-dialog > .dialogOverlay {
+  justify-content: center !important;
+}
+
+/* Zen lifts content prompts 10% above the center */
+.content-prompt-dialog > .dialogOverlay > .dialogBox {
+  transform: none !important;
+}
+
+@media not (forced-colors) {
+  .dialogBox:not(.spotlightBox) {
+    border-color: var(--zf-stroke-control) !important;
+    outline: none !important;
+
+    /* The document in the frame paints the card; this fill sits under the
+       translucent stroke, which Firefox would draw over the smoke */
+    background-color: var(--zf-solid-base) !important;
+    background-clip: padding-box !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+
+    @media (prefers-contrast) {
+      border-color: var(--zf-stroke-field) !important;
+    }
+  }
+}
+
+/* -------- Entrance: WinUI DialogShowing -------- */
+/* The card scales down from 105% while the overlay fades in. SubDialog keeps
+   a loading overlay at an inline opacity of 0.01 and clears it once the
+   dialog is sized: the transitions start there. There is no closing hook. */
+
+@media not (prefers-reduced-motion: reduce) {
+  .dialogOverlay:not([hideContent="true"]) {
+    transition: opacity var(--zf-duration-fast) linear !important;
+
+    & > .dialogBox:not(.spotlightBox, [sizeto="available"]) {
+      transition: scale var(--zf-duration-slow) var(--zf-ease) !important;
+    }
+
+    &[style*="opacity"] {
+      transition: none !important;
+
+      & > .dialogBox:not(.spotlightBox, [sizeto="available"]) {
+        scale: 1.05 !important;
+        transition: none !important;
+      }
+    }
+  }
+}
+
+/* -------- Dialog documents -------- */
+/* Every document SubDialog loads. Space Routing keeps its own design. */
+
+:root[subdialog]:not(#zenSpaceRoutingDialog) {
+  --button-min-height: 32px !important;
+  --button-border-radius: var(--zf-radius-control) !important;
+  --button-font-weight: 400 !important;
+  --input-text-min-height: 32px !important;
+  --checkbox-size: 20px !important;
+}
+
+/* The MozDialog element: its shadow root holds the content and the buttons,
+   which carry the padding. Under about:preferences' own title bar (a
+   document without .system-font-size), the content starts closer. */
+:root[subdialog] > dialog {
+  --zf-dialog-content-padding: 24px;
+
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+:root[subdialog]:not(.system-font-size) > dialog {
+  --zf-dialog-content-padding: 12px 24px 24px;
+}
+
+@media not (forced-colors) {
+  :root[subdialog]:not(#zenSpaceRoutingDialog) {
+    /* The document is the card: SolidBackgroundFillColorBase */
+    --background-color-canvas: var(--zf-solid-base) !important;
+    --text-color: var(--zf-text-primary) !important;
+    --text-color-deemphasized: var(--zf-text-secondary) !important;
+
+    /* WinUI Button for the documents' own buttons, menulists and selects */
+    --button-background-color: var(--zf-fill-control) !important;
+    --button-background-color-hover: var(--zf-fill-control-hover) !important;
+    --button-background-color-active: var(--zf-fill-subtle-press) !important;
+    --button-border-color: var(--zf-stroke-control) !important;
+    --button-border-color-hover: var(--zf-stroke-control) !important;
+    --button-border-color-active: var(--zf-stroke-control) !important;
+    --button-text-color: var(--zf-text-primary) !important;
+    --button-text-color-hover: var(--zf-text-primary) !important;
+    --button-text-color-active: var(--zf-text-secondary) !important;
+    --button-background-color-primary-hover: var(--zf-accent-hover) !important;
+    --button-background-color-primary-active: var(
+      --zf-accent-pressed
+    ) !important;
+    --button-text-color-primary-hover: var(--zf-on-accent) !important;
+    --button-text-color-primary-active: var(--zf-on-accent) !important;
+    --button-background-color-ghost-hover: var(
+      --zf-fill-subtle-hover
+    ) !important;
+    --button-background-color-ghost-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+
+    /* Disabled: WinUI's colors, at full opacity below */
+    --button-background-color-disabled: var(
+      --zf-fill-control-disabled
+    ) !important;
+    --button-border-color-disabled: var(--zf-stroke-control) !important;
+    --button-text-color-disabled: var(--zf-text-disabled) !important;
+    --button-background-color-primary-disabled: var(
+      --zf-accent-disabled
+    ) !important;
+    --button-border-color-primary-disabled: transparent !important;
+    --button-text-color-primary-disabled: var(
+      --zf-on-accent-disabled
+    ) !important;
+
+    /* Firefox dims them to 50% instead. Only these controls take the colors
+       above: toggles, toolbar buttons, ghost and destructive buttons keep
+       the dimming, their only disabled state. */
+    & :is(button, select, menulist, input[type="color"], moz-select),
+    & moz-button:not([type~="ghost"], [type~="destructive"]) {
+      --button-opacity-disabled: 1 !important;
+    }
+
+    /* Preference dialogs paint the <dialog> with the box color */
+    & > dialog {
+      background-color: transparent !important;
+    }
+  }
+
+  /* about:preferences also opens documents with no MozDialog (Form Autofill
+     managers and editors): all of it on the Layer of its title bar, over the
+     base (the editors paint their root with the box color) */
+  :root[subdialog]:not(.system-font-size, :has(> dialog)) {
+    background-color: var(--zf-solid-base) !important;
+    background-image: linear-gradient(
+      var(--zf-layer-alt),
+      var(--zf-layer-alt)
+    ) !important;
+  }
+}
+
+/* -------- Content and button row (MozDialog shadow root) -------- */
+/* Shadow elements only see their own tree. In a sub-dialog, dialog.js links
+   in-content/common.css next to them (after them when [subdialog] comes
+   late): the sign that tells it from a prompt opened as a native window. */
+
+.box-inherit[part="content-box"]:is(
+    link[href$="/in-content/common.css"] ~ *,
+    :has(~ link[href$="/in-content/common.css"])
+  ) {
+  padding: var(--zf-dialog-content-padding, 24px) !important;
+
+  /* Content on the Layer, cut from the buttons by the card stroke */
+  @media not (forced-colors) {
+    border-bottom: 1px solid var(--zf-stroke-control) !important;
+    background-color: var(--zf-layer-alt) !important;
+  }
+}
+
+.dialog-button-box:is(
+  link[href$="/in-content/common.css"] ~ *,
+  :has(~ link[href$="/in-content/common.css"])
+) {
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 24px !important;
+
+  /* The spacer only pushes extra2 / disclosure to the start. Otherwise
+     Windows shows it as a 0px item (8px with the gap), and Linux and macOS
+     always show it with flex="1", an !important UA rule: a share of the row */
+  &
+    > .button-spacer:not(
+      :is([dlgtype="extra2"], [dlgtype="disclosure"]):not([hidden]) ~ *
+    ) {
+    display: none !important;
+  }
+
+  /* Button, and AccentButton for the default one */
+  & > button[part="dialog-button"] {
+    /* ContentDialog buttons share the row equally */
+    flex: 1 1 0 !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 11px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: var(--zf-radius-control) !important;
+    font: 400 14px / 20px var(--zf-font) !important;
+
+    /* Zen shrinks pressed buttons */
+    scale: none !important;
+    transform: none !important;
+
+    @media not (forced-colors) {
+      border-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-control) !important;
+      color: var(--zf-text-primary) !important;
+
+      &:not([disabled]):hover {
+        background-color: var(--zf-fill-control-hover) !important;
+      }
+
+      &:not([disabled]):hover:active {
+        background-color: var(--zf-fill-subtle-press) !important;
+        color: var(--zf-text-secondary) !important;
+      }
+
+      &[disabled] {
+        background-color: var(--zf-fill-control-disabled) !important;
+        color: var(--zf-text-disabled) !important;
+        opacity: 1 !important;
+      }
+
+      /* Firefox flips [default] to "false" while another button has focus,
+         and keeps the accent: so does WinUI */
+      &[default] {
+        border-color: transparent !important;
+        background-color: var(--zf-accent) !important;
+        color: var(--zf-on-accent) !important;
+
+        &:not([disabled]):hover {
+          background-color: var(--zf-accent-hover) !important;
+        }
+
+        &:not([disabled]):hover:active {
+          background-color: var(--zf-accent-pressed) !important;
+          color: var(--zf-on-accent) !important;
+        }
+
+        /* Shown at reveal by prompts that delay their default button */
+        &[disabled] {
+          background-color: var(--zf-accent-disabled) !important;
+          color: var(--zf-on-accent-disabled) !important;
+        }
+      }
+    }
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        color var(--zf-duration-fast) linear !important;
+    }
+  }
+
+  /* A lone button takes the right half, as in WinUI */
+  &:not(:has(> button:not([hidden]) ~ button:not([hidden])))
+    > button[part="dialog-button"] {
+    flex: 0 1 calc(50% - 4px) !important;
+  }
+
+  /* Prompts may hide every button (confirmEx with no button) */
+  &:not(:has(> button:not([hidden]))) {
+    padding: 0 !important;
+  }
+}
+
+/* -------- Titles -------- */
+
+:root[subdialog]:not(#zenSpaceRoutingDialog) {
+  /* Prompts and bookmark properties (adjustableTitle.js), Clear history */
+  & #titleText {
+    font: 600 20px / 28px var(--zf-font-display) !important;
+  }
+
+  /* adjustableTitle.js keeps 16px free on each side; the content has 24px */
+  & #titleContainer {
+    max-width: calc(100vw - 48px) !important;
+    margin-inline: 0 !important;
+  }
+
+  /* Its favicon box is filled with the canvas, a square on the Layer */
+  @media not (forced-colors) {
+    & .titleIcon {
+      background-color: transparent !important;
+    }
+  }
+}
+
+/* -------- Body text -------- */
+/* In the window, Clear history, bookmark properties and clear site data use
+   the menu font (12px on Windows) under 14px buttons: the ContentDialog body
+   is 14/20, as for prompts. In about:preferences they keep its root size. */
+
+:is(
+    #SanitizeDialog,
+    #bookmarkproperties,
+    #clearDataForSiteDialogWindow
+  )[subdialog].system-font-size {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+/* -------- Prompts (commonDialog): message and fields -------- */
+/* Body text at 14px, rows 12px apart. Rows were spaced with margins, which
+   the last visible row kept: a flex gap skips the hidden ones. */
+
+#commonDialogWindow[subdialog] {
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  & #dialogGrid {
+    gap: 12px !important;
+  }
+
+  & .dialogRow,
+  & :is(description, checkbox, input) {
+    margin: 0 !important;
+  }
+
+  /* TextBox headers */
+  & .dialogRow > label {
+    margin: 0 0 8px !important;
+  }
+}
+
+/* -------- Zen share confirmation -------- */
+
+#zenShareConfirmDialog[subdialog] {
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  /* Inline 12px on top of the content padding */
+  & > dialog > vbox {
+    padding-inline: 0 !important;
+  }
+
+  & h2 {
+    margin: 0 0 12px !important;
+    font: 600 20px / 28px var(--zf-font-display) !important;
+  }
+}
+
+/* -------- TextBox -------- */
+/* Control fill, strong bottom stroke; focused: input fill and a 2px accent
+   underline (border plus inset shadow) instead of Firefox's ring */
+
+:root[subdialog]:not(#zenSpaceRoutingDialog)
+  input:is(
+    :not([type]),
+    [type="text"],
+    [type="password"],
+    [type="search"],
+    [type="email"],
+    [type="url"],
+    [type="tel"],
+    [type="number"]
+  ) {
+  box-sizing: border-box !important;
+  min-height: 32px !important;
+  padding-block: 5px 6px !important;
+  padding-inline: 10px 6px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  @media not (forced-colors) {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    background-color: var(--zf-fill-control) !important;
+    color: var(--zf-text-primary) !important;
+
+    &::placeholder {
+      color: var(--zf-text-secondary) !important;
+      opacity: 1 !important;
+    }
+
+    &:hover:not(:focus, :disabled) {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    /* An invalid field keeps Firefox's red ring */
+    &:focus:not(:user-invalid) {
+      border-color: var(--zf-stroke-control) !important;
+      border-bottom-color: var(--zf-accent) !important;
+      outline: none !important;
+      background-color: var(--zf-page) !important;
+      box-shadow: inset 0 -1px 0 var(--zf-accent) !important;
+    }
+
+    &:disabled {
+      border-bottom-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-control-disabled) !important;
+      color: var(--zf-text-disabled) !important;
+      opacity: 1 !important;
+    }
+
+    /* The bottom stroke stays as set above: strong, or the accent */
+    @media (prefers-contrast) {
+      &,
+      &:focus:not(:user-invalid) {
+        border-top-color: var(--zf-stroke-field) !important;
+        border-inline-color: var(--zf-stroke-field) !important;
+      }
+    }
+  }
+
+  @media not (prefers-reduced-motion: reduce) {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear,
+      box-shadow var(--zf-duration-fast) linear !important;
+  }
+}
+
+/* -------- CheckBox -------- */
+/* 20px box (--checkbox-size above), strong stroke, accent fill and check
+   glyph when checked. High contrast keeps Firefox's box. */
+
+@media not (forced-colors) {
+  :root[subdialog]:not(#zenSpaceRoutingDialog) checkbox:not([native]) {
+    & > .checkbox-check {
+      appearance: none !important;
+      box-sizing: border-box !important;
+
+      /* 12px glyph inside the 1px border */
+      padding: 3px !important;
+      border: 1px solid var(--zf-stroke-field) !important;
+      border-radius: var(--zf-radius-control) !important;
+      background-color: var(--zf-fill-control-alt) !important;
+      list-style-image: none !important;
+      -moz-context-properties: fill !important;
+      fill: var(--zf-on-accent) !important;
+
+      @media not (prefers-reduced-motion: reduce) {
+        transition:
+          background-color var(--zf-duration-fast) linear,
+          border-color var(--zf-duration-fast) linear !important;
+      }
+    }
+
+    &:not([disabled]):hover > .checkbox-check {
+      background-color: var(--zf-fill-control-alt-hover) !important;
+    }
+
+    &:not([disabled]):hover:active > .checkbox-check {
+      border-color: var(--zf-stroke-strong-disabled) !important;
+      background-color: var(--zf-fill-control-alt-press) !important;
+    }
+
+    /* A chrome:// icon: context-fill works without
+       svg.context-properties.content.enabled */
+    &[checked] > .checkbox-check {
+      border-color: var(--zf-accent) !important;
+      background-color: var(--zf-accent) !important;
+      list-style-image: url("chrome://global/skin/icons/check.svg") !important;
+    }
+
+    &[checked]:not([disabled]):hover > .checkbox-check {
+      border-color: var(--zf-accent-hover) !important;
+      background-color: var(--zf-accent-hover) !important;
+    }
+
+    &[checked]:not([disabled]):hover:active > .checkbox-check {
+      border-color: var(--zf-accent-pressed) !important;
+      background-color: var(--zf-accent-pressed) !important;
+    }
+
+    &[disabled] > .checkbox-check {
+      border-color: var(--zf-stroke-strong-disabled) !important;
+      background-color: transparent !important;
+    }
+
+    &[disabled][checked] > .checkbox-check {
+      border-color: transparent !important;
+      background-color: var(--zf-accent-disabled) !important;
+      fill: var(--zf-on-accent-disabled) !important;
+    }
+
+    /* commonDialog dims the label; a WinUI CheckBox does not */
+    & .checkbox-label {
+      color: var(--zf-text-primary) !important;
+    }
+
+    &[disabled] .checkbox-label {
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+}
+
+/* Clear history: descriptions line up with the label after the 20px box */
+#SanitizeDialog[subdialog] .sanitizeCheckboxDescription {
+  padding-inline-start: 28px !important;
+}
+
+/* -------- Select prompt: a ListView -------- */
+/* selectDialog has no title: the message, then the list. Subtle fill on the
+   selected row with the 3x16 accent pill. */
+
+:root[subdialog]:has(#selectContainer) {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+:root[subdialog] #selectContainer {
+  margin: 0 !important;
+
+  & > description {
+    margin: 0 0 12px !important;
+  }
+
+  & > vbox > richlistbox {
+    /* Its inline 8em would show under three of these rows: five rows, plus
+       the padding and the border. SubDialog sizes the dialog after it. */
+    height: calc(5 * 36px + 6px) !important;
+    margin: 0 !important;
+    padding-block: 2px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  & richlistitem {
+    position: relative !important;
+    min-height: 32px !important;
+    margin: 2px 4px !important;
+    padding-inline: 12px !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+    align-items: center !important;
+
+    & > label {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+@media not (forced-colors) {
+  :root[subdialog] #selectContainer {
+    & > vbox > richlistbox {
+      border-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-control) !important;
+      color: var(--zf-text-primary) !important;
+    }
+
+    & richlistitem {
+      background-color: transparent !important;
+      color: var(--zf-text-primary) !important;
+
+      &:hover {
+        background-color: var(--zf-fill-subtle-hover) !important;
+      }
+
+      &[selected] {
+        background-color: var(--zf-fill-selected) !important;
+        color: var(--zf-text-primary) !important;
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset-inline-start: 0;
+          top: 50%;
+          width: 3px;
+          height: 16px;
+          margin-top: -8px;
+          border-radius: 2px;
+          corner-shape: round;
+          background-color: var(--zf-accent);
+        }
+      }
+
+      &[selected]:hover {
+        background-color: var(--zf-fill-selected-hover) !important;
+      }
+    }
+  }
+}
+
+/* -------- Print -------- */
+/* The preview gutter on the base and its page navigator as a flyout. The
+   mod paints content <browser>s with the page color (materials.css): the
+   preview's stays clear, or the gutter would turn as white as the sheets. */
+
+#tabbrowser-tabpanels
+  .previewStack
+  > browser.printPreviewBrowser[type="content"][printpreview] {
+  background: transparent !important;
+}
+
+/* printpreview-pagination's shadow root, found by its stylesheet link */
+link[href$="/printPagination.css"] ~ .container {
+  gap: 2px !important;
+  padding: 4px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--zf-radius-overlay) !important;
+
+  & > .toolbarButton {
+    min-width: 32px !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  & > .toolbarCenter {
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    border-radius: 0 !important;
+    font-size: 14px !important;
+  }
+}
+
+@media not (forced-colors) {
+  .printDialogBox .previewStack {
+    background-color: var(--zf-solid-base) !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  .printDialogBox > .printSettingsBrowser {
+    border-inline-start: 1px solid var(--zf-stroke-divider) !important;
+  }
+
+  /* It floats over the preview: solid Acrylic, as everything over a page */
+  link[href$="/printPagination.css"] ~ .container {
+    border-color: var(--zf-stroke-control) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    color: var(--zf-text-primary) !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+
+    &::before {
+      background-color: transparent !important;
+    }
+
+    & > :is(.toolbarButton, .toolbarCenter) {
+      border: 0 !important;
+    }
+
+    & > .toolbarButton:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    & > .toolbarButton:hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+    }
+
+    & #sheetIndicator {
+      color: var(--zf-text-secondary) !important;
+    }
+  }
+}

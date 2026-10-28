@@ -16,7 +16,9 @@ panel {
 /* -------- Corners -------- */
 /* Zen 1.23 turns every corner into a superellipse (squircle). WinUI corners
    are plain arcs, so the WinUI variant puts them back; the Zen variant keeps
-   Zen's squircles, except on the circles and pills listed below. */
+   Zen's squircles, except on the circles and pills listed below, and on
+   tooltips: the default one gets no author styles, so it cannot share Zen's
+   squircle. */
 
 @media (-moz-pref("zen-fluent.corners", "winui")) {
   *,
@@ -33,7 +35,8 @@ panel {
 .zen-view-splitter-header,
 .zen-view-splitter-header-container toolbarbutton,
 .zen-library-filter-chip,
-.toolbarbutton-badge {
+.toolbarbutton-badge,
+tooltip {
   corner-shape: round !important;
 }
 
@@ -119,13 +122,16 @@ panel {
     border-top: 1px solid var(--zf-stroke-control);
     border-inline-start: 1px solid var(--zf-stroke-control);
 
+    /* The stroke follows the sidebar, not the window edge */
     :root[zen-right-side="true"] & {
       border-radius: 0 var(--zf-radius-overlay) 0 0 !important;
+      border-inline-start: 0;
+      border-inline-end: 1px solid var(--zf-stroke-control);
     }
 
     /* Compact mode: the sidebar is gone, only the toolbar edge remains */
     :root[zen-compact-mode="true"] & {
-      border-inline-start: 0;
+      border-inline: 0;
       border-radius: 0 !important;
     }
 

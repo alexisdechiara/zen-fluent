@@ -10,9 +10,8 @@ Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : fran
 - `modules/tokens.css` : toutes les valeurs `--zf-*` (paires `light-dark()`), accent,
   rayons, police. Les autres modules ne lisent que ces variables.
 - Un module par zone : `materials`, `sidebar`, `extensions`, `urlbar`, `split-glance`,
-  `media`, `library`, `menus`, `scrollbars`, `window`, `icons`, `animations`,
-  `content`
-  (pages `about:`, défilement des pages web).
+  `media`, `library`, `menus`, `tab-preview`, `scrollbars`, `window`, `icons`,
+  `animations`, `content` (pages `about:`, défilement des pages web).
 - `preferences.json` : réglages Sine, préfixe `zen-fluent.*`, valeurs ASCII sans
   espaces (Sine les refuse), séparateurs `"type": "separator"` par groupe.
 - `icons/` : SVG en `stroke="context-fill"`. `screenshots/` : captures du README.

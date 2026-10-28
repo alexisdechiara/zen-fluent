@@ -11,6 +11,12 @@
 @import url("modules/library.css");
 @import url("modules/menus.css");
 @import url("modules/scrollbars.css");
+@import url("modules/findbar.css");
+@import url("modules/tooltips.css");
+@import url("modules/tab-preview.css");
+@import url("modules/site-panels.css");
+@import url("modules/dialogs.css");
+@import url("modules/ff-sidebar.css");
 @import url("modules/window.css");
 @import url("modules/icons.css");
 @import url("modules/animations.css");

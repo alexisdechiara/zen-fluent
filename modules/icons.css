@@ -4,6 +4,18 @@
    grants to files outside chrome:// when svg.context-properties.content.enabled
    is on; without it they would be invisible, so Zen keeps its own icons. */
 
+/* -------- Glyphs Firefox ships empty -------- */
+/* The protections popup's footer rows (settings, dashboard) have no icon:
+   Zen's, whatever the setting, line them up with the category rows. */
+
+#protections-popup .protections-popup-settings-icon {
+  list-style-image: url("chrome://browser/skin/zen-icons/settings.svg") !important;
+}
+
+#protections-popup .protections-popup-show-report-icon {
+  list-style-image: url("chrome://browser/skin/zen-icons/tracking-protection.svg") !important;
+}
+
 @media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
   /* -------- Navigation: WinUI arrows, or macOS chevrons -------- */
 
@@ -59,7 +71,9 @@
   }
 
   #stop-button,
-  .tab-close-button {
+  .tab-close-button,
+  .findbar-closebutton,
+  #sidebar-close {
     list-style-image: url("../icons/close.svg") !important;
   }
 
@@ -220,6 +234,27 @@
 
   #appMenu-quit-button2 {
     list-style-image: url("../icons/exit.svg") !important;
+  }
+
+  /* -------- Protections popup: settings, as in the app menu -------- */
+
+  #protections-popup .protections-popup-settings-icon {
+    list-style-image: url("../icons/settings.svg") !important;
+  }
+
+  /* -------- Firefox sidebar header, as in the app menu -------- */
+
+  #sidebar-box[sidebarcommand="viewHistorySidebar"] #sidebar-icon {
+    list-style-image: url("../icons/history.svg") !important;
+  }
+
+  #sidebar-box[sidebarcommand="viewBookmarksSidebar"] #sidebar-icon {
+    list-style-image: url("../icons/bookmarks.svg") !important;
+  }
+
+  /* Same specificity as ff-sidebar.css, which comes first */
+  #sidebar-box[sidebarcommand="viewCPMSidebar"] #sidebar-icon {
+    list-style-image: url("../icons/passwords.svg") !important;
   }
 
   /* -------- Spaces: the selectable icons the design draws -------- */

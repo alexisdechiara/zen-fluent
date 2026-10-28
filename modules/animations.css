@@ -56,9 +56,17 @@
     :is(
         toolbarbutton,
         .zen-essentials-container .tabbrowser-tab
-      ):hover:active:not([disabled="true"], :has(.tab-close-button:hover)) {
+      ):hover:active:not([disabled], :has(.tab-close-button:hover)) {
       scale: 0.96;
     }
+  }
+
+  /* -------- ToggleSwitch knob -------- */
+  /* moz-toggle's knob, in its shadow root (user sheets reach it): WinUI
+     timing instead of 100ms linear, for every toggle of the window */
+
+  button.toggle-button::before {
+    transition: translate var(--zf-duration-normal) var(--zf-ease) !important;
   }
 }
 

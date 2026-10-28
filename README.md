@@ -96,6 +96,10 @@ L’image incrustée s’ouvre au changement d’onglet si
 `true` (`about:config`). Tant que la vidéo est incrustée, Zen masque la carte du
 lecteur dans la barre latérale ; elle revient quand l’incrustation se ferme.
 
+L’aperçu d’onglet au survol (titre, adresse, miniature) est désactivé par Zen :
+`browser.tabs.hoverPreview.enabled` = `true` (`about:config`) pour l’afficher ;
+sinon c’est l’infobulle WinUI qui apparaît.
+
 ### Linux : transparence et flou du compositeur
 
 Linux n’a pas de Mica : la fenêtre est rendue transparente par Zen et c’est le
@@ -191,6 +195,8 @@ zen-fluent/
    ├─ media.css          → lecteur, image incrustée
    ├─ library.css        → Bibliothèque (Zen 1.23)
    ├─ menus.css          → menus contextuels, panneaux
+   ├─ tooltips.css       → infobulles WinUI
+   ├─ tab-preview.css    → aperçu d’onglet au survol
    ├─ scrollbars.css     → barres de défilement fines
    ├─ window.css         → boutons de fenêtre
    ├─ icons.css          → icônes Fluent
