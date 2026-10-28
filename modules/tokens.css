@@ -81,6 +81,10 @@
     rgb(255 255 255 / 36.28%)
   );
 
+  /* -------- Scrollbars: faint at rest, ControlStrongFill on hover -------- */
+  --zf-scrollbar-thumb: var(--zf-text-disabled);
+  --zf-scrollbar-thumb-hover: var(--zf-stroke-field);
+
   /* -------- Elevation -------- */
   --zf-shadow-tab: 0 1px 2px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 22%));
   --zf-shadow-card:

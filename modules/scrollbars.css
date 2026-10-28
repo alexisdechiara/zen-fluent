@@ -1,0 +1,54 @@
+/* ----------------------------- SCROLLBARS ----------------------------- */
+/* WinUI ScrollBar: a thin, faint indicator at rest, wider and stronger while
+   the pointer is over the list. scrollbar-color is inherited, so the colors
+   reach the scrollers inside shadow trees; scrollbar-width is not, so each
+   scroller is listed. User sheets reach into shadow trees but ::part() does
+   not match from them, so arrowscrollbox lists (workspace tabs, menus) are
+   targeted by their inner scrollbox. The bar only widens with overlay
+   scrollbars (the Windows default), where it does not push the content
+   aside. */
+
+:root {
+  scrollbar-color: var(--zf-scrollbar-thumb) transparent;
+}
+
+/* Sidebar tabs, workspace list, Library lists, panels and menus */
+#zen-tabs-wrapper,
+scrollbox[part~="scrollbox"],
+.zen-library-search-results,
+.zen-library-spaces,
+.zen-library-space-body,
+.panel-subview-body {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--zf-scrollbar-thumb) transparent !important;
+}
+
+#zen-tabs-wrapper:hover,
+scrollbox[part~="scrollbox"]:hover,
+.zen-library-search-results:hover,
+.zen-library-spaces:hover,
+.zen-library-space-body:hover,
+.panel-subview-body:hover {
+  scrollbar-color: var(--zf-scrollbar-thumb-hover) transparent !important;
+}
+
+@media (-moz-overlay-scrollbars) {
+  #zen-tabs-wrapper:hover,
+  scrollbox[part~="scrollbox"]:hover,
+  .zen-library-search-results:hover,
+  .zen-library-spaces:hover,
+  .zen-library-space-body:hover,
+  .panel-subview-body:hover {
+    scrollbar-width: auto !important;
+  }
+}
+
+/* Zen hides these while the Library animates: keep that */
+zen-library:is([transitioning], [sizing])
+  :is(
+    .zen-library-search-results,
+    .zen-library-spaces,
+    .zen-library-space-body
+  ) {
+  scrollbar-width: none !important;
+}

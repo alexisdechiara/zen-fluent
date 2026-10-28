@@ -198,6 +198,12 @@
     "defaultValue": false
   },
   {
+    "property": "zen-fluent.thin-scrollbars-web",
+    "label": "Barres de défilement fines dans les pages web",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
     "property": "zen-fluent.hide-shortcuts",
     "label": "Masquer les raccourcis des menus",
     "type": "checkbox",

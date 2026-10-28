@@ -143,9 +143,16 @@ Sur macOS, le mod teinte le fond transparent de la fenêtre.
 |                  | Icônes du mod                                   | `svg.context-properties.content.enabled` | Firefox       |
 |                  | Flèches façon macOS                             | `zen-fluent.mac-back-forward`            | Firefox-WinUI |
 |                  | Masquer les raccourcis des menus                | `zen-fluent.hide-shortcuts`              | Firefox-WinUI |
+|                  | Barres de défilement fines dans les pages web   | `zen-fluent.thin-scrollbars-web`         | Zen Fluent    |
 | Animations       | Animation de changement d’onglet                | `zen-fluent.tab-switch-animation`        | Nebula        |
 |                  | Animation d’ouverture de la barre d’adresse     | `zen-fluent.urlbar-animation`            | Nebula        |
 |                  | Animations des boutons WinUI 3                  | `zen-fluent.button-animations`           | Firefox-WinUI |
+
+Barres de défilement : fines au repos, plus larges et plus marquées au survol
+(barre latérale, Bibliothèque, menus). L’option pour les pages web passe par
+`userContent.css` : avec Sine sous Zen 1.23, la feuille de contenu des mods
+n’atteint que les pages internes, l’option ne vaut donc que pour une
+installation à la main.
 
 Valeurs des listes : voir `preferences.json`. **Couleur personnalisée** accepte
 toute couleur CSS (`#0078d4`, `rgb(0 120 212)`, `teal`…) ; une valeur invalide
@@ -172,9 +179,10 @@ zen-fluent/
    ├─ media.css          → lecteur, image incrustée
    ├─ library.css        → Bibliothèque (Zen 1.23)
    ├─ menus.css          → menus contextuels, panneaux
+   ├─ scrollbars.css     → barres de défilement fines
    ├─ window.css         → boutons de fenêtre, flèches
    ├─ animations.css     → transitions WinUI
-   └─ content.css        → pages about:
+   └─ content.css        → pages about:, défilement des pages web
 ```
 
 Les couleurs sont des paires `light-dark()` : le mode clair ou sombre suit

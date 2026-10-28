@@ -53,6 +53,7 @@ export default {
           "moz-page-nav",
           "moz-page-nav-button",
           "panel",
+          "scrollbox",
           "search-textbox",
           "stack",
           "tab",

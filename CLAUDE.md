@@ -10,7 +10,8 @@ Reprend les options de Firefox-WinUI, Nebula et Arc 2.0. Langue du projet : fran
 - `modules/tokens.css` : toutes les valeurs `--zf-*` (paires `light-dark()`), accent,
   rayons, police. Les autres modules ne lisent que ces variables.
 - Un module par zone : `materials`, `sidebar`, `extensions`, `urlbar`, `split-glance`,
-  `media`, `library`, `menus`, `window`, `animations`, `content` (pages `about:`).
+  `media`, `library`, `menus`, `scrollbars`, `window`, `animations`, `content`
+  (pages `about:`, défilement des pages web).
 - `preferences.json` : réglages Sine, préfixe `zen-fluent.*`, valeurs ASCII sans
   espaces (Sine les refuse), séparateurs `"type": "separator"` par groupe.
 - `icons/` : SVG en `stroke="context-fill"`. `screenshots/` : captures du README.
@@ -49,6 +50,10 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Réglage Sine `string` : Sine pose `--<préférence avec des tirets>` sur `:root`
   des fenêtres chrome uniquement (pas dans les pages `about:`) ; typer la valeur
   avec `@property` pour qu'une saisie invalide ait un repli.
+- Les feuilles **utilisateur** s'appliquent dans les Shadow DOM (sélecteur simple
+  sur l'élément interne) ; `::part()` ne correspond pas depuis elles.
+- Sine : sa feuille de contenu n'est pas injectée dans les pages web (acteur
+  `SineUserContent` refusé pour `webIsolated`), seulement dans les pages `about:`.
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
@@ -95,6 +100,5 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Barres de défilement fines WinUI.
 - Pages de réglages Zen et Sine en WinUI (cartes, interrupteurs, listes).
 - Icônes Fluent pour les boutons de Zen.
