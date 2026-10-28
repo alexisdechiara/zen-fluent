@@ -29,7 +29,19 @@
       { "label": "Menthe", "value": "mint" },
       { "label": "Orange", "value": "orange" },
       { "label": "Rose", "value": "pink" },
-      { "label": "Graphite", "value": "graphite" }
+      { "label": "Graphite", "value": "graphite" },
+      { "label": "Personnalisé", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.accent-custom",
+    "label": "Couleur personnalisée (~toute couleur CSS : #0078d4, rgb(0 120 212), teal…~)",
+    "type": "string",
+    "defaultValue": "#0078d4",
+    "placeholder": "#0078d4",
+    "border": "value",
+    "conditions": [
+      { "if": { "property": "zen-fluent.accent", "value": "custom" } }
     ]
   },
   {

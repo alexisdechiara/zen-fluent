@@ -46,6 +46,9 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Icônes du mod (`icons/`, `stroke="context-fill"`) : invisibles sans
   `svg.context-properties.content.enabled` (fichiers hors `chrome://`) ; toute
   surcharge d'icône se met derrière `-moz-pref()` de cette préférence.
+- Réglage Sine `string` : Sine pose `--<préférence avec des tirets>` sur `:root`
+  des fenêtres chrome uniquement (pas dans les pages `about:`) ; typer la valeur
+  avec `@property` pour qu'une saisie invalide ait un repli.
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
@@ -92,7 +95,6 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Accent personnalisé (champ texte).
 - Barres de défilement fines WinUI.
 - Pages de réglages Zen et Sine en WinUI (cartes, interrupteurs, listes).
 - Icônes Fluent pour les boutons de Zen.
