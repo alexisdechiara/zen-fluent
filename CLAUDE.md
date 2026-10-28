@@ -92,7 +92,6 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Barre d'adresse au focus dans la barre latérale.
 - Accent personnalisé (champ texte).
 - Barres de défilement fines WinUI.
 - Pages de réglages Zen et Sine en WinUI (cartes, interrupteurs, listes).
