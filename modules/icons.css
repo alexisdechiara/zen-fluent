@@ -137,6 +137,16 @@
     list-style-image: url("../icons/close.svg") !important;
   }
 
+  /* -------- Library history rows: forget, reopen -------- */
+
+  .zen-library-row-actions img[src$="/trash.svg"] {
+    content: url("../icons/delete.svg") !important;
+  }
+
+  .zen-library-row-actions img[src$="/u-turn-to-left.svg"] {
+    content: url("../icons/reopen.svg") !important;
+  }
+
   /* -------- App menu (≡) -------- */
 
   #appMenu-new-tab-button2 {

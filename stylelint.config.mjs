@@ -69,6 +69,7 @@ export default {
           "zen-folder",
           "zen-library",
           "zen-library-downloads-section",
+          "zen-library-history-section",
         ],
       },
     ],
