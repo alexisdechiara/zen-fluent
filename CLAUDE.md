@@ -53,6 +53,15 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Boutons de fenêtre : glyphe Segoe Fluent Icons en `::before`, pas
   `.toolbarbutton-icon`. En barre unique, ils n'apparaissent qu'au survol du haut
   de la page (`zen-has-hover` sur `#zen-appcontent-navbar-wrapper`).
+- `about:preferences` (Firefox 158) : composants web `moz-*` à Shadow DOM, sans
+  `part`. Jetons globaux (`--button-*`, `--card-*`, `--border-radius-*`,
+  `--color-accent-primary`) sur `:root` ; jetons d'un composant
+  (`--page-nav-button-*`, `--box-*`, `--toggle-*`, `--select-*`) sur son `:host`,
+  donc à surcharger sur l'élément lui-même.
+- Menus : jetons `--panel-menuitem-*`, `--panel-separator-*` (panneaux) et
+  `--menuitem-padding-block` / `-inline` (menus contextuels).
+- Nouvel onglet : `zen.urlbar.replace-newtab` (par défaut) ouvre la barre
+  flottante sur une page vide ; `about:home` utilise `content-search-handoff-ui`.
 - Image incrustée : `#controls .control-button` pour les boutons ; `#timestamp`,
   `#controls-bottom-gradient` et les curseurs sont aussi des `.control-item`.
 - Le source de Zen (`zen-browser/desktop`, dossier `src/zen`) fait foi pour les sélecteurs.
@@ -80,7 +89,6 @@ captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
 
 ## Reste à faire
 
-- Pages internes (`about:preferences`, nouvel onglet) et menus de l'application.
 - Repère au bord gauche en mode compact.
 - Mode multi-barres : barre d'adresse centrée (560 px max).
 - Barre d'adresse au focus dans la barre latérale.

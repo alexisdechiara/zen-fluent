@@ -37,6 +37,7 @@ export default {
       {
         ignoreTypes: [
           "browser",
+          "content-search-handoff-ui",
           "groupbox",
           "hbox",
           "menu",
@@ -44,7 +45,13 @@ export default {
           "menulist",
           "menupopup",
           "menuseparator",
+          "moz-box-button",
+          "moz-box-group",
+          "moz-box-item",
+          "moz-box-link",
           "moz-card",
+          "moz-page-nav",
+          "moz-page-nav-button",
           "panel",
           "search-textbox",
           "stack",
