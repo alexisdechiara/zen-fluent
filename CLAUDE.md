@@ -68,6 +68,11 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 - Mode compact, barre unique : `#zen-appcontent-navbar-wrapper` replié fait 8 px
   au-dessus de la page ; le mod le passe en `position: absolute` (zone de survol
   invisible) et neutralise la marge que Zen ajoute avec `has-toolbar-hovered`.
+- Sine n'applique les `conditions` d'un réglage qu'au premier changement de
+  préférence, pas à l'ouverture de la boîte : masquer la ligne en CSS
+  (`content.css`, `@media not (-moz-pref(...))`).
+- `zen.theme.acrylic-sidebar` / `acrylic-urlbar` (fond transparent + flou) :
+  neutralisés par les `!important` utilisateur du mod (vérifié).
 - Icône de dossier : variables `--zen-folder-stroke`, `--zen-folder-front-bgcolor`,
   `--zen-folder-behind-bgcolor`.
 - Carte média : `.zen-media-card` (créée seulement quand un média audible joue).
@@ -93,12 +98,12 @@ Sans GPU, Zen pose `zen-no-acrylic` : les surfaces Acrylic passent en couleur pl
 
 ## Tests
 
-**Les tests sont reportés : on les fera quand toutes les fonctionnalités seront
-prêtes.** D'ici là, ne pas lancer de campagne de test automatisée ; se limiter au lint
-et, si besoin, à une vérification manuelle dans Zen (édition en direct :
-Ctrl+Maj+Alt+I › Éditeur de style).
+Campagne finale faite le 2026-10-28 sous Windows 11 (26 vérifications sur 26,
+captures du README refaites). Après une nouvelle fonctionnalité : lint, puis
+vérification dans Zen (édition en direct : Ctrl+Maj+Alt+I › Éditeur de style) et,
+avant une publication, relancer la campagne.
 
-Pour la campagne finale, la méthode déjà utilisée : Zen piloté par Marionette
+Méthode : Zen piloté par Marionette
 (`--marionette --remote-allow-system-access`), chaque valeur de chaque réglage
 appliquée en direct puis vérifiée sur le style calculé **de l'élément affiché**
 (pas de son conteneur), console filtrée sur les erreurs CSS, captures dans
@@ -111,7 +116,12 @@ vers le dépôt et déclaré dans `sine-mods/mods.json`. Rechargement à chaud :
 `ChromeUtils.clearResourceCache()` puis `windowUtils.removeSheet` / `loadSheet`
 de `chrome://sine/content/chrome.css`. Le fond Mica n'apparaît pas dans les
 captures Marionette : capturer l'écran (`CopyFromScreen`, processus DPI-aware).
+Les feuilles chrome et utilisateur ne remontent aucune erreur CSS à la console :
+valider les valeurs avec stylelint (`declaration-property-value-no-unknown`).
+Glance ne s'ouvre bien que par un vrai clic (Alt+clic synthétique via les actions
+WebDriver) ; `openGlance()` par script reste bloqué. Les captures d'écran échouent
+tant que la session Windows est verrouillée (`LogonUI`).
 
 ## Reste à faire
 
-Rien : toutes les fonctionnalités sont là, reste la campagne de tests finale.
+Rien de prévu : fonctionnalités et campagne finale faites.

@@ -13,20 +13,22 @@ sous Windows 11 avec Mica For Everyone.
 
 ## Aperçu
 
-| Mica clair                                      | Mica Alt                                          |
-| ----------------------------------------------- | ------------------------------------------------- |
-| ![Mica clair](screenshots/light-mica.png)       | ![Mica Alt sombre](screenshots/dark-mica-alt.png) |
-| **Acrylic, accent orange**                      | **Angles Zen, accent violet**                     |
-| ![Acrylic](screenshots/dark-acrylic-orange.png) | ![Angles Zen](screenshots/zen-corners-violet.png) |
-| **Barre d’adresse flottante**                   | **Mode compact, barre au survol**                 |
-| ![Barre d’adresse](screenshots/urlbar.png)      | ![Mode compact](screenshots/compact.png)          |
-| **Vue scindée**                                 | **Glance**                                        |
-| ![Vue scindée](screenshots/split.png)           | ![Glance](screenshots/glance.png)                 |
-| **Bibliothèque**                                |                                                   |
-| ![Bibliothèque](screenshots/library.png)        |                                                   |
+| Mica clair                                         | Mica Alt                                          |
+| -------------------------------------------------- | ------------------------------------------------- |
+| ![Mica clair](screenshots/light-mica.png)          | ![Mica Alt sombre](screenshots/dark-mica-alt.png) |
+| **Acrylic, accent orange**                         | **Angles Zen, accent violet**                     |
+| ![Acrylic](screenshots/dark-acrylic-orange.png)    | ![Angles Zen](screenshots/zen-corners-violet.png) |
+| **Barre d’adresse flottante**                      | **Mode compact, barre au survol**                 |
+| ![Barre d’adresse](screenshots/urlbar.png)         | ![Mode compact](screenshots/compact.png)          |
+| **Vue scindée**                                    | **Glance**                                        |
+| ![Vue scindée](screenshots/split.png)              | ![Glance](screenshots/glance.png)                 |
+| **Bibliothèque**                                   | **Réglages du mod dans Sine**                     |
+| ![Bibliothèque](screenshots/library.png)           | ![Réglages Sine](screenshots/sine.png)            |
+| **Barres multiples, Mica clair**                   |                                                   |
+| ![Barres multiples](screenshots/multi-toolbar.png) |                                                   |
 
-Captures prises sous Linux, sans flou du compositeur : sous Windows 11 avec
-Mica For Everyone, le fond laisse transparaître le bureau.
+Captures prises sous Windows 11 avec Mica For Everyone (Zen 1.23.4b, fenêtre de
+1280 × 800) : le fond Mica et Acrylic laisse transparaître le bureau.
 
 ## Installation
 
