@@ -1,0 +1,130 @@
+/* Zen Fluent: Auto-hidden bookmarks toolbar: no height until the toolbar area is hovered, focused or has a menu open (zen-fluent.bookmarks-autohide).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The bar shows while the pointer is over the toolbar area, while the
+   keyboard is in the bar (F6, Tab), and while one of its menus is open.
+   Zen marks #zen-appcontent-navbar-wrapper with zen-has-hover on mouseover
+   and on dragover (so a link dragged over the nav bar opens the bar for the
+   drop), with has-popup-menu while a menu opened from it is up, and with
+   zen-compact-mode-active when compact mode shows the toolbar: the bar
+   comes with it, at the height Zen counts for it. Zen sets that last one
+   outside compact mode too (URL bar open, a toolbar panel open): it is only
+   followed in compact mode. In customize mode it stays shown. */
+
+@media (-moz-pref("zen-fluent.bookmarks-autohide")) {
+  /* -------- Multiple toolbars: under the nav bar, no height -------- */
+
+  :root:not([customizing], [zen-single-toolbar="true"])
+    #PersonalToolbar:not([collapsed]) {
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: clip !important;
+    opacity: 0 !important;
+
+    /* Shown: the row height of components/bookmarks-toolbar.css */
+    #zen-appcontent-navbar-wrapper:is(:hover, [zen-has-hover], [has-popup-menu])
+      &,
+    :root[zen-compact-mode="true"]
+      #zen-appcontent-navbar-wrapper[zen-compact-mode-active]
+      &,
+    &:focus-within,
+    &:has([open], [dragover]) {
+      min-height: var(--zf-size-icon-button) !important;
+      max-height: var(--zf-size-icon-button) !important;
+      opacity: 1 !important;
+    }
+
+    /* WinUI: in at the normal duration on the decelerate curve, out fast */
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        min-height var(--zf-duration-fast) var(--zf-ease),
+        max-height var(--zf-duration-fast) var(--zf-ease),
+        opacity var(--zf-duration-fast) linear !important;
+
+      #zen-appcontent-navbar-wrapper:is(
+          :hover,
+          [zen-has-hover],
+          [has-popup-menu]
+        )
+        &,
+      :root[zen-compact-mode="true"]
+        #zen-appcontent-navbar-wrapper[zen-compact-mode-active]
+        &,
+      &:focus-within,
+      &:has([open], [dragover]) {
+        transition:
+          min-height var(--zf-duration-normal) var(--zf-ease),
+          max-height var(--zf-duration-normal) var(--zf-ease),
+          opacity var(--zf-duration-normal) linear !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
+  }
+
+  /* -------- Single toolbar: the top strip -------- */
+  /* With zen.view.hide-window-controls (Zen's default) Zen already folds
+     the strip until it is hovered, the bar with it. Otherwise the strip
+     stays for the window buttons: the bar fades out in place. When the
+     strip holds no window buttons, it folds like Zen's hidden strip. */
+
+  @media not (-moz-pref("zen.view.hide-window-controls")) {
+    :root[zen-single-toolbar="true"][zen-has-bookmarks]:not(
+        [customizing],
+        [inDOMFullscreen="true"]
+      )
+      #zen-appcontent-navbar-wrapper {
+      &:not(
+          :hover,
+          :focus-within,
+          [zen-has-hover],
+          [has-popup-menu],
+          [zen-compact-mode-active],
+          :has(#PersonalToolbar :is([open], [dragover]))
+        )
+        #PersonalToolbar {
+        opacity: 0 !important;
+      }
+
+      @media (-moz-pref("zen.view.experimental-no-window-controls")) or (not (-moz-pref("browser.tabs.inTitlebar"))) {
+        &:not(
+          :hover,
+          :focus-within,
+          [zen-has-hover],
+          [has-popup-menu],
+          [zen-compact-mode-active],
+          :has(#PersonalToolbar :is([open], [dragover]))
+        ) {
+          height: var(--zen-element-separation) !important;
+          min-height: var(--zen-element-separation) !important;
+          overflow: clip !important;
+          opacity: 0 !important;
+
+          & #zen-appcontent-navbar-container {
+            pointer-events: none !important;
+          }
+        }
+      }
+
+      @media not (prefers-reduced-motion: reduce) {
+        transition:
+          height var(--zf-duration-normal) var(--zf-ease),
+          opacity var(--zf-duration-normal) linear !important;
+
+        & #PersonalToolbar {
+          transition: opacity var(--zf-duration-normal) linear !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none !important;
+
+        & #PersonalToolbar {
+          transition: none !important;
+        }
+      }
+    }
+  }
+}

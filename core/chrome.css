@@ -53,6 +53,7 @@
 @import url("src/features/button-style.css");
 @import url("src/features/hide-forward-disabled.css");
 @import url("src/components/sidebar/collapsed.css");
+@import url("src/components/workspace-creation.css");
 
 /* Pinned extensions */
 @import url("src/features/pinned-extensions.css");
@@ -77,6 +78,10 @@
 @import url("src/components/urlbar/multiple-toolbars.css");
 @import url("src/components/urlbar/smoke.css");
 @import url("src/features/animations/urlbar-smoke.css");
+
+/* Bookmarks toolbar */
+@import url("src/components/bookmarks-toolbar.css");
+@import url("src/features/bookmarks-autohide.css");
 
 /* Split view and Glance */
 @import url("src/components/split-view/panes.css");
@@ -113,6 +118,7 @@
 @import url("src/features/context-navigation/list.css");
 @import url("src/features/context-navigation/commandbar.css");
 @import url("src/components/menus/ctrl-tab-and-status.css");
+@import url("src/components/menus/ctrl-tab.css");
 
 /* Scrollbars */
 @import url("src/components/scrollbars.css");
@@ -166,6 +172,7 @@
 @import url("src/components/panels/controls-chips.css");
 @import url("src/components/panels/controls-infobars.css");
 @import url("src/components/panels/site-panel-switch-motion.css");
+@import url("src/components/panels/gradient-picker.css");
 
 /* Notifications */
 @import url("src/components/notifications/infobar-severity.css");

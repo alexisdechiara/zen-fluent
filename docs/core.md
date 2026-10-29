@@ -18,6 +18,8 @@ Built for Zen 1.23 (tested with 1.23.4b on Windows 11 and Linux):
   extensions), dialogs, tooltips, the tab preview;
 - notifications: site and global notification bars (WinUI InfoBars),
   permission prompts (a TeachingTip), Zen’s toasts;
+- Zen’s screens: the space creation form, the theme picker, the Ctrl+Tab
+  panel, the bookmarks toolbar;
 - internal pages: `about:preferences` (Zen's and Sine's panes, the mod's own
   settings), `about:addons`, `about:config`, the new tab page.
 

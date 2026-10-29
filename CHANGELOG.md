@@ -20,6 +20,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - The Fluent folder icons only replace the icon of Zen folders (and of ZenLibraryTweaks' bookmark folders). Advanced Tab Groups' folder look keeps its own icon and group color.
 - Button animations no longer override the Library tabs' own transition. A Library tab's hover fill and press now fade on its pill (`zen-fluent.button-animations`).
 - The Firefox sidebar's colors also reach the web panel box of Zen Second Sidebar Enhanced (`#sb2-box`).
+- The theme picker gets Zen's 10 px padding back: with the 4 px every panel gets, its color dots sat 6 px off the spot Zen reads their color from.
 
 ### Added
 
@@ -46,6 +47,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Compatibility rules for third-party mods in `core/src/compat/`. They need no setting and only match what those mods add. Advanced Tab Groups headers become folder rows. ZenLibraryTweaks gets the History rows, slides Library tabs again when reordering, and gets matching edit outlines, folder tint and Fluent folder icons. Zen Second Sidebar Enhanced web panels become cards, with solid Acrylic over the page. Zen Command Palette follows the mod's accent, with an accent mode pill. Zen Calmer Context Menu's quick actions hover like menu rows, and its restored icons line up with the rows. With its "Apply the Zen space gradient" option, the Acrylic menu is kept. Glance Plus's Copy link and Bookmark buttons take the Fluent icons.
 - `docs/compatibility.md`: which mods work with Zen Fluent, which need its compat rules, and which conflict and why (Zen Page Tint, Blended Addressbar, Better Find Bar, SuperPins).
 - Collapsed sidebar (icons only) as a WinUI NavigationView compact pane: every item of the 48 px column is a rounded tile. Essentials keep the token gap; the current workspace is a centred tile at full opacity; folder rows and the pinned tabs separator are as wide as the tabs; the bottom buttons and the workspace switcher are nav item tiles, with the active workspace marked on the leading edge; a playing tab shows an accent audio badge, as the Essentials do. With a single toolbar, the top bar buttons keep the sidebar's look.
+- Zen screens in WinUI style: the space creation form (TextBox, ComboBox, standard and accent Buttons), the theme picker (segmented scheme switch, subtle buttons, Slider colors on the wave, custom color list), the Ctrl+Tab panel as the Windows 11 task switcher (`browser.ctrlTab.sortByRecentlyUsed`) and the bookmarks toolbar (subtle buttons sized by the density, divider separators, accent drop indicator).
+- Auto-hidden bookmarks toolbar (`zen-fluent.bookmarks-autohide`, default `false`): no height until the toolbar area is hovered or focused, a menu of the bar is open or a link is dragged over it.
 
 ### Removed
 

@@ -1,0 +1,153 @@
+/* Zen Fluent: Bookmarks toolbar: WinUI subtle buttons for bookmarks, folders and the chevron, divider separators, accent drop indicator.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen moves #PersonalToolbar into #zen-appcontent-navbar-container: under
+   the nav bar with multiple toolbars, in the top strip with a single
+   toolbar. Its rows are as tall as an icon button (32px, 28px compact):
+   2px around buttons 4px shorter, like a WinUI CommandBar of subtle
+   buttons. */
+
+/* -------- Bar height -------- */
+/* Zen adds 30px for the bar to the compact-mode toolbar height and pulls
+   the page up by as much: the sum follows the bar */
+
+:root[zen-has-bookmarks] {
+  --zen-toolbar-height-with-bookmarks: calc(
+    var(--zen-toolbar-height) + var(--zf-size-icon-button)
+  ) !important;
+}
+
+#PersonalToolbar {
+  --zf-bookmark-height: calc(var(--zf-size-icon-button) - 4px);
+
+  &:not([collapsed]) {
+    min-height: var(--zf-size-icon-button) !important;
+  }
+}
+
+/* -------- Bookmarks and folders: subtle buttons -------- */
+
+#PersonalToolbar toolbarbutton.bookmark-item:not(.subviewbutton) {
+  /* Centered in the 34px top strip of a single toolbar */
+  height: var(--zf-bookmark-height) !important;
+  min-height: 0 !important;
+  margin: auto 2px !important;
+  padding: 0 8px !important;
+  border-radius: var(--zf-radius-control) !important;
+  font: 400 12px / 16px var(--zf-font) !important;
+
+  /* 8px between the icon and the label */
+  & > .toolbarbutton-icon {
+    width: 16px !important;
+    height: 16px !important;
+
+    &[label]:not([label=""]) {
+      margin-inline-end: 8px !important;
+    }
+  }
+
+  @media not (forced-colors) {
+    outline-color: transparent !important;
+    background-color: transparent !important;
+    color: var(--zf-text-primary) !important;
+
+    /* [dragover]: a folder that opens on a drag */
+    &:not([disabled], [open]):is(:hover, [dragover]) {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:not([disabled]):hover:active,
+    &[open] {
+      background-color: var(--zf-fill-subtle-press) !important;
+      color: var(--zf-text-secondary) !important;
+    }
+
+    &[disabled] {
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+
+  /* Firefox's ring, in the accent (tokens/host-bridge.css) */
+  &:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: var(--focus-outline-inset) !important;
+  }
+
+  @media not (prefers-reduced-motion: reduce) {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      color var(--zf-duration-fast) linear !important;
+  }
+}
+
+/* -------- Chevron and other toolbar buttons -------- */
+/* Firefox draws them on the icon box: 16px glyph, padding to the row
+   height, 2px apart. These win over the sidebar's and the Edge style's
+   toolbar button sizes, which reach #zen-appcontent-navbar-container */
+
+#zen-appcontent-navbar-container
+  #PersonalToolbar
+  toolbarbutton.toolbarbutton-1 {
+  --toolbarbutton-padding-inner: calc(
+    (var(--zf-bookmark-height) - 16px) / 2
+  ) !important;
+  --toolbarbutton-padding-outer: 2px !important;
+  --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+
+  align-items: center !important;
+  margin-block: auto !important;
+}
+
+/* The chevron opens the bookmarks that do not fit: a subtle button like
+   them, whatever zen-fluent.button-style gives the other toolbar buttons */
+#zen-appcontent-navbar-container #PersonalToolbar #PlacesChevron {
+  --toolbarbutton-background-color: transparent !important;
+  --toolbarbutton-background-color-hover: var(
+    --zf-fill-subtle-hover
+  ) !important;
+  --toolbarbutton-background-color-active: var(
+    --zf-fill-subtle-press
+  ) !important;
+  --zf-button-stroke: 0 0 transparent !important;
+  --zf-button-stroke-hover: 0 0 transparent !important;
+  --zf-button-stroke-pressed: 0 0 transparent !important;
+
+  color: var(--zf-text-secondary) !important;
+
+  &[open] > .toolbarbutton-icon {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+}
+
+/* -------- Separators: a 16px divider -------- */
+
+#PlacesToolbarItems > toolbarseparator {
+  align-items: center !important;
+  padding: 0 4px !important;
+
+  &::before {
+    height: 16px !important;
+    border-inline-start-color: var(--zf-stroke-divider) !important;
+  }
+}
+
+/* -------- Drop indicator: a 2px accent bar -------- */
+/* Firefox centers it on the drop point from its width (clientWidth / 2) and
+   moves it with a transform. Its holder spans the row, so the bar lines up
+   with the buttons in either strip height */
+
+#PlacesToolbarDropIndicatorHolder {
+  inset-block: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  height: auto !important;
+}
+
+#PlacesToolbarDropIndicator {
+  width: 2px !important;
+  height: var(--zf-bookmark-height) !important;
+  margin: 0 !important;
+  border-radius: 1px !important;
+  background-color: var(--zf-accent) !important;
+  list-style-image: none !important;
+}

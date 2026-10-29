@@ -1,0 +1,456 @@
+/* Zen Fluent: Theme picker (#PanelUI-zen-gradient-generator) with WinUI controls: segmented scheme switch, subtle buttons, Slider colors, custom color list; Zen's geometry kept.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen places the dots in pixels from the panel's corner, offset by its own
+   10px padding, and reads their colors from the pad's size. The panel
+   padding of components/menus/surface.css (4px) moved them 6px off: this
+   panel gets Zen's 10px back, and nothing here resizes or moves the pad,
+   the dots, the swatches, the wave slider or the grain dial. Only Zen's ids
+   and classes are used, so BetterZenGradientPicker can restyle the same
+   panel with its own; its layout properties on Zen's ids are left alone. */
+
+#PanelUI-zen-gradient-generator {
+  --panel-padding: 10px !important;
+
+  /* WinUI Slider thumb ring: ControlSolidFillColorDefault */
+  --zf-picker-thumb: light-dark(#fff, #454545);
+
+  /* Subtle buttons on the pad: 28px, 24px in compact density */
+  --zf-picker-button: calc(var(--zf-size-icon-button) - 4px);
+
+  /* components/menus/surface.css paints every panel in Acrylic, high
+     contrast included, under the system text color: system colors */
+  @media (forced-colors) {
+    --panel-background-color: Menu !important;
+    --panel-text-color: MenuText !important;
+    --panel-border-color: MenuText !important;
+  }
+}
+
+/* -------- Pad -------- */
+/* A card on the flyout, its dot grid in the divider color */
+
+#PanelUI-zen-gradient-generator .zen-theme-picker-gradient {
+  border-radius: var(--zf-radius-control) !important;
+
+  @media not (forced-colors) {
+    background-color: var(--zf-fill-card) !important;
+    background-image: radial-gradient(
+      var(--zf-stroke-divider) 1px,
+      transparent 0
+    ) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+  }
+
+  /* Card elevation under the white ring. Zen draws no shadow here (its
+     query is invalid): a plain declaration, so the glow
+     BetterZenGradientPicker gives hovered dots still shows */
+  & .zen-theme-picker-dot {
+    box-shadow: var(--zf-shadow-card);
+  }
+}
+
+#PanelUI-zen-gradient-generator-color-click-to-add {
+  font: 600 14px / 20px var(--zf-font) !important;
+
+  @media not (forced-colors) {
+    color: var(--zf-text-secondary) !important;
+  }
+}
+
+/* -------- Scheme: a segmented control -------- */
+/* Windows Community Toolkit Segmented: an alt-filled track, the chosen
+   item raised with a 3px accent pill. Zen marks no item: the choice is read
+   from zen.view.window.scheme (2 auto, 1 light, 0 dark) */
+
+#PanelUI-zen-gradient-generator-scheme {
+  /* An item at rest; the chosen one sets its own values below */
+  --zf-segment-fill: transparent;
+  --zf-segment-fill-hover: var(--zf-fill-subtle-hover);
+  --zf-segment-fill-press: var(--zf-fill-subtle-press);
+  --zf-segment-stroke: 0 0 transparent;
+  --zf-segment-pill: transparent;
+
+  /* Zen pins it to the top and the bottom of the pad (with the color
+     actions) and caps its height: the cap follows the items */
+  gap: 2px !important;
+  max-height: calc(var(--zf-picker-button) + 4px) !important;
+  padding: 2px !important;
+  border-radius: calc(var(--zf-radius-control) + 2px) !important;
+
+  @media not (forced-colors) {
+    background-color: var(--zf-fill-control-alt) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+  }
+
+  & > button {
+    position: relative !important;
+
+    @media not (forced-colors) {
+      background-color: var(--zf-segment-fill) !important;
+      box-shadow: var(--zf-segment-stroke) !important;
+
+      &:hover {
+        background-color: var(--zf-segment-fill-hover) !important;
+      }
+
+      &:hover:active {
+        background-color: var(--zf-segment-fill-press) !important;
+      }
+
+      /* The accent pill under the chosen item */
+      &::after {
+        position: absolute;
+        inset-inline: 0;
+        bottom: 1px;
+        width: 12px;
+        height: 3px;
+        margin-inline: auto;
+        border-radius: 1.5px;
+        background-color: var(--zf-segment-pill);
+        content: "";
+      }
+    }
+  }
+}
+
+/* The chosen item: ControlFillColorDefault, raised by its stroke */
+@media (-moz-pref("zen.view.window.scheme", 2)) {
+  #PanelUI-zen-gradient-generator-scheme-auto {
+    --zf-segment-fill: var(--zf-fill-control);
+    --zf-segment-fill-hover: var(--zf-fill-control-hover);
+    --zf-segment-fill-press: var(--zf-fill-control-press);
+    --zf-segment-stroke: var(--zf-elevation-control);
+    --zf-segment-pill: var(--zf-accent);
+  }
+}
+
+@media (-moz-pref("zen.view.window.scheme", 1)) {
+  #PanelUI-zen-gradient-generator-scheme-light {
+    --zf-segment-fill: var(--zf-fill-control);
+    --zf-segment-fill-hover: var(--zf-fill-control-hover);
+    --zf-segment-fill-press: var(--zf-fill-control-press);
+    --zf-segment-stroke: var(--zf-elevation-control);
+    --zf-segment-pill: var(--zf-accent);
+  }
+}
+
+@media (-moz-pref("zen.view.window.scheme", 0)) {
+  #PanelUI-zen-gradient-generator-scheme-dark {
+    --zf-segment-fill: var(--zf-fill-control);
+    --zf-segment-fill-hover: var(--zf-fill-control-hover);
+    --zf-segment-fill-press: var(--zf-fill-control-press);
+    --zf-segment-stroke: var(--zf-elevation-control);
+    --zf-segment-pill: var(--zf-accent);
+  }
+}
+
+/* -------- Subtle buttons -------- */
+/* Scheme items, color actions, page arrows and the custom color buttons:
+   squares of --zf-picker-button with a 16px glyph (Zen: 30px and 18px) */
+
+:is(
+    #PanelUI-zen-gradient-generator-scheme,
+    #PanelUI-zen-gradient-generator-color-actions
+  )
+  > button,
+#PanelUI-zen-gradient-generator-color-page-left,
+#PanelUI-zen-gradient-generator-color-page-right,
+#PanelUI-zen-gradient-generator-color-custom-add,
+#PanelUI-zen-gradient-generator-custom-list
+  .zen-theme-picker-custom-list-item-remove {
+  box-sizing: border-box !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: var(--zf-picker-button) !important;
+  min-width: var(--zf-picker-button) !important;
+  max-width: none !important;
+  height: var(--zf-picker-button) !important;
+  min-height: var(--zf-picker-button) !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: var(--zf-radius-control) !important;
+  opacity: 1 !important;
+
+  & :is(.button-icon, .toolbarbutton-icon) {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+
+  @media not (forced-colors) {
+    color: var(--zf-text-primary) !important;
+    fill: currentcolor !important;
+
+    &:not([disabled]):hover:active {
+      color: var(--zf-text-secondary) !important;
+    }
+
+    &[disabled] {
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+
+  /* On the Menu surface: Zen's own light-dark() glyph colors would follow
+     the window scheme, not the contrast theme */
+  @media (forced-colors) {
+    color: var(--panel-text-color) !important;
+    fill: currentcolor !important;
+
+    &[disabled] {
+      color: GrayText !important;
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: var(--focus-outline-inset) !important;
+  }
+}
+
+/* The scheme items are segments; the others are plain subtle buttons */
+@media not (forced-colors) {
+  #PanelUI-zen-gradient-generator-color-actions > button,
+  #PanelUI-zen-gradient-generator-color-page-left,
+  #PanelUI-zen-gradient-generator-color-page-right,
+  #PanelUI-zen-gradient-generator-color-custom-add,
+  #PanelUI-zen-gradient-generator-custom-list
+    .zen-theme-picker-custom-list-item-remove {
+    background-color: transparent !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+    }
+  }
+}
+
+#PanelUI-zen-gradient-generator-color-actions {
+  gap: 4px !important;
+}
+
+/* -------- Presets: a hairline around each swatch -------- */
+
+#PanelUI-zen-gradient-generator-color-pages > hbox > [data-num-dots] {
+  box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+}
+
+/* -------- Opacity: WinUI Slider colors on Zen's wave -------- */
+/* The filled part of the wave in the accent, the rest in the strong fill;
+   the thumb keeps Zen's size (it grows with the opacity): an accent core in
+   a solid ring. Zen greys the wave out when the controls cannot apply */
+
+#PanelUI-zen-gradient-generator-slider-wave-gradient > stop {
+  stop-color: var(--zf-accent) !important;
+
+  &:last-child {
+    stop-color: var(--zf-stroke-field) !important;
+  }
+}
+
+#PanelUI-zen-gradient-slider-wave::before {
+  background: var(--zf-fill-control-alt-press) !important;
+}
+
+#PanelUI-zen-gradient-generator-opacity::-moz-range-thumb {
+  box-sizing: border-box !important;
+  border: 3px solid var(--zf-picker-thumb) !important;
+  background: var(--zf-accent) !important;
+  box-shadow:
+    0 0 0 1px var(--zf-stroke-control),
+    var(--zf-shadow-tab) !important;
+}
+
+/* -------- Grain dial -------- */
+/* The knob as a raised control, the active ticks and the handle in the
+   accent */
+
+#PanelUI-zen-gradient-generator-texture-wrapper {
+  &::after {
+    border-color: var(--zf-stroke-control) !important;
+
+    @media not (forced-colors) {
+      background: var(--zf-fill-control) !important;
+      box-shadow: var(--zf-shadow-tab) !important;
+    }
+  }
+
+  & .zen-theme-picker-texture-dot {
+    background: var(--zf-stroke-field) !important;
+
+    &.active {
+      background: var(--zf-accent) !important;
+    }
+  }
+
+  & #PanelUI-zen-gradient-generator-texture-handler {
+    background: var(--zf-accent) !important;
+  }
+}
+
+/* -------- Custom colors (zen.theme.gradient.show-custom-colors) -------- */
+
+#zen-theme-picker-color {
+  & > label {
+    margin: 0 0 8px !important;
+    font: 400 14px / 20px var(--zf-font) !important;
+
+    @media not (forced-colors) {
+      color: var(--zf-text-primary) !important;
+    }
+  }
+
+  & > hbox {
+    align-items: center !important;
+    gap: 8px !important;
+  }
+}
+
+/* The color well: a 32px control framing the swatch */
+#PanelUI-zen-gradient-generator-custom-input {
+  box-sizing: border-box !important;
+  height: var(--zf-size-control) !important;
+  padding: 3px !important;
+  border: 1px solid var(--zf-stroke-control) !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  @media not (forced-colors) {
+    background: var(--zf-fill-control) !important;
+
+    &:hover {
+      background: var(--zf-fill-control-hover) !important;
+    }
+  }
+
+  &::-moz-color-swatch {
+    border: none !important;
+    border-radius: calc(var(--zf-radius-control) - 2px) !important;
+  }
+}
+
+/* The opacity field: a TextBox, as in components/dialogs/textbox.css */
+#PanelUI-zen-gradient-generator-custom-opacity {
+  box-sizing: border-box !important;
+  max-width: 64px !important;
+  min-height: var(--zf-size-control) !important;
+  padding: 0 6px 0 10px !important;
+  border-radius: var(--zf-radius-control) !important;
+  font: 400 14px / 20px var(--zf-font) !important;
+
+  @media not (forced-colors) {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    background-color: var(--zf-fill-control) !important;
+    color: var(--zf-text-primary) !important;
+
+    &:hover:not(:focus) {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    &:focus {
+      border-bottom-color: var(--zf-accent) !important;
+      outline: none !important;
+      background-color: var(--zf-page) !important;
+      box-shadow: inset 0 -1px 0 var(--zf-accent) !important;
+    }
+  }
+}
+
+/* As tall as the fields beside it */
+#PanelUI-zen-gradient-generator-color-custom-add {
+  width: var(--zf-size-control) !important;
+  min-width: var(--zf-size-control) !important;
+  height: var(--zf-size-control) !important;
+  min-height: var(--zf-size-control) !important;
+}
+
+/* The list: rows with a 16px swatch, the value, and the remove button
+   shown on hover or keyboard focus */
+#PanelUI-zen-gradient-generator-custom-list {
+  margin-block-start: 8px !important;
+
+  & .zen-theme-picker-custom-list-item {
+    align-items: center !important;
+    gap: 8px !important;
+    min-height: var(--zf-size-menu-item) !important;
+    padding: 0 2px 0 8px !important;
+    border-radius: var(--zf-radius-control) !important;
+
+    @media not (forced-colors) {
+      &:hover {
+        background-color: var(--zf-fill-subtle-hover) !important;
+      }
+    }
+
+    &:not(:hover, :focus-within) .zen-theme-picker-custom-list-item-remove {
+      opacity: 0 !important;
+    }
+  }
+
+  & .zen-theme-picker-custom-list-item .zen-theme-picker-dot.custom {
+    box-sizing: border-box !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  & .zen-theme-picker-custom-list-item-label {
+    font: 400 14px / 20px var(--zf-font) !important;
+
+    @media not (forced-colors) {
+      color: var(--zf-text-primary) !important;
+    }
+  }
+
+  /* Zen pushes it to the end with an auto margin */
+  & .zen-theme-picker-custom-list-item-remove {
+    margin-inline-start: auto !important;
+  }
+}
+
+/* -------- Motion -------- */
+
+/* Zen eases every property of XUL buttons over 0.1s: fills and text only,
+   at WinUI's fast duration (the remove button also fades in) */
+@media not (prefers-reduced-motion: reduce) {
+  :is(
+      #PanelUI-zen-gradient-generator-scheme,
+      #PanelUI-zen-gradient-generator-color-actions
+    )
+    > button,
+  #PanelUI-zen-gradient-generator-color-page-left,
+  #PanelUI-zen-gradient-generator-color-page-right,
+  #PanelUI-zen-gradient-generator-color-custom-add,
+  #PanelUI-zen-gradient-generator-custom-list
+    .zen-theme-picker-custom-list-item {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      color var(--zf-duration-fast) linear !important;
+  }
+
+  #PanelUI-zen-gradient-generator-custom-list
+    .zen-theme-picker-custom-list-item-remove {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      color var(--zf-duration-fast) linear,
+      opacity var(--zf-duration-fast) linear !important;
+  }
+}
+
+/* Zen scales the swatches, dots and thumb on hover over 0.1 to 0.5s */
+@media (prefers-reduced-motion: reduce) {
+  #PanelUI-zen-gradient-generator {
+    & :is([data-num-dots], .zen-theme-picker-dot, button, toolbarbutton),
+    & #PanelUI-zen-gradient-generator-opacity::-moz-range-thumb {
+      transition: none !important;
+    }
+  }
+}

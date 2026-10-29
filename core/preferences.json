@@ -336,7 +336,7 @@
   },
   {
     "property": "zen-fluent.ui.open-window",
-    "label": "Window and menus ~Caption buttons, loading bar, icons, menus, scrolling~",
+    "label": "Window and menus ~Caption buttons, bookmarks, loading bar, icons, menus~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -353,6 +353,12 @@
       { "label": "Rounded, accent color", "value": "rounded-accent" },
       { "label": "Short", "value": "short" }
     ]
+  },
+  {
+    "property": "zen-fluent.bookmarks-autohide",
+    "label": "Auto-hide the bookmarks toolbar ~shown while the pointer is over the toolbar~",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.loading-bar",

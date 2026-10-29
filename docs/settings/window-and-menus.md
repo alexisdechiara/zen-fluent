@@ -1,12 +1,13 @@
 # Window and menus
 
-Caption buttons, loading bar, icons, menus, scrolling.
+Caption buttons, bookmarks toolbar, loading bar, icons, menus, scrolling.
 
 Group header: `zen-fluent.ui.open-window` (open by default: `false`).
 
 | Setting                                                                             | Preference                               | Values                                                                                                 | Default     |
 | ----------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------- |
 | Caption buttons                                                                     | `zen-fluent.titlebar-style`              | `windows11` Windows 11<br>`rounded` Rounded<br>`rounded-accent` Rounded, accent color<br>`short` Short | `windows11` |
+| Auto-hide the bookmarks toolbar (shown while the pointer is over the toolbar)       | `zen-fluent.bookmarks-autohide`          | `true` / `false`                                                                                       | `false`     |
 | Page loading bar (while a page loads, with Zen’s loading indicator on)              | `zen-fluent.loading-bar`                 | `winui` WinUI ProgressBar (top of the page)<br>`zen` Zen’s indicator                                   | `winui`     |
 | Fluent icons (uncheck to get Zen's icons back)                                      | `zen-fluent.fluent-icons`                | `true` / `false`                                                                                       | `true`      |
 | Allow the mod's icons (check it: without this Firefox setting, Zen keeps its icons) | `svg.context-properties.content.enabled` | `true` / `false`                                                                                       | `true`      |
@@ -20,6 +21,12 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
 
 - **Caption buttons**, "Rounded, accent color": the glyph only takes the accent
   on hover and press.
+- **Auto-hide the bookmarks toolbar**: when the bookmarks toolbar is shown
+  (`browser.toolbars.bookmarks.visibility`), it takes no height until the
+  pointer is over the toolbar area, the keyboard is in it (F6, Tab), one of its
+  menus is open, or a link is dragged over it. It slides in at WinUI’s normal
+  duration, without motion when reduced motion is on, and comes in with the
+  toolbar in compact mode.
 - **Page loading bar**: a WinUI indeterminate ProgressBar (3 px, two accent
   indicators on a 2 s loop) along the top edge of the page, clipped by its
   corners; in split view, on the selected pane. It shows while Zen’s
