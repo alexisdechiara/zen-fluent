@@ -4,8 +4,8 @@
 @-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
   url-prefix("about:config") {
   /* ------------------------------ SINE ------------------------------ */
-  /* The mod list and the settings dialog, after the design's "Réglages du
-     skin dans Sine": one card, group headers on a layer, divided rows,
+  /* The mod list and the settings dialog, after the design's Sine
+     settings board: one card, group headers on a layer, divided rows,
      ToggleSwitches and 32px ComboBoxes. */
 
   .sineItem {

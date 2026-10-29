@@ -157,7 +157,7 @@
       }
     }
 
-    /* "Afficher tous les réglages": a plain row above the cards */
+    /* "Show all settings": a plain row above the cards */
     & > #zen-fluent-ui-expand-all {
       min-height: 40px !important;
       margin-bottom: 8px !important;
