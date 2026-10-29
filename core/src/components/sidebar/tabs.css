@@ -88,13 +88,3 @@
     }
   }
 }
-
-@keyframes zf-pill-in {
-  from {
-    transform: scaleY(0);
-  }
-
-  to {
-    transform: scaleY(1);
-  }
-}

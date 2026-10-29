@@ -17,23 +17,33 @@
 @import url("src/tokens/forced-colors.css");
 
 /* about: pages, Zen and Sine settings */
-@import url("src/content/newtab.css");
-@import url("src/content/preferences/tokens.css");
-@import url("src/content/preferences/components.css");
-@import url("src/content/preferences/base.css");
-@import url("src/content/sine/dialog.css");
+@import url("src/content/newtab.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/preferences/tokens.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/preferences/components.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/preferences/base.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/sine/dialog.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/sine/settings-groups.css");
 @import url("src/content/sine/group-icons.css");
 @import url("src/content/sine/group-animation.css");
-@import url("src/content/zen-settings.css");
-@import url("src/content/toggle-switches.css");
+@import url("src/content/zen-settings.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/toggle-switches.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/accent-selection.css");
 @import url("src/content/thin-scrollbars-web.css");
 
 /* Dialogs of about:preferences */
-@import url("src/content/preferences-dialogs.css");
-@import url("src/a11y/forced-colors-content.css");
+@import url("src/content/preferences-dialogs.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/a11y/forced-colors-content.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/a11y/reduced-motion-content.css");
-@import url("src/a11y/focus-ring-content.css");
+@import url("src/a11y/focus-ring-content.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
 
 /* Add your own CSS below. */

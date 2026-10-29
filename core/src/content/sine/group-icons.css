@@ -39,6 +39,10 @@
       content: "\E768";
     }
 
+    #zen-fluent-ui-open-zones::after {
+      content: "\E8A9";
+    }
+
     #zen-fluent-ui-open-zen::after {
       content: "\E713";
     }

@@ -139,3 +139,15 @@
     translate: none;
   }
 }
+
+/* Selected-item pill entrance (tabs, Firefox sidebar): here, always on, so it
+   outlives the Sidebar zone */
+@keyframes zf-pill-in {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}

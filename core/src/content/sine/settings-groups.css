@@ -42,6 +42,11 @@
         [id^="zen-fluent-ui-open-"],
         #zen-fluent-ui-open-animations ~ [id^="zen-fluent-ui-open-"] ~ *
       ),
+    #zen-fluent-ui-open-zones:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-zones ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
     #zen-fluent-ui-open-zen:not(:has(> checkbox[checked]))
       ~ :not(
         [id^="zen-fluent-ui-open-"],
@@ -87,6 +92,10 @@
 
     /* Expander header: a SettingsCard with a chevron */
     & > [id^="zen-fluent-ui-open-"] {
+      /* Icon, title, chevron: also with the Settings and internal pages
+         zone off, which takes away toggle-switches.css and dialog.css */
+      flex-direction: row-reverse !important;
+      align-items: center !important;
       min-height: 68px !important;
       margin: 4px 0 0 !important;
       padding: 16px 4px 16px 16px !important;
@@ -116,6 +125,8 @@
       }
 
       & > .sineItemPreferenceLabel {
+        flex: 1;
+        margin: 0 !important;
         font-size: 14px;
         line-height: 20px;
       }
@@ -225,6 +236,13 @@
 
     @media not (-moz-pref("zen-fluent.acrylic-blur", "custom")) {
       & > #zen-fluent-acrylic-blur-custom {
+        display: none !important;
+      }
+    }
+
+    /* The Firefox setting the Fluent icons need, without them */
+    @media not (-moz-pref("zen-fluent.fluent-icons")) {
+      & > #svg-context-properties-content-enabled {
         display: none !important;
       }
     }

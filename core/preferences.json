@@ -439,18 +439,6 @@
     ]
   },
   {
-    "property": "zen-fluent.fluent-icons",
-    "label": "Fluent icons ~uncheck to get Zen's icons back~",
-    "type": "checkbox",
-    "defaultValue": true
-  },
-  {
-    "property": "svg.context-properties.content.enabled",
-    "label": "Allow the mod's icons ~check it: without this Firefox setting, Zen keeps its icons~",
-    "type": "checkbox",
-    "defaultValue": true
-  },
-  {
     "property": "zen-fluent.mac-back-forward",
     "label": "macOS-style arrows",
     "type": "checkbox",
@@ -548,6 +536,104 @@
   {
     "property": "zen-fluent.animated-icons",
     "label": "Animated icons ~Fluent icons: arrows, Reload, New, Library, Settings, folders~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.ui.open-zones",
+    "label": "Zones ~Fluent style area by area: uncheck one to keep Zen's look there~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.fluent-window",
+    "label": "Window ~backdrop tint, page card, caption buttons, page loading bar~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-sidebar",
+    "label": "Sidebar ~tabs, folders, Essentials, spaces, toolbar buttons, extensions~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-urlbar",
+    "label": "URL bar ~field, buttons, suggestions~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-menus",
+    "label": "Menus and panels ~menus, site panels, downloads, tooltips, tab preview~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-notifications",
+    "label": "Notifications ~notification bars, permission prompts, toasts~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-findbar",
+    "label": "Find bar",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-library",
+    "label": "Library ~the Library, its button, the downloads stack~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-media",
+    "label": "Media ~media card, Picture-in-Picture~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-split-glance",
+    "label": "Split view and Glance",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-dialogs",
+    "label": "Dialogs ~prompts, window dialogs, print~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-firefox-sidebar",
+    "label": "Firefox sidebar ~bookmarks, history, synced tabs (Ctrl+B)~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-screens",
+    "label": "Zen screens ~space creation, theme picker, Ctrl+Tab, bookmarks toolbar~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.fluent-icons",
+    "label": "Fluent icons ~uncheck to get Zen's icons back~",
+    "type": "checkbox",
+    "defaultValue": true,
+    "_note": "MOVED, not new: delete this object from its current place (after zen-fluent.loading-bar, Window and menus group); unchanged otherwise. Drop this _note key."
+  },
+  {
+    "property": "svg.context-properties.content.enabled",
+    "label": "Allow the mod's icons ~check it: without this Firefox setting, Zen keeps its icons~",
+    "type": "checkbox",
+    "defaultValue": true,
+    "_note": "MOVED, not new: delete this object from its current place (after zen-fluent.fluent-icons in Window and menus); unchanged otherwise. Drop this _note key."
+  },
+  {
+    "property": "zen-fluent.fluent-content",
+    "label": "Settings and internal pages ~Zen settings, add-ons, about:config, new tab~",
     "type": "checkbox",
     "defaultValue": true
   },

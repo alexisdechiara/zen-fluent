@@ -23,6 +23,8 @@ Built for Zen 1.23 (tested with 1.23.4b on Windows 11 and Linux):
 - internal pages: `about:preferences` (Zen's and Sine's panes, the mod's own
   settings), `about:addons`, `about:config`, the new tab page.
 
+Each area can keep Zen’s look instead: [Zones](settings/zones.md).
+
 Colors are `light-dark()` pairs: light or dark follows `zen.view.window.scheme`.
 The accent is derived with `color-mix()` (+45 % white in dark, +15 % black in
 light).

@@ -103,8 +103,6 @@ group in [docs/settings/](docs/settings/).
 | [Window and menus](docs/settings/window-and-menus.md) | Caption buttons                                  | `zen-fluent.titlebar-style`                                                 | `windows11`        |
 |                                                       | Auto-hide the bookmarks toolbar                  | `zen-fluent.bookmarks-autohide`                                             | `false`            |
 |                                                       | Page loading bar                                 | `zen-fluent.loading-bar`                                                    | `winui`            |
-|                                                       | Fluent icons                                     | `zen-fluent.fluent-icons`                                                   | `true`             |
-|                                                       | Allow the mod's icons                            | `svg.context-properties.content.enabled`                                    | `true`             |
 |                                                       | macOS-style arrows                               | `zen-fluent.mac-back-forward`                                               | `false`            |
 |                                                       | Back / Forward in the context menu               | `zen-fluent.context-navigation`                                             | `icons`            |
 |                                                       | Hide menu shortcuts                              | `zen-fluent.hide-shortcuts`                                                 | `false`            |
@@ -116,6 +114,21 @@ group in [docs/settings/](docs/settings/).
 |                                                       | WinUI 3 button animations                        | `zen-fluent.button-animations`                                              | `true`             |
 |                                                       | Back / Forward arrow bounce                      | `zen-fluent.nav-bounce`                                                     | `false`            |
 |                                                       | Animated icons                                   | `zen-fluent.animated-icons`                                                 | `true`             |
+| [Zones](docs/settings/zones.md)                       | Window                                           | `zen-fluent.fluent-window`                                                  | `true`             |
+|                                                       | Sidebar                                          | `zen-fluent.fluent-sidebar`                                                 | `true`             |
+|                                                       | URL bar                                          | `zen-fluent.fluent-urlbar`                                                  | `true`             |
+|                                                       | Menus and panels                                 | `zen-fluent.fluent-menus`                                                   | `true`             |
+|                                                       | Notifications                                    | `zen-fluent.fluent-notifications`                                           | `true`             |
+|                                                       | Find bar                                         | `zen-fluent.fluent-findbar`                                                 | `true`             |
+|                                                       | Library                                          | `zen-fluent.fluent-library`                                                 | `true`             |
+|                                                       | Media                                            | `zen-fluent.fluent-media`                                                   | `true`             |
+|                                                       | Split view and Glance                            | `zen-fluent.fluent-split-glance`                                            | `true`             |
+|                                                       | Dialogs                                          | `zen-fluent.fluent-dialogs`                                                 | `true`             |
+|                                                       | Firefox sidebar                                  | `zen-fluent.fluent-firefox-sidebar`                                         | `true`             |
+|                                                       | Zen screens                                      | `zen-fluent.fluent-screens`                                                 | `true`             |
+|                                                       | Fluent icons                                     | `zen-fluent.fluent-icons`                                                   | `true`             |
+|                                                       | Allow the mod's icons                            | `svg.context-properties.content.enabled`                                    | `true`             |
+|                                                       | Settings and internal pages                      | `zen-fluent.fluent-content`                                                 | `true`             |
 | [Zen settings](docs/settings/zen-settings.md)         | Floating URL bar                                 | `zen.urlbar.behavior`                                                       | `floating-on-type` |
 |                                                       | New tab in the floating URL bar                  | `zen.urlbar.replace-newtab`                                                 | `true`             |
 |                                                       | Copy link button                                 | `zen.urlbar.single-toolbar-show-copy-url`                                   | `true`             |

@@ -24,6 +24,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - The split view header and Glance buttons no longer blur without hardware acceleration (`zen-no-acrylic`) or with reduced transparency, where they already took the solid Acrylic color.
 - Firefox's own focus rings take the WinUI outer ring color (near-black / white) instead of the accent. The focused field border and the tab drag-over outline keep the accent.
 - Reduced motion now also stops the selected tab pill's entrance, the settings groups' chevron, the knob slide of the settings' ToggleSwitches and the media card thumb's hover growth.
+- **Fluent icons** and **Allow the mod's icons** moved from Window and menus to the Zones group. Allow the mod's icons is hidden while Fluent icons is off.
+- The mod's settings group headers keep their icon, title and chevron layout on their own, even when Settings and internal pages is off.
 
 ### Added
 
@@ -58,6 +60,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Acrylic blur (`zen-fluent.acrylic-blur`, default `auto`, 20 px): none, light (10 px), strong (30 px, WinUI's AcrylicBrush) or a custom radius (`zen-fluent.acrylic-blur-custom`) for the split view header and Glance buttons, through one token, `--zf-acrylic-blur` (`core/src/tokens/acrylic-blur.css`).
 - WinUI focus visual on keyboard focus: a 2 px outer ring (FocusStrokeColorOuter) around a 1 px inner ring (FocusStrokeColorInner), drawn as outline plus box-shadow so nothing moves. Covers toolbar buttons, tabs, URL bar buttons, menu and panel items, buttons, checkboxes, lists, dialogs and prompts, the find bar, notification bars, and Sine's and Zen's settings. Never on a click. Text fields and the URL bar keep their accent line.
 - Contrast themes (forced colors): every color token maps to a system color (core/src/tokens/forced-colors.css), because Firefox forces nothing in the browser window nor in a user sheet. Each zone gets visible edges, hover outlines, a Highlight accent and a single Highlight focus ring (core/src/a11y/).
+- Zones group: the Fluent style can be turned off area by area (`zen-fluent.fluent-window`, `-sidebar`, `-urlbar`, `-menus`, `-notifications`, `-findbar`, `-library`, `-media`, `-split-glance`, `-dialogs`, `-firefox-sidebar`, `-screens`, `-content`, all on by default). An unchecked area keeps Zen's look, live and without a restart: its files are imported under `not (-moz-pref("zen-fluent.fluent-<zone>", false))`. Tokens, the font, the corner shape, scrollbars, button animations and the settings groups stay on (docs/settings/zones.md).
 
 ### Removed
 

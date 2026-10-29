@@ -45,6 +45,10 @@ points by name: no file under `src/` may end in `chrome.css` or
   every `!important` in the file; add a comment only when `!important` is there
   for another reason.
 
+- **Zones**: the import of a zone’s file in `core/chrome.css` (or
+  `core/userContent.css`) carries `not (-moz-pref("zen-fluent.fluent-<zone>", false))`;
+  tokens, base plumbing and global options are imported without a condition
+  ([zones](settings/zones.md)). Prettier wraps a conditioned import.
 - **Compat rules**: one file per mod in `core/src/compat/`, imported last.
   They only match what the mod adds and need no setting.
 - **Names**: preferences `zen-fluent.*` (Enhanced: `zen-fluent.enhanced.*`),

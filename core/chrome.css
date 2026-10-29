@@ -22,247 +22,440 @@
 @import url("src/base/typography.css");
 @import url("src/base/corner-shape.css");
 @import url("src/tokens/window-background.css");
-@import url("src/base/window-background.css");
-@import url("src/base/page-card.css");
-@import url("src/features/corners-winui/page-card.css");
-@import url("src/features/style-edge/page-card.css");
-@import url("src/features/compact-sidebar-bg.css");
-@import url("src/base/compact-mode.css");
+@import url("src/base/window-background.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/base/page-card.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/features/corners-winui/page-card.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/features/style-edge/page-card.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/features/compact-sidebar-bg.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/base/compact-mode.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
 @import url("src/features/acrylic-noise.css");
 @import url("src/features/accent-selection-browser.css");
-@import url("src/features/loading-bar.css");
+@import url("src/features/loading-bar.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
 
 /* Sidebar: tabs, folders, Essentials, spaces, buttons */
-@import url("src/components/sidebar/tabs.css");
-@import url("src/features/style-edge/tabs.css");
-@import url("src/features/tab-bold.css");
-@import url("src/features/dim-unloaded-tabs.css");
-@import url("src/features/container-tabs.css");
-@import url("src/components/sidebar/tab-close-button.css");
-@import url("src/features/collapsed-tab-close.css");
-@import url("src/features/tab-close-button.css");
-@import url("src/components/sidebar/new-tab.css");
-@import url("src/components/sidebar/folders.css");
-@import url("src/features/empty-folder-hint.css");
-@import url("src/components/sidebar/essentials.css");
-@import url("src/features/style-edge/essentials.css");
-@import url("src/features/essentials-gray.css");
-@import url("src/features/essentials-per-row.css");
-@import url("src/features/sound-bars.css");
-@import url("src/components/sidebar/workspace-indicator.css");
-@import url("src/features/workspace-indicator.css");
-@import url("src/components/sidebar/workspace-buttons.css");
-@import url("src/features/compact-edge-hint.css");
-@import url("src/components/sidebar/toolbar-buttons.css");
-@import url("src/features/style-edge/toolbar-buttons.css");
-@import url("src/features/button-style.css");
-@import url("src/features/hide-forward-disabled.css");
-@import url("src/components/sidebar/collapsed.css");
-@import url("src/components/workspace-creation.css");
+@import url("src/components/sidebar/tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/style-edge/tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/tab-bold.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/dim-unloaded-tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/container-tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/tab-close-button.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/collapsed-tab-close.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/tab-close-button.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/new-tab.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/folders.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/empty-folder-hint.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/essentials.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/style-edge/essentials.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-gray.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-per-row.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/sound-bars.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/workspace-indicator.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/workspace-indicator.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/workspace-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/compact-edge-hint.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/toolbar-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/style-edge/toolbar-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/button-style.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/hide-forward-disabled.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/collapsed.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/workspace-creation.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
 
 /* Pinned extensions */
-@import url("src/features/pinned-extensions.css");
-@import url("src/a11y/forced-colors-sidebar.css");
+@import url("src/features/pinned-extensions.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/a11y/forced-colors-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 
 /* URL bar */
 @import url("src/tokens/urlbar.css");
 @import url("src/tokens/urlbar-edge.css");
 @import url("src/tokens/url-underline.css");
-@import url("src/components/urlbar/rest.css");
-@import url("src/features/style-edge/urlbar.css");
-@import url("src/features/url-style/textbox.css");
-@import url("src/features/url-style/transparent.css");
-@import url("src/components/urlbar/buttons.css");
-@import url("src/components/urlbar/open.css");
-@import url("src/components/urlbar/accent-line.css");
-@import url("src/features/url-underline.css");
-@import url("src/components/urlbar/results.css");
-@import url("src/features/url-style/pill.css");
-@import url("src/features/url-centered.css");
-@import url("src/features/url-hide-zoom.css");
-@import url("src/features/url-hide-permissions.css");
-@import url("src/components/urlbar/multiple-toolbars.css");
-@import url("src/components/urlbar/smoke.css");
-@import url("src/features/animations/urlbar-smoke.css");
-@import url("src/a11y/forced-colors-urlbar.css");
+@import url("src/components/urlbar/rest.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/style-edge/urlbar.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-style/textbox.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-style/transparent.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/buttons.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/open.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/accent-line.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-underline.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/results.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-style/pill.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-centered.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-hide-zoom.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/url-hide-permissions.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/multiple-toolbars.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/smoke.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/animations/urlbar-smoke.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/a11y/forced-colors-urlbar.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
 
 /* Bookmarks toolbar */
-@import url("src/components/bookmarks-toolbar.css");
-@import url("src/features/bookmarks-autohide.css");
+@import url("src/components/bookmarks-toolbar.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
+@import url("src/features/bookmarks-autohide.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
 
 /* Split view and Glance */
-@import url("src/components/split-view/panes.css");
-@import url("src/components/split-view/header.css");
-@import url("src/components/glance.css");
-@import url("src/a11y/forced-colors-split-glance.css");
+@import url("src/components/split-view/panes.css") not
+  (-moz-pref("zen-fluent.fluent-split-glance", false));
+@import url("src/components/split-view/header.css") not
+  (-moz-pref("zen-fluent.fluent-split-glance", false));
+@import url("src/components/glance.css") not
+  (-moz-pref("zen-fluent.fluent-split-glance", false));
+@import url("src/a11y/forced-colors-split-glance.css") not
+  (-moz-pref("zen-fluent.fluent-split-glance", false));
 
 /* Media card and Picture-in-Picture */
-@import url("src/components/media/card.css");
-@import url("src/components/media/progress-bar.css");
-@import url("src/components/media/picture-in-picture.css");
-@import url("src/a11y/forced-colors-media.css");
+@import url("src/components/media/card.css") not
+  (-moz-pref("zen-fluent.fluent-media", false));
+@import url("src/components/media/progress-bar.css") not
+  (-moz-pref("zen-fluent.fluent-media", false));
+@import url("src/components/media/picture-in-picture.css") not
+  (-moz-pref("zen-fluent.fluent-media", false));
+@import url("src/a11y/forced-colors-media.css") not
+  (-moz-pref("zen-fluent.fluent-media", false));
 
 /* Library */
-@import url("src/components/library/surface.css");
-@import url("src/components/library/compact-mode.css");
-@import url("src/components/library/navigation.css");
-@import url("src/components/library/search-filters.css");
-@import url("src/components/library/rows.css");
-@import url("src/components/library/history.css");
-@import url("src/components/library/cards.css");
-@import url("src/components/library/button.css");
-@import url("src/components/library/download-stack.css");
-@import url("src/a11y/forced-colors-library.css");
+@import url("src/components/library/surface.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/compact-mode.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/navigation.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/search-filters.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/rows.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/history.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/cards.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/button.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/components/library/download-stack.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/a11y/forced-colors-library.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
 
 /* Menus and panels */
-@import url("src/components/menus/metrics.css");
-@import url("src/components/menus/surface.css");
-@import url("src/features/extra-highlights/menus.css");
-@import url("src/components/menus/flyout-shadow.css");
-@import url("src/components/menus/rows.css");
-@import url("src/features/style-edge/menus.css");
-@import url("src/components/menus/separators.css");
-@import url("src/components/menus/subviews.css");
-@import url("src/features/hide-shortcuts.css");
-@import url("src/features/hide-access-keys.css");
-@import url("src/features/context-navigation/list.css");
-@import url("src/features/context-navigation/commandbar.css");
-@import url("src/components/menus/ctrl-tab-and-status.css");
-@import url("src/components/menus/ctrl-tab.css");
+@import url("src/components/menus/metrics.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/surface.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/extra-highlights/menus.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/flyout-shadow.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/rows.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/style-edge/menus.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/separators.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/subviews.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/hide-shortcuts.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/hide-access-keys.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/context-navigation/list.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/context-navigation/commandbar.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/ctrl-tab-and-status.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/menus/ctrl-tab.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
 
 /* Scrollbars */
 @import url("src/components/scrollbars.css");
 
 /* Find bar */
-@import url("src/components/findbar/strip.css");
-@import url("src/components/findbar/glance.css");
-@import url("src/components/findbar/layout.css");
-@import url("src/components/findbar/textbox.css");
-@import url("src/components/findbar/buttons.css");
-@import url("src/components/findbar/checkboxes.css");
-@import url("src/components/findbar/labels.css");
-@import url("src/components/findbar/motion.css");
-@import url("src/a11y/forced-colors-findbar.css");
+@import url("src/components/findbar/strip.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/glance.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/layout.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/textbox.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/buttons.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/checkboxes.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/labels.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/components/findbar/motion.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
+@import url("src/a11y/forced-colors-findbar.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
 
 /* Tooltips */
-@import url("src/components/tooltips/box.css");
-@import url("src/components/tooltips/text.css");
-@import url("src/components/tooltips/color-scheme.css");
+@import url("src/components/tooltips/box.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tooltips/text.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tooltips/color-scheme.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 
 /* Tab preview */
-@import url("src/components/tab-preview/surface.css");
-@import url("src/components/tab-preview/layout.css");
-@import url("src/components/tab-preview/text.css");
-@import url("src/components/tab-preview/container-pill.css");
-@import url("src/components/tab-preview/thumbnail.css");
-@import url("src/features/style-edge/tab-preview.css");
-@import url("src/components/tab-preview/motion.css");
+@import url("src/components/tab-preview/surface.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tab-preview/layout.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tab-preview/text.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tab-preview/container-pill.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tab-preview/thumbnail.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/style-edge/tab-preview.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/tab-preview/motion.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 
 /* Site panels, permissions, downloads */
-@import url("src/components/panels/shared-flyouts.css");
-@import url("src/components/panels/site-panel-quick-actions.css");
-@import url("src/components/panels/site-panel-sections.css");
-@import url("src/components/panels/site-panel-extensions.css");
-@import url("src/components/panels/site-panel-settings.css");
-@import url("src/components/panels/site-panel-toggle-switch.css");
-@import url("src/components/panels/site-panel-boost-editor.css");
-@import url("src/components/panels/site-panel-footer.css");
-@import url("src/components/panels/site-panel-anchor.css");
-@import url("src/components/panels/connection-info.css");
-@import url("src/components/panels/permissions.css");
-@import url("src/components/panels/protections.css");
-@import url("src/components/panels/protections-trackers.css");
-@import url("src/components/panels/downloads.css");
-@import url("src/components/panels/downloads-rows.css");
-@import url("src/components/panels/downloads-progress.css");
-@import url("src/components/panels/downloads-summary.css");
-@import url("src/components/panels/downloads-blocked.css");
-@import url("src/components/panels/extensions-panel.css");
-@import url("src/components/panels/controls-buttons.css");
-@import url("src/components/panels/controls-combobox.css");
-@import url("src/components/panels/controls-chips.css");
-@import url("src/components/panels/controls-infobars.css");
-@import url("src/components/panels/site-panel-switch-motion.css");
-@import url("src/a11y/forced-colors-menus.css");
-@import url("src/components/panels/gradient-picker.css");
-@import url("src/a11y/forced-colors-screens.css");
+@import url("src/components/panels/shared-flyouts.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-quick-actions.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-sections.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-extensions.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-settings.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-toggle-switch.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-boost-editor.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-footer.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-anchor.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/panels/connection-info.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/permissions.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/protections.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/protections-trackers.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/downloads.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/downloads-rows.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/downloads-progress.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/downloads-summary.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/downloads-blocked.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/extensions-panel.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/controls-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/controls-combobox.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/controls-chips.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/controls-infobars.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/site-panel-switch-motion.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/a11y/forced-colors-menus.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/gradient-picker.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
+@import url("src/a11y/forced-colors-screens.css") not
+  (-moz-pref("zen-fluent.fluent-screens", false));
 
 /* Notifications */
-@import url("src/components/notifications/infobar-severity.css");
-@import url("src/components/notifications/infobar-surface.css");
-@import url("src/components/notifications/infobar-layout.css");
-@import url("src/components/notifications/infobar-icon.css");
-@import url("src/components/notifications/infobar-buttons.css");
-@import url("src/components/notifications/prompt-layout.css");
-@import url("src/components/notifications/prompt-checkbox.css");
-@import url("src/components/notifications/prompt-buttons.css");
-@import url("src/components/notifications/toast.css");
+@import url("src/components/notifications/infobar-severity.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/infobar-surface.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/infobar-layout.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/infobar-icon.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/infobar-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/prompt-layout.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/prompt-checkbox.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/prompt-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/toast.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
 
 /* Dialogs */
-@import url("src/components/dialogs/smoke.css");
-@import url("src/components/dialogs/card.css");
-@import url("src/components/dialogs/entrance.css");
-@import url("src/components/dialogs/documents.css");
-@import url("src/components/dialogs/document-colors.css");
-@import url("src/components/dialogs/content.css");
-@import url("src/components/dialogs/buttons.css");
-@import url("src/components/dialogs/titles.css");
-@import url("src/components/dialogs/body-text.css");
-@import url("src/components/dialogs/prompts.css");
-@import url("src/components/dialogs/zen-share.css");
-@import url("src/components/dialogs/textbox.css");
-@import url("src/components/dialogs/checkbox.css");
-@import url("src/components/dialogs/select-prompt.css");
-@import url("src/components/dialogs/print.css");
-@import url("src/a11y/forced-colors-dialogs.css");
+@import url("src/components/dialogs/smoke.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/card.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/entrance.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/documents.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/document-colors.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/content.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/buttons.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/titles.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/body-text.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/prompts.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/zen-share.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/textbox.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/checkbox.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/select-prompt.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/components/dialogs/print.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/a11y/forced-colors-dialogs.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
 
 /* Firefox sidebar */
-@import url("src/components/firefox-sidebar/panel.css");
-@import url("src/features/corners-winui/firefox-sidebar.css");
-@import url("src/components/firefox-sidebar/splitter.css");
-@import url("src/components/firefox-sidebar/compact-edge-hint.css");
-@import url("src/components/firefox-sidebar/header.css");
-@import url("src/components/firefox-sidebar/pages.css");
-@import url("src/components/firefox-sidebar/places-tree.css");
-@import url("src/components/firefox-sidebar/synced-tabs.css");
-@import url("src/components/firefox-sidebar/passwords.css");
-@import url("src/a11y/forced-colors-firefox-sidebar.css");
+@import url("src/components/firefox-sidebar/panel.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/features/corners-winui/firefox-sidebar.css")
+  (not (-moz-pref("zen-fluent.fluent-window", false))) and
+  (not (-moz-pref("zen-fluent.fluent-firefox-sidebar", false)));
+@import url("src/components/firefox-sidebar/splitter.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/components/firefox-sidebar/compact-edge-hint.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/firefox-sidebar/header.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/components/firefox-sidebar/pages.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/components/firefox-sidebar/places-tree.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/components/firefox-sidebar/synced-tabs.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/components/firefox-sidebar/passwords.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/a11y/forced-colors-firefox-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
 
 /* Caption buttons */
-@import url("src/components/window/caption-buttons.css");
-@import url("src/a11y/forced-colors-window.css");
+@import url("src/components/window/caption-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/a11y/forced-colors-window.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
 
 /* Fluent icons */
-@import url("src/components/panels/protections-icons.css");
-@import url("src/features/fluent-icons/navigation.css");
-@import url("src/features/fluent-icons/sidebar.css");
-@import url("src/features/fluent-icons/urlbar.css");
-@import url("src/features/fluent-icons/glance-split.css");
-@import url("src/features/fluent-icons/media.css");
-@import url("src/features/fluent-icons/library.css");
-@import url("src/features/fluent-icons/app-menu.css");
-@import url("src/features/fluent-icons/protections.css");
-@import url("src/features/fluent-icons/firefox-sidebar.css");
-@import url("src/features/fluent-icons/workspaces.css");
-@import url("src/features/fluent-icons/folders.css");
+@import url("src/components/panels/protections-icons.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/fluent-icons/navigation.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/urlbar.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/glance-split.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/media.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/library.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/app-menu.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/protections.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/firefox-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/workspaces.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/features/fluent-icons/folders.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
 
 /* Animations */
-@import url("src/features/animations/tab-switch-animation.css");
-@import url("src/features/animations/urlbar-animation.css");
-@import url("src/features/animations/menu-animation.css");
+@import url("src/features/animations/tab-switch-animation.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/features/animations/urlbar-animation.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/animations/menu-animation.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/animations/button-animations.css");
-@import url("src/features/animations/nav-bounce.css");
-@import url("src/features/animations/animated-icons.css");
-@import url("src/components/toggle-switch-motion.css");
+@import url("src/features/animations/nav-bounce.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/animations/animated-icons.css") not
+  (-moz-pref("zen-fluent.fluent-icons", false));
+@import url("src/components/toggle-switch-motion.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/animations/keyframes.css");
 @import url("src/a11y/reduced-motion.css");
 @import url("src/base/focus-ring.css");
 
 /* Compatibility with third-party mods (docs/compatibility.md) */
-@import url("src/compat/advanced-tab-groups.css");
-@import url("src/compat/zen-library-tweaks.css");
-@import url("src/compat/second-sidebar.css");
-@import url("src/compat/command-palette.css");
-@import url("src/compat/calmer-context-menu.css");
+@import url("src/compat/advanced-tab-groups.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/compat/zen-library-tweaks.css") not
+  (-moz-pref("zen-fluent.fluent-library", false));
+@import url("src/compat/second-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/compat/command-palette.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/compat/calmer-context-menu.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 
 /* Add your own CSS below. */
