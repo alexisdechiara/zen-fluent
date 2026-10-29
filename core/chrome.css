@@ -52,6 +52,7 @@
 @import url("src/features/style-edge/toolbar-buttons.css");
 @import url("src/features/button-style.css");
 @import url("src/features/hide-forward-disabled.css");
+@import url("src/components/sidebar/collapsed.css");
 
 /* Pinned extensions */
 @import url("src/features/pinned-extensions.css");

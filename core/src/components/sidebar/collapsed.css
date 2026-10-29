@@ -1,0 +1,222 @@
+/* Zen Fluent: Collapsed sidebar (icons only) as a WinUI NavigationView compact pane.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* zen.view.sidebar-expanded = false: Zen narrows the toolbox to a 48px
+   column (--tab-collapsed-background-width) with 6px on each side and hides
+   every label. WinUI's compact pane draws each item of that column as a
+   rounded icon tile: the column's width, NavigationViewItem's height
+   (--zf-size-nav-item) 2px apart, a subtle fill on hover, and on the selected
+   item a subtle fill plus the 3x16 accent indicator on its leading edge.
+   Tabs and pinned tabs already get that from tabs.css (on Zen's 48px tile),
+   and the new tab button from new-tab.css; this file lines up the rest of
+   the column. With the sidebar collapsed, Zen also uses the multiple
+   toolbars layout: the top buttons and the pinned extensions move to the
+   top bar. Zen hides the media card. The close button stays with
+   collapsed-tab-close.css. Nothing here matches the expanded sidebar. */
+
+/* -------- Essentials: the token gap between tiles -------- */
+/* The column stacks the tiles: Zen's grid gap comes on top of each tab's
+   2px block margins, 10px instead of the 6px the row shows */
+#navigator-toolbox:not([zen-sidebar-expanded]) .zen-essentials-container {
+  row-gap: max(
+    0px,
+    var(--zf-gap-essentials) - 2 * var(--tab-margin-block, 2px)
+  ) !important;
+}
+
+/* -------- Audio: an InfoBadge on the favicon, like the Essentials -------- */
+/* Firefox lays its bare speaker glyph over the favicon's top-end corner
+   (7px out, a relative offset). The close badge of collapsed-tab-close
+   "overlay" takes that corner on hover: the audio badge then hangs from
+   the bottom-end corner, 7px out as well (16 + 7 - 14). */
+#tabbrowser-tabs:not([expanded])
+  .tabbrowser-tab:not([zen-essential])
+  .tab-icon-overlay:is([soundplaying], [muted]) {
+  width: 14px !important;
+  height: 14px !important;
+  padding: 2px !important;
+  border-radius: 7px !important;
+  background-color: var(--zf-accent) !important;
+  fill: var(--zf-on-accent) !important;
+  color: var(--zf-on-accent) !important;
+
+  @media (-moz-pref("zen-fluent.collapsed-tab-close", "overlay")) {
+    top: 9px !important;
+  }
+}
+
+/* -------- Folder rows: the tile spans the column -------- */
+/* Zen insets the row's fill 2px on every side: 44px wide, tabs are 48 */
+#navigator-toolbox:not([zen-sidebar-expanded])
+  zen-folder
+  > .tab-group-label-container::before {
+  left: 0 !important;
+  width: 100% !important;
+}
+
+/* -------- Pinned tabs separator: as wide as the tiles -------- */
+/* It carries flex="1", which xul.css enforces (!important in the UA sheet
+   beats ours): cap it instead, the auto margins center it */
+#navigator-toolbox:not([zen-sidebar-expanded])
+  .pinned-tabs-container-separator
+  toolbarseparator {
+  max-width: var(--tab-collapsed-background-width) !important;
+  margin-inline: auto !important;
+}
+
+/* -------- Current workspace: a header tile -------- */
+/* The expanded indicator's 12px start padding pushes the icon 6px off the
+   column, Zen dims the whole row to 40 % (the hover fill too) and its fill
+   is 47.5 x 30 at 7px. On hover Zen swaps the icon for the actions button:
+   it spans the row, its own fill would draw a second square. The row is a
+   tab row high (flex="1" from xul.css: set through its min and max). */
+#navigator-toolbox:not([zen-sidebar-expanded])
+  .zen-current-workspace-indicator {
+  --zf-indicator-row: calc(
+    var(--zf-size-nav-item) + 2 * var(--tab-margin-block, 2px)
+  );
+
+  min-height: var(--zf-indicator-row) !important;
+  max-height: var(--zf-indicator-row) !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+
+  &::before {
+    inset: 0 !important;
+    width: var(--tab-collapsed-background-width) !important;
+    height: var(--zf-size-nav-item) !important;
+    margin: auto !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  &:is(:hover, [open="true"])::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+    border-radius: var(--zf-radius-control) !important;
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      background-color: var(--zf-edge-hover) !important;
+    }
+  }
+
+  & .zen-workspaces-actions {
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+
+    /* Zen nudges the glyph 1px off center */
+    & > .toolbarbutton-icon {
+      margin: 0 !important;
+
+      --toolbarbutton-background-color: transparent !important;
+      --toolbarbutton-background-color-hover: transparent !important;
+      --toolbarbutton-background-color-active: transparent !important;
+      --zf-button-stroke: none !important;
+      --zf-button-stroke-hover: none !important;
+      --zf-button-stroke-pressed: none !important;
+    }
+  }
+}
+
+/* -------- Bottom buttons: nav item tiles -------- */
+/* Firefox paints a toolbar button on its icon box: 28px here, centered in
+   Zen's 48 x 36 button (and Zen paints the "+" button itself, at 14px
+   radius). The button becomes the tile and reads the same variables, so
+   the subtle, standard and Edge looks follow; its boxes stay clear. */
+#navigator-toolbox:not([zen-sidebar-expanded])
+  #zen-sidebar-foot-buttons
+  > toolbarbutton.toolbarbutton-1 {
+  width: var(--tab-collapsed-background-width) !important;
+  height: var(--zf-size-nav-item) !important;
+  min-height: var(--zf-size-nav-item) !important;
+  border-radius: var(--zf-radius-control) !important;
+  background-color: var(
+    --toolbarbutton-background-color,
+    transparent
+  ) !important;
+  box-shadow: var(--zf-button-stroke, none) !important;
+
+  @media not (prefers-reduced-motion: reduce) {
+    transition: background-color var(--zf-duration-fast) linear !important;
+  }
+
+  &
+    > :is(
+      .toolbarbutton-icon,
+      .toolbarbutton-badge-stack,
+      .toolbarbutton-text
+    ) {
+    --toolbarbutton-background-color: transparent !important;
+    --toolbarbutton-background-color-hover: transparent !important;
+    --toolbarbutton-background-color-active: transparent !important;
+    --toolbarbutton-background-color-disabled: transparent !important;
+    --zf-button-stroke: none !important;
+    --zf-button-stroke-hover: none !important;
+    --zf-button-stroke-pressed: none !important;
+
+    outline: none !important;
+  }
+
+  &:not([disabled]):hover {
+    background-color: var(--toolbarbutton-background-color-hover) !important;
+    box-shadow: var(--zf-button-stroke-hover, none) !important;
+  }
+
+  &:not([disabled]):is(:hover:active, [open], [checked]) {
+    background-color: var(--toolbarbutton-background-color-active) !important;
+    box-shadow: var(--zf-button-stroke-pressed, none) !important;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: var(--focus-outline-inset) !important;
+  }
+}
+
+/* -------- Workspace switcher: tiles, indicator on the leading edge -------- */
+#navigator-toolbox:not([zen-sidebar-expanded]) #zen-workspaces-button {
+  & toolbarbutton {
+    width: var(--tab-collapsed-background-width) !important;
+    max-width: var(--tab-collapsed-background-width) !important;
+  }
+
+  /* The pill dash sits under the icon in the row; in the column it is
+     NavigationView's selection indicator */
+  @media (-moz-pref("zen-fluent.workspace-style", "pill")) {
+    & toolbarbutton[active="true"]::after {
+      inset-block: 50% auto !important;
+      inset-inline: 0 auto !important;
+      width: 3px !important;
+      height: 16px !important;
+      margin: -8px 0 0 !important;
+      border-radius: 999px !important;
+    }
+  }
+}
+
+/* -------- Top bar: the sidebar's button look -------- */
+/* Collapsed, Zen moves #nav-bar (the top buttons, the navigation buttons
+   and the pinned extensions) out of the sidebar into the top bar, where
+   toolbar-buttons.css does not reach: its buttons keep the look they had
+   in the sidebar. Only with a single toolbar: with multiple toolbars the
+   top bar keeps its look whether the sidebar is expanded or not, and so
+   does the bookmarks toolbar (always in the top bar). :where() keeps this
+   below the Edge and standard button rules, which win. */
+@media not (-moz-pref("zen.view.use-single-toolbar", false)) {
+  :root:not([zen-sidebar-expanded])
+    :where(#nav-bar)
+    toolbarbutton.toolbarbutton-1:not(:where(#urlbar-container *)) {
+    --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+    --toolbarbutton-background-color-hover: var(
+      --zf-fill-subtle-hover
+    ) !important;
+    --toolbarbutton-background-color-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+    color: var(--zf-text-secondary) !important;
+
+    &[disabled="true"] {
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+}

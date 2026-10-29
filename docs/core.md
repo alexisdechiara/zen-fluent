@@ -9,7 +9,8 @@ Built for Zen 1.23 (tested with 1.23.4b on Windows 11 and Linux):
 
 - the window: Mica, Mica Alt or Acrylic, the page card, caption buttons;
 - the sidebar: tabs, folders, Essentials, workspaces, toolbar buttons, pinned
-  extensions, compact mode;
+  extensions, compact mode, and the collapsed sidebar (icons only) as a WinUI
+  NavigationView compact pane;
 - the URL bar and its results, the find bar, the split view and Glance;
 - the media card and the Picture-in-Picture player;
 - the Library, Firefox's sidebar (bookmarks, history, synced tabs);

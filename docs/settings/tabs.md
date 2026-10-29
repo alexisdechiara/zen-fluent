@@ -26,7 +26,8 @@ Group header: `zen-fluent.ui.open-tabs` (open by default: `false`).
   instead); **Tab shadow** only applies with Zen corners and is hidden otherwise.
 - **Close button in the collapsed sidebar**: default (top start corner, over
   the icon), a badge in the top end corner, or hidden (close with a middle click
-  or the menu).
+  or the menu). With the badge, a playing tab’s audio badge moves to the
+  bottom end corner of its icon.
 - **Dim unloaded tabs**: a tab with no page loaded (restored at startup, or unloaded) shows its favicon and title at 65 %, WinUI's tertiary text. This applies to rows, pinned tabs, Essentials and the collapsed sidebar; the selected tab is never dimmed. Zen's own fade of unloaded favicons is replaced, not added.
 - **Animated sound bars**: three bars in the accent color rise and fall instead of the speaker. They show in the audio button after the favicon, and in the audio badge over the favicon (Essentials and the collapsed sidebar), in the on-accent color there. Muted and blocked tabs keep Zen's glyphs; with reduced motion the bars stand still.
 - **Container tabs**: a rounded bar in the container's color at the tab's start edge (Zen draws it at the end edge). On the selected tab the accent pill takes its place; in the Edge style, or with the pill off, the bar stays. **Colored line and tint** also lays a light wash of the container color over the tab. Tabs of the space's default container, which includes every Essential, stay unmarked, as in Zen (`zen.workspaces.hide-default-container-indicator`).
