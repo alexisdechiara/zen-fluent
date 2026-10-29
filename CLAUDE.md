@@ -18,7 +18,12 @@ come later. The owner writes to Claude in French: answer in French.
   e.g. `--zf-url-*` on `#urlbar`).
 - `core/src/base/`, `core/src/components/<zone>/`, `core/src/features/<pref>.css`
   (one file per option), `core/src/content/` (about: pages, Zen and Sine settings,
-  web page scrolling; loaded by `core/userContent.css`).
+  web page scrolling; loaded by `core/userContent.css`), `core/src/a11y/`
+  (contrast themes, reduced motion; one forced-colors file per zone).
+- Zones (`docs/settings/zones.md`): the import of a zone's file carries
+  `not (-moz-pref("zen-fluent.fluent-<zone>", false))`, its a11y file included.
+  Tokens, base plumbing, keyframes and global options are imported without a
+  condition; `core/src/base/corner-shape.css` stays global (one `*` rule).
 - `core/preferences.json`: Sine settings, prefix `zen-fluent.*`, ASCII values
   without spaces (Sine rejects them), `"placeholder": false` on every dropdown.
   Collapsible groups: each group starts with a `zen-fluent.ui.open-<group>`
@@ -87,6 +92,9 @@ come later. The owner writes to Claude in French: answer in French.
   only run with `sine.allow-unsafe-js`. No per-script toggle (scripts follow the
   mod), and every JS rebuild runs the scripts again: guard and clean up.
 - `modules` (homepages) installs missing dependencies; no version constraint.
+- String settings: Sine rebuilds their `:root` variables when the preference
+  changes through its dialog, not when a script sets it (in tests, set the
+  variable too).
 
 ## What Zen 1.23 really does (checked in the browser)
 
@@ -149,6 +157,12 @@ come later. The owner writes to Claude in French: answer in French.
 - `-moz-pref()` works live in `about:preferences`, also for a Firefox preference
   (`browser.tabs.hoverPreview.enabled`). `-moz-pref(name, false)` only matches an
   explicit `false`: a setting on by default reads `not (-moz-pref(name, false))`.
+- `-moz-pref()` also works in the media list of an `@import` in the user sheet
+  (Gecko 158): the imported sheet drops out or comes back live, in every chrome
+  document (dialogs, Firefox sidebar pages) and in `about:` pages. `@import`
+  cannot sit inside `@media`, so each file carries its own condition.
+- Firefox 158 supports `sign()` and typed arithmetic (length / length gives a
+  number) in chrome CSS.
 - Firefox does not blur web content behind a `backdrop-filter`: an Acrylic
   surface over the page shows it sharp. Everything that floats over the page
   (open URL bar, compact sidebar and top bar, find bar, dialogs) takes
@@ -163,6 +177,22 @@ come later. The owner writes to Claude in French: answer in French.
   `@media not (-moz-pref(...))`).
 - Tokens are also declared on `tooltip`: the document's default tooltip
   (`tooltiptext`, `title=`) is native anonymous content, outside `:root`.
+  Headless on 2026-10-29, that tooltip (`tooltip[default][page]`) matched only
+  `xul.css` rules (4px, padding 2px 3px): check on the real desktop whether the
+  tokens and `tooltips/box.css` reach it.
+- With Mica popups (Windows 11) the CSS radius of `menupopup` / `panel` and their
+  content is 0: Windows draws the corners, so the radius settings do not reach
+  them; `--panel-border-radius` only matters without Mica popups.
+- The visible New Tab row is a second `#tabs-newtab-button`, in each
+  `zen-workspace`'s `#tabbrowser-arrowscrollbox-periphery`; the one under
+  `#TabsToolbar` stays hidden, and `getElementById` returns it. The row paints
+  its hover fill on itself, not on its 16px icon box.
+- A toolbarbutton's `::after` takes `content: url()` and inherits
+  `-moz-context-properties`: a context-fill glyph drawn there matches the real
+  icon pixel for pixel (animated icons turn that copy).
+- Zen plays the Library sprite on hover (`zen-library-sprite-hover`, 0.35s,
+  `steps(36)`) and turns the space chevron (`transform 0.1s`) when the pinned
+  tabs fold away (`zen-workspace[collapsedpinnedtabs]`).
 - Firefox sidebar (Ctrl+B, history): its pages are chrome documents that get
   Sine's chrome sheet; lists are XUL trees (`tree`).
 - Loading bar: `hbox#zen-loading-progress-bar` is the first child of the selected
@@ -260,7 +290,11 @@ dialog dropdowns open and pick through a WebDriver click (`content` context).
 the resolve callback as their last argument (`resolve` is reserved). Panels and
 popups are separate widgets, missing from window screenshots: clone their content
 into the window to look at them. `ui.useAccessibilityTheme = 1` emulates forced
-colors headless, `ui.prefersReducedMotion = 1` reduced motion.
+colors headless, `ui.prefersReducedMotion = 1` reduced motion. Marionette
+dismisses user prompts (`commonDialog`) before every command: to test a dialog,
+open a SubDialog that is not a prompt (`Sanitizer.showUI(window)`). Computed
+style enumeration also leaves out some registered custom properties
+(`--zf-accent-custom`), which `getPropertyValue()` still returns.
 Firefox 158 has `InspectorUtils.getMatchingCSSRules`.
 A tab left loading blocks the next Marionette session ("active session"):
 call `gBrowser.selectedBrowser.stop()` before a script ends. To try a CSS fix
@@ -286,11 +320,12 @@ instance each, its own profile and Marionette port.
   Calmer's accent menus.
 - Retake `screenshots/sine.png` (English labels, collapsible groups) and add an
   Edge style screenshot.
-- Guard the selected tab pill and the settings group chevron with
-  `prefers-reduced-motion`.
 - Density: the text box URL bar keeps Zen's height in compact (Zen writes
   `--urlbar-height` inline and sizes its container itself); only the pill
   follows `--zf-size-url-field`.
-- Mission next: high contrast and the WinUI double focus ring, the P2 settings
-  (radius, blur, Mica opacity, Essentials per row, per-zone Zen look, animated
-  icons), then Zen Fluent Enhanced (P4).
+- Not checked live yet: right-to-left (animated Back / Forward / Reload), a
+  real Windows contrast theme (only `ui.useAccessibilityTheme` emulation),
+  Picture-in-Picture, Glance, the media card and `about:addons` /
+  `about:config` in contrast mode, the blur values on the real desktop.
+- Mission next: Mica tint opacity (P2; it clashes with the tint intensity
+  setting dropped earlier: the owner decides), then Zen Fluent Enhanced (P4).
