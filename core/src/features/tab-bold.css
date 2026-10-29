@@ -1,0 +1,12 @@
+/* Zen Fluent: Semibold title on the selected tab.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Semibold title on the selected tab. Rows have a fixed width, so only the
+   text runs longer; the row and its neighbours keep their size. */
+@media (-moz-pref("zen-fluent.tab-bold")) {
+  #tabbrowser-tabs
+    .tabbrowser-tab:not([zen-essential]):is([selected], [visuallyselected])
+    .tab-label {
+    font-weight: 600 !important;
+  }
+}

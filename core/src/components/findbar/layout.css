@@ -1,0 +1,56 @@
+/* Zen Fluent: Find bar row layout: field first, wrapping options, macOS close button, narrow-bar container query.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Layout -------- */
+
+.findbar-container {
+  margin-inline-start: 8px !important;
+  padding-inline-start: 0 !important;
+
+  /* An option that does not fit wraps onto a hidden second line instead of
+     being cut in half; focusing it scrolls it into view */
+  flex-wrap: wrap !important;
+  align-content: flex-start !important;
+  overflow: hidden !important;
+
+  & > [anonid="findbar-textbox-wrapper"] {
+    order: -2 !important;
+    flex-shrink: 1 !important;
+    gap: 4px !important;
+
+    /* The field at its 96px minimum and both arrows: below that the arrows
+       would overflow onto the match count */
+    min-width: calc(96px + 2 * (4px + 32px)) !important;
+    margin-inline-end: 6px !important;
+  }
+
+  /* Lines are filled in order before anything shrinks: the match count and
+     the status come before the options, so that the options are what wraps
+     away. Tab order is unchanged, and these texts are not focusable. */
+  & > :is(.found-matches, .findbar-find-status) {
+    order: -1 !important;
+  }
+
+  /* An empty status would leave a 12px gap before the options */
+  & > .findbar-find-status:empty {
+    margin-inline: 0 !important;
+  }
+}
+
+/* macOS: the close button comes first */
+.findbar-closebutton + .findbar-container {
+  margin-inline-start: 0 !important;
+}
+
+/* Narrow bars (split view panes, small windows): the options go, as in
+   Firefox's own split view, and the row stops wrapping, so that the field
+   shrinks to keep the match count and the status in view */
+@container zf-findbar (width < 640px) {
+  .findbar-container {
+    flex-wrap: nowrap !important;
+  }
+
+  .findbar-container > checkbox {
+    display: none !important;
+  }
+}

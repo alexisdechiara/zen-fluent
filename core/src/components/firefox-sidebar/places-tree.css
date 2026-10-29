@@ -1,0 +1,185 @@
+/* Zen Fluent: Bookmarks and history pages: search row, View DropDownButton, WinUI TreeView rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url("chrome://browser/content/places/bookmarksSidebar.xhtml"),
+  url("chrome://browser/content/places/historySidebar.xhtml")
+{
+  #sidebar-search-container {
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  /* -------- View (history sort): WinUI DropDownButton -------- */
+
+  #viewButton {
+    box-sizing: border-box !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding-block: 0 !important;
+    padding-inline: 12px 8px !important;
+    border-radius: var(--zf-radius-control) !important;
+    transform: none !important;
+
+    /* Zen eases every property of XUL buttons over 0.1s */
+    transition: none !important;
+
+    & .button-text {
+      margin: 0 !important;
+    }
+
+    & .button-menu-dropmarker {
+      margin-inline-start: 8px !important;
+    }
+
+    @media not (forced-colors) {
+      border: 1px solid var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-control) !important;
+      color: var(--zf-text-primary) !important;
+
+      &:hover {
+        background-color: var(--zf-fill-control-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-fill-subtle-press) !important;
+        color: var(--zf-text-secondary) !important;
+      }
+
+      & .button-menu-dropmarker {
+        fill: var(--zf-text-secondary) !important;
+      }
+    }
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition: background-color var(--zf-duration-fast) linear !important;
+    }
+  }
+
+  /* -------- Tree: WinUI TreeView -------- */
+  /* Rows are XUL tree pseudo-elements: no ::before and no transitions, so
+     the selection pill is a background gradient. Gecko takes the height of
+     every row from the bare ::-moz-tree-row rule. */
+
+  /* stylelint-disable selector-type-no-unknown -- XUL tree properties */
+  .sidebar-placesTreechildren::-moz-tree-row {
+    min-height: 32px !important;
+    margin: 0 4px !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  :root[uidensity="touch"] .sidebar-placesTreechildren::-moz-tree-row {
+    min-height: 40px !important;
+  }
+
+  .sidebar-placesTreechildren::-moz-tree-cell {
+    padding-block: 0 !important;
+    padding-inline: 8px 4px !important;
+  }
+
+  .sidebar-placesTreechildren::-moz-tree-image(title) {
+    margin: 0 !important;
+    margin-inline-end: 8px !important;
+    padding: 0 !important;
+  }
+
+  .sidebar-placesTreechildren::-moz-tree-image(title, separator) {
+    margin: 0 !important;
+  }
+
+  .sidebar-placesTreechildren::-moz-tree-separator {
+    margin: 0 4px !important;
+  }
+
+  .scrollbar-topmost {
+    scrollbar-width: thin !important;
+  }
+
+  @media not (forced-colors) {
+    .sidebar-placesTree {
+      scrollbar-color: var(--zf-scrollbar-thumb) transparent !important;
+
+      &:hover {
+        scrollbar-color: var(--zf-scrollbar-thumb-hover) transparent !important;
+      }
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-row(hover) {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-row(selected) {
+      background-color: var(--zf-fill-selected) !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-row(selected, hover) {
+      background-color: var(--zf-fill-selected-hover) !important;
+    }
+
+    /* The tree's "focus" property also comes with mouse clicks: the focus
+       rect waits for keyboard focus, as in WinUI */
+    .sidebar-placesTreechildren::-moz-tree-row(current, focus) {
+      outline: none !important;
+    }
+
+    .sidebar-placesTree:focus-visible
+      > .sidebar-placesTreechildren::-moz-tree-row(current, focus) {
+      outline: 2px solid var(--zf-accent) !important;
+      outline-offset: -2px !important;
+    }
+
+    /* Firefox turns selected text and icons white for its accent fill */
+    .sidebar-placesTreechildren::-moz-tree-cell-text(selected) {
+      color: var(--zf-text-primary) !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-cell-text(title, separator) {
+      color: var(--zf-text-tertiary) !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-image,
+    .sidebar-placesTreechildren::-moz-tree-twisty {
+      color: var(--zf-text-secondary) !important;
+      fill-opacity: 1 !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-separator {
+      border-top: 1px solid var(--zf-stroke-divider) !important;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-drop-feedback {
+      background-color: var(--zf-accent) !important;
+    }
+
+    /* Dragging onto a folder: an accent tint, not the SelectedItem block */
+    /* stylelint-disable-next-line selector-type-case */
+    .sidebar-placesTreechildren::-moz-tree-cell-text(primary, dropOn) {
+      background-color: color-mix(
+        in srgb,
+        var(--zf-accent) 18%,
+        transparent
+      ) !important;
+      color: var(--zf-text-primary) !important;
+    }
+  }
+
+  /* Accent pill, kept while the tree is unfocused (WinUI keeps it too);
+     none in Edge style, as on the tabs */
+  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
+    .sidebar-placesTreechildren::-moz-tree-row(selected) {
+      background-image: linear-gradient(
+        var(--zf-accent),
+        var(--zf-accent)
+      ) !important;
+      background-size: 3px 16px !important;
+      background-position: left center !important;
+      background-repeat: no-repeat !important;
+    }
+
+    .sidebar-placesTreechildren:-moz-locale-dir(rtl)::-moz-tree-row(selected) {
+      background-position: right center !important;
+    }
+  }
+  /* stylelint-enable selector-type-no-unknown */
+}

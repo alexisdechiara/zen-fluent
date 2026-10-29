@@ -1,0 +1,48 @@
+/* Zen Fluent: Compact mode handle on the window edge while the sidebar is hidden.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* A small handle on the window edge while compact mode hides the sidebar,
+   gone as soon as the sidebar shows (same attributes as Zen's own rule). */
+
+@media (-moz-pref("zen-fluent.compact-edge-hint")) and ((-moz-pref("zen.view.compact.hide-tabbar")) or (-moz-pref("zen.view.use-single-toolbar"))) {
+  :root[zen-compact-mode="true"]:not([customizing], [inDOMFullscreen="true"])
+    #zen-main-app-wrapper::after {
+    content: "";
+    position: fixed;
+    inset-inline-start: 4px;
+    top: 50%;
+    z-index: 3;
+    width: 4px;
+    height: 56px;
+    margin-top: -28px;
+    border-radius: 2px;
+    corner-shape: round;
+    background-color: var(--zf-text-tertiary);
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity var(--zf-duration-normal) linear;
+  }
+
+  :root[zen-compact-mode="true"][zen-right-side="true"]
+    #zen-main-app-wrapper::after {
+    inset-inline: auto 4px;
+  }
+
+  :root:is(
+      :has(
+        #navigator-toolbox:is(
+          [zen-has-hover],
+          [zen-user-show],
+          [zen-has-empty-tab],
+          [flash-popup],
+          [has-popup-menu],
+          [movingtab],
+          [zen-compact-mode-active]
+        )
+      ),
+      [zen-renaming-tab="true"]
+    )
+    #zen-main-app-wrapper::after {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,11 @@
+/* Zen Fluent: Grayscale Essentials favicons at rest.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.essentials-gray")) {
+  .zen-essentials-container
+    .tabbrowser-tab:not(:hover, [selected])
+    .tab-icon-image {
+    filter: grayscale(100%) contrast(75%) !important;
+    transition: filter var(--zf-duration-slow) ease !important;
+  }
+}

@@ -1,0 +1,31 @@
+/* Zen Fluent: Glance: the find bar takes the rounded bottom corners and the shadow of the Glance page.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Glance: the bar closes the rounded page -------- */
+/* Nothing clips the Glance page's container: the bar takes its rounded
+   corners, and the page above it gives up its bottom ones while it shows */
+
+.zen-glance-overlay .browserContainer {
+  & > findbar {
+    border-end-start-radius: inherit !important;
+    border-end-end-radius: inherit !important;
+    corner-shape: round !important;
+  }
+
+  &:has(> findbar:not([hidden])) > .browserStack {
+    border-end-start-radius: 0 !important;
+    border-end-end-radius: 0 !important;
+  }
+}
+
+/* Zen shadows the page alone, and the bar paints over the bottom of that
+   shadow: the container, around both, takes it over (Zen's own value). Not
+   while Glance closes, as the page fades out and the shadow would stay */
+.zen-glance-overlay:not([fade-out="true"])
+  .browserContainer:has(> findbar:not([hidden])) {
+  box-shadow: var(--zen-big-shadow) !important;
+
+  & > .browserStack {
+    box-shadow: none !important;
+  }
+}

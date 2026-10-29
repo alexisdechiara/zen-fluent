@@ -1,0 +1,14 @@
+/* Zen Fluent: Fluent icons: workspace icons (briefcase, code).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Spaces: the selectable icons the design draws -------- */
+
+  img.zen-workspace-icon[src$="/selectable/briefcase.svg"] {
+    content: url("../../../icons/workspace-briefcase.svg") !important;
+  }
+
+  img.zen-workspace-icon[src$="/selectable/code.svg"] {
+    content: url("../../../icons/workspace-code.svg") !important;
+  }
+}

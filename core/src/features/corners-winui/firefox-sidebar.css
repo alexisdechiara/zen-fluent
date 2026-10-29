@@ -1,0 +1,75 @@
+/* Zen Fluent: WinUI corners: panel flush with the page, seam divider, page hands over its corner and stroke.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI corners: flush with the page, which hands over the rounded corner
+   and the stroke on Zen's sidebar side; a divider marks the seam. Edge
+   keeps the card. */
+@media (-moz-pref("zen-fluent.corners", "winui")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
+  #tabbrowser-tabbox[sidebar-panel-open]:not([zen-split-view="true"]) {
+    gap: 0 !important;
+
+    /* The resize handle sits on the seam without taking room */
+    & > #sidebar-splitter {
+      margin: 0 calc(var(--splitter-width) / -2) !important;
+    }
+
+    & > #sidebar-box {
+      border: 0 !important;
+      border-top: 1px solid var(--zf-stroke-control) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    &:not([sidebar-positionend]) > #sidebar-box {
+      border-inline-end: 1px solid var(--zf-stroke-divider) !important;
+    }
+
+    &[sidebar-positionend] > #sidebar-box {
+      border-inline-start: 1px solid var(--zf-stroke-divider) !important;
+    }
+
+    :root[zen-compact-mode="true"][zen-single-toolbar="true"] & > #sidebar-box {
+      border-top: 0 !important;
+    }
+
+    /* Between Zen's sidebar and the page, the panel takes the corner and
+       the stroke on Zen's side */
+    :root:not([zen-compact-mode="true"], [zen-right-side="true"])
+      &:not([sidebar-positionend])
+      > #sidebar-box {
+      border-inline-start: 1px solid var(--zf-stroke-control) !important;
+      border-start-start-radius: var(--zf-radius-overlay) !important;
+    }
+
+    :root[zen-right-side="true"]:not([zen-compact-mode="true"])
+      &[sidebar-positionend]
+      > #sidebar-box {
+      border-inline-end: 1px solid var(--zf-stroke-control) !important;
+      border-start-end-radius: var(--zf-radius-overlay) !important;
+    }
+
+    /* The page gives up the edge the panel now draws, and its corner */
+    &:not([sidebar-positionend])
+      > #tabbrowser-tabpanels
+      .browserSidebarContainer:not(.zen-glance-overlay) {
+      border-inline-start: 0 !important;
+    }
+
+    &[sidebar-positionend]
+      > #tabbrowser-tabpanels
+      .browserSidebarContainer:not(.zen-glance-overlay) {
+      border-inline-end: 0 !important;
+    }
+
+    :root:not([zen-right-side="true"])
+      &:not([sidebar-positionend])
+      > #tabbrowser-tabpanels
+      .browserSidebarContainer:not(.zen-glance-overlay),
+    :root[zen-right-side="true"]
+      &[sidebar-positionend]
+      > #tabbrowser-tabpanels
+      .browserSidebarContainer:not(.zen-glance-overlay) {
+      border-radius: 0 !important;
+    }
+  }
+}

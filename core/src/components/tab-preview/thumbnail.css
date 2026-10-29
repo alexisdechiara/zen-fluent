@@ -1,0 +1,37 @@
+/* Zen Fluent: Page thumbnail frame, placeholder and canvas.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Page thumbnail -------- */
+/* Only for loaded tabs other than the selected one; hidden otherwise. */
+
+#tab-preview-panel .tab-preview-thumbnail-container {
+  width: 100% !important;
+  margin: 0 !important;
+
+  /* While the page is captured (and when the card moves to the next tab),
+     its frame keeps the canvas's place so the card does not jump. Same box
+     as the canvas: 1px frame, 2:1 inside. */
+  &:not(.hide-thumbnail):empty {
+    box-sizing: border-box !important;
+    aspect-ratio: auto 2 / 1 !important;
+    border: 1px solid var(--border-color-deemphasized) !important;
+    border-radius: var(--zf-radius-control) !important;
+
+    /* Zen keeps the canvas round even with its squircles: match it */
+    corner-shape: round !important;
+
+    @media not (forced-colors) {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+  }
+
+  /* Control radius inside the overlay, as WinUI does for media */
+  & > canvas {
+    border-radius: var(--zf-radius-control) !important;
+
+    /* The snapshot is taken on a transparent background */
+    @media not (forced-colors) {
+      background-color: var(--zf-page) !important;
+    }
+  }
+}

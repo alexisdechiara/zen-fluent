@@ -1,0 +1,39 @@
+/* Zen Fluent: Picture-in-Picture player: rounded window and round dark buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url("chrome://global/content/pictureinpicture/player.xhtml")
+{
+  html,
+  .player-holder {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  .player-holder {
+    clip-path: none !important;
+  }
+
+  /* Buttons only: the gradient, timestamp and sliders are control items too */
+  #controls .control-button {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 14px !important;
+    corner-shape: round !important;
+    background-color: rgb(0 0 0 / 55%) !important;
+    color: #fff !important;
+    fill: #fff !important;
+
+    &:hover {
+      background-color: rgb(0 0 0 / 70%) !important;
+    }
+  }
+
+  #controls #playpause {
+    width: 44px !important;
+    max-width: none !important;
+    height: 44px !important;
+    flex-shrink: 0 !important;
+    border-radius: 22px !important;
+    background-color: rgb(0 0 0 / 50%) !important;
+  }
+}

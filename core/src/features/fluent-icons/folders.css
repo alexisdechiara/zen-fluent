@@ -1,0 +1,20 @@
+/* Zen Fluent: Fluent icons: open and closed folders.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Folders: open / closed instead of Zen's animated folder -------- */
+
+  .tab-group-folder-icon {
+    background: url("../../../icons/folder-open.svg") center / 16px no-repeat !important;
+    -moz-context-properties: fill, fill-opacity;
+    fill: var(--zf-accent);
+
+    & > svg {
+      visibility: hidden !important;
+    }
+  }
+
+  zen-folder[collapsed] .tab-group-folder-icon {
+    background-image: url("../../../icons/folder.svg") !important;
+  }
+}

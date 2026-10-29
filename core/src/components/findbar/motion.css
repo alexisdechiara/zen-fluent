@@ -1,0 +1,53 @@
+/* Zen Fluent: Find bar motion: WinUI timing for the slide, the fades and the field transitions.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Motion: WinUI timing -------- */
+/* The slide and the fades move to the WinUI tokens, and the close button
+   gets back the fade that zen-fluent.button-animations takes from every
+   toolbarbutton. These !important rules would beat Firefox's zeroing for
+   [noanim] (instant close) and letterboxing, hence the scope. */
+
+@media not (prefers-reduced-motion: reduce) {
+  #tabbrowser-tabpanels:not(.letterboxing) findbar:not([noanim]) {
+    /* Firefox's slide, plus the urlbar dim at the page's pace (urlbar.css) */
+    transition-property: margin-bottom, visibility, filter !important;
+    transition-duration:
+      var(--zf-duration-normal), 0s, var(--zf-duration-normal) !important;
+    transition-timing-function: var(--zf-ease), linear, linear !important;
+
+    @media (-moz-pref("zen-fluent.urlbar-animation", "none")) {
+      transition-duration: var(--zf-duration-normal), 0s, 0s !important;
+    }
+
+    /* Collapse once the slide is over */
+    &[hidden] {
+      transition-delay: 0s, var(--zf-duration-normal), 0s !important;
+    }
+
+    & > :is(.findbar-container, .findbar-closebutton) {
+      transition: opacity var(--zf-duration-normal) linear !important;
+    }
+
+    @media (-moz-pref("zen-fluent.button-animations")) {
+      & > .findbar-closebutton {
+        transition:
+          opacity var(--zf-duration-normal) linear,
+          background-color var(--zf-duration-fast) linear,
+          scale var(--zf-duration-fast) linear !important;
+      }
+    }
+  }
+
+  .findbar-textbox {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear,
+      box-shadow var(--zf-duration-fast) linear !important;
+  }
+
+  .findbar-container > checkbox > .checkbox-check {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear !important;
+  }
+}

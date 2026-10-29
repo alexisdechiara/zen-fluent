@@ -1,0 +1,38 @@
+/* Zen Fluent: Status, link and forced-colors panel colors shared by the six site flyouts.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen's site panel, connection info, permissions, protections, downloads and
+   the legacy extensions panel as WinUI flyouts: list rows, ToggleSwitches,
+   InfoBars, Buttons and a ProgressBar. menus.css draws the Acrylic shell
+   and the WinUI rows (fills, icon gap, 32px footers, disabled text). */
+
+/* -------- Shared: the six flyouts -------- */
+
+:is(
+  #zen-unified-site-data-panel,
+  #identity-popup,
+  #permission-popup,
+  #protections-popup,
+  #downloadsPanel,
+  #unified-extensions-panel
+) {
+  /* Hints, errors, status glyphs and links in the WinUI colors. Contrast
+     themes keep Firefox's. */
+  @media not (forced-colors) {
+    --text-color-deemphasized: var(--zf-text-secondary) !important;
+    --text-color-error: var(--zf-critical) !important;
+    --icon-color-critical: var(--zf-critical) !important;
+    --icon-color-warning: var(--zf-caution) !important;
+    --icon-color-success: var(--zf-success) !important;
+    --icon-color-information: var(--zf-accent) !important;
+    --link-color-hover: var(--zf-accent-hover) !important;
+    --link-color-active: var(--zf-accent-pressed) !important;
+  }
+
+  /* menus.css paints every panel in Acrylic, high contrast included: these
+     take the system colors back, like the controls they hold */
+  @media (forced-colors) {
+    --panel-background-color: Menu !important;
+    --panel-border-color: var(--border-color-deemphasized) !important;
+  }
+}

@@ -1,0 +1,40 @@
+/* Zen Fluent: Container tab indicator as a tinted pill.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Container tab: a tinted pill, icon first -------- */
+
+#tab-preview-panel .tab-preview-container-indicator {
+  box-sizing: border-box !important;
+  height: 20px !important;
+  gap: 4px !important;
+  margin-top: 6px !important;
+  padding: 0 8px !important;
+  border-radius: 10px !important;
+  font: 600 12px / 16px var(--zf-font) !important;
+
+  @media not (forced-colors) {
+    background-color: color-mix(
+      in srgb,
+      var(--identity-icon-color) 16%,
+      transparent
+    ) !important;
+
+    /* The container colors are bright literals, unreadable as text on a
+       light card: the pill and the icon carry the color */
+    & > .tab-preview-container-label {
+      color: var(--zf-text-primary) !important;
+    }
+  }
+
+  /* No tint in high contrast: a system stroke keeps the pill's shape, so its
+     inset still reads */
+  @media (forced-colors) {
+    border: 1px solid currentcolor !important;
+  }
+
+  & > .tab-preview-container-icon {
+    order: -1 !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
+}

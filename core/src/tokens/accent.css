@@ -1,0 +1,46 @@
+/* Zen Fluent: Accent presets for zen-fluent.accent (zen, blue, violet, mint, orange, pink, graphite).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Accent presets -------- */
+
+@media (-moz-pref("zen-fluent.accent", "zen")) {
+  :root {
+    --zf-accent-base: var(--zen-primary-color);
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "blue")) {
+  :root {
+    --zf-accent-base: #0078d4;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "violet")) {
+  :root {
+    --zf-accent-base: #8764b8;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "mint")) {
+  :root {
+    --zf-accent-base: #00b294;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "orange")) {
+  :root {
+    --zf-accent-base: #ca5010;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "pink")) {
+  :root {
+    --zf-accent-base: #e3008c;
+  }
+}
+
+@media (-moz-pref("zen-fluent.accent", "graphite")) {
+  :root {
+    --zf-accent-base: #69797e;
+  }
+}

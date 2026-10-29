@@ -1,0 +1,17 @@
+/* Zen Fluent: Site panel switch knob slide and color fade (unless reduced motion).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Motion -------- */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* The site panel's switches: the knob slides, colors fade */
+  :is(
+    #zen-site-data-settings-list > .permission-popup-permission-item,
+    #zen-site-data-boost-list > .permission-popup-boost-item
+  )::after {
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear,
+      background-position var(--zf-duration-normal) var(--zf-ease);
+  }
+}

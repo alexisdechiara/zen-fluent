@@ -1,0 +1,219 @@
+/* Zen Fluent: Sine: collapsible settings groups and conditional rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* ------------------------ SINE: SETTINGS GROUPS ------------------------ */
+  /* Each group of Zen Fluent's dialog is a WinUI SettingsExpander. Its header
+     is a checkbox setting, zen-fluent.ui.open-<group>. The state is read on
+     the inner <checkbox>: Sine sets it from the pref, and a click flips both;
+     Space flips the checkbox alone, so the group opens for the session. */
+
+  /* A closed group hides its rows: those after its header and before the
+     next header. One selector per group. */
+  @media not (-moz-pref("zen-fluent.ui.expand-all")) {
+    #zen-fluent-ui-open-appearance:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-appearance ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-sidebar:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-sidebar ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-tabs:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-tabs ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-urlbar:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-urlbar ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-window:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-window ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-animations:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-animations ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-zen:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-zen ~ [id^="zen-fluent-ui-open-"] ~ *
+      ) {
+      display: none !important;
+    }
+  }
+
+  /* The dialog holding these headers: no outer card, one card per group */
+  .sineItemPreferenceDialogContent:has(> [id^="zen-fluent-ui-open-"]) {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+
+    /* "~…~" in a label: the Caption description under the title */
+    & .sineItemPreferenceLabel > u {
+      display: block;
+      font-size: 12px;
+      line-height: 16px;
+      text-decoration: none;
+      color: var(--zf-text-secondary);
+    }
+
+    /* Expander items: indented rows on the secondary card fill. Zen squares
+       every corner (superellipse) on these pages: WinUI cards are round. */
+    & > hbox {
+      min-height: 52px !important;
+      margin: 0 !important;
+      padding: 8px 44px 8px 58px !important;
+      border: 1px solid var(--zf-stroke-control) !important;
+      border-top: 0 !important;
+      corner-shape: round !important;
+      background-color: var(--zf-fill-card-secondary) !important;
+
+      /* The last row of a group closes its card */
+      &:is(:last-child, :has(+ [id^="zen-fluent-ui-open-"])) {
+        border-end-start-radius: var(--zf-radius-control);
+        border-end-end-radius: var(--zf-radius-control);
+      }
+    }
+
+    /* Expander header: a SettingsCard with a chevron */
+    & > [id^="zen-fluent-ui-open-"] {
+      min-height: 68px !important;
+      margin: 4px 0 0 !important;
+      padding: 16px 4px 16px 16px !important;
+      gap: 0 !important;
+      border: 1px solid var(--zf-stroke-control) !important;
+      border-radius: var(--zf-radius-control);
+      background-color: var(--zf-fill-card) !important;
+      user-select: none;
+      transition: background-color var(--zf-duration-fast) linear;
+
+      &:first-child {
+        margin-top: 0 !important;
+      }
+
+      &:hover {
+        background-color: var(--zf-fill-control-hover) !important;
+      }
+
+      &:hover:active {
+        background-color: var(--zf-fill-subtle-press) !important;
+      }
+
+      /* Open: the items continue the card */
+      &:has(> checkbox[checked]) {
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+      }
+
+      & > .sineItemPreferenceLabel {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      /* The checkbox keeps the keyboard focus and becomes the 32px chevron
+         box; its ToggleSwitch is hidden */
+      & > checkbox {
+        width: 32px;
+        height: 32px;
+        margin: 0 8px 0 20px !important;
+        align-items: center;
+        justify-content: center;
+        outline: none !important;
+
+        &::before {
+          content: "";
+          width: 16px;
+          height: 16px;
+          background-color: currentcolor;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 6 8 10.5 12.5 6' fill='none' stroke='%23000' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+            center / 16px no-repeat;
+          transition: rotate var(--zf-duration-normal) var(--zf-ease);
+        }
+
+        &[checked]::before {
+          rotate: 180deg;
+        }
+
+        & > .checkbox-check,
+        & > .checkbox-label-box {
+          display: none !important;
+        }
+      }
+
+      /* WinUI focus visual around the whole header */
+      &:has(> checkbox:focus-visible) {
+        outline: 2px solid var(--zf-text-primary);
+        outline-offset: 1px;
+      }
+    }
+
+    /* "Afficher tous les réglages": a plain row above the cards */
+    & > #zen-fluent-ui-expand-all {
+      min-height: 40px !important;
+      margin-bottom: 8px !important;
+      padding: 0 4px 0 0 !important;
+      border: 0 !important;
+      background: none !important;
+    }
+
+    /* Everything shown: the headers become plain titles */
+    @media (-moz-pref("zen-fluent.ui.expand-all")) {
+      & > [id^="zen-fluent-ui-open-"] {
+        pointer-events: none;
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+
+        & > checkbox {
+          visibility: hidden;
+        }
+      }
+    }
+
+    /* Rows that mean nothing with the current values. Sine applies a
+       setting's "conditions" once a pref changes, not when the dialog
+       opens: -moz-pref() does it here, live. Such a row must not end its
+       group, whose bottom corners go to the last row. */
+    @media not (-moz-pref("zen-fluent.accent", "custom")) {
+      & > #zen-fluent-accent-custom {
+        display: none !important;
+      }
+    }
+
+    @media not (-moz-pref("zen-fluent.font", "custom")) {
+      & > #zen-fluent-font-custom {
+        display: none !important;
+      }
+    }
+
+    /* Edge has a fixed geometry and raises the selected tab instead of
+       marking it with a pill */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      & > :is(#zen-fluent-corners, #zen-fluent-tab-pill) {
+        display: none !important;
+      }
+    }
+
+    /* The tab shadow only exists with Zen corners */
+    @media (-moz-pref("zen-fluent.style", "edge")) or (not (-moz-pref("zen-fluent.corners", "zen"))) {
+      & > #zen-fluent-tab-shadow {
+        display: none !important;
+      }
+    }
+
+    @media not (-moz-pref("browser.tabs.hoverPreview.enabled")) {
+      & > #browser-tabs-hoverPreview-showThumbnails {
+        display: none !important;
+      }
+    }
+  }
+}

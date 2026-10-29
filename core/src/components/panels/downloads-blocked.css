@@ -1,0 +1,51 @@
+/* Zen Fluent: Blocked download and private-session subviews, footer button group.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Blocked download and private-session subviews -------- */
+
+#downloadsPanel-blockedSubview {
+  padding: 4px !important;
+
+  & > .panel-view-body-unscrollable {
+    padding: 4px 12px 0 !important;
+  }
+}
+
+.downloadsPanel-blockedSubview-title-box {
+  align-items: center !important;
+  margin-block: 8px 4px !important;
+}
+
+#downloadsPanel-blockedSubview-title {
+  margin-block-end: 0 !important;
+  color: var(--zf-text-primary) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.downloadsPanel-blockedSubview-image {
+  width: 16px !important;
+  height: 16px !important;
+  margin-inline: 12px 0 !important;
+}
+
+:is(
+  #downloadsPanel-blockedSubview-details1,
+  #downloadsPanel-blockedSubview-details2
+) {
+  margin-block-end: 8px !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 14px !important;
+}
+
+/* Button group: equal buttons 8px apart (WinUI ContentDialog). Firefox
+   spaces them with !important slotted margins, zeroed here. */
+#downloadsPanel .panel-footer {
+  gap: 8px !important;
+  margin: 16px 12px 12px !important;
+
+  & > .footer-button {
+    flex: 1 !important;
+    margin: 0 !important;
+  }
+}

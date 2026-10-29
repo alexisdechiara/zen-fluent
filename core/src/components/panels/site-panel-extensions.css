@@ -1,0 +1,76 @@
+/* Zen Fluent: Site panel extensions grid of standard buttons, attention dot and badge.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Extensions: a grid of standard Buttons -------- */
+/* A grid instead of Zen's wrapping row, so the tiles line up with the four
+   quick actions above whatever the panel width */
+
+#zen-site-data-addons:not([hidden]) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)) !important;
+  gap: 8px !important;
+  padding: 0 !important;
+
+  &
+    > :is(
+      #overflowed-extensions-list,
+      #unified-extensions-area,
+      .unified-extensions-list,
+      #zen-site-data-new-addon-button-container
+    )
+    > * {
+    width: auto !important;
+    height: 32px !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+    transform: none !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      scale var(--zf-duration-fast) linear !important;
+
+    &:hover {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    &:hover:active,
+    &:has(.unified-extensions-item-action-button[open]) {
+      background-color: var(--zf-fill-subtle-press) !important;
+    }
+
+    & toolbarbutton {
+      transform: none !important;
+    }
+
+    /* Zen's transparent button hides Firefox's attention dot: the tile
+       draws it instead, in the accent */
+    &.unified-extensions-item[attention] {
+      background-image: radial-gradient(
+        circle,
+        var(--zf-accent) 2px,
+        transparent 2.5px
+      ) !important;
+      background-position: 50% calc(100% - 1px) !important;
+      background-size: 8px 8px !important;
+      background-repeat: no-repeat !important;
+    }
+
+    /* Badge (unread count, blocked requests…): accent pill, as in the
+       pinned extensions row */
+    & .toolbarbutton-badge {
+      min-width: 14px !important;
+      height: 14px !important;
+      padding: 0 3px !important;
+      border-radius: 7px !important;
+      background-color: var(--zf-accent) !important;
+      color: var(--zf-on-accent) !important;
+      font-size: 9px !important;
+      line-height: 14px !important;
+      box-shadow: 0 0 0 1.5px var(--zf-acrylic-solid) !important;
+    }
+  }
+}
+
+#zen-site-data-new-addon-button {
+  color: var(--zf-text-secondary) !important;
+}

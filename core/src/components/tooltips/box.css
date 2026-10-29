@@ -1,0 +1,40 @@
+/* Zen Fluent: WinUI ToolTip box: padding, stroke, radius, type, solid Acrylic and 320px max width.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI ToolTip on every XUL <tooltip>: solid Acrylic, 1px flyout stroke,
+   12/16 text, 9,6,9,8 padding, 320px wide at most. No shadow, as in WinUI's
+   template: the popup widget would clip it anyway. */
+
+/* -------- Box -------- */
+/* `tooltip` is the only selector that also reaches the document's default
+   tooltip (every tooltiptext and chrome title=). That one is native anonymous
+   content: no author styles, nothing inherited from :root. It reads the
+   tokens tokens.css declares on `tooltip`, and the UA's font: message-box is
+   overridden longhand by longhand. Round corners in both corner modes and
+   the Edge style come from materials.css; Edge's radius (8) from tokens.css. */
+
+tooltip {
+  appearance: none !important;
+  padding: 6px 9px 8px !important;
+  border: 1px solid !important;
+  border-radius: var(--zf-radius-control) !important;
+  font-family: var(--zf-font) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 16px !important;
+
+  /* High contrast keeps the UA's system colors (InfoBackground, InfoText,
+     currentColor border), as WinUI does */
+  @media not (prefers-contrast) {
+    border-color: var(--zf-stroke-control) !important;
+    background-color: var(--zf-acrylic-solid) !important;
+    color: var(--zf-text-primary) !important;
+  }
+}
+
+/* WinUI's ToolTipMaxWidth, border included (XUL boxes are border-box). It
+   replaces Firefox's 40em and the shield icon / protections panel widths.
+   Titletips (cropped tree cells in the Library) stay as wide as their text. */
+tooltip:not([titletip="true"]) {
+  max-width: 320px !important;
+}

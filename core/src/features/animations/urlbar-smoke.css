@@ -1,0 +1,8 @@
+/* Zen Fluent: No URL bar animation: the page smoke appears without its transition.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.urlbar-animation", "none")) {
+  .browserStack {
+    transition: none !important;
+  }
+}

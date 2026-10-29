@@ -1,0 +1,107 @@
+/* Zen Fluent: about:preferences / about:addons sub-dialogs and the import wizard as a WinUI ContentDialog over smoke.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The about:preferences sub-dialog frame (fonts, colors, connection,
+   containers…) and the import wizard as a WinUI ContentDialog over smoke.
+   The document inside the frame is a chrome:// one: dialogs.css styles it,
+   with its content on the same Layer as the title bar here. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons") {
+  /* -------- Smoke -------- */
+
+  /* SubDialog clones #dialogTemplate with its id: the open overlays are the
+     ones inside #dialogStack */
+  @media not (forced-colors) {
+    #dialogStack > .dialogOverlay[topmost="true"],
+    #migrationWizardDialog::backdrop {
+      background-color: var(--zf-smoke) !important;
+    }
+  }
+
+  /* -------- Card -------- */
+
+  #dialogStack > .dialogOverlay > .dialogBox,
+  #migrationWizardDialog {
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: var(--zf-radius-overlay) !important;
+
+    /* materials.css, which undoes Zen's squircles, is not in this sheet.
+       Edge: 12px plain arcs and Fluent's shadow64 (tokens) */
+    @media (-moz-pref("zen-fluent.corners", "winui")) or (-moz-pref("zen-fluent.style", "edge")) {
+      corner-shape: round !important;
+    }
+
+    @media not (forced-colors) {
+      border-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-solid-base) !important;
+
+      /* Firefox clips the fill to the content box: the translucent stroke
+         would lie over the smoke */
+      background-clip: padding-box !important;
+      color: var(--zf-text-primary) !important;
+      box-shadow: var(--zf-shadow-dialog) !important;
+
+      @media (prefers-contrast) {
+        border-color: var(--zf-stroke-field) !important;
+      }
+    }
+  }
+
+  /* The frame fills the card: its document keeps 24px of padding. SubDialog
+     only accounts for symmetric frame margins. */
+  #dialogStack .dialogFrame {
+    margin: 0 !important;
+  }
+
+  /* -------- Title bar -------- */
+  /* 20px SemiBold title at 24px from the edges, on the content Layer; the
+     close button's glyph lines up with the content's 24px edge */
+
+  #dialogStack .dialogTitleBar {
+    padding-block: 22px 0 !important;
+    padding-inline: 24px 16px !important;
+    border-bottom: 0 !important;
+
+    @media not (forced-colors) {
+      background-color: var(--zf-layer-alt) !important;
+    }
+  }
+
+  #dialogStack .dialogTitle {
+    margin: 0 !important;
+    font: 600 20px / 28px var(--zf-font-display) !important;
+    text-align: start !important;
+  }
+
+  /* moz-button reads its size from tokens on its own :host */
+  #dialogStack .dialogClose {
+    --button-size-icon-small: 32px !important;
+    --button-min-height-small: 32px !important;
+
+    margin: 0 !important;
+  }
+
+  /* -------- Entrance: WinUI DialogShowing -------- */
+  /* Same reveal as in the window: SubDialog holds the overlay at an inline
+     opacity of 0.01 while it loads and sizes the dialog */
+
+  @media not (prefers-reduced-motion: reduce) {
+    #dialogStack > .dialogOverlay {
+      transition: opacity var(--zf-duration-fast) linear !important;
+
+      & > .dialogBox {
+        transition: scale var(--zf-duration-slow) var(--zf-ease) !important;
+      }
+
+      &[style*="opacity"] {
+        transition: none !important;
+
+        & > .dialogBox {
+          scale: 1.05 !important;
+          transition: none !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/* Zen Fluent: Fluent icons: URL bar buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Urlbar: copy link, site settings -------- */
+
+  #zen-copy-url-button image {
+    list-style-image: url("../../../icons/link.svg") !important;
+  }
+
+  #zen-site-data-icon-button image {
+    list-style-image: url("../../../icons/site-settings.svg") !important;
+  }
+}

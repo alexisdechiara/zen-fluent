@@ -1,0 +1,38 @@
+/* Zen Fluent: about:preferences: type, cards, inputs and code.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  body {
+    font-family: var(--zf-font) !important;
+  }
+
+  h1 {
+    font-family: var(--zf-font-display) !important;
+    font-weight: 600 !important;
+  }
+
+  groupbox,
+  moz-card,
+  .card {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background-color: var(--zf-fill-card) !important;
+    box-shadow: none !important;
+  }
+
+  input[type="text"],
+  input[type="search"],
+  search-textbox,
+  menulist {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+  }
+
+  code,
+  pre {
+    font-family: var(--zf-font-mono) !important;
+  }
+}

@@ -1,0 +1,9 @@
+/* Zen Fluent: Hide the zoom level button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zoom level (a click resets it, as Ctrl+0 does) */
+@media (-moz-pref("zen-fluent.url-hide-zoom")) {
+  #urlbar-zoom-button {
+    display: none !important;
+  }
+}

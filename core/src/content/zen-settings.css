@@ -1,0 +1,45 @@
+/* Zen Fluent: Zen settings panes and the layout list.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* --------------------------- ZEN SETTINGS --------------------------- */
+  /* Zen's own panes (Look and Feel, Tab Management…): each group is a card
+     with a heading, toggles on the right and 32px ComboBoxes */
+
+  groupbox[data-category^="paneZen"] {
+    padding: 16px !important;
+
+    & > label > h2 {
+      margin: 0 !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+    }
+
+    & > description {
+      font-size: 13px !important;
+      color: var(--zf-text-secondary) !important;
+    }
+
+    & checkbox {
+      flex-direction: row-reverse !important;
+      gap: 16px;
+      min-height: 32px;
+    }
+
+    & menulist {
+      min-width: 170px;
+      height: 32px !important;
+      padding: 0 10px 0 12px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  #zenLayoutList img {
+    border-radius: var(--zf-radius-card) !important;
+  }
+
+  #zenLayoutList > .selected > img {
+    border-color: var(--zf-accent) !important;
+  }
+}

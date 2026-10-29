@@ -1,0 +1,21 @@
+/* Zen Fluent: WinUI 3 button press animations (zen-fluent.button-animations).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- Buttons (Firefox-WinUI) -------- */
+
+  @media (-moz-pref("zen-fluent.button-animations")) {
+    :is(toolbarbutton, .tabbrowser-tab, .urlbarView-row, .zen-library-tab) {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        scale var(--zf-duration-fast) linear !important;
+    }
+
+    :is(
+        toolbarbutton,
+        .zen-essentials-container .tabbrowser-tab
+      ):hover:active:not([disabled], :has(.tab-close-button:hover)) {
+      scale: 0.96;
+    }
+  }
+}

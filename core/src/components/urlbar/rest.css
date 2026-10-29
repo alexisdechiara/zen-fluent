@@ -1,0 +1,30 @@
+/* Zen Fluent: URL bar field at rest: fill, stroke, hover, focus and 13px text.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- At rest -------- */
+
+#urlbar:not([breakout-extend]) {
+  & .urlbar-background {
+    background-color: var(--zf-url-fill) !important;
+    border: 1px solid var(--zf-url-stroke) !important;
+    border-radius: var(--zf-radius-control) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear !important;
+  }
+
+  &:hover .urlbar-background {
+    background-color: var(--zf-url-fill-hover) !important;
+    border-color: var(--zf-url-stroke-hover) !important;
+  }
+
+  &[focused] .urlbar-background {
+    background-color: var(--zf-url-fill-focus) !important;
+  }
+
+  & .urlbar-input {
+    font-size: 13px !important;
+  }
+}

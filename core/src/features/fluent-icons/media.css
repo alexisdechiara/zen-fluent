@@ -1,0 +1,38 @@
+/* Zen Fluent: Fluent icons: media card controls.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Media card -------- */
+
+  .zen-media-playpause-button {
+    list-style-image: url("../../../icons/media-play.svg") !important;
+  }
+
+  .zen-media-card.playing .zen-media-playpause-button {
+    list-style-image: url("../../../icons/media-pause.svg") !important;
+  }
+
+  .zen-media-nexttrack-button {
+    list-style-image: url("../../../icons/media-next.svg") !important;
+  }
+
+  .zen-media-previoustrack-button {
+    list-style-image: url("../../../icons/media-previous.svg") !important;
+  }
+
+  .zen-media-mute-button {
+    list-style-image: url("../../../icons/media-unmute.svg") !important;
+  }
+
+  .zen-media-card[muted] .zen-media-mute-button {
+    list-style-image: url("../../../icons/media-mute.svg") !important;
+  }
+
+  .zen-media-pip-button {
+    list-style-image: url("../../../icons/pip.svg") !important;
+  }
+
+  .zen-media-close-button {
+    list-style-image: url("../../../icons/close.svg") !important;
+  }
+}

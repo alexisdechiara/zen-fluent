@@ -1,0 +1,26 @@
+/* Zen Fluent: Dialog entrance (WinUI DialogShowing): card scales down from 105% while the overlay fades in.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Entrance: WinUI DialogShowing -------- */
+/* The card scales down from 105% while the overlay fades in. SubDialog keeps
+   a loading overlay at an inline opacity of 0.01 and clears it once the
+   dialog is sized: the transitions start there. There is no closing hook. */
+
+@media not (prefers-reduced-motion: reduce) {
+  .dialogOverlay:not([hideContent="true"]) {
+    transition: opacity var(--zf-duration-fast) linear !important;
+
+    & > .dialogBox:not(.spotlightBox, [sizeto="available"]) {
+      transition: scale var(--zf-duration-slow) var(--zf-ease) !important;
+    }
+
+    &[style*="opacity"] {
+      transition: none !important;
+
+      & > .dialogBox:not(.spotlightBox, [sizeto="available"]) {
+        scale: 1.05 !important;
+        transition: none !important;
+      }
+    }
+  }
+}

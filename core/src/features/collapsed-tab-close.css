@@ -1,0 +1,58 @@
+/* Zen Fluent: Close button in the collapsed sidebar: Acrylic overlay badge or hidden.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Close button, collapsed sidebar -------- */
+/* Firefox lays the 24px button over the tile's top-left corner, on hover
+   and on the selected tab, half over the favicon. Overlay: a 16px Acrylic
+   badge 2px inside the top-end corner instead (Firefox-WinUI); hidden: none
+   at all, close from the menu or with a middle click. The tab content is
+   2px taller than the tile at the top. */
+
+@media (-moz-pref("zen-fluent.collapsed-tab-close", "overlay")) {
+  #tabbrowser-tabs[orient="vertical"]:not([expanded])
+    .tabbrowser-tab:not([pinned])
+    .tab-close-button {
+    inset: 4px 2px auto auto !important;
+    width: 16px !important;
+    height: 16px !important;
+    padding: 4px !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-acrylic-solid) !important;
+    background-image: none !important;
+    outline: 1px solid var(--zf-stroke-control) !important;
+    outline-offset: -1px !important;
+    box-shadow: var(--zf-shadow-tab) !important;
+    color: var(--zf-text-primary) !important;
+
+    &:-moz-locale-dir(rtl) {
+      inset: 4px auto auto 2px !important;
+    }
+
+    &:hover {
+      background-color: var(--zf-acrylic-solid) !important;
+      background-image: linear-gradient(
+        var(--zf-fill-subtle-hover),
+        var(--zf-fill-subtle-hover)
+      ) !important;
+    }
+
+    &:hover:active {
+      background-image: linear-gradient(
+        var(--zf-fill-subtle-press),
+        var(--zf-fill-subtle-press)
+      ) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: 50% !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.collapsed-tab-close", "hidden")) {
+  #tabbrowser-tabs[orient="vertical"]:not([expanded])
+    .tabbrowser-tab
+    .tab-close-button {
+    display: none !important;
+  }
+}

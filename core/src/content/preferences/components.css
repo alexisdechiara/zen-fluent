@@ -1,0 +1,67 @@
+/* Zen Fluent: about:preferences: page navigation, toggles and boxes tokens.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* Component tokens live on each element's :host, so they are set there */
+
+  /* WinUI NavigationView: subtle selected fill, short accent pill */
+  moz-page-nav,
+  moz-page-nav-button {
+    --page-nav-button-background-color-hover: var(
+      --zf-fill-subtle-hover
+    ) !important;
+    --page-nav-button-background-color-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+    --page-nav-button-background-color-selected: var(
+      --zf-fill-selected
+    ) !important;
+    --page-nav-button-text-color-selected: var(--zf-text-primary) !important;
+    --page-nav-button-indicator-background-color: var(--zf-accent) !important;
+    --page-nav-button-indicator-width: 3px !important;
+    --page-nav-button-border-radius: var(--zf-radius-control) !important;
+  }
+
+  /* User sheets reach into shadow trees: the nav button's full-height
+     indicator becomes the 3x16 WinUI pill */
+  button[role="tab"]:has(> .page-nav-icon)::before {
+    inset-block: 50% auto !important;
+    height: 16px !important;
+    margin-top: -8px !important;
+    border-radius: 999px !important;
+    corner-shape: round !important;
+  }
+
+  /* WinUI ToggleSwitch: 40x20, 12px knob, accent when on */
+  moz-toggle {
+    --toggle-width: 40px !important;
+    --toggle-height: 20px !important;
+    --toggle-dot-margin: 3px !important;
+    --toggle-border-color: var(--zf-text-secondary) !important;
+    --toggle-border-color-hover: var(--zf-text-secondary) !important;
+    --toggle-border-color-active: var(--zf-text-secondary) !important;
+    --toggle-dot-background-color: var(--zf-text-secondary) !important;
+    --toggle-background-color: transparent !important;
+    --toggle-background-color-hover: var(--zf-fill-subtle-hover) !important;
+    --toggle-background-color-active: var(--zf-fill-subtle-press) !important;
+    --toggle-background-color-pressed: var(--zf-accent) !important;
+    --toggle-background-color-pressed-hover: var(--zf-accent-hover) !important;
+    --toggle-background-color-pressed-active: var(
+      --zf-accent-pressed
+    ) !important;
+    --toggle-dot-background-color-on-pressed: var(--zf-on-accent) !important;
+  }
+
+  moz-box-group,
+  moz-box-item,
+  moz-box-button,
+  moz-box-link {
+    --box-border-color: var(--zf-stroke-control) !important;
+    --box-border-radius: var(--zf-radius-card) !important;
+    --box-button-background-color-hover: var(--zf-fill-subtle-hover) !important;
+    --box-button-background-color-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+  }
+}

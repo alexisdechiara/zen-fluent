@@ -1,0 +1,11 @@
+/* Zen Fluent: Text selection in the accent color in chrome documents.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Text selection in the accent color (Firefox-WinUI) -------- */
+
+@media not ((-moz-pref("zen-fluent.accent-selection", false)) or (forced-colors)) {
+  ::selection {
+    background-color: var(--zf-accent) !important;
+    color: var(--zf-on-accent) !important;
+  }
+}

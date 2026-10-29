@@ -1,0 +1,13 @@
+/* Zen Fluent: Textbox shape (default under WinUI): stronger bottom edge.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Textbox: the stronger bottom edge (WinUI) */
+@media (-moz-pref("zen-fluent.url-style", "textbox")) or ((not (-moz-pref("zen-fluent.style", "edge"))) and (not (-moz-pref("zen-fluent.url-style", "pill"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))) {
+  #urlbar:not([breakout-extend]) .urlbar-background {
+    border-bottom-color: var(--zf-url-stroke-bottom) !important;
+  }
+
+  #urlbar:not([breakout-extend]):hover .urlbar-background {
+    border-bottom-color: var(--zf-url-stroke-bottom-hover) !important;
+  }
+}

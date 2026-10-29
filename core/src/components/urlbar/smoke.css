@@ -1,0 +1,14 @@
+/* Zen Fluent: Page smoke behind the open floating URL bar.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Page behind the open bar: smoke -------- */
+
+.browserStack {
+  transition: filter var(--zf-duration-normal) linear !important;
+}
+
+#browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
+  .browserStack {
+  /* ~ the design's smoke layer: rgb(0 0 0 / 30–42%) */
+  filter: brightness(0.64) !important;
+}

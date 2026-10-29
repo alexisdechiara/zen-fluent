@@ -1,0 +1,31 @@
+/* Zen Fluent: Compact mode: clip the Library over the page edge and drop the floating sidebar's shadow.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Compact mode: Zen shifts the page by the Library's width minus
+   --zen-element-separation, assuming the page keeps that margin. With WinUI
+   corners the page is flush with the window, so its first 8px end up under
+   the Library: they are clipped off the Library, and the page shows and
+   takes the clicks there. Edge: the page keeps 4px from the window, so the
+   same clip leaves the 4px gap it has on its other sides. Same condition as
+   Zen's compact layout (hide the tab bar, or a single toolbar). */
+@media ((-moz-pref("zen-fluent.corners", "winui")) or (-moz-pref("zen-fluent.style", "edge"))) and ((-moz-pref("zen.view.compact.hide-tabbar")) or (-moz-pref("zen.view.use-single-toolbar"))) {
+  :root[zen-compact-mode="true"] zen-library {
+    --zf-library-overlap: var(--zen-element-separation);
+
+    clip-path: inset(0 var(--zf-library-overlap) 0 0) !important;
+  }
+
+  /* The sidebar, and the Library with it, on the right */
+  :root[zen-compact-mode="true"][zen-right-side="true"] zen-library {
+    clip-path: inset(0 0 0 var(--zf-library-overlap)) !important;
+  }
+}
+
+/* Compact mode: the floating sidebar waits just outside the window while
+   the Library is open, and its shadow would darken the Library's edge */
+:root[zen-compact-mode="true"]
+  #browser:has(> zen-library[open])
+  #navigator-toolbox
+  :is(.zen-toolbar-background, #titlebar) {
+  box-shadow: none !important;
+}

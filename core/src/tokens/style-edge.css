@@ -1,0 +1,69 @@
+/* Zen Fluent: Edge style (Fluent 2) tokens: radii, pill field, Edge fills, type, motion and shadows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Edge style (Fluent 2), measured on Edge 156 -------- */
+
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  :root,
+  tooltip {
+    /* Buttons, tabs and the content card: 8px; flyouts 12 = 8 + 4 padding */
+    --zf-radius-control: 8px;
+    --zf-radius-card: 8px;
+    --zf-radius-overlay: 12px;
+
+    /* Pill field: 32px tall, 28px inner circles inset 2px */
+    --zf-pill-h: 32px;
+    --zf-pill-inset: 2px;
+
+    /* Field: white on Mica in light, a step darker than its surround in dark */
+    --zf-edge-field: light-dark(#fff, rgb(0 0 0 / 24%));
+    --zf-edge-field-hover: light-dark(#fff, rgb(0 0 0 / 18%));
+    --zf-edge-field-focus: light-dark(#fff, #1f1f1f);
+    --zf-edge-field-stroke: light-dark(rgb(0 0 0 / 5%), rgb(255 255 255 / 10%));
+    --zf-edge-field-stroke-hover: light-dark(
+      rgb(0 0 0 / 10%),
+      rgb(255 255 255 / 16%)
+    );
+
+    /* Raised surfaces (selected tab, Essentials tile) */
+    --zf-edge-raised: light-dark(#fff, rgb(255 255 255 / 8.5%));
+    --zf-edge-card-stroke: light-dark(rgb(0 0 0 / 7%), rgb(255 255 255 / 4.5%));
+    --zf-edge-url-dim: light-dark(#707070, #9c9c9c);
+
+    /* Subtle buttons and rows (Fluent 2 colorSubtleBackgroundHover /
+       Pressed over the toolbar): pressed is darker in light, lighter than
+       hover in dark */
+    --zf-edge-hover: light-dark(rgb(0 0 0 / 4%), rgb(255 255 255 / 8%));
+    --zf-edge-pressed: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 5%));
+
+    /* Essentials tiles at rest: a faint field, white once selected */
+    --zf-edge-tile: light-dark(rgb(255 255 255 / 45%), rgb(255 255 255 / 4%));
+    --zf-edge-tile-hover: light-dark(
+      rgb(255 255 255 / 75%),
+      rgb(255 255 255 / 7%)
+    );
+
+    /* Type: 12px tab titles (measured) */
+    --zf-sidebar-font-size: calc(12px + var(--zf-text-step));
+
+    /* Motion: Fluent 2 durationFaster / Fast / Gentle, same curve */
+    --zf-duration-fast: 100ms;
+    --zf-duration-normal: 150ms;
+    --zf-duration-slow: 250ms;
+
+    /* Fluent 2 shadows */
+    --zf-shadow-a: light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 24%));
+    --zf-shadow-k: light-dark(rgb(0 0 0 / 14%), rgb(0 0 0 / 28%));
+    --zf-shadow-2: 0 0 2px var(--zf-shadow-a), 0 1px 2px var(--zf-shadow-k);
+    --zf-shadow-4: 0 0 2px var(--zf-shadow-a), 0 2px 4px var(--zf-shadow-k);
+    --zf-shadow-16: 0 0 2px var(--zf-shadow-a), 0 8px 16px var(--zf-shadow-k);
+    --zf-shadow-28: 0 0 8px var(--zf-shadow-a), 0 14px 28px var(--zf-shadow-k);
+    --zf-shadow-64: 0 0 8px var(--zf-shadow-a), 0 32px 64px var(--zf-shadow-k);
+    --zf-shadow-tab: var(--zf-shadow-2);
+    --zf-shadow-flyout:
+      0 0 0 1px var(--zf-edge-field-stroke), var(--zf-shadow-16);
+    --zf-shadow-dialog:
+      0 0 0 1px var(--zf-edge-field-stroke), var(--zf-shadow-64);
+    --zf-shadow-card: 0 0 0 1px var(--zf-edge-card-stroke);
+  }
+}

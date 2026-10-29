@@ -1,0 +1,37 @@
+/* Zen Fluent: Back / Forward arrow bounce (zen-fluent.nav-bounce).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- Back / Forward bounce (Firefox-WinUI) -------- */
+  /* WinUI's AnimatedIcon: the arrow squeezes towards its tail while pressed
+     and springs past its length on release (scaleX 0.7 → 1.1 → 0.98 → 1,
+     500ms), the overshoot written as a linear() easing */
+
+  @media (-moz-pref("zen-fluent.nav-bounce")) {
+    :is(#back-button, #forward-button) > .toolbarbutton-icon {
+      transition: scale 500ms linear(0, 0.7 18%, 1.333 45%, 0.933 75%, 1) !important;
+    }
+
+    #back-button > .toolbarbutton-icon {
+      transform-origin: right;
+
+      &:dir(rtl) {
+        transform-origin: left;
+      }
+    }
+
+    #forward-button > .toolbarbutton-icon {
+      transform-origin: left;
+
+      &:dir(rtl) {
+        transform-origin: right;
+      }
+    }
+
+    :is(#back-button, #forward-button):not([disabled]):hover:active
+      > .toolbarbutton-icon {
+      scale: 0.7 1;
+      transition: scale var(--zf-duration-fast) var(--zf-ease) !important;
+    }
+  }
+}

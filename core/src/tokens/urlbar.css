@@ -1,0 +1,41 @@
+/* Zen Fluent: URL bar tokens: WinUI field colours, pill geometry, accent line thickness.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Three shapes (zen-fluent.url-style), two colour sets (zen-fluent.style):
+   - textbox: a WinUI TextBox (control fill, 1px stroke, stronger bottom edge);
+   - pill: Edge's address bar, a true pill whose round buttons sit on the
+     centres of its end caps (Edge 156, measured);
+   - transparent: no field until hovered or focused.
+   "auto" (the default) is the textbox under the WinUI style, the pill under
+   Edge. Open, the bar is a solid surface: Firefox does not blur web content
+   behind backdrop-filter. The accent line (zen-fluent.url-underline) is one
+   ::after band on .urlbar-background, so it follows every shape and state.
+
+   Zen sets breakout-extend as soon as the bar opens (a click opens it in
+   place, typing opens it floating): [focused] without it only lasts until
+   the view opens, so the line is drawn in both states. */
+
+/* -------- Field colours: WinUI, or Edge (Fluent 2) -------- */
+
+#urlbar {
+  --zf-url-fill: var(--zf-fill-control);
+  --zf-url-fill-hover: var(--zf-fill-control-hover);
+  --zf-url-fill-focus: var(--zf-acrylic-solid);
+  --zf-url-stroke: var(--zf-stroke-control);
+  --zf-url-stroke-hover: var(--zf-stroke-control);
+  /* ControlStrongStroke: the TextBox's bottom edge (same on hover) */
+  --zf-url-stroke-bottom: var(--zf-stroke-field);
+  --zf-url-stroke-bottom-hover: var(--zf-stroke-field);
+  --zf-url-icon: var(--zf-text-secondary);
+
+  /* Pill (Edge 156): 32px field, 28px buttons inset 2px, so the first and
+     last icon centres sit on the end-cap centres */
+  --zf-url-h: var(--zf-pill-h, 32px);
+  --zf-url-inset: var(--zf-pill-inset, 2px);
+  --zf-url-chip: calc(var(--zf-url-h) - 2 * var(--zf-url-inset));
+
+  /* Accent line: thickness at rest, and while focused or open */
+  --zf-url-line: var(--zf-accent);
+  --zf-url-line-rest: 0px;
+  --zf-url-line-focus: 2px;
+}

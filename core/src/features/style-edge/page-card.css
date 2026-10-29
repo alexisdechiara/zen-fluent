@@ -1,0 +1,36 @@
+/* Zen Fluent: Edge style: the page as a 4px-inset, 8px-radius card with a hairline stroke.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Edge: the page is a card, 4px from the window and the sidebar's edges
+   (the toolbar gives the top gap), rounded 8px all round, with a hairline
+   stroke and no drop shadow in dark. Zen lays out the gaps from
+   --zen-element-separation, so it is set on the wrapper only (split panes
+   get the same 4px gap); the Library's shift keeps reading Zen's value. */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  #zen-tabbox-wrapper {
+    --zen-element-separation: 4px !important;
+  }
+
+  /* Zen keeps the sidebar side flush (except in compact mode) */
+  :root:not([inDOMFullscreen="true"], [popup-window]) #zen-tabbox-wrapper {
+    margin-inline: 4px !important;
+  }
+
+  /* Compact mode, single toolbar: nothing above the page (see below), so the
+     top gap is the card's own */
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]:not(
+      [customizing],
+      [inDOMFullscreen="true"]
+    )
+    #zen-tabbox-wrapper {
+    margin-top: 4px !important;
+  }
+
+  #tabbrowser-tabpanels .browserSidebarContainer:not(.zen-glance-overlay) {
+    border-radius: var(--zf-radius-card) !important;
+    box-shadow:
+      0 0 0 1px var(--zf-edge-card-stroke),
+      0 0 2px light-dark(rgb(0 0 0 / 6%), transparent),
+      0 1px 2px light-dark(rgb(0 0 0 / 7%), transparent) !important;
+  }
+}

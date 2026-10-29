@@ -1,0 +1,52 @@
+/* Zen Fluent: Find bar strip: Firefox sizing variables, Layer surface and divider, Glance and urlbar-dim backgrounds.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Ctrl+F: a WinUI command strip docked at the bottom of the page card, on a
+   Layer. TextBox with the accent underline, subtle chevron Buttons,
+   CheckBoxes, Caption status text, critical color when nothing is found. */
+
+/* -------- Strip -------- */
+
+/* Firefox sizes the bar, and slides the closed bar out of view, from these
+   three variables (49px here): padding or a height set on the bar itself
+   would leave the closed bar peeking out */
+.browserContainer > findbar {
+  --findbar-border-top-width: 1px !important;
+  --findbar-container-height: 32px !important;
+  --findbar-padding-block: 8px !important;
+
+  /* Already contain: inline-size (xul.css), so this costs nothing */
+  container: zf-findbar / inline-size;
+  font-size: 14px !important;
+}
+
+@media not (forced-colors) {
+  .browserContainer > findbar {
+    /* Disabled arrows take the disabled text color instead */
+    --toolbarbutton-opacity-disabled: 1 !important;
+
+    border-top-color: var(--zf-stroke-divider) !important;
+    background: var(--zf-layer) !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  /* Glance: the bar lies over the parent tab's page, which a Layer would
+     show through, sharp */
+  .zen-glance-overlay .browserContainer > findbar {
+    background: var(--zf-acrylic-over-page) !important;
+  }
+
+  @media (prefers-contrast) {
+    .browserContainer > findbar {
+      border-top-color: var(--zf-stroke-field) !important;
+    }
+  }
+}
+
+/* The open urlbar dims the page (urlbar.css, same value): the bar is a
+   sibling of the dimmed .browserStack, not part of it */
+#browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
+  .browserContainer
+  > findbar {
+  filter: brightness(0.64) !important;
+}

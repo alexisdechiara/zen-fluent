@@ -1,0 +1,19 @@
+/* Zen Fluent: Fluent icons: Firefox sidebar header.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Firefox sidebar header, as in the app menu -------- */
+
+  #sidebar-box[sidebarcommand="viewHistorySidebar"] #sidebar-icon {
+    list-style-image: url("../../../icons/history.svg") !important;
+  }
+
+  #sidebar-box[sidebarcommand="viewBookmarksSidebar"] #sidebar-icon {
+    list-style-image: url("../../../icons/bookmarks.svg") !important;
+  }
+
+  /* Same specificity as ff-sidebar.css, which comes first */
+  #sidebar-box[sidebarcommand="viewCPMSidebar"] #sidebar-icon {
+    list-style-image: url("../../../icons/passwords.svg") !important;
+  }
+}

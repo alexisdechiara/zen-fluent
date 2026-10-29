@@ -1,0 +1,16 @@
+/* Zen Fluent: Body text at 14/20 for window dialogs that use the menu font.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Body text -------- */
+/* In the window, Clear history, bookmark properties and clear site data use
+   the menu font (12px on Windows) under 14px buttons: the ContentDialog body
+   is 14/20, as for prompts. In about:preferences they keep its root size. */
+
+:is(
+    #SanitizeDialog,
+    #bookmarkproperties,
+    #clearDataForSiteDialogWindow
+  )[subdialog].system-font-size {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}

@@ -1,0 +1,25 @@
+/* Zen Fluent: Font presets for zen-fluent.font: Aptos and the system UI font.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Font: Segoe UI Variable (default), Aptos, system, custom -------- */
+
+@media (-moz-pref("zen-fluent.font", "aptos")) {
+  :root,
+  tooltip {
+    --zf-font:
+      "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    --zf-font-display:
+      "Aptos Display", "Aptos", "Segoe UI Variable Display", "Segoe UI",
+      system-ui, sans-serif;
+  }
+}
+
+/* The OS UI font: Segoe UI on Windows, the GTK font on Linux, SF on macOS */
+@media (-moz-pref("zen-fluent.font", "system")) {
+  :root,
+  tooltip {
+    --zf-font: system-ui, "Segoe UI Variable Text", "Segoe UI", sans-serif;
+    --zf-font-display:
+      system-ui, "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  }
+}

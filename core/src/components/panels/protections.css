@@ -1,0 +1,119 @@
+/* Zen Fluent: Tracking protection popup: header, ToggleSwitch, captions, SmartBlock card, footer, milestone banner.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Tracking protection: a ToggleSwitch, category rows, captions, the
+   SmartBlock card and the tracker lists. */
+
+#protections-popup {
+  /* 32px info button in the header; Firefox resolves the full width on
+     :root, so both are set */
+  --panel-header-info-icon-padding: 8px !important;
+  --panel-header-info-icon-full-width: 32px !important;
+}
+
+#protections-popup-info-button {
+  border-radius: var(--zf-radius-control) !important;
+}
+
+#protections-popup .protections-popup-switch-section-header {
+  padding-block: 8px !important;
+}
+
+/* WinUI ToggleSwitch: 40x20, 12px knob, accent when on. The tokens live
+   on the toggle's :host, so they are set on the element. */
+#protections-popup moz-toggle {
+  --toggle-width: 40px !important;
+  --toggle-height: 20px !important;
+  --toggle-dot-margin: 3px !important;
+  --font-size-small: 12px !important;
+
+  @media not (forced-colors) {
+    --toggle-border-color: var(--zf-text-secondary) !important;
+    --toggle-border-color-hover: var(--zf-text-secondary) !important;
+    --toggle-border-color-active: var(--zf-text-secondary) !important;
+    --toggle-dot-background-color: var(--zf-text-secondary) !important;
+    --toggle-background-color: transparent !important;
+    --toggle-background-color-hover: var(--zf-fill-subtle-hover) !important;
+    --toggle-background-color-active: var(--zf-fill-subtle-press) !important;
+    --toggle-background-color-pressed: var(--zf-accent) !important;
+    --toggle-background-color-pressed-hover: var(--zf-accent-hover) !important;
+    --toggle-background-color-pressed-active: var(
+      --zf-accent-pressed
+    ) !important;
+
+    /* The default knob reads the panel's translucent canvas */
+    --toggle-dot-background-color-on-pressed: var(--zf-on-accent) !important;
+  }
+}
+
+/* Captions: Blocking, Not blocking, None detected, SmartBlock */
+#protections-popup .protections-popup-section-header {
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 16px !important;
+}
+
+/* "Why?": a HyperlinkButton instead of Firefox's 4px hover outline */
+#protections-popup-not-blocking-section-why {
+  margin-block: -2px !important;
+  padding: 2px 6px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-accent) !important;
+  font-weight: 400 !important;
+  outline: none !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+}
+
+/* SmartBlock: a card holding the per-tracker ToggleSwitches */
+#protections-popup-smartblock-highlight-container {
+  margin-inline: 4px !important;
+  padding-block: 4px !important;
+  border-radius: var(--zf-radius-card) !important;
+
+  @media not (forced-colors) {
+    border: 1px solid var(--zf-stroke-control) !important;
+    background-color: var(--zf-fill-card) !important;
+  }
+}
+
+/* Footer: settings and dashboard rows. Firefox ships their glyphs empty:
+   icons.css fills them, so they line up with the category rows. */
+#protections-popup-footer {
+  margin: 0 !important;
+  padding-block: 4px !important;
+}
+
+#protections-popup .protections-popup-footer-icon {
+  width: 16px !important;
+  height: 16px !important;
+  margin-inline-end: 12px !important;
+}
+
+:is(
+  #protections-popup-trackers-blocked-counter-description,
+  #protections-popup-footer-protection-type-label
+) {
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+}
+
+/* Milestone banner: an informational InfoBar you can click */
+#protections-popup-milestones-content {
+  border-radius: var(--zf-radius-control) !important;
+
+  @media not (forced-colors) {
+    --panel-banner-item-background-color: var(--zf-fill-card) !important;
+    --panel-banner-item-hover-bgcolor: var(--zf-fill-control-hover) !important;
+    --panel-banner-item-active-bgcolor: var(--zf-fill-subtle-press) !important;
+
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+  }
+}

@@ -1,0 +1,25 @@
+/* Zen Fluent: Library rows: hover fill, tertiary secondary text, accent progress arc.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Rows (history, downloads) -------- */
+
+.zen-library-row {
+  min-height: 36px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  &:hover:not([pending]) {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  & .zen-library-row-subtitle,
+  & .zen-library-visit-date,
+  & .zen-library-visit-url,
+  & .zen-library-download-url {
+    font-size: 12px !important;
+    color: var(--zf-text-tertiary) !important;
+  }
+
+  & .zen-library-row-progress-arc {
+    stroke: var(--zf-accent) !important;
+  }
+}

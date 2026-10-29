@@ -1,0 +1,22 @@
+/* Zen Fluent: Tab preview layout: 8px inset, text above the page.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Layout: text above the page, 8px inset -------- */
+
+#tab-preview-panel {
+  & .tab-preview-content-main {
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  /* Tab notes (off in Zen): the "Add note" row lines up with the card */
+  & .tab-preview-content-interactive:not(:empty) {
+    gap: 8px !important;
+    padding: 8px 8px 0 !important;
+  }
+
+  & .tab-preview-text-container {
+    margin: 0 !important;
+    padding: 2px 4px !important;
+  }
+}

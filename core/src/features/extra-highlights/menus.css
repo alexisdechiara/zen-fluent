@@ -1,0 +1,18 @@
+/* Zen Fluent: Extra highlights: 1px top light on menus and panels.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Extra highlights: a 1px light along the top edge, inside the stroke. It
+   rides on Firefox's shadow token, which the content box (the arrowscrollbox
+   of a menu, the slot of a panel) reads: ::part() does not match from user
+   sheets, and a panel's viewstack sits inside its padding. With Mica popups
+   Windows draws the shadow, so the light replaces Firefox's clipped one. */
+@media (-moz-pref("zen-fluent.extra-highlights")) and (not (forced-colors)) {
+  menupopup,
+  panel {
+    --zf-flyout-highlight: inset 0 1px 0 var(--zf-highlight);
+
+    @media (-moz-windows-mica-popups) {
+      --panel-box-shadow: var(--zf-flyout-highlight) !important;
+    }
+  }
+}

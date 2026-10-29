@@ -1,0 +1,100 @@
+/* Zen Fluent: ContentDialog button row: equal-width Buttons and the AccentButton default.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+.dialog-button-box:is(
+  link[href$="/in-content/common.css"] ~ *,
+  :has(~ link[href$="/in-content/common.css"])
+) {
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 24px !important;
+
+  /* The spacer only pushes extra2 / disclosure to the start. Otherwise
+     Windows shows it as a 0px item (8px with the gap), and Linux and macOS
+     always show it with flex="1", an !important UA rule: a share of the row */
+  &
+    > .button-spacer:not(
+      :is([dlgtype="extra2"], [dlgtype="disclosure"]):not([hidden]) ~ *
+    ) {
+    display: none !important;
+  }
+
+  /* Button, and AccentButton for the default one */
+  & > button[part="dialog-button"] {
+    /* ContentDialog buttons share the row equally */
+    flex: 1 1 0 !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 11px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: var(--zf-radius-control) !important;
+    font: 400 14px / 20px var(--zf-font) !important;
+
+    /* Zen shrinks pressed buttons */
+    scale: none !important;
+    transform: none !important;
+
+    @media not (forced-colors) {
+      border-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-control) !important;
+      color: var(--zf-text-primary) !important;
+
+      &:not([disabled]):hover {
+        background-color: var(--zf-fill-control-hover) !important;
+      }
+
+      &:not([disabled]):hover:active {
+        background-color: var(--zf-fill-subtle-press) !important;
+        color: var(--zf-text-secondary) !important;
+      }
+
+      &[disabled] {
+        background-color: var(--zf-fill-control-disabled) !important;
+        color: var(--zf-text-disabled) !important;
+        opacity: 1 !important;
+      }
+
+      /* Firefox flips [default] to "false" while another button has focus,
+         and keeps the accent: so does WinUI */
+      &[default] {
+        border-color: transparent !important;
+        background-color: var(--zf-accent) !important;
+        color: var(--zf-on-accent) !important;
+
+        &:not([disabled]):hover {
+          background-color: var(--zf-accent-hover) !important;
+        }
+
+        &:not([disabled]):hover:active {
+          background-color: var(--zf-accent-pressed) !important;
+          color: var(--zf-on-accent) !important;
+        }
+
+        /* Shown at reveal by prompts that delay their default button */
+        &[disabled] {
+          background-color: var(--zf-accent-disabled) !important;
+          color: var(--zf-on-accent-disabled) !important;
+        }
+      }
+    }
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        color var(--zf-duration-fast) linear !important;
+    }
+  }
+
+  /* A lone button takes the right half, as in WinUI */
+  &:not(:has(> button:not([hidden]) ~ button:not([hidden])))
+    > button[part="dialog-button"] {
+    flex: 0 1 calc(50% - 4px) !important;
+  }
+
+  /* Prompts may hide every button (confirmEx with no button) */
+  &:not(:has(> button:not([hidden]))) {
+    padding: 0 !important;
+  }
+}

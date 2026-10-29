@@ -1,0 +1,32 @@
+/* Zen Fluent: Accent line options: neutral divider when none, animated grow when animated.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* No accent: a neutral divider above the results */
+@media (-moz-pref("zen-fluent.url-underline", "none")) {
+  #urlbar[breakout-extend]:not([noresults]) .urlbar-background::after {
+    --zf-url-line: var(--zf-stroke-divider);
+    --zf-url-line-w: 1px;
+  }
+}
+
+/* Animated (Fluent 2 Input): grows from the centre in 200ms
+   (decelerate-mid), leaves in 50ms (accelerate-mid) */
+@media (-moz-pref("zen-fluent.url-underline", "animated")) {
+  #urlbar .urlbar-background::after {
+    background-size: 0 2px;
+  }
+
+  #urlbar:is([focused], [breakout-extend]) .urlbar-background::after {
+    background-size: var(--zf-url-line-len, 100%) 2px;
+  }
+
+  @media not (prefers-reduced-motion: reduce) {
+    #urlbar .urlbar-background::after {
+      transition: background-size 50ms cubic-bezier(1, 0, 1, 1);
+    }
+
+    #urlbar:is([focused], [breakout-extend]) .urlbar-background::after {
+      transition: background-size 200ms var(--zf-ease);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+/* Zen Fluent: Open URL bar: solid surface over the page with the dialog shadow.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Open: a solid surface over the page -------- */
+
+#urlbar[breakout-extend] {
+  border-radius: var(--zf-radius-overlay) !important;
+
+  & .urlbar-background {
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+    outline: none !important;
+  }
+
+  & .urlbar-input {
+    font-size: 16px !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  /* Firefox's own separator: the line below takes its place */
+  & #urlbar-results {
+    border-top: 0 !important;
+  }
+}

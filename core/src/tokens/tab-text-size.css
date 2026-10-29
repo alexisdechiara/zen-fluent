@@ -1,0 +1,18 @@
+/* Zen Fluent: Sidebar text size step for zen-fluent.tab-text-size (small, large).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Sidebar text size -------- */
+
+@media (-moz-pref("zen-fluent.tab-text-size", "small")) {
+  :root,
+  tooltip {
+    --zf-text-step: -1px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-text-size", "large")) {
+  :root,
+  tooltip {
+    --zf-text-step: 1px;
+  }
+}

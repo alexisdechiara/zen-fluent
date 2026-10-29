@@ -1,0 +1,17 @@
+/* Zen Fluent: Ctrl+Tab panel and status panel surfaces.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Ctrl+Tab and status panel -------- */
+
+#ctrlTab-panel {
+  border-radius: var(--zf-radius-overlay) !important;
+}
+
+#statuspanel-label {
+  border: 1px solid var(--zf-stroke-control) !important;
+  border-radius: var(--zf-radius-control) !important;
+  background-color: var(--zf-acrylic-solid) !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+  box-shadow: var(--zf-shadow-flyout) !important;
+}

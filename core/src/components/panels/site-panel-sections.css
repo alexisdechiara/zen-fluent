@@ -1,0 +1,43 @@
+/* Zen Fluent: Site panel sections: headers and Manage / More hyperlink buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Sections: Extensions, Boosts, Settings -------- */
+
+.zen-site-data-section {
+  gap: 4px !important;
+  padding: 8px 12px !important;
+}
+
+.zen-site-data-section-header {
+  min-height: 24px !important;
+  align-items: center !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 16px !important;
+}
+
+/* "Manage" and "More": HyperlinkButtons, shown with their section */
+:is(#zen-site-data-manage-addons, #zen-site-data-settings-more) {
+  padding: 2px 6px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-accent) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  transition:
+    opacity var(--zf-duration-fast) linear,
+    background-color var(--zf-duration-fast) linear !important;
+
+  .zen-site-data-section:is(:hover, :focus-within) & {
+    opacity: 1 !important;
+  }
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+    color: var(--zf-accent-pressed) !important;
+  }
+}

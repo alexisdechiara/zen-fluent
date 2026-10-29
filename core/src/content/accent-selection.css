@@ -1,0 +1,17 @@
+/* Zen Fluent: Accent-colored text selection in about: pages (not about:blank / about:srcdoc).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* materials.css colors the selection of the chrome documents only; about:
+   pages are content documents. -moz-pref(name, false) only matches an
+   explicit false, so an unset pref keeps the accent. Web pages never:
+   about:blank and about:srcdoc are left out, as web pages' frames (rich
+   text editors) are such documents. */
+
+@-moz-document regexp("about:(?!blank|srcdoc).*") {
+  @media not ((-moz-pref("zen-fluent.accent-selection", false)) or (forced-colors)) {
+    ::selection {
+      background-color: var(--zf-accent) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+}

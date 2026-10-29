@@ -1,0 +1,15 @@
+/* Zen Fluent: Hide keyboard shortcuts in menus and panels.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Hide shortcuts (Firefox-WinUI) -------- */
+
+@media (-moz-pref("zen-fluent.hide-shortcuts")) {
+  .menu-accel,
+  .menu-accel-container {
+    visibility: hidden !important;
+  }
+
+  .subviewbutton[shortcut]:not([disabled])::after {
+    color: transparent !important;
+  }
+}

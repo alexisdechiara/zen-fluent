@@ -1,0 +1,26 @@
+/* Zen Fluent: Fluent icons: Glance and split view buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Glance and split view -------- */
+
+  .zen-glance-sidebar-close {
+    list-style-image: url("../../../icons/close.svg") !important;
+  }
+
+  .zen-glance-sidebar-open {
+    list-style-image: url("../../../icons/open-in-tab.svg") !important;
+  }
+
+  .zen-glance-sidebar-split {
+    list-style-image: url("../../../icons/split.svg") !important;
+  }
+
+  .zen-tab-rearrange-button {
+    list-style-image: url("../../../icons/drag.svg") !important;
+  }
+
+  .zen-tab-unsplit-button {
+    list-style-image: url("../../../icons/minus.svg") !important;
+  }
+}

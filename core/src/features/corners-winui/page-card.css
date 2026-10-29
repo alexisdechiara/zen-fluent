@@ -1,0 +1,35 @@
+/* Zen Fluent: WinUI corners: page flush with the window, rounded and stroked on the sidebar side only.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI: the page sits flush against the window, rounded on the sidebar's
+   side only, with a 1px stroke (Nebula's "no gaps", WinUI edition). */
+@media (-moz-pref("zen-fluent.corners", "winui")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+  #zen-tabbox-wrapper {
+    margin: 0 !important;
+  }
+
+  #tabbrowser-tabpanels:not([zen-split-view="true"])
+    .browserSidebarContainer:not(.zen-glance-overlay) {
+    box-shadow: none !important;
+    border-radius: var(--zf-radius-overlay) 0 0 0 !important;
+    border-top: 1px solid var(--zf-stroke-control);
+    border-inline-start: 1px solid var(--zf-stroke-control);
+
+    /* The stroke follows the sidebar, not the window edge */
+    :root[zen-right-side="true"] & {
+      border-radius: 0 var(--zf-radius-overlay) 0 0 !important;
+      border-inline-start: 0;
+      border-inline-end: 1px solid var(--zf-stroke-control);
+    }
+
+    /* Compact mode: the sidebar is gone, only the toolbar edge remains */
+    :root[zen-compact-mode="true"] & {
+      border-inline: 0;
+      border-radius: 0 !important;
+    }
+
+    :root[zen-compact-mode="true"][zen-single-toolbar="true"] & {
+      border-top: 0;
+    }
+  }
+}

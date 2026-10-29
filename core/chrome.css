@@ -1,0 +1,217 @@
+/* Zen Fluent: browser chrome. https://github.com/alexisdechiara/zen-fluent
+   The import order is the cascade order: a later file wins a tie. */
+
+/* Tokens */
+@import url("src/tokens/winui.css");
+@import url("src/tokens/acrylic-fallback.css");
+@import url("src/tokens/accent.css");
+@import url("src/tokens/accent-custom.css");
+@import url("src/tokens/corners-zen.css");
+@import url("src/tokens/style-edge.css");
+@import url("src/tokens/font.css");
+@import url("src/tokens/font-custom.css");
+@import url("src/tokens/tab-text-size.css");
+@import url("src/tokens/host-bridge.css");
+
+/* Window, materials and page card */
+@import url("src/base/typography.css");
+@import url("src/base/corner-shape.css");
+@import url("src/tokens/window-background.css");
+@import url("src/base/window-background.css");
+@import url("src/base/page-card.css");
+@import url("src/features/corners-winui/page-card.css");
+@import url("src/features/style-edge/page-card.css");
+@import url("src/features/compact-sidebar-bg.css");
+@import url("src/base/compact-mode.css");
+@import url("src/features/acrylic-noise.css");
+@import url("src/features/accent-selection-browser.css");
+
+/* Sidebar: tabs, folders, Essentials, spaces, buttons */
+@import url("src/components/sidebar/tabs.css");
+@import url("src/features/style-edge/tabs.css");
+@import url("src/features/tab-bold.css");
+@import url("src/components/sidebar/tab-close-button.css");
+@import url("src/features/collapsed-tab-close.css");
+@import url("src/features/tab-close-button.css");
+@import url("src/components/sidebar/new-tab.css");
+@import url("src/components/sidebar/folders.css");
+@import url("src/components/sidebar/essentials.css");
+@import url("src/features/style-edge/essentials.css");
+@import url("src/features/essentials-gray.css");
+@import url("src/components/sidebar/workspace-indicator.css");
+@import url("src/features/workspace-indicator.css");
+@import url("src/components/sidebar/workspace-buttons.css");
+@import url("src/features/compact-edge-hint.css");
+@import url("src/components/sidebar/toolbar-buttons.css");
+@import url("src/features/style-edge/toolbar-buttons.css");
+@import url("src/features/button-style.css");
+@import url("src/features/hide-forward-disabled.css");
+
+/* Pinned extensions */
+@import url("src/features/pinned-extensions.css");
+
+/* URL bar */
+@import url("src/tokens/urlbar.css");
+@import url("src/tokens/urlbar-edge.css");
+@import url("src/tokens/url-underline.css");
+@import url("src/components/urlbar/rest.css");
+@import url("src/features/style-edge/urlbar.css");
+@import url("src/features/url-style/textbox.css");
+@import url("src/features/url-style/transparent.css");
+@import url("src/components/urlbar/buttons.css");
+@import url("src/components/urlbar/open.css");
+@import url("src/components/urlbar/accent-line.css");
+@import url("src/features/url-underline.css");
+@import url("src/components/urlbar/results.css");
+@import url("src/features/url-style/pill.css");
+@import url("src/features/url-centered.css");
+@import url("src/features/url-hide-zoom.css");
+@import url("src/features/url-hide-permissions.css");
+@import url("src/components/urlbar/multiple-toolbars.css");
+@import url("src/components/urlbar/smoke.css");
+@import url("src/features/animations/urlbar-smoke.css");
+
+/* Split view and Glance */
+@import url("src/components/split-view/panes.css");
+@import url("src/components/split-view/header.css");
+@import url("src/components/glance.css");
+
+/* Media card and Picture-in-Picture */
+@import url("src/components/media/card.css");
+@import url("src/components/media/progress-bar.css");
+@import url("src/components/media/picture-in-picture.css");
+
+/* Library */
+@import url("src/components/library/surface.css");
+@import url("src/components/library/compact-mode.css");
+@import url("src/components/library/navigation.css");
+@import url("src/components/library/search-filters.css");
+@import url("src/components/library/rows.css");
+@import url("src/components/library/history.css");
+@import url("src/components/library/cards.css");
+@import url("src/components/library/button.css");
+@import url("src/components/library/download-stack.css");
+
+/* Menus and panels */
+@import url("src/components/menus/metrics.css");
+@import url("src/components/menus/surface.css");
+@import url("src/features/extra-highlights/menus.css");
+@import url("src/components/menus/flyout-shadow.css");
+@import url("src/components/menus/rows.css");
+@import url("src/features/style-edge/menus.css");
+@import url("src/components/menus/separators.css");
+@import url("src/components/menus/subviews.css");
+@import url("src/features/hide-shortcuts.css");
+@import url("src/features/hide-access-keys.css");
+@import url("src/features/context-navigation/list.css");
+@import url("src/features/context-navigation/commandbar.css");
+@import url("src/components/menus/ctrl-tab-and-status.css");
+
+/* Scrollbars */
+@import url("src/components/scrollbars.css");
+
+/* Find bar */
+@import url("src/components/findbar/strip.css");
+@import url("src/components/findbar/glance.css");
+@import url("src/components/findbar/layout.css");
+@import url("src/components/findbar/textbox.css");
+@import url("src/components/findbar/buttons.css");
+@import url("src/components/findbar/checkboxes.css");
+@import url("src/components/findbar/labels.css");
+@import url("src/components/findbar/motion.css");
+
+/* Tooltips */
+@import url("src/components/tooltips/box.css");
+@import url("src/components/tooltips/text.css");
+@import url("src/components/tooltips/color-scheme.css");
+
+/* Tab preview */
+@import url("src/components/tab-preview/surface.css");
+@import url("src/components/tab-preview/layout.css");
+@import url("src/components/tab-preview/text.css");
+@import url("src/components/tab-preview/container-pill.css");
+@import url("src/components/tab-preview/thumbnail.css");
+@import url("src/features/style-edge/tab-preview.css");
+@import url("src/components/tab-preview/motion.css");
+
+/* Site panels, permissions, downloads */
+@import url("src/components/panels/shared-flyouts.css");
+@import url("src/components/panels/site-panel-quick-actions.css");
+@import url("src/components/panels/site-panel-sections.css");
+@import url("src/components/panels/site-panel-extensions.css");
+@import url("src/components/panels/site-panel-settings.css");
+@import url("src/components/panels/site-panel-toggle-switch.css");
+@import url("src/components/panels/site-panel-boost-editor.css");
+@import url("src/components/panels/site-panel-footer.css");
+@import url("src/components/panels/site-panel-anchor.css");
+@import url("src/components/panels/connection-info.css");
+@import url("src/components/panels/permissions.css");
+@import url("src/components/panels/protections.css");
+@import url("src/components/panels/protections-trackers.css");
+@import url("src/components/panels/downloads.css");
+@import url("src/components/panels/downloads-rows.css");
+@import url("src/components/panels/downloads-progress.css");
+@import url("src/components/panels/downloads-summary.css");
+@import url("src/components/panels/downloads-blocked.css");
+@import url("src/components/panels/extensions-panel.css");
+@import url("src/components/panels/controls-buttons.css");
+@import url("src/components/panels/controls-combobox.css");
+@import url("src/components/panels/controls-chips.css");
+@import url("src/components/panels/controls-infobars.css");
+@import url("src/components/panels/site-panel-switch-motion.css");
+
+/* Dialogs */
+@import url("src/components/dialogs/smoke.css");
+@import url("src/components/dialogs/card.css");
+@import url("src/components/dialogs/entrance.css");
+@import url("src/components/dialogs/documents.css");
+@import url("src/components/dialogs/document-colors.css");
+@import url("src/components/dialogs/content.css");
+@import url("src/components/dialogs/buttons.css");
+@import url("src/components/dialogs/titles.css");
+@import url("src/components/dialogs/body-text.css");
+@import url("src/components/dialogs/prompts.css");
+@import url("src/components/dialogs/zen-share.css");
+@import url("src/components/dialogs/textbox.css");
+@import url("src/components/dialogs/checkbox.css");
+@import url("src/components/dialogs/select-prompt.css");
+@import url("src/components/dialogs/print.css");
+
+/* Firefox sidebar */
+@import url("src/components/firefox-sidebar/panel.css");
+@import url("src/features/corners-winui/firefox-sidebar.css");
+@import url("src/components/firefox-sidebar/splitter.css");
+@import url("src/components/firefox-sidebar/compact-edge-hint.css");
+@import url("src/components/firefox-sidebar/header.css");
+@import url("src/components/firefox-sidebar/pages.css");
+@import url("src/components/firefox-sidebar/places-tree.css");
+@import url("src/components/firefox-sidebar/synced-tabs.css");
+@import url("src/components/firefox-sidebar/passwords.css");
+
+/* Caption buttons */
+@import url("src/components/window/caption-buttons.css");
+
+/* Fluent icons */
+@import url("src/components/panels/protections-icons.css");
+@import url("src/features/fluent-icons/navigation.css");
+@import url("src/features/fluent-icons/sidebar.css");
+@import url("src/features/fluent-icons/urlbar.css");
+@import url("src/features/fluent-icons/glance-split.css");
+@import url("src/features/fluent-icons/media.css");
+@import url("src/features/fluent-icons/library.css");
+@import url("src/features/fluent-icons/app-menu.css");
+@import url("src/features/fluent-icons/protections.css");
+@import url("src/features/fluent-icons/firefox-sidebar.css");
+@import url("src/features/fluent-icons/workspaces.css");
+@import url("src/features/fluent-icons/folders.css");
+
+/* Animations */
+@import url("src/features/animations/tab-switch-animation.css");
+@import url("src/features/animations/urlbar-animation.css");
+@import url("src/features/animations/menu-animation.css");
+@import url("src/features/animations/button-animations.css");
+@import url("src/features/animations/nav-bounce.css");
+@import url("src/components/toggle-switch-motion.css");
+@import url("src/features/animations/keyframes.css");
+
+/* Add your own CSS below. */

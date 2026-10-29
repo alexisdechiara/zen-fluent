@@ -1,0 +1,13 @@
+/* Zen Fluent: Zen corners: larger control, card and overlay radii (zen-fluent.corners = zen).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- "Zen" corners: rounder, with gaps -------- */
+
+@media (-moz-pref("zen-fluent.corners", "zen")) {
+  :root,
+  tooltip {
+    --zf-radius-control: 8px;
+    --zf-radius-card: 10px;
+    --zf-radius-overlay: 12px;
+  }
+}

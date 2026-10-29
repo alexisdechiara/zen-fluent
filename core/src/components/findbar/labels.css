@@ -1,0 +1,36 @@
+/* Zen Fluent: Caption text: match count, status, critical color when nothing is found.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Caption text: match count, status, auto-mode labels -------- */
+
+.findbar-label {
+  margin-block: 0 !important;
+  margin-inline: 6px !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+/* Steady width while stepping through the matches */
+.findbar-label.found-matches {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Firefox leaves status="notfound" on the text after a wrapped search: only
+   trust it while the field says so too */
+.findbar-find-status {
+  font-weight: normal !important;
+
+  findbar:has(.findbar-textbox[status="notfound"]) & {
+    font-weight: 600 !important;
+  }
+}
+
+@media not (forced-colors) {
+  .findbar-label {
+    color: var(--zf-text-secondary) !important;
+  }
+
+  findbar:has(.findbar-textbox[status="notfound"]) .findbar-find-status {
+    color: var(--zf-critical) !important;
+  }
+}

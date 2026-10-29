@@ -1,0 +1,140 @@
+/* Zen Fluent: Keyframes for the page entrance, fades, zoom, flyout, pop-in and urlbar result animations.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@keyframes zf-page-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zf-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zf-zoom-in {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes zf-flyout-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Firefox-WinUI popIn: from the button, scale 0 → 1 */
+@keyframes zf-pop-in {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* Firefox-WinUI urlSlide: the clip grows past the edges so the selected
+   row's and the list's shadows are not cut while it runs */
+@keyframes zf-url-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(-20px -16px);
+  }
+}
+
+@keyframes zf-url-results {
+  from {
+    translate: 0 -100%;
+  }
+
+  to {
+    translate: none;
+  }
+}
+
+@keyframes zf-url-results-short {
+  from {
+    translate: 0 -75%;
+  }
+
+  to {
+    translate: none;
+  }
+}
+
+@keyframes zf-result-in {
+  from {
+    opacity: 0;
+    translate: 0 -50%;
+  }
+
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@keyframes zf-result-up {
+  from {
+    opacity: 0;
+    translate: 0 50%;
+  }
+
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* Firefox-WinUI resultBounce (Microsoft Store suggestions) */
+@keyframes zf-result-bounce {
+  0% {
+    opacity: 0;
+    translate: 0 -15%;
+  }
+
+  40% {
+    opacity: 0.6;
+    translate: none;
+  }
+
+  70% {
+    opacity: 1;
+    translate: 0 5%;
+  }
+
+  100% {
+    opacity: 1;
+    translate: none;
+  }
+}

@@ -1,0 +1,14 @@
+/* Zen Fluent: Fluent icons: Library button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Library history rows: forget, reopen -------- */
+
+  .zen-library-row-actions img[src$="/trash.svg"] {
+    content: url("../../../icons/delete.svg") !important;
+  }
+
+  .zen-library-row-actions img[src$="/u-turn-to-left.svg"] {
+    content: url("../../../icons/reopen.svg") !important;
+  }
+}

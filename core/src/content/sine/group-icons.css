@@ -1,0 +1,46 @@
+/* Zen Fluent: Sine: Segoe Fluent icons of the settings group headers.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* SettingsCard header icons, Segoe Fluent Icons (Windows) */
+  @media (-moz-platform: windows) {
+    .sineItemPreferenceDialogContent > [id^="zen-fluent-ui-open-"]::after {
+      width: 20px;
+      margin: 0 20px 0 2px;
+      font:
+        16px / 20px "Segoe Fluent Icons",
+        "Segoe MDL2 Assets",
+        sans-serif;
+      text-align: center;
+    }
+
+    #zen-fluent-ui-open-appearance::after {
+      content: "\E771";
+    }
+
+    #zen-fluent-ui-open-sidebar::after {
+      content: "\E8A0";
+    }
+
+    #zen-fluent-ui-open-tabs::after {
+      content: "\E7C4";
+    }
+
+    #zen-fluent-ui-open-urlbar::after {
+      content: "\E774";
+    }
+
+    #zen-fluent-ui-open-window::after {
+      content: "\E737";
+    }
+
+    #zen-fluent-ui-open-animations::after {
+      content: "\E768";
+    }
+
+    #zen-fluent-ui-open-zen::after {
+      content: "\E713";
+    }
+  }
+}

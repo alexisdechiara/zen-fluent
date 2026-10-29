@@ -1,0 +1,36 @@
+/* Zen Fluent: Page context menu navigation as a WinUI CommandBar.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI CommandBar (as in File Explorer): AppBarButtons, label under a 16px
+   icon, 64px tall, labels wrapped on two lines at most. Icons stay on one
+   line when a label wraps (top-aligned, like an AppBarButton). */
+@media (-moz-pref("zen-fluent.context-navigation", "commandbar")) {
+  #context-navigation > .menuitem-iconic {
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+    min-height: 64px !important;
+    padding: 12px 2px 8px !important;
+
+    & > .menu-icon {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    &::after {
+      display: -webkit-box;
+      overflow: hidden;
+      max-width: 100%;
+      content: attr(aria-label);
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+}

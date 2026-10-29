@@ -1,0 +1,24 @@
+/* Zen Fluent: Dialog titles: 20px display font, title container width, transparent favicon box.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Titles -------- */
+
+:root[subdialog]:not(#zenSpaceRoutingDialog) {
+  /* Prompts and bookmark properties (adjustableTitle.js), Clear history */
+  & #titleText {
+    font: 600 20px / 28px var(--zf-font-display) !important;
+  }
+
+  /* adjustableTitle.js keeps 16px free on each side; the content has 24px */
+  & #titleContainer {
+    max-width: calc(100vw - 48px) !important;
+    margin-inline: 0 !important;
+  }
+
+  /* Its favicon box is filled with the canvas, a square on the Layer */
+  @media not (forced-colors) {
+    & .titleIcon {
+      background-color: transparent !important;
+    }
+  }
+}

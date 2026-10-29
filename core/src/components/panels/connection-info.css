@@ -1,0 +1,99 @@
+/* Zen Fluent: Connection info (identity popup): control-center widths, lock colors, HTTPS-Only, security subview.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The identity popup, opened from the site panel's footer. */
+
+/* Control-center popups: 30.81em grows to ~430px at 14px, pin it */
+:is(#identity-popup, #permission-popup, #protections-popup) {
+  --controlcenter-popup-content-width: 380px !important;
+}
+
+#protections-popup[toast] {
+  --controlcenter-popup-content-width: 320px !important;
+}
+
+/* Firefox greys the row out on internal pages: it is information, keep it
+   readable */
+@media not (forced-colors) {
+  #identity-popup #identity-popup-security-button[disabled] {
+    color: var(--zf-text-primary) !important;
+  }
+}
+
+/* Lock glyph: caution for weak or overridden security, critical when the
+   connection is not secure (Zen's icons only take a fill) */
+@media not (forced-colors) {
+  #identity-popup:is(
+      [ciphers="weak"],
+      [mixedcontent~="passive-loaded"][isbroken],
+      [connection="secure-cert-user-overridden"]
+    )
+    .identity-popup-security-connection-icon {
+    fill: var(--zf-caution) !important;
+  }
+
+  #identity-popup:is(
+      [connection="not-secure"],
+      [connection="cert-error-page"],
+      [connection="https-only-error-page"],
+      [mixedcontent~="active-loaded"][isbroken]
+    )
+    .identity-popup-security-connection-icon {
+    fill: var(--zf-critical) !important;
+  }
+}
+
+/* Text under the connection row lines up with its label: 12 + 16 + 12 */
+#identity-popup .identity-popup-section.indented {
+  padding-inline: 40px 12px !important;
+}
+
+#identity-popup-securityView .identity-popup-security-connection description {
+  padding-inline-start: 12px !important;
+}
+
+#identity-popup-security-description > .identity-popup-warning-box,
+#identity-popup-securityView-extended-info > .identity-popup-warning-box {
+  margin-block: 8px 0 !important;
+}
+
+/* HTTPS-Only: label, 32px ComboBox, caption */
+#identity-popup-security-httpsonlymode {
+  margin-top: 12px !important;
+}
+
+#identity-popup-security-httpsonlymode-menulist {
+  align-self: start !important;
+  width: auto !important;
+  min-width: 170px !important;
+  margin: 8px 0 !important;
+}
+
+#identity-popup-security-httpsonlymode-info {
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+/* Security subview: certificate labels as captions, values as body strong */
+#identity-popup-securityView-extended-info {
+  &
+    :is(
+      #identity-popup-content-owner-label,
+      #identity-popup-content-verifier-label
+    ) {
+    margin-block: 12px 2px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+
+  & .header {
+    color: var(--zf-text-primary) !important;
+    font-weight: 600 !important;
+  }
+
+  & > button {
+    margin-block: 8px !important;
+  }
+}

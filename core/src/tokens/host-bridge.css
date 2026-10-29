@@ -1,0 +1,16 @@
+/* Zen Fluent: Hand the accent to Firefox and Zen variables (focus, loading, buttons, links).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Hand the accent to Firefox and Zen -------- */
+
+:root {
+  --focus-outline-color: var(--zf-accent) !important;
+  --tab-loading-fill: var(--zf-accent) !important;
+  --toolbar-field-focus-border-color: var(--zf-accent) !important;
+  --button-background-color-primary: var(--zf-accent) !important;
+  --button-primary-hover-bgcolor: var(--zf-accent-hover) !important;
+  --button-primary-active-bgcolor: var(--zf-accent-pressed) !important;
+  --button-primary-color: var(--zf-on-accent) !important;
+  --button-text-color-primary: var(--zf-on-accent) !important;
+  --link-color: var(--zf-accent) !important;
+}

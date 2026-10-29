@@ -1,0 +1,46 @@
+/* Zen Fluent: Library side pane dividers, footer and WinUI navigation list.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+#zen-library-side {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-inline-end: 1px solid var(--zf-stroke-divider);
+}
+
+#zen-library-footer {
+  border-top: 1px solid var(--zf-stroke-divider);
+}
+
+/* -------- Navigation -------- */
+
+.zen-library-tab {
+  --zf-row-pill: transparent;
+
+  margin: 2px 4px !important;
+  padding: 12px 0 !important;
+  font-weight: 400 !important;
+
+  &::before {
+    border-radius: var(--zf-radius-control) !important;
+    background-image: linear-gradient(
+      var(--zf-row-pill),
+      var(--zf-row-pill)
+    ) !important;
+    background-size: 3px 16px !important;
+    background-position: 0 50% !important;
+    background-repeat: no-repeat !important;
+  }
+
+  &:hover::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &[active] {
+    --zf-row-pill: var(--zf-accent);
+    font-weight: 600 !important;
+
+    &::before {
+      background-color: var(--zf-fill-selected) !important;
+    }
+  }
+}

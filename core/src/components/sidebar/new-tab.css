@@ -1,0 +1,50 @@
+/* Zen Fluent: New tab button, pinned-tabs separator and the clear-unpinned-tabs button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- New tab and "clear" -------- */
+
+#tabs-newtab-button {
+  min-height: 36px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: var(--zf-sidebar-font-size) !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  & .toolbarbutton-icon {
+    background: transparent !important;
+  }
+
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    &:hover {
+      background-color: var(--zf-edge-hover) !important;
+    }
+  }
+}
+
+.pinned-tabs-container-separator {
+  & toolbarseparator {
+    border-color: var(--zf-stroke-divider) !important;
+  }
+
+  & .zen-workspace-close-unpinned-tabs-button {
+    border-radius: var(--zf-radius-control) !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: var(--zf-sidebar-font-size-small) !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    /* Edge: text buttons are pills */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: 999px !important;
+
+      &:hover {
+        background-color: var(--zf-edge-hover) !important;
+      }
+    }
+  }
+}

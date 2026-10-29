@@ -1,0 +1,31 @@
+/* Zen Fluent: Tooltip text wrapping and secondary-line colors (back/forward hint, bookmark URL).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Text -------- */
+
+/* Lines nested in a box (bookmarks and history) miss the UA's break-word */
+tooltip .tooltip-label {
+  overflow-wrap: break-word !important;
+}
+
+/* Fluent fills the back/forward lines through `value`, which the UA keeps on
+   one line: under the width cap they would be cut off. Cropped values (URLs)
+   keep their single line and ellipsis. */
+tooltip description[value]:not([crop]) {
+  white-space: pre-wrap !important;
+}
+
+/* -------- Secondary lines -------- */
+
+@media not (prefers-contrast) {
+  /* "Right-click or pull down to show history" */
+  :is(#back-button-tooltip, #forward-button-tooltip)
+    > .tooltip-label[data-l10n-id="navbar-tooltip-instruction"] {
+    color: var(--zf-text-secondary) !important;
+  }
+
+  /* Bookmark or history URL under its title; alone, it stays primary */
+  #bhTooltip .places-tooltip-title:not([hidden]) ~ .places-tooltip-uri {
+    color: var(--zf-text-secondary) !important;
+  }
+}

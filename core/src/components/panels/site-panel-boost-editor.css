@@ -1,0 +1,42 @@
+/* Zen Fluent: Site panel boost editor button and full-width list separators.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Boost editor: a small subtle button before the switch, on hover or focus.
+   The child selector outranks animations.css, whose list drops the fade. */
+.permission-popup-boost-item > .zen-permission-popup-boost-editor-button {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-text-secondary) !important;
+  transform: none !important;
+  transition:
+    opacity var(--zf-duration-fast) linear,
+    background-color var(--zf-duration-fast) linear,
+    scale var(--zf-duration-fast) linear !important;
+
+  .permission-popup-boost-item:focus-within > & {
+    opacity: 1 !important;
+  }
+
+  & image {
+    width: 12px !important;
+    height: 12px !important;
+    opacity: 1 !important;
+  }
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+}
+
+/* Full width, like the footer's divider: out of the 12px section padding */
+#zen-site-data-settings-list > toolbarseparator,
+#zen-site-data-boost-list > toolbarseparator {
+  margin: 4px -12px !important;
+}

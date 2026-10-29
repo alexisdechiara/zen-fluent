@@ -1,0 +1,34 @@
+/* Zen Fluent: Split view panes: gaps, corners and stroke, accent outline on the active pane.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* ----------------------------- SPLIT VIEW ----------------------------- */
+
+#tabbrowser-tabpanels[zen-split-view="true"] {
+  --zen-active-split-outline-color: var(--zf-accent) !important;
+  --zen-split-column-gap: 4px !important;
+  --zen-split-row-gap: 4px !important;
+
+  /* Edge keeps 4px gaps whatever the corners */
+  @media (-moz-pref("zen-fluent.corners", "zen")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+    --zen-split-column-gap: 8px !important;
+    --zen-split-row-gap: 8px !important;
+  }
+
+  & .browserSidebarContainer {
+    border-radius: var(--zf-radius-overlay) !important;
+    box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+
+    /* Edge: each pane is the page card (materials.css), 8px and a hairline */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      border-radius: var(--zf-radius-card) !important;
+      box-shadow: 0 0 0 1px var(--zf-edge-card-stroke) !important;
+    }
+  }
+
+  /* Active pane: 2px accent outline, drawn in the gap (the page would
+     paint over an inner outline) */
+  & .browserSidebarContainer.deck-selected:not(.zen-glance-overlay) {
+    outline: 2px solid var(--zf-accent) !important;
+    outline-offset: 0 !important;
+  }
+}

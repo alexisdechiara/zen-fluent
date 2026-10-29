@@ -1,0 +1,28 @@
+/* Zen Fluent: Card items: download rows, media thumbnails and spaces.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+zen-library-downloads-section .zen-library-row {
+  padding: 10px 12px !important;
+  border-radius: var(--zf-radius-card) !important;
+  background-color: var(--zf-fill-card) !important;
+  outline: 1px solid var(--zf-stroke-control);
+  outline-offset: -1px;
+}
+
+/* -------- Media grid -------- */
+
+.zen-library-media-thumb,
+.zen-library-media-frame {
+  border-radius: var(--zf-radius-card) !important;
+  outline: 1px solid var(--zf-stroke-control);
+  outline-offset: -1px;
+}
+
+/* -------- Spaces -------- */
+
+.zen-library-space {
+  border-radius: var(--zf-radius-card) !important;
+  background-color: var(--zf-fill-card) !important;
+  outline: 1px solid var(--zf-stroke-control);
+  outline-offset: -1px;
+}

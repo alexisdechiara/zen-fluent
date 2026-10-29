@@ -1,0 +1,49 @@
+/* Zen Fluent: Compact mode: floating solid Acrylic sidebar and top bar.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Compact mode: floating Acrylic sidebar (Arc 2.0), solid since it
+   lies over the page -------- */
+
+@media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
+  :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background {
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+    outline: none !important;
+
+    &::before,
+    &::after {
+      background: transparent !important;
+    }
+
+    /* Edge: Fluent 2's shadow28 */
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      box-shadow:
+        0 0 0 1px var(--zf-edge-field-stroke),
+        var(--zf-shadow-28) !important;
+    }
+  }
+
+  :root[zen-compact-mode="true"] #navigator-toolbox #titlebar {
+    border-radius: var(--zf-radius-overlay) !important;
+  }
+
+  /* The top bar (window buttons) floats on the same surface when shown */
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]
+    #zen-appcontent-navbar-wrapper:is(
+      [zen-has-hover],
+      [has-popup-menu],
+      [zen-compact-mode-active]
+    ) {
+    background-color: var(--zf-acrylic-over-page) !important;
+    backdrop-filter: none !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      box-shadow:
+        0 0 0 1px var(--zf-edge-field-stroke),
+        var(--zf-shadow-28) !important;
+    }
+  }
+}

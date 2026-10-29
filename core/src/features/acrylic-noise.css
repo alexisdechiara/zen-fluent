@@ -1,0 +1,54 @@
+/* Zen Fluent: Acrylic noise: fractal grain over the Acrylic surfaces.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Acrylic noise (Firefox-WinUI) -------- */
+/* WinUI's AcrylicBrush lays a grain over its tint at 2% opacity. Same here,
+   drawn by an SVG fractal noise, over the Acrylic surfaces: menus, panels,
+   and what floats over the page (the open address bar, the compact sidebar
+   and top bar, the split view header, Glance's buttons, the status text).
+   None where WinUI falls back to a plain color: no blur available, reduced
+   transparency, contrast themes. */
+
+:root {
+  --zf-noise: none;
+
+  @media (-moz-pref("zen-fluent.acrylic-noise")) and (not (prefers-reduced-transparency: reduce)) and (not (forced-colors)) {
+    --zf-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='3 0 0 0 -1 3 0 0 0 -1 3 0 0 0 -1 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");
+  }
+
+  &[zen-no-acrylic="true"] {
+    --zf-noise: none;
+  }
+}
+
+@media (-moz-pref("zen-fluent.acrylic-noise")) {
+  /* Menus and panels draw their surface in their shadow tree */
+  .menupopup-arrowscrollbox,
+  slot[part~="content"],
+  .zen-view-splitter-header,
+  .zen-glance-sidebar-container toolbarbutton,
+  #statuspanel-label {
+    background-image: var(--zf-noise) !important;
+  }
+
+  /* What floats over the page: Acrylic's stand-in, but Mica Alt's over Mica
+     Alt (Mica has no grain); the compact surfaces only with the mod's
+     background */
+  @media not (-moz-pref("zen-fluent.material", "mica-alt")) {
+    #urlbar[breakout-extend] .urlbar-background {
+      background-image: var(--zf-noise) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
+      :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background,
+      :root[zen-compact-mode="true"][zen-single-toolbar="true"]
+        #zen-appcontent-navbar-wrapper:is(
+          [zen-has-hover],
+          [has-popup-menu],
+          [zen-compact-mode-active]
+        ) {
+        background-image: var(--zf-noise) !important;
+      }
+    }
+  }
+}

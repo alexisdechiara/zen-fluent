@@ -1,0 +1,34 @@
+/* Zen Fluent: Media card progress bar as a thin WinUI slider.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI Slider, thin */
+.zen-media-progress-bar {
+  --progress-height: 3px;
+
+  &::-moz-range-track {
+    height: 3px !important;
+    border-radius: 2px !important;
+    background-color: var(--zf-stroke-field) !important;
+    opacity: 0.4;
+  }
+
+  &::-moz-range-progress {
+    height: 3px !important;
+    border-radius: 2px !important;
+    background-color: var(--zf-accent) !important;
+  }
+
+  &::-moz-range-thumb {
+    width: 12px !important;
+    height: 12px !important;
+    border: 3px solid var(--zf-acrylic-solid) !important;
+    border-radius: 50% !important;
+    background-color: var(--zf-accent) !important;
+    box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+    transition: scale var(--zf-duration-fast) linear;
+  }
+
+  &:hover::-moz-range-thumb {
+    scale: 1.17;
+  }
+}

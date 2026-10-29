@@ -1,0 +1,14 @@
+/* Zen Fluent: Accent line thickness for zen-fluent.url-underline always and none.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.url-underline", "always")) {
+  #urlbar {
+    --zf-url-line-rest: 1px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.url-underline", "none")) {
+  #urlbar {
+    --zf-url-line-focus: 0px;
+  }
+}

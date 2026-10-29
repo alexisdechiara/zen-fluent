@@ -1,0 +1,54 @@
+/* Zen Fluent: Fluent icons: Back, Forward, Reload and the macOS chevrons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Navigation: WinUI arrows, or macOS chevrons -------- */
+
+  #back-button {
+    list-style-image: url("../../../icons/back.svg") !important;
+  }
+
+  #forward-button {
+    list-style-image: url("../../../icons/forward.svg") !important;
+  }
+
+  #reload-button {
+    list-style-image: url("../../../icons/reload.svg") !important;
+  }
+
+  /* The page context menu's row or command bar (menus.css): its icon reads
+     --menuitem-icon through `content`. The star keeps Zen's filled state. */
+  #context-back > .menu-icon {
+    content: url("../../../icons/back.svg") !important;
+  }
+
+  #context-forward > .menu-icon {
+    content: url("../../../icons/forward.svg") !important;
+  }
+
+  #context-reload > .menu-icon {
+    content: url("../../../icons/reload.svg") !important;
+  }
+
+  #context-stop > .menu-icon {
+    content: url("../../../icons/close.svg") !important;
+  }
+
+  @media (-moz-pref("zen-fluent.mac-back-forward")) {
+    #back-button {
+      list-style-image: url("../../../icons/back-mac.svg") !important;
+    }
+
+    #forward-button {
+      list-style-image: url("../../../icons/forward-mac.svg") !important;
+    }
+
+    #context-back > .menu-icon {
+      content: url("../../../icons/back-mac.svg") !important;
+    }
+
+    #context-forward > .menu-icon {
+      content: url("../../../icons/forward-mac.svg") !important;
+    }
+  }
+}

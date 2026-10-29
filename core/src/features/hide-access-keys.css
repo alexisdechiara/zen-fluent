@@ -1,0 +1,12 @@
+/* Zen Fluent: Hide underlined access keys in menu labels.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Hide access keys (Edge-Frfox) -------- */
+/* A menu label draws its value through -moz-label-content, which underlines
+   the access key; the plain attribute draws the same text without it */
+
+@media (-moz-pref("zen-fluent.hide-access-keys")) {
+  :where(menuitem, menu) > .menu-text[value]:not([value=""])::before {
+    content: attr(value) !important;
+  }
+}

@@ -1,0 +1,38 @@
+/* Zen Fluent: New tab, home and private browsing pages: background, search box, top sites.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Internal pages: new tab and settings (where Sine lives) in WinUI, and the
+   optional thin scrollbars for web pages. */
+
+@-moz-document url-prefix("about:newtab"), url-prefix("about:home"),
+  url-prefix("about:privatebrowsing") {
+  body {
+    background-color: var(--zf-page) !important;
+    font-family: var(--zf-font) !important;
+  }
+
+  /* Search box: a web component, styled through its own tokens */
+  content-search-handoff-ui {
+    --content-search-handoff-ui-background-color: var(
+      --zf-fill-control
+    ) !important;
+    --content-search-handoff-ui-border-radius: var(
+      --zf-radius-control
+    ) !important;
+    --content-search-handoff-ui-border-width: 1px !important;
+    --content-search-handoff-ui-unfocused-border-color: var(
+      --zf-stroke-control
+    ) !important;
+    --content-search-handoff-ui-fakefocus-border-color: var(
+      --zf-accent
+    ) !important;
+    --content-search-handoff-ui-fakefocus-box-shadow-inner: transparent !important;
+    --box-shadow-level-3: none !important;
+  }
+
+  .top-site-outer .tile {
+    border-radius: var(--zf-radius-card) !important;
+    background-color: var(--zf-fill-card) !important;
+    box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
+  }
+}

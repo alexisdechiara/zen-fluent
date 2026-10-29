@@ -1,0 +1,36 @@
+/* Zen Fluent: Tab preview text: title, host and debug line.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Text: Body Strong title, Caption host -------- */
+
+#tab-preview-panel {
+  & .tab-preview-title {
+    font: 600 14px / 20px var(--zf-font) !important;
+
+    /* A title without spaces (a URL) wraps instead of being cut */
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Empty for file:, data: and view-source: pages */
+  & .tab-preview-uri {
+    font: 12px / 16px var(--zf-font) !important;
+
+    &:not(:empty) {
+      margin-top: 2px !important;
+    }
+  }
+
+  /* Debug line (browser.tabs.tooltipsShowPidAndActiveness): always there,
+     empty while the pref is off */
+  & .tab-preview-pid-activeness {
+    font: 12px / 16px var(--zf-font-mono) !important;
+
+    @media not ((forced-colors) or (prefers-contrast)) {
+      color: var(--zf-text-tertiary) !important;
+    }
+
+    &:has(> :not(:empty)) {
+      margin-top: 4px !important;
+    }
+  }
+}

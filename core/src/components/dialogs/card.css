@@ -1,0 +1,43 @@
+/* Zen Fluent: ContentDialog card: centred box, 1px stroke, overlay radius, solid fill and dialog shadow.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Card -------- */
+
+.dialogBox:not(.spotlightBox) {
+  /* Firefox overlaps tab prompts with the toolbar and pushes window-modal
+     ones down to it: a ContentDialog sits centered */
+  margin-top: 0 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--zf-radius-overlay) !important;
+
+  /* Zen's fade-in runs when the box is created, before the dialog shows:
+     the entrance below starts at the reveal instead */
+  animation: none !important;
+}
+
+.tab-prompt-dialog > .dialogOverlay {
+  justify-content: center !important;
+}
+
+/* Zen lifts content prompts 10% above the center */
+.content-prompt-dialog > .dialogOverlay > .dialogBox {
+  transform: none !important;
+}
+
+@media not (forced-colors) {
+  .dialogBox:not(.spotlightBox) {
+    border-color: var(--zf-stroke-control) !important;
+    outline: none !important;
+
+    /* The document in the frame paints the card; this fill sits under the
+       translucent stroke, which Firefox would draw over the smoke */
+    background-color: var(--zf-solid-base) !important;
+    background-clip: padding-box !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+
+    @media (prefers-contrast) {
+      border-color: var(--zf-stroke-field) !important;
+    }
+  }
+}

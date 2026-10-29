@@ -1,0 +1,32 @@
+/* Zen Fluent: Buttons inside the field and the search mode indicator.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Buttons inside the field -------- */
+
+#identity-icon-box,
+#identity-permission-box,
+#zen-site-data-icon-button,
+#tracking-protection-icon-container,
+#star-button-box,
+.urlbar-page-action {
+  border-radius: var(--zf-radius-control) !important;
+  background-color: transparent !important;
+  fill: var(--zf-url-icon) !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+}
+
+#urlbar-search-mode-indicator,
+.searchmode-switcher {
+  border-radius: var(--zf-radius-control) !important;
+  background-color: var(--zf-fill-control) !important;
+  outline: 1px solid var(--zf-stroke-control) !important;
+  color: var(--zf-text-secondary) !important;
+  font-size: 12px !important;
+}

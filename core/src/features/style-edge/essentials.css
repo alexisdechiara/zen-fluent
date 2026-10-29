@@ -1,0 +1,31 @@
+/* Zen Fluent: Edge style Essentials: 12px faint tiles, raised selected tile.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Edge: 12px tiles (8 + the 4px gap), a faint field at rest; the selected
+   one is raised (shadow4) instead of carrying an accent dash */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  .zen-essentials-container .tabbrowser-tab {
+    .tab-background {
+      border-color: var(--zf-edge-field-stroke) !important;
+      border-radius: 12px !important;
+      background-color: var(--zf-edge-tile) !important;
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        box-shadow var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover .tab-background {
+      background-color: var(--zf-edge-tile-hover) !important;
+    }
+
+    &:is([selected], [visuallyselected]) .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-edge-raised) !important;
+      box-shadow: var(--zf-shadow-4) !important;
+
+      &::before {
+        content: none !important;
+      }
+    }
+  }
+}

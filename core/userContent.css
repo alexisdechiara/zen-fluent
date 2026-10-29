@@ -1,0 +1,33 @@
+/* Zen Fluent: about: pages (Sine loads it in internal pages only).
+   The import order is the cascade order: a later file wins a tie. */
+
+/* Tokens */
+@import url("src/tokens/winui.css");
+@import url("src/tokens/acrylic-fallback.css");
+@import url("src/tokens/accent.css");
+@import url("src/tokens/accent-custom.css");
+@import url("src/tokens/corners-zen.css");
+@import url("src/tokens/style-edge.css");
+@import url("src/tokens/font.css");
+@import url("src/tokens/font-custom.css");
+@import url("src/tokens/tab-text-size.css");
+@import url("src/tokens/host-bridge.css");
+
+/* about: pages, Zen and Sine settings */
+@import url("src/content/newtab.css");
+@import url("src/content/preferences/tokens.css");
+@import url("src/content/preferences/components.css");
+@import url("src/content/preferences/base.css");
+@import url("src/content/sine/dialog.css");
+@import url("src/content/sine/settings-groups.css");
+@import url("src/content/sine/group-icons.css");
+@import url("src/content/sine/group-animation.css");
+@import url("src/content/zen-settings.css");
+@import url("src/content/toggle-switches.css");
+@import url("src/content/accent-selection.css");
+@import url("src/content/thin-scrollbars-web.css");
+
+/* Dialogs of about:preferences */
+@import url("src/content/preferences-dialogs.css");
+
+/* Add your own CSS below. */

@@ -1,0 +1,42 @@
+/* Zen Fluent: Tab preview motion: fade instead of slide, reduced motion.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Motion: a WinUI ToolTip fades, it does not slide -------- */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* Not the menus' flyout entrance (animations.css), Mica popups included:
+     their backdrop would not follow it */
+  #tab-preview-panel {
+    animation: none !important;
+  }
+
+  /* Zen turns panel motion off under Mica popups; elsewhere the card fades
+     instead of Firefox's 70px slide */
+  @media not ((-moz-windows-mica-popups) or (-moz-platform: macos)) {
+    #tab-preview-panel {
+      transform: none !important;
+      transition-property: opacity !important;
+      transition-duration: var(--zf-duration-normal) !important;
+      transition-timing-function: linear !important;
+
+      &[animate="cancel"] {
+        transition-duration: var(--zf-duration-fast) !important;
+      }
+    }
+  }
+
+  #tab-preview-panel .tab-preview-thumbnail-container > canvas {
+    animation-duration: var(--zf-duration-normal) !important;
+    animation-timing-function: linear !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #tab-preview-panel {
+    transition-duration: 0s !important;
+
+    & .tab-preview-thumbnail-container > canvas {
+      animation: none !important;
+    }
+  }
+}

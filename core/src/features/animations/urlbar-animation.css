@@ -1,0 +1,97 @@
+/* Zen Fluent: URL bar opening animations (zen-fluent.urlbar-animation).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- Urlbar opening -------- */
+  /* Fade (the default, also when the setting is unset) and zoom animate the
+     whole bar; the others are Firefox-WinUI's dropdown animations. */
+
+  @media not ((-moz-pref("zen-fluent.urlbar-animation", "zoom")) or (-moz-pref("zen-fluent.urlbar-animation", "slide")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger-up")) or (-moz-pref("zen-fluent.urlbar-animation", "bounce")) or (-moz-pref("zen-fluent.urlbar-animation", "none"))) {
+    #urlbar[breakout-extend] {
+      animation: zf-fade-in var(--zf-duration-normal) linear;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.urlbar-animation", "zoom")) {
+    #urlbar[breakout-extend] {
+      animation: zf-zoom-in var(--zf-duration-slow) var(--zf-ease);
+    }
+  }
+
+  /* The results unroll downwards: the view is revealed from the top while
+     the list slides down under the clip (333ms, Fluent decelerate) */
+  @media (-moz-pref("zen-fluent.urlbar-animation", "slide")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger-up")) or (-moz-pref("zen-fluent.urlbar-animation", "bounce")) {
+    #urlbar[breakout-extend] .urlbarView {
+      animation: zf-url-reveal 333ms var(--zf-ease);
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.urlbar-animation", "slide")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger-up")) {
+    #urlbar[breakout-extend] #urlbar-results {
+      animation: zf-url-results 333ms var(--zf-ease);
+    }
+  }
+
+  /* Rows animate only while the bar opens: Zen updates them on every
+     keystroke, and a row shown again would replay its entrance. Once the
+     user types, the animation is dropped and the row stays put. */
+  @media (-moz-pref("zen-fluent.urlbar-animation", "stagger")) or (-moz-pref("zen-fluent.urlbar-animation", "stagger-up")) {
+    #urlbar[breakout-extend]:not([usertyping]) .urlbarView-row {
+      animation: zf-result-in 333ms var(--zf-ease) backwards;
+
+      /* 50ms apart, down the list */
+      &:nth-child(2) {
+        animation-delay: 50ms;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 100ms;
+      }
+
+      &:nth-child(4) {
+        animation-delay: 150ms;
+      }
+
+      &:nth-child(5) {
+        animation-delay: 200ms;
+      }
+
+      &:nth-child(6) {
+        animation-delay: 250ms;
+      }
+
+      &:nth-child(7) {
+        animation-delay: 300ms;
+      }
+
+      &:nth-child(8) {
+        animation-delay: 350ms;
+      }
+
+      &:nth-child(9) {
+        animation-delay: 400ms;
+      }
+
+      &:nth-child(n + 10) {
+        animation-delay: 450ms;
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.urlbar-animation", "stagger-up")) {
+    #urlbar[breakout-extend]:not([usertyping]) .urlbarView-row {
+      animation-name: zf-result-up;
+    }
+  }
+
+  /* Microsoft Store: the list drops in and every row bounces once */
+  @media (-moz-pref("zen-fluent.urlbar-animation", "bounce")) {
+    #urlbar[breakout-extend] #urlbar-results {
+      animation: zf-url-results-short 270ms var(--zf-ease);
+    }
+
+    #urlbar[breakout-extend]:not([usertyping]) .urlbarView-row {
+      animation: zf-result-bounce 450ms cubic-bezier(0.5, 0, 0, 0);
+    }
+  }
+}

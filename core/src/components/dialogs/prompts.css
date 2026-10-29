@@ -1,0 +1,25 @@
+/* Zen Fluent: commonDialog prompts: 14px body text, 12px row gap, TextBox headers.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Prompts (commonDialog): message and fields -------- */
+/* Body text at 14px, rows 12px apart. Rows were spaced with margins, which
+   the last visible row kept: a flex gap skips the hidden ones. */
+
+#commonDialogWindow[subdialog] {
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  & #dialogGrid {
+    gap: 12px !important;
+  }
+
+  & .dialogRow,
+  & :is(description, checkbox, input) {
+    margin: 0 !important;
+  }
+
+  /* TextBox headers */
+  & .dialogRow > label {
+    margin: 0 0 8px !important;
+  }
+}

@@ -1,0 +1,79 @@
+/* Zen Fluent: Fluent icons: the app menu.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- App menu (≡) -------- */
+
+  #appMenu-new-tab-button2 {
+    list-style-image: url("../../../icons/new-tab.svg") !important;
+  }
+
+  #appMenu-new-window-button2,
+  #appMenu-new-zen-unsynced-window-button {
+    list-style-image: url("../../../icons/window.svg") !important;
+  }
+
+  #appMenu-new-private-window-button2 {
+    list-style-image: url("../../../icons/private-window.svg") !important;
+  }
+
+  #appMenu-history-button {
+    list-style-image: url("../../../icons/history.svg") !important;
+  }
+
+  #appMenu-bookmarks-button {
+    list-style-image: url("../../../icons/bookmarks.svg") !important;
+  }
+
+  #appMenu-downloads-button {
+    list-style-image: url("../../../icons/downloads.svg") !important;
+  }
+
+  #appMenu-passwords-button {
+    list-style-image: url("../../../icons/passwords.svg") !important;
+  }
+
+  #appMenu-extensions-themes-button {
+    list-style-image: url("../../../icons/extension.svg") !important;
+  }
+
+  #appMenu-print-button2 {
+    list-style-image: url("../../../icons/print.svg") !important;
+  }
+
+  #appMenu-save-file-button2 {
+    list-style-image: url("../../../icons/save.svg") !important;
+  }
+
+  #appMenu-find-button2 {
+    list-style-image: url("../../../icons/find.svg") !important;
+  }
+
+  #appMenu-zoomReduce-button2 {
+    list-style-image: url("../../../icons/minus.svg") !important;
+  }
+
+  #appMenu-zoomEnlarge-button2 {
+    list-style-image: url("../../../icons/new-tab.svg") !important;
+  }
+
+  #appMenu-fullscreen-button2 {
+    list-style-image: url("../../../icons/fullscreen.svg") !important;
+  }
+
+  #appMenu-settings-button {
+    list-style-image: url("../../../icons/settings.svg") !important;
+  }
+
+  #appMenu-more-button2 {
+    list-style-image: url("../../../icons/more.svg") !important;
+  }
+
+  #appMenu-help-button2 {
+    list-style-image: url("../../../icons/help.svg") !important;
+  }
+
+  #appMenu-quit-button2 {
+    list-style-image: url("../../../icons/exit.svg") !important;
+  }
+}

@@ -1,0 +1,32 @@
+/* Zen Fluent: Custom font family from zen-fluent.font-custom, typed with @property.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Custom: Sine turns the string pref zen-fluent.font-custom into
+   --zen-fluent-font-custom on the chrome windows' root. Registered so that
+   an entry that is not a family name (or a list of them) falls back to
+   Segoe UI Variable instead of dropping font-family altogether. Accepted
+   (checked): Inter / Fira Sans / "Fira Sans" / Inter, Arial / "A", "B";
+   a mixed list (Segoe UI, Arial or "A", B) falls back, as does 12px. The
+   default tooltip and about: pages don't get the variable and keep the
+   fallback. */
+@property --zf-font-custom {
+  syntax: "<custom-ident>+ | <custom-ident># | <string>#";
+  inherits: true;
+  initial-value: "Segoe UI Variable Text";
+}
+
+@media (-moz-pref("zen-fluent.font", "custom")) {
+  :root {
+    --zf-font-custom: var(--zen-fluent-font-custom);
+  }
+
+  :root,
+  tooltip {
+    --zf-font:
+      var(--zf-font-custom), "Segoe UI Variable Text", "Segoe UI Variable",
+      "Segoe UI", system-ui, sans-serif;
+    --zf-font-display:
+      var(--zf-font-custom), "Segoe UI Variable Display", "Segoe UI Variable",
+      "Segoe UI", system-ui, sans-serif;
+  }
+}

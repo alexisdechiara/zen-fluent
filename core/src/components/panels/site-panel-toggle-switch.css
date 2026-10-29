@@ -1,0 +1,70 @@
+/* Zen Fluent: WinUI ToggleSwitch drawn on the site panel's setting and boost rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Contrast themes keep the state label alone: the drawn switch would lose
+   its knob there */
+@media not (forced-colors) {
+  :is(
+    #zen-site-data-settings-list > .permission-popup-permission-item,
+    #zen-site-data-boost-list > .permission-popup-boost-item
+  ) {
+    &::after {
+      content: "";
+      flex: none;
+      box-sizing: border-box;
+      width: 40px;
+      height: 20px;
+      border: 1px solid var(--zf-text-secondary);
+      border-radius: 10px;
+      background: radial-gradient(
+          circle,
+          var(--zf-text-secondary) 6px,
+          transparent 6.5px
+        )
+        0 50% / 18px 18px no-repeat;
+    }
+
+    &:dir(rtl)::after {
+      background-position-x: 100%;
+    }
+
+    &:is([state="allow"], [state="enabled"]) {
+      &::after {
+        border-color: var(--zf-accent);
+        background-color: var(--zf-accent);
+        background-image: radial-gradient(
+          circle,
+          var(--zf-on-accent) 6px,
+          transparent 6.5px
+        );
+        background-position-x: 100%;
+      }
+
+      &:dir(rtl)::after {
+        background-position-x: 0;
+      }
+    }
+
+    &:not(:has(.zen-permission-popup-boost-editor-button:hover)) {
+      &:hover::after {
+        background-color: var(--zf-fill-subtle-hover);
+      }
+
+      &:hover:active::after {
+        background-color: var(--zf-fill-subtle-press);
+      }
+
+      &:is([state="allow"], [state="enabled"]) {
+        &:hover::after {
+          border-color: var(--zf-accent-hover);
+          background-color: var(--zf-accent-hover);
+        }
+
+        &:hover:active::after {
+          border-color: var(--zf-accent-pressed);
+          background-color: var(--zf-accent-pressed);
+        }
+      }
+    }
+  }
+}

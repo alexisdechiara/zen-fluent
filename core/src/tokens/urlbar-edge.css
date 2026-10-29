@@ -1,0 +1,17 @@
+/* Zen Fluent: URL bar field colours under the Edge style (Fluent 2).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  #urlbar {
+    /* White on Mica in light, a step darker than its surround in dark,
+       hairline all round */
+    --zf-url-fill: var(--zf-edge-field);
+    --zf-url-fill-hover: var(--zf-edge-field-hover);
+    --zf-url-fill-focus: var(--zf-edge-field-focus);
+    --zf-url-stroke: var(--zf-edge-field-stroke);
+    --zf-url-stroke-hover: var(--zf-edge-field-stroke-hover);
+    --zf-url-stroke-bottom: var(--zf-edge-field-stroke);
+    --zf-url-stroke-bottom-hover: var(--zf-edge-field-stroke-hover);
+    --zf-url-icon: var(--zf-edge-url-dim);
+  }
+}

@@ -1,0 +1,61 @@
+/* Zen Fluent: Essentials tiles: card tiles, accent dash on the selected tile, audio badge.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+#zen-essentials {
+  --tab-min-height: 42px !important;
+}
+
+.zen-essentials-container {
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr)) !important;
+  gap: 6px !important;
+
+  .tabbrowser-tab {
+    .tab-background {
+      position: relative !important;
+      overflow: visible !important;
+      border: 1px solid var(--zf-stroke-control) !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-fill-card) !important;
+      box-shadow: none !important;
+      transition: background-color var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover .tab-background {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    &:is([selected], [visuallyselected]) .tab-background {
+      background-color: var(--zf-fill-control) !important;
+      box-shadow: var(--zf-shadow-tab) !important;
+
+      &::before {
+        content: "" !important;
+        position: absolute !important;
+        inset: auto auto 3px 50% !important;
+        width: 14px !important;
+        height: 3px !important;
+        margin-inline-start: -7px;
+        border-radius: 2px !important;
+        background: var(--zf-accent) !important;
+        opacity: 1 !important;
+        z-index: 1;
+      }
+    }
+
+    .tab-icon-image {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    /* Audio badge, top right */
+    .tab-icon-overlay:is([soundplaying], [muted]) {
+      width: 14px !important;
+      height: 14px !important;
+      padding: 2px !important;
+      border-radius: 7px !important;
+      background-color: var(--zf-accent) !important;
+      fill: var(--zf-on-accent) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+}

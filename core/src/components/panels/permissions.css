@@ -1,0 +1,69 @@
+/* Zen Fluent: Firefox permission popup rows, storage-access group and menulist width.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Firefox's permission popup. Zen's site-panel rules (34px glyph button on
+   a colored circle) also reach its rows: they become plain 32px rows. */
+
+#permission-popup {
+  & .permission-popup-permission-item {
+    gap: 12px !important;
+    min-height: 32px !important;
+  }
+
+  & .permission-popup-permission-icon {
+    width: 16px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    padding: 0 !important;
+    fill: currentcolor !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  & .permission-popup-permission-label {
+    margin-inline-start: 0 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+
+  & .permission-popup-permission-state-label {
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+  }
+
+  /* Third-party storage group: a caption with its hint under it. Its row
+     has no gap, so the label lines up with the hint: 16 + 12 */
+  & .permission-popup-permission-header-label {
+    margin-inline-start: 12px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+
+  &
+    :is(
+      #permission-popup-storage-access-permission-list-hint,
+      #permission-popup-storage-access-permission-learn-more,
+      .permission-popup-permission-label-subitem,
+      #geo-access-indicator-item,
+      #blocked-popup-indicator-item
+    ) {
+    margin-inline-start: 28px !important;
+  }
+
+  /* The geolocation hint's text is a row label: sized on the label */
+  &
+    :is(
+      #permission-popup-storage-access-permission-list-hint,
+      #geo-access-indicator-item > .permission-popup-permission-label
+    ) {
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+}
+
+#permission-popup-menulist {
+  min-width: 120px !important;
+}

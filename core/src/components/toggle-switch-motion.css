@@ -1,0 +1,12 @@
+/* Zen Fluent: ToggleSwitch knob timing for every moz-toggle of the window.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- ToggleSwitch knob -------- */
+  /* moz-toggle's knob, in its shadow root (user sheets reach it): WinUI
+     timing instead of 100ms linear, for every toggle of the window */
+
+  button.toggle-button::before {
+    transition: translate var(--zf-duration-normal) var(--zf-ease) !important;
+  }
+}

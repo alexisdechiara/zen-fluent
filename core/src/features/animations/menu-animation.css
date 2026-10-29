@@ -1,0 +1,71 @@
+/* Zen Fluent: Menu opening animations (zen-fluent.menu-animation).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (prefers-reduced-motion: reduce) {
+  /* -------- Menus and panels -------- */
+  /* WinUI flyout by default (also when the setting is unset); pop-in grows
+     from the side that faces the button, or the pointer for a menu */
+
+  @media not ((-moz-pref("zen-fluent.menu-animation", "popin")) or (-moz-pref("zen-fluent.menu-animation", "fade")) or (-moz-pref("zen-fluent.menu-animation", "none"))) {
+    menupopup:not([type="arrow"]),
+    panel[type="arrow"] {
+      &[animate="open"] {
+        animation: zf-flyout-in var(--zf-duration-slow) var(--zf-ease);
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.menu-animation", "popin")) {
+    menupopup:not([type="arrow"]),
+    panel[type="arrow"] {
+      --zf-pop-x: left;
+      --zf-pop-y: top;
+
+      transform-origin: var(--zf-pop-x) var(--zf-pop-y) !important;
+
+      &:is(
+        [position$="topright"],
+        [position$="bottomright"],
+        [position$="_end"]
+      ) {
+        --zf-pop-x: right;
+      }
+
+      &:is([position$="topcenter"], [position$="bottomcenter"]) {
+        --zf-pop-x: center;
+      }
+
+      /* Opened above its button */
+      &[side="bottom"] {
+        --zf-pop-y: bottom;
+      }
+
+      &[animate="open"] {
+        animation: zf-pop-in var(--zf-duration-slow) var(--zf-ease);
+      }
+    }
+
+    /* A context menu opens at the pointer, on its start side */
+    menupopup:not([type="arrow"]):dir(rtl) {
+      --zf-pop-x: right;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.menu-animation", "fade")) {
+    menupopup:not([type="arrow"]),
+    panel[type="arrow"] {
+      &[animate="open"] {
+        animation: zf-fade-in var(--zf-duration-normal) linear;
+      }
+    }
+  }
+
+  /* None: Firefox's own slide and fade too (Firefox-WinUI, for Acrylic
+     popups), which Zen leaves on without Mica popups */
+  @media (-moz-pref("zen-fluent.menu-animation", "none")) {
+    menupopup,
+    panel {
+      transition-duration: 0s !important;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+/* Zen Fluent: Workspace switcher buttons and the workspace-style variants (pill, fill, minimal).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+#zen-workspaces-button {
+  gap: 2px !important;
+
+  & toolbarbutton {
+    position: relative !important;
+    width: 32px !important;
+    max-width: 32px !important;
+    height: 32px !important;
+    border-radius: var(--zf-radius-control) !important;
+    color: var(--zf-text-secondary) !important;
+    fill: currentcolor !important;
+    fill-opacity: 1 !important;
+    filter: none !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      opacity var(--zf-duration-normal) linear !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &[active="true"] {
+      color: var(--zf-accent) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      &:hover {
+        background-color: var(--zf-edge-hover) !important;
+      }
+    }
+  }
+
+  /* Pastille (default) */
+  @media (-moz-pref("zen-fluent.workspace-style", "pill")) {
+    & toolbarbutton[active="true"]::after {
+      content: "";
+      position: absolute;
+      inset: auto auto 1px 50%;
+      width: 12px;
+      height: 3px;
+      margin-inline-start: -6px;
+      border-radius: 2px;
+      background: var(--zf-accent);
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.workspace-style", "fill")) {
+    & toolbarbutton[active="true"] {
+      background-color: var(--zf-fill-selected) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.workspace-style", "minimal")) {
+    & toolbarbutton:not([active="true"]) {
+      opacity: 0.45 !important;
+    }
+  }
+}

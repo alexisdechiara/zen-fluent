@@ -1,0 +1,20 @@
+/* Zen Fluent: Custom accent from zen-fluent.accent-custom, typed as a color with @property.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Custom: Sine turns the string pref zen-fluent.accent-custom into
+   --zen-fluent-accent-custom on the chrome windows' root (about: pages don't
+   get it and keep the Windows accent). Registered as a <color>, so a value
+   that is not a color falls back to the Windows accent instead of breaking
+   every color derived from it. */
+@property --zf-accent-custom {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: AccentColor;
+}
+
+@media (-moz-pref("zen-fluent.accent", "custom")) {
+  :root {
+    --zf-accent-custom: var(--zen-fluent-accent-custom);
+    --zf-accent-base: var(--zf-accent-custom);
+  }
+}

@@ -1,0 +1,78 @@
+/* Zen Fluent: Sine and Zen checkboxes drawn as WinUI ToggleSwitches.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* ------------------------- TOGGLE SWITCHES ------------------------- */
+  /* Sine's and Zen's checkboxes become WinUI ToggleSwitches on the right;
+     the knob is a background dot sliding from one end to the other */
+
+  .sineItemPreferenceCheckbox {
+    flex-direction: row-reverse !important;
+
+    & > checkbox {
+      margin: 0 !important;
+    }
+
+    & .checkbox-label-box {
+      display: none !important;
+    }
+  }
+
+  :is(.sineItemPreferenceCheckbox, groupbox[data-category^="paneZen"])
+    .checkbox-check {
+    appearance: none !important;
+    box-sizing: border-box;
+    width: 40px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    border: 1px solid var(--zf-text-secondary) !important;
+    border-radius: 10px !important;
+    corner-shape: round !important;
+    list-style-image: none !important;
+    background-color: transparent !important;
+    background-image: radial-gradient(
+      circle,
+      var(--zf-text-secondary) 6px,
+      transparent 6.5px
+    ) !important;
+    background-repeat: no-repeat !important;
+    background-size: 18px 18px !important;
+    background-position: 0 50% !important;
+    transition:
+      background-color var(--zf-duration-fast) linear,
+      border-color var(--zf-duration-fast) linear,
+      background-position var(--zf-duration-normal) var(--zf-ease) !important;
+  }
+
+  :is(
+      .sineItemPreferenceCheckbox:hover,
+      groupbox[data-category^="paneZen"] checkbox:hover
+    )
+    .checkbox-check {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  :is(.sineItemPreferenceCheckbox, groupbox[data-category^="paneZen"])
+    checkbox[checked]
+    .checkbox-check {
+    border-color: var(--zf-accent) !important;
+    background-color: var(--zf-accent) !important;
+    background-image: radial-gradient(
+      circle,
+      var(--zf-on-accent) 6px,
+      transparent 6.5px
+    ) !important;
+    background-position: 100% 50% !important;
+  }
+
+  :is(
+      .sineItemPreferenceCheckbox:hover,
+      groupbox[data-category^="paneZen"] checkbox:hover
+    )
+    checkbox[checked]
+    .checkbox-check,
+  groupbox[data-category^="paneZen"] checkbox[checked]:hover .checkbox-check {
+    background-color: var(--zf-accent-hover) !important;
+  }
+}

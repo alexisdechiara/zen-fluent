@@ -1,0 +1,33 @@
+/* Zen Fluent: Page context menu navigation as a WinUI list of text rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Page context menu: Back, Forward, Reload, Bookmark -------- */
+/* Firefox's row of icons by default. Its items have no label, only an
+   aria-label (localized), drawn here by ::after. */
+
+/* WinUI list (Firefox-WinUI's default): four ordinary rows. Zen's page menu
+   has no other icon, and a MenuFlyout lines every label up: text only. */
+@media (-moz-pref("zen-fluent.context-navigation", "list")) {
+  #context-navigation {
+    flex-direction: column !important;
+
+    & > .menuitem-iconic {
+      flex: none !important;
+      justify-content: flex-start !important;
+      padding-block: var(--menuitem-padding-block) !important;
+      padding-inline: var(--menuitem-padding-inline) !important;
+
+      & > .menu-icon {
+        display: none !important;
+      }
+
+      &::after {
+        flex: 1;
+        overflow: hidden;
+        content: attr(aria-label);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

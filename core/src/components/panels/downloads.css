@@ -1,0 +1,39 @@
+/* Zen Fluent: Downloads panel shell: dimmed background, fixed width, list and empty state.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Firefox's downloads panel (when its button is placed): a ListView with
+   WinUI ProgressBars, subtle action buttons and a 32px footer row. */
+
+#downloadsPanel {
+  --downloads-item-details-opacity: 1 !important;
+
+  @media not (forced-colors) {
+    --panel-background-color-dimmed: var(--zf-layer) !important;
+  }
+}
+
+/* Width in px: l10n sets 35em on the list (40em in French), which the
+   14px panel font turns into 490-560px */
+:is(
+  #downloadsPanel-mainView,
+  #downloadsPanel-blockedSubview,
+  #downloadsPanel-privateBrowsing
+) {
+  min-width: 380px !important;
+  max-width: 380px !important;
+}
+
+#downloadsPanel-mainView {
+  padding: 4px 0 !important;
+}
+
+#downloadsListBox {
+  width: auto !important;
+  min-width: 0 !important;
+}
+
+#emptyDownloads {
+  padding: 24px 16px !important;
+  color: var(--zf-text-secondary) !important;
+  text-align: center !important;
+}

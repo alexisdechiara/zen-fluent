@@ -1,0 +1,43 @@
+/* Zen Fluent: Accent line: one ::after band on .urlbar-background that follows every shape and state.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Accent line (zen-fluent.url-underline) -------- */
+/* A band at the bottom of a box with the field's size and shape (radius and
+   corner-shape inherited): on the textbox it follows the bottom arcs like
+   WinUI's horizontal cut, on the pill it stops where the end caps start.
+   Open, the box is the input row: the line separates the input from the
+   results, as on an open WinUI AutoSuggestBox. */
+
+#urlbar .urlbar-background::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  corner-shape: inherit !important;
+  pointer-events: none;
+  background-image: linear-gradient(var(--zf-url-line), var(--zf-url-line));
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: var(--zf-url-line-len, 100%) var(--zf-url-line-w, 0);
+}
+
+#urlbar:not([breakout-extend]) .urlbar-background::after {
+  --zf-url-line-w: var(--zf-url-line-rest);
+}
+
+#urlbar[focused]:not([breakout-extend]) .urlbar-background::after {
+  --zf-url-line-w: var(--zf-url-line-focus);
+}
+
+#urlbar[breakout-extend] .urlbar-background::after {
+  --zf-url-line-w: var(--zf-url-line-focus);
+
+  inset: 0 0 auto;
+  height: var(--urlbar-container-height);
+}
+
+/* With results the row's bottom corners are square: the line runs across */
+#urlbar[breakout-extend]:not([noresults]) .urlbar-background::after {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}

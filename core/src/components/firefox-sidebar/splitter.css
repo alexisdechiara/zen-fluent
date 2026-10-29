@@ -1,0 +1,16 @@
+/* Zen Fluent: Panel resize handle shown as an accent bar on keyboard focus.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen hides the resize handle; keyboard focus shows it as an accent bar */
+#zen-tabbox-wrapper #sidebar-splitter:focus-visible {
+  opacity: 1 !important;
+
+  /* At once, without Firefox's 0.5s fade */
+  transition: none !important;
+
+  @media not (forced-colors) {
+    border-color: transparent !important;
+    outline: none !important;
+    background-color: var(--zf-accent) !important;
+  }
+}

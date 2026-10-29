@@ -1,0 +1,27 @@
+/* Zen Fluent: Dialog documents: control sizes and MozDialog content padding.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Dialog documents -------- */
+/* Every document SubDialog loads. Space Routing keeps its own design. */
+
+:root[subdialog]:not(#zenSpaceRoutingDialog) {
+  --button-min-height: 32px !important;
+  --button-border-radius: var(--zf-radius-control) !important;
+  --button-font-weight: 400 !important;
+  --input-text-min-height: 32px !important;
+  --checkbox-size: 20px !important;
+}
+
+/* The MozDialog element: its shadow root holds the content and the buttons,
+   which carry the padding. Under about:preferences' own title bar (a
+   document without .system-font-size), the content starts closer. */
+:root[subdialog] > dialog {
+  --zf-dialog-content-padding: 24px;
+
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+:root[subdialog]:not(.system-font-size) > dialog {
+  --zf-dialog-content-padding: 12px 24px 24px;
+}

@@ -1,0 +1,28 @@
+/* Zen Fluent: Compact mode, single toolbar: the hidden top bar becomes a hover zone over the page.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Compact mode, single toolbar: nothing above the page -------- */
+/* Zen keeps the hidden top bar as an 8px strip above the page. It becomes an
+   invisible hover zone laid over the page instead (in a maximized window it
+   is what brings the bar back), and the bar floats over the page when shown,
+   so the page neither starts lower nor moves. */
+
+:root[zen-compact-mode="true"][zen-single-toolbar="true"]:not(
+    [customizing],
+    [inDOMFullscreen="true"]
+  ) {
+  #zen-appcontent-wrapper {
+    position: relative !important;
+  }
+
+  #zen-appcontent-navbar-wrapper {
+    position: absolute !important;
+    inset: 0 0 auto !important;
+    z-index: 4 !important;
+  }
+
+  /* Zen pulls the page up while the bar shows: nothing to make up for here */
+  #tabbrowser-tabpanels[has-toolbar-hovered] .browserContainer {
+    margin-top: 0 !important;
+  }
+}

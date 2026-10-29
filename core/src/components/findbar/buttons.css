@@ -1,0 +1,60 @@
+/* Zen Fluent: Previous, next and close as subtle 32px WinUI buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Previous / next and close: subtle Buttons -------- */
+
+.findbar-find-previous,
+.findbar-find-next,
+.findbar-closebutton {
+  flex-shrink: 0 !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  padding: 7px !important;
+
+  /* Room for the border Firefox draws in high contrast */
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  /* Zen's glyphs are 18px; WinUI's are 16px */
+  & > .toolbarbutton-icon {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: var(--focus-outline-inset) !important;
+  }
+}
+
+.findbar-closebutton {
+  align-self: center !important;
+  margin-inline: 8px !important;
+}
+
+@media not (forced-colors) {
+  .findbar-find-previous,
+  .findbar-find-next,
+  .findbar-closebutton {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    fill: var(--zf-text-primary) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+      fill: var(--zf-text-secondary) !important;
+    }
+
+    &[disabled] {
+      fill: var(--zf-text-disabled) !important;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+/* Zen Fluent: Centred URL text while the bar is not focused.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Options -------- */
+
+@media (-moz-pref("zen-fluent.url-centered")) {
+  #urlbar:not([focused]) .urlbar-input {
+    text-align: center !important;
+  }
+}

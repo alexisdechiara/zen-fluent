@@ -1,0 +1,20 @@
+/* Zen Fluent: Sine: settings group rows slide-in (zen-fluent.button-animations).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* The rows of an opening group slide in, as Expander content */
+  @media (prefers-reduced-motion: no-preference) and (-moz-pref("zen-fluent.button-animations")) {
+    .sineItemPreferenceDialogContent:has(> [id^="zen-fluent-ui-open-"])
+      > hbox:not([id^="zen-fluent-ui-open-"]) {
+      transition:
+        opacity var(--zf-duration-slow) var(--zf-ease),
+        translate var(--zf-duration-slow) var(--zf-ease);
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 -8px;
+      }
+    }
+  }
+}

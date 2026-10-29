@@ -1,0 +1,11 @@
+/* Zen Fluent: Menu and toolbar separators.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+menuseparator,
+toolbarseparator {
+  border-color: var(--zf-stroke-divider) !important;
+}
+
+menupopup menuseparator {
+  margin-inline: -4px !important;
+}

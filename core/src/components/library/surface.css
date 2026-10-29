@@ -1,0 +1,25 @@
+/* Zen Fluent: Library surface: Zen library tokens, transparent panel on the window material.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen's Library (History, Media, Downloads, Spaces) on the window material,
+   like the sidebar it replaces, with a WinUI navigation list. */
+
+zen-library {
+  --zen-library-radius: var(--zf-radius-overlay) !important;
+  --zen-library-pill-bg: var(--zf-fill-control) !important;
+  --zen-library-pill-hover-bg: var(--zf-fill-control-hover) !important;
+
+  font-size: 13px;
+  color: var(--zf-text-primary) !important;
+}
+
+/* Zen pushes the page aside by the Library's width and fades the sidebar
+   out (ZenLibrary.mjs translates #zen-appcontent-wrapper): the Library takes
+   the sidebar's place and never lies over the page. So, like the sidebar, it
+   shows the window material (materials.css), with no surface, shadow or
+   corner of its own: one uniform background, top intersection included. */
+#zen-library-panel {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}

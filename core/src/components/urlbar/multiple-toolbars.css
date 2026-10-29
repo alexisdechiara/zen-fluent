@@ -1,0 +1,20 @@
+/* Zen Fluent: Multiple toolbars: URL bar centred, 560px at most (full width in Edge style).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Multiple toolbars: centered, 560px at most (design) -------- */
+/* Edge's field spans the toolbar */
+
+:root:not([zen-single-toolbar="true"]) {
+  #urlbar-container {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+  }
+
+  #urlbar:not([zen-floating-urlbar="true"]) {
+    max-width: 560px !important;
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      max-width: none !important;
+    }
+  }
+}

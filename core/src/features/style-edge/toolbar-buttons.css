@@ -1,0 +1,25 @@
+/* Zen Fluent: Edge style toolbar buttons: 32px, radius 8, 4px apart (sidebar and top toolbar).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Edge: 32px buttons (16px glyph, 8px padding), radius 8, 4px apart, in the
+   sidebar and in the top toolbar (multiple toolbars). The new-tab row, the
+   media card and the workspace icons keep their own geometry. */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-padding-inner: 8px !important;
+    --toolbarbutton-padding-outer: 2px !important;
+    --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+    --toolbarbutton-background-color-hover: var(--zf-edge-hover) !important;
+    --toolbarbutton-background-color-active: var(--zf-edge-pressed) !important;
+  }
+
+  /* Zen drops the spacing when the top row runs out of room */
+  #zen-sidebar-top-buttons[overflowing] toolbarbutton.toolbarbutton-1 {
+    --toolbarbutton-padding-outer: 0px !important;
+  }
+}

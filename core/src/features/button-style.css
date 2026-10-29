@@ -1,0 +1,75 @@
+/* Zen Fluent: Standard toolbar buttons: control fill and elevation stroke (WinUI and Edge variants).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Standard buttons (WinUI Button): a control fill and the elevation stroke
+   at rest. Edge style (Fluent 2 Button): the address bar's field and
+   hairline, a darker hairline on hover, a pressed fill one step down. */
+@media (-moz-pref("zen-fluent.button-style", "standard")) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-background-color: var(--zf-fill-control) !important;
+    --toolbarbutton-background-color-hover: var(
+      --zf-fill-control-hover
+    ) !important;
+    --toolbarbutton-background-color-active: var(
+      --zf-fill-control-press
+    ) !important;
+    --toolbarbutton-background-color-disabled: var(
+      --zf-fill-control-disabled
+    ) !important;
+    --zf-button-stroke: var(--zf-elevation-control);
+    --zf-button-stroke-hover: var(--zf-button-stroke);
+    --zf-button-stroke-pressed: inset 0 0 0 1px var(--zf-stroke-control);
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      --toolbarbutton-background-color: var(--zf-edge-field) !important;
+      --toolbarbutton-background-color-hover: var(
+        --zf-edge-field-hover
+      ) !important;
+      --toolbarbutton-background-color-active: light-dark(
+        #f5f5f5,
+        rgb(0 0 0 / 30%)
+      ) !important;
+      --toolbarbutton-background-color-disabled: transparent !important;
+      --zf-button-stroke: inset 0 0 0 1px var(--zf-edge-field-stroke);
+      --zf-button-stroke-hover: inset 0 0 0 1px
+        var(--zf-edge-field-stroke-hover);
+      --zf-button-stroke-pressed: var(--zf-button-stroke-hover);
+    }
+
+    &
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke) !important;
+
+      @media not (prefers-reduced-motion: reduce) {
+        transition: background-color var(--zf-duration-fast) linear !important;
+      }
+    }
+
+    &:not([disabled]):hover
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke-hover) !important;
+    }
+
+    &:not([disabled]):is(:hover:active, [open], [checked])
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-button-stroke-pressed) !important;
+    }
+  }
+}

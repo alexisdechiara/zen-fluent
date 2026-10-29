@@ -1,0 +1,22 @@
+/* Zen Fluent: Transparent shape: no field until hovered or focused.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Transparent: no field until hovered or focused */
+@media (-moz-pref("zen-fluent.url-style", "transparent")) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+
+    &:hover .urlbar-background {
+      background-color: var(--zf-fill-subtle-hover) !important;
+      border-color: transparent !important;
+    }
+
+    &[focused] .urlbar-background {
+      background-color: var(--zf-url-fill-focus) !important;
+      border-color: var(--zf-url-stroke) !important;
+    }
+  }
+}

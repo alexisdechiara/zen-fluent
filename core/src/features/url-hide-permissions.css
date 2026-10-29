@@ -1,0 +1,23 @@
+/* Zen Fluent: Hide the permission icons, collapsing prompt anchors while closed.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen 1.23 always hides #identity-permission-box (granted and blocked
+   permissions live in its site panel); what is left are the prompt anchors
+   (location, camera…), shown while their prompt is open. Collapsed rather
+   than display: none: Firefox anchors a prompt to its icon only if the icon
+   is rendered (checkVisibility), otherwise to the tab in the sidebar. */
+@media (-moz-pref("zen-fluent.url-hide-permissions")) {
+  #identity-permission-box {
+    display: none !important;
+  }
+
+  #notification-popup-box:not([open]) {
+    min-width: 0 !important;
+    max-width: 0 !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    overflow: clip !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}

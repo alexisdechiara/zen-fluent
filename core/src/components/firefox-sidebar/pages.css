@@ -1,0 +1,63 @@
+/* Zen Fluent: Panel pages (bookmarks, history, synced tabs): font size, input tokens, WinUI TextBox search.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Rules for the pages inside the panel stay scoped to them. Tokens set in
+   browser.xhtml don't cross into these documents, so each sets its own. */
+
+@-moz-document url("chrome://browser/content/places/bookmarksSidebar.xhtml"),
+  url("chrome://browser/content/places/historySidebar.xhtml"),
+  url("chrome://browser/content/syncedtabs/sidebar.html")
+{
+  /* Same size as the tab labels; the search field reads the input tokens */
+  :root {
+    font-size: var(--zf-sidebar-font-size) !important;
+
+    --input-text-min-height: 32px !important;
+    --input-text-border-radius: var(--zf-radius-control) !important;
+
+    @media not (forced-colors) {
+      --sidebar-text-color: var(--zf-text-primary) !important;
+      --input-text-background-color: var(--zf-fill-control) !important;
+      --input-text-border-color: var(--zf-stroke-control) !important;
+      --input-text-color: var(--zf-text-primary) !important;
+    }
+  }
+
+  /* -------- Search: WinUI TextBox -------- */
+
+  moz-input-search {
+    @media not (forced-colors) {
+      --icon-color: var(--zf-text-secondary) !important;
+    }
+  }
+
+  /* Inside the field's shadow tree. The 2px focus underline is the bottom
+     border plus an inset shadow, so the box keeps its size. */
+  input#input[type="search"] {
+    @media not (forced-colors) {
+      border-bottom-color: var(--zf-stroke-field) !important;
+
+      &:hover {
+        background-color: var(--zf-fill-control-hover) !important;
+      }
+
+      &:focus {
+        outline: none !important;
+        border-bottom-color: var(--zf-accent) !important;
+        background-color: var(--zf-page) !important;
+        box-shadow: inset 0 -1px 0 var(--zf-accent) !important;
+      }
+
+      &::placeholder {
+        color: var(--zf-text-secondary) !important;
+        opacity: 1 !important;
+      }
+    }
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        box-shadow var(--zf-duration-fast) linear !important;
+    }
+  }
+}

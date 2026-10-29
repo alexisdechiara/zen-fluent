@@ -1,0 +1,248 @@
+/* Zen Fluent: Pill shape (default under Edge): true pill, circular buttons, open-in-place and floating surfaces.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Pill (Edge), done properly -------- */
+/* True pill (radius = height / 2, plain arcs) with a hairline on every
+   side, the site button first (Zen moves it to the end) and every button a
+   circle inset 2px, concentric with the end caps. Open in place, one
+   surface grows 4px around the field (radius 20, rows 12); floating, a
+   24px card. Both are full pills without results: the input row is twice
+   the radius. */
+
+@media (-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))) {
+  /* Zen pads the bar 1px in the sidebar: the field takes the whole box */
+  :root[zen-single-toolbar="true"] #urlbar:not([breakout-extend]) {
+    padding: 0 !important;
+  }
+
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      --zf-url-line-len: calc(100% - var(--zf-url-h));
+
+      box-sizing: border-box !important;
+      height: var(--zf-url-h) !important;
+      margin: auto 0 !important;
+      border-radius: calc(var(--zf-url-h) / 2) !important;
+      corner-shape: round !important;
+    }
+
+    & .urlbar-input-container {
+      padding: 0 var(--zf-url-inset) !important;
+      gap: 0 !important;
+    }
+
+    /* Site button first, text 4px after it; page actions, then copy link
+       last, on the end cap (Zen puts copy link first with multiple
+       toolbars, before the site button in the sidebar) */
+    & #identity-box {
+      order: -2 !important;
+      align-items: center !important;
+      margin: 0 !important;
+    }
+
+    & .urlbar-input-box {
+      margin-inline-start: 4px !important;
+    }
+
+    & #page-action-buttons {
+      order: 1 !important;
+    }
+
+    & #zen-copy-url-button {
+      order: 2 !important;
+    }
+
+    &
+      :is(
+        #zen-site-data-icon-button,
+        #identity-icon-box,
+        #identity-permission-box,
+        #tracking-protection-icon-container,
+        #remote-control-box,
+        .urlbar-page-action,
+        #notification-popup-box > image
+      ) {
+      box-sizing: border-box !important;
+      width: var(--zf-url-chip) !important;
+      min-width: var(--zf-url-chip) !important;
+      height: var(--zf-url-chip) !important;
+      padding: calc((var(--zf-url-chip) - 16px) / 2) !important;
+      margin: 0 !important;
+      border-radius: 50% !important;
+      corner-shape: round !important;
+    }
+  }
+
+  /* The zoom level stays a pill when the bar opens */
+  #urlbar #urlbar-zoom-button {
+    height: var(--zf-url-chip) !important;
+    margin: 0 !important;
+    padding-inline: 10px !important;
+    border-radius: calc(var(--zf-url-chip) / 2) !important;
+    corner-shape: round !important;
+  }
+
+  /* Edge always shows its site button; in the sidebar Zen fades it in on
+     hover, which would push the text */
+  :root[zen-single-toolbar="true"]
+    #urlbar:not([breakout-extend])
+    #identity-box
+    > .identity-box-button {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Open in place: the input row is the field plus 4px all round */
+  #urlbar[breakout-extend]:not([zen-floating-urlbar="true"]) {
+    --zf-url-open-r: calc(var(--zf-url-h) / 2 + 4px);
+    --zf-url-open-pad: calc(4px + var(--zf-url-inset));
+    --zf-url-open-chip: var(--zf-url-chip);
+    --zf-url-row-h: 36px;
+    --urlbar-container-height: calc(var(--zf-url-h) + 8px) !important;
+  }
+
+  /* Sidebar: Zen keeps the start edge, the surface grows past it. Zen tops
+     the open bar at the toolbar item, which Firefox sizes from a height it
+     measured once (38px, more after a layout change; the field is centred
+     in it): the input row is centred on the item, so on the field. */
+  :root[zen-single-toolbar="true"] #urlbar-container {
+    --zf-url-item-h: var(--urlbar-container-height);
+  }
+
+  :root[zen-single-toolbar="true"]
+    #urlbar[breakout-extend]:not([zen-floating-urlbar="true"]) {
+    margin-block-start: calc(
+      (var(--zf-url-item-h, 40px) - var(--urlbar-container-height)) / 2
+    ) !important;
+    margin-inline-start: -4px !important;
+  }
+
+  /* Sidebar on the right: Zen pins the open bar to the window's edge
+     (right: 0), past the field by the toolbox padding and the item's 1px
+     margin (compact: the floating sidebar also sits half its float margin
+     inside); it is brought back to 4px past the field */
+  :root[zen-single-toolbar="true"][zen-right-side="true"]
+    #urlbar[breakout-extend]:not([zen-floating-urlbar="true"]) {
+    right: calc(var(--zen-toolbox-padding, 5px) + 1px - 4px) !important;
+    margin-inline-start: 0 !important;
+  }
+
+  :root[zen-single-toolbar="true"][zen-right-side="true"][zen-compact-mode="true"]
+    #urlbar[breakout-extend]:not([zen-floating-urlbar="true"]) {
+    right: calc(
+      var(--zen-compact-float, 8px) / 2 + var(--zen-toolbox-padding, 5px) +
+        1px - 4px
+    ) !important;
+  }
+
+  /* Toolbar: Firefox grows the bar by --urlbar-margin-inline on each side
+     and places it for Zen's 48px input row; ours is 40px */
+  :root:not([zen-single-toolbar="true"])
+    #urlbar:not([zen-floating-urlbar="true"]) {
+    --urlbar-margin-inline: 4px !important;
+
+    &[breakout-extend] {
+      margin-block-start: calc(
+        (48px - var(--urlbar-container-height)) / 2
+      ) !important;
+    }
+
+    /* Within the 560px cap (WinUI style) the open bar keeps the field's
+       box: 8px more, it stays centred */
+    @media not (-moz-pref("zen-fluent.style", "edge")) {
+      &[breakout-extend] {
+        max-width: calc(560px + 8px) !important;
+      }
+    }
+  }
+
+  /* Floating: 48px input row, 32px leading circle 8px from the edges, so
+     its centre is the 24px corner's */
+  #urlbar[breakout-extend][zen-floating-urlbar="true"] {
+    --zf-url-open-r: 24px;
+    --zf-url-open-pad: 8px;
+    --zf-url-open-chip: 32px;
+    --zf-url-row-h: 40px;
+    --urlbar-container-height: 48px !important;
+  }
+
+  #urlbar[breakout-extend] {
+    border-radius: var(--zf-url-open-r) !important;
+    corner-shape: round !important;
+
+    & .urlbar-background {
+      --zf-url-line-len: calc(100% - 2 * var(--zf-url-open-r));
+
+      border-radius: var(--zf-url-open-r) !important;
+      corner-shape: round !important;
+      box-shadow:
+        0 0 0 1px var(--zf-url-stroke),
+        var(
+          --zf-shadow-28,
+          0 0 8px light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 24%)),
+          0 14px 28px light-dark(rgb(0 0 0 / 14%), rgb(0 0 0 / 28%))
+        ) !important;
+    }
+
+    & .urlbar-input-container {
+      padding-inline: var(--zf-url-open-pad) !important;
+    }
+
+    & #identity-box {
+      align-items: center !important;
+      margin: 0 !important;
+    }
+
+    & #identity-icon-box {
+      box-sizing: border-box !important;
+      width: var(--zf-url-open-chip) !important;
+      min-width: var(--zf-url-open-chip) !important;
+      height: var(--zf-url-open-chip) !important;
+      padding: calc((var(--zf-url-open-chip) - 16px) / 2) !important;
+      margin: 0 !important;
+      border-radius: 50% !important;
+      corner-shape: round !important;
+    }
+
+    & .urlbar-input-box {
+      margin-inline-start: 4px !important;
+    }
+
+    /* Rows 8px in, concentric with the surface, without the WinUI accent
+       bar; one text line (24px) between Firefox's 2px row borders */
+    & .urlbarView {
+      --zf-url-row-inset: 8px;
+    }
+
+    & .urlbarView-row {
+      --zf-row-pill: transparent !important;
+
+      box-sizing: border-box !important;
+      min-height: var(--zf-url-row-h) !important;
+      border-radius: calc(var(--zf-url-open-r) - 8px) !important;
+      corner-shape: round !important;
+    }
+
+    & .urlbarView-row-inner {
+      min-height: 0 !important;
+      padding-block: calc((var(--zf-url-row-h) - 28px) / 2) !important;
+    }
+
+    & .urlbarView-row:first-child .urlbarView-title {
+      font-weight: 400 !important;
+    }
+  }
+
+  /* No divider in the pill without an accent line */
+  @media (-moz-pref("zen-fluent.url-underline", "none")) {
+    #urlbar[breakout-extend]:not([noresults]) .urlbar-background::after {
+      --zf-url-line-w: 0px;
+    }
+  }
+
+  #urlbar-search-mode-indicator,
+  .searchmode-switcher {
+    border-radius: 999px !important;
+    corner-shape: round !important;
+  }
+}

@@ -1,0 +1,32 @@
+/* Zen Fluent: Dialog smoke: overlay stacks take the page card's corners, WinUI dark smoke in both themes.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Prompts (alert, confirm, prompt, logins, select) and the other dialogs
+   SubDialog loads (print, Clear history, bookmark properties, preference
+   dialogs, Zen share) as a WinUI ContentDialog over smoke: opaque card,
+   20px title, Button row with the default AccentButton, TextBox, CheckBox.
+   The frame lives in browser.xhtml; the dialog documents get this sheet too,
+   as chrome:// documents. */
+
+/* -------- Smoke -------- */
+
+/* The stacks take the page card's corners, so the smoke does not spill past
+   its rounded corner */
+.dialogStack,
+.dialogStack > .dialogOverlay {
+  border-radius: inherit !important;
+  corner-shape: inherit !important;
+}
+
+/* Firefox's light-theme smoke is white; WinUI darkens in both themes. The
+   window-modal overlay stays clear (its ::backdrop is the smoke), and the
+   overlay that hides the page during a cross-site login stays opaque. */
+@media not (forced-colors) {
+  .dialogOverlay[topmost="true"]:not(
+      [hideContent="true"],
+      #window-modal-dialog > *
+    ),
+  #window-modal-dialog::backdrop {
+    background-color: var(--zf-smoke) !important;
+  }
+}

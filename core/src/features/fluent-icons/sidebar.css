@@ -1,0 +1,48 @@
+/* Zen Fluent: Fluent icons: sidebar and toolbar buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Sidebar and toolbar buttons -------- */
+
+  #tabs-newtab-button,
+  #zen-create-new-button,
+  #new-tab-button {
+    list-style-image: url("../../../icons/new-tab.svg") !important;
+  }
+
+  #zen-toggle-compact-mode {
+    list-style-image: url("../../../icons/sidebar.svg") !important;
+  }
+
+  #unified-extensions-button {
+    list-style-image: url("../../../icons/extension.svg") !important;
+  }
+
+  #PanelUI-menu-button {
+    list-style-image: url("../../../icons/menu.svg") !important;
+  }
+
+  /* Zen animates a sprite here; the Fluent icon is a plain image */
+  #zen-library-button {
+    list-style-image: url("../../../icons/library.svg") !important;
+
+    & .zen-library-sprite {
+      display: none !important;
+    }
+  }
+
+  #stop-button,
+  .tab-close-button,
+  .findbar-closebutton,
+  #sidebar-close {
+    list-style-image: url("../../../icons/close.svg") !important;
+  }
+
+  .zen-current-workspace-indicator-chevron {
+    list-style-image: url("../../../icons/chevron-right.svg") !important;
+  }
+
+  .zen-workspace-close-unpinned-tabs-button {
+    list-style-image: url("../../../icons/arrow-down.svg") !important;
+  }
+}

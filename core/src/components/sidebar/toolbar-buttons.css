@@ -1,0 +1,22 @@
+/* Zen Fluent: Sidebar toolbar buttons: subtle fills through Firefox's toolbarbutton variables.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Firefox paints a toolbar button on its icon box (or badge stack) from
+   the --toolbarbutton-background-color* variables, sized by
+   --toolbarbutton-padding-inner (around a 16px glyph) and spaced by
+   --toolbarbutton-padding-outer. Zen sets the hover fill on :root. */
+
+#navigator-toolbox toolbarbutton.toolbarbutton-1 {
+  --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+  --toolbarbutton-background-color-hover: var(
+    --zf-fill-subtle-hover
+  ) !important;
+  --toolbarbutton-background-color-active: var(
+    --zf-fill-subtle-press
+  ) !important;
+  color: var(--zf-text-secondary) !important;
+
+  &[disabled="true"] {
+    color: var(--zf-text-disabled) !important;
+  }
+}

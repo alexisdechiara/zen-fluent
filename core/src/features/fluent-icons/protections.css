@@ -1,0 +1,10 @@
+/* Zen Fluent: Fluent icons: tracking protection panel.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+  /* -------- Protections popup: settings, as in the app menu -------- */
+
+  #protections-popup .protections-popup-settings-icon {
+    list-style-image: url("../../../icons/settings.svg") !important;
+  }
+}

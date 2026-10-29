@@ -1,0 +1,21 @@
+/* Zen Fluent: Edge style: Fluent 2 subtle fills on menu rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Edge style: Fluent 2 menus -------- */
+/* Flyout 12 = item 8 + padding 4 (tokens.css), shadow16 under a 1px stroke.
+   Rows take Fluent 2's subtle fills, whose pressed step is lighter than
+   hover in dark; after the WinUI ones above, which they replace. */
+@media (-moz-pref("zen-fluent.style", "edge")) and (not (forced-colors)) {
+  menupopup,
+  panel {
+    --panel-item-hover-bgcolor: var(--zf-edge-hover) !important;
+    --panel-item-active-bgcolor: var(--zf-edge-pressed) !important;
+  }
+
+  panel {
+    --button-background-color-menu-hover: var(--zf-edge-hover) !important;
+    --button-background-color-menu-active: var(--zf-edge-pressed) !important;
+    --button-background-color-ghost-hover: var(--zf-edge-hover) !important;
+    --button-background-color-ghost-active: var(--zf-edge-pressed) !important;
+  }
+}

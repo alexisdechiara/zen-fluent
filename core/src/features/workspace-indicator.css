@@ -1,0 +1,8 @@
+/* Zen Fluent: Hide the current workspace indicator (opt-out).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media not (-moz-pref("zen-fluent.workspace-indicator")) {
+  .zen-current-workspace-indicator {
+    display: none !important;
+  }
+}

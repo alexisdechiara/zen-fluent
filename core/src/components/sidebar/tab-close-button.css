@@ -1,0 +1,34 @@
+/* Zen Fluent: Tab close button (from Firefox-WinUI), with Edge's circular variant.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Close button (Firefox-WinUI) -------- */
+
+.tabbrowser-tab:not([pinned]) .tab-close-button {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 6px !important;
+  border-radius: var(--zf-radius-control) !important;
+  color: var(--zf-text-secondary) !important;
+
+  &:hover {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  &:hover:active {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+
+  /* Edge: a circle with an 8px glyph */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    padding: 8px !important;
+    border-radius: 50% !important;
+
+    &:hover {
+      background-color: var(--zf-edge-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-edge-pressed) !important;
+    }
+  }
+}

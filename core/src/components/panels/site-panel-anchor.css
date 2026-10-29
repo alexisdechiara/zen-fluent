@@ -1,0 +1,19 @@
+/* Zen Fluent: Site panel anchor button in the urlbar, pressed while the flyout is open.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Anchor in the urlbar: pressed while the flyout is open -------- */
+/* urlbar.css gives it the look of the other identity buttons. */
+
+#zen-site-data-icon-button {
+  /* The boost glyph and its animated strip take this color: the accent,
+     not the space's */
+  --zen-sidebar-themed-icon-fill: var(--zf-accent) !important;
+
+  &:is([open], :hover:active) {
+    background-color: var(--zf-fill-subtle-press) !important;
+  }
+
+  &[boosting] image {
+    fill: var(--zf-accent) !important;
+  }
+}

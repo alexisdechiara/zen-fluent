@@ -1,0 +1,44 @@
+/* Zen Fluent: Menu rows: 32px height, footer rows, WinUI subtle fills, disabled text.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+menupopup :is(menuitem, menu),
+panel .subviewbutton {
+  min-height: 32px !important;
+  border-radius: var(--zf-radius-control) !important;
+}
+
+/* Footer rows ("Manage history", "Show all bookmarks"…) are 32px like the
+   others (Zen pads them to 40px) */
+panel .subviewbutton.panel-subview-footer-button {
+  padding-block: 6px !important;
+}
+
+/* Rows and ghost buttons take the WinUI subtle fills. Firefox resolves the
+   menu tokens from the ghost ones on :root, so both are set. Contrast themes
+   keep Firefox's. */
+@media not (forced-colors) {
+  panel {
+    --button-background-color-menu-hover: var(
+      --zf-fill-subtle-hover
+    ) !important;
+    --button-background-color-menu-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+    --button-background-color-ghost-hover: var(
+      --zf-fill-subtle-hover
+    ) !important;
+    --button-background-color-ghost-active: var(
+      --zf-fill-subtle-press
+    ) !important;
+  }
+
+  /* WinUI dims the text of a disabled item, not the whole row. Extension
+     buttons show only their bitmap icon: they keep Firefox's opacity. */
+  panel
+    toolbarbutton.subviewbutton[disabled]:not(
+      .unified-extensions-item-action-button
+    ) {
+    color: var(--zf-text-disabled) !important;
+    opacity: 1 !important;
+  }
+}

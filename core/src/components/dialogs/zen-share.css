@@ -1,0 +1,19 @@
+/* Zen Fluent: Zen share confirmation dialog: body text and 20px heading.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Zen share confirmation -------- */
+
+#zenShareConfirmDialog[subdialog] {
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  /* Inline 12px on top of the content padding */
+  & > dialog > vbox {
+    padding-inline: 0 !important;
+  }
+
+  & h2 {
+    margin: 0 0 12px !important;
+    font: 600 20px / 28px var(--zf-font-display) !important;
+  }
+}

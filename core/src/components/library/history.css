@@ -1,0 +1,64 @@
+/* Zen Fluent: History section: one-line 36px rows with WinUI day headers.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- History: the design's one-line rows -------- */
+/* 36px rows: favicon, title, then the address in the tertiary color (and
+   the time pushed to the end, when Zen shows it); day headers as WinUI list
+   headers */
+
+zen-library-history-section {
+  & .zen-library-group h3 {
+    margin: 0 !important;
+    padding: 12px 10px 4px !important;
+  }
+
+  & .zen-library-row {
+    gap: 12px !important;
+    min-height: 36px !important;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+  }
+
+  & .zen-library-row-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  & .zen-library-row-text {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+  }
+
+  & .zen-library-row-title {
+    flex: 0 1 auto !important;
+    max-width: 65%;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  & .zen-library-row-subtitle {
+    display: contents !important;
+  }
+
+  & .zen-library-visit-url {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  & .zen-library-visit-date {
+    flex: none !important;
+    margin-inline-start: auto !important;
+  }
+
+  & .zen-library-row-actions toolbarbutton {
+    --toolbarbutton-border-radius: var(--zf-radius-control) !important;
+  }
+}

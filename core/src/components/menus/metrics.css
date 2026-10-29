@@ -1,0 +1,29 @@
+/* Zen Fluent: Panel item metrics: Firefox and Zen menu item and separator variables.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Context menus and panels: WinUI MenuFlyout on Acrylic. With
+   widget.windows.mica.popups, Windows draws the backdrop behind the fill. */
+
+:root {
+  /* Firefox 158 panels (app menu, subviews, extensions, downloads…):
+     32px items inset 4px, full-width separators */
+  --panel-menuitem-padding-block: 6px !important;
+  --panel-menuitem-padding-inline: 12px !important;
+  --panel-menuitem-margin-inline: 4px !important;
+  --panel-menuitem-border-radius: var(--zf-radius-control) !important;
+  --panel-separator-padding-block: 2px !important;
+  --panel-separator-padding-inline: 0px !important;
+  --panel-separator-color: var(--zf-stroke-divider) !important;
+  --panel-subview-body-padding-block: 4px !important;
+
+  /* Zen's own names for the same thing */
+  --arrowpanel-menuitem-border-radius: var(--zf-radius-control) !important;
+  --arrowpanel-menuitem-padding-block: 6px !important;
+  --arrowpanel-menuitem-padding-inline: 12px !important;
+  --uc-arrowpanel-menuitem-margin-inline: 4px !important;
+  --uc-arrowpanel-menuitem-margin-block: 1px !important;
+  /* WinUI's 12px between an item's icon and its label (Zen: 14px) */
+  --uc-arrowpanel-menuicon-margin-inline: 12px !important;
+  --panel-separator-margin-vertical: 2px !important;
+  --panel-separator-margin-horizontal: 0px !important;
+}

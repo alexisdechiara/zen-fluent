@@ -1,0 +1,44 @@
+/* Zen Fluent: Current workspace indicator, with Edge's 32px pill.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+.zen-current-workspace-indicator {
+  min-height: 28px !important;
+  padding-inline-start: 12px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  & .zen-current-workspace-indicator-name {
+    font-size: var(--zf-sidebar-font-size-small) !important;
+    font-weight: 600 !important;
+    color: var(--zf-text-secondary) !important;
+  }
+
+  & .zen-current-workspace-indicator-icon {
+    color: var(--zf-accent) !important;
+    fill: var(--zf-accent) !important;
+  }
+
+  &:hover::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  /* Edge: a 32px pill, like its account button; the name lines up with
+     the favicons, 8px inside the pill */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    #navigator-toolbox[zen-sidebar-expanded="true"] & {
+      padding-inline-start: 15px !important;
+    }
+
+    &::before {
+      top: 50% !important;
+      height: 32px !important;
+      margin-top: -16px !important;
+      border-radius: 16px !important;
+    }
+
+    &:is(:hover, [open="true"])::before {
+      background-color: var(--zf-edge-hover) !important;
+      border-radius: 16px !important;
+    }
+  }
+}

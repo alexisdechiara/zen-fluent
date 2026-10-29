@@ -1,0 +1,48 @@
+/* Zen Fluent: Edge style tabs: plain 8px rows, raised selected tab without accent, favicon spacing.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Edge: plain 8px rows; the selected tab is a raised white (light) or
+   lighter (dark) surface with Fluent's shadow2, without an accent */
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  #tabbrowser-tabs .tabbrowser-tab:not([zen-essential]) {
+    > .tab-stack > .tab-background {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        box-shadow var(--zf-duration-fast) linear !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-edge-hover) !important;
+    }
+
+    /* Hovered too: it outranks the WinUI selected-hover fill above */
+    &:is([selected], [visuallyselected], [multiselected])
+      > .tab-stack
+      > .tab-background,
+    &:is([selected], [visuallyselected]):hover > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-edge-raised) !important;
+      box-shadow: var(--zf-shadow-2) !important;
+
+      @media (-moz-pref("zen-fluent.extra-highlights")) {
+        box-shadow:
+          var(--zf-shadow-2),
+          inset 0 1px 0 var(--zf-highlight) !important;
+      }
+    }
+  }
+
+  /* Favicon 8px from the row's edge, title 8px after it (Zen: 9.3 / 10) */
+  #navigator-toolbox[zen-sidebar-expanded="true"]
+    #tabbrowser-tabs
+    .tabbrowser-tab:not([zen-essential])
+    :is(
+      .tab-throbber,
+      .tab-icon-pending,
+      .tab-icon-image,
+      .tab-sharing-icon-overlay,
+      .tab-icon-overlay
+    ) {
+    margin-inline: 2px 8px !important;
+  }
+}

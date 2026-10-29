@@ -1,0 +1,20 @@
+/* Zen Fluent: MozDialog content box on the Layer, cut from the button row by the card stroke.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Content and button row (MozDialog shadow root) -------- */
+/* Shadow elements only see their own tree. In a sub-dialog, dialog.js links
+   in-content/common.css next to them (after them when [subdialog] comes
+   late): the sign that tells it from a prompt opened as a native window. */
+
+.box-inherit[part="content-box"]:is(
+    link[href$="/in-content/common.css"] ~ *,
+    :has(~ link[href$="/in-content/common.css"])
+  ) {
+  padding: var(--zf-dialog-content-padding, 24px) !important;
+
+  /* Content on the Layer, cut from the buttons by the card stroke */
+  @media not (forced-colors) {
+    border-bottom: 1px solid var(--zf-stroke-control) !important;
+    background-color: var(--zf-layer-alt) !important;
+  }
+}

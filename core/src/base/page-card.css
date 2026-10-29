@@ -1,0 +1,14 @@
+/* Zen Fluent: Page card: overlay radius, card shadow and page background.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Content card -------- */
+
+#tabbrowser-tabpanels .browserSidebarContainer {
+  border-radius: var(--zf-radius-overlay) !important;
+  corner-shape: round !important;
+  box-shadow: var(--zf-shadow-card) !important;
+
+  & browser[type="content"]:not([transparent="true"]) {
+    background: var(--zf-page) !important;
+  }
+}

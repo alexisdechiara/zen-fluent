@@ -1,0 +1,30 @@
+/* Zen Fluent: Downloads summary row and history footer button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Summary and footer -------- */
+
+#downloadsSummary {
+  min-height: 56px !important;
+  margin: 2px 4px 0 !important;
+  padding-block: 8px !important;
+  padding-inline: 12px 44px !important;
+  border-top: none !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  & #downloadsSummaryDescription {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+
+  & #downloadsSummaryDetails {
+    color: var(--zf-text-secondary) !important;
+  }
+}
+
+#downloadsHistory {
+  min-height: 32px !important;
+  margin: 0 4px !important;
+  padding: 6px 12px !important;
+  border-radius: var(--zf-radius-control) !important;
+  transform: none !important;
+}

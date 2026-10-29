@@ -1,0 +1,35 @@
+/* Zen Fluent: Default tooltip color scheme following Zen's window scheme, private and popup windows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Color scheme -------- */
+/* DOM tooltips inherit Zen's scheme from the window; page tooltips
+   (#remoteBrowserTooltip, #aHTMLTooltip[contenttooltip]) follow the website
+   appearance, as in Firefox. The default tooltip inherits nothing and would
+   follow the system even when Zen forces light or dark, so it reads the pref
+   Zen reads (zen-theme.css), in browser windows other than popups. */
+
+@-moz-document url("chrome://browser/content/browser.xhtml")
+{
+  @media (-moz-pref("zen.view.window.scheme", 0)) {
+    tooltip[default] {
+      color-scheme: dark !important;
+    }
+  }
+
+  @media (-moz-pref("zen.view.window.scheme", 1)) {
+    tooltip[default] {
+      color-scheme: light !important;
+    }
+  }
+
+  /* Zen's private windows are always dark */
+  :root[privatebrowsingmode="temporary"] tooltip[default] {
+    color-scheme: dark !important;
+  }
+
+  /* Zen leaves popup windows (window.open), private ones included, on the
+     system scheme */
+  :root[popup-window] tooltip[default] {
+    color-scheme: normal !important;
+  }
+}

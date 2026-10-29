@@ -1,0 +1,15 @@
+/* Zen Fluent: Solid Acrylic fallback when blur is unavailable (zen-no-acrylic, reduced transparency).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- No blur available (software rendering, reduced transparency):
+   WinUI falls back to the solid Acrylic color -------- */
+
+:root[zen-no-acrylic="true"] {
+  --zf-acrylic: var(--zf-acrylic-solid);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --zf-acrylic: var(--zf-acrylic-solid);
+  }
+}

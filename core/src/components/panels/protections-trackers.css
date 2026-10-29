@@ -1,0 +1,56 @@
+/* Zen Fluent: Tracking protection tracker list subviews and SmartBlock hint.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Tracker lists (subviews) -------- */
+
+#protections-popup {
+  & .protections-popup-description > description {
+    margin: 8px 16px !important;
+    color: var(--zf-text-secondary) !important;
+  }
+
+  & .protections-popup-list {
+    padding: 4px 16px !important;
+  }
+
+  & .protections-popup-list-item {
+    align-items: center !important;
+    gap: 8px !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+  }
+
+  & .protections-popup-list-state-label {
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+  }
+
+  & .protections-popup-cookiesView-list-header {
+    margin: 8px 0 4px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+  }
+
+  /* SmartBlock hint: informational InfoBar with an accent glyph */
+  & .protections-popup-shim-allow-hint {
+    gap: 12px !important;
+    margin: 0 16px 8px !important;
+  }
+
+  & .protections-popup-shim-allow-hint-icon {
+    width: 16px !important;
+    height: 16px !important;
+    margin-inline-end: 0 !important;
+  }
+
+  @media not (forced-colors) {
+    &
+      :is(
+        .protections-popup-shim-allow-hint-icon,
+        .protections-popup-list-host-shim-allow-indicator
+      ) {
+      fill: var(--zf-accent) !important;
+    }
+  }
+}

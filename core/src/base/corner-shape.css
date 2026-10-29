@@ -1,0 +1,28 @@
+/* Zen Fluent: Corner shape: plain arcs for WinUI and Edge corners, and on circles, pills and tooltips.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Corners -------- */
+/* Zen 1.23 turns every corner into a superellipse (squircle). WinUI and Edge
+   corners are plain arcs, so both put them back; the Zen variant keeps Zen's
+   squircles, except on the circles and pills listed below, and on tooltips:
+   the default one gets no author styles, so it cannot share Zen's squircle. */
+
+@media (-moz-pref("zen-fluent.corners", "winui")) or (-moz-pref("zen-fluent.style", "edge")) {
+  *,
+  ::before,
+  ::after {
+    corner-shape: round !important;
+  }
+}
+
+.zen-media-playpause-button > .toolbarbutton-icon,
+.tabbrowser-tab .tab-background::after,
+#zen-workspaces-button toolbarbutton::after,
+.zen-glance-sidebar-container toolbarbutton,
+.zen-view-splitter-header,
+.zen-view-splitter-header-container toolbarbutton,
+.zen-library-filter-chip,
+.toolbarbutton-badge,
+tooltip {
+  corner-shape: round !important;
+}

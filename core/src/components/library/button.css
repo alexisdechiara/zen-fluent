@@ -1,0 +1,12 @@
+/* Zen Fluent: Library sidebar button open/checked state in the accent color.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Sidebar button -------- */
+
+#zen-library-button[open="true"],
+#zen-library-button[checked="true"] {
+  color: var(--zf-accent) !important;
+
+  --toolbarbutton-icon-fill: var(--zf-accent) !important;
+  background-color: var(--zf-fill-selected) !important;
+}

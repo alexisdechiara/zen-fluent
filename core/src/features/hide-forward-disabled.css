@@ -1,0 +1,36 @@
+/* Zen Fluent: Fold the Forward button away while there is nothing to go forward to.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Forward hidden while there is nothing to go forward to -------- */
+/* Like Edge. The button folds to nothing instead of vanishing, so the
+   buttons after it slide over rather than jump. */
+
+@media (-moz-pref("zen-fluent.hide-forward-disabled")) {
+  :root:not([customizing]) #forward-button {
+    /* The button's own width: Firefox's --toolbarbutton-icon-size is
+       resolved on :root, before Edge's padding */
+    max-width: calc(
+      16px + 2 * var(--toolbarbutton-padding-inner) + 2 *
+        var(--toolbarbutton-padding-outer)
+    ) !important;
+    overflow: clip !important;
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition:
+        max-width var(--zf-duration-normal) var(--zf-ease),
+        padding var(--zf-duration-normal) var(--zf-ease),
+        opacity var(--zf-duration-fast) linear !important;
+    }
+
+    /* max-height: also gone when the buttons stand in a column */
+    &[disabled] {
+      min-width: 0 !important;
+      max-width: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      padding: 0 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  }
+}

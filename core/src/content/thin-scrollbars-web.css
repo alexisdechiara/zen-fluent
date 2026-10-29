@@ -1,0 +1,21 @@
+/* Zen Fluent: Optional thin WinUI scrollbars on web pages.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* ----------------------- WEB PAGES: SCROLLBARS ----------------------- */
+/* Optional thin WinUI scrollbars everywhere. Not !important: a page that
+   sets its own scrollbar (or hides it with scrollbar-width: none) wins. */
+
+@media (-moz-pref("zen-fluent.thin-scrollbars-web")) {
+  :root {
+    scrollbar-color: var(--zf-scrollbar-thumb) transparent;
+  }
+
+  :root,
+  * {
+    scrollbar-width: thin;
+  }
+
+  :hover {
+    scrollbar-color: var(--zf-scrollbar-thumb-hover) transparent;
+  }
+}

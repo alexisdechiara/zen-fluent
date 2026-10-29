@@ -1,0 +1,76 @@
+/* Zen Fluent: Print dialog: clear preview browser, base gutter, page navigator as a flyout.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* -------- Print -------- */
+/* The preview gutter on the base and its page navigator as a flyout. The
+   mod paints content <browser>s with the page color (materials.css): the
+   preview's stays clear, or the gutter would turn as white as the sheets. */
+
+#tabbrowser-tabpanels
+  .previewStack
+  > browser.printPreviewBrowser[type="content"][printpreview] {
+  background: transparent !important;
+}
+
+/* printpreview-pagination's shadow root, found by its stylesheet link */
+link[href$="/printPagination.css"] ~ .container {
+  gap: 2px !important;
+  padding: 4px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: var(--zf-radius-overlay) !important;
+
+  & > .toolbarButton {
+    min-width: 32px !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  & > .toolbarCenter {
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    border-radius: 0 !important;
+    font-size: 14px !important;
+  }
+}
+
+@media not (forced-colors) {
+  .printDialogBox .previewStack {
+    background-color: var(--zf-solid-base) !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  .printDialogBox > .printSettingsBrowser {
+    border-inline-start: 1px solid var(--zf-stroke-divider) !important;
+  }
+
+  /* It floats over the preview: solid Acrylic, as everything over a page */
+  link[href$="/printPagination.css"] ~ .container {
+    border-color: var(--zf-stroke-control) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    color: var(--zf-text-primary) !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+
+    &::before {
+      background-color: transparent !important;
+    }
+
+    & > :is(.toolbarButton, .toolbarCenter) {
+      border: 0 !important;
+    }
+
+    & > .toolbarButton:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    & > .toolbarButton:hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+    }
+
+    & #sheetIndicator {
+      color: var(--zf-text-secondary) !important;
+    }
+  }
+}
