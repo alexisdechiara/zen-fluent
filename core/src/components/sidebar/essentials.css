@@ -34,7 +34,9 @@
         inset: auto auto 3px 50% !important;
         width: 14px !important;
         height: 3px !important;
-        margin-inline-start: -7px;
+        /* Zen sets margin: var(--zen-essential-bg-margin) on it; left: 50%
+           above is physical, so is this margin */
+        margin: 0 0 0 -7px !important;
         border-radius: 2px !important;
         background: var(--zf-accent) !important;
         opacity: 1 !important;

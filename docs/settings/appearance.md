@@ -66,6 +66,7 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
   30 px (WinUI's AcrylicBrush) or custom. Firefox does not blur a web page
   behind the interface, so over a page only the interface behind them is
   blurred; the other surfaces over the page are solid. No blur without
-  hardware acceleration or with reduced transparency, whatever the setting.
+  hardware acceleration, with reduced transparency or in a contrast theme,
+  whatever the setting.
 - **Custom blur**: a length such as `30px` (`30` alone means pixels). Its row
   only shows when the blur is **Custom**. An invalid value falls back to 20 px.

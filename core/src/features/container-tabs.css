@@ -23,7 +23,8 @@
     > .tab-background
     > .tab-context-line {
     position: absolute !important;
-    inset-block: var(--zf-radius-control) !important;
+    /* never shorter than the accent pill (16px), whatever the radius */
+    inset-block: min(var(--zf-radius-control), 50% - 8px) !important;
     inset-inline: -1px auto !important;
     width: 3px !important;
     height: auto !important;
@@ -44,7 +45,7 @@
     > .tab-stack
     > .tab-background
     > .tab-context-line {
-    inset-block: var(--zf-radius-card) !important;
+    inset-block: min(var(--zf-radius-card), 50% - 8px) !important;
   }
 
   /* The accent pill (components/sidebar/tabs.css) covers the same edge */

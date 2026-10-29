@@ -56,8 +56,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Auto-hidden bookmarks toolbar (`zen-fluent.bookmarks-autohide`, default `false`): no height until the toolbar area is hovered or focused, a menu of the bar is open or a link is dragged over it.
 - Essentials per row (`zen-fluent.essentials-per-row`, default `auto`): 2 to 6 equal columns of Essentials, fewer when the sidebar is too narrow; tiles keep their height, gap, dash and audio badge, and the collapsed sidebar stays one column.
 - Animated icons (`zen-fluent.animated-icons`, default `true`): WinUI AnimatedIcon-style motion on the Fluent icons. Back / Forward nudge where they point, Reload turns, the New and New Tab plus turn a quarter, the Library books hop, the Settings gear turns a tooth, folders pop as they open or close, and the space chevron follows the WinUI timing. Nothing moves with reduced motion or the arrow bounce on.
-- Corner radius (`zen-fluent.corner-radius`, default `auto`): square, small (2 px), medium (4 px), large (8 px) or a custom radius (`zen-fluent.corner-radius-custom`) for buttons, tabs, rows and fields; cards, menus, flyouts and the page card keep the style's ratio to it, circles and pills stay round (`core/src/tokens/corner-radius.css`).
-- Acrylic blur (`zen-fluent.acrylic-blur`, default `auto`, 20 px): none, light (10 px), strong (30 px, WinUI's AcrylicBrush) or a custom radius (`zen-fluent.acrylic-blur-custom`) for the split view header and Glance buttons, through one token, `--zf-acrylic-blur` (`core/src/tokens/acrylic-blur.css`).
+- Corner radius (`zen-fluent.corner-radius`, default `auto`): square, small (2 px), medium (4 px), large (8 px) or a custom radius (`zen-fluent.corner-radius-custom`) for buttons, tabs, rows and fields; cards, menus, flyouts, Edge Essentials and the page card keep the style's ratio to it, circles and pills stay round, and container lines never get shorter than the accent pill (`core/src/tokens/corner-radius.css`).
+- Acrylic blur (`zen-fluent.acrylic-blur`, default `auto`, 20 px): none, light (10 px), strong (30 px, WinUI's AcrylicBrush) or a custom radius (`zen-fluent.acrylic-blur-custom`) for the split view header and Glance buttons, through one token, `--zf-acrylic-blur` (`core/src/tokens/acrylic-blur.css`). No blur without a GPU, with reduced transparency or in a contrast theme.
 - WinUI focus visual on keyboard focus: a 2 px outer ring (FocusStrokeColorOuter) around a 1 px inner ring (FocusStrokeColorInner), drawn as outline plus box-shadow so nothing moves. Covers toolbar buttons, tabs, URL bar buttons, menu and panel items, buttons, checkboxes, lists, dialogs and prompts, the find bar, notification bars, and Sine's and Zen's settings. Never on a click. Text fields and the URL bar keep their accent line.
 - Contrast themes (forced colors): every color token maps to a system color (core/src/tokens/forced-colors.css), because Firefox forces nothing in the browser window nor in a user sheet. Each zone gets visible edges, hover outlines, a Highlight accent and a single Highlight focus ring (core/src/a11y/).
 - Zones group: the Fluent style can be turned off area by area (`zen-fluent.fluent-window`, `-sidebar`, `-urlbar`, `-menus`, `-notifications`, `-findbar`, `-library`, `-media`, `-split-glance`, `-dialogs`, `-firefox-sidebar`, `-screens`, `-content`, all on by default). An unchecked area keeps Zen's look, live and without a restart: its files are imported under `not (-moz-pref("zen-fluent.fluent-<zone>", false))`. Tokens, the font, the corner shape, scrollbars, button animations and the settings groups stay on (docs/settings/zones.md).
@@ -65,6 +65,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 ### Removed
 
 - Two unused tokens, `--zf-acrylic-filter` and `--zf-fill-command`.
+
+### Fixed
+
+- The selected Essential's accent dash is centred again, 3 px above the tile's edge: Zen's own margin had moved it 9 px aside.
 
 ## [0.1.0] - 2026-10-26
 

@@ -52,6 +52,11 @@
   text-shadow: none !important;
 }
 
+/* base/focus-ring.css rings the button: give it the card's corners */
+.ctrlTab-preview {
+  border-radius: var(--zf-radius-overlay) !important;
+}
+
 .ctrlTab-preview-inner {
   display: grid !important;
   grid-template-areas:

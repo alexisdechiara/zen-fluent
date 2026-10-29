@@ -76,7 +76,9 @@
   gap: 2px !important;
   max-height: calc(var(--zf-picker-button) + 4px) !important;
   padding: 2px !important;
-  border-radius: calc(var(--zf-radius-control) + 2px) !important;
+  border-radius: calc(
+    var(--zf-radius-control) + min(2px, var(--zf-radius-control))
+  ) !important;
 
   @media not (forced-colors) {
     background-color: var(--zf-fill-control-alt) !important;

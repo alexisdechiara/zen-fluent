@@ -79,14 +79,15 @@
 
 /* -------- No blur at all -------- */
 /* Where WinUI's AcrylicBrush falls back to its solid color, and so does
-   --zf-acrylic (acrylic-fallback.css): no GPU (Zen's zen-no-acrylic), reduced
-   transparency. Whatever the setting. */
+   --zf-acrylic (acrylic-fallback.css, forced-colors.css): no GPU (Zen's
+   zen-no-acrylic), reduced transparency, contrast themes. Whatever the
+   setting. */
 
 :root[zen-no-acrylic="true"] {
   --zf-acrylic-blur: 0px;
 }
 
-@media (prefers-reduced-transparency: reduce) {
+@media (prefers-reduced-transparency: reduce), (forced-colors) {
   :root {
     --zf-acrylic-blur: 0px;
   }

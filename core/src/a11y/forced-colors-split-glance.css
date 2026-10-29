@@ -19,13 +19,8 @@
     box-shadow: none !important;
   }
 
-  /* The split header and Glance's buttons float over the page: no blur
-     behind their Canvas, and a hover that shows */
-  .zen-view-splitter-header,
-  .zen-glance-sidebar-container toolbarbutton {
-    backdrop-filter: none !important;
-  }
-
+  /* The split header and Glance's buttons float over the page: their
+     blur is 0 there (tokens/acrylic-blur.css); a hover that shows */
   .zen-view-splitter-header-container toolbarbutton:hover,
   .zen-glance-sidebar-container toolbarbutton:hover {
     outline: 1px solid SelectedItem !important;

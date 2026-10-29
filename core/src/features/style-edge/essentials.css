@@ -7,7 +7,7 @@
   .zen-essentials-container .tabbrowser-tab {
     .tab-background {
       border-color: var(--zf-edge-field-stroke) !important;
-      border-radius: 12px !important;
+      border-radius: var(--zf-radius-overlay) !important;
       background-color: var(--zf-edge-tile) !important;
       transition:
         background-color var(--zf-duration-fast) linear,
