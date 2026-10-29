@@ -129,12 +129,7 @@
         .findbar-find-next,
         .findbar-closebutton,
         .findbar-container > checkbox
-      ):focus-visible,
-    /* Collapsed sidebar: the bottom buttons are column-wide tiles, ringed
-       whole (components/sidebar/collapsed.css), not on their icon box */
-    :root:not([zen-sidebar-expanded])
-      #zen-sidebar-foot-buttons
-      > toolbarbutton.toolbarbutton-1:focus-visible
+      ):focus-visible
   ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
   outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
   outline-offset: var(--zf-focus-in-offset) !important;
@@ -145,12 +140,7 @@
    does the Library button's badge stack, which Zen lays over its icon box
    (a second ring on the same spot would double the inner one) */
 :is(
-    :is(
-        :is(#tabs-newtab-button, #vertical-tabs-newtab-button):focus-visible,
-        :root:not([zen-sidebar-expanded])
-          #zen-sidebar-foot-buttons
-          > toolbarbutton.toolbarbutton-1:focus-visible
-      )
+    :is(#tabs-newtab-button, #vertical-tabs-newtab-button):focus-visible
       > :is(
         .toolbarbutton-icon,
         .toolbarbutton-badge-stack,
@@ -161,6 +151,34 @@
   /* a fourth id: these boxes also match the rule above */
   outline: none !important;
   box-shadow: none !important;
+}
+
+/* Collapsed sidebar: the bottom buttons are column-wide tiles, ringed
+   whole (components/sidebar/collapsed.css), not on their icon box. With the
+   sidebar zone off they are Zen's buttons again: the ring stays on the box
+   that paints them. */
+@media not (-moz-pref("zen-fluent.fluent-sidebar", false)) {
+  :root:not([zen-sidebar-expanded])
+    #zen-sidebar-foot-buttons
+    > toolbarbutton.toolbarbutton-1:focus-visible:not(#zf-focus-a):not(
+      #zf-focus-b
+    ):not(#zf-focus-c) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-in-offset) !important;
+    box-shadow: var(--zf-focus-in-shadow) !important;
+  }
+
+  :root:not([zen-sidebar-expanded])
+    #zen-sidebar-foot-buttons
+    > toolbarbutton.toolbarbutton-1:focus-visible
+    > :is(
+      .toolbarbutton-icon,
+      .toolbarbutton-badge-stack,
+      .toolbarbutton-text
+    ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c):not(#zf-focus-d) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 /* ---------- Ring around the control: buttons, checkboxes, lists ---------- */
@@ -205,11 +223,35 @@
   outline: none !important;
 }
 
+/* The ring takes the control radius; where a zone draws the CheckBox
+   (prompts, dialogs), only while that zone is on: off, the control keeps
+   Zen's corners and the ring follows them */
 :is(
-    checkbox:not(.findbar-container > checkbox):focus-visible,
-    radiogroup:focus-visible radio[focused]
+    checkbox:not(
+        .findbar-container > checkbox,
+        .popup-notification-checkbox,
+        :root[subdialog] *
+      ):focus-visible,
+    radiogroup:not(:root[subdialog] *):focus-visible radio[focused]
   ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
   border-radius: var(--zf-radius-control) !important;
+}
+
+@media not (-moz-pref("zen-fluent.fluent-notifications", false)) {
+  .popup-notification-checkbox:focus-visible:not(#zf-focus-a):not(
+      #zf-focus-b
+    ):not(#zf-focus-c) {
+    border-radius: var(--zf-radius-control) !important;
+  }
+}
+
+@media not (-moz-pref("zen-fluent.fluent-dialogs", false)) {
+  :root[subdialog]
+    :is(checkbox:focus-visible, radiogroup:focus-visible radio[focused]):not(
+      #zf-focus-a
+    ):not(#zf-focus-b):not(#zf-focus-c) {
+    border-radius: var(--zf-radius-control) !important;
+  }
 }
 
 /* Text fields: Firefox's ring, in the accent, as before */

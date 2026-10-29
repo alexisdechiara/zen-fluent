@@ -22,3 +22,12 @@
   --zen-main-browser-background-toolbar: var(--zf-window-tint) !important;
   --zen-main-browser-background-toolbar-old: var(--zf-window-tint) !important;
 }
+
+/* Zen lays a 20% white veil over the backdrop when
+   widget.windows.mica.toplevel-backdrop is 0 or 3 (Mica Alt): the window
+   coat replaces it */
+@media (-moz-windows-mica) {
+  :root {
+    --zen-themed-toolbar-bg-transparent: transparent !important;
+  }
+}

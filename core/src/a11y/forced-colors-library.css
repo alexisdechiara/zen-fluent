@@ -5,6 +5,12 @@
    cards keep their ButtonText outline and the accent becomes Highlight. */
 
 @media (forced-colors) {
+  /* Zen mixes the glyphs to 70% of the text color: the sidebar zone resets
+     it on every toolbar button, this keeps the Library's own when it is off */
+  zen-library .toolbarbutton-1 {
+    --toolbarbutton-icon-fill: currentcolor !important;
+  }
+
   .zen-library-row:hover:not([pending]),
   #zen-library-download-list .zen-library-download-list-download:hover {
     outline: 1px solid SelectedItem !important;

@@ -84,7 +84,9 @@ forced-colors file (`a11y/forced-colors-<zone>.css`).
   shape (plain arcs with WinUI or Edge corners, where Zen draws squircles),
   the thin scrollbars, the WinUI button animations, the accent text
   selection, the Acrylic noise, the shared keyframes, the accessibility files
-  that are not tied to a zone (focus ring, reduced motion), and the
+  that are not tied to a zone (focus ring, reduced motion, the system colors
+  given back to Zen's toolbox, button and field variables in a contrast
+  theme), and the
   collapsible settings groups of the mod's Sine dialog. Most have their own
   setting: **Accent color** (Zen workspace color), **Font** (System font),
   **Corners and gaps** (Zen keeps its squircles), **Text selection in the

@@ -30,16 +30,18 @@
     @media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
       /* -------- Back / Forward: a 2px push where the arrow points -------- */
       /* In right-to-left, Firefox mirrors the icon box (scale: -1 1): the
-         same offset then points the other way, like the arrow */
-      @media not (-moz-pref("zen-fluent.nav-bounce")) {
+         same offset then points the other way, like the arrow. Left to
+         nav-bounce while it applies: it is in the Sidebar zone. */
+      @media not ((-moz-pref("zen-fluent.nav-bounce")) and (not (-moz-pref("zen-fluent.fluent-sidebar", false)))) {
         :is(#back-button, #forward-button) > .toolbarbutton-icon {
           transition: object-position var(--zf-duration-normal) var(--zf-ease) !important;
         }
 
         /* The standard button style fades the fill of this box
-           (features/button-style.css): keep its transition. Same
-           specificity as its rule, which this file follows in chrome.css. */
-        @media (-moz-pref("zen-fluent.button-style", "standard")) {
+           (features/button-style.css, Sidebar zone): keep its transition.
+           Same specificity as its rule, which this file follows in
+           chrome.css. */
+        @media (-moz-pref("zen-fluent.button-style", "standard")) and (not (-moz-pref("zen-fluent.fluent-sidebar", false))) {
           :is(#navigator-toolbox, #zen-appcontent-navbar-container)
             toolbarbutton.toolbarbutton-1:is(#back-button, #forward-button)
             > .toolbarbutton-icon {

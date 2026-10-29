@@ -68,6 +68,11 @@
         color: inherit !important;
         opacity: 1 !important;
       }
+
+      /* and its "Switch to tab" action to 70% */
+      & .urlbarView-action {
+        opacity: 1 !important;
+      }
     }
 
     &:hover:not([selected]) {

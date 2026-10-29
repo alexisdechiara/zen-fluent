@@ -621,15 +621,13 @@
     "property": "zen-fluent.fluent-icons",
     "label": "Fluent icons ~uncheck to get Zen's icons back~",
     "type": "checkbox",
-    "defaultValue": true,
-    "_note": "MOVED, not new: delete this object from its current place (after zen-fluent.loading-bar, Window and menus group); unchanged otherwise. Drop this _note key."
+    "defaultValue": true
   },
   {
     "property": "svg.context-properties.content.enabled",
     "label": "Allow the mod's icons ~check it: without this Firefox setting, Zen keeps its icons~",
     "type": "checkbox",
-    "defaultValue": true,
-    "_note": "MOVED, not new: delete this object from its current place (after zen-fluent.fluent-icons in Window and menus); unchanged otherwise. Drop this _note key."
+    "defaultValue": true
   },
   {
     "property": "zen-fluent.fluent-content",

@@ -1,0 +1,25 @@
+/* Zen Fluent: Contrast themes in the browser window: Firefox's toolbox, button and field colors back to system colors, whatever the zones.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen writes its theme text color inline (on :root and on each space)
+   and, with !important, replaces Firefox's contrast tokens with its own
+   mixes: the toolbox text and the plain button fill stay tinted. Firefox's
+   system colors come back. Every zone reads them (tabs, spaces, toolbar
+   buttons, the find field, notification and menu buttons, the space
+   form): they are not the window zone's. */
+
+@media (forced-colors) {
+  :root,
+  [style*="--toolbox-textcolor"] {
+    --toolbox-textcolor: CanvasText !important;
+    --toolbox-textcolor-inactive: GrayText !important;
+  }
+
+  :root {
+    --button-background-color: ButtonFace !important;
+    --toolbar-field-background-color: Field !important;
+    --toolbar-field-color: FieldText !important;
+    --toolbar-field-focus-background-color: Field !important;
+    --toolbar-field-focus-color: FieldText !important;
+  }
+}

@@ -17,6 +17,7 @@
 @import url("src/tokens/host-bridge.css");
 @import url("src/tokens/focus.css");
 @import url("src/tokens/forced-colors.css");
+@import url("src/tokens/forced-colors-zen.css");
 
 /* Window, materials and page card */
 @import url("src/base/typography.css");
