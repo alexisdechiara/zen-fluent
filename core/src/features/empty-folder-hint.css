@@ -1,0 +1,56 @@
+/* Zen Fluent: Empty folder hint: a dashed "Drag tabs here" slot inside an open empty folder (zen-fluent.empty-folder-hint).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen has no "empty" attribute: every folder keeps a hidden placeholder
+   tab[zen-empty-tab], so a folder is empty when its container holds no other
+   tab, subfolder or split view. The slot is drawn in .zen-tab-group-start,
+   the container's first child: it gets the folder's indent from Zen, and
+   Zen's collapse slides it under the label with the rest of the content
+   (the start element's negative margin, measured with the slot in place)
+   before hiding the container, so a collapsed folder shows nothing. Only in
+   the expanded sidebar: the collapsed one has no room for the text.
+
+   pointer-events: none, so the slot never takes a drag or a click: Zen
+   drops by position along the tab strip, and into the folder through its
+   label. */
+
+@media not (-moz-pref("zen-fluent.empty-folder-hint", false)) {
+  :root[zen-sidebar-expanded="true"]
+    #tabbrowser-tabs
+    zen-folder:not(
+      :has(
+        > .tab-group-container
+          > :is(.tabbrowser-tab:not([zen-empty-tab]), zen-folder, tab-group)
+      )
+    )
+    > .tab-group-container
+    > .zen-tab-group-start {
+    /* keeps the slot's margins inside, away from Zen's collapse margin */
+    display: flow-root !important;
+
+    &::before {
+      content: "Drag tabs here" !important;
+      display: block !important;
+      box-sizing: border-box !important;
+
+      /* a tab row's background: same height and margin */
+      height: var(--zf-size-nav-item) !important;
+      margin: var(--tab-margin-block, 2px) !important;
+      padding-inline: 8px !important;
+      border: 1px dashed var(--zf-stroke-strong-disabled) !important;
+      border-radius: var(--zf-radius-control) !important;
+      corner-shape: round !important;
+      background: none !important;
+      color: var(--zf-text-tertiary) !important;
+      font-family: var(--zf-font) !important;
+      font-size: var(--zf-sidebar-font-size-small) !important;
+      font-weight: normal !important;
+      line-height: calc(var(--zf-size-nav-item) - 2px) !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      pointer-events: none !important;
+    }
+  }
+}

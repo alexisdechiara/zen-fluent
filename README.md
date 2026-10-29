@@ -83,6 +83,10 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Tab close button                                 | `zen-fluent.tab-close-button`                                               | `1`                |
 |                                                       | Close button in the collapsed sidebar            | `zen-fluent.collapsed-tab-close`                                            | `default`          |
 |                                                       | Highlights on the selected tab, menus and panels | `zen-fluent.extra-highlights`                                               | `false`            |
+|                                                       | Dim unloaded tabs                                | `zen-fluent.dim-unloaded-tabs`                                              | `true`             |
+|                                                       | Animated sound bars on playing tabs              | `zen-fluent.sound-bars`                                                     | `true`             |
+|                                                       | Container tabs                                   | `zen-fluent.container-tabs`                                                 | `line`             |
+|                                                       | “Drag tabs here” in empty folders                | `zen-fluent.empty-folder-hint`                                              | `true`             |
 | [URL bar](docs/settings/url-bar.md)                   | URL bar shape                                    | `zen-fluent.url-style`                                                      | `auto`             |
 |                                                       | Accent line under the URL bar                    | `zen-fluent.url-underline`                                                  | `focus`            |
 |                                                       | Centered URL                                     | `zen-fluent.url-centered`                                                   | `false`            |

@@ -33,6 +33,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - `docs/`: installation, one page per settings group, Enhanced, contributing.
 - A default column in the README settings table.
 - `THIRD-PARTY-NOTICES.md` for the code taken from Firefox-WinUI and Edge-Frfox.
+- Unloaded tabs dimmed (`zen-fluent.dim-unloaded-tabs`, default on): the favicon and title of a tab with no page loaded fade to WinUI's tertiary text, on rows, pinned tabs, Essentials and in the collapsed sidebar; Zen's own favicon fade is replaced, not stacked.
+- Animated sound bars (`zen-fluent.sound-bars`, default on): three bars replace the speaker on playing tabs, in the accent color in the audio button and in the on-accent color in the audio badge (Essentials and the collapsed sidebar). Muted and blocked tabs keep Zen's glyphs, and the bars stand still with reduced motion.
+- Container tabs (`zen-fluent.container-tabs`, default `line`): a rounded bar in the container color at the tab's start edge, which yields to the accent pill on the selected tab; `tint` also washes the tab in the container color; `none` keeps Zen's look.
+- “Drag tabs here” in empty folders (`zen-fluent.empty-folder-hint`, default on): an open folder with no tab shows a dashed WinUI drop slot.
 
 ### Removed
 

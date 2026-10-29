@@ -1,0 +1,127 @@
+/* Zen Fluent: Sound bars: animated audio bars instead of the speaker on playing tabs (zen-fluent.sound-bars).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* A playing tab shows a speaker in two places: the audio button after the
+   favicon in the expanded sidebar (.tab-audio-button, a moz-button whose
+   inner .button-background paints the icon as a background image), and the
+   badge over the favicon's corner (.tab-icon-overlay, a list-style-image)
+   on Essentials and in the collapsed sidebar, an accent InfoBadge in both.
+   Both get three bars (accent in the button, on-accent in the badge)
+   that rise and fall, drawn with gradients so they take the mod's colors
+   (an SVG data: URL could not: context-fill only reaches chrome:// images).
+   Muted and blocked tabs keep Zen's glyphs.
+
+   Each tab says whether it plays in --zf-sound-bars (set on every tab, so a
+   Glance tab never inherits its parent's); the style query reaches the
+   button's shadow tree without touching any other moz-button. The heights
+   are animated, so the resting size takes no !important (it would stop the
+   animation); under reduced motion the bars stand still at three heights. */
+
+@media not (-moz-pref("zen-fluent.sound-bars", false)) {
+  .tabbrowser-tab {
+    --zf-sound-bars: off;
+    --zf-sound-paused: off;
+
+    &[soundplaying]:not([muted], [activemedia-blocked]) {
+      --zf-sound-bars: on;
+      --zf-sound-color: var(--zf-accent);
+    }
+
+    /* Firefox keeps [soundplaying] about a second after the sound stops */
+    &[soundplaying-scheduledremoval] {
+      --zf-sound-paused: on;
+    }
+  }
+
+  @container style(--zf-sound-bars: on) {
+    .tab-icon-overlay,
+    .button-background {
+      /* bar width, gap and full height: the 12px speaker's footprint */
+      --zf-sound-w: 2px;
+      --zf-sound-gap: 2px;
+      --zf-sound-h: 12px;
+
+      background-image:
+        linear-gradient(var(--zf-sound-color) 0 0),
+        linear-gradient(var(--zf-sound-color) 0 0),
+        linear-gradient(var(--zf-sound-color) 0 0) !important;
+      background-position:
+        calc(50% - var(--zf-sound-w) - var(--zf-sound-gap)) 50%,
+        50% 50%,
+        calc(50% + var(--zf-sound-w) + var(--zf-sound-gap)) 50% !important;
+      background-repeat: no-repeat !important;
+      background-size:
+        var(--zf-sound-w) calc(var(--zf-sound-h) * 0.5),
+        var(--zf-sound-w) var(--zf-sound-h),
+        var(--zf-sound-w) calc(var(--zf-sound-h) * 0.7);
+
+      @media not (prefers-reduced-motion: reduce) {
+        animation: zf-sound-bars 1.2s ease-in-out infinite !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        background-size:
+          var(--zf-sound-w) calc(var(--zf-sound-h) * 0.5),
+          var(--zf-sound-w) var(--zf-sound-h),
+          var(--zf-sound-w) calc(var(--zf-sound-h) * 0.7) !important;
+      }
+    }
+
+    /* The badge: an image without its speaker. Essentials
+       (components/sidebar/essentials.css) and the collapsed sidebar
+       (components/sidebar/collapsed.css) both draw it as a 14px accent
+       InfoBadge with 10px of content: on-accent bars, sized to fit */
+    .tab-icon-overlay {
+      --zf-sound-color: var(--zf-on-accent);
+      --zf-sound-gap: 1px;
+      --zf-sound-h: 8px;
+
+      list-style-image: none !important;
+    }
+  }
+
+  @container style(--zf-sound-paused: on) {
+    .tab-icon-overlay,
+    .button-background {
+      animation-play-state: paused !important;
+    }
+  }
+}
+
+@keyframes zf-sound-bars {
+  0%,
+  100% {
+    background-size:
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.35),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.9),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.55);
+  }
+
+  20% {
+    background-size:
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.8),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.45),
+      var(--zf-sound-w) var(--zf-sound-h);
+  }
+
+  40% {
+    background-size:
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.5),
+      var(--zf-sound-w) var(--zf-sound-h),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.35);
+  }
+
+  60% {
+    background-size:
+      var(--zf-sound-w) var(--zf-sound-h),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.6),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.75);
+  }
+
+  80% {
+    background-size:
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.45),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.85),
+      var(--zf-sound-w) calc(var(--zf-sound-h) * 0.5);
+  }
+}

@@ -187,7 +187,7 @@
   },
   {
     "property": "zen-fluent.ui.open-tabs",
-    "label": "Tabs ~Text, pill, shadow, close buttons, highlights~",
+    "label": "Tabs ~Text, pill, shadow, close buttons, unloaded tabs, sound, containers~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -250,6 +250,36 @@
     "label": "Highlights on the selected tab, menus and panels",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.dim-unloaded-tabs",
+    "label": "Dim unloaded tabs ~favicon and title faded until the tab loads~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.sound-bars",
+    "label": "Animated sound bars on playing tabs",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.container-tabs",
+    "label": "Container tabs",
+    "type": "dropdown",
+    "defaultValue": "line",
+    "placeholder": false,
+    "options": [
+      { "label": "Colored line", "value": "line" },
+      { "label": "Colored line and tint", "value": "tint" },
+      { "label": "Zen’s look", "value": "none" }
+    ]
+  },
+  {
+    "property": "zen-fluent.empty-folder-hint",
+    "label": "“Drag tabs here” in empty folders",
+    "type": "checkbox",
+    "defaultValue": true
   },
   {
     "property": "zen-fluent.ui.open-urlbar",

@@ -1,0 +1,42 @@
+/* Zen Fluent: Unloaded tabs dimmed: favicon and title faded until the tab loads (zen-fluent.dim-unloaded-tabs).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Firefox marks a tab with no page loaded yet with [pending]: restored at
+   startup, or unloaded later ([pending][discarded]). Zen only fades the
+   favicon of the unloaded ones, to 0.5
+   (browser.tabs.fadeOutExplicitlyUnloadedTabs; fadeOutUnloadedTabs, for the
+   others, is off). Here every [pending] tab but the selected one fades the
+   same way, favicon and title together, like a sleeping tab in Edge, and
+   Zen's own fade is cancelled so the two do not multiply. Rows, pinned tabs,
+   Essentials and the collapsed sidebar alike.
+
+   filter: opacity() rather than opacity: Zen collapses a folder by animating
+   its rows' opacity to 0, and an !important opacity would win over that
+   animation. The filter sits on the row's children, so it multiplies with
+   whatever opacity Zen gives the row. The close and reset buttons keep full
+   strength: they act on the tab. */
+
+@media not (-moz-pref("zen-fluent.dim-unloaded-tabs", false)) {
+  .tabbrowser-tab:not([zen-glance-tab]) > .tab-stack > .tab-content {
+    /* The title drops to WinUI's tertiary text (0.896 x 0.65 = the light
+       theme's 58%, 65% in dark: still above 4.5:1), the favicon with it */
+    --zf-unloaded-opacity: 0.65;
+
+    @media not (prefers-reduced-motion: reduce) {
+      > :is(.tab-icon-stack, .tab-label-container) {
+        transition: filter var(--zf-duration-normal) linear !important;
+      }
+    }
+
+    > .tab-icon-stack > .tab-icon-image[pending] {
+      opacity: 1 !important;
+    }
+  }
+
+  .tabbrowser-tab[pending]:not([selected], [visuallyselected], [zen-glance-tab])
+    > .tab-stack
+    > .tab-content
+    > :is(.tab-icon-stack, .tab-label-container) {
+    filter: opacity(var(--zf-unloaded-opacity)) !important;
+  }
+}

@@ -1,0 +1,100 @@
+/* Zen Fluent: Container tabs: a container-colored line at the tab's start edge, with or without a tint (zen-fluent.container-tabs).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* A container tab carries [usercontextid] and an .identity-color-<name>
+   class that sets --identity-tab-color. Firefox marks it with
+   .tab-context-line, which Zen draws as a 3px bar the full height of the
+   tab's end edge, and hides on tabs of the space's default container
+   ([zenDefaultUserContextId], zen.workspaces.hide-default-container-indicator):
+   display is left to Zen, so that rule still applies.
+
+   "line": the bar moves to the start edge, rounded, one corner radius away
+   from the top and bottom: taller than the accent pill, which sits on the
+   same edge. On the selected tab the pill takes its place: the bar fades out
+   under it and comes back when the tab is left. Without the pill (Edge
+   style, or the pill turned off) the selected tab keeps its bar.
+   "tint": the same bar, and the container color laid over the tab's own
+   fill as an image, so hover and selection still show through.
+   "none": Zen's own look. */
+
+@media not (-moz-pref("zen-fluent.container-tabs", "none")) {
+  .tabbrowser-tab[usercontextid]:not([zen-glance-tab])
+    > .tab-stack
+    > .tab-background
+    > .tab-context-line {
+    position: absolute !important;
+    inset-block: var(--zf-radius-control) !important;
+    inset-inline: -1px auto !important;
+    width: 3px !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    corner-shape: round !important;
+    background-color: var(--identity-tab-color) !important;
+
+    @media not (prefers-reduced-motion: reduce) {
+      transition: opacity var(--zf-duration-fast) linear !important;
+    }
+  }
+
+  /* Essentials tiles: one card radius away. Zen marks every Essential as
+     of the default container, so it only shows once that rule is off */
+  .zen-essentials-container
+    .tabbrowser-tab[usercontextid]
+    > .tab-stack
+    > .tab-background
+    > .tab-context-line {
+    inset-block: var(--zf-radius-card) !important;
+  }
+
+  /* The accent pill (components/sidebar/tabs.css) covers the same edge */
+  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+    .tabbrowser-tab[usercontextid]:not([zen-essential], [zen-glance-tab]):is(
+        [selected],
+        [visuallyselected]
+      )
+      > .tab-stack
+      > .tab-background
+      > .tab-context-line {
+      opacity: 0 !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.container-tabs", "tint")) {
+  .tabbrowser-tab[usercontextid]:not([zen-glance-tab])
+    > .tab-stack
+    > .tab-background {
+    --zf-container-tint: light-dark(
+      color-mix(in srgb, var(--identity-tab-color) 10%, transparent),
+      color-mix(in srgb, var(--identity-tab-color) 14%, transparent)
+    );
+  }
+
+  .tabbrowser-tab[usercontextid]:not(
+      [zen-glance-tab],
+      [zenDefaultUserContextId="true"]
+    )
+    > .tab-stack
+    > .tab-background {
+    background-image: linear-gradient(
+      var(--zf-container-tint),
+      var(--zf-container-tint)
+    ) !important;
+  }
+
+  /* Tabs of the space's default container: only once Zen is told to mark
+     them (its preference is on by default, so only an explicit false) */
+  @media (-moz-pref("zen.workspaces.hide-default-container-indicator", false)) {
+    .tabbrowser-tab[usercontextid][zenDefaultUserContextId="true"]:not(
+        [zen-glance-tab]
+      )
+      > .tab-stack
+      > .tab-background {
+      background-image: linear-gradient(
+        var(--zf-container-tint),
+        var(--zf-container-tint)
+      ) !important;
+    }
+  }
+}
