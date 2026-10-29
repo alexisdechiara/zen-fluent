@@ -1,0 +1,46 @@
+/* Zen Fluent: Notification bars: InfoBar severity icon, a symbol on a colored circle.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Firefox's own icon takes the severity color (its variable is set on the
+   bar, read in its shadow root). Contrast themes keep the system colors. */
+@media not (forced-colors) {
+  .notificationbox-stack > [message-bar-type="infobar"] {
+    --message-bar-icon-color: var(--zf-infobar-icon) !important;
+  }
+}
+
+/* Windows: WinUI's two glyphs, the circle (InfoBarIconBackgroundGlyph) in
+   the severity color and the symbol in TextFillColorInverse over it, from
+   Segoe Fluent Icons (Segoe MDL2 Assets on Windows 10). Not in contrast
+   themes: forced colors would paint both glyphs the same color. */
+@media (-moz-platform: windows) and (not (forced-colors)) {
+  link[href$="/infobar.css"] ~ .container > .icon-container {
+    display: grid !important;
+    place-items: center !important;
+    font:
+      16px / 16px "Segoe Fluent Icons",
+      "Segoe MDL2 Assets",
+      sans-serif !important;
+
+    &::before,
+    &::after {
+      grid-area: 1 / 1;
+    }
+
+    &::before {
+      content: "\F136";
+      color: var(--zf-infobar-icon);
+    }
+
+    &::after {
+      content: var(--zf-infobar-glyph);
+      color: var(--zf-infobar-glyph-color);
+    }
+
+    /* Firefox's image stays under the glyphs, transparent, for its alt text */
+    & > .icon {
+      grid-area: 1 / 1;
+      opacity: 0 !important;
+    }
+  }
+}

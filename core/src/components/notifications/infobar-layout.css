@@ -1,0 +1,82 @@
+/* Zen Fluent: Notification bars: InfoBar layout inside the Shadow DOM (icon, title, message, actions, close button).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* moz-message-bar is used elsewhere too: only notification-message adds
+   infobar.css to its shadow root, before the container, so that link scopes
+   these plain selectors. Metrics: InfoBar_themeresources, horizontal
+   layout; an action that does not fit wraps under the message, and the bar
+   gets the height of WinUI's vertical layout. */
+
+link[href$="/infobar.css"] ~ .container {
+  /* InfoBarMinHeight 48, InfoBarContentRootPadding 16,0,0,0; every part sits
+     at the top with its own margin */
+  gap: 0 !important;
+  min-height: 48px !important;
+  padding-block: 0 !important;
+  padding-inline: 16px 0 !important;
+  align-items: flex-start !important;
+
+  /* InfoBarIconMargin 0,16,14,16 around the 16px icon */
+  & > .icon-container {
+    width: 16px !important;
+    height: 16px !important;
+    margin-block: 16px !important;
+    margin-inline: 0 14px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background-color: transparent !important;
+  }
+
+  /* InfoBarPanelMargin 0,0,16,0. The action sits 16px after the message,
+     or on its own line when it does not fit */
+  & > .content {
+    gap: 0 16px !important;
+    margin-inline: 0 16px !important;
+    padding: 0 !important;
+  }
+
+  /* Title and message at 14px from the top (one 20px line in 48px) */
+  & .text-container {
+    padding-block: 14px !important;
+  }
+
+  /* Message 12px after the title, 4px under it when they wrap */
+  & .text-content {
+    gap: 4px 12px !important;
+    padding-block: 0 !important;
+  }
+
+  /* InfoBarTitleFontWeight */
+  & .heading {
+    font-weight: 600 !important;
+  }
+
+  /* InfoBarActionHorizontalOrientationMargin: a 32px Button 8px down */
+  & .actions.active {
+    margin-block: 8px !important;
+  }
+
+  /* InfoBarCloseButtonStyle: 38px AppBarButton, 5px margin, 16px glyph.
+     moz-button reads its size and colors from tokens on its own :host. */
+  & > .close {
+    --button-size-icon-small: 38px !important;
+    --button-padding-icon: 0px !important;
+    --button-border-radius: var(--zf-radius-control) !important;
+
+    align-self: flex-start !important;
+    margin: 5px !important;
+
+    @media not (forced-colors) {
+      --button-background-color-ghost: transparent !important;
+      --button-background-color-ghost-hover: var(
+        --zf-fill-subtle-hover
+      ) !important;
+      --button-background-color-ghost-active: var(
+        --zf-fill-subtle-press
+      ) !important;
+      --button-text-color-ghost: var(--zf-text-primary) !important;
+      --button-text-color-ghost-hover: var(--zf-text-primary) !important;
+      --button-text-color-ghost-active: var(--zf-text-secondary) !important;
+    }
+  }
+}

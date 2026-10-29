@@ -1,0 +1,82 @@
+/* Zen Fluent: Permission prompts: TeachingTip layout, text styles and close button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Permission prompts (#notification-popup) and the app menu's update and
+   add-on prompts share popupnotification, light DOM: a WinUI TeachingTip in
+   the Acrylic flyout of components/menus/. TeachingTip_themeresources:
+   12px content margin, semibold title, 40px close button in the corner,
+   12px before the content and the buttons. */
+
+.popup-notification-panel {
+  /* TeachingTip MaxWidth 336 less its 12px margins; Firefox sizes the text
+     column in em, which the 14px text would widen */
+  --popup-notification-body-width: 312px !important;
+
+  @media not (forced-colors) {
+    --text-color-error: var(--zf-critical) !important;
+  }
+}
+
+/* Firefox sets the caption font (12px, system face) on each prompt */
+.popup-notification-panel > [popupid] {
+  font: 400 14px / 20px var(--zf-font) !important;
+}
+
+.popup-notification-panel .popup-notification-body-container {
+  padding: 12px 12px 0 !important;
+}
+
+/* TeachingTipIconPresenterMarginWithIcon, centered on the first line */
+.popup-notification-panel .popup-notification-icon {
+  margin-block-start: 2px !important;
+  margin-inline-end: 12px !important;
+}
+
+/* Title (semibold) and subtitle, with no space between them */
+.popup-notification-panel
+  :is(.popup-notification-description, .popup-notification-hint-text) {
+  margin: 0 !important;
+}
+
+.popup-notification-panel .popup-notification-description {
+  font-weight: 600 !important;
+}
+
+/* TeachingTipMainContentPresentMargin: 12px before the content */
+.popup-notification-panel .popup-notification-checkbox {
+  margin-block: 12px 0 !important;
+}
+
+/* -------- Close button: AlternateCloseButtonStyle -------- */
+/* 40px, flush with the top right corner: the 12px margin is taken back, so
+   the text keeps 28px clear of it (TeachingTipTitleStackPanelMargin) */
+
+.popup-notification-panel .popup-notification-closebutton {
+  appearance: none !important;
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  margin-block: -12px 0 !important;
+  margin-inline: 0 -12px !important;
+  padding: 12px !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  & > .toolbarbutton-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  @media not (forced-colors) {
+    background-color: transparent !important;
+    color: var(--zf-text-primary) !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-fill-subtle-press) !important;
+      color: var(--zf-text-secondary) !important;
+    }
+  }
+}

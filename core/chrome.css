@@ -166,6 +166,17 @@
 @import url("src/components/panels/controls-infobars.css");
 @import url("src/components/panels/site-panel-switch-motion.css");
 
+/* Notifications */
+@import url("src/components/notifications/infobar-severity.css");
+@import url("src/components/notifications/infobar-surface.css");
+@import url("src/components/notifications/infobar-layout.css");
+@import url("src/components/notifications/infobar-icon.css");
+@import url("src/components/notifications/infobar-buttons.css");
+@import url("src/components/notifications/prompt-layout.css");
+@import url("src/components/notifications/prompt-checkbox.css");
+@import url("src/components/notifications/prompt-buttons.css");
+@import url("src/components/notifications/toast.css");
+
 /* Dialogs */
 @import url("src/components/dialogs/smoke.css");
 @import url("src/components/dialogs/card.css");

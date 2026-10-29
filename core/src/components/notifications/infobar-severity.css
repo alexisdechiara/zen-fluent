@@ -1,0 +1,37 @@
+/* Zen Fluent: Notification bars: WinUI InfoBar severity variables (background, icon color, glyph).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Site and global notification bars (notification-message, a moz-message-bar
+   in Shadow DOM) as WinUI InfoBars. A user sheet reaches the shadow elements
+   with plain selectors but not :host(), so each bar hands its severity to
+   them through these inherited variables. Values: InfoBar_themeresources.
+   System bars (type="system") keep the informational background: Firefox
+   draws no icon for them, WinUI's NoIconVisible state. */
+
+.notificationbox-stack > [message-bar-type="infobar"] {
+  /* Informational: SystemFillColorAttentionBackground, accent circle */
+  --zf-infobar-bg: var(--zf-fill-card-secondary);
+  --zf-infobar-icon: var(--zf-accent);
+  --zf-infobar-glyph: "\F13F";
+
+  /* TextFillColorInverse: the symbol drawn on the colored circle */
+  --zf-infobar-glyph-color: light-dark(#fff, rgb(0 0 0 / 89.6%));
+
+  &[type="warning"] {
+    --zf-infobar-bg: var(--zf-caution-bg);
+    --zf-infobar-icon: var(--zf-caution);
+    --zf-infobar-glyph: "\F13C";
+  }
+
+  &:is([type="critical"], [type="error"]) {
+    --zf-infobar-bg: var(--zf-critical-bg);
+    --zf-infobar-icon: var(--zf-critical);
+    --zf-infobar-glyph: "\F13D";
+  }
+
+  &[type="success"] {
+    --zf-infobar-bg: var(--zf-success-bg);
+    --zf-infobar-icon: var(--zf-success);
+    --zf-infobar-glyph: "\F13E";
+  }
+}

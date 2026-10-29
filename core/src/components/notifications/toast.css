@@ -1,0 +1,129 @@
+/* Zen Fluent: Zen toasts as WinUI notifications: Acrylic surface, flyout shadow, 14px text, standard icon Button.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen's short confirmations ("Copied current URL", tab opened in the
+   background…), top right of the window. Zen keeps their place and their
+   scale animation; the toast becomes a flyout over the page, so in the solid
+   Acrylic fallback, with the InfoBar's 48px height and 16px inset. */
+
+#zen-toast-container > .zen-toast {
+  gap: 16px !important;
+  min-height: 48px !important;
+  max-height: none !important;
+  padding: 8px 16px !important;
+  border: 0 !important;
+  border-radius: var(--zf-radius-overlay) !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+
+  @media not (forced-colors) {
+    background: var(--zf-acrylic-over-page) !important;
+    color: var(--zf-text-primary) !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+  }
+
+  /* Contrast themes: outlined, in the system colors (Zen's gradient and
+     the border: 0 above would leave a borderless dark toast) */
+  @media (forced-colors) {
+    border: 1px solid !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+  }
+
+  /* The Button sits 8px from the edge, as an InfoBar's close button */
+  &[button] {
+    padding-inline-end: 8px !important;
+
+    /* Zen puts it first when the sidebar is on the right */
+    :root[zen-right-side="true"] & {
+      padding-inline: 8px 16px !important;
+    }
+  }
+
+  /* Message: BodyStrong; second line: Caption in the secondary color */
+  & label {
+    margin: 0 !important;
+    font-weight: 600 !important;
+  }
+
+  & .description {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;
+    opacity: 1 !important;
+
+    @media not (forced-colors) {
+      color: var(--zf-text-secondary) !important;
+    }
+  }
+
+  /* Shortcut keys in the message: keycaps on the control fill */
+  & label span {
+    margin: 0 2px !important;
+    padding: 1px 6px !important;
+    border: 1px solid !important;
+    border-radius: var(--zf-radius-control) !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+
+    @media not (forced-colors) {
+      border-color: var(--zf-stroke-control) !important;
+      background: var(--zf-fill-control) !important;
+    }
+  }
+
+  /* -------- Action: a standard icon Button -------- */
+
+  & button {
+    appearance: none !important;
+    width: var(--zf-size-icon-button) !important;
+    min-width: 0 !important;
+    height: var(--zf-size-icon-button) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 1px solid !important;
+    border-radius: var(--zf-radius-control) !important;
+    outline: 0 !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+
+    /* Zen shrinks pressed buttons: WinUI Buttons do not */
+    scale: none !important;
+    transform: none !important;
+
+    &:focus-visible {
+      outline: var(--focus-outline) !important;
+      outline-offset: var(--focus-outline-offset) !important;
+    }
+
+    & .button-icon {
+      width: 16px !important;
+      height: 16px !important;
+      opacity: 1 !important;
+    }
+
+    @media not (forced-colors) {
+      border-color: var(--zf-stroke-control) !important;
+      background: var(--zf-fill-control) !important;
+      color: var(--zf-text-primary) !important;
+      box-shadow: none !important;
+
+      &:hover {
+        background: var(--zf-fill-control-hover) !important;
+      }
+
+      &:hover:active {
+        background: var(--zf-fill-control-press) !important;
+        color: var(--zf-text-secondary) !important;
+      }
+    }
+  }
+}
+
+/* Reduced motion: Zen still scales the toast in and out (its motion library
+   is told to); it now only fades out */
+@media (prefers-reduced-motion: reduce) {
+  #zen-toast-container > .zen-toast {
+    transform: none !important;
+    scale: none !important;
+  }
+}
