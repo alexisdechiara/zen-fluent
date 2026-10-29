@@ -26,6 +26,7 @@ tooltip {
   --zf-sidebar-font-size-small: calc(12px + var(--zf-text-step));
 
   /* -------- Radii (WinUI) -------- */
+  /* zen-fluent.corner-radius rescales the three (corner-radius.css) */
   --zf-radius-control: 4px;
   --zf-radius-card: 8px;
   --zf-radius-overlay: 8px;
@@ -54,6 +55,7 @@ tooltip {
     color-mix(in srgb, var(--zf-accent-base) 10%, #dadada),
     color-mix(in srgb, var(--zf-accent-base) 10%, #0a0a0a)
   );
+  /* Its blur radius is --zf-acrylic-blur (acrylic-blur.css) */
   --zf-acrylic: light-dark(rgb(252 252 252 / 86%), rgb(44 44 44 / 84%));
   --zf-acrylic-solid: light-dark(#fcfcfc, #2c2c2c);
   /* Firefox does not blur web content behind backdrop-filter, so a surface

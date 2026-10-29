@@ -21,6 +21,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Button animations no longer override the Library tabs' own transition. A Library tab's hover fill and press now fade on its pill (`zen-fluent.button-animations`).
 - The Firefox sidebar's colors also reach the web panel box of Zen Second Sidebar Enhanced (`#sb2-box`).
 - The theme picker gets Zen's 10 px padding back: with the 4 px every panel gets, its color dots sat 6 px off the spot Zen reads their color from.
+- The split view header and Glance buttons no longer blur without hardware acceleration (`zen-no-acrylic`) or with reduced transparency, where they already took the solid Acrylic color.
 
 ### Added
 
@@ -51,6 +52,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Auto-hidden bookmarks toolbar (`zen-fluent.bookmarks-autohide`, default `false`): no height until the toolbar area is hovered or focused, a menu of the bar is open or a link is dragged over it.
 - Essentials per row (`zen-fluent.essentials-per-row`, default `auto`): 2 to 6 equal columns of Essentials, fewer when the sidebar is too narrow; tiles keep their height, gap, dash and audio badge, and the collapsed sidebar stays one column.
 - Animated icons (`zen-fluent.animated-icons`, default `true`): WinUI AnimatedIcon-style motion on the Fluent icons. Back / Forward nudge where they point, Reload turns, the New and New Tab plus turn a quarter, the Library books hop, the Settings gear turns a tooth, folders pop as they open or close, and the space chevron follows the WinUI timing. Nothing moves with reduced motion or the arrow bounce on.
+- Corner radius (`zen-fluent.corner-radius`, default `auto`): square, small (2 px), medium (4 px), large (8 px) or a custom radius (`zen-fluent.corner-radius-custom`) for buttons, tabs, rows and fields; cards, menus, flyouts and the page card keep the style's ratio to it, circles and pills stay round (`core/src/tokens/corner-radius.css`).
+- Acrylic blur (`zen-fluent.acrylic-blur`, default `auto`, 20 px): none, light (10 px), strong (30 px, WinUI's AcrylicBrush) or a custom radius (`zen-fluent.acrylic-blur-custom`) for the split view header and Glance buttons, through one token, `--zf-acrylic-blur` (`core/src/tokens/acrylic-blur.css`).
 
 ### Removed
 

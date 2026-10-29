@@ -1,0 +1,93 @@
+/* Zen Fluent: Acrylic blur: the one blur radius of the mod's backdrop filters, none, light, strong or custom (zen-fluent.acrylic-blur).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Every backdrop-filter of the mod that blurs reads --zf-acrylic-blur, as
+   blur(var(--zf-acrylic-blur)) next to its other filters: the split view
+   header and Glance's buttons, the two small translucent Acrylic surfaces.
+   Firefox does not blur web content behind a backdrop-filter: over a page
+   they keep their Acrylic tint and the blur only reaches what the interface
+   draws behind them. The other surfaces over the page are solid and keep
+   backdrop-filter: none (open URL bar, compact sidebar and top bar,
+   notification bars); menus and panels take the system's Mica popups, or a
+   solid fill without them. "none" is blur(0px), not none: the two surfaces
+   keep the stacking context and containing block they have today.
+   Registered as a length: an invalid value falls back to 20px. */
+@property --zf-acrylic-blur {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 20px;
+}
+
+:root {
+  --zf-acrylic-blur: 20px;
+}
+
+@media (-moz-pref("zen-fluent.acrylic-blur", "none")) {
+  :root {
+    --zf-acrylic-blur: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.acrylic-blur", "light")) {
+  :root {
+    --zf-acrylic-blur: 10px;
+  }
+}
+
+/* WinUI's AcrylicBrush blur radius (AcrylicBrush.h, sc_blurRadius) */
+@media (-moz-pref("zen-fluent.acrylic-blur", "strong")) {
+  :root {
+    --zf-acrylic-blur: 30px;
+  }
+}
+
+/* -------- Custom -------- */
+/* Sine turns the string pref zen-fluent.acrylic-blur-custom into
+   --zen-fluent-acrylic-blur-custom on the chrome windows' root. "30px" and
+   "30" both mean 30px (each form typed by its own registered property, the
+   other keeps its negative initial value, max() keeps the valid one); any
+   other entry keeps the default 20px. */
+@property --zf-acrylic-blur-custom-length {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-acrylic-blur-custom-number {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.acrylic-blur", "custom")) {
+  :root {
+    --zf-acrylic-blur-custom-length: var(--zen-fluent-acrylic-blur-custom);
+    --zf-acrylic-blur-custom-number: var(--zen-fluent-acrylic-blur-custom);
+    --zf-acrylic-blur-custom: max(
+      var(--zf-acrylic-blur-custom-length),
+      var(--zf-acrylic-blur-custom-number) * 1px
+    );
+    --zf-acrylic-blur-custom-valid: calc(
+      (sign(var(--zf-acrylic-blur-custom) + 0.5px) + 1) / 2
+    );
+    --zf-acrylic-blur: calc(
+      var(--zf-acrylic-blur-custom-valid) * var(--zf-acrylic-blur-custom) +
+        (1 - var(--zf-acrylic-blur-custom-valid)) * 20px
+    );
+  }
+}
+
+/* -------- No blur at all -------- */
+/* Where WinUI's AcrylicBrush falls back to its solid color, and so does
+   --zf-acrylic (acrylic-fallback.css): no GPU (Zen's zen-no-acrylic), reduced
+   transparency. Whatever the setting. */
+
+:root[zen-no-acrylic="true"] {
+  --zf-acrylic-blur: 0px;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --zf-acrylic-blur: 0px;
+  }
+}

@@ -8,6 +8,8 @@
 @import url("src/tokens/accent-custom.css");
 @import url("src/tokens/corners-zen.css");
 @import url("src/tokens/style-edge.css");
+@import url("src/tokens/corner-radius.css");
+@import url("src/tokens/acrylic-blur.css");
 @import url("src/tokens/font.css");
 @import url("src/tokens/font-custom.css");
 @import url("src/tokens/tab-text-size.css");

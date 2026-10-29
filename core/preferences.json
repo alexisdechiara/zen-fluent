@@ -75,6 +75,34 @@
     ]
   },
   {
+    "property": "zen-fluent.corner-radius",
+    "label": "Corner radius ~buttons, tabs, cards and menus; circles and pills stay round~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Follow the style (WinUI 4 px, Edge and Zen corners 8 px)",
+        "value": "auto"
+      },
+      { "label": "Square", "value": "square" },
+      { "label": "Small (2 px)", "value": "small" },
+      { "label": "Medium (4 px)", "value": "medium" },
+      { "label": "Large (8 px)", "value": "large" },
+      { "label": "Custom", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.corner-radius-custom",
+    "label": "Custom radius ~of buttons and tabs, in px, for example 6px; cards and menus follow~",
+    "type": "string",
+    "defaultValue": "6px",
+    "placeholder": "6px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.corner-radius", "value": "custom" } }
+    ]
+  },
+  {
     "property": "zen-fluent.density",
     "label": "Density ~row and control heights; not Zen’s compact mode~",
     "type": "dropdown",
@@ -113,6 +141,30 @@
     "label": "Text selection in the accent color",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.acrylic-blur",
+    "label": "Acrylic blur ~split view header and Glance buttons~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Default (20 px)", "value": "auto" },
+      { "label": "None", "value": "none" },
+      { "label": "Light (10 px)", "value": "light" },
+      { "label": "Strong (30 px, as in WinUI)", "value": "strong" },
+      { "label": "Custom", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.acrylic-blur-custom",
+    "label": "Custom blur ~a radius in px, for example 30px~",
+    "type": "string",
+    "defaultValue": "20px",
+    "placeholder": "20px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.acrylic-blur", "value": "custom" } }
+    ]
   },
   {
     "property": "zen-fluent.acrylic-noise",

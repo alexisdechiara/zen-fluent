@@ -6,7 +6,7 @@
   padding: 2px 4px !important;
   border-radius: 14px !important;
   background-color: var(--zf-acrylic) !important;
-  backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(var(--zf-acrylic-blur)) !important;
   box-shadow: var(--zf-shadow-flyout) !important;
 }
 

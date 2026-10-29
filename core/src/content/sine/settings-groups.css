@@ -217,6 +217,18 @@
       }
     }
 
+    @media not (-moz-pref("zen-fluent.corner-radius", "custom")) {
+      & > #zen-fluent-corner-radius-custom {
+        display: none !important;
+      }
+    }
+
+    @media not (-moz-pref("zen-fluent.acrylic-blur", "custom")) {
+      & > #zen-fluent-acrylic-blur-custom {
+        display: none !important;
+      }
+    }
+
     @media not (-moz-pref("browser.tabs.hoverPreview.enabled")) {
       & > #browser-tabs-hoverPreview-showThumbnails {
         display: none !important;

@@ -1,0 +1,137 @@
+/* Zen Fluent: Corner radius: square, small, medium, large or custom radii, scaled by the style's ratios (zen-fluent.corner-radius).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" (the default) leaves the style's radii alone. Any other value sets
+   the control radius (buttons, tabs, rows, fields) and scales the card and
+   overlay radii (page card, menus, flyouts, dialogs) by the style's own
+   ratios, so the family keeps its proportions. Circles and pills are drawn
+   with 50 %, 999px or half their height, never with these tokens: they stay
+   round. With Mica popups, Windows draws the corners of menus and panels
+   itself: they keep the system's radius. */
+
+/* -------- The style's radii -------- */
+/* The same values, in the same order (Edge wins over Zen corners), as
+   winui.css, corners-zen.css and style-edge.css: keep them in step.
+   WinUI 4 / 8 / 8, Zen corners 8 / 10 / 12, Edge 8 / 8 / 12. */
+
+:root,
+tooltip {
+  --zf-radius-auto-control: 4px;
+  --zf-radius-auto-card: 8px;
+  --zf-radius-auto-overlay: 8px;
+}
+
+@media (-moz-pref("zen-fluent.corners", "zen")) {
+  :root,
+  tooltip {
+    --zf-radius-auto-control: 8px;
+    --zf-radius-auto-card: 10px;
+    --zf-radius-auto-overlay: 12px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.style", "edge")) {
+  :root,
+  tooltip {
+    --zf-radius-auto-control: 8px;
+    --zf-radius-auto-card: 8px;
+    --zf-radius-auto-overlay: 12px;
+  }
+}
+
+/* -------- Presets: the control radius -------- */
+/* Medium is WinUI's ControlCornerRadius, large the Edge and Zen corners
+   one: "auto" equals medium in the WinUI style, large in the others.
+   Registered as a length, so the tokens carry a resolved length, not the
+   whole calculation below. */
+@property --zf-radius-base {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@media (-moz-pref("zen-fluent.corner-radius", "square")) {
+  :root,
+  tooltip {
+    --zf-radius-base: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.corner-radius", "small")) {
+  :root,
+  tooltip {
+    --zf-radius-base: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.corner-radius", "medium")) {
+  :root,
+  tooltip {
+    --zf-radius-base: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.corner-radius", "large")) {
+  :root,
+  tooltip {
+    --zf-radius-base: 8px;
+  }
+}
+
+/* -------- Custom -------- */
+/* Sine turns the string pref zen-fluent.corner-radius-custom into
+   --zen-fluent-corner-radius-custom on the chrome windows' root. "6px" and
+   "6" both mean 6px: each form is typed by its own registered property, the
+   other one keeps its negative initial value, and max() keeps the valid one.
+   Any other entry (text, a percentage, a negative length) and about: pages,
+   which don't get the variable, keep the style's radii: sign() turns "a
+   valid entry" into 1 or 0 (0px counts as valid). */
+@property --zf-radius-custom-length {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-radius-custom-number {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.corner-radius", "custom")) {
+  :root,
+  tooltip {
+    --zf-radius-custom-length: var(--zen-fluent-corner-radius-custom);
+    --zf-radius-custom-number: var(--zen-fluent-corner-radius-custom);
+    --zf-radius-custom: max(
+      var(--zf-radius-custom-length),
+      var(--zf-radius-custom-number) * 1px
+    );
+    --zf-radius-custom-valid: calc(
+      (sign(var(--zf-radius-custom) + 0.5px) + 1) / 2
+    );
+    --zf-radius-base: calc(
+      var(--zf-radius-custom-valid) * var(--zf-radius-custom) +
+        (1 - var(--zf-radius-custom-valid)) * var(--zf-radius-auto-control)
+    );
+  }
+}
+
+/* -------- The family -------- */
+/* Card and overlay keep their ratio to the control radius: length / length
+   is a number (typed arithmetic, Firefox 158). */
+
+@media (-moz-pref("zen-fluent.corner-radius", "square")) or (-moz-pref("zen-fluent.corner-radius", "small")) or (-moz-pref("zen-fluent.corner-radius", "medium")) or (-moz-pref("zen-fluent.corner-radius", "large")) or (-moz-pref("zen-fluent.corner-radius", "custom")) {
+  :root,
+  tooltip {
+    --zf-radius-control: var(--zf-radius-base);
+    --zf-radius-card: calc(
+      var(--zf-radius-base) *
+        (var(--zf-radius-auto-card) / var(--zf-radius-auto-control))
+    );
+    --zf-radius-overlay: calc(
+      var(--zf-radius-base) *
+        (var(--zf-radius-auto-overlay) / var(--zf-radius-auto-control))
+    );
+  }
+}
