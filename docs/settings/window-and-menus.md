@@ -1,12 +1,13 @@
 # Window and menus
 
-Caption buttons, icons, menus, scrolling.
+Caption buttons, loading bar, icons, menus, scrolling.
 
 Group header: `zen-fluent.ui.open-window` (open by default: `false`).
 
 | Setting                                                                             | Preference                               | Values                                                                                                 | Default     |
 | ----------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------- |
 | Caption buttons                                                                     | `zen-fluent.titlebar-style`              | `windows11` Windows 11<br>`rounded` Rounded<br>`rounded-accent` Rounded, accent color<br>`short` Short | `windows11` |
+| Page loading bar (while a page loads, with Zen’s loading indicator on)              | `zen-fluent.loading-bar`                 | `winui` WinUI ProgressBar (top of the page)<br>`zen` Zen’s indicator                                   | `winui`     |
 | Fluent icons (uncheck to get Zen's icons back)                                      | `zen-fluent.fluent-icons`                | `true` / `false`                                                                                       | `true`      |
 | Allow the mod's icons (check it: without this Firefox setting, Zen keeps its icons) | `svg.context-properties.content.enabled` | `true` / `false`                                                                                       | `true`      |
 | macOS-style arrows                                                                  | `zen-fluent.mac-back-forward`            | `true` / `false`                                                                                       | `false`     |
@@ -19,6 +20,11 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
 
 - **Caption buttons**, "Rounded, accent color": the glyph only takes the accent
   on hover and press.
+- **Page loading bar**: a WinUI indeterminate ProgressBar (3 px, two accent
+  indicators on a 2 s loop) along the top edge of the page, clipped by its
+  corners; in split view, on the selected pane. It shows while Zen’s
+  **Page loading indicator** is on (Zen settings group); with reduced motion it
+  is a still accent line. **Zen’s indicator** keeps Zen’s pulsing pill.
 - **Fluent icons** need **Allow the mod's icons**
   (`svg.context-properties.content.enabled`, a Firefox preference). The icons
   take the theme color through `context-fill`, which Firefox only grants to

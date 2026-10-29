@@ -25,6 +25,7 @@
 @import url("src/base/compact-mode.css");
 @import url("src/features/acrylic-noise.css");
 @import url("src/features/accent-selection-browser.css");
+@import url("src/features/loading-bar.css");
 
 /* Sidebar: tabs, folders, Essentials, spaces, buttons */
 @import url("src/components/sidebar/tabs.css");

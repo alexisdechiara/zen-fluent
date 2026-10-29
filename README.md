@@ -88,6 +88,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Hide the zoom level                              | `zen-fluent.url-hide-zoom`                                                  | `false`            |
 |                                                       | Hide permission icons                            | `zen-fluent.url-hide-permissions`                                           | `false`            |
 | [Window and menus](docs/settings/window-and-menus.md) | Caption buttons                                  | `zen-fluent.titlebar-style`                                                 | `windows11`        |
+|                                                       | Page loading bar                                 | `zen-fluent.loading-bar`                                                    | `winui`            |
 |                                                       | Fluent icons                                     | `zen-fluent.fluent-icons`                                                   | `true`             |
 |                                                       | Allow the mod's icons                            | `svg.context-properties.content.enabled`                                    | `true`             |
 |                                                       | macOS-style arrows                               | `zen-fluent.mac-back-forward`                                               | `false`            |

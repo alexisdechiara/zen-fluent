@@ -1,0 +1,123 @@
+/* Zen Fluent: Page loading bar as a WinUI indeterminate ProgressBar (zen-fluent.loading-bar).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen (ZenProgressBar.sys.mjs) inserts hbox#zen-loading-progress-bar first in
+   the selected tab's .browserSidebarContainer while it loads, fades it in by
+   script (opacity 0 to 0.8, 400ms), sets [long-load] after 3s, and when the
+   load ends animates transform and opacity away (300ms) before removing it.
+   Zen draws a pulsing pill above the page.
+
+   WinUI ProgressBar, Indeterminate state: 3px tall, track hidden, two accent
+   indicators (40% and 60% of the width, 1.5px ends) on a 2s loop eased
+   0.4, 0, 0.6, 1. Here it runs along the top edge of the page: absolute in
+   the page's container, whose overflow: clip and radius round its ends.
+
+   opacity stays free of !important, so Zen's fades still play; transform and
+   animation take it, which beats Zen's keyframes and its exit transform.
+   display is left to Zen: zen.view.enable-loading-indicator and DOM
+   fullscreen hide the bar. */
+
+@media not (-moz-pref("zen-fluent.loading-bar", "zen")) {
+  #zen-loading-progress-bar {
+    position: absolute !important;
+    inset: 0 0 auto !important;
+    width: auto !important;
+    height: 3px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: filter var(--zf-duration-normal) linear !important;
+    forced-color-adjust: none !important;
+
+    &::before,
+    &::after {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 auto 0 0 !important;
+      height: auto !important;
+      opacity: 1 !important;
+
+      /* clamps to 1.5px on a 3px bar: WinUI's ProgressBarCornerRadius */
+      border-radius: var(--zf-radius-control) !important;
+      background: var(--zf-accent) !important;
+    }
+
+    /* Each indicator's transform stays free of !important: the keyframes
+       move it */
+    &::before {
+      width: 40% !important;
+      transform: translateX(-100%);
+      animation: zf-progress-indicator-1 2s linear infinite !important;
+    }
+
+    &::after {
+      width: 60% !important;
+      transform: translateX(-150%);
+      animation: zf-progress-indicator-2 2s linear infinite !important;
+    }
+
+    /* Split view: Zen leaves the bar where it was when the selection moves
+       to another pane that is loading; show it on the selected pane only */
+    #tabbrowser-tabpanels[zen-split-view="true"]
+      > .browserSidebarContainer:not(.deck-selected)
+      > & {
+      visibility: hidden !important;
+    }
+
+    /* The open URL bar dims the page (components/urlbar/smoke.css) */
+    #browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"]) & {
+      filter: brightness(0.64) !important;
+    }
+  }
+
+  /* Reduced motion: a still accent line for as long as the page loads */
+  @media (prefers-reduced-motion: reduce) {
+    #zen-loading-progress-bar::before {
+      width: 100% !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    #zen-loading-progress-bar::after {
+      content: none !important;
+    }
+  }
+
+  /* Contrast themes: WinUI's SystemColorHighlightColor */
+  @media (forced-colors) {
+    #zen-loading-progress-bar::before,
+    #zen-loading-progress-bar::after {
+      background: Highlight !important;
+    }
+  }
+}
+
+/* IndeterminateProgressBarIndicator: 40% wide, -100% to 300% of its width
+   in 1.5s, then off the track until 2s */
+@keyframes zf-progress-indicator-1 {
+  0% {
+    transform: translateX(-100%);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  75%,
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+/* IndeterminateProgressBarIndicator2: 60% wide, waits at -150% until 0.75s,
+   then to 166% at 2s */
+@keyframes zf-progress-indicator-2 {
+  0%,
+  37.5% {
+    transform: translateX(-150%);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  100% {
+    transform: translateX(166%);
+  }
+}

@@ -210,6 +210,13 @@
       }
     }
 
+    /* The WinUI loading bar replaces Zen's indicator, if it is on */
+    @media (-moz-pref("zen.view.enable-loading-indicator", false)) {
+      & > #zen-fluent-loading-bar {
+        display: none !important;
+      }
+    }
+
     @media not (-moz-pref("browser.tabs.hoverPreview.enabled")) {
       & > #browser-tabs-hoverPreview-showThumbnails {
         display: none !important;

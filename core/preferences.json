@@ -295,7 +295,7 @@
   },
   {
     "property": "zen-fluent.ui.open-window",
-    "label": "Window and menus ~Caption buttons, icons, menus, scrolling~",
+    "label": "Window and menus ~Caption buttons, loading bar, icons, menus, scrolling~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -311,6 +311,17 @@
       { "label": "Rounded", "value": "rounded" },
       { "label": "Rounded, accent color", "value": "rounded-accent" },
       { "label": "Short", "value": "short" }
+    ]
+  },
+  {
+    "property": "zen-fluent.loading-bar",
+    "label": "Page loading bar ~while a page loads, with Zen’s loading indicator on~",
+    "type": "dropdown",
+    "defaultValue": "winui",
+    "placeholder": false,
+    "options": [
+      { "label": "WinUI ProgressBar (top of the page)", "value": "winui" },
+      { "label": "Zen’s indicator", "value": "zen" }
     ]
   },
   {
