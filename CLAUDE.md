@@ -111,7 +111,28 @@ come later. The owner writes to Claude in French: answer in French.
   removing the old ones: a cleared preference keeps its last variable until a
   restart (in tests, filter `document.adoptedStyleSheets`).
 - **User** sheets apply inside Shadow DOM (simple selector on the inner element);
-  `::part()` does not match from them.
+  `::part()`, `:host()` and `:host-context()` never match from them. To scope a
+  rule to one component, key it on a marker inside its shadow root (e.g.
+  `link[href$="/infobar.css"] ~ .container` for `notification-message`), or set
+  a custom property on the host and test it with `@container style(--x: v)`.
+- `notification-message`: Firefox slides bars with an inline `margin-top` and
+  removes a closed bar on its `transitionend`: never set `margin-top` or
+  `opacity` with `!important` on the bar. `PRIORITY_SYSTEM` bars have no
+  `.icon-container`. The tab's stack and the global one (`#notifications-toolbar`)
+  float at the same spot. `moz-button type=split` needs `display: grid` on the
+  host, or its two parts take half each.
+- `.tab-audio-button` (moz-button) paints its icon on the inner
+  `.button-background`; `.tab-icon-overlay` shows in the collapsed sidebar and
+  on Essentials. Every Essential gets `zenDefaultUserContextId`. Zen's
+  `.tab-background` is `row-reverse`: Firefox's `.tab-context-line` sits at the
+  end edge. `tab[zen-empty-tab]` is also the window's blank new tab. A folder
+  collapses by animating `.zen-tab-group-start`'s `margin-top`: a child needs
+  `display: flow-root` so its margin does not collapse through it.
+- An `!important` value on an animated property stops the animation (user
+  `!important` beats animations).
+- The Library renders in light DOM; its Spaces cards copy the tab strip under a
+  second `id="tabbrowser-tabs"`. Context menu rows hover with `-moz-menuhover`,
+  not the `--panel-item-*` tokens.
 - Sine: its content sheet is not injected into web pages (actor
   `SineUserContent` refused for `webIsolated`), only into `about:` pages.
 - Sine 2.3: card `.sineItem`, settings in `dialog.sineItemPreferenceDialog`
@@ -144,6 +165,11 @@ come later. The owner writes to Claude in French: answer in French.
   (`tooltiptext`, `title=`) is native anonymous content, outside `:root`.
 - Firefox sidebar (Ctrl+B, history): its pages are chrome documents that get
   Sine's chrome sheet; lists are XUL trees (`tree`).
+- Loading bar: `hbox#zen-loading-progress-bar` is the first child of the selected
+  tab's `.browserSidebarContainer` (positioned, `overflow: clip`, the page
+  corners), only while that tab is `[busy]`; Zen fades it by script and sets
+  `[long-load]` after 3 s. A Glance tab is never `[busy]`: no bar there. Only the
+  focused split pane has `.deck-selected`.
 - Zen sets `breakout-extend` on focus (bar opened in place): the accent line
   follows `[focused]` and `[breakout-extend]`.
 - The Library never covers the page, except 8px in compact mode with WinUI
@@ -230,7 +256,21 @@ dialog dropdowns open and pick through a WebDriver click (`content` context).
 `windowUtils.sendMouseEvent` no longer exists (Firefox 158). The
 `about:preferences` tab must be in front (otherwise no layout); it reloads on
 `#sync`: `gotoPref("paneSineMods")`. Marionette's default script timeout is
-30 s: raise it with `WebDriver:SetTimeouts` for long scripts.
+30 s: raise it with `WebDriver:SetTimeouts` for long scripts. Async scripts get
+the resolve callback as their last argument (`resolve` is reserved). Panels and
+popups are separate widgets, missing from window screenshots: clone their content
+into the window to look at them. `ui.useAccessibilityTheme = 1` emulates forced
+colors headless, `ui.prefersReducedMotion = 1` reduced motion.
+Firefox 158 has `InspectorUtils.getMatchingCSSRules`.
+A tab left loading blocks the next Marionette session ("active session"):
+call `gBrowser.selectedBrowser.stop()` before a script ends. To try a CSS fix
+live, empty the child sheet with `deleteRule` and `loadSheet` the patched copy
+(`CSSStyleSheet.disabled` has no effect on an `@import` child).
+`WebDriver:TakeScreenshot` ends a page load in progress, and `drawSnapshot`
+paints remote pages over the chrome: to picture an overlay of a loading page,
+build it on a static page. A slow local page (a server that sends a chunk, then
+waits) keeps a tab `[busy]`. Several agents can test at once: one headless
+instance each, its own profile and Marionette port.
 
 ## To do
 
@@ -240,9 +280,17 @@ dialog dropdowns open and pick through a WebDriver click (`content` context).
   settings batch: compare by eye the opaque Mica Alt color of surfaces over the
   page, the "From the button" animation with Mica menus, the context menu
   command bar.
+- On the real desktop (headless has no Mica): prompts with Mica popups, Mica
+  behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
+  shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
+  Calmer's accent menus.
 - Retake `screenshots/sine.png` (English labels, collapsible groups) and add an
   Edge style screenshot.
 - Guard the selected tab pill and the settings group chevron with
   `prefers-reduced-motion`.
-- Mission order next: WinUI ProgressBar for Zen's loading bar, density, then the
-  rest of P1–P5.
+- Density: the text box URL bar keeps Zen's height in compact (Zen writes
+  `--urlbar-height` inline and sizes its container itself); only the pill
+  follows `--zf-size-url-field`.
+- Mission next: high contrast and the WinUI double focus ring, the P2 settings
+  (radius, blur, Mica opacity, Essentials per row, per-zone Zen look, animated
+  icons), then Zen Fluent Enhanced (P4).
