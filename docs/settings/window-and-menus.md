@@ -40,7 +40,9 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
   Zen keeps its own icons. They also cover the buttons Glance Plus adds to
   Glance and the bookmark folders ZenLibraryTweaks adds to the Library; on Zen
   folders only, so Advanced Tab Groups keeps its own folder icon and color
-  ([compatibility](../compatibility.md)).
+  ([compatibility](../compatibility.md)). Zen’s animated Library and folder
+  icons stay hidden under the Fluent icons, which get their own motion from
+  **Animated icons** (Animations group).
 - **Back / Forward in the context menu**: icons (Firefox), a list (WinUI) or a
   command bar (File Explorer).
 - **Thin scrollbars**: thin at rest, wider and stronger on hover (sidebar,

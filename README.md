@@ -77,6 +77,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Workspace indicator                              | `zen-fluent.workspace-indicator`                                            | `true`             |
 |                                                       | Workspace icon style                             | `zen-fluent.workspace-style`                                                | `pill`             |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
+|                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
 |                                                       | Acrylic sidebar background in compact mode       | `zen-fluent.compact-sidebar-bg`                                             | `true`             |
 |                                                       | Edge hint at the window border in compact mode   | `zen-fluent.compact-edge-hint`                                              | `true`             |
 | [Tabs](docs/settings/tabs.md)                         | Tab text size                                    | `zen-fluent.tab-text-size`                                                  | `normal`           |
@@ -110,6 +111,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Menu animation                                   | `zen-fluent.menu-animation`                                                 | `flyout`           |
 |                                                       | WinUI 3 button animations                        | `zen-fluent.button-animations`                                              | `true`             |
 |                                                       | Back / Forward arrow bounce                      | `zen-fluent.nav-bounce`                                                     | `false`            |
+|                                                       | Animated icons                                   | `zen-fluent.animated-icons`                                                 | `true`             |
 | [Zen settings](docs/settings/zen-settings.md)         | Floating URL bar                                 | `zen.urlbar.behavior`                                                       | `floating-on-type` |
 |                                                       | New tab in the floating URL bar                  | `zen.urlbar.replace-newtab`                                                 | `true`             |
 |                                                       | Copy link button                                 | `zen.urlbar.single-toolbar-show-copy-url`                                   | `true`             |

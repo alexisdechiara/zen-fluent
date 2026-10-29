@@ -1,0 +1,198 @@
+/* Zen Fluent: Animated Fluent icons (zen-fluent.animated-icons).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI's AnimatedIcon plays a short motion when its control changes state
+   (pointer over, pressed, expanded). The same idea on the mod's Fluent
+   stroke icons (features/fluent-icons/), with the WinUI durations and the
+   decelerate curve:
+   - pointer over: the Library books hop, the Settings gear turns one tooth;
+   - pressed: Back / Forward nudge where they point, Reload turns once, the
+     plus of the New button and of the New Tab row twirls a quarter turn;
+   - opened or closed: a folder icon pops, the space chevron turns.
+   Firefox paints a toolbar button's fill (and the standard style's stroke)
+   on its icon box, so a toolbar glyph moves with object-position, or turns
+   as a copy drawn over the box while it is pressed: the fill stays put.
+   Only transforms, object-position and an absolutely positioned copy:
+   nothing is laid out again.
+   nav-bounce owns the Back / Forward arrows when it is on, button-animations
+   keeps the button's own press scale. Nothing moves with reduced motion. */
+
+/* Folders: 0 closed, 1 open. Transitioned, so a folder only pops when it
+   changes, not when it is drawn (start-up, a space switch, a drag) */
+@property --zf-icon-open {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@media not (prefers-reduced-motion: reduce) {
+  @media not (-moz-pref("zen-fluent.animated-icons", false)) {
+    @media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+      /* -------- Back / Forward: a 2px push where the arrow points -------- */
+      /* In right-to-left, Firefox mirrors the icon box (scale: -1 1): the
+         same offset then points the other way, like the arrow */
+      @media not (-moz-pref("zen-fluent.nav-bounce")) {
+        :is(#back-button, #forward-button) > .toolbarbutton-icon {
+          transition: object-position var(--zf-duration-normal) var(--zf-ease) !important;
+        }
+
+        /* The standard button style fades the fill of this box
+           (features/button-style.css): keep its transition. Same
+           specificity as its rule, which this file follows in chrome.css. */
+        @media (-moz-pref("zen-fluent.button-style", "standard")) {
+          :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+            toolbarbutton.toolbarbutton-1:is(#back-button, #forward-button)
+            > .toolbarbutton-icon {
+            transition:
+              object-position var(--zf-duration-normal) var(--zf-ease),
+              background-color var(--zf-duration-fast) linear !important;
+          }
+        }
+
+        #back-button:not([disabled]):hover:active > .toolbarbutton-icon {
+          object-position: calc(50% - 2px) 50%;
+        }
+
+        #forward-button:not([disabled]):hover:active > .toolbarbutton-icon {
+          object-position: calc(50% + 2px) 50%;
+        }
+      }
+
+      /* -------- Reload and New: the glyph turns while pressed -------- */
+      /* The glyph is hidden and drawn again, centred over its box, which
+         keeps the fill and the standard style's stroke. The copy turns
+         once, a full turn for Reload, a quarter for the plus: both land on
+         the same glyph, so letting go mid-way hardly shows (Reload then
+         makes way for Stop anyway). */
+      :is(#reload-button, #zen-create-new-button):not(
+          [disabled],
+          [overflowedItem="true"]
+        ):hover:active {
+        position: relative !important;
+
+        & > .toolbarbutton-icon {
+          fill-opacity: 0 !important;
+        }
+
+        &::after {
+          position: absolute;
+          inset: 0;
+          width: 16px;
+          height: 16px;
+          margin: auto;
+          pointer-events: none;
+          animation: zf-icon-turn var(--zf-icon-turn-time) var(--zf-ease);
+        }
+
+        &#reload-button {
+          --zf-icon-turn: 360deg;
+          --zf-icon-turn-time: var(--zf-duration-slow);
+
+          &::after {
+            content: url("../../../icons/reload.svg");
+          }
+
+          /* Firefox mirrors the arrow in right-to-left: it turns the other way */
+          &:dir(rtl) {
+            --zf-icon-turn: -360deg;
+
+            &::after {
+              scale: -1 1;
+            }
+          }
+        }
+
+        &#zen-create-new-button {
+          --zf-icon-turn: 90deg;
+          --zf-icon-turn-time: var(--zf-duration-normal);
+
+          &::after {
+            content: url("../../../icons/new-tab.svg");
+          }
+        }
+      }
+
+      /* -------- New Tab row: its plus turns a quarter while pressed -------- */
+      /* The row paints its fill on itself (components/sidebar/new-tab.css),
+         not on the icon box: the glyph turns in place */
+      #tabs-newtab-button:hover:active > .toolbarbutton-icon {
+        --zf-icon-turn: 90deg;
+
+        animation: zf-icon-turn var(--zf-duration-normal) var(--zf-ease);
+      }
+
+      /* -------- Library: the books hop once under the pointer -------- */
+      /* In place of Zen's animated sprite, which the Fluent icon hides */
+      #zen-library-button:hover > .toolbarbutton-icon {
+        animation: zf-icon-hop calc(2 * var(--zf-duration-slow)) var(--zf-ease);
+      }
+
+      /* -------- Settings (app menu): the gear turns one tooth -------- */
+      /* Six teeth: 60deg lands on the same outline. A menu row keeps its
+         fill on the row, so the icon itself turns. */
+      #appMenu-settings-button > .toolbarbutton-icon {
+        transition: rotate var(--zf-duration-slow) var(--zf-ease) !important;
+      }
+
+      #appMenu-settings-button:is(:hover, :focus-visible):not([disabled])
+        > .toolbarbutton-icon {
+        rotate: 60deg;
+      }
+
+      /* -------- Space chevron: Zen's turn, on the WinUI timing -------- */
+      /* Zen turns it (0.1s) when the space's pinned tabs fold away */
+      .zen-current-workspace-indicator-chevron {
+        transition:
+          transform var(--zf-duration-normal) var(--zf-ease),
+          opacity 0.15s !important;
+      }
+
+      /* -------- Folders: the icon pops as it opens or closes -------- */
+      /* scale = 1 + 0.6 p (1 - p): 1 at rest, 1.15 half-way */
+      zen-folder > .tab-group-label-container > .tab-group-folder-icon,
+      .zen-library-folder-row > .zen-library-folder-icon {
+        --zf-icon-open: 1;
+
+        scale: calc(
+          1 + 0.6 * var(--zf-icon-open) * (1 - var(--zf-icon-open))
+        ) !important;
+        transition: --zf-icon-open var(--zf-duration-slow) linear !important;
+      }
+
+      zen-folder[collapsed]
+        > .tab-group-label-container
+        > .tab-group-folder-icon,
+      .zen-library-folder:not([open])
+        > .zen-library-folder-row
+        > .zen-library-folder-icon {
+        --zf-icon-open: 0;
+      }
+    }
+  }
+}
+
+@keyframes zf-icon-turn {
+  from {
+    rotate: none;
+  }
+
+  to {
+    rotate: var(--zf-icon-turn, 360deg);
+  }
+}
+
+/* Up 2px, a half-pixel dip as it lands, settled */
+@keyframes zf-icon-hop {
+  0%,
+  100% {
+    object-position: 50% 50%;
+  }
+
+  40% {
+    object-position: 50% calc(50% - 2px);
+  }
+
+  75% {
+    object-position: 50% calc(50% + 0.5px);
+  }
+}

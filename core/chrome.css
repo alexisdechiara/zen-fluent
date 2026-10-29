@@ -43,6 +43,7 @@
 @import url("src/components/sidebar/essentials.css");
 @import url("src/features/style-edge/essentials.css");
 @import url("src/features/essentials-gray.css");
+@import url("src/features/essentials-per-row.css");
 @import url("src/features/sound-bars.css");
 @import url("src/components/sidebar/workspace-indicator.css");
 @import url("src/features/workspace-indicator.css");
@@ -236,6 +237,7 @@
 @import url("src/features/animations/menu-animation.css");
 @import url("src/features/animations/button-animations.css");
 @import url("src/features/animations/nav-bounce.css");
+@import url("src/features/animations/animated-icons.css");
 @import url("src/components/toggle-switch-motion.css");
 @import url("src/features/animations/keyframes.css");
 

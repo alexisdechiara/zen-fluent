@@ -1,0 +1,62 @@
+/* Zen Fluent: Essentials per row (zen-fluent.essentials-per-row).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the grid of components/sidebar/essentials.css: as many 36px
+   columns as fit, a lone row stretched across. A count fixes the tracks
+   instead: N equal columns, so a tile keeps its size when its row is not
+   full (auto-fill keeps the empty tracks). A column never gets narrower than
+   that grid's 36px, the 20px favicon between the tile's 8px paddings: a
+   sidebar too narrow for N keeps as many columns as fit. The tiles keep their
+   height (--zf-size-essential) and the gap token; Zen's [data-hack-type]
+   grids stay overridden. The collapsed sidebar stacks one column: left to Zen
+   and components/sidebar/collapsed.css. */
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "2")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essentials-per-row: 2;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "3")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essentials-per-row: 3;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "4")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essentials-per-row: 4;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "5")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essentials-per-row: 5;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "6")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essentials-per-row: 6;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials-per-row", "2")) or (-moz-pref("zen-fluent.essentials-per-row", "3")) or (-moz-pref("zen-fluent.essentials-per-row", "4")) or (-moz-pref("zen-fluent.essentials-per-row", "5")) or (-moz-pref("zen-fluent.essentials-per-row", "6")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    /* One column = the row minus its gaps, split N ways (100% resolves
+       against the grid where the variable is used). 1px of slack, given back
+       by 1fr: rounding a fractional sidebar width must not cost a column
+       (N + 1 never fits, a column being 36px or more). */
+    --zf-essentials-gaps: calc(
+      (var(--zf-essentials-per-row) - 1) * var(--zf-gap-essentials)
+    );
+    --zf-essentials-column: calc(
+      (100% - var(--zf-essentials-gaps)) / var(--zf-essentials-per-row) - 1px
+    );
+
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(36px, var(--zf-essentials-column)), 1fr)
+    ) !important;
+  }
+}

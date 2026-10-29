@@ -174,6 +174,21 @@
     "defaultValue": false
   },
   {
+    "property": "zen-fluent.essentials-per-row",
+    "label": "Essentials per row ~fewer when the sidebar is too narrow~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic", "value": "auto" },
+      { "label": "2", "value": "2" },
+      { "label": "3", "value": "3" },
+      { "label": "4", "value": "4" },
+      { "label": "5", "value": "5" },
+      { "label": "6", "value": "6" }
+    ]
+  },
+  {
     "property": "zen-fluent.compact-sidebar-bg",
     "label": "Acrylic sidebar background in compact mode",
     "type": "checkbox",
@@ -421,7 +436,7 @@
   },
   {
     "property": "zen-fluent.ui.open-animations",
-    "label": "Animations ~Tab switch, URL bar, menus, buttons~",
+    "label": "Animations ~Tab switch, URL bar, menus, buttons, icons~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -477,6 +492,12 @@
     "label": "Back / Forward arrow bounce",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.animated-icons",
+    "label": "Animated icons ~Fluent icons: arrows, Reload, New, Library, Settings, folders~",
+    "type": "checkbox",
+    "defaultValue": true
   },
   {
     "property": "zen-fluent.ui.open-zen",
