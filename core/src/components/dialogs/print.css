@@ -3,7 +3,7 @@
 
 /* -------- Print -------- */
 /* The preview gutter on the base and its page navigator as a flyout. The
-   mod paints content <browser>s with the page color (materials.css): the
+   mod paints content <browser>s with the page color (base/page-card.css): the
    preview's stays clear, or the gutter would turn as white as the sheets. */
 
 #tabbrowser-tabpanels

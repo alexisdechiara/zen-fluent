@@ -1,5 +1,6 @@
 /* Zen Fluent: Keyframes for the page entrance, fades, zoom, flyout, pop-in and urlbar result animations.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 @keyframes zf-page-entrance {
   from {

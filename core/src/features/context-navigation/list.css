@@ -1,5 +1,6 @@
 /* Zen Fluent: Page context menu navigation as a WinUI list of text rows.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI and Edge-Frfox (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Page context menu: Back, Forward, Reload, Bookmark -------- */
 /* Firefox's row of icons by default. Its items have no label, only an

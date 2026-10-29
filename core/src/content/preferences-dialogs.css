@@ -3,7 +3,7 @@
 
 /* The about:preferences sub-dialog frame (fonts, colors, connection,
    containers…) and the import wizard as a WinUI ContentDialog over smoke.
-   The document inside the frame is a chrome:// one: dialogs.css styles it,
+   The document inside the frame is a chrome:// one: components/dialogs/ styles it,
    with its content on the same Layer as the title bar here. */
 
 @-moz-document url-prefix("about:preferences"), url-prefix("about:addons") {
@@ -26,7 +26,7 @@
     border-style: solid !important;
     border-radius: var(--zf-radius-overlay) !important;
 
-    /* materials.css, which undoes Zen's squircles, is not in this sheet.
+    /* base/corner-shape.css, which undoes Zen's squircles, is not in this sheet.
        Edge: 12px plain arcs and Fluent's shadow64 (tokens) */
     @media (-moz-pref("zen-fluent.corners", "winui")) or (-moz-pref("zen-fluent.style", "edge")) {
       corner-shape: round !important;

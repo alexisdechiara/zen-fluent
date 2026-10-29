@@ -1,5 +1,6 @@
 /* Zen Fluent: URL bar opening animations (zen-fluent.urlbar-animation).
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 @media not (prefers-reduced-motion: reduce) {
   /* -------- Urlbar opening -------- */

@@ -3,7 +3,7 @@
 
 /* Zen's site panel, connection info, permissions, protections, downloads and
    the legacy extensions panel as WinUI flyouts: list rows, ToggleSwitches,
-   InfoBars, Buttons and a ProgressBar. menus.css draws the Acrylic shell
+   InfoBars, Buttons and a ProgressBar. components/menus/ draws the Acrylic shell
    and the WinUI rows (fills, icon gap, 32px footers, disabled text). */
 
 /* -------- Shared: the six flyouts -------- */
@@ -29,7 +29,7 @@
     --link-color-active: var(--zf-accent-pressed) !important;
   }
 
-  /* menus.css paints every panel in Acrylic, high contrast included: these
+  /* components/menus/surface.css paints every panel in Acrylic, high contrast included: these
      take the system colors back, like the controls they hold */
   @media (forced-colors) {
     --panel-background-color: Menu !important;

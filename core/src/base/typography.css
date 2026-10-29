@@ -1,13 +1,6 @@
 /* Zen Fluent: Base typography: the mod font on the window, menus and panels.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* Mica, Mica Alt and Acrylic for the window, the sidebar and the content card.
-   On Windows 11 the backdrop comes from Mica For Everyone (a rule for "zen",
-   backdrop type = zen-fluent.material); Zen keeps the window transparent through
-   widget.windows.mica, so we only tint it (Mica Alt: not even that). Same on
-   macOS and on Linux with zen.widget.linux.transparency. Elsewhere the token
-   is painted solid. */
-
 /* -------- Base type -------- */
 
 :root,

@@ -2,7 +2,7 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* -------- Edge style: Fluent 2 menus -------- */
-/* Flyout 12 = item 8 + padding 4 (tokens.css), shadow16 under a 1px stroke.
+/* Flyout 12 = item 8 + padding 4 (tokens/style-edge.css), shadow16 under a 1px stroke.
    Rows take Fluent 2's subtle fills, whose pressed step is lighter than
    hover in dark; after the WinUI ones above, which they replace. */
 @media (-moz-pref("zen-fluent.style", "edge")) and (not (forced-colors)) {

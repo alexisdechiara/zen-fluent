@@ -1,6 +1,13 @@
 /* Zen Fluent: Paint the window coat on the app wrapper and clear Zen's workspace gradient layers.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
+/* Mica, Mica Alt and Acrylic for the window, the sidebar and the content card.
+   On Windows 11 the backdrop comes from Mica For Everyone (a rule for "zen",
+   backdrop type = zen-fluent.material); Zen keeps the window transparent through
+   widget.windows.mica, so we only tint it (Mica Alt: not even that). Same on
+   macOS and on Linux with zen.widget.linux.transparency. Elsewhere the token
+   is painted solid. */
+
 #zen-main-app-wrapper.browser-toolbox-background {
   background-color: var(--zf-window-bg) !important;
 }

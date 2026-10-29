@@ -1,7 +1,7 @@
 /* Zen Fluent: Compact mode edge hint hidden while the panel sits on that edge.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* The compact mode edge hint (sidebar.css) would lie on a panel at its edge */
+/* The compact mode edge hint (features/compact-edge-hint.css) would lie on a panel at its edge */
 :root:not([zen-right-side="true"]):has(
     #tabbrowser-tabbox[sidebar-panel-open]:not([sidebar-positionend])
   ),

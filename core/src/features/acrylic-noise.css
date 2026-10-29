@@ -1,5 +1,6 @@
 /* Zen Fluent: Acrylic noise: fractal grain over the Acrylic surfaces.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Acrylic noise (Firefox-WinUI) -------- */
 /* WinUI's AcrylicBrush lays a grain over its tint at 2% opacity. Same here,

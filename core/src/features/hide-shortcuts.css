@@ -1,5 +1,6 @@
 /* Zen Fluent: Hide keyboard shortcuts in menus and panels.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Hide shortcuts (Firefox-WinUI) -------- */
 

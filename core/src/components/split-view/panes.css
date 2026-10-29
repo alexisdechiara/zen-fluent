@@ -18,7 +18,7 @@
     border-radius: var(--zf-radius-overlay) !important;
     box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
 
-    /* Edge: each pane is the page card (materials.css), 8px and a hairline */
+    /* Edge: each pane is the page card (features/style-edge/page-card.css), 8px and a hairline */
     @media (-moz-pref("zen-fluent.style", "edge")) {
       border-radius: var(--zf-radius-card) !important;
       box-shadow: 0 0 0 1px var(--zf-edge-card-stroke) !important;

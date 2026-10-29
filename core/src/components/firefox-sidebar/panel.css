@@ -25,14 +25,14 @@
   @media not (forced-colors) {
     box-shadow: var(--zf-shadow-card) !important;
 
-    /* Split panes only take a ring (split-glance.css) */
+    /* Split panes only take a ring (components/split-view/panes.css) */
     #tabbrowser-tabbox[zen-split-view="true"] > & {
       box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
     }
   }
 
   /* Edge: the page card's 8px, hairline and light-only shadow2
-     (materials.css) */
+     (features/style-edge/page-card.css) */
   @media (-moz-pref("zen-fluent.style", "edge")) {
     border-radius: var(--zf-radius-card) !important;
 

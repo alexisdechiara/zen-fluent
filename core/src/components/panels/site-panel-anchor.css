@@ -2,7 +2,7 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* -------- Anchor in the urlbar: pressed while the flyout is open -------- */
-/* urlbar.css gives it the look of the other identity buttons. */
+/* components/urlbar/buttons.css gives it the look of the other identity buttons. */
 
 #zen-site-data-icon-button {
   /* The boost glyph and its animated strip take this color: the accent,

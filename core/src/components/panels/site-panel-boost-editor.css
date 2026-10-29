@@ -2,7 +2,7 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* Boost editor: a small subtle button before the switch, on hover or focus.
-   The child selector outranks animations.css, whose list drops the fade. */
+   The child selector outranks features/animations/button-animations.css, whose list drops the fade. */
 .permission-popup-boost-item > .zen-permission-popup-boost-editor-button {
   width: 24px !important;
   min-width: 24px !important;

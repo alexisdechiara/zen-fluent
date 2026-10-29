@@ -1,6 +1,11 @@
 /* Zen Fluent: Fluent icons: Back, Forward, Reload and the macOS chevrons.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
+/* Fluent stroke icons (core/icons/, drawn on a 16px grid, after the design) in
+   place of Zen's. They take their color from context-fill, which Firefox only
+   grants to files outside chrome:// when svg.context-properties.content.enabled
+   is on; without it they would be invisible, so Zen keeps its own icons. */
+
 @media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
   /* -------- Navigation: WinUI arrows, or macOS chevrons -------- */
 
@@ -16,7 +21,7 @@
     list-style-image: url("../../../icons/reload.svg") !important;
   }
 
-  /* The page context menu's row or command bar (menus.css): its icon reads
+  /* The page context menu's row or command bar (features/context-navigation/): its icon reads
      --menuitem-icon through `content`. The star keeps Zen's filled state. */
   #context-back > .menu-icon {
     content: url("../../../icons/back.svg") !important;

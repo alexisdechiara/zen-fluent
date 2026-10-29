@@ -1,11 +1,6 @@
 /* Zen Fluent: Zen icons for the protections popup footer rows that Firefox ships empty.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* Fluent stroke icons (icons/, drawn on a 16px grid, after the design) in
-   place of Zen's. They take their color from context-fill, which Firefox only
-   grants to files outside chrome:// when svg.context-properties.content.enabled
-   is on; without it they would be invisible, so Zen keeps its own icons. */
-
 /* -------- Glyphs Firefox ships empty -------- */
 /* The protections popup's footer rows (settings, dashboard) have no icon:
    Zen's, whatever the setting, line them up with the category rows. */

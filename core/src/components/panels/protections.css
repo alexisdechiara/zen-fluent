@@ -85,7 +85,7 @@
 }
 
 /* Footer: settings and dashboard rows. Firefox ships their glyphs empty:
-   icons.css fills them, so they line up with the category rows. */
+   protections-icons.css fills them, so they line up with the category rows. */
 #protections-popup-footer {
   margin: 0 !important;
   padding-block: 4px !important;

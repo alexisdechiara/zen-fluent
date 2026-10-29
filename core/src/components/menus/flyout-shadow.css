@@ -4,7 +4,7 @@
 /* Without Mica popups the flyout is drawn in CSS: its 1px ring is the
    stroke, and the 16px blur 8px down needs a 24px margin. Zen also divides
    the content radius by its squircle value there (menus and arrow panels).
-   WinUI and Edge corners are plain arcs (materials.css): the divisor becomes
+   WinUI and Edge corners are plain arcs (base/corner-shape.css): the divisor becomes
    1, so the token, which other rules read too, stays as is. On Linux only
    when popups have alpha; otherwise popup.css squares them. */
 @media ((-moz-platform: windows) and (not (-moz-windows-mica-popups))) or ((-moz-platform: linux) and (-moz-gtk-csd-transparency-available)) {

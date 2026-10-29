@@ -4,7 +4,7 @@
 /* -------- Motion: a WinUI ToolTip fades, it does not slide -------- */
 
 @media not (prefers-reduced-motion: reduce) {
-  /* Not the menus' flyout entrance (animations.css), Mica popups included:
+  /* Not the menus' flyout entrance (features/animations/menu-animation.css), Mica popups included:
      their backdrop would not follow it */
   #tab-preview-panel {
     animation: none !important;

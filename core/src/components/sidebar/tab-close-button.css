@@ -1,5 +1,6 @@
 /* Zen Fluent: Tab close button (from Firefox-WinUI), with Edge's circular variant.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Close button (Firefox-WinUI) -------- */
 

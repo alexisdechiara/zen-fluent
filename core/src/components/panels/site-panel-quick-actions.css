@@ -6,7 +6,7 @@
    ToggleSwitch, and a footer of subtle buttons. */
 
 #zen-unified-site-data-panel {
-  /* menus.css pads every panel by 4px: this one keeps Zen's edge-to-edge
+  /* components/menus/surface.css pads every panel by 4px: this one keeps Zen's edge-to-edge
      content, a little wider so setting names fit beside their switch */
   --panel-padding: 0px !important;
   --panel-width: 256px !important;

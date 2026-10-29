@@ -41,7 +41,7 @@
     }
 
     /* WinUI focus: the page color (ControlFillColorInputActive, as in
-       dialogs.css) and a 2px accent underline (border plus inset shadow)
+       components/dialogs/textbox.css) and a 2px accent underline (border plus inset shadow)
        instead of Firefox's ring */
     &:focus {
       border-color: var(--zf-stroke-control) !important;

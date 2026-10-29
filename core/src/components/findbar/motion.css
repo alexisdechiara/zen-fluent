@@ -9,7 +9,7 @@
 
 @media not (prefers-reduced-motion: reduce) {
   #tabbrowser-tabpanels:not(.letterboxing) findbar:not([noanim]) {
-    /* Firefox's slide, plus the urlbar dim at the page's pace (urlbar.css) */
+    /* Firefox's slide, plus the urlbar dim at the page's pace (components/urlbar/smoke.css) */
     transition-property: margin-bottom, visibility, filter !important;
     transition-duration:
       var(--zf-duration-normal), 0s, var(--zf-duration-normal) !important;

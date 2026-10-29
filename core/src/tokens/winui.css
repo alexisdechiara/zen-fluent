@@ -56,7 +56,6 @@ tooltip {
   );
   --zf-acrylic: light-dark(rgb(252 252 252 / 86%), rgb(44 44 44 / 84%));
   --zf-acrylic-solid: light-dark(#fcfcfc, #2c2c2c);
-  --zf-acrylic-filter: blur(30px) saturate(125%);
   /* Firefox does not blur web content behind backdrop-filter, so a surface
      laid over the page would show it through, sharp: those take the solid
      Acrylic fallback, as WinUI does when blur is unavailable */
@@ -67,7 +66,6 @@ tooltip {
 
   /* -------- Fills -------- */
   --zf-layer: light-dark(rgb(255 255 255 / 50%), rgb(58 58 58 / 30%));
-  --zf-fill-command: light-dark(rgb(255 255 255 / 70%), rgb(58 58 58 / 45%));
   --zf-fill-card: light-dark(rgb(255 255 255 / 70%), rgb(255 255 255 / 5.12%));
   --zf-fill-card-secondary: light-dark(
     rgb(246 246 246 / 50%),

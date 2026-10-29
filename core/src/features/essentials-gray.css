@@ -1,11 +1,15 @@
-/* Zen Fluent: Grayscale Essentials favicons at rest.
+/* Zen Fluent: Grey Essentials favicons, in color on hover and when selected.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 @media (-moz-pref("zen-fluent.essentials-gray")) {
+  .zen-essentials-container .tabbrowser-tab .tab-icon-image {
+    transition: filter var(--zf-duration-normal) var(--zf-ease) !important;
+  }
+
+  /* Desaturated and a little faded, like a WinUI icon at rest */
   .zen-essentials-container
     .tabbrowser-tab:not(:hover, [selected])
     .tab-icon-image {
-    filter: grayscale(100%) contrast(75%) !important;
-    transition: filter var(--zf-duration-slow) ease !important;
+    filter: saturate(0) opacity(0.75) !important;
   }
 }

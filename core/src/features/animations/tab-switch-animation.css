@@ -5,7 +5,7 @@
    the Fluent decelerate curve. Everything respects prefers-reduced-motion. */
 
 @media not (prefers-reduced-motion: reduce) {
-  /* -------- Tab switch (Nebula's tab animations, Fluent timing) -------- */
+  /* -------- Tab switch (Fluent timing) -------- */
 
   @media (-moz-pref("zen-fluent.tab-switch-animation", "fluent")) {
     #tabbrowser-tabpanels:not([zen-split-view="true"])

@@ -16,7 +16,7 @@ zen-library {
 /* Zen pushes the page aside by the Library's width and fades the sidebar
    out (ZenLibrary.mjs translates #zen-appcontent-wrapper): the Library takes
    the sidebar's place and never lies over the page. So, like the sidebar, it
-   shows the window material (materials.css), with no surface, shadow or
+   shows the window material (base/window-background.css), with no surface, shadow or
    corner of its own: one uniform background, top intersection included. */
 #zen-library-panel {
   background-color: transparent !important;

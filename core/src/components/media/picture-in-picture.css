@@ -3,14 +3,10 @@
 
 @-moz-document url("chrome://global/content/pictureinpicture/player.xhtml")
 {
-  html,
+  /* The video and its controls are cut to the WinUI overlay radius; the
+     window around them keeps the player's black */
   .player-holder {
-    border-radius: 8px !important;
-    overflow: hidden !important;
-  }
-
-  .player-holder {
-    clip-path: none !important;
+    clip-path: inset(0 round var(--zf-radius-overlay)) !important;
   }
 
   /* Buttons only: the gradient, timestamp and sliders are control items too */

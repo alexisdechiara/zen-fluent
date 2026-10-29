@@ -1,5 +1,6 @@
 /* Zen Fluent: Windows caption buttons: size, radius, hover and press fills, red close, inactive glyph.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* Caption buttons (Firefox-WinUI's titlebar styles). */
 

@@ -2,7 +2,7 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* WinUI: the page sits flush against the window, rounded on the sidebar's
-   side only, with a 1px stroke (Nebula's "no gaps", WinUI edition). */
+   side only, with a 1px stroke (no gaps, WinUI style). */
 @media (-moz-pref("zen-fluent.corners", "winui")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
   #zen-tabbox-wrapper {
     margin: 0 !important;

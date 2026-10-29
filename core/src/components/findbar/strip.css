@@ -43,7 +43,7 @@
   }
 }
 
-/* The open urlbar dims the page (urlbar.css, same value): the bar is a
+/* The open urlbar dims the page (components/urlbar/smoke.css, same value): the bar is a
    sibling of the dimmed .browserStack, not part of it */
 #browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
   .browserContainer

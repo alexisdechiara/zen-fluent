@@ -9,9 +9,10 @@
 /* `tooltip` is the only selector that also reaches the document's default
    tooltip (every tooltiptext and chrome title=). That one is native anonymous
    content: no author styles, nothing inherited from :root. It reads the
-   tokens tokens.css declares on `tooltip`, and the UA's font: message-box is
+   tokens tokens/winui.css declares on `tooltip`, and the UA's font: message-box is
    overridden longhand by longhand. Round corners in both corner modes and
-   the Edge style come from materials.css; Edge's radius (8) from tokens.css. */
+   the Edge style come from base/corner-shape.css; Edge's radius (8) from
+   tokens/style-edge.css. */
 
 tooltip {
   appearance: none !important;

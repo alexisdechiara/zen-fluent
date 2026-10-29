@@ -1,5 +1,6 @@
 /* Zen Fluent: Text selection in the accent color in chrome documents.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Text selection in the accent color (Firefox-WinUI) -------- */
 

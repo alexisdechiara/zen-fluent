@@ -12,7 +12,7 @@
     list-style-image: url("../../../icons/bookmarks.svg") !important;
   }
 
-  /* Same specificity as ff-sidebar.css, which comes first */
+  /* Same specificity as components/firefox-sidebar/header.css, which comes first */
   #sidebar-box[sidebarcommand="viewCPMSidebar"] #sidebar-icon {
     list-style-image: url("../../../icons/passwords.svg") !important;
   }

@@ -1,5 +1,6 @@
 /* Zen Fluent: When tab close buttons show: hover or selected, hover only, never.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 @media (-moz-pref("zen-fluent.tab-close-button", "1")) {
   .tabbrowser-tab:not([pinned], :hover, [selected]) .tab-close-button {

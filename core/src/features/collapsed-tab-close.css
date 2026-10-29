@@ -1,5 +1,6 @@
 /* Zen Fluent: Close button in the collapsed sidebar: Acrylic overlay badge or hidden.
-   User sheet: declarations take !important to win over Zen's own CSS. */
+   User sheet: declarations take !important to win over Zen's own CSS.
+   Adapted from Firefox-WinUI (MIT), see THIRD-PARTY-NOTICES.md. */
 
 /* -------- Close button, collapsed sidebar -------- */
 /* Firefox lays the 24px button over the tile's top-left corner, on hover
