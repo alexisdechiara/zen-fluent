@@ -208,11 +208,17 @@ On Windows (installed Zen Twilight stayed at 1.21t): `zen.exe` 1.23 with
 `core/chrome.css` / `core/userContent.css`); Enhanced as a junction to
 `enhanced/` under `Zen-Fluent-Enhanced`. Hot reload:
 `ChromeUtils.clearResourceCache()` then `windowUtils.removeSheet` / `loadSheet`
-of `chrome://sine/content/chrome.css`. A refactor that must not change the look:
-compare computed-style hashes of every element (chrome and `about:preferences`)
-before and after, on several settings variants; two identical runs differ on
-about 85 elements (context menus, search field), and `blob:` URLs change each
-session. Mica does not show in Marionette screenshots: capture the screen
+of `chrome://sine/content/chrome.css`. At startup the first window can keep the
+previous session's aggregated sheet even though Sine rewrote it: reload it that
+way and check `--zf-accent` on `:root` before trusting a test. A refactor that
+must not change the look: compare the flattened declarations (selector chain,
+property, value) of both versions, then A/B in **one** instance (remove Sine's
+sheet, `loadSheet` one entry file, snapshot every element's computed style,
+swap, repeat twice to measure noise). Compare properties by name: enumerating a
+computed style stops at `length`, so removing a token drops other `--zf-*`
+names from the tail. Two identical runs differ on about 85 elements (context
+menus, search field), `blob:` URLs change each session, and custom property
+values keep their source line breaks. Mica does not show in Marionette screenshots: capture the screen
 (`CopyFromScreen`, DPI-aware process). Chrome and user sheets report no CSS
 error to the console: validate values with stylelint
 (`declaration-property-value-no-unknown`). Glance only opens with a real click
