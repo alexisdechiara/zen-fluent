@@ -3,14 +3,14 @@
 
 menupopup :is(menuitem, menu),
 panel .subviewbutton {
-  min-height: 32px !important;
+  min-height: var(--zf-size-menu-item) !important;
   border-radius: var(--zf-radius-control) !important;
 }
 
 /* Footer rows ("Manage history", "Show all bookmarks"…) are 32px like the
    others (Zen pads them to 40px) */
 panel .subviewbutton.panel-subview-footer-button {
-  padding-block: 6px !important;
+  padding-block: var(--zf-menu-pad-block) !important;
 }
 
 /* Rows and ghost buttons take the WinUI subtle fills. Firefox resolves the

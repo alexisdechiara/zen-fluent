@@ -63,6 +63,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Accent color                                     | `zen-fluent.accent`                                                         | `system`           |
 |                                                       | Custom color                                     | `zen-fluent.accent-custom`                                                  | `#0078d4`          |
 |                                                       | Corners and gaps                                 | `zen-fluent.corners`                                                        | `winui`            |
+|                                                       | Density                                          | `zen-fluent.density`                                                        | `standard`         |
 |                                                       | Font                                             | `zen-fluent.font`                                                           | `segoe`            |
 |                                                       | Custom font                                      | `zen-fluent.font-custom`                                                    | `(empty)`          |
 |                                                       | Text selection in the accent color               | `zen-fluent.accent-selection`                                               | `true`             |

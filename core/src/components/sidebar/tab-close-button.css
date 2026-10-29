@@ -5,9 +5,9 @@
 /* -------- Close button (Firefox-WinUI) -------- */
 
 .tabbrowser-tab:not([pinned]) .tab-close-button {
-  width: 24px !important;
-  height: 24px !important;
-  padding: 6px !important;
+  width: var(--zf-size-tab-button) !important;
+  height: var(--zf-size-tab-button) !important;
+  padding: calc((var(--zf-size-tab-button) - 12px) / 2) !important;
   border-radius: var(--zf-radius-control) !important;
   color: var(--zf-text-secondary) !important;
 
@@ -21,7 +21,7 @@
 
   /* Edge: a circle with an 8px glyph */
   @media (-moz-pref("zen-fluent.style", "edge")) {
-    padding: 8px !important;
+    padding: calc((var(--zf-size-tab-button) - 8px) / 2) !important;
     border-radius: 50% !important;
 
     &:hover {

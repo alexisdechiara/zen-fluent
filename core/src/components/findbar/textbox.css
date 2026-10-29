@@ -7,8 +7,8 @@
   flex-shrink: 1 !important;
   width: 280px !important;
   min-width: 96px !important;
-  height: 32px !important;
-  min-height: 32px !important;
+  height: var(--zf-size-control) !important;
+  min-height: var(--zf-size-control) !important;
   margin: 0 !important;
   padding-block: 0 !important;
   padding-inline: 10px 6px !important;

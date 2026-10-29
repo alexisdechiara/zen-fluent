@@ -4,7 +4,7 @@
 /* -------- Rows (history, downloads) -------- */
 
 .zen-library-row {
-  min-height: 36px !important;
+  min-height: var(--zf-size-nav-item) !important;
   border-radius: var(--zf-radius-control) !important;
 
   &:hover:not([pending]) {
@@ -21,5 +21,13 @@
 
   & .zen-library-row-progress-arc {
     stroke: var(--zf-accent) !important;
+  }
+}
+
+/* Compact density: Zen sizes each row with contain: strict and a 34px
+   intrinsic height, taller than a compact row */
+@media (-moz-pref("zen-fluent.density", "compact")) {
+  .zen-library-row {
+    contain-intrinsic-size: auto var(--zf-size-nav-item) !important;
   }
 }

@@ -13,7 +13,7 @@
 
   #viewButton {
     box-sizing: border-box !important;
-    min-height: 32px !important;
+    min-height: var(--zf-size-control) !important;
     margin: 0 !important;
     padding-block: 0 !important;
     padding-inline: 12px 8px !important;
@@ -63,7 +63,7 @@
 
   /* stylelint-disable selector-type-no-unknown -- XUL tree properties */
   .sidebar-placesTreechildren::-moz-tree-row {
-    min-height: 32px !important;
+    min-height: var(--zf-size-tree-row) !important;
     margin: 0 4px !important;
     border: 0 !important;
     border-radius: var(--zf-radius-control) !important;

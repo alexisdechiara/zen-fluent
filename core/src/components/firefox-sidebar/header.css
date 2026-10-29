@@ -4,14 +4,14 @@
 /* -------- Header: subtle DropDownButton, subtle close Button -------- */
 
 #sidebar-header {
-  min-height: 40px !important;
+  min-height: var(--zf-size-list-row) !important;
   padding: 0 4px !important;
   gap: 4px !important;
   font-size: 14px !important;
 }
 
 #sidebar-switcher-target {
-  min-height: 32px !important;
+  min-height: var(--zf-size-control) !important;
   margin: 0 !important;
   padding: 0 8px !important;
   gap: 8px !important;
@@ -52,10 +52,10 @@
 
 #sidebar-close {
   box-sizing: border-box !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: var(--zf-size-control) !important;
+  height: var(--zf-size-control) !important;
   margin: 0 !important;
-  padding: 8px !important;
+  padding: calc((var(--zf-size-control) - 16px) / 2) !important;
   border-radius: var(--zf-radius-control) !important;
 
   & > .toolbarbutton-icon {

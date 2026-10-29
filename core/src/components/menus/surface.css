@@ -10,8 +10,8 @@ panel {
   --panel-separator-color: var(--zf-stroke-divider) !important;
   --panel-item-hover-bgcolor: var(--zf-fill-selected) !important;
   --panel-item-active-bgcolor: var(--zf-fill-selected-hover) !important;
-  --menuitem-padding: 6px 12px !important;
-  --menuitem-padding-block: 6px !important;
+  --menuitem-padding: var(--zf-menu-pad-block) 12px !important;
+  --menuitem-padding-block: var(--zf-menu-pad-block) !important;
   --menuitem-padding-inline: 12px !important;
   --menuitem-border-radius: var(--zf-radius-control) !important;
 

@@ -6,7 +6,7 @@
 /* WinUI TextBox; the 2px focus underline is the bottom border plus an inset
    shadow, so the box keeps its size */
 .zen-library-search-box {
-  height: 32px !important;
+  height: var(--zf-size-control) !important;
   border-radius: var(--zf-radius-control) !important;
   background-color: var(--zf-fill-control) !important;
   border: 1px solid var(--zf-stroke-control) !important;
@@ -25,7 +25,7 @@
 /* "Filter" is a standard Button, "Done" the accent one */
 .zen-library-filter-button,
 .zen-library-filter-done {
-  height: 32px !important;
+  height: var(--zf-size-control) !important;
   padding: 0 12px !important;
   border: 1px solid var(--zf-stroke-control) !important;
   border-radius: var(--zf-radius-control) !important;

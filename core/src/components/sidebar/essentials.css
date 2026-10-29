@@ -2,12 +2,12 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 #zen-essentials {
-  --tab-min-height: 42px !important;
+  --tab-min-height: var(--zf-size-essential) !important;
 }
 
 .zen-essentials-container {
   grid-template-columns: repeat(auto-fit, minmax(36px, 1fr)) !important;
-  gap: 6px !important;
+  gap: var(--zf-gap-essentials) !important;
 
   .tabbrowser-tab {
     .tab-background {

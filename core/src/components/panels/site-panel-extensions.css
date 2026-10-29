@@ -20,7 +20,7 @@
     )
     > * {
     width: auto !important;
-    height: 32px !important;
+    height: var(--zf-size-control) !important;
     border-radius: var(--zf-radius-control) !important;
     background-color: var(--zf-fill-control) !important;
     box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;

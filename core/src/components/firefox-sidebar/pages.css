@@ -12,7 +12,7 @@
   :root {
     font-size: var(--zf-sidebar-font-size) !important;
 
-    --input-text-min-height: 32px !important;
+    --input-text-min-height: var(--zf-size-control) !important;
     --input-text-border-radius: var(--zf-radius-control) !important;
 
     @media not (forced-colors) {

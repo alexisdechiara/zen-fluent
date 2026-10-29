@@ -6,7 +6,7 @@
 /* ------------------------------- TABS ------------------------------- */
 
 #tabbrowser-tabs {
-  --tab-min-height: 36px !important;
+  --tab-min-height: var(--zf-size-nav-item) !important;
   --tab-border-radius: var(--zf-radius-control) !important;
 }
 

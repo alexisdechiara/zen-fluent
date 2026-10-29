@@ -12,7 +12,6 @@
     --zf-radius-overlay: 12px;
 
     /* Pill field: 32px tall, 28px inner circles inset 2px */
-    --zf-pill-h: 32px;
     --zf-pill-inset: 2px;
 
     /* Field: white on Mica in light, a step darker than its surround in dark */

@@ -11,7 +11,7 @@
       #zen-media-controls-toolbar *,
       #zen-workspaces-button *
     ) {
-    --toolbarbutton-padding-inner: 8px !important;
+    --toolbarbutton-padding-inner: var(--zf-edge-toolbarbutton-pad) !important;
     --toolbarbutton-padding-outer: 2px !important;
     --toolbarbutton-border-radius: var(--zf-radius-control) !important;
     --toolbarbutton-background-color-hover: var(--zf-edge-hover) !important;

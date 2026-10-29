@@ -97,7 +97,7 @@
     --zf-url-open-r: calc(var(--zf-url-h) / 2 + 4px);
     --zf-url-open-pad: calc(4px + var(--zf-url-inset));
     --zf-url-open-chip: var(--zf-url-chip);
-    --zf-url-row-h: 36px;
+    --zf-url-row-h: var(--zf-size-nav-item);
     --urlbar-container-height: calc(var(--zf-url-h) + 8px) !important;
   }
 
@@ -162,7 +162,7 @@
     --zf-url-open-r: 24px;
     --zf-url-open-pad: 8px;
     --zf-url-open-chip: 32px;
-    --zf-url-row-h: 40px;
+    --zf-url-row-h: var(--zf-size-list-row);
     --urlbar-container-height: 48px !important;
   }
 

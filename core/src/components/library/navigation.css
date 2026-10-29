@@ -17,7 +17,7 @@
   --zf-row-pill: transparent;
 
   margin: 2px 4px !important;
-  padding: 12px 0 !important;
+  padding: calc(var(--zf-size-control) / 2 - 4px) 0 !important;
   font-weight: 400 !important;
 
   &::before {

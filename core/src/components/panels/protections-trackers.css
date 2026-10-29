@@ -16,7 +16,7 @@
   & .protections-popup-list-item {
     align-items: center !important;
     gap: 8px !important;
-    min-height: 32px !important;
+    min-height: var(--zf-size-menu-item) !important;
     margin: 0 !important;
   }
 

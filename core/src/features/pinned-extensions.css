@@ -11,10 +11,13 @@
 
     gap: 2px !important;
     padding: 6px 0 0 !important;
-    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr)) !important;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(var(--zf-size-icon-button), 1fr)
+    ) !important;
 
     & .unified-extensions-item-action-button {
-      height: 32px !important;
+      height: var(--zf-size-icon-button) !important;
       border-radius: var(--zf-radius-control) !important;
       background-color: transparent !important;
       transition: background-color var(--zf-duration-fast) linear !important;
@@ -48,10 +51,13 @@
     /* Edge: 32px buttons 4px apart, radius 8, Fluent 2 subtle fills */
     @media (-moz-pref("zen-fluent.style", "edge")) {
       gap: 4px !important;
-      grid-template-columns: repeat(auto-fill, 32px) !important;
+      grid-template-columns: repeat(
+        auto-fill,
+        var(--zf-size-icon-button)
+      ) !important;
 
       & .unified-extensions-item-action-button {
-        width: 32px !important;
+        width: var(--zf-size-icon-button) !important;
 
         &:hover {
           background-color: var(--zf-edge-hover) !important;

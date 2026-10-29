@@ -23,6 +23,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Page loading bar as a WinUI ProgressBar (`zen-fluent.loading-bar`, default
   `winui`): Zen’s indicator becomes a 3 px indeterminate bar along the top of
   the page.
+- Compact density (`zen-fluent.density`, default `standard`): WinUI compact
+  sizing for tabs, toolbar buttons, the find bar, menus, panels, the Library and
+  Firefox’s sidebar, through new size tokens (`core/src/tokens/density.css`).
 - Zen Fluent Enhanced, an empty Sine mod that installs Zen Fluent if missing.
 - `components.json`, the manifest for the future installer.
 - `npm run check` (imports, urls, headers, manifests, settings, docs, versions),

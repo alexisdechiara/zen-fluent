@@ -30,7 +30,7 @@
 
   /* Pill (Edge 156): 32px field, 28px buttons inset 2px, so the first and
      last icon centres sit on the end-cap centres */
-  --zf-url-h: var(--zf-pill-h, 32px);
+  --zf-url-h: var(--zf-size-url-field);
   --zf-url-inset: var(--zf-pill-inset, 2px);
   --zf-url-chip: calc(var(--zf-url-h) - 2 * var(--zf-url-inset));
 

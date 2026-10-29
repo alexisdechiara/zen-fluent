@@ -20,7 +20,7 @@
 
     /* The field at its 96px minimum and both arrows: below that the arrows
        would overflow onto the match count */
-    min-width: calc(96px + 2 * (4px + 32px)) !important;
+    min-width: calc(96px + 2 * (4px + var(--zf-size-control))) !important;
     margin-inline-end: 6px !important;
   }
 

@@ -12,8 +12,8 @@
 ) {
   --font-weight-semibold: 400 !important;
 
-  height: 32px !important;
-  min-height: 32px !important;
+  height: var(--zf-size-control) !important;
+  min-height: var(--zf-size-control) !important;
   padding-block: 0 !important;
   padding-inline: 12px 10px !important;
   border-radius: var(--zf-radius-control) !important;

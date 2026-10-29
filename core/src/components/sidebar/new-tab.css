@@ -4,7 +4,7 @@
 /* -------- New tab and "clear" -------- */
 
 #tabs-newtab-button {
-  min-height: 36px !important;
+  min-height: var(--zf-size-nav-item) !important;
   border-radius: var(--zf-radius-control) !important;
   color: var(--zf-text-secondary) !important;
   font-size: var(--zf-sidebar-font-size) !important;

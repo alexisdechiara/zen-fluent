@@ -11,6 +11,7 @@
 @import url("src/tokens/font.css");
 @import url("src/tokens/font-custom.css");
 @import url("src/tokens/tab-text-size.css");
+@import url("src/tokens/density.css");
 @import url("src/tokens/host-bridge.css");
 
 /* Window, materials and page card */

@@ -12,8 +12,8 @@
    would leave the closed bar peeking out */
 .browserContainer > findbar {
   --findbar-border-top-width: 1px !important;
-  --findbar-container-height: 32px !important;
-  --findbar-padding-block: 8px !important;
+  --findbar-container-height: var(--zf-size-control) !important;
+  --findbar-padding-block: var(--zf-findbar-pad-block) !important;
 
   /* Already contain: inline-size (xul.css), so this costs nothing */
   container: zf-findbar / inline-size;

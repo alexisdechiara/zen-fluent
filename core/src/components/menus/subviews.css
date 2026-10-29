@@ -4,7 +4,7 @@
 /* -------- Subviews (History, Bookmarks, More tools…) -------- */
 
 .panel-header {
-  min-height: 40px !important;
+  min-height: var(--zf-size-list-row) !important;
   padding: 4px !important;
 
   & > h1 {
@@ -14,10 +14,10 @@
   }
 
   & .subviewbutton-back {
-    width: 32px !important;
-    height: 32px !important;
+    width: var(--zf-size-control) !important;
+    height: var(--zf-size-control) !important;
     margin: 0 !important;
-    padding: 8px !important;
+    padding: calc((var(--zf-size-control) - 16px) / 2) !important;
     border-radius: var(--zf-radius-control) !important;
   }
 }

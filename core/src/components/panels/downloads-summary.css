@@ -22,9 +22,9 @@
 }
 
 #downloadsHistory {
-  min-height: 32px !important;
+  min-height: var(--zf-size-menu-item) !important;
   margin: 0 4px !important;
-  padding: 6px 12px !important;
+  padding: var(--zf-menu-pad-block) 12px !important;
   border-radius: var(--zf-radius-control) !important;
   transform: none !important;
 }

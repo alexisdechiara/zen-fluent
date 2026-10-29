@@ -7,7 +7,7 @@
   },
   {
     "property": "zen-fluent.ui.open-appearance",
-    "label": "Appearance ~Style, material, accent color, corners and font~",
+    "label": "Appearance ~Style, material, accent color, corners, density and font~",
     "type": "checkbox",
     "defaultValue": true
   },
@@ -72,6 +72,17 @@
     "options": [
       { "label": "WinUI (no gaps)", "value": "winui" },
       { "label": "Zen (rounded, with gaps)", "value": "zen" }
+    ]
+  },
+  {
+    "property": "zen-fluent.density",
+    "label": "Density ~row and control heights; not Zen’s compact mode~",
+    "type": "dropdown",
+    "defaultValue": "standard",
+    "placeholder": false,
+    "options": [
+      { "label": "Standard", "value": "standard" },
+      { "label": "Compact (WinUI compact sizing)", "value": "compact" }
     ]
   },
   {

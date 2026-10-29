@@ -7,7 +7,7 @@
 :root {
   /* Firefox 158 panels (app menu, subviews, extensions, downloads…):
      32px items inset 4px, full-width separators */
-  --panel-menuitem-padding-block: 6px !important;
+  --panel-menuitem-padding-block: var(--zf-menu-pad-block) !important;
   --panel-menuitem-padding-inline: 12px !important;
   --panel-menuitem-margin-inline: 4px !important;
   --panel-menuitem-border-radius: var(--zf-radius-control) !important;
@@ -18,7 +18,7 @@
 
   /* Zen's own names for the same thing */
   --arrowpanel-menuitem-border-radius: var(--zf-radius-control) !important;
-  --arrowpanel-menuitem-padding-block: 6px !important;
+  --arrowpanel-menuitem-padding-block: var(--zf-menu-pad-block) !important;
   --arrowpanel-menuitem-padding-inline: 12px !important;
   --uc-arrowpanel-menuitem-margin-inline: 4px !important;
   --uc-arrowpanel-menuitem-margin-block: 1px !important;

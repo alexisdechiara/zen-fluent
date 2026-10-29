@@ -1,0 +1,65 @@
+/* Zen Fluent: Density tokens, row and control heights (zen-fluent.density).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Standard values are the mod's own sizes. Compact follows WinUI's
+   Compact.xaml (text controls and combo boxes 32 to 24, list rows 40 to 32,
+   navigation items 36 to 32, tree rows to 24) and Firefox's compact toolbar
+   buttons (28px). Text keeps its size, as in WinUI. Dialogs and about: pages
+   keep the standard sizes: they are documents. */
+
+:root {
+  /* buttons, text boxes, combo boxes */
+  --zf-size-control: 32px;
+
+  /* square icon buttons */
+  --zf-size-icon-button: 32px;
+
+  /* sidebar tabs, folders, new tab button, Library rows */
+  --zf-size-nav-item: 36px;
+
+  /* list rows, panel and sidebar headers */
+  --zf-size-list-row: 40px;
+
+  /* Firefox sidebar trees */
+  --zf-size-tree-row: 32px;
+
+  /* menu and panel rows */
+  --zf-size-menu-item: 32px;
+  --zf-menu-pad-block: 6px;
+
+  /* URL bar: result rows, pill field */
+  --zf-size-url-row: 44px;
+  --zf-size-url-field: 32px;
+
+  /* Essentials tiles and their gap */
+  --zf-size-essential: 42px;
+  --zf-gap-essentials: 6px;
+
+  /* tab close button */
+  --zf-size-tab-button: 24px;
+
+  /* find bar */
+  --zf-findbar-pad-block: 8px;
+
+  /* toolbar button padding in the Edge style (WinUI keeps Zen's 6px) */
+  --zf-edge-toolbarbutton-pad: 8px;
+}
+
+@media (-moz-pref("zen-fluent.density", "compact")) {
+  :root {
+    --zf-size-control: 24px;
+    --zf-size-icon-button: 28px;
+    --zf-size-nav-item: 32px;
+    --zf-size-list-row: 32px;
+    --zf-size-tree-row: 24px;
+    --zf-size-menu-item: 28px;
+    --zf-menu-pad-block: 4px;
+    --zf-size-url-row: 36px;
+    --zf-size-url-field: 28px;
+    --zf-size-essential: 36px;
+    --zf-gap-essentials: 4px;
+    --zf-size-tab-button: 20px;
+    --zf-findbar-pad-block: 4px;
+    --zf-edge-toolbarbutton-pad: 6px;
+  }
+}

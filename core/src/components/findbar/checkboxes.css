@@ -4,7 +4,7 @@
 /* -------- CheckBoxes -------- */
 
 .findbar-container > checkbox {
-  min-height: 32px !important;
+  min-height: var(--zf-size-control) !important;
   margin: 0 !important;
   padding-inline: 6px !important;
   border-radius: var(--zf-radius-control) !important;

@@ -7,7 +7,7 @@
 #permission-popup {
   & .permission-popup-permission-item {
     gap: 12px !important;
-    min-height: 32px !important;
+    min-height: var(--zf-size-menu-item) !important;
   }
 
   & .permission-popup-permission-icon {

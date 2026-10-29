@@ -7,11 +7,11 @@
 .findbar-find-next,
 .findbar-closebutton {
   flex-shrink: 0 !important;
-  width: 32px !important;
-  min-width: 32px !important;
-  height: 32px !important;
+  width: var(--zf-size-control) !important;
+  min-width: var(--zf-size-control) !important;
+  height: var(--zf-size-control) !important;
   margin: 0 !important;
-  padding: 7px !important;
+  padding: calc((var(--zf-size-control) - 18px) / 2) !important;
 
   /* Room for the border Firefox draws in high contrast */
   border-width: 1px !important;

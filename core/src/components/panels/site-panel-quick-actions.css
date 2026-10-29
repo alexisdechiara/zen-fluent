@@ -19,7 +19,7 @@
   padding: 12px 12px 4px !important;
 
   & > toolbarbutton {
-    height: 32px !important;
+    height: var(--zf-size-control) !important;
     border-radius: var(--zf-radius-control) !important;
 
     & > .toolbarbutton-icon {

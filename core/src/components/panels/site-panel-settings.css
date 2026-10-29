@@ -11,7 +11,7 @@
   #zen-site-data-boost-list > .permission-popup-boost-item
 ) {
   gap: 12px !important;
-  min-height: 40px !important;
+  min-height: var(--zf-size-list-row) !important;
   margin-inline: -8px !important;
   padding: 4px 8px !important;
   border-radius: var(--zf-radius-control) !important;
