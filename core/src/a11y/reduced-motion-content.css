@@ -1,0 +1,26 @@
+/* Zen Fluent: Reduced motion in the settings pages: the Sine group chevron flips and the switch knobs jump, without moving.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The chevron of a settings group header (content/sine/settings-groups.css)
+   rotated and the ToggleSwitch knob (content/toggle-switches.css) slid
+   whatever the system asked; the rows' slide-in
+   (content/sine/group-animation.css) was already guarded. Color fades
+   stay: they do not move anything. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  @media (prefers-reduced-motion: reduce) {
+    .sineItemPreferenceDialogContent
+      > [id^="zen-fluent-ui-open-"]
+      > checkbox::before {
+      transition: none !important;
+    }
+
+    :is(.sineItemPreferenceCheckbox, groupbox[data-category^="paneZen"])
+      .checkbox-check {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        border-color var(--zf-duration-fast) linear !important;
+    }
+  }
+}

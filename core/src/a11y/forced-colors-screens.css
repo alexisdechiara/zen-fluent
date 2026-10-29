@@ -1,0 +1,133 @@
+/* Zen Fluent: Contrast themes, screens: the space creation form's fields and buttons, the theme picker's slider thumb.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* components/workspace-creation.css keeps its colors out of contrast
+   themes, which left Zen's translucent fills behind its 1px transparent
+   borders: no edge at all. The form takes WinUI's contrast controls here:
+   a Field with a ButtonText edge, ButtonFace buttons, a Highlight accent
+   button, Highlight strokes on hover. The theme picker, Ctrl+Tab and the
+   bookmarks toolbar fall back to system colors in their own files; the
+   theme colors themselves (dots, presets) are content and keep theirs. */
+
+@media (forced-colors) {
+  .zen-workspace-creation {
+    /* TextBox: Highlight on hover, a 2px Highlight underline when focused */
+    & .zen-workspace-creation-name-wrapper {
+      border-color: ButtonText !important;
+      background-color: Field !important;
+      color: FieldText !important;
+
+      &:hover {
+        border-color: Highlight !important;
+      }
+
+      &:has(> .zen-workspace-creation-name:focus) {
+        border-color: Highlight !important;
+        box-shadow: inset 0 -1px 0 Highlight !important;
+      }
+    }
+
+    & .zen-workspace-creation-name::placeholder {
+      color: GrayText !important;
+    }
+
+    & .zen-workspace-creation-icon-label:hover {
+      outline: 1px solid SelectedItem !important;
+      outline-offset: -1px !important;
+    }
+
+    /* Standard buttons and the ComboBox */
+    &
+      :is(
+        .zen-workspace-creation-profile,
+        .zen-workspace-creation-edit-theme-button,
+        .zen-workspace-creation-cancel-button
+      ) {
+      border-color: ButtonText !important;
+      background: ButtonFace !important;
+      color: ButtonText !important;
+
+      &:not([disabled]):hover {
+        border-color: Highlight !important;
+        color: Highlight !important;
+      }
+
+      &[disabled] {
+        border-color: GrayText !important;
+        color: GrayText !important;
+      }
+    }
+
+    /* AccentButton */
+    & .zen-workspace-creation-create-button {
+      border-color: Highlight !important;
+      background: Highlight !important;
+      color: HighlightText !important;
+
+      &:not([disabled]):hover {
+        border-color: CanvasText !important;
+      }
+
+      &[disabled] {
+        border-color: GrayText !important;
+        background: Canvas !important;
+        color: GrayText !important;
+      }
+    }
+  }
+
+  /* -------- Theme picker -------- */
+  /* WinUI Slider thumb: a Canvas ring around the Highlight core */
+  #PanelUI-zen-gradient-generator {
+    --zf-picker-thumb: Canvas !important;
+
+    /* The pad and the scheme switch kept Zen's 3% and 10% white fills
+       (components/panels/gradient-picker.css stays out of contrast
+       themes): a framed pad, a framed track, outlined segments on hover */
+    & .zen-theme-picker-gradient {
+      background-color: Canvas !important;
+      background-image: radial-gradient(GrayText 1px, transparent 0) !important;
+      box-shadow: inset 0 0 0 1px CanvasText !important;
+    }
+  }
+
+  #PanelUI-zen-gradient-generator-scheme {
+    box-shadow: inset 0 0 0 1px CanvasText !important;
+
+    & > button {
+      background-color: transparent !important;
+      color: ButtonText !important;
+
+      &:hover {
+        outline: 1px solid SelectedItem !important;
+        outline-offset: -1px !important;
+      }
+    }
+  }
+}
+
+/* The chosen scheme (zen.view.window.scheme: 2 auto, 1 light, 0 dark):
+   WinUI's selected segment in contrast themes, SelectedItem */
+@media (forced-colors) and (-moz-pref("zen.view.window.scheme", 2)) {
+  #PanelUI-zen-gradient-generator-scheme
+    > #PanelUI-zen-gradient-generator-scheme-auto {
+    background-color: SelectedItem !important;
+    color: SelectedItemText !important;
+  }
+}
+
+@media (forced-colors) and (-moz-pref("zen.view.window.scheme", 1)) {
+  #PanelUI-zen-gradient-generator-scheme
+    > #PanelUI-zen-gradient-generator-scheme-light {
+    background-color: SelectedItem !important;
+    color: SelectedItemText !important;
+  }
+}
+
+@media (forced-colors) and (-moz-pref("zen.view.window.scheme", 0)) {
+  #PanelUI-zen-gradient-generator-scheme
+    > #PanelUI-zen-gradient-generator-scheme-dark {
+    background-color: SelectedItem !important;
+    color: SelectedItemText !important;
+  }
+}

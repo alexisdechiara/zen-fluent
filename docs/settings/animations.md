@@ -23,6 +23,5 @@ Group header: `zen-fluent.ui.open-animations` (open by default: `false`).
   toolbar buttons, tabs and URL bar results. Library tabs fade and press on
   their pill, and keep their own transition, which ZenLibraryTweaks uses to
   slide them while they are reordered.
-- Animations stop with `prefers-reduced-motion`, except two known ones: the
-  selected tab pill and the chevron of the settings groups.
+- Animations stop with `prefers-reduced-motion`.
 - **Animated icons**: WinUI AnimatedIcon motion on the Fluent icons (with `zen-fluent.fluent-icons`), on the WinUI timings: Back / Forward nudge 2 px while pressed, Reload turns once, the plus of New and of the New Tab row turns a quarter, the Library books hop and the Settings gear turns one tooth under the pointer, a folder icon pops as it opens or closes, and the space chevron turns on the WinUI curve. With the Back / Forward arrow bounce on, the arrows bounce instead.

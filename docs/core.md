@@ -44,6 +44,12 @@ Settings: [docs/settings/](settings/). Install: [installation.md](installation.m
 
 Corners are true arcs, and **Corners and gaps** does not apply.
 
+## Accessibility
+
+- Keyboard focus draws WinUI's focus visual: a 2 px outer ring (near-black in light, white in dark) around a 1 px inner ring (translucent white in light, translucent black in dark). It follows the control's corners, takes no room and never shows on a click. It covers toolbar buttons, tabs, the URL bar buttons, menu and panel items, buttons, checkboxes, lists, dialogs, the find bar, notification bars and the settings pages. Text fields and the URL bar keep their accent line.
+- Contrast themes (Windows high contrast): the mod's colors, which Firefox does not force in the browser window, all switch to system colors. Mica and Acrylic become the window color, edges become visible, hover shows as a Highlight outline or stroke, the accent becomes Highlight, and focus is a single Highlight ring. Container colors and the theme picker's colors are kept.
+- `prefers-reduced-motion` stops every animation of the mod: pills, chevrons and switches change state without moving, and the loading bar becomes a still line.
+
 ## Known limits
 
 - The robot icon in the URL bar (`#remote-control-box`) only shows when the
@@ -51,7 +57,5 @@ Corners are true arcs, and **Corners and gaps** does not apply.
 - Upgrading from an early version: "Pill bar", "Transparent bar" and "Aptos
   font" were replaced by **URL bar shape** and **Font**; their old values are
   not carried over, set them again.
-- Two animations ignore `prefers-reduced-motion`: the selected tab pill and the
-  settings groups' chevron.
 - Other mods: [compatibility.md](compatibility.md) lists those that need Zen
   Fluent’s compat rules (included) and those that conflict with it.

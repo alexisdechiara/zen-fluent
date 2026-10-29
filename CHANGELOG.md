@@ -22,6 +22,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - The Firefox sidebar's colors also reach the web panel box of Zen Second Sidebar Enhanced (`#sb2-box`).
 - The theme picker gets Zen's 10 px padding back: with the 4 px every panel gets, its color dots sat 6 px off the spot Zen reads their color from.
 - The split view header and Glance buttons no longer blur without hardware acceleration (`zen-no-acrylic`) or with reduced transparency, where they already took the solid Acrylic color.
+- Firefox's own focus rings take the WinUI outer ring color (near-black / white) instead of the accent. The focused field border and the tab drag-over outline keep the accent.
+- Reduced motion now also stops the selected tab pill's entrance, the settings groups' chevron, the knob slide of the settings' ToggleSwitches and the media card thumb's hover growth.
 
 ### Added
 
@@ -54,6 +56,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Animated icons (`zen-fluent.animated-icons`, default `true`): WinUI AnimatedIcon-style motion on the Fluent icons. Back / Forward nudge where they point, Reload turns, the New and New Tab plus turn a quarter, the Library books hop, the Settings gear turns a tooth, folders pop as they open or close, and the space chevron follows the WinUI timing. Nothing moves with reduced motion or the arrow bounce on.
 - Corner radius (`zen-fluent.corner-radius`, default `auto`): square, small (2 px), medium (4 px), large (8 px) or a custom radius (`zen-fluent.corner-radius-custom`) for buttons, tabs, rows and fields; cards, menus, flyouts and the page card keep the style's ratio to it, circles and pills stay round (`core/src/tokens/corner-radius.css`).
 - Acrylic blur (`zen-fluent.acrylic-blur`, default `auto`, 20 px): none, light (10 px), strong (30 px, WinUI's AcrylicBrush) or a custom radius (`zen-fluent.acrylic-blur-custom`) for the split view header and Glance buttons, through one token, `--zf-acrylic-blur` (`core/src/tokens/acrylic-blur.css`).
+- WinUI focus visual on keyboard focus: a 2 px outer ring (FocusStrokeColorOuter) around a 1 px inner ring (FocusStrokeColorInner), drawn as outline plus box-shadow so nothing moves. Covers toolbar buttons, tabs, URL bar buttons, menu and panel items, buttons, checkboxes, lists, dialogs and prompts, the find bar, notification bars, and Sine's and Zen's settings. Never on a click. Text fields and the URL bar keep their accent line.
+- Contrast themes (forced colors): every color token maps to a system color (core/src/tokens/forced-colors.css), because Firefox forces nothing in the browser window nor in a user sheet. Each zone gets visible edges, hover outlines, a Highlight accent and a single Highlight focus ring (core/src/a11y/).
 
 ### Removed
 

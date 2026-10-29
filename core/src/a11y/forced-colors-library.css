@@ -1,0 +1,49 @@
+/* Zen Fluent: Contrast themes, Library: outlined rows on hover, the selected section marked, system-colored section glyphs.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The Library's fills are ButtonFace and Canvas through the tokens; its
+   cards keep their ButtonText outline and the accent becomes Highlight. */
+
+@media (forced-colors) {
+  .zen-library-row:hover:not([pending]),
+  #zen-library-download-list .zen-library-download-list-download:hover {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+  }
+
+  /* Zen fades the search and filter glyphs, the filter and list group
+     headings and the empty-list text */
+  :is(.zen-library-search-box, .zen-library-filter-button) img,
+  :is(.zen-library-filter-group, .zen-library-group) h3,
+  .zen-library-empty {
+    opacity: 1 !important;
+  }
+
+  /* Filter buttons are standard Buttons: WinUI strokes them in Highlight
+     on hover */
+  :is(.zen-library-filter-button, .zen-library-filter-done):not(
+      [disabled]
+    ):hover {
+    border-color: Highlight !important;
+  }
+
+  .zen-library-tab {
+    &:hover::before {
+      outline: 1px solid SelectedItem !important;
+      outline-offset: -1px !important;
+    }
+
+    /* The selected section: WinUI's indicator (Highlight) and a frame */
+    &[active]::before {
+      outline: 1px solid Highlight !important;
+      outline-offset: -1px !important;
+    }
+  }
+
+  /* Zen draws the section glyphs (animated sprites) in its accent, filled
+     on the selected section: the text color, Highlight inside */
+  :is(.zen-library-tab-icon-image, .empty-state-icon-image) {
+    --stroke: currentcolor !important;
+    --fill: Highlight !important;
+  }
+}

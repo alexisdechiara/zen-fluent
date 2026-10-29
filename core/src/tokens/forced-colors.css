@@ -1,0 +1,110 @@
+/* Zen Fluent: Contrast themes: every color token mapped to a system color, after WinUI's HighContrast dictionary.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Forced colors never touch the mod: a chrome document only reports
+   (forced-colors) ("requested", nothing is forced), and in about: pages,
+   where colors are forced, user sheets are exempt. Each translucent fill,
+   shadow and gradient of the mod would stay as it is, so the tokens map
+   to system colors here (Common_themeresources_any.xaml, HighContrast):
+   text WindowText, controls ButtonFace with a ButtonText stroke, cards and
+   materials Window, accent Highlight. Shadows become a 1px ring or nothing.
+   !important: these must win over every later token file (Edge, window
+   background, accent presets), whatever the import order. A component that
+   sets one of these on its own element keeps its value there: the a11y/
+   files handle those. */
+
+@media (forced-colors) {
+  :root,
+  tooltip {
+    /* -------- Accent -------- */
+    --zf-accent: Highlight !important;
+    --zf-accent-hover: Highlight !important;
+    --zf-accent-pressed: Highlight !important;
+    --zf-on-accent: HighlightText !important;
+    --zf-accent-disabled: ButtonFace !important;
+    --zf-on-accent-disabled: GrayText !important;
+
+    /* -------- Materials: no Mica, no Acrylic, no tint -------- */
+    --zf-mica: Canvas !important;
+    --zf-mica-alt: Canvas !important;
+    --zf-acrylic: Canvas !important;
+    --zf-acrylic-solid: Canvas !important;
+    --zf-acrylic-over-page: Canvas !important;
+    --zf-page: Canvas !important;
+    --zf-solid-base: Canvas !important;
+    --zf-window-bg: Canvas !important;
+    --zf-window-tint: Canvas !important;
+    --zf-layer: Canvas !important;
+    --zf-layer-alt: Canvas !important;
+
+    /* -------- Fills: ButtonFace for controls, Window for cards; hover and
+       press show through strokes (a11y/), as WinUI's templates do -------- */
+    --zf-fill-card: Canvas !important;
+    --zf-fill-card-secondary: Canvas !important;
+    --zf-fill-control: ButtonFace !important;
+    --zf-fill-control-hover: ButtonFace !important;
+    --zf-fill-control-press: ButtonFace !important;
+    --zf-fill-control-disabled: ButtonFace !important;
+    --zf-fill-subtle-hover: ButtonFace !important;
+    --zf-fill-subtle-press: ButtonFace !important;
+    --zf-fill-selected: ButtonFace !important;
+    --zf-fill-selected-hover: ButtonFace !important;
+    --zf-fill-control-alt: ButtonFace !important;
+    --zf-fill-control-alt-hover: ButtonFace !important;
+    --zf-fill-control-alt-press: ButtonFace !important;
+    --zf-highlight: transparent !important;
+
+    /* -------- Strokes: every edge visible -------- */
+    --zf-stroke-control: ButtonText !important;
+    --zf-stroke-field: ButtonText !important;
+    --zf-stroke-divider: CanvasText !important;
+    --zf-stroke-strong-disabled: GrayText !important;
+    --zf-elevation-control: inset 0 0 0 1px ButtonText !important;
+
+    /* -------- Text -------- */
+    --zf-text-primary: CanvasText !important;
+    --zf-text-secondary: CanvasText !important;
+    --zf-text-tertiary: CanvasText !important;
+    --zf-text-disabled: GrayText !important;
+
+    /* -------- Status: the glyphs carry the meaning -------- */
+    --zf-critical: CanvasText !important;
+    --zf-critical-bg: Canvas !important;
+    --zf-caution: CanvasText !important;
+    --zf-caution-bg: Canvas !important;
+    --zf-success: CanvasText !important;
+    --zf-success-bg: Canvas !important;
+
+    /* -------- Scrollbars -------- */
+    --zf-scrollbar-thumb: ButtonText !important;
+    --zf-scrollbar-thumb-hover: Highlight !important;
+
+    /* -------- Elevation: a ring where the shadow drew the edge, else
+       nothing (a transparent shadow, valid inside a shadow list) -------- */
+    --zf-shadow-tab: 0 0 transparent !important;
+    --zf-shadow-card: 0 0 0 1px CanvasText !important;
+    --zf-shadow-flyout: 0 0 0 1px CanvasText !important;
+    --zf-shadow-dialog: 0 0 0 1px CanvasText !important;
+    --zf-shadow-a: transparent !important;
+    --zf-shadow-k: transparent !important;
+    --zf-shadow-2: 0 0 transparent !important;
+    --zf-shadow-4: 0 0 transparent !important;
+    --zf-shadow-16: 0 0 transparent !important;
+    --zf-shadow-28: 0 0 transparent !important;
+    --zf-shadow-64: 0 0 transparent !important;
+
+    /* -------- Edge style (Fluent 2) -------- */
+    --zf-edge-field: Field !important;
+    --zf-edge-field-hover: Field !important;
+    --zf-edge-field-focus: Field !important;
+    --zf-edge-field-stroke: ButtonText !important;
+    --zf-edge-field-stroke-hover: Highlight !important;
+    --zf-edge-raised: Canvas !important;
+    --zf-edge-card-stroke: CanvasText !important;
+    --zf-edge-url-dim: GrayText !important;
+    --zf-edge-hover: ButtonFace !important;
+    --zf-edge-pressed: ButtonFace !important;
+    --zf-edge-tile: ButtonFace !important;
+    --zf-edge-tile-hover: ButtonFace !important;
+  }
+}

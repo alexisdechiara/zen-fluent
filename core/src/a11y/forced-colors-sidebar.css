@@ -1,0 +1,127 @@
+/* Zen Fluent: Contrast themes, sidebar: glyph colors, hover outlines, dimmed and tinted tabs, folders, spaces, Essentials, extensions.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* With tokens/forced-colors.css the fills are ButtonFace, which contrast
+   themes paint like the window: hover only shows through an outline, as
+   WinUI's templates (a SystemColorHighlightColor stroke) and Firefox's
+   tabs and toolbar buttons do (1px SelectedItem, drawn inside: nothing
+   moves). A box Firefox already outlines on hover keeps its own outline. */
+
+@media (forced-colors) {
+  /* -------- Toolbar buttons -------- */
+  /* Zen mixes the glyphs to 70% of the text color; a disabled button is
+     GrayText (components/sidebar/toolbar-buttons.css), not faded too */
+  .toolbarbutton-1 {
+    --toolbarbutton-icon-fill: currentcolor !important;
+    --toolbarbutton-opacity-disabled: 1 !important;
+  }
+
+  /* -------- Rows and tiles Firefox does not outline on hover -------- */
+  :is(
+      #tabs-newtab-button,
+      .zen-workspace-close-unpinned-tabs-button,
+      #zen-workspaces-button toolbarbutton,
+      .tabbrowser-tab .tab-close-button,
+      #zen-overflow-extensions-list .unified-extensions-item-action-button,
+      #navigator-toolbox:not([zen-sidebar-expanded])
+        #zen-sidebar-foot-buttons
+        > toolbarbutton.toolbarbutton-1
+    ):not([disabled]):hover,
+  zen-folder > .tab-group-label-container:hover::before,
+  .zen-current-workspace-indicator:hover::before {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+  }
+
+  /* The new tab row is outlined whole: not its icon box too */
+  #tabs-newtab-button:hover > .toolbarbutton-icon {
+    outline: none !important;
+  }
+
+  /* -------- Tabs -------- */
+  /* Unloaded tabs: no dimming filter, the title in GrayText */
+  #tabbrowser-tabs
+    .tabbrowser-tab[pending]:not(
+      [selected],
+      [visuallyselected],
+      [zen-glance-tab]
+    )
+    > .tab-stack
+    > .tab-content {
+    & > :is(.tab-icon-stack, .tab-label-container) {
+      filter: none !important;
+    }
+
+    & .tab-label {
+      color: GrayText !important;
+    }
+  }
+
+  /* Container tint: no color under the title; the container line keeps
+     its color, as in Firefox */
+  #tabbrowser-tabs
+    .tabbrowser-tab[usercontextid]
+    > .tab-stack
+    > .tab-background {
+    background-image: none !important;
+  }
+
+  /* Edge raises the selected Essential instead of marking it */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      .tab-background {
+      border-color: SelectedItem !important;
+    }
+  }
+
+  /* -------- Folders, pinned separator, spaces -------- */
+  zen-folder {
+    --zen-folder-front-bgcolor: Canvas !important;
+    --zen-folder-behind-bgcolor: Canvas !important;
+  }
+
+  .pinned-tabs-container-separator {
+    --zen-pinned-separator-color: CanvasText !important;
+  }
+
+  /* Zen fades the other spaces to 70% ("minimal" to 45%): they keep the
+     text color, the current one is Highlight and carries the indicator.
+     A space without an icon is a dot in the text color. */
+  #zen-workspaces-button toolbarbutton {
+    &:not([active="true"]) {
+      opacity: 1 !important;
+    }
+
+    /* Zen fills the current space's glyph with its theme color */
+    & .zen-workspace-icon {
+      fill: currentcolor !important;
+    }
+
+    & .zen-workspace-icon[no-icon="true"] {
+      background: currentcolor !important;
+    }
+  }
+
+  /* -------- Edge standard buttons: the pressed fill is a literal gray
+     (features/button-style.css) -------- */
+  @media (-moz-pref("zen-fluent.button-style", "standard")) and (-moz-pref("zen-fluent.style", "edge")) {
+    :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+      toolbarbutton.toolbarbutton-1:not(
+        #tabs-newtab-button,
+        #zen-media-controls-toolbar *,
+        #zen-workspaces-button *
+      ) {
+      --toolbarbutton-background-color-active: ButtonFace !important;
+    }
+  }
+
+  /* -------- Pinned extensions: Edge's pressed field -------- */
+  @media (-moz-pref("zen-fluent.pinned-extensions")) and (-moz-pref("zen-fluent.style", "edge")) and (-moz-pref("zen-fluent.button-style", "standard")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button:is(:hover:active, [open]) {
+      background-color: ButtonFace !important;
+    }
+  }
+}

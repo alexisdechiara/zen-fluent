@@ -1,0 +1,47 @@
+/* Zen Fluent: Contrast themes, dialogs: ContentDialog buttons in system colors.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* components/dialogs/ keeps its colors out of contrast themes and leaves
+   the dialogs to Firefox, but Zen's button tokens are mixes of its theme
+   (not forced in chrome documents): the row came out light gray and 10%
+   white. WinUI's contrast buttons: ButtonFace with a ButtonText edge, the
+   default one Highlight; a Highlight edge on hover. */
+
+@media (forced-colors) {
+  .dialog-button-box:is(
+      link[href$="/in-content/common.css"] ~ *,
+      :has(~ link[href$="/in-content/common.css"])
+    )
+    > button[part="dialog-button"] {
+    border-color: ButtonText !important;
+    background-color: ButtonFace !important;
+    color: ButtonText !important;
+
+    &:not([disabled]):hover {
+      border-color: Highlight !important;
+      color: Highlight !important;
+    }
+
+    &[disabled] {
+      border-color: GrayText !important;
+      color: GrayText !important;
+    }
+
+    &[default] {
+      border-color: Highlight !important;
+      background-color: Highlight !important;
+      color: HighlightText !important;
+
+      &:not([disabled]):hover {
+        border-color: CanvasText !important;
+        color: HighlightText !important;
+      }
+
+      &[disabled] {
+        border-color: GrayText !important;
+        background-color: Canvas !important;
+        color: GrayText !important;
+      }
+    }
+  }
+}

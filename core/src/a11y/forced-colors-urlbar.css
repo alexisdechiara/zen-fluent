@@ -1,0 +1,98 @@
+/* Zen Fluent: Contrast themes, URL bar: a Field with a visible edge, Highlight when focused, system-colored results.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (forced-colors) {
+  /* -------- The field: Field and FieldText, a ButtonText edge in every
+     shape (the transparent one included), Highlight on hover and focus
+     (WinUI's TextBox in contrast themes); the accent line is Highlight
+     through the tokens -------- */
+  #urlbar {
+    --zf-url-fill: Field !important;
+    --zf-url-fill-hover: Field !important;
+    --zf-url-fill-focus: Field !important;
+    --zf-url-stroke: ButtonText !important;
+    --zf-url-stroke-hover: Highlight !important;
+    --zf-url-stroke-bottom: ButtonText !important;
+    --zf-url-stroke-bottom-hover: Highlight !important;
+    --zf-url-icon: FieldText !important;
+
+    &:is([focused], [breakout-extend]) {
+      --zf-url-stroke: Highlight !important;
+      --zf-url-stroke-bottom: Highlight !important;
+    }
+
+    /* Zen fades the text to 70% while the bar is not focused */
+    & .urlbar-input {
+      color: FieldText !important;
+    }
+
+    /* "Transparent" style: no field at rest, but an edge */
+    @media (-moz-pref("zen-fluent.url-style", "transparent")) {
+      &:not([breakout-extend]) .urlbar-background {
+        border-color: var(--zf-url-stroke) !important;
+      }
+    }
+  }
+
+  :is(.urlbar-page-action, .identity-box-button) {
+    --toolbarbutton-icon-fill: currentcolor !important;
+  }
+
+  .urlbar-page-action:not([disabled]):hover,
+  .identity-box-button:hover {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+  }
+
+  /* Zen fills the bar's place in the toolbar while it floats open */
+  #urlbar-container:has(#urlbar[breakout-extend]) {
+    background-color: transparent !important;
+  }
+
+  /* The open bar outlines itself: the page under it is not dimmed */
+  #browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
+    .browserStack {
+    filter: none !important;
+  }
+
+  /* -------- Results: the selected row is SelectedItem, a hovered one is
+     outlined (WinUI's ListViewItem) -------- */
+  .urlbarView-row {
+    /* Zen fades every row to 70% of the text color, and its title
+       separator to a fixed gray (the rows the mod does not restyle keep
+       them) */
+    &:not([selected]) {
+      color: CanvasText !important;
+
+      & .urlbarView-title-separator::before {
+        color: inherit !important;
+        opacity: 1 !important;
+      }
+    }
+
+    &:hover:not([selected]) {
+      outline: 1px solid SelectedItem !important;
+      outline-offset: -1px !important;
+    }
+
+    &[selected] {
+      --zf-row-pill: SelectedItemText;
+      background-color: SelectedItem !important;
+      color: SelectedItemText !important;
+
+      &
+        :is(
+          .urlbarView-title,
+          .urlbarView-url,
+          .urlbarView-action,
+          .urlbarView-title-separator
+        ) {
+        color: SelectedItemText !important;
+      }
+
+      & .urlbarView-favicon {
+        fill: SelectedItemText !important;
+      }
+    }
+  }
+}

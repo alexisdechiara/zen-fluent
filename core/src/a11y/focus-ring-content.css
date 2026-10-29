@@ -1,0 +1,91 @@
+/* Zen Fluent: WinUI double focus ring in about:preferences, about:addons and about:config: buttons, switches, lists, the Sine settings.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* stylelint-disable selector-type-no-unknown -- XUL elements: radiogroup,
+   radio */
+/* stylelint-disable selector-not-notation -- one :not() per id: each rule
+   is lifted by three ids */
+
+/* The pages' half of base/focus-ring.css, same method (tokens/focus.css
+   already makes Firefox's rings the outer ring here too): the 1px inner
+   ring, and the ring for what still draws a native or accent one.
+   Keyboard focus only. After every content file. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  /* content/preferences/tokens.css hands these pages the accent ring */
+  :root:not(#zf-focus-a) {
+    --focus-outline-color: var(--zf-focus-outer) !important;
+  }
+
+  /* ---------- Ring around the control (FocusVisualMargin -3) ---------- */
+  :is(
+      /* Buttons; moz-button and moz-toggle ring an inner box */
+      button:not(
+          :has(> .button-background),
+          .toggle-button,
+          [role="tab"]
+        ):focus-visible,
+      button:focus-visible > .button-background,
+      .toggle-button:focus-visible,
+      :is(menulist:not([native]), select):focus-visible,
+      /* CheckBox, RadioButton, and the Sine and Zen switches (checkboxes
+         drawn as ToggleSwitches): the whole control */
+      checkbox:focus-visible,
+      radiogroup:focus-visible radio[focused],
+      :is(a, .text-link):focus-visible,
+      /* Sine's settings group header: the SettingsExpander card */
+      .sineItemPreferenceDialogContent
+        > [id^="zen-fluent-ui-open-"]:has(> checkbox:focus-visible)
+    ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-out-offset) !important;
+    box-shadow: var(--zf-focus-out-shadow) !important;
+  }
+
+  :is(
+      button:focus-visible:has(> .button-background),
+      checkbox:focus-visible > .checkbox-check,
+      radiogroup:focus-visible radio[focused] > .radio-check,
+      /* The group header's checkbox is its chevron: the card is ringed */
+      .sineItemPreferenceDialogContent
+        > [id^="zen-fluent-ui-open-"]
+        > checkbox:focus-visible
+    ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  :is(checkbox:focus-visible, radiogroup:focus-visible radio[focused]):not(
+      #zf-focus-a
+    ):not(#zf-focus-b):not(#zf-focus-c) {
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  /* --------------- Ring inside: page navigation rows --------------- */
+  button[role="tab"]:focus-visible:not(#zf-focus-a):not(#zf-focus-b):not(
+      #zf-focus-c
+    ) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-in-offset) !important;
+    box-shadow: var(--zf-focus-in-shadow) !important;
+  }
+
+  /* Text fields: Firefox's ring, in the accent, as before */
+  :is(
+      input:not(
+        [type="radio" i],
+        [type="checkbox" i],
+        [type="range" i],
+        [type="button" i],
+        [type="submit" i],
+        [type="reset" i],
+        [type="color" i],
+        [type="file" i],
+        [type="image" i]
+      ),
+      textarea
+    ):focus-visible:not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+    outline-color: var(--zf-accent) !important;
+  }
+}

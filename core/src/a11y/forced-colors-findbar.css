@@ -1,0 +1,17 @@
+/* Zen Fluent: Contrast themes, find bar: an opaque strip, not dimmed under the open URL bar.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The find bar's own files keep Firefox's contrast look; Zen's toolbar
+   color under it is translucent, and the open URL bar's smoke dims it. */
+
+@media (forced-colors) {
+  .browserContainer > findbar {
+    background: Canvas !important;
+  }
+
+  #browser:has(#urlbar[breakout-extend][zen-floating-urlbar="true"])
+    .browserContainer
+    > findbar {
+    filter: none !important;
+  }
+}

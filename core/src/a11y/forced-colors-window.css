@@ -1,0 +1,42 @@
+/* Zen Fluent: Contrast themes, window: Zen's theme colors, caption buttons, the Edge page card edge.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* tokens/forced-colors.css maps the mod's tokens; this file covers what
+   the window zone sets outside them. */
+
+@media (forced-colors) {
+  /* Zen writes its theme text color inline (on :root and on each space)
+     and, with !important, replaces Firefox's contrast tokens with its own
+     mixes: the toolbox text and the plain button fill stay tinted. Firefox's
+     system colors come back. */
+  :root,
+  [style*="--toolbox-textcolor"] {
+    --toolbox-textcolor: CanvasText !important;
+    --toolbox-textcolor-inactive: GrayText !important;
+  }
+
+  :root {
+    --button-background-color: ButtonFace !important;
+    --toolbar-field-background-color: Field !important;
+    --toolbar-field-color: FieldText !important;
+    --toolbar-field-focus-background-color: Field !important;
+    --toolbar-field-focus-color: FieldText !important;
+  }
+
+  /* Caption buttons: WinUI's red close and the subtle fills give way to
+     the system highlight */
+  @media (-moz-platform: windows) {
+    .titlebar-button:is(:hover, :hover:active),
+    .titlebar-close:is(:hover, :hover:active) {
+      background-color: Highlight !important;
+      color: HighlightText !important;
+    }
+  }
+
+  /* Edge page card: its hairline and soft shadows become one ring */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    #tabbrowser-tabpanels .browserSidebarContainer:not(.zen-glance-overlay) {
+      box-shadow: 0 0 0 1px CanvasText !important;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+/* Zen Fluent: Reduced motion in the browser window: the selected tab's accent pill and the media thumb, without moving.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Every other animation of the mod is guarded in its own file; these two
+   were not: the pill grew in (components/sidebar/tabs.css) and the media
+   card's thumb grew on hover (components/media/progress-bar.css). */
+
+@media (prefers-reduced-motion: reduce) {
+  #tabbrowser-tabs
+    .tabbrowser-tab:not([zen-essential]):is([selected], [visuallyselected])
+    > .tab-stack
+    > .tab-background::after {
+    animation: none !important;
+  }
+
+  .zen-media-progress-bar::-moz-range-thumb {
+    transition: none !important;
+  }
+}

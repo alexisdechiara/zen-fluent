@@ -1,0 +1,65 @@
+/* Zen Fluent: WinUI focus visual tokens: the double ring's colors and geometry, and the Firefox focus color it drives.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI draws keyboard focus as two rings: FocusStrokeColorOuter, 2px
+   (FocusVisualPrimaryThickness), around FocusStrokeColorInner, 1px
+   (FocusVisualSecondaryThickness), whose radius follows the control. Near
+   black around translucent white in light, white around translucent black
+   in dark: one of the two always stands out from the Mica or Acrylic tint,
+   the accent, or the page under it.
+   A box has a single outline, so the outer ring is the outline (the one
+   Firefox already draws, and the only one left in contrast themes) and the
+   inner ring is a box-shadow on the same box, which base/focus-ring.css and
+   a11y/focus-ring-content.css add. Neither takes room: nothing moves.
+   Two geometries, after WinUI's FocusVisualMargin:
+   - "out" (-3: Button, CheckBox, ToggleSwitch, ComboBox): both rings
+     around the control, the inner one touching its edge;
+   - "in" (rows and dense toolbars, where a ring outside would be clipped or
+     cover a neighbour: ListViewItem, NavigationViewItem): the outer ring
+     follows the edge inside, the inner one lies within it. */
+
+:root {
+  /* Common_themeresources_any.xaml: #E4000000 / #B3FFFFFF (Light),
+     #FFFFFF / #B3000000 (Default, dark) */
+  --zf-focus-outer: light-dark(rgb(0 0 0 / 89.41%), #fff);
+  --zf-focus-inner: light-dark(rgb(255 255 255 / 70.2%), rgb(0 0 0 / 70.2%));
+  --zf-focus-outer-width: 2px;
+  --zf-focus-inner-width: 1px;
+
+  /* Ring around the control: inner ring 0-1px out, outer ring 1-3px out */
+  --zf-focus-out-offset: var(--zf-focus-inner-width);
+  --zf-focus-out-shadow: 0 0 0 var(--zf-focus-inner-width) var(--zf-focus-inner);
+
+  /* Ring inside the box: outer ring 0-2px in, inner ring 2-3px in (the
+     shadow is 3px; the outline paints over its first 2px) */
+  --zf-focus-in-offset: calc(-1 * var(--zf-focus-outer-width));
+  --zf-focus-in-shadow: inset 0 0 0
+    calc(var(--zf-focus-outer-width) + var(--zf-focus-inner-width))
+    var(--zf-focus-inner);
+
+  /* Firefox's focus ring takes the outer ring's color everywhere, also
+     where the mod adds no inner ring; after tokens/host-bridge.css, which
+     set it to the accent. Its geometry stays: Firefox's width (2px) and
+     inset (-2px) are the outer ring's already, and its 2px offset also
+     pads a few boxes (the tab group swatches), which must not move. */
+  --focus-outline-color: var(--zf-focus-outer) !important;
+
+  /* Not focus rings, but Firefox derives them from --focus-outline-color
+     (tokens-shared.css, tabs.css): the focused field border and the tab
+     drag-over outline keep the accent, with Firefox's own mix */
+  --toolbar-field-border-color-focus: color-mix(
+    in srgb,
+    var(--zf-accent) 50%,
+    transparent
+  ) !important;
+  --tab-dragover-outline-color: var(--zf-accent) !important;
+
+  /* Contrast themes: a single ring in the system highlight, as Firefox and
+     Edge draw it (WinUI keeps two rings, WindowText around Window) */
+  @media (forced-colors) {
+    --zf-focus-outer: Highlight;
+    --zf-focus-inner: Canvas;
+    --zf-focus-out-shadow: 0 0 transparent;
+    --zf-focus-in-shadow: 0 0 transparent;
+  }
+}

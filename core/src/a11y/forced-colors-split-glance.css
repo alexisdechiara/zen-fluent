@@ -1,0 +1,34 @@
+/* Zen Fluent: Contrast themes, split view and Glance: the split group in the sidebar, opaque floating buttons outlined on hover.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Panes, the active pane's accent outline and Glance's card take system
+   colors through the tokens (the shadows become a CanvasText ring). */
+
+@media (forced-colors) {
+  /* The sidebar row of a split view holding the selected tab: Zen fills it
+     with its translucent selected-tab color and a soft shadow. It is
+     marked like a selected tab instead: a SelectedItem frame. */
+  tab-group[split-view-group]:is(
+      [hasactivetab],
+      :has(.tabbrowser-tab:is([selected], [visuallyselected]))
+    )
+    > .tab-group-container {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+    background-color: ButtonFace !important;
+    box-shadow: none !important;
+  }
+
+  /* The split header and Glance's buttons float over the page: no blur
+     behind their Canvas, and a hover that shows */
+  .zen-view-splitter-header,
+  .zen-glance-sidebar-container toolbarbutton {
+    backdrop-filter: none !important;
+  }
+
+  .zen-view-splitter-header-container toolbarbutton:hover,
+  .zen-glance-sidebar-container toolbarbutton:hover {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+  }
+}

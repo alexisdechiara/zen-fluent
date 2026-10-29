@@ -1,0 +1,32 @@
+/* Zen Fluent: Contrast themes, media: an opaque progress track, system-colored Picture-in-Picture buttons.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+@media (forced-colors) {
+  /* Media card: the track was the strong stroke at 40% */
+  .zen-media-progress-bar::-moz-range-track {
+    background-color: GrayText !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Picture-in-Picture: the round buttons were white on translucent black;
+   they become WinUI contrast buttons */
+@-moz-document url("chrome://global/content/pictureinpicture/player.xhtml")
+{
+  @media (forced-colors) {
+    #controls :is(.control-button, #playpause) {
+      outline: 1px solid ButtonText !important;
+      outline-offset: -1px !important;
+      background-color: ButtonFace !important;
+      color: ButtonText !important;
+      fill: ButtonText !important;
+
+      &:hover {
+        outline-color: Highlight !important;
+        background-color: HighlightText !important;
+        color: Highlight !important;
+        fill: Highlight !important;
+      }
+    }
+  }
+}

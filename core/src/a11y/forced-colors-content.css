@@ -1,0 +1,26 @@
+/* Zen Fluent: Contrast themes in the settings pages: hover on the Sine group headers and the switches.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* about: pages force their own colors, but not a user sheet's: the mod's
+   tokens map to system colors (tokens/forced-colors.css) and these pages
+   follow. Hover fills are ButtonFace there, like the page: WinUI marks
+   hover with Highlight strokes instead. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
+  url-prefix("about:config") {
+  @media (forced-colors) {
+    /* Settings group headers (SettingsExpander) */
+    .sineItemPreferenceDialogContent > [id^="zen-fluent-ui-open-"]:hover {
+      border-color: Highlight !important;
+    }
+
+    /* ToggleSwitches: the track's stroke */
+    :is(
+        .sineItemPreferenceCheckbox:hover,
+        groupbox[data-category^="paneZen"] checkbox:hover
+      )
+      .checkbox-check {
+      border-color: Highlight !important;
+    }
+  }
+}

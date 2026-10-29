@@ -1,0 +1,39 @@
+/* Zen Fluent: Contrast themes, menus and panels: a visible flyout edge, outlined rows on hover, full-strength shortcuts.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Context menu rows keep Firefox's system highlight (components/menus/
+   rows.css); panels, site panels, tooltips and the tab preview take the
+   tokens of tokens/forced-colors.css. */
+
+@media (forced-colors) {
+  /* WinUI flyouts in contrast themes: a WindowText edge (the mod clears
+     Firefox's border, its stroke being the shadow ring) */
+  menupopup,
+  panel {
+    --panel-border-color: CanvasText !important;
+  }
+
+  /* Panel rows: Firefox turns the label SelectedItem on hover; the fill
+     is ButtonFace, so an outline marks the row too. The zoom value is a
+     bare label in its row: its text box is outlined. */
+  panel
+    :is(toolbarbutton.subviewbutton, .toolbarbutton-1):not([disabled]):hover,
+  #appMenu-zoomReset-button2:not([disabled]):hover > .toolbarbutton-text {
+    outline: 1px solid SelectedItem !important;
+    outline-offset: -1px !important;
+  }
+
+  /* Zen fades the shortcut after an app menu item to 70% */
+  .subviewbutton[shortcut]::after {
+    opacity: 1 !important;
+  }
+
+  /* Firefox's account promo in the app menu keeps its violet fill:
+     the panel's colors, framed */
+  #appMenu-fxa-sign-in-promo {
+    outline: 1px solid CanvasText !important;
+    outline-offset: -1px !important;
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+}

@@ -1,0 +1,27 @@
+/* Zen Fluent: Contrast themes, Firefox sidebar: a framed panel and a system-colored search field.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* components/firefox-sidebar/ keeps its colors out of contrast themes,
+   which brought back Zen's soft panel shadow and the pages' translucent
+   search field (Zen's and Firefox's tokens, not forced in chrome). */
+
+@media (forced-colors) {
+  /* A card edge, as the page card has (tokens/forced-colors.css) */
+  #zen-tabbox-wrapper #sidebar-box {
+    box-shadow: 0 0 0 1px CanvasText !important;
+  }
+}
+
+/* The search field of the panel pages: WinUI's contrast TextBox */
+@-moz-document url("chrome://browser/content/places/bookmarksSidebar.xhtml"),
+  url("chrome://browser/content/places/historySidebar.xhtml"),
+  url("chrome://browser/content/syncedtabs/sidebar.html")
+{
+  @media (forced-colors) {
+    :root {
+      --input-text-background-color: Field !important;
+      --input-text-color: FieldText !important;
+      --input-text-border-color: ButtonText !important;
+    }
+  }
+}

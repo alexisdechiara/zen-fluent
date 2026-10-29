@@ -1,0 +1,262 @@
+/* Zen Fluent: WinUI double focus ring on keyboard focus: buttons, tabs, URL bar buttons, panel items, controls, find bar.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* stylelint-disable selector-type-no-unknown -- XUL elements: toolbar,
+   panelview, radiogroup, radio */
+/* stylelint-disable selector-not-notation -- one :not() per id: each rule
+   is lifted by three ids */
+
+/* tokens/focus.css turns every Firefox focus outline into WinUI's outer
+   ring (2px, FocusStrokeColorOuter). This file adds the 1px inner ring
+   (FocusStrokeColorInner) as a box-shadow on the box Firefox outlines, and
+   gives the ring to what still draws a native or accent one. Keyboard
+   focus only: :focus-visible (or Firefox's own keyboard-only states),
+   never a click. outline and box-shadow take no room: nothing moves.
+   Why an outline and a box-shadow, not two outlines: a box has a single
+   outline, and a pseudo-element would clash with the ::before / ::after
+   that the mod and Zen already use (accent pills, caption glyphs, Zen's
+   tiles). The outer ring is the outline because it alone survives in
+   contrast themes (tokens/focus.css), and a shadow follows the radius as
+   the outline does. While focused, the inner ring replaces the box's own
+   shadow (a tab's lift, a standard button's stroke), whose edge it covers.
+   Imported after every zone, each rule ends with :not(#zf-focus-…) three
+   times (no element has these ids): three more ids of specificity, so the
+   ring wins over the components' fills and strokes. On the element itself,
+   not under :root, so it also matches inside shadow trees (dialog buttons,
+   moz-button). A cascade layer would not do: in a user sheet Gecko lets
+   unlayered !important beat layered !important.
+   Text fields keep the accent: WinUI's TextBox shows focus with its accent
+   underline, never with the focus visual. Menu items (menupopup) take no
+   DOM focus: the keyboard row is the highlighted one, as in WinUI. */
+
+/* -------------- Ring inside the box: rows and dense toolbars -------------- */
+:is(
+    /* Toolbar buttons: Firefox rings the icon box (or badge stack, label) */
+    toolbar
+      .toolbarbutton-1:not(
+        #tabs-newtab-button,
+        #vertical-tabs-newtab-button
+      ):focus-visible
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ),
+    /* The new tab row (icon and label): ringed whole, as Firefox does */
+    :is(#tabs-newtab-button, #vertical-tabs-newtab-button):focus-visible,
+    /* Tabs and Essentials (Firefox's tablist keyboard focus) */
+    #tabbrowser-tabs[tablist-has-focus]
+      .tabbrowser-tab.tablist-keyboard-focus
+      > .tab-stack
+      > .tab-background,
+    toolbarbutton.bookmark-item:not(.subviewbutton):focus-visible,
+    .titlebar-button:focus-visible,
+    /* URL bar buttons; the field shows focus with its accent line */
+    :is(
+        .identity-box-button,
+        #trust-icon-container,
+        #tracking-protection-icon-container,
+        .urlbar-page-action,
+        #urlbar-zoom-button,
+        #urlbar-revert-button,
+        .notification-anchor-icon
+      ):focus-visible,
+    /* Panel items (app menu, Library, site panels, overflow list) */
+    :is(
+        panelview .toolbarbutton-1,
+        toolbarbutton.subviewbutton,
+        .widget-overflow-list .toolbarbutton-1
+      ):not(
+        #appMenu-zoom-controls > *,
+        .unified-extensions-item-menu-button
+      ):focus-visible,
+    radiogroup:focus-visible > .subviewradio[focused="true"],
+    :is(
+        .identity-popup-expander,
+        .panel-info-button,
+        #sidebar-switcher-target,
+        #sidebar-close
+      ):focus-visible,
+    /* Downloads panel */
+    #downloadsListBox:focus-visible > richlistitem[selected],
+    #downloadsListBox[force-focus-visible]:focus > richlistitem[selected],
+    :is(
+        .downloadButton,
+        #downloadsSummary,
+        .downloadsPanelFooterButton
+      ):focus-visible,
+    /* Site panels: chips, and the row of a focused permission glyph */
+    :is(#permission-popup, #protections-popup)
+      .permission-popup-permission-remove-button:focus-visible,
+    :is(
+        #zen-site-data-settings-list > .permission-popup-permission-item,
+        #zen-site-data-boost-list > .permission-popup-boost-item
+      ):has(
+        > :is(
+            .permission-popup-permission-icon,
+            .permission-popup-boost-icon
+          ):focus-visible
+      ),
+    /* Theme picker buttons */
+    :is(
+        :is(
+            #PanelUI-zen-gradient-generator-scheme,
+            #PanelUI-zen-gradient-generator-color-actions
+          )
+          > button,
+        #PanelUI-zen-gradient-generator-color-page-left,
+        #PanelUI-zen-gradient-generator-color-page-right,
+        #PanelUI-zen-gradient-generator-color-custom-add,
+        #PanelUI-zen-gradient-generator-custom-list
+          .zen-theme-picker-custom-list-item-remove
+      ):focus-visible,
+    /* Space creation: the icon picker */
+    .zen-workspace-creation .zen-workspace-creation-icon-label:focus-visible,
+    /* Other toolbar buttons (Zen's "clear", the workspace icons): Firefox
+       draws the native ring */
+    toolbarbutton:not(
+        .toolbarbutton-1,
+        .subviewbutton,
+        .bookmark-item,
+        .titlebar-button,
+        #zen-site-data-header > *,
+        .zen-workspace-creation *
+      ):focus-visible,
+    /* Find bar: subtle buttons, and its checkboxes ringed whole inside (the
+       bar would clip a ring outside) */
+    :is(
+        .findbar-find-previous,
+        .findbar-find-next,
+        .findbar-closebutton,
+        .findbar-container > checkbox
+      ):focus-visible,
+    /* Collapsed sidebar: the bottom buttons are column-wide tiles, ringed
+       whole (components/sidebar/collapsed.css), not on their icon box */
+    :root:not([zen-sidebar-expanded])
+      #zen-sidebar-foot-buttons
+      > toolbarbutton.toolbarbutton-1:focus-visible
+  ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+  outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+  outline-offset: var(--zf-focus-in-offset) !important;
+  box-shadow: var(--zf-focus-in-shadow) !important;
+}
+
+/* The boxes inside a button ringed whole carry no ring of their own; nor
+   does the Library button's badge stack, which Zen lays over its icon box
+   (a second ring on the same spot would double the inner one) */
+:is(
+    :is(
+        :is(#tabs-newtab-button, #vertical-tabs-newtab-button):focus-visible,
+        :root:not([zen-sidebar-expanded])
+          #zen-sidebar-foot-buttons
+          > toolbarbutton.toolbarbutton-1:focus-visible
+      )
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ),
+    #zen-library-button:focus-visible > .toolbarbutton-badge-stack
+  ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c):not(#zf-focus-d) {
+  /* a fourth id: these boxes also match the rule above */
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Ring around the control: buttons, checkboxes, lists ---------- */
+:is(
+    /* Buttons (XUL and HTML; moz-button rings its .button-background) */
+    button:not(:has(> .button-background)):focus-visible,
+    button:focus-visible > .button-background,
+    :is(menulist:not([native]), select):focus-visible,
+    /* CheckBox and RadioButton: WinUI rings the whole control, label too */
+    checkbox:not(.findbar-container > checkbox):focus-visible,
+    radiogroup:focus-visible radio[focused],
+    :is(a, .text-link):focus-visible,
+    /* Bare glyphs and labels that Firefox rings in a panel row */
+    :is(
+        #appMenu-zoom-controls > .subviewbutton-iconic,
+        .unified-extensions-item-menu-button.subviewbutton
+      ):focus-visible
+      > .toolbarbutton-icon,
+    #appMenu-zoomReset-button2:focus-visible > .toolbarbutton-text,
+    /* Site panel header buttons, space creation buttons, Ctrl+Tab's
+       "Show all" (keyboard only: the dialog opens from the keyboard) */
+    #zen-site-data-header > toolbarbutton:focus-visible,
+    .zen-workspace-creation
+      :is(
+        .zen-workspace-creation-profile,
+        .zen-workspace-creation-edit-theme-button,
+        .zen-workspace-creation-create-button,
+        .zen-workspace-creation-cancel-button
+      ):focus-visible,
+    #ctrlTab-showAll:focus
+  ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+  outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+  outline-offset: var(--zf-focus-out-offset) !important;
+  box-shadow: var(--zf-focus-out-shadow) !important;
+}
+
+:is(
+    button:focus-visible:has(> .button-background),
+    checkbox:focus-visible > .checkbox-check,
+    radiogroup:focus-visible radio[focused] > .radio-check
+  ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+  outline: none !important;
+}
+
+:is(
+    checkbox:not(.findbar-container > checkbox):focus-visible,
+    radiogroup:focus-visible radio[focused]
+  ):not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+  border-radius: var(--zf-radius-control) !important;
+}
+
+/* Text fields: Firefox's ring, in the accent, as before */
+:is(
+    input:not(
+      [type="radio" i],
+      [type="checkbox" i],
+      [type="range" i],
+      [type="button" i],
+      [type="submit" i],
+      [type="reset" i],
+      [type="color" i],
+      [type="file" i],
+      [type="image" i]
+    ),
+    textarea
+  ):focus-visible:not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+  outline-color: var(--zf-accent) !important;
+}
+
+/* --------------- Firefox sidebar pages (their own documents) --------------- */
+@-moz-document url("chrome://browser/content/places/bookmarksSidebar.xhtml"),
+  url("chrome://browser/content/places/historySidebar.xhtml")
+{
+  /* A tree row takes no shadow: the outer ring alone */
+  .sidebar-placesTree:focus-visible
+    > .sidebar-placesTreechildren:not(#zf-focus-a):not(#zf-focus-b):not(
+      #zf-focus-c
+    )::-moz-tree-row(current, focus) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-in-offset) !important;
+  }
+}
+
+@-moz-document url("chrome://browser/content/syncedtabs/sidebar.html")
+{
+  .item:focus-visible
+    > .item-title-container:not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-in-offset) !important;
+    box-shadow: var(--zf-focus-in-shadow) !important;
+  }
+
+  .deck
+    .button:focus-visible:not(#zf-focus-a):not(#zf-focus-b):not(#zf-focus-c) {
+    outline: var(--zf-focus-outer-width) solid var(--zf-focus-outer) !important;
+    outline-offset: var(--zf-focus-out-offset) !important;
+    box-shadow: var(--zf-focus-out-shadow) !important;
+  }
+}
