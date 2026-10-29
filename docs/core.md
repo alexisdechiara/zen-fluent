@@ -50,3 +50,5 @@ Corners are true arcs, and **Corners and gaps** does not apply.
   not carried over, set them again.
 - Two animations ignore `prefers-reduced-motion`: the selected tab pill and the
   settings groups' chevron.
+- Other mods: [compatibility.md](compatibility.md) lists those that need Zen
+  Fluent’s compat rules (included) and those that conflict with it.

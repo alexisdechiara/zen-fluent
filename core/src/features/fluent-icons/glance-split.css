@@ -16,6 +16,17 @@
     list-style-image: url("../../../icons/split.svg") !important;
   }
 
+  /* Glance Plus adds Copy link and Bookmark to the strip, with Zen's icons
+     set inline (author !important, below a user one). In its Raindrop mode
+     the bookmark button draws a masked child instead: left alone. */
+  .zgp-glance-copy {
+    list-style-image: url("../../../icons/link.svg") !important;
+  }
+
+  .zgp-glance-bookmark:not(:has(> #zgp-glance-bookmark-glyph)) {
+    list-style-image: url("../../../icons/bookmarks.svg") !important;
+  }
+
   .zen-tab-rearrange-button {
     list-style-image: url("../../../icons/drag.svg") !important;
   }

@@ -18,5 +18,9 @@ Group header: `zen-fluent.ui.open-animations` (open by default: `false`).
   staggered results (down or up) and the Microsoft Store bounce. Results only
   animate when the bar opens, not while typing.
 - **Menu animation**: WinUI flyout (default), from the button, fade or none.
+- **WinUI 3 button animations**: a fast fill change and a press scale on
+  toolbar buttons, tabs and URL bar results. Library tabs fade and press on
+  their pill, and keep their own transition, which ZenLibraryTweaks uses to
+  slide them while they are reordered.
 - Animations stop with `prefers-reduced-motion`, except two known ones: the
   selected tab pill and the chevron of the settings groups.

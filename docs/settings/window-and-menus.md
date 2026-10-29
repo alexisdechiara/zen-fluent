@@ -30,7 +30,10 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
   take the theme color through `context-fill`, which Firefox only grants to
   files outside `chrome://` when that preference is `true`. Sine does not
   write it because the preference already exists: check it by hand. Until then
-  Zen keeps its own icons.
+  Zen keeps its own icons. They also cover the buttons Glance Plus adds to
+  Glance and the bookmark folders ZenLibraryTweaks adds to the Library; on Zen
+  folders only, so Advanced Tab Groups keeps its own folder icon and color
+  ([compatibility](../compatibility.md)).
 - **Back / Forward in the context menu**: icons (Firefox), a list (WinUI) or a
   command bar (File Explorer).
 - **Thin scrollbars**: thin at rest, wider and stronger on hover (sidebar,

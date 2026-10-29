@@ -6,10 +6,19 @@
   /* -------- Buttons (Firefox-WinUI) -------- */
 
   @media (-moz-pref("zen-fluent.button-animations")) {
-    :is(toolbarbutton, .tabbrowser-tab, .urlbarView-row, .zen-library-tab) {
+    :is(toolbarbutton, .tabbrowser-tab, .urlbarView-row) {
       transition:
         background-color var(--zf-duration-fast) linear,
         scale var(--zf-duration-fast) linear !important;
+    }
+
+    /* Library tabs draw their fill and their press scale on ::before; the
+       tab itself keeps its own transition, which ZenLibraryTweaks uses to
+       slide tabs while they are reordered (translate) */
+    .zen-library-tab::before {
+      transition:
+        background-color var(--zf-duration-fast) linear,
+        transform var(--zf-duration-fast) linear !important;
     }
 
     :is(

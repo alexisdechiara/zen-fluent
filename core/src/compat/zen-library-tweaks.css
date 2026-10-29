@@ -1,0 +1,41 @@
+/* Zen Fluent: compatibility with ZenLibraryTweaks (JustAdumbPrsn/ZenLibraryTweaks): folder tint, edit outlines, context row.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* ZenLibraryTweaks (ZLT) adds sections to the Library and lets its tabs be
+   reordered. Its History section is matched in
+   core/src/components/library/history.css, its bookmark folders take the
+   Fluent folder icons (core/src/features/fluent-icons/folders.css), and the
+   button animations leave the tabs' own transition to it
+   (core/src/features/animations/button-animations.css). */
+
+zen-library {
+  /* Its Library icons, edit outlines and drop slots are drawn with the
+     folder colors: Zen Fluent's folder tint
+     (core/src/components/sidebar/folders.css), not Zen's space color */
+  --zen-folder-stroke: var(--zf-accent) !important;
+  --zen-folder-front-bgcolor: color-mix(
+    in srgb,
+    var(--zf-accent) 18%,
+    transparent
+  ) !important;
+  --zen-folder-behind-bgcolor: color-mix(
+    in srgb,
+    var(--zf-accent) 10%,
+    transparent
+  ) !important;
+
+  /* Edit mode: the dashed outline takes the radius of the tab's pill
+     (core/src/components/library/navigation.css), and the remove badge
+     stays centered on the outline's corner, 1px border + (r - 1px)(1 - 1/sqrt(2))
+     in (ZLT: 10px and 3.5px) */
+  --lt-tab-radius: var(--zf-radius-control) !important;
+  --lt-badge-offset: calc(
+    1px + (var(--zf-radius-control) - 1px) * 0.2929
+  ) !important;
+}
+
+/* The row a context menu was opened on keeps the rows' hover fill (ZLT
+   reads --toolbarbutton-hover-background, which Firefox 158 no longer sets) */
+.zen-library-row[context-active] {
+  background-color: var(--zf-fill-subtle-hover) !important;
+}

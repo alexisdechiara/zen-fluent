@@ -1,0 +1,22 @@
+/* Zen Fluent: compatibility with Zen Command Palette (Vertex-Mods/Zen-Command-Palette): accent colors and mode pill.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Command Palette (ZCP) derives its accents from Zen's space color
+   (--zen-primary-color): they follow the mod's accent instead, like the rest
+   of the URL bar (zen-fluent.accent). */
+
+:root {
+  --zenux-accent: var(--zf-accent) !important;
+}
+
+/* The "Commands" pill ZCP puts before the URL bar's input in its prefix
+   mode: an accent pill, text on accent, WinUI caption size */
+#zen-cmd-palette-mode-indicator {
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+  corner-shape: round !important;
+  background-color: var(--zf-accent) !important;
+  color: var(--zf-on-accent) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}

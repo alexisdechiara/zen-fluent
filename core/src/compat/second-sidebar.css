@@ -1,0 +1,37 @@
+/* Zen Fluent: compatibility with Zen Second Sidebar Enhanced (sinazadeh/zen-second-sidebar-enhanced): web panels as cards.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Second Sidebar (SSB) draws its web panels from its own --sb2-zen-* tokens
+   on :root (an author <style>, without !important). They take the page
+   card's radius and shadow (core/src/base/page-card.css), the WinUI layer
+   for the panel's toolbar, the subtle fills of the toolbar buttons for its
+   launcher, and, for what floats over the page (an unpinned panel, the
+   auto-hide launcher), the solid Acrylic: Firefox does not blur the page
+   behind a backdrop-filter. A pinned panel stays transparent on the
+   window's material, as Zen's sidebar does. */
+
+:root {
+  --sb2-zen-radius: var(--zf-radius-overlay) !important;
+  --sb2-zen-shadow: var(--zf-shadow-card) !important;
+  --sb2-zen-toolbar-surface: var(--zf-layer) !important;
+  --sb2-zen-surface-hover: var(--zf-fill-subtle-hover) !important;
+  /* An open or checked launcher button: a selected item */
+  --sb2-zen-surface-active: var(--zf-fill-selected) !important;
+  --sb2-zen-floating-surface: var(--zf-acrylic-over-page) !important;
+  --sb2-zen-floating-acrylic-surface: var(--zf-acrylic-over-page) !important;
+  --sb2-zen-overlay-surface: var(--zf-acrylic-over-page) !important;
+
+  /* Edge: the page card's 8px (its shadow token is already the hairline)
+     and Edge's button fills */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    --sb2-zen-radius: var(--zf-radius-card) !important;
+    --sb2-zen-surface-hover: var(--zf-edge-hover) !important;
+  }
+}
+
+/* The panel's text: the Firefox sidebar's color, which
+   core/src/components/firefox-sidebar/panel.css also sets on #sb2-box (SSB
+   takes Zen's toolbox text color first) */
+#zen-tabbox-wrapper #sb2-box {
+  color: var(--sidebar-text-color) !important;
+}

@@ -1,0 +1,103 @@
+/* Zen Fluent: compatibility with Advanced Tab Groups (Vertex-Mods/Advanced-Tab-Groups): group headers as folder rows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Advanced Tab Groups (ATG) turns on Firefox's tab groups. Its headers get
+   the row of a Zen folder (core/src/components/sidebar/folders.css): 36px,
+   control radius, WinUI subtle hover, 600 label in the primary text color.
+   ATG's group icon, color swatch and folder look (its own copy of the Zen
+   folder icon, tinted with the group's color) are left as they are.
+   ATG loads after Zen Fluent (Sine sorts lowercase ids last) and its header
+   rules reach (0,3,2): the #tabbrowser-tabs prefix outranks them, and also
+   matches the Library's copies of the tab strip. Split view groups are
+   tab-groups too: excluded. */
+
+/* -------- ATG's folder look (browser.tabs.groups.folder-look, on by
+   default): Zen's hover pill on ::before, as for a zen-folder -------- */
+
+#tabbrowser-tabs
+  tab-group[atg-folder-look]:not([split-view-group])
+  > .tab-group-label-container {
+  min-height: var(--zf-size-nav-item) !important;
+  border-radius: var(--zf-radius-control) !important;
+
+  &::before {
+    border-radius: var(--zf-radius-control) !important;
+    background-color: transparent !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+  }
+
+  &:hover::before {
+    background-color: var(--zf-fill-subtle-hover) !important;
+  }
+
+  & > .tab-group-label {
+    font-size: var(--zf-sidebar-font-size) !important;
+    font-weight: 600 !important;
+    color: var(--zf-text-primary) !important;
+  }
+
+  /* Edge: same row as a tab */
+  @media (-moz-pref("zen-fluent.style", "edge")) {
+    &:hover::before {
+      background-color: var(--zf-edge-hover) !important;
+    }
+  }
+
+  /* Collapsed sidebar: the tile spans the column, as a zen-folder's
+     (components/sidebar/collapsed.css); ATG insets it 2px */
+  #navigator-toolbox:not([zen-sidebar-expanded]) &::before {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* -------- ATG's own look: the hover fill is the header's background.
+   Its Arc-like style (browser.tabs.groups.arc-style: a 30px section label,
+   muted, without hover) is left to it. ATG puts its icon container in every
+   header: a plain Firefox tab group keeps Firefox's colored label. -------- */
+
+@media not (-moz-pref("browser.tabs.groups.arc-style")) {
+  #tabbrowser-tabs
+    tab-group:not([atg-folder-look], [split-view-group])
+    > .tab-group-label-container:has(> .tab-group-icon-container) {
+    /* Zen's folder row height (ATG: a fixed 36px) */
+    height: calc(
+      var(--tab-margin-block) * 2 + var(--tab-min-height)
+    ) !important;
+    min-height: var(--zf-size-nav-item) !important;
+    border-radius: var(--zf-radius-control) !important;
+    transition: background-color var(--zf-duration-fast) linear !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    & > .tab-group-label {
+      font-size: var(--zf-sidebar-font-size) !important;
+      font-weight: 600 !important;
+      color: var(--zf-text-primary) !important;
+    }
+
+    @media (-moz-pref("zen-fluent.style", "edge")) {
+      &:hover {
+        background-color: var(--zf-edge-hover) !important;
+      }
+    }
+
+    /* Collapsed sidebar: one 48px tile, ATG's icon centered (ATG sizes the
+       header to its content, wider than the column) */
+    #navigator-toolbox:not([zen-sidebar-expanded]) & {
+      width: var(--tab-collapsed-background-width) !important;
+      padding: 0 !important;
+      justify-content: center !important;
+
+      & > .tab-group-icon-container {
+        margin: 0 !important;
+      }
+
+      & > .tab-group-label {
+        display: none !important;
+      }
+    }
+  }
+}

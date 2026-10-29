@@ -15,6 +15,7 @@ core/
     components/<zone>/   the default look of each zone
     features/            one file per option (features/<pref>.css)
     content/             about: pages, Zen and Sine settings
+    compat/              rules for third-party mods (docs/compatibility.md)
 enhanced/                Zen Fluent Enhanced (id Zen-Fluent-Enhanced)
   theme.json · chrome.css · scripts/
 components.json          manifest for the future installer (installer/README.md)
@@ -44,6 +45,8 @@ points by name: no file under `src/` may end in `chrome.css` or
   every `!important` in the file; add a comment only when `!important` is there
   for another reason.
 
+- **Compat rules**: one file per mod in `core/src/compat/`, imported last.
+  They only match what the mod adds and need no setting.
 - **Names**: preferences `zen-fluent.*` (Enhanced: `zen-fluent.enhanced.*`),
   variables `--zf-*`, ids, classes, attributes and keyframes `zf-`.
 - **Every setting** goes through `@media (-moz-pref("zen-fluent.xxx", "value"))`.

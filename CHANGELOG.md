@@ -17,6 +17,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - The Picture-in-Picture player is cut to the overlay radius token (12 px with
   Zen corners or the Edge style).
 - Icons moved to `core/icons/`.
+- The Fluent folder icons only replace the icon of Zen folders (and of ZenLibraryTweaks' bookmark folders). Advanced Tab Groups' folder look keeps its own icon and group color.
+- Button animations no longer override the Library tabs' own transition. A Library tab's hover fill and press now fade on its pill (`zen-fluent.button-animations`).
+- The Firefox sidebar's colors also reach the web panel box of Zen Second Sidebar Enhanced (`#sb2-box`).
 
 ### Added
 
@@ -40,6 +43,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Notification bars as WinUI InfoBars: site and global bars get the severity background and icon (Segoe Fluent glyphs on Windows), 14 px text, 32 px Buttons and a 38 px close button, on a solid surface with a flyout shadow over the page.
 - Permission prompts as a WinUI TeachingTip: 12 px margins, semibold title, CheckBox, 40 px close button in the corner, and an AccentButton and a Button (or SplitButton) sharing the row.
 - Zen toasts as WinUI notifications: solid Acrylic, flyout shadow, 14 px text, keycaps for shortcuts and a standard icon Button. Zen's position and animation are kept, without the scale when reduced motion is on.
+- Compatibility rules for third-party mods in `core/src/compat/`. They need no setting and only match what those mods add. Advanced Tab Groups headers become folder rows. ZenLibraryTweaks gets the History rows, slides Library tabs again when reordering, and gets matching edit outlines, folder tint and Fluent folder icons. Zen Second Sidebar Enhanced web panels become cards, with solid Acrylic over the page. Zen Command Palette follows the mod's accent, with an accent mode pill. Zen Calmer Context Menu's quick actions hover like menu rows, and its restored icons line up with the rows. With its "Apply the Zen space gradient" option, the Acrylic menu is kept. Glance Plus's Copy link and Bookmark buttons take the Fluent icons.
+- `docs/compatibility.md`: which mods work with Zen Fluent, which need its compat rules, and which conflict and why (Zen Page Tint, Blended Addressbar, Better Find Bar, SuperPins).
 
 ### Removed
 

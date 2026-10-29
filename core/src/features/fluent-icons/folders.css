@@ -3,8 +3,13 @@
 
 @media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
   /* -------- Folders: open / closed instead of Zen's animated folder -------- */
+  /* Zen folders (and their copies in the Library's Spaces), and the bookmark
+     folders ZenLibraryTweaks adds to the Library, which clone Zen's folder
+     icon. Advanced Tab Groups puts the same .tab-group-folder-icon in its
+     tab-group headers, tinted with each group's color: it keeps it. */
 
-  .tab-group-folder-icon {
+  zen-folder > .tab-group-label-container > .tab-group-folder-icon,
+  .zen-library-folder-row > .zen-library-folder-icon {
     background: url("../../../icons/folder-open.svg") center / 16px no-repeat !important;
     -moz-context-properties: fill, fill-opacity;
     fill: var(--zf-accent);
@@ -14,7 +19,10 @@
     }
   }
 
-  zen-folder[collapsed] .tab-group-folder-icon {
+  zen-folder[collapsed] > .tab-group-label-container > .tab-group-folder-icon,
+  .zen-library-folder:not([open])
+    > .zen-library-folder-row
+    > .zen-library-folder-icon {
     background-image: url("../../../icons/folder.svg") !important;
   }
 }

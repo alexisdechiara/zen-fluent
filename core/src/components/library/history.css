@@ -4,9 +4,12 @@
 /* -------- History: the design's one-line rows -------- */
 /* 36px rows: favicon, title, then the address in the tertiary color (and
    the time pushed to the end, when Zen shows it); day headers as WinUI list
-   headers */
+   headers. ZenLibraryTweaks swaps the section for its own subclass, which
+   renders the same rows (and shows the time instead of the address on
+   hover). */
 
-zen-library-history-section {
+/* stylelint-disable-next-line selector-type-no-unknown -- ZenLibraryTweaks' element */
+:is(zen-library-history-section, zen-library-history-tweaks-section) {
   & .zen-library-group h3 {
     margin: 0 !important;
     padding: 12px 10px 4px !important;

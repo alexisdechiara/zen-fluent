@@ -51,6 +51,9 @@ On Windows 11, the Mica / Acrylic backdrop comes from
 for `zen`); Zen Fluent tints it. Linux transparency, macOS, a manual install
 without Sine and the details: [docs/installation.md](docs/installation.md).
 
+Other mods: some need Zen Fluent’s compat rules (included), a few conflict
+with it: see [docs/compatibility.md](docs/compatibility.md).
+
 ## Settings
 
 Every setting, its preference and its default. Values and notes: one page per
@@ -131,7 +134,7 @@ theme.json        Zen Fluent's Sine manifest, points into core/
 core/             Zen Fluent: chrome.css, userContent.css, preferences.json, icons/, src/
 enhanced/         Zen Fluent Enhanced: theme.json, chrome.css, scripts/
 components.json   manifest for the future installer
-docs/             installation, settings, Enhanced, contributing
+docs/             installation, settings, compatibility, Enhanced, contributing
 ```
 
 ## Development
