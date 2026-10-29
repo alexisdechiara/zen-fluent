@@ -1,0 +1,252 @@
+{
+  "manifestVersion": 1,
+  "components": [
+    {
+      "id": "sine",
+      "name": "Sine",
+      "kind": "loader",
+      "required": true,
+      "license": "MPL-2.0",
+      "source": {
+        "type": "github-release",
+        "repo": "CosmoCreeper/Sine",
+        "tested": "2.3.4.1c"
+      },
+      "conflicts": ["fx-autoconfig"],
+      "notes": "Installs its own bootloader (a fork of fx-autoconfig 0.10.7): config.js and defaults/pref/config-prefs.js in the Zen folder, chrome/utils and chrome/JS in the profile. Clear the profile's startupCache after installing."
+    },
+    {
+      "id": "fx-autoconfig",
+      "name": "fx-autoconfig",
+      "kind": "loader",
+      "install": false,
+      "license": "MPL-2.0",
+      "source": { "type": "github", "repo": "MrOtherGuy/fx-autoconfig" },
+      "conflicts": ["sine"],
+      "notes": "Not used: it writes the same config.js and chrome/utils files as Sine's bootloader."
+    },
+    {
+      "id": "mica-for-everyone",
+      "name": "Mica For Everyone",
+      "kind": "system",
+      "optional": true,
+      "os": ["windows"],
+      "license": "MIT",
+      "source": {
+        "type": "github-release",
+        "repo": "MicaForEveryone/MicaForEveryone",
+        "tested": "2.0.6.0"
+      },
+      "configure": {
+        "rule": { "process": "zen", "backdrop": "zen-fluent.material" },
+        "notes": "Backdrop type follows zen-fluent.material: mica = Mica, mica-alt = Tabbed, acrylic = Acrylic. Title bar color: Default."
+      }
+    },
+    {
+      "id": "zen-fluent",
+      "name": "Zen Fluent",
+      "kind": "mod",
+      "required": true,
+      "version": "0.1.0",
+      "license": "MIT",
+      "js": false,
+      "source": {
+        "type": "sine",
+        "id": "Zen-Fluent",
+        "homepage": "https://github.com/alexisdechiara/zen-fluent"
+      },
+      "requires": ["sine"],
+      "prefs": { "svg.context-properties.content.enabled": true }
+    },
+    {
+      "id": "zen-fluent-enhanced",
+      "name": "Zen Fluent Enhanced",
+      "kind": "mod",
+      "optional": true,
+      "version": "0.1.0",
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine",
+        "id": "Zen-Fluent-Enhanced",
+        "homepage": "https://github.com/alexisdechiara/zen-fluent/tree/main/enhanced"
+      },
+      "requires": ["sine", "zen-fluent"],
+      "prefs": { "sine.allow-unsafe-js": true },
+      "notes": "sine.allow-unsafe-js is needed while the mod is not in the Sine store: ask the user before setting it."
+    },
+    {
+      "id": "advanced-tab-groups",
+      "name": "Advanced Tab Groups",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine-store",
+        "id": "advanced-tab-groups",
+        "homepage": "https://github.com/Vertex-Mods/Advanced-Tab-Groups"
+      },
+      "compat": "needs-rules",
+      "notes": "Fluent folder icons hide its folder look; group headers keep an 8px radius."
+    },
+    {
+      "id": "zen-command-palette",
+      "name": "Zen Command Palette",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine-store",
+        "id": "zen-command-palette",
+        "homepage": "https://github.com/Vertex-Mods/Zen-Command-Palette"
+      },
+      "compat": "ok",
+      "notes": "Its mode pill uses --zen-primary-color, not the Fluent accent."
+    },
+    {
+      "id": "zen-library-tweaks",
+      "name": "ZenLibraryTweaks",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine",
+        "id": "ZenLibraryTweaks",
+        "homepage": "https://github.com/JustAdumbPrsn/ZenLibraryTweaks"
+      },
+      "compat": "needs-rules",
+      "notes": "Replaces the History section element; button animations cancel its tab reorder slide."
+    },
+    {
+      "id": "zen-context-menu",
+      "name": "Zen Calmer Context Menu",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine",
+        "id": "zen-context-menu",
+        "homepage": "https://github.com/sinazadeh/zen-calmer-context-menu"
+      },
+      "compat": "ok",
+      "notes": "Its applyzenaccent / applyzengradient options replace the Acrylic menu background."
+    },
+    {
+      "id": "zen-second-sidebar",
+      "name": "Zen Second Sidebar Enhanced",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MPL-2.0",
+      "js": true,
+      "source": {
+        "type": "sine",
+        "id": "zen-second-sidebar",
+        "homepage": "https://github.com/sinazadeh/zen-second-sidebar-enhanced"
+      },
+      "compat": "needs-rules",
+      "notes": "Its panel reads the --sidebar-* tokens that Zen Fluent sets on #sidebar-box only."
+    },
+    {
+      "id": "zen-glance-plus",
+      "name": "Glance Plus",
+      "kind": "third-party",
+      "optional": true,
+      "license": "MIT",
+      "js": true,
+      "source": {
+        "type": "sine-store",
+        "id": "zen-glance-plus",
+        "homepage": "https://github.com/apoapostolov/Zen-Glance-Plus"
+      },
+      "compat": "untested",
+      "notes": "Store entry has no commit field: check that the store install works before offering it."
+    },
+    {
+      "id": "zen-page-tint",
+      "name": "Zen Page Tint",
+      "kind": "third-party",
+      "offer": false,
+      "license": "MIT",
+      "source": {
+        "type": "sine-store",
+        "id": "zen-page-tint",
+        "homepage": "https://github.com/caezium/zen-page-tint"
+      },
+      "compat": "conflict",
+      "notes": "Repaints the window from the page color over Mica, in a cascade layer that beats Zen Fluent."
+    },
+    {
+      "id": "blended-addressbar",
+      "name": "Blended Addressbar",
+      "kind": "third-party",
+      "offer": false,
+      "license": "MIT",
+      "source": {
+        "type": "sine-store",
+        "id": "blended-addressbar",
+        "homepage": "https://github.com/kkugot/blended-addressbar"
+      },
+      "compat": "conflict",
+      "notes": "Recolors the URL bar and top bar from the page; forces bookmark menus to the system color."
+    },
+    {
+      "id": "ff-better-findbar",
+      "name": "Better Find Bar",
+      "kind": "third-party",
+      "offer": false,
+      "license": "MIT",
+      "source": {
+        "type": "sine-store",
+        "id": "ff-better-findbar",
+        "homepage": "https://github.com/RobotoSkunk/ff-better-findbar"
+      },
+      "compat": "conflict",
+      "notes": "Duplicates Zen Fluent's find bar."
+    },
+    {
+      "id": "superpins",
+      "name": "SuperPins",
+      "kind": "third-party",
+      "offer": false,
+      "license": "MIT",
+      "source": {
+        "type": "sine-store",
+        "id": "ad97bb70-0066-4e42-9b5f-173a5e42c6fc",
+        "homepage": "https://github.com/CosmoCreeper/Zen-Themes/tree/main/SuperPins"
+      },
+      "compat": "conflict",
+      "notes": "Overlaps the Essentials and workspace indicator styles; uses selectors Zen 1.23 no longer has."
+    },
+    {
+      "id": "better-zen-gradient-picker",
+      "name": "BetterZenGradientPicker",
+      "kind": "third-party",
+      "offer": "link",
+      "license": "none",
+      "source": {
+        "type": "sine-store",
+        "id": "BetterZenGradientPicker",
+        "homepage": "https://github.com/JustAdumbPrsn/BetterZenGradientPicker"
+      },
+      "compat": "partial",
+      "notes": "No licence: never bundle. Zen Fluent hides the gradient; only the accent (zen-fluent.accent = zen) follows it."
+    },
+    {
+      "id": "zen-easel",
+      "name": "Zen Easel",
+      "kind": "third-party",
+      "offer": "link",
+      "license": "none",
+      "source": {
+        "type": "github",
+        "repo": "trashshii007/zen-easel"
+      },
+      "compat": "untested",
+      "notes": "No licence: never bundle, link only."
+    }
+  ]
+}
