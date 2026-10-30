@@ -266,18 +266,24 @@
           hide();
         }
       });
-      // Another menu or panel opening (a context menu) closes the card
-      ctx.listen(win, "popupshowing", (event) => {
-        if (event.target.id === "tabbrowser-tab-tooltip") {
-          event.preventDefault();
-        } else if (
-          event.target !== card &&
-          event.target.localName !== "tooltip" &&
-          !card.contains(event.target)
-        ) {
-          hide();
-        }
-      });
+      // Another menu or panel opening (a context menu) closes the card.
+      // Capture: a tooltip's popupshowing does not bubble to the window
+      ctx.listen(
+        win,
+        "popupshowing",
+        (event) => {
+          if (event.target.id === "tabbrowser-tab-tooltip") {
+            event.preventDefault();
+          } else if (
+            event.target !== card &&
+            event.target.localName !== "tooltip" &&
+            !card.contains(event.target)
+          ) {
+            hide();
+          }
+        },
+        true,
+      );
     },
   });
 
