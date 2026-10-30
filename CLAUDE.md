@@ -295,7 +295,10 @@ dismisses user prompts (`commonDialog`) before every command: to test a dialog,
 open a SubDialog that is not a prompt (`Sanitizer.showUI(window)`). Computed
 style enumeration also leaves out some registered custom properties
 (`--zf-accent-custom`), which `getPropertyValue()` still returns.
-Firefox 158 has `InspectorUtils.getMatchingCSSRules`.
+Firefox 158 has `InspectorUtils.getMatchingCSSRules`. Since Zen 1.24b
+(installed 2026-10-29), the chrome context also needs the environment variable
+`MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1`: the `--remote-allow-system-access` flag
+alone is refused ("System access is required").
 A tab left loading blocks the next Marionette session ("active session"):
 call `gBrowser.selectedBrowser.stop()` before a script ends. To try a CSS fix
 live, empty the child sheet with `deleteRule` and `loadSheet` the patched copy
