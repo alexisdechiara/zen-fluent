@@ -4,7 +4,8 @@
 /* "glow" keeps the tile of components/sidebar/essentials.css (the Edge
    style's raised tile in features/style-edge/essentials.css) with Zen's
    favicon glow, clipped to the tile, when zen.theme.essentials-favicon-bg is
-   on. Every other style replaces the accent dash and the glow, and stays
+   on. Every other style replaces the accent dash and the glow ("none"
+   keeps only the selected tile's fill), and stays
    inside the tile: the marks are inset, so neither the grid's clip nor the
    neighbouring tiles cut them. The color is --zf-essential-color
    (features/essentials-selected-color.css). Contrast themes keep the
@@ -13,7 +14,7 @@
 @media not (forced-colors) {
   /* The other values listed: "not glow" would also match a pref that does
      not exist yet */
-  @media (-moz-pref("zen-fluent.essentials.selected-style", "arc")) or (-moz-pref("zen-fluent.essentials.selected-style", "fill")) or (-moz-pref("zen-fluent.essentials.selected-style", "indicator")) or (-moz-pref("zen-fluent.essentials.selected-style", "outline")) or (-moz-pref("zen-fluent.essentials.selected-style", "lift")) or (-moz-pref("zen-fluent.essentials.selected-style", "tint")) {
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "arc")) or (-moz-pref("zen-fluent.essentials.selected-style", "fill")) or (-moz-pref("zen-fluent.essentials.selected-style", "indicator")) or (-moz-pref("zen-fluent.essentials.selected-style", "outline")) or (-moz-pref("zen-fluent.essentials.selected-style", "lift")) or (-moz-pref("zen-fluent.essentials.selected-style", "tint")) or (-moz-pref("zen-fluent.essentials.selected-style", "side")) or (-moz-pref("zen-fluent.essentials.selected-style", "none")) {
     .zen-essentials-container
       .tabbrowser-tab:is([selected], [visuallyselected])
       > .tab-stack
@@ -155,4 +156,25 @@
       box-shadow: none !important;
     }
   }
+
+  /* -------- Side: a vertical bar at the start, like a selected tab -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "side")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 50% auto auto 2px !important;
+      width: 3px !important;
+      height: 16px !important;
+      margin: -8px 0 0 !important;
+      border-radius: 1.5px !important;
+      background: var(--zf-essential-color) !important;
+      opacity: 1 !important;
+      z-index: 1;
+    }
+  }
+
+  /* -------- None: the selected tile's fill alone (no mark) -------- */
 }

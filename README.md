@@ -85,6 +85,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Edge hint at the window border in compact mode   | `zen-fluent.compact-edge-hint`                                              | `true`             |
 | [Essentials](docs/settings/essentials.md)             | Selected Essential                               | `zen-fluent.essentials.selected-style`                                      | `glow`             |
 |                                                       | Selected Essential color                         | `zen-fluent.essentials.selected-color`                                      | `accent`           |
+|                                                       | Open page indicator                              | `zen-fluent.essentials.running`                                             | `none`             |
 |                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
 |                                                       | Essentials width                                 | `zen-fluent.essentials.width`                                               | `auto`             |
 |                                                       | Icon size                                        | `zen-fluent.essentials.icon-size`                                           | `medium`           |

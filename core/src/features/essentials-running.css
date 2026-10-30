@@ -1,0 +1,24 @@
+/* Zen Fluent: Running indicator on the Essentials (zen-fluent.essentials.running).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "dot": a loaded Essential (not [pending], so its page is open) that is
+   not selected gets a small grey dot under its icon, like a running app on
+   the Windows taskbar; the selected one keeps its own mark
+   (zen-fluent.essentials.selected-style). An unloaded tile has none. */
+
+@media (-moz-pref("zen-fluent.essentials.running", "dot")) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected], [pending])
+    > .tab-stack
+    > .tab-background::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: auto auto 3px 50% !important;
+    width: 4px !important;
+    height: 4px !important;
+    margin: 0 0 0 -2px !important;
+    border-radius: 2px !important;
+    background: var(--zf-text-tertiary) !important;
+    opacity: 1 !important;
+  }
+}

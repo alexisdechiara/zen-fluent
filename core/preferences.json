@@ -269,7 +269,9 @@
       { "label": "Taskbar indicator", "value": "indicator" },
       { "label": "Outline", "value": "outline" },
       { "label": "Lift", "value": "lift" },
-      { "label": "Tint", "value": "tint" }
+      { "label": "Tint", "value": "tint" },
+      { "label": "Side bar", "value": "side" },
+      { "label": "None (fill only)", "value": "none" }
     ]
   },
   {
@@ -281,6 +283,17 @@
     "options": [
       { "label": "Accent", "value": "accent" },
       { "label": "Space color", "value": "space" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.running",
+    "label": "Open page indicator ~a dot under loaded tiles, like the taskbar~",
+    "type": "dropdown",
+    "defaultValue": "none",
+    "placeholder": false,
+    "options": [
+      { "label": "None", "value": "none" },
+      { "label": "Dot", "value": "dot" }
     ]
   },
   {
