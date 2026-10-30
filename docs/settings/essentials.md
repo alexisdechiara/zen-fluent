@@ -11,6 +11,7 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 | Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                                                               | `accent` |
 | Open page indicator                        | `zen-fluent.essentials.running`        | `none` None<br>`dot` Dot                                                                                                                                                                                             | `none`   |
 | Hover                                      | `zen-fluent.essentials.hover`          | `fill` Fill<br>`reveal` Fill and a soft light under the icon                                                                                                                                                         | `fill`   |
+| Labels                                     | `zen-fluent.essentials.labels`         | `hide` Icons only<br>`show` Icon and title                                                                                                                                                                           | `hide`   |
 | Essentials per row                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                                                                        | `auto`   |
 | Essentials width (automatic count per row) | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                                                                  | `auto`   |
 | Icon size                                  | `zen-fluent.essentials.icon-size`      | `small` Small (16 px)<br>`medium` Medium (20 px)<br>`large` Large (24 px)                                                                                                                                            | `medium` |
@@ -62,3 +63,15 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
   open ones.
 - **Hover**: the hover fill alone, or with a soft light rising from the bottom
   edge under the icon, as the taskbar lights an app under the pointer.
+- **Labels**: icons only, or the page title under each icon in 10 px text
+  (cut with an ellipsis); the tiles grow 14 px taller. A wider tile (Essentials
+  width, or fewer per row) shows more of the title. The collapsed sidebar
+  keeps icons only.
+
+## Taskbar settings found elsewhere
+
+- Material and transparency: **Material** and **Tint opacity** (Appearance).
+- Indicator color: **Selected Essential color** (accent or space); a custom
+  accent is the Appearance group's **Accent color**. The site's own color
+  needs a script: it will come with Zen Fluent Enhanced.
+- Badges (count, dot, none): the Extensions group's **Badges**.

@@ -308,6 +308,17 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.labels",
+    "label": "Labels",
+    "type": "dropdown",
+    "defaultValue": "hide",
+    "placeholder": false,
+    "options": [
+      { "label": "Icons only", "value": "hide" },
+      { "label": "Icon and title", "value": "show" }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials-per-row",
     "label": "Essentials per row ~fewer when the sidebar is too narrow~",
     "type": "dropdown",

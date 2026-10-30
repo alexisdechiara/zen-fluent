@@ -87,6 +87,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Selected Essential color                         | `zen-fluent.essentials.selected-color`                                      | `accent`           |
 |                                                       | Open page indicator                              | `zen-fluent.essentials.running`                                             | `none`             |
 |                                                       | Hover                                            | `zen-fluent.essentials.hover`                                               | `fill`             |
+|                                                       | Labels                                           | `zen-fluent.essentials.labels`                                              | `hide`             |
 |                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
 |                                                       | Essentials width                                 | `zen-fluent.essentials.width`                                               | `auto`             |
 |                                                       | Icon size                                        | `zen-fluent.essentials.icon-size`                                           | `medium`           |

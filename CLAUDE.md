@@ -174,6 +174,11 @@ come later. The owner writes to Claude in French: answer in French.
   registered property turns it into a length, then length / 1px a number.
   `progress()` is clamped to 0..1. Relative color syntax works
   (`oklch(from c clamp(0, (0.7 - l) * 1000, 1) 0 0deg)` = black or white).
+- XUL attributes map to `!important` UA rules in `xul.css` (`[flex="1"]`,
+  `[align]`, `[pack]`): they beat user `!important`. Work around them
+  (`max-height`, `align-self`, margins) instead of fighting them.
+- Zen 1.24 media card: `#zen-media-controls-toolbar` keeps its collapsed
+  height and the hovered card grows over the tabs above it.
 - `-moz-pref(name, "v")` is false while the pref does not exist: write a
   condition as the list of the other values, never `not (-moz-pref(name, v))`
   for a non-default look.
