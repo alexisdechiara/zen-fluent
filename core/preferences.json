@@ -260,6 +260,22 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.width",
+    "label": "Essentials width ~with an automatic count per row~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (fill the row)", "value": "auto" },
+      { "label": "40 px", "value": "40" },
+      { "label": "48 px", "value": "48" },
+      { "label": "56 px", "value": "56" },
+      { "label": "64 px", "value": "64" },
+      { "label": "72 px", "value": "72" },
+      { "label": "80 px", "value": "80" }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials.selected-style",
     "label": "Selected Essential",
     "type": "dropdown",

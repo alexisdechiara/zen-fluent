@@ -83,6 +83,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Workspace icon style                             | `zen-fluent.workspace-style`                                                | `pill`             |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
 |                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
+|                                                       | Essentials width                                 | `zen-fluent.essentials.width`                                               | `auto`             |
 |                                                       | Selected Essential                               | `zen-fluent.essentials.selected-style`                                      | `glow`             |
 |                                                       | Selected Essential color                         | `zen-fluent.essentials.selected-color`                                      | `accent`           |
 |                                                       | Essentials height                                | `zen-fluent.essentials.height`                                              | `auto`             |

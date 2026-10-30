@@ -12,6 +12,7 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 | Workspace icon style                           | `zen-fluent.workspace-style`           | `pill` Pill<br>`fill` Fill<br>`minimal` Minimal                                                                                                                        | `pill`   |
 | Grey Essentials icons                          | `zen-fluent.essentials-gray`           | `true` / `false`                                                                                                                                                       | `false`  |
 | Essentials per row                             | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                          | `auto`   |
+| Essentials width (automatic count per row)     | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                    | `auto`   |
 | Selected Essential                             | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint | `glow`   |
 | Selected Essential color                       | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                 | `accent` |
 | Essentials height                              | `zen-fluent.essentials.height`         | `auto` Automatic (density)<br>`32` 32 px<br>`36` 36 px<br>`42` 42 px<br>`48` 48 px<br>`56` 56 px                                                                       | `auto`   |
@@ -24,6 +25,10 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 - **Button style**: subtle (WinUI, a fill on hover) or standard (fill and
   border at rest); in the Edge style, the white fill and hairline of the URL bar.
 - **Essentials per row**: Automatic keeps as many 36 px columns as fit, a lone row stretched across. A count sets 2 to 6 equal columns: the tiles keep their height and gap, and keep their width when their row is not full. A sidebar too narrow for the count keeps as many 36 px columns as fit; the collapsed sidebar stays one column.
+- **Essentials width**: with Essentials per row on Automatic, the tiles
+  stretch to fill each row. A width keeps them that wide, as many per row as
+  fit, from the start of the row (never wider than the sidebar). Hidden when
+  Essentials per row is a count, which sets the width itself.
 - **Essentials height** and **Space between Essentials**: Automatic follows
   the density (42 px tiles 6 px apart, 36 px and 4 px in compact). The width
   stays the grid's: see Essentials per row.

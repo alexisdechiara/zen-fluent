@@ -249,6 +249,13 @@
       }
     }
 
+    /* A count of Essentials per row sets their width */
+    @media not (-moz-pref("zen-fluent.essentials-per-row", "auto")) {
+      & > #zen-fluent-essentials-width {
+        display: none !important;
+      }
+    }
+
     /* Lift raises the tile without any color */
     @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) {
       & > #zen-fluent-essentials-selected-color {
