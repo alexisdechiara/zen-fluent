@@ -297,6 +297,17 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.hover",
+    "label": "Hover",
+    "type": "dropdown",
+    "defaultValue": "fill",
+    "placeholder": false,
+    "options": [
+      { "label": "Fill", "value": "fill" },
+      { "label": "Fill and a soft light under the icon", "value": "reveal" }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials-per-row",
     "label": "Essentials per row ~fewer when the sidebar is too narrow~",
     "type": "dropdown",
