@@ -27,6 +27,11 @@
         [id^="zen-fluent-ui-open-"],
         #zen-fluent-ui-open-extensions ~ [id^="zen-fluent-ui-open-"] ~ *
       ),
+    #zen-fluent-ui-open-variants:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-variants ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
     #zen-fluent-ui-open-tabs:not(:has(> checkbox[checked]))
       ~ :not(
         [id^="zen-fluent-ui-open-"],

@@ -24,6 +24,7 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 
 - **Button style**: subtle (WinUI, a fill on hover) or standard (fill and
   border at rest); in the Edge style, the white fill and hairline of the URL bar.
+  A fill chosen in the Variants group replaces it.
 - **Essentials per row**: Automatic keeps as many 36 px columns as fit, a lone row stretched across. A count sets 2 to 6 equal columns: the tiles keep their height and gap, and keep their width when their row is not full. A sidebar too narrow for the count keeps as many 36 px columns as fit; the collapsed sidebar stays one column.
 - **Essentials width**: with Essentials per row on Automatic, the tiles
   stretch to fill each row. A width keeps them that wide, as many per row as

@@ -100,6 +100,14 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Alignment                                        | `zen-fluent.extensions.align`                                               | `auto`             |
 |                                                       | Row background                                   | `zen-fluent.extensions.background`                                          | `none`             |
 |                                                       | Badges                                           | `zen-fluent.extensions.badge`                                               | `show`             |
+| [Variants](docs/settings/variants.md)                 | Fill, everywhere                                 | `zen-fluent.variant.global`                                                 | `auto`             |
+|                                                       | Shape, everywhere                                | `zen-fluent.variant.global-shape`                                           | `auto`             |
+|                                                       | Toolbar and sidebar buttons: fill                | `zen-fluent.variant.buttons`                                                | `auto`             |
+|                                                       | Toolbar and sidebar buttons: shape               | `zen-fluent.variant.buttons-shape`                                          | `auto`             |
+|                                                       | Extension buttons: fill                          | `zen-fluent.variant.extensions`                                             | `auto`             |
+|                                                       | Extension buttons: shape                         | `zen-fluent.variant.extensions-shape`                                       | `auto`             |
+|                                                       | Essentials: fill                                 | `zen-fluent.variant.essentials`                                             | `auto`             |
+|                                                       | Essentials: shape                                | `zen-fluent.variant.essentials-shape`                                       | `auto`             |
 | [Tabs](docs/settings/tabs.md)                         | Tab text size                                    | `zen-fluent.tab-text-size`                                                  | `normal`           |
 |                                                       | Bold title on the selected tab                   | `zen-fluent.tab-bold`                                                       | `false`            |
 |                                                       | Accent pill on the selected tab                  | `zen-fluent.tab-pill`                                                       | `true`             |

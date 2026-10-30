@@ -487,6 +487,124 @@
     ]
   },
   {
+    "property": "zen-fluent.ui.open-variants",
+    "label": "Variants ~Fill and shape of buttons and tiles, for all or per component~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.variant.global",
+    "label": "Fill, everywhere",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (each component's own)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.global-shape",
+    "label": "Shape, everywhere",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (each component's own)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.buttons",
+    "label": "Toolbar and sidebar buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.buttons-shape",
+    "label": "Toolbar and sidebar buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.extensions",
+    "label": "Extension buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.extensions-shape",
+    "label": "Extension buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.essentials",
+    "label": "Essentials: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.essentials-shape",
+    "label": "Essentials: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
     "property": "zen-fluent.ui.open-tabs",
     "label": "Tabs ~Text, pill, shadow, close buttons, unloaded tabs, sound, containers~",
     "type": "checkbox",

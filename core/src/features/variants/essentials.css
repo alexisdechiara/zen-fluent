@@ -1,0 +1,108 @@
+/* Zen Fluent: Variant of the Essentials tiles (zen-fluent.variant.essentials).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The fill is for the tiles at rest (components/sidebar/essentials.css):
+   the selected one keeps zen-fluent.essentials.selected-style. The shape is
+   for every tile, the selected one too. Ghost leaves the bare icons, like
+   the taskbar. */
+
+/* The fill is this component's (zen-fluent.variant.essentials) when it names
+   one, else the global one (zen-fluent.variant.global); "auto" on both
+   keeps the look of the other settings. The shape is, in this order: this
+   component's shape, its "pill" fill, the global shape, the global "pill"
+   fill. "rounded" keeps the component's radius. The conditions test the
+   values that set something, so that a pref not written yet falls back to
+   the global choice. */
+
+@media (-moz-pref("zen-fluent.variant.essentials", "solid")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-solid-bg) !important;
+      box-shadow: var(--zf-variant-solid-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-solid-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-solid-bg-press) !important;
+      box-shadow: var(--zf-variant-solid-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-ghost-bg) !important;
+      box-shadow: var(--zf-variant-ghost-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-ghost-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-ghost-bg-press) !important;
+      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "outline")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-outline-bg) !important;
+      box-shadow: var(--zf-variant-outline-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-outline-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-outline-bg-press) !important;
+      box-shadow: var(--zf-variant-outline-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials-shape", "square")) or ((not ((-moz-pref("zen-fluent.variant.essentials-shape", "square")) or (-moz-pref("zen-fluent.variant.essentials-shape", "rounded")) or (-moz-pref("zen-fluent.variant.essentials-shape", "pill")))) and (not (-moz-pref("zen-fluent.variant.essentials", "pill"))) and (-moz-pref("zen-fluent.variant.global-shape", "square"))) {
+  .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.essentials-shape", "square")) or (-moz-pref("zen-fluent.variant.essentials-shape", "rounded")) or (-moz-pref("zen-fluent.variant.essentials-shape", "pill")))) and ((-moz-pref("zen-fluent.variant.essentials", "pill")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.global-shape", "square")) or (-moz-pref("zen-fluent.variant.global-shape", "rounded")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")))) and (-moz-pref("zen-fluent.variant.global", "pill"))))) {
+  .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+    border-radius: 9999px !important;
+    corner-shape: round !important;
+  }
+}

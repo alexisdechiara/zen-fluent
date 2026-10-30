@@ -27,6 +27,10 @@
       content: "\EA86";
     }
 
+    #zen-fluent-ui-open-variants::after {
+      content: "\E790";
+    }
+
     #zen-fluent-ui-open-tabs::after {
       content: "\E7C4";
     }

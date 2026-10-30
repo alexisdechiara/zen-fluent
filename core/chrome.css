@@ -16,6 +16,7 @@
 @import url("src/tokens/density.css");
 @import url("src/tokens/essentials-height.css");
 @import url("src/tokens/essentials-gap.css");
+@import url("src/tokens/variants.css");
 @import url("src/tokens/host-bridge.css");
 @import url("src/tokens/focus.css");
 @import url("src/tokens/forced-colors.css");
@@ -76,6 +77,8 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-width.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/essentials.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-color.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-style.css") not
@@ -95,6 +98,8 @@
 @import url("src/features/style-edge/toolbar-buttons.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/button-style.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/buttons.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/hide-forward-disabled.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
@@ -123,6 +128,8 @@
 @import url("src/features/extensions/rows.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/extensions/badge.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/extensions.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/a11y/forced-colors-sidebar.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
