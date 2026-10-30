@@ -1356,6 +1356,25 @@
     "defaultValue": true
   },
   {
+    "property": "zen.glance.enabled",
+    "label": "Glance ~open a link in a floating preview~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.glance.activation-method",
+    "label": "Open a link in Glance with",
+    "type": "dropdown",
+    "defaultValue": "alt",
+    "placeholder": false,
+    "options": [
+      { "label": "Alt+click", "value": "alt" },
+      { "label": "Ctrl+click", "value": "ctrl" },
+      { "label": "Shift+click", "value": "shift" },
+      { "label": "Windows key+click (Cmd on macOS)", "value": "meta" }
+    ]
+  },
+  {
     "property": "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled",
     "label": "Picture-in-Picture when leaving a video's tab",
     "type": "checkbox",

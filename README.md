@@ -185,6 +185,8 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Page loading indicator                           | `zen.view.enable-loading-indicator`                                         | `true`             |
 |                                                       | Grey out inactive windows                        | `zen.view.grey-out-inactive-windows`                                        | `true`             |
 |                                                       | Drop a tab on the page to split the view         | `zen.splitView.enable-tab-drop`                                             | `true`             |
+|                                                       | Glance                                           | `zen.glance.enabled`                                                        | `true`             |
+|                                                       | Open a link in Glance with                       | `zen.glance.activation-method`                                              | `alt`              |
 |                                                       | Picture-in-Picture when leaving a video's tab    | `media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled` | `false`            |
 |                                                       | Full Picture-in-Picture controls                 | `media.videocontrols.picture-in-picture.improved-video-controls.enabled`    | `true`             |
 
@@ -216,6 +218,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Tab hover cards                 | `zen-fluent.enhanced.hover-cards`                 | `false` |
 | Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
 | Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
+| Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 
 ## Repository
 

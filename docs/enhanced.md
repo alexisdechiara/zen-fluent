@@ -27,6 +27,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Tab hover cards                 | `zen-fluent.enhanced.hover-cards`                 | `false` |
 | Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
 | Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
+| Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -149,6 +150,14 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   switches the card at once; it closes when the pointer leaves the tab and
   the card, on a click, a drag, a menu, or when the window loses focus.
   Firefox's tab tooltip and its own tab preview stay hidden meanwhile.
+- **Glance link preview**: hold the key that opens Glance (Zen's
+  **Open a link in Glance with**, Alt by default; exposed in Zen Fluent's Zen
+  settings group) over a link for a moment: a card at the bottom of the page
+  shows the link's icon, its title if your history knows the page, its
+  address, and the click that opens it in Glance. It goes away when the key
+  is released or the pointer leaves the link; nothing shows while Glance is
+  off. The page itself is never read: the link is the one Firefox shows in
+  its status bar.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
@@ -163,14 +172,6 @@ It installs Zen Fluent too if it is missing (`modules` in its `theme.json`).
 Sine runs JavaScript from a mod outside its store only when **Enable installing
 JS from unofficial sources** is checked (`sine.allow-unsafe-js`). No
 fx-autoconfig: Sine ships its own loader, and fx-autoconfig would overwrite it.
-
-## Planned features
-
-| Feature                               | Setting (planned)            |
-| ------------------------------------- | ---------------------------- |
-| Glance style: link preview, Alt+click | `zen-fluent.enhanced.glance` |
-
-Each one is documented here, with its default, when it lands.
 
 ## Writing a script
 

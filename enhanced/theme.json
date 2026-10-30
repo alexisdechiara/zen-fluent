@@ -52,6 +52,9 @@
     },
     "scripts/hover-cards.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/glance.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

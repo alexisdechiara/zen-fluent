@@ -30,6 +30,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen settings group: **Glance** (`zen.glance.enabled`) and **Open a link in Glance with** (`zen.glance.activation-method`, Alt, Ctrl, Shift or the Windows key). Zen Fluent Enhanced: **Glance link preview** (`zen-fluent.enhanced.glance`, default `true`): holding that key over a link shows its icon, title, address and the Glance click.
 - Zen Fluent Enhanced: **Tab hover cards** (`zen-fluent.enhanced.hover-cards`, default `false`): a card beside the hovered tab with a page thumbnail, title, address, state and actions (copy link, duplicate, mute, unload, close); delay (`.delay`) and thumbnails (`.thumbnails`) options.
 - Zen Fluent Enhanced: **Fluent icons in the icon picker** (`zen-fluent.enhanced.icon-picker`, default `true`): 142 Fluent UI System Icons (MIT, Microsoft) after Zen's own in its icon picker, for spaces, folders and pinned tabs.
 - Zen Fluent Enhanced: **Folder colors** (`zen-fluent.enhanced.folder-colors`, default `true`): a Folder color menu in the folder context menu, with the Windows accent palette, for the folder icon.
