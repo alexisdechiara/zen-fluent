@@ -21,6 +21,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
 | PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
 | Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
+| Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -101,6 +102,24 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   - Zen Fluent's own CSS cannot do it: Sine's content sheet only reaches
     `about:` pages. Both features register their sheet with Firefox's style
     sheet service, which reaches web pages.
+- **Browsing stats** (off by default): app menu › **Browsing stats**, Tools ›
+  **Browsing stats** or Ctrl+Alt+Shift+S. For today, the last 7 or 30 days:
+  the time spent on pages, the visits and the sites, a bar per day (today in
+  the accent) and the top 10 sites. Nothing is recorded by Zen Fluent: the
+  visits come from your history and the time from Firefox's own page
+  interactions (`browser.places.interactions.enabled`, on by default in Zen,
+  kept 60 days by `browser.places.interactions.expireDays`); private
+  windows write neither. Reloads, downloads and embedded frames do not
+  count as visits.
+  - **Counts from the day it is turned on**
+    (`zen-fluent.enhanced.browsing-stats.since`, dropped when unchecked).
+    **Clear stats** (click twice) starts counting again from now; the
+    history is not touched.
+  - **Ignore** on a site leaves it out
+    (`zen-fluent.enhanced.browsing-stats.ignored`); **Ignored sites › Count
+    again** brings it back. `www.` is merged with the site.
+  - If time on pages is off in Firefox, the panel says so and offers to
+    turn it on; the bars then show visits.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

@@ -113,6 +113,11 @@ come later. The owner writes to Claude in French: answer in French.
   with `@-moz-document`. An agent sheet only replaces the browser's
   defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
   pdf.js by its markup (`#outerContainer`).
+- Zen 1.24's app menu: main view `appMenu-mainView` (Firefox's is
+  `appMenu-protonMainView`), built from a template on first open: add items
+  on its `ViewShowing` (capture). Firefox's Interactions are on in Zen
+  (`browser.places.interactions.enabled`), kept 60 days
+  (`browser.places.interactions.expireDays`), and recorded headless too.
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the
   variable too).

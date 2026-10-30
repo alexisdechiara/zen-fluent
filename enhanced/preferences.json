@@ -94,5 +94,11 @@
     "label": "Fluent controls on websites ~buttons and text fields a site leaves unstyled~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.browsing-stats",
+    "label": "Browsing stats ~time on pages, visits and sites, read from your history from now on~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

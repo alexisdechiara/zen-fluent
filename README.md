@@ -210,6 +210,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
 | PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
 | Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
+| Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
 
 ## Repository
 
