@@ -77,6 +77,8 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-width.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-align.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/variants/essentials.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-color.css") not

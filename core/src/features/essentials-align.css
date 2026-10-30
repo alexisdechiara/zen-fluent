@@ -1,0 +1,29 @@
+/* Zen Fluent: Alignment of the Essentials (zen-fluent.essentials.align).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "start" keeps the grid. "center" centers each row, the last one too,
+   like the centered Windows taskbar: a grid cannot center a short last
+   row, so the tiles wrap in a flex row instead, each as wide as
+   zen-fluent.essentials.width, or the column of a count per row
+   (features/essentials-per-row.css), or else nearly square: the tile's
+   height less 4px (38px, 32px in compact). The collapsed sidebar
+   keeps its column. */
+
+@media (-moz-pref("zen-fluent.essentials.align", "center")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+
+    & .tabbrowser-tab[zen-essential] {
+      flex: none !important;
+      width: min(
+        var(
+          --zf-essential-width,
+          var(--zf-essentials-column, calc(var(--zf-size-essential) - 4px))
+        ),
+        100%
+      ) !important;
+    }
+  }
+}

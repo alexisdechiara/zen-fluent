@@ -346,6 +346,17 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.align",
+    "label": "Alignment ~like the taskbar~",
+    "type": "dropdown",
+    "defaultValue": "start",
+    "placeholder": false,
+    "options": [
+      { "label": "Left", "value": "start" },
+      { "label": "Center", "value": "center" }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials-gray",
     "label": "Grey Essentials icons",
     "type": "checkbox",

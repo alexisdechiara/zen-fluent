@@ -13,6 +13,7 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 | Essentials width (automatic count per row) | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                    | `auto`   |
 | Essentials height                          | `zen-fluent.essentials.height`         | `auto` Automatic (density)<br>`32` 32 px<br>`36` 36 px<br>`42` 42 px<br>`48` 48 px<br>`56` 56 px                                                                       | `auto`   |
 | Space between Essentials                   | `zen-fluent.essentials.gap`            | `auto` Automatic (density)<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                                                                   | `auto`   |
+| Alignment                                  | `zen-fluent.essentials.align`          | `start` Left<br>`center` Center                                                                                                                                        | `start`  |
 | Grey Essentials icons                      | `zen-fluent.essentials-gray`           | `true` / `false`                                                                                                                                                       | `false`  |
 
 ## Notes
@@ -44,3 +45,8 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
   color needs a script and will come with Zen Fluent Enhanced. Contrast themes
   keep the system colors whatever the choice. Hidden with Lift, which uses no
   color.
+- **Alignment**: Left keeps the grid. Center centers each row, the last one
+  too, like the centered Windows taskbar; the tiles keep the width set above
+  (or the column of a count per row), else they are nearly square (the
+  height less 4 px). The extensions row has its own Alignment (Extensions
+  group).

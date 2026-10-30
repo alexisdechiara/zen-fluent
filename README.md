@@ -89,6 +89,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Essentials width                                 | `zen-fluent.essentials.width`                                               | `auto`             |
 |                                                       | Essentials height                                | `zen-fluent.essentials.height`                                              | `auto`             |
 |                                                       | Space between Essentials                         | `zen-fluent.essentials.gap`                                                 | `auto`             |
+|                                                       | Alignment                                        | `zen-fluent.essentials.align`                                               | `start`            |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
 | [Extensions](docs/settings/extensions.md)             | WinUI style for the extensions row               | `zen-fluent.pinned-extensions`                                              | `true`             |
 |                                                       | Place                                            | `zen-fluent.extensions.position`                                            | `top`              |
