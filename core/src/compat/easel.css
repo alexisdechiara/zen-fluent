@@ -1,0 +1,33 @@
+/* Zen Fluent: compatibility with Zen Easel (trashshii007/zen-easel): its about:easel panels in Fluent colors.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Easel styles its page from tokens declared on :host of <zen-easel> (its
+   ZenEasel.css, in the element's shadow root; a script also writes some
+   inline). A user !important declaration on the host element itself wins
+   over both, and the tokens inherit into the shadow tree, so the panels
+   (top bar, toolbar, menus, popups) take the mod's accent, Acrylic,
+   strokes and text colors. The board (--easel-bg, --easel-tint) and its
+   grips keep Easel's own colors: they are the user's canvas. Without Easel,
+   no page is about:easel and nothing here applies. */
+
+@-moz-document url-prefix("about:easel") {
+  zen-easel {
+    --easel-panel: var(--zf-acrylic) !important;
+    --easel-panel-border: var(--zf-stroke-divider) !important;
+    --easel-text: var(--zf-text-primary) !important;
+    --easel-muted: var(--zf-text-secondary) !important;
+    --easel-hover-bg: var(--zf-fill-subtle-hover) !important;
+    --easel-active-bg: var(--zf-fill-subtle-press) !important;
+    --easel-danger: var(--zf-critical) !important;
+    --easel-shadow: var(--zf-shadow-flyout) !important;
+    --easel-accent: var(--zf-accent) !important;
+    --easel-accent-soft: color-mix(
+      in srgb,
+      var(--zf-accent) 15%,
+      transparent
+    ) !important;
+    --easel-accent-strong: var(--zf-accent-hover) !important;
+
+    font-family: var(--zf-font) !important;
+  }
+}

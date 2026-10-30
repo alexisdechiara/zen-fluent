@@ -35,7 +35,9 @@ come later. The owner writes to Claude in French: answer in French.
   preference does not exist).
 - `core/icons/`: SVGs with `stroke="context-fill"`. `screenshots/`: README images.
 - `enhanced/`: `theme.json` (id `Zen-Fluent-Enhanced`, `modules` = Zen Fluent's
-  exact homepage), `chrome.css`, `scripts/` (rules in `enhanced/scripts/README.md`).
+  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `scripts/`
+  (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
+  Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
 - `components.json`: manifest for the future `.exe` installer
   (`installer/README.md`). `docs/`: installation, `docs/settings/<group>.md`,
@@ -90,8 +92,39 @@ come later. The owner writes to Claude in French: answer in French.
   lowercase id).
 - JavaScript: `scripts` map with `include`; scripts from a mod outside the store
   only run with `sine.allow-unsafe-js`. No per-script toggle (scripts follow the
-  mod), and every JS rebuild runs the scripts again: guard and clean up.
+  mod), and every JS rebuild runs the scripts again: guard and clean up. A
+  `.uc.js` is rerun on a rebuild only after the callback it gave to
+  `window.addUnloadListener` (keyed on the calling file) ran; without one Sine
+  skips it. Enhanced features go through `enhanced/scripts/lib/zf-feature.sys.mjs`
+  (`enhanced/scripts/README.md`).
+- A checkbox's `defaultValue` is written to the pref only when Sine builds the
+  mod's settings (`applyCheckbox` in `preferences.sys.mjs`): until the user
+  opens them, the pref is missing. Enhanced features read it with their
+  `default` (checked against `enhanced/preferences.json`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
+- A profile mod cannot run code in web pages: `ChromeUtils.registerWindowActor`
+  with a `chrome://sine/...` module registers, but `getActor` in a
+  `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
+  as for Sine's own content actor. A page's `theme-color` or DOM is out of
+  reach; the chrome only has the tab's icon, title and URL.
+- The style sheet service does reach web pages: `loadAndRegisterSheet` of a
+  `chrome://sine/...` sheet applies in web content processes (checked on
+  Zen 1.24b, `lib/zf-sheets.sys.mjs`), and in chrome windows too: scope it
+  with `@-moz-document`. An agent sheet only replaces the browser's
+  defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
+  pdf.js by its markup (`#outerContainer`).
+- A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
+  the window: listen in the capture phase to cancel it.
+- DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`
+  visible (its issue 5229, for a bar opened over the video) in the collapsed
+  toolbox, and the page card keeps its stroke and corner unless
+  `core/src/base/dom-fullscreen.css` (imported after the options) resets
+  them.
+- Zen 1.24's app menu: main view `appMenu-mainView` (Firefox's is
+  `appMenu-protonMainView`), built from a template on first open: add items
+  on its `ViewShowing` (capture). Firefox's Interactions are on in Zen
+  (`browser.places.interactions.enabled`), kept 60 days
+  (`browser.places.interactions.expireDays`), and recorded headless too.
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the
   variable too).
@@ -169,6 +202,27 @@ come later. The owner writes to Claude in French: answer in French.
   cannot sit inside `@media`, so each file carries its own condition.
 - Firefox 158 supports `sign()` and typed arithmetic (length / length gives a
   number) in chrome CSS.
+- Firefox 159 refuses any percentage in a `<number>` context (`50% / 1%`,
+  `sign(50%)`): `progress(p, -100%, 100%)` in a `<length-percentage>`
+  registered property turns it into a length, then length / 1px a number.
+  `progress()` is clamped to 0..1. Relative color syntax works
+  (`oklch(from c clamp(0, (0.7 - l) * 1000, 1) 0 0deg)` = black or white).
+- XUL attributes map to `!important` UA rules in `xul.css` (`[flex="1"]`,
+  `[align]`, `[pack]`): they beat user `!important`. Work around them
+  (`max-height`, `align-self`, margins) instead of fighting them.
+- Zen 1.24 Boost editor: its own chrome window (`zen-boost-editor.xhtml`,
+  `#zenBoostWindow`), which gets Sine's chrome sheet; colors come from
+  `--zen-boosts-*` tokens, and its buttons have a 6px transparent border
+  their fill runs under. The Boost share card (`.zbs-*`) is left as Zen
+  designed it: it is the image people share.
+- Zen Easel (no licence: read, never copy or run): `about:easel` is a
+  system-principal page, reached by `core/userContent.css`; its tokens sit on
+  `:host` of `<zen-easel>`, overridden by user rules on the element.
+- Zen 1.24 media card: `#zen-media-controls-toolbar` keeps its collapsed
+  height and the hovered card grows over the tabs above it.
+- `-moz-pref(name, "v")` is false while the pref does not exist: write a
+  condition as the list of the other values, never `not (-moz-pref(name, v))`
+  for a non-default look.
 - Firefox does not blur web content behind a `backdrop-filter`: an Acrylic
   surface over the page shows it sharp. Everything that floats over the page
   (open URL bar, compact sidebar and top bar, find bar, dialogs) takes
@@ -248,6 +302,22 @@ come later. The owner writes to Claude in French: answer in French.
   `#controls-bottom-gradient` and the sliders are `.control-item` too.
 - Zen's source (`zen-browser/desktop`, `src/zen`) is the reference for
   selectors.
+- Zen 1.24b (Gecko 159, checked 2026-10-30 against its omni.ja): of the
+  mod's ~700 selector tokens only `#zen-site-data-boost` (Boost moved to the
+  site panel's quick action tiles, `#zen-site-data-header-boost`; reader view
+  moved to the footer, `#zen-site-data-reader-mode`) and
+  `#zenSpaceRoutingDialog` (Space Routing is now a Library section,
+  `.zen-library-routing-*`) are gone. New UI: Boost sharing (`.zbs-*`), the
+  space's scroll-to-tab button (`.zen-workspace-scroll-to-tab`), `.ghost`
+  buttons.
+- Essentials: Zen's favicon glow is `.tab-background::after` (inset -50%,
+  blur 20px) clipped by `overflow` on `.tab-background`; the mod clips with
+  `overflow: clip`. `--zen-primary-color` (on `:root`) is the accent Zen
+  derives from the current space's theme.
+- Single toolbar: `#zen-overflow-extensions-list` is the first child of
+  `#titlebar` (flex column) before `#TabsToolbar`, which holds the Essentials,
+  the tabs and `#zen-sidebar-foot-buttons`: `order` can put the row at the
+  very bottom, not between the Essentials and the tabs.
 
 ## Tests
 
@@ -314,6 +384,20 @@ paints remote pages over the chrome: to picture an overlay of a loading page,
 build it on a static page. A slow local page (a server that sends a chunk, then
 waits) keeps a tab `[busy]`. Several agents can test at once: one headless
 instance each, its own profile and Marionette port.
+Visible window (only when the owner asks): `zen.sh startvis`, driven by
+`harness/vis.py` (WebDriver actions inside the browser, never OS input;
+`capture.ps1` grabs only the window's rectangle, in virtual screen
+coordinates, negative on a screen left of the main one). Keys sent in the
+content context never reach the chrome: send them in the chrome context
+with the page focused, as the OS would. A synthesized hover in a page is
+dropped within ~100 ms (the real cursor is elsewhere): Firefox sends
+`OverLink` with the link, then an empty one, so a held hover cannot be
+tested without moving the real cursor.
+Enhanced scripts: `loadSubScript` refuses `file://`; put a test script under
+the test profile's `chrome/sine-mods/<folder>/` and load
+`chrome://sine/content/<folder>/<file>`. Sine's manager is the default export
+of `chrome://userscripts/content/core/manager.sys.mjs`; its
+`triggerUnloadListener(url, window)` runs a script's clean-up.
 
 ## To do
 

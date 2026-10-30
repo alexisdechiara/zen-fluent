@@ -5,19 +5,29 @@
    #zen-overflow-extensions-list, right under the urlbar. Zen draws them as
    filled pills; Zen Fluent turns the row into WinUI subtle buttons. */
 
+/* The layout goes through row-local tokens, which the extension settings
+   set (features/extensions/): icon and button size, gap, the column count
+   (auto-fill or a number) and the column track. A track never gets
+   narrower than --zf-ext-min: one button, or 0 with a fixed count. */
 @media (-moz-pref("zen-fluent.pinned-extensions")) {
   :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
-    --uei-icon-size: 16px !important;
+    --zf-ext-icon: 16px;
+    --zf-ext-button: var(--zf-size-icon-button);
+    --zf-ext-gap: 2px;
+    --zf-ext-count: auto-fill;
+    --zf-ext-min: var(--zf-ext-button);
+    --zf-ext-track: minmax(var(--zf-ext-min), 1fr);
+    --uei-icon-size: var(--zf-ext-icon) !important;
 
-    gap: 2px !important;
+    gap: var(--zf-ext-gap) !important;
     padding: 6px 0 0 !important;
     grid-template-columns: repeat(
-      auto-fill,
-      minmax(var(--zf-size-icon-button), 1fr)
+      var(--zf-ext-count),
+      var(--zf-ext-track)
     ) !important;
 
     & .unified-extensions-item-action-button {
-      height: var(--zf-size-icon-button) !important;
+      height: var(--zf-ext-button) !important;
       border-radius: var(--zf-radius-control) !important;
       background-color: transparent !important;
       transition: background-color var(--zf-duration-fast) linear !important;
@@ -50,15 +60,10 @@
 
     /* Edge: 32px buttons 4px apart, radius 8, Fluent 2 subtle fills */
     @media (-moz-pref("zen-fluent.style", "edge")) {
-      gap: 4px !important;
-      grid-template-columns: repeat(
-        auto-fill,
-        var(--zf-size-icon-button)
-      ) !important;
+      --zf-ext-gap: 4px;
+      --zf-ext-track: minmax(var(--zf-ext-min), var(--zf-ext-button));
 
       & .unified-extensions-item-action-button {
-        width: var(--zf-size-icon-button) !important;
-
         &:hover {
           background-color: var(--zf-edge-hover) !important;
         }

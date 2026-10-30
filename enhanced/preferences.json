@@ -1,0 +1,147 @@
+[
+  {
+    "property": "zen-fluent.enhanced.quick-settings",
+    "label": "Quick Settings ~a button in the sidebar's bottom row: main settings and presets~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.favicon-color",
+    "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.adaptive-accent",
+    "label": "Adaptive accent ~the accent takes the color of the site's icon~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.extensions-below-essentials",
+    "label": "Extensions under the Essentials ~single toolbar, with the extensions row on top~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-numbers",
+    "label": "Tab numbers while Ctrl is held ~the number Ctrl+1 to Ctrl+9 selects~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.shortcuts",
+    "label": "Shortcuts ~Ctrl+Alt+Shift+D density, +T light or dark, +M material~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-archive",
+    "label": "Tab archiving ~closes tabs left unused and keeps them in a searchable archive~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-archive.after",
+    "label": "Archive tabs unused for",
+    "type": "dropdown",
+    "defaultValue": "12",
+    "placeholder": false,
+    "options": [
+      { "label": "1 hour", "value": "1" },
+      { "label": "3 hours", "value": "3" },
+      { "label": "6 hours", "value": "6" },
+      { "label": "12 hours", "value": "12" },
+      { "label": "1 day", "value": "24" },
+      { "label": "2 days", "value": "48" },
+      { "label": "1 week", "value": "168" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-archive.keep",
+    "label": "Keep archived tabs",
+    "type": "dropdown",
+    "defaultValue": "90",
+    "placeholder": false,
+    "options": [
+      { "label": "7 days", "value": "7" },
+      { "label": "30 days", "value": "30" },
+      { "label": "90 days", "value": "90" },
+      { "label": "1 year", "value": "365" },
+      { "label": "Forever", "value": "forever" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-archive.pinned",
+    "label": "Archive pinned tabs too",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-archive.folders",
+    "label": "Archive tabs in folders too",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.pdf-viewer",
+    "label": "PDF viewer ~Firefox's PDF toolbar, sidebar and menus in Fluent colors~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.web-controls",
+    "label": "Fluent controls on websites ~buttons and text fields a site leaves unstyled~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.browsing-stats",
+    "label": "Browsing stats ~time on pages, visits and sites, read from your history from now on~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.folder-colors",
+    "label": "Folder colors ~a Folder color menu in each folder's context menu~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.icon-picker",
+    "label": "Fluent icons in the icon picker ~for spaces, folders and pinned tabs; needs Allow the mod's icons~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards",
+    "label": "Tab hover cards ~a preview and actions beside the tab under the pointer~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards.delay",
+    "label": "Hover card delay",
+    "type": "dropdown",
+    "defaultValue": "500",
+    "placeholder": false,
+    "options": [
+      { "label": "Short (0.3 s)", "value": "300" },
+      { "label": "Medium (0.5 s)", "value": "500" },
+      { "label": "Long (0.8 s)", "value": "800" },
+      { "label": "Longer (1.2 s)", "value": "1200" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards.thumbnails",
+    "label": "Page thumbnails in hover cards",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.glance",
+    "label": "Glance link preview ~hold the Glance key over a link to see where it goes~",
+    "type": "checkbox",
+    "defaultValue": true
+  }
+]

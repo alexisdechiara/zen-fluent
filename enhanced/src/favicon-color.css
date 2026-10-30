@@ -1,0 +1,43 @@
+/* Zen Fluent Enhanced: the selected Essential in the exact color of its icon (zen-fluent.enhanced.favicon-color).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/favicon-color.uc.js sets --zf-favicon-color and zf-favicon-color
+   on each tab whose icon it could read. With Zen Fluent's Selected Essential
+   color on Icon color, the selected Essential takes it as its color: the
+   rings and borders (Arc, Outline, Tint) get it, and the marks and fills
+   that Zen Fluent paints with the blurred favicon are painted in it instead,
+   in the same shapes. Its lightness stays between 0.45 and 0.8 so a white or
+   black icon still shows on the tile. A tab without a readable icon keeps
+   Zen Fluent's blurred favicon. */
+
+@media not (forced-colors) {
+  @media (not (-moz-pref("zen-fluent.enhanced.favicon-color", false))) and (-moz-pref("zen-fluent.essentials.selected-color", "icon")) {
+    .zen-essentials-container
+      .tabbrowser-tab[zf-favicon-color]:is([selected], [visuallyselected]) {
+      --zf-essential-color: oklch(
+        from var(--zf-favicon-color) clamp(0.45, l, 0.8) c h
+      ) !important;
+      --zf-essential-on-color: oklch(
+        from var(--zf-essential-color) clamp(0, (0.7 - l) * 1000, 1) 0 0deg
+      ) !important;
+
+      /* The marks: dash, taskbar pill, side bar (the other styles have no
+         ::before) */
+      & > .tab-stack > .tab-background::before {
+        background: var(--zf-essential-color) !important;
+        filter: none !important;
+      }
+    }
+
+    /* The fills: ::after is Zen's own favicon glow in the other styles */
+    @media (-moz-pref("zen-fluent.essentials.selected-style", "fill")) or (-moz-pref("zen-fluent.essentials.selected-style", "tint")) or (-moz-pref("zen-fluent.essentials.selected-style", "arc")) {
+      .zen-essentials-container
+        .tabbrowser-tab[zf-favicon-color]:is([selected], [visuallyselected])
+        > .tab-stack
+        > .tab-background::after {
+        background: var(--zf-essential-color) !important;
+        filter: none !important;
+      }
+    }
+  }
+}

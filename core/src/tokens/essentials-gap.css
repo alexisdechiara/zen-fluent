@@ -1,0 +1,43 @@
+/* Zen Fluent: Gap between Essentials tiles (zen-fluent.essentials.gap).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the density's gap (tokens/density.css: 6px, 4px in
+   compact). A size sets --zf-gap-essentials, the grid's row and column gap,
+   also counted by features/essentials-per-row.css and the collapsed
+   sidebar's column (components/sidebar/collapsed.css). */
+
+@media (-moz-pref("zen-fluent.essentials.gap", "0")) {
+  :root {
+    --zf-gap-essentials: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.gap", "2")) {
+  :root {
+    --zf-gap-essentials: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.gap", "4")) {
+  :root {
+    --zf-gap-essentials: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.gap", "6")) {
+  :root {
+    --zf-gap-essentials: 6px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.gap", "8")) {
+  :root {
+    --zf-gap-essentials: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.gap", "12")) {
+  :root {
+    --zf-gap-essentials: 12px;
+  }
+}

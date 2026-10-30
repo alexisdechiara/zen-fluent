@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Changed
 
+- The selected Essential's favicon glow is half as strong.
 - The repository holds two Sine mods: Zen Fluent (`core/`, CSS only) and Zen
   Fluent Enhanced (`enhanced/`, JavaScript, no feature yet). The 21 modules are
   now 188 files with one subject each, imported in the same order: the look
@@ -29,6 +30,32 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen settings group: **Glance** (`zen.glance.enabled`) and **Open a link in Glance with** (`zen.glance.activation-method`, Alt, Ctrl, Shift or the Windows key). Zen Fluent Enhanced: **Glance link preview** (`zen-fluent.enhanced.glance`, default `true`): holding that key over a link shows its icon, title, address and the Glance click.
+- Zen Fluent Enhanced: **Tab hover cards** (`zen-fluent.enhanced.hover-cards`, default `false`): a card beside the hovered tab with a page thumbnail, title, address, state and actions (copy link, duplicate, mute, unload, close); delay (`.delay`) and thumbnails (`.thumbnails`) options.
+- Zen Fluent Enhanced: **Fluent icons in the icon picker** (`zen-fluent.enhanced.icon-picker`, default `true`): 142 Fluent UI System Icons (MIT, Microsoft) after Zen's own in its icon picker, for spaces, folders and pinned tabs.
+- Zen Fluent Enhanced: **Folder colors** (`zen-fluent.enhanced.folder-colors`, default `true`): a Folder color menu in the folder context menu, with the Windows accent palette, for the folder icon.
+- Zen Fluent Enhanced: **Browsing stats** (`zen-fluent.enhanced.browsing-stats`, default `false`): time on pages, visits and sites for today, 7 or 30 days, a bar per day and the top sites, read from Firefox's history and page interactions from the day it is turned on; Ignore a site, Clear stats.
+- Zen Fluent Enhanced: **PDF viewer** (`zen-fluent.enhanced.pdf-viewer`, default `true`), Firefox's PDF viewer in Fluent colors, and **Fluent controls on websites** (`zen-fluent.enhanced.web-controls`, default `false`), the WinUI look for buttons and text fields a site leaves unstyled, through sheets registered with Firefox's style sheet service.
+- Zen Fluent Enhanced: **Tab archiving** (`zen-fluent.enhanced.tab-archive`, default `false`): tabs unused for 12 hours (`.after`) are saved to an archive file and closed, with Undo; never the selected tab, Essentials, tabs playing sound, Glance or split tabs, pinned tabs (`.pinned`) or tabs in folders (`.folders`); a searchable archive panel (tab context menu, Ctrl+Alt+Shift+A) reopens them in their space; entries kept 90 days (`.keep`).
+- Zen Fluent Enhanced: **Quick Settings** (`zen-fluent.enhanced.quick-settings`, default `true`), a sidebar button with Zen Fluent's main settings and five presets (Windows 11, Microsoft Edge, Taskbar, Arc, Compact) with Undo; **Adaptive accent** (`zen-fluent.enhanced.adaptive-accent`, default `false`), the accent in the color of the site's icon; **Extensions under the Essentials** (`zen-fluent.enhanced.extensions-below-essentials`, default `false`); **Tab numbers while Ctrl is held** (`zen-fluent.enhanced.tab-numbers`, default `true`); **Shortcuts** (`zen-fluent.enhanced.shortcuts`, default `true`) for the density, the window theme and the material.
+- Zen Fluent Enhanced's first feature, **Icon colors** (`zen-fluent.enhanced.favicon-color`, default `true`): it reads the dominant color of each tab's icon, and with **Selected Essential color** on Icon color the selected Essential takes that exact color, its rings and borders included.
+- Zen Fluent Enhanced: the life cycle every feature script shares (`enhanced/scripts/lib/zf-feature.sys.mjs`: its own checkbox, clean stop, safe reruns) and its rules in `npm run check`. No feature yet.
+- Selected Essential: a Glow only style (the favicon glow without the dash, whatever Zen's glow setting) and an Icon color (`icon`) for **Selected Essential color**: fills and marks take the favicon's color.
+- Tab note icons, if Firefox's tab notes are turned back on (`browser.tabs.notes.enabled`): the row glyph in the secondary text color, the badge over a pinned tab's icon in the accent.
+- The Boost editor window (Zen 1.24) in Fluent: Mica surfaces, WinUI buttons, the accent for active tools and Share (`core/src/components/panels/boost-editor-window.css`).
+- Zen Easel compatibility: the panels of `about:easel` take Zen Fluent's accent, Acrylic, text and stroke colors (`core/src/compat/easel.css`).
+- Essentials labels (`zen-fluent.essentials.labels`, default `hide`): the page title under each icon, like labelled taskbar apps.
+- Essentials hover (`zen-fluent.essentials.hover`, default `fill`): a soft light under the icon of the hovered tile, like the taskbar.
+- Essentials open page indicator (`zen-fluent.essentials.running`, default `none`): a dot under loaded tiles, like the taskbar's running apps. Selected Essential gets two more styles: Side bar and None (fill only).
+- Essentials icon size (`zen-fluent.essentials.icon-size`, default `medium`): 16, 20 or 24 px favicons.
+- Essentials alignment (`zen-fluent.essentials.align`, default `start`): Center centers each row of tiles, the last one too, like the centered Windows taskbar.
+- An Essentials settings group: the Essentials settings of the Sidebar group moved there, with the taskbar-style ones below.
+- A Variants settings group: a fill (solid, subtle, ghost, outline, or pill = pill shape with the current fill) and a shape (square, rounded, pill) for every component at once (`zen-fluent.variant.global`, `zen-fluent.variant.global-shape`) or per component (`zen-fluent.variant.<component>` and `-shape`): toolbar and sidebar buttons, extension buttons, Essentials, tabs, pinned tabs, folder headers, space buttons, URL bar, URL bar buttons, badges, panel and dialog buttons. Automatic everywhere keeps today's look.
+- Essentials width (`zen-fluent.essentials.width`, default `auto`): with an automatic count per row, tiles 40 to 80 px wide instead of stretched across the row.
+- An Extensions settings group for the row of pinned extensions (`zen-fluent.extensions.*`): place (above the Essentials, bottom of the sidebar, hidden), columns, rows (or one scrolling row), icon and button size (also in the classic toolbar), gap, alignment, row background (subtle, card, Acrylic) and badges (count, dot, none). **Extensions under the URL bar, WinUI style** moved to this group.
+- Selected Essential style (`zen-fluent.essentials.selected-style`, default `glow`): the dash and Zen's favicon glow as today, or Arc (colored border, 3D edge), Fill, Taskbar indicator, Outline, Lift or Tint. Every style stays inside its tile.
+- Selected Essential color (`zen-fluent.essentials.selected-color`, default `accent`): the accent or the current space's color.
+- Essentials height (`zen-fluent.essentials.height`) and space between them (`zen-fluent.essentials.gap`), both `auto` by default: the density's 42 / 36 px tiles and 6 / 4 px gap, or a fixed size.
 - Page loading bar as a WinUI ProgressBar (`zen-fluent.loading-bar`, default
   `winui`): Zen’s indicator becomes a 3 px indeterminate bar along the top of
   the page.
@@ -69,6 +96,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- Full screen video (YouTube and others): a 1px frame, the page's rounded top corner and a 2px strip of the URL bar no longer show in the top left corner.
+- A folder given its own icon (Zen's Change icon) showed only Zen Fluent's Fluent folder icon, without that icon: it now keeps Zen's folder, which draws it.
+- Zen 1.24: the hovered media card grows over the tabs above it; their titles no longer show through its card fill: it takes Acrylic while hovered.
+- The favicon glow of the selected Essential (`zen.theme.essentials-favicon-bg`) stays inside its tile: the mod's `overflow: visible` let it spill over the neighbouring tiles.
+- Zen 1.24: the site panel's reader view button, moved to the footer, gets the footer's 32 px subtle button and the accent while reader view is on (Boost, now a quick action tile, already had the tile style).
+- A custom tint opacity (`50%` or `50`) is applied: Firefox refused the percentage in a number, so every custom value fell back to 64 %. An invalid entry still keeps the material's own coat.
 - The selected Essential's accent dash is centred again, 3 px above the tile's edge: Zen's own margin had moved it 9 px aside.
 
 ## [0.1.0] - 2026-10-26

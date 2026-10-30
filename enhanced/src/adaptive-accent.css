@@ -1,0 +1,19 @@
+/* Zen Fluent Enhanced: the accent of the site in the selected tab (zen-fluent.enhanced.adaptive-accent).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/adaptive-accent.uc.js sets --zf-accent-dynamic and
+   zf-adaptive-accent on the window's root while the selected tab's site has
+   a colorful icon. It becomes the accent's base, so every color derived from it
+   (accent, hover, the Mica tint) follows. Its lightness stays between 0.45
+   and 0.75 so the accent reads on both themes. Without a site color, Zen
+   Fluent's own accent (zen-fluent.accent) stays. */
+
+@media not (forced-colors) {
+  @media (-moz-pref("zen-fluent.enhanced.adaptive-accent")) {
+    :root[zf-adaptive-accent] {
+      --zf-accent-base: oklch(
+        from var(--zf-accent-dynamic) clamp(0.45, l, 0.75) c h
+      ) !important;
+    }
+  }
+}

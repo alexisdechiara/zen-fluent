@@ -1,0 +1,139 @@
+/* Zen Fluent: Variant of the buttons inside the URL bar (zen-fluent.variant.urlbar-buttons).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The site button, permissions, tracking protection, bookmark star and
+   page actions (components/urlbar/buttons.css), with the selector of
+   features/url-style/pill.css so that a later rule wins. */
+
+/* The fill is this component's (zen-fluent.variant.urlbar-buttons) when it names
+   one, else the global one (zen-fluent.variant.global); "auto" on both
+   keeps the look of the other settings. The shape is, in this order: this
+   component's shape, its "pill" fill, the global shape, the global "pill"
+   fill. "rounded" keeps the component's radius. The conditions test the
+   values that set something, so that a pref not written yet falls back to
+   the global choice. */
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons", "solid")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons", "solid")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    background-color: var(--zf-variant-solid-bg) !important;
+    box-shadow: var(--zf-variant-solid-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-solid-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-solid-bg-press) !important;
+      box-shadow: var(--zf-variant-solid-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons", "solid")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    background-color: var(--zf-variant-subtle-bg) !important;
+    box-shadow: var(--zf-variant-subtle-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons", "solid")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    background-color: var(--zf-variant-ghost-bg) !important;
+    box-shadow: var(--zf-variant-ghost-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-ghost-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-ghost-bg-press) !important;
+      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons", "outline")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons", "solid")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    background-color: var(--zf-variant-outline-bg) !important;
+    box-shadow: var(--zf-variant-outline-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-outline-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-outline-bg-press) !important;
+      box-shadow: var(--zf-variant-outline-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "square")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "square")) or (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "rounded")) or (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "pill")))) and (not (-moz-pref("zen-fluent.variant.urlbar-buttons", "pill"))) and (-moz-pref("zen-fluent.variant.global-shape", "square"))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "square")) or (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "rounded")) or (-moz-pref("zen-fluent.variant.urlbar-buttons-shape", "pill")))) and ((-moz-pref("zen-fluent.variant.urlbar-buttons", "pill")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.global-shape", "square")) or (-moz-pref("zen-fluent.variant.global-shape", "rounded")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")))) and (-moz-pref("zen-fluent.variant.global", "pill"))))) {
+  #urlbar:not([breakout-extend])
+    :is(
+      #identity-icon-box,
+      #identity-permission-box,
+      #zen-site-data-icon-button,
+      #tracking-protection-icon-container,
+      #star-button-box,
+      .urlbar-page-action
+    ) {
+    border-radius: 9999px !important;
+    corner-shape: round !important;
+  }
+}

@@ -1,0 +1,23 @@
+/* Zen Fluent: Tab note icons (Firefox's browser.tabs.notes.enabled, off in Zen).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* With tab notes turned back on, a tab with a note ([tab-note]) shows a
+   note glyph in its row and, when only its icon shows (pinned, collapsed
+   sidebar), a badge over the icon. The glyph takes the secondary text
+   color like the other row icons; the badge the accent with a ring of the
+   window color, like the Essentials' audio badge. */
+
+@media (-moz-pref("browser.tabs.notes.enabled")) {
+  .tabbrowser-tab[tab-note] {
+    & .tab-note-icon {
+      fill: var(--zf-text-secondary) !important;
+    }
+
+    & .tab-note-icon-overlay {
+      background: var(--zf-accent) !important;
+      fill: var(--zf-on-accent) !important;
+      box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
+      corner-shape: round !important;
+    }
+  }
+}

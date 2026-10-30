@@ -145,7 +145,9 @@ const allCss = sheets.map(read).join("\n");
 const ownPrefs = prefs.filter(
   (p) =>
     p.property?.startsWith("zen-fluent.") &&
-    !p.property.startsWith("zen-fluent.ui."),
+    !p.property.startsWith("zen-fluent.ui.") &&
+    // Read by their script (checked under "Enhanced scripts")
+    !p.property.startsWith("zen-fluent.enhanced."),
 );
 for (const p of ownPrefs) {
   const dashed = p.property.replace(/\./g, "-");
@@ -170,6 +172,130 @@ for (const p of prefs.filter(
     fail(
       `README: the row of ${p.property} must show its default \`${shown(p.defaultValue)}\``,
     );
+}
+
+// ---- Enhanced scripts: declared, the shared life cycle, a pref each
+// (enhanced/scripts/README.md). Feature scripts are .uc.js files in
+// enhanced/scripts/; shared modules in enhanced/scripts/lib/ are imported by
+// them and never declared, or Sine would also import them at startup.
+const declared = new Set(Object.keys(enhanced?.scripts || {}));
+const scriptFiles = [
+  ...walk("enhanced/scripts", ".js"),
+  ...walk("enhanced/scripts", ".mjs"),
+];
+const featureNames = new Set();
+for (const file of scriptFiles) {
+  const key = file.slice("enhanced/".length);
+  const code = read(file);
+  if (!code.startsWith("// Zen Fluent Enhanced: "))
+    fail(`${file}: missing the "// Zen Fluent Enhanced: …" header`);
+  if (key.startsWith("scripts/lib/")) {
+    if (declared.has(key))
+      fail(`enhanced/theme.json: ${key} is a shared module, not a script`);
+    continue;
+  }
+  if (!key.endsWith(".uc.js")) {
+    fail(`${file}: feature scripts are .uc.js files`);
+    continue;
+  }
+  if (!declared.has(key))
+    fail(`${file}: not declared in enhanced/theme.json "scripts"`);
+  if (!/ZFFeature\.attach\(window,/.test(code))
+    fail(`${file}: must start through ZFFeature.attach(window, …)`);
+  if (!/window\.addUnloadListener\?\.\(/.test(code))
+    fail(
+      `${file}: must give Sine its clean-up (window.addUnloadListener?.(…))`,
+    );
+  const name = code.match(/\bname:\s*"([a-z][a-z0-9-]*)"/)?.[1];
+  if (name) featureNames.add(name);
+  if (!name) fail(`${file}: no feature name: "…"`);
+  else if (!ids.has(`zen-fluent.enhanced.${name}`))
+    fail(
+      `${file}: its checkbox zen-fluent.enhanced.${name} is missing from enhanced/preferences.json`,
+    );
+  else {
+    // A missing pref reads as the script's default, before Sine writes it
+    const checkbox = prefs.find(
+      (p) => p.property === `zen-fluent.enhanced.${name}`,
+    );
+    const scripted = /\bdefault:\s*true\b/.test(code);
+    if (scripted !== (checkbox.defaultValue === true))
+      fail(
+        `${file}: default: ${scripted} differs from the checkbox's defaultValue ${checkbox.defaultValue === true}`,
+      );
+  }
+}
+for (const p of prefs.filter((p) =>
+  p.property?.startsWith("zen-fluent.enhanced."),
+))
+  // A feature's own options are zen-fluent.enhanced.<feature>.<option>
+  if (
+    !featureNames.has(
+      p.property.slice("zen-fluent.enhanced.".length).split(".")[0],
+    )
+  )
+    fail(`preferences: ${p.property} has no feature script`);
+
+// ---- Quick Settings: every setting and preset value is one of Zen Fluent's
+const quick = fs.existsSync(path.join(root, "enhanced/quick-settings.json"))
+  ? json("enhanced/quick-settings.json")
+  : null;
+if (quick) {
+  const byId = new Map(prefs.map((p) => [p.property, p]));
+  const known = (property, where) => {
+    const pref = byId.get(property);
+    if (!pref || !property.startsWith("zen-fluent."))
+      fail(
+        `enhanced/quick-settings.json: ${where} ${property} is not a Zen Fluent setting`,
+      );
+    else if (!["dropdown", "checkbox"].includes(pref.type))
+      fail(
+        `enhanced/quick-settings.json: ${where} ${property} is a ${pref.type} (dropdowns and checkboxes only)`,
+      );
+    return pref;
+  };
+  for (const property of quick.settings || []) known(property, "setting");
+  for (const property of Object.keys(quick.labels || {}))
+    if (!(quick.settings || []).includes(property))
+      fail(
+        `enhanced/quick-settings.json: label for ${property}, which is not in "settings"`,
+      );
+  for (const preset of quick.presets || []) {
+    if (!preset.id || !preset.name || !preset.description)
+      fail(
+        `enhanced/quick-settings.json: a preset needs id, name and description`,
+      );
+    for (const [property, value] of Object.entries(preset.prefs || {})) {
+      const pref = known(property, `preset ${preset.id}:`);
+      if (
+        pref?.type === "dropdown" &&
+        !pref.options.some((o) => o.value === value)
+      )
+        fail(
+          `enhanced/quick-settings.json: preset ${preset.id}: ${value} is not a value of ${property}`,
+        );
+      if (pref?.type === "checkbox" && typeof value !== "boolean")
+        fail(
+          `enhanced/quick-settings.json: preset ${preset.id}: ${property} takes true or false`,
+        );
+    }
+  }
+}
+
+// ---- Fluent icons: icons.json and the SVG files match, each with its notice
+const iconDir = "enhanced/icons/fluent";
+if (fs.existsSync(path.join(root, iconDir))) {
+  const listed = json(`${iconDir}/icons.json`)?.icons ?? [];
+  const files = walk(iconDir, ".svg").map((f) => path.basename(f, ".svg"));
+  for (const name of listed)
+    if (!files.includes(name))
+      fail(`${iconDir}/icons.json: ${name}.svg missing`);
+  for (const name of files) {
+    if (!listed.includes(name))
+      fail(`${iconDir}/${name}.svg: not listed in icons.json`);
+    if (!read(`${iconDir}/${name}.svg`).includes("Microsoft Corporation"))
+      fail(`${iconDir}/${name}.svg: missing its licence comment`);
+  }
 }
 
 // ---- Paths quoted in the docs exist

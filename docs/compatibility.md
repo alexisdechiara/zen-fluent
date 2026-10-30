@@ -13,7 +13,7 @@ what Zen Fluent does about it.
 | [Zen Command Palette](#zen-command-palette)                 | Works, with Zen Fluent's compat rules |
 | [Zen Calmer Context Menu](#zen-calmer-context-menu)         | Works, with Zen Fluent's compat rules |
 | [BetterZenGradientPicker](#betterzengradientpicker)         | Works, but its gradient does not show |
-| [Zen Easel](#zen-easel)                                     | Works as is                           |
+| [Zen Easel](#zen-easel)                                     | Works, with Zen Fluent's compat rules |
 | [Zen Page Tint](#zen-page-tint)                             | Conflicts: do not use both            |
 | [Blended Addressbar](#blended-addressbar)                   | Conflicts: do not use both            |
 | [Better Find Bar](#better-find-bar)                         | Conflicts: do not use both            |
@@ -149,9 +149,20 @@ checked in the browser.
 
 ## Zen Easel
 
-[trashshii007/zen-easel](https://github.com/trashshii007/zen-easel). Works as
-is. Its **Send to Easel** menu keeps the colors of Easel's own bar rather than
-the Acrylic, on purpose. Not checked in the browser.
+[trashshii007/zen-easel](https://github.com/trashshii007/zen-easel) (checked:
+0.9.0, its code read, not run). An infinite canvas at `about:easel`.
+
+- The page's panels (top bar, toolbar, menus, popups) take Zen Fluent's
+  accent, Acrylic, strokes, text colors, shadow and font: Easel declares
+  them as tokens on its `<zen-easel>` element, which a user rule overrides.
+  The board and its grips keep Easel's colors: they are the canvas.
+- Its **Send to Easel** menu keeps the colors of Easel's own bar rather than
+  the Acrylic, on purpose.
+
+Checked on a hand-built `<zen-easel>` with Easel's token rules, not in a
+running Easel.
+
+File: `core/src/compat/easel.css`.
 
 ## Zen Page Tint
 

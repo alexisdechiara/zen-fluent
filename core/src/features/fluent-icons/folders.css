@@ -25,4 +25,17 @@
     > .zen-library-folder-icon {
     background-image: url("../../../icons/folder.svg") !important;
   }
+
+  /* A folder given its own icon (Zen's Change icon) keeps Zen's folder,
+     which draws that icon on its front: the Fluent folder has no room for
+     it */
+  zen-folder
+    > .tab-group-label-container
+    > .tab-group-folder-icon:has(svg .icon image:not([href=""])) {
+    background-image: none !important;
+
+    & > svg {
+      visibility: visible !important;
+    }
+  }
 }

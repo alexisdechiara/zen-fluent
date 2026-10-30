@@ -73,6 +73,7 @@ export default {
           "toolbarseparator",
           "tooltip",
           "vbox",
+          "zen-easel",
           "zen-folder",
           "zen-library",
           "zen-library-downloads-section",

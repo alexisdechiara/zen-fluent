@@ -1,0 +1,40 @@
+/* Zen Fluent: Gap in the extensions row (zen-fluent.extensions.gap).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps 2px (4px in the Edge style) */
+
+@media (-moz-pref("zen-fluent.extensions.gap", "0")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.gap", "2")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.gap", "4")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.gap", "6")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 6px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.gap", "8")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.gap", "12")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: 12px;
+  }
+}

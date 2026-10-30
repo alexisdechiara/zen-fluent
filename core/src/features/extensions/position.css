@@ -1,0 +1,22 @@
+/* Zen Fluent: Position of the extensions row (zen-fluent.extensions.position).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Single toolbar: Zen puts the row first in #titlebar (a flex column),
+   above #TabsToolbar, which holds the Essentials, the tabs and the foot
+   buttons. "bottom" moves it after #TabsToolbar: the very bottom of the
+   sidebar, under the foot buttons. Between the Essentials and the tabs
+   needs a script (Zen Fluent Enhanced's
+   extensions-below-essentials). "hidden" hides the row: the
+   extensions stay in the site panel and the Extensions menu. */
+
+@media (-moz-pref("zen-fluent.extensions.position", "bottom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    order: 1 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.position", "hidden")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    display: none !important;
+  }
+}

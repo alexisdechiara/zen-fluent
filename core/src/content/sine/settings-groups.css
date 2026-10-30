@@ -22,6 +22,21 @@
         [id^="zen-fluent-ui-open-"],
         #zen-fluent-ui-open-sidebar ~ [id^="zen-fluent-ui-open-"] ~ *
       ),
+    #zen-fluent-ui-open-essentials:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-essentials ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-extensions:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-extensions ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
+    #zen-fluent-ui-open-variants:not(:has(> checkbox[checked]))
+      ~ :not(
+        [id^="zen-fluent-ui-open-"],
+        #zen-fluent-ui-open-variants ~ [id^="zen-fluent-ui-open-"] ~ *
+      ),
     #zen-fluent-ui-open-tabs:not(:has(> checkbox[checked]))
       ~ :not(
         [id^="zen-fluent-ui-open-"],
@@ -240,6 +255,20 @@
 
     @media not (-moz-pref("zen-fluent.corner-radius", "custom")) {
       & > #zen-fluent-corner-radius-custom {
+        display: none !important;
+      }
+    }
+
+    /* A count of Essentials per row sets their width */
+    @media not (-moz-pref("zen-fluent.essentials-per-row", "auto")) {
+      & > #zen-fluent-essentials-width {
+        display: none !important;
+      }
+    }
+
+    /* Lift and Glow only mark the tile without any color */
+    @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) or (-moz-pref("zen-fluent.essentials.selected-style", "glow-only")) {
+      & > #zen-fluent-essentials-selected-color {
         display: none !important;
       }
     }

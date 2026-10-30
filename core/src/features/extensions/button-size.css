@@ -1,0 +1,92 @@
+/* Zen Fluent: Button size in the extensions row (zen-fluent.extensions.button-size).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the density's icon button (32px, 28px in compact). The
+   button is that tall, and that wide unless the row stretches it. The
+   classic toolbar's extension buttons become that square (Firefox paints
+   their fill on the badge stack). */
+
+@media (-moz-pref("zen-fluent.extensions.button-size", "24")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: 24px;
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.button-size", "28")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: 28px;
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.button-size", "32")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: 32px;
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.button-size", "36")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: 36px;
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.button-size", "40")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: 40px;
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}

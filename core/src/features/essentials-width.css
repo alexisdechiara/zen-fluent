@@ -1,0 +1,57 @@
+/* Zen Fluent: Width of the Essentials tiles with an automatic count (zen-fluent.essentials.width).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* With zen-fluent.essentials-per-row on "auto", the grid stretches its
+   36px columns across the sidebar: a lone row of two tiles fills it. A
+   width keeps every tile that wide, as many per row as fit, from the start
+   of the row (never wider than the sidebar). A count of tiles per row sets
+   the width itself: this setting then does nothing. The collapsed sidebar
+   keeps its one column (components/sidebar/collapsed.css). */
+
+@media (-moz-pref("zen-fluent.essentials.width", "40")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 40px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "48")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 48px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "56")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 56px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "64")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 64px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "72")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 72px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "80")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: 80px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.width", "40")) or (-moz-pref("zen-fluent.essentials.width", "48")) or (-moz-pref("zen-fluent.essentials.width", "56")) or (-moz-pref("zen-fluent.essentials.width", "64")) or (-moz-pref("zen-fluent.essentials.width", "72")) or (-moz-pref("zen-fluent.essentials.width", "80")) {
+  @media (-moz-pref("zen-fluent.essentials-per-row", "auto")) {
+    #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+      grid-template-columns: repeat(
+        auto-fill,
+        min(var(--zf-essential-width), 100%)
+      ) !important;
+      justify-content: start !important;
+    }
+  }
+}

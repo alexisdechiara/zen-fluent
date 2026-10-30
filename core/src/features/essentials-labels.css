@@ -1,0 +1,52 @@
+/* Zen Fluent: Titles under the Essentials icons (zen-fluent.essentials.labels).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "show" puts the page title under the icon, in 10px text cut with an
+   ellipsis, as the taskbar can label its apps; the tiles grow 14px taller
+   for it and their content keeps 2px sides. Zen hides the label of Essentials with an !important
+   author rule: a user !important rule wins. Its container is a XUL vbox
+   with flex="1" and align="start", which xul.css (an !important UA rule,
+   above any user rule) turns into flex: 1 and align-items: flex-start:
+   max-height keeps it one line tall, align-self centers the title. The
+   collapsed sidebar keeps icons only. */
+
+@media (-moz-pref("zen-fluent.essentials.labels", "show")) {
+  #navigator-toolbox[zen-sidebar-expanded] {
+    & #zen-essentials {
+      --tab-min-height: calc(var(--zf-size-essential) + 14px) !important;
+    }
+
+    & .zen-essentials-container .tabbrowser-tab {
+      & .tab-content {
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        padding-inline: 2px !important;
+      }
+
+      & .tab-label-container {
+        display: flex !important;
+        width: 100% !important;
+        max-height: 12px !important;
+        mask-image: none !important;
+      }
+
+      & .tab-label {
+        align-self: center !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        font-size: 10px !important;
+        line-height: 12px !important;
+        text-align: center !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        color: var(--zf-text-secondary) !important;
+      }
+
+      & .zen-tab-sublabel {
+        display: none !important;
+      }
+    }
+  }
+}

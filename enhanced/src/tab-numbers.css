@@ -1,0 +1,33 @@
+/* Zen Fluent Enhanced: tab numbers while Ctrl is held (zen-fluent.enhanced.tab-numbers).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/tab-numbers.uc.js writes the number on each tab's icon stack
+   (positioned by Firefox) while Ctrl is held: a small accent badge on the
+   icon's bottom end corner, like the taskbar's badges. Contrast themes take
+   the system's highlight colors. */
+
+@media not (-moz-pref("zen-fluent.enhanced.tab-numbers", false)) {
+  :root[zf-tab-numbers] .tab-icon-stack[zf-tab-number]::after {
+    content: attr(zf-tab-number) !important;
+    position: absolute !important;
+    inset: auto -5px -4px auto !important;
+    z-index: 2 !important;
+    min-width: 12px !important;
+    height: 12px !important;
+    padding: 0 2px !important;
+    border-radius: 6px !important;
+    background: var(--zf-accent) !important;
+    box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
+    color: var(--zf-on-accent) !important;
+    font: 600 9px / 12px var(--zf-font) !important;
+    text-align: center !important;
+  }
+
+  @media (forced-colors) {
+    :root[zf-tab-numbers] .tab-icon-stack[zf-tab-number]::after {
+      background: Highlight !important;
+      box-shadow: 0 0 0 1px Canvas !important;
+      color: HighlightText !important;
+    }
+  }
+}

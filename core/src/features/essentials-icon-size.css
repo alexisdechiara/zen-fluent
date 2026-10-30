@@ -1,0 +1,20 @@
+/* Zen Fluent: Icon size in the Essentials tiles (zen-fluent.essentials.icon-size).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "medium" keeps the 20px favicon of components/sidebar/essentials.css;
+   small and large are 16 and 24px, like the taskbar's icon sizes. The tile
+   keeps its height (zen-fluent.essentials.height). */
+
+@media (-moz-pref("zen-fluent.essentials.icon-size", "small")) {
+  .zen-essentials-container .tabbrowser-tab .tab-icon-image {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.icon-size", "large")) {
+  .zen-essentials-container .tabbrowser-tab .tab-icon-image {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}

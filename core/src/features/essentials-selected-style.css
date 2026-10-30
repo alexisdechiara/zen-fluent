@@ -1,0 +1,218 @@
+/* Zen Fluent: How the selected Essential is drawn (zen-fluent.essentials.selected-style).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "glow" keeps the tile of components/sidebar/essentials.css (the Edge
+   style's raised tile in features/style-edge/essentials.css) with Zen's
+   favicon glow, clipped to the tile and softened to half its strength, when
+   zen.theme.essentials-favicon-bg is on. "glow-only" draws that glow itself
+   (whatever Zen's setting) on the tile at rest, without the dash. Every other style replaces the accent dash and the glow ("none"
+   keeps only the selected tile's fill), and stays
+   inside the tile: the marks are inset, so neither the grid's clip nor the
+   neighbouring tiles cut them. The color is --zf-essential-color
+   (features/essentials-selected-color.css). Contrast themes keep the
+   system colors of a11y/forced-colors-sidebar.css. */
+
+@media not (forced-colors) {
+  /* The other values listed: "not glow" would also match a pref that does
+     not exist yet */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "arc")) or (-moz-pref("zen-fluent.essentials.selected-style", "fill")) or (-moz-pref("zen-fluent.essentials.selected-style", "indicator")) or (-moz-pref("zen-fluent.essentials.selected-style", "outline")) or (-moz-pref("zen-fluent.essentials.selected-style", "lift")) or (-moz-pref("zen-fluent.essentials.selected-style", "tint")) or (-moz-pref("zen-fluent.essentials.selected-style", "side")) or (-moz-pref("zen-fluent.essentials.selected-style", "none")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      &::before,
+      &::after {
+        content: none !important;
+      }
+    }
+  }
+
+  /* -------- Glow: Zen's favicon glow at half strength -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "glow")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background::after {
+      opacity: 0.5 !important;
+    }
+  }
+
+  /* -------- Glow only: the favicon glow on the tile at rest -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "glow-only")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      background-color: var(--zf-fill-card) !important;
+      box-shadow: none !important;
+
+      &::before {
+        content: none !important;
+      }
+
+      /* Zen's own glow, drawn here so it does not depend on
+         zen.theme.essentials-favicon-bg */
+      &::after {
+        content: "" !important;
+        position: absolute !important;
+        inset: -50% !important;
+        z-index: -1 !important;
+        background: var(--zen-essential-tab-icon) center / contain no-repeat !important;
+        filter: blur(20px) !important;
+        opacity: 0.6 !important;
+      }
+    }
+  }
+
+  /* -------- Arc: colored border, light top edge, dark bottom edge -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "arc")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border: 2px solid var(--zf-essential-color) !important;
+      background-color: color-mix(
+        in srgb,
+        var(--zf-essential-color) 14%,
+        var(--zf-fill-control)
+      ) !important;
+      /* The lip under the tile is the 3px dark inner bottom edge: an outer
+         shadow would be cut by the grid's clip on the last row */
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 35%),
+        inset 0 -3px 0 color-mix(in srgb, var(--zf-essential-color), black 35%) !important;
+    }
+  }
+
+  /* -------- Fill: the color, icon on black or white -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "fill")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected]) {
+      & > .tab-stack > .tab-background {
+        border-color: transparent !important;
+        background-color: var(--zf-essential-color) !important;
+        box-shadow: var(--zf-shadow-tab) !important;
+      }
+
+      &:hover > .tab-stack > .tab-background {
+        background-color: color-mix(
+          in srgb,
+          var(--zf-essential-color),
+          var(--zf-essential-on-color) 10%
+        ) !important;
+      }
+
+      /* Glyph icons (no favicon) take the readable color; a favicon keeps
+         its own colors, outlined in it */
+      & > .tab-stack > .tab-content {
+        color: var(--zf-essential-on-color) !important;
+        fill: var(--zf-essential-on-color) !important;
+      }
+
+      & .tab-icon-image {
+        filter: drop-shadow(
+          0 0 1px
+            color-mix(in srgb, var(--zf-essential-on-color) 70%, transparent)
+        ) !important;
+      }
+    }
+  }
+
+  /* -------- Indicator: the taskbar's running app pill -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "indicator")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border-color: var(--zf-stroke-control) !important;
+      background-color: var(--zf-fill-subtle-hover) !important;
+      box-shadow: none !important;
+
+      /* 16 x 3px, rounded, 2px above the bottom edge */
+      &::before {
+        content: "" !important;
+        position: absolute !important;
+        inset: auto auto 2px 50% !important;
+        width: 16px !important;
+        height: 3px !important;
+        margin: 0 0 0 -8px !important;
+        border-radius: 1.5px !important;
+        background: var(--zf-essential-color) !important;
+        opacity: 1 !important;
+        z-index: 1;
+      }
+    }
+  }
+
+  /* -------- Outline: a 2px ring inside the tile, no fill -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "outline")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-fill-card) !important;
+      box-shadow: none !important;
+      outline: 2px solid var(--zf-essential-color) !important;
+      outline-offset: -2px !important;
+    }
+  }
+
+  /* -------- Lift: lighter fill, soft shadow, 1px up -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack {
+      translate: 0 -1px !important;
+
+      & > .tab-background {
+        border-color: var(--zf-stroke-control) !important;
+        background-color: color-mix(
+          in srgb,
+          var(--zf-fill-control-hover),
+          white 8%
+        ) !important;
+        box-shadow:
+          0 1px 3px light-dark(rgb(0 0 0 / 10%), rgb(0 0 0 / 30%)),
+          0 1px 1px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 20%)) !important;
+      }
+    }
+  }
+
+  /* -------- Tint: 25 % of the color, a thin border of it -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "tint")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border: 1px solid var(--zf-essential-color) !important;
+      background-color: color-mix(
+        in srgb,
+        var(--zf-essential-color) 25%,
+        transparent
+      ) !important;
+      box-shadow: none !important;
+    }
+  }
+
+  /* -------- Side: a vertical bar at the start, like a selected tab -------- */
+  @media (-moz-pref("zen-fluent.essentials.selected-style", "side")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 50% auto auto 2px !important;
+      width: 3px !important;
+      height: 16px !important;
+      margin: -8px 0 0 !important;
+      border-radius: 1.5px !important;
+      background: var(--zf-essential-color) !important;
+      opacity: 1 !important;
+      z-index: 1;
+    }
+  }
+
+  /* -------- None: the selected tile's fill alone (no mark) -------- */
+}

@@ -12,7 +12,51 @@
   "style": {
     "chrome": "chrome.css"
   },
-  "scripts": {},
+  "preferences": "preferences.json",
+  "scripts": {
+    "scripts/quick-settings.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/favicon-color.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/adaptive-accent.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/extensions-below-essentials.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-numbers.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/shortcuts.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-archive.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/pdf-viewer.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/web-controls.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/browsing-stats.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/folder-colors.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/icon-picker.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/hover-cards.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/glance.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    }
+  },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],
   "tags": ["chrome", "javascript", "fluent", "windows"],
   "fork": ["zen"]

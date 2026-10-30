@@ -199,7 +199,7 @@
   },
   {
     "property": "zen-fluent.ui.open-sidebar",
-    "label": "Sidebar ~Buttons, extensions, workspaces, compact mode~",
+    "label": "Sidebar ~Buttons, workspaces, compact mode~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -221,12 +221,6 @@
     "defaultValue": false
   },
   {
-    "property": "zen-fluent.pinned-extensions",
-    "label": "Extensions under the URL bar, WinUI style ~single toolbar~",
-    "type": "checkbox",
-    "defaultValue": true
-  },
-  {
     "property": "zen-fluent.workspace-indicator",
     "label": "Workspace indicator",
     "type": "checkbox",
@@ -245,10 +239,86 @@
     ]
   },
   {
-    "property": "zen-fluent.essentials-gray",
-    "label": "Grey Essentials icons",
+    "property": "zen-fluent.compact-sidebar-bg",
+    "label": "Acrylic sidebar background in compact mode",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.compact-edge-hint",
+    "label": "Edge hint at the window border in compact mode",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.ui.open-essentials",
+    "label": "Essentials ~Tiles like the Windows taskbar: selected style, size, layout, indicators~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.essentials.selected-style",
+    "label": "Selected Essential",
+    "type": "dropdown",
+    "defaultValue": "glow",
+    "placeholder": false,
+    "options": [
+      { "label": "Dash and favicon glow", "value": "glow" },
+      { "label": "Glow only", "value": "glow-only" },
+      { "label": "Arc (colored border, 3D edge)", "value": "arc" },
+      { "label": "Fill", "value": "fill" },
+      { "label": "Taskbar indicator", "value": "indicator" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Lift", "value": "lift" },
+      { "label": "Tint", "value": "tint" },
+      { "label": "Side bar", "value": "side" },
+      { "label": "None (fill only)", "value": "none" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.selected-color",
+    "label": "Selected Essential color",
+    "type": "dropdown",
+    "defaultValue": "accent",
+    "placeholder": false,
+    "options": [
+      { "label": "Accent", "value": "accent" },
+      { "label": "Space color", "value": "space" },
+      { "label": "Icon color", "value": "icon" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.running",
+    "label": "Open page indicator ~a dot under loaded tiles, like the taskbar~",
+    "type": "dropdown",
+    "defaultValue": "none",
+    "placeholder": false,
+    "options": [
+      { "label": "None", "value": "none" },
+      { "label": "Dot", "value": "dot" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.hover",
+    "label": "Hover",
+    "type": "dropdown",
+    "defaultValue": "fill",
+    "placeholder": false,
+    "options": [
+      { "label": "Fill", "value": "fill" },
+      { "label": "Fill and a soft light under the icon", "value": "reveal" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.labels",
+    "label": "Labels",
+    "type": "dropdown",
+    "defaultValue": "hide",
+    "placeholder": false,
+    "options": [
+      { "label": "Icons only", "value": "hide" },
+      { "label": "Icon and title", "value": "show" }
+    ]
   },
   {
     "property": "zen-fluent.essentials-per-row",
@@ -266,16 +336,563 @@
     ]
   },
   {
-    "property": "zen-fluent.compact-sidebar-bg",
-    "label": "Acrylic sidebar background in compact mode",
+    "property": "zen-fluent.essentials.width",
+    "label": "Essentials width ~with an automatic count per row~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (fill the row)", "value": "auto" },
+      { "label": "40 px", "value": "40" },
+      { "label": "48 px", "value": "48" },
+      { "label": "56 px", "value": "56" },
+      { "label": "64 px", "value": "64" },
+      { "label": "72 px", "value": "72" },
+      { "label": "80 px", "value": "80" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.icon-size",
+    "label": "Icon size",
+    "type": "dropdown",
+    "defaultValue": "medium",
+    "placeholder": false,
+    "options": [
+      { "label": "Small (16 px)", "value": "small" },
+      { "label": "Medium (20 px)", "value": "medium" },
+      { "label": "Large (24 px)", "value": "large" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.height",
+    "label": "Essentials height",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "32 px", "value": "32" },
+      { "label": "36 px", "value": "36" },
+      { "label": "42 px", "value": "42" },
+      { "label": "48 px", "value": "48" },
+      { "label": "56 px", "value": "56" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.gap",
+    "label": "Space between Essentials",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "0 px", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "6 px", "value": "6" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.align",
+    "label": "Alignment ~like the taskbar~",
+    "type": "dropdown",
+    "defaultValue": "start",
+    "placeholder": false,
+    "options": [
+      { "label": "Left", "value": "start" },
+      { "label": "Center", "value": "center" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials-gray",
+    "label": "Grey Essentials icons",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.ui.open-extensions",
+    "label": "Extensions ~The row of pinned extensions: place, size, layout, badges~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.pinned-extensions",
+    "label": "WinUI style for the extensions row ~single toolbar; the settings below need it, except place and badges~",
     "type": "checkbox",
     "defaultValue": true
   },
   {
-    "property": "zen-fluent.compact-edge-hint",
-    "label": "Edge hint at the window border in compact mode",
+    "property": "zen-fluent.extensions.position",
+    "label": "Place",
+    "type": "dropdown",
+    "defaultValue": "top",
+    "placeholder": false,
+    "options": [
+      { "label": "Above the Essentials", "value": "top" },
+      { "label": "Bottom of the sidebar", "value": "bottom" },
+      { "label": "Hidden", "value": "hidden" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.columns",
+    "label": "Columns",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic", "value": "auto" },
+      { "label": "3", "value": "3" },
+      { "label": "4", "value": "4" },
+      { "label": "5", "value": "5" },
+      { "label": "6", "value": "6" },
+      { "label": "7", "value": "7" },
+      { "label": "8", "value": "8" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.rows",
+    "label": "Rows",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "All", "value": "auto" },
+      { "label": "1", "value": "1" },
+      { "label": "2", "value": "2" },
+      { "label": "3", "value": "3" },
+      { "label": "4", "value": "4" },
+      { "label": "One row, scrolls sideways", "value": "scroll" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.icon-size",
+    "label": "Icon size",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (16 px)", "value": "auto" },
+      { "label": "12 px", "value": "12" },
+      { "label": "14 px", "value": "14" },
+      { "label": "16 px", "value": "16" },
+      { "label": "18 px", "value": "18" },
+      { "label": "20 px", "value": "20" },
+      { "label": "24 px", "value": "24" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.button-size",
+    "label": "Button size",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "24 px", "value": "24" },
+      { "label": "28 px", "value": "28" },
+      { "label": "32 px", "value": "32" },
+      { "label": "36 px", "value": "36" },
+      { "label": "40 px", "value": "40" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.gap",
+    "label": "Space between buttons",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic", "value": "auto" },
+      { "label": "0 px", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "6 px", "value": "6" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.align",
+    "label": "Alignment",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (style)", "value": "auto" },
+      { "label": "Stretch", "value": "stretch" },
+      { "label": "Start", "value": "start" },
+      { "label": "Center", "value": "center" },
+      { "label": "End", "value": "end" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.background",
+    "label": "Row background",
+    "type": "dropdown",
+    "defaultValue": "none",
+    "placeholder": false,
+    "options": [
+      { "label": "None", "value": "none" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Card", "value": "card" },
+      { "label": "Acrylic", "value": "acrylic" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.badge",
+    "label": "Badges",
+    "type": "dropdown",
+    "defaultValue": "show",
+    "placeholder": false,
+    "options": [
+      { "label": "Count", "value": "show" },
+      { "label": "Dot", "value": "dot" },
+      { "label": "Hidden", "value": "hide" }
+    ]
+  },
+  {
+    "property": "zen-fluent.ui.open-variants",
+    "label": "Variants ~Fill and shape of buttons and tiles, for all or per component~",
     "type": "checkbox",
-    "defaultValue": true
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.variant.global",
+    "label": "Fill, everywhere",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (each component's own)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.global-shape",
+    "label": "Shape, everywhere",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (each component's own)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.buttons",
+    "label": "Toolbar and sidebar buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.buttons-shape",
+    "label": "Toolbar and sidebar buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.extensions",
+    "label": "Extension buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.extensions-shape",
+    "label": "Extension buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.essentials",
+    "label": "Essentials: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.essentials-shape",
+    "label": "Essentials: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.tabs",
+    "label": "Tabs: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.tabs-shape",
+    "label": "Tabs: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.pinned-tabs",
+    "label": "Pinned tabs: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.pinned-tabs-shape",
+    "label": "Pinned tabs: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.folders",
+    "label": "Folder headers: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.folders-shape",
+    "label": "Folder headers: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.spaces",
+    "label": "Space buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.spaces-shape",
+    "label": "Space buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar",
+    "label": "URL bar: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-shape",
+    "label": "URL bar: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-buttons",
+    "label": "URL bar buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-buttons-shape",
+    "label": "URL bar buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.badges",
+    "label": "Badges: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.badges-shape",
+    "label": "Badges: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.panel-buttons",
+    "label": "Panel and dialog buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.panel-buttons-shape",
+    "label": "Panel and dialog buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
   },
   {
     "property": "zen-fluent.ui.open-tabs",
@@ -737,6 +1354,25 @@
     "label": "Drop a tab on the page to split the view",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen.glance.enabled",
+    "label": "Glance ~open a link in a floating preview~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen.glance.activation-method",
+    "label": "Open a link in Glance with",
+    "type": "dropdown",
+    "defaultValue": "alt",
+    "placeholder": false,
+    "options": [
+      { "label": "Alt+click", "value": "alt" },
+      { "label": "Ctrl+click", "value": "ctrl" },
+      { "label": "Shift+click", "value": "shift" },
+      { "label": "Windows key+click (Cmd on macOS)", "value": "meta" }
+    ]
   },
   {
     "property": "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled",

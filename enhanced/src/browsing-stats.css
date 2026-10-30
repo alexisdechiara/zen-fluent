@@ -1,0 +1,261 @@
+/* Zen Fluent Enhanced: the browsing stats panel (zen-fluent.enhanced.browsing-stats).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/browsing-stats.uc.js builds the panel: a title with a WinUI
+   segmented control for the period, three tiles, a bar per day (today's in
+   the accent), the top sites with an Ignore button on hover or focus, the
+   ignored sites, and the footer. Zen Fluent styles the panel itself. */
+
+#zf-stats {
+  --zf-st-width: 380px;
+
+  & > * {
+    box-sizing: border-box !important;
+    width: var(--zf-st-width) !important;
+    margin: 0 !important;
+    padding-inline: 12px !important;
+    color: var(--zf-text-primary) !important;
+    font-family: var(--zf-font) !important;
+  }
+
+  & button {
+    appearance: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: transparent !important;
+    color: inherit !important;
+    font: inherit !important;
+    cursor: pointer !important;
+
+    &:hover {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:active {
+      background: var(--zf-fill-subtle-press) !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer) !important;
+      outline-offset: -2px !important;
+    }
+  }
+
+  & .zf-st-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-block: 10px 6px !important;
+  }
+
+  & .zf-st-title {
+    margin: 0 !important;
+    font: 600 14px / 20px var(--zf-font) !important;
+  }
+
+  & .zf-st-periods {
+    display: flex !important;
+    padding: 2px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: var(--zf-fill-control) !important;
+  }
+
+  & .zf-st-period {
+    padding: 2px 8px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+
+    &[aria-checked="true"] {
+      background: var(--zf-accent) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+
+  & .zf-st-tiles {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    padding-block: 4px !important;
+  }
+
+  & .zf-st-tile {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 8px 10px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background: var(--zf-fill-card) !important;
+  }
+
+  & .zf-st-value {
+    font: 600 18px / 24px var(--zf-font) !important;
+  }
+
+  & .zf-st-label,
+  & .zf-st-meta,
+  & .zf-st-day,
+  & .zf-st-since {
+    color: var(--zf-text-secondary) !important;
+    font-size: 11px !important;
+  }
+
+  & .zf-st-notice {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    padding-block: 6px !important;
+    font-size: 12px !important;
+  }
+
+  & .zf-st-link {
+    padding: 2px 6px !important;
+    color: var(--zf-accent) !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  & .zf-st-chart {
+    display: flex !important;
+    gap: 2px !important;
+    align-items: stretch !important;
+    height: 96px !important;
+    padding-block: 10px 0 !important;
+  }
+
+  & .zf-st-column {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+  }
+
+  & .zf-st-bar {
+    width: min(100%, 24px) !important;
+    height: max(2px, var(--zf-st-height) * 0.8) !important;
+    border-radius: 2px 2px 0 0 !important;
+    background: var(--zf-fill-control-hover) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+
+    &[zf-today] {
+      background: var(--zf-accent) !important;
+      box-shadow: none !important;
+    }
+  }
+
+  & .zf-st-day {
+    overflow: hidden !important;
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+
+  & .zf-st-heading {
+    padding-block: 10px 4px !important;
+    color: var(--zf-text-secondary) !important;
+    font: 600 12px / 16px var(--zf-font) !important;
+  }
+
+  & .zf-st-sites {
+    padding-inline: 6px !important;
+    list-style: none !important;
+  }
+
+  & .zf-st-site {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 4px 6px !important;
+    border-radius: var(--zf-radius-control) !important;
+
+    &:hover,
+    &:focus-within {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+  }
+
+  & .zf-st-icon {
+    flex: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    -moz-context-properties: fill !important;
+    fill: currentcolor !important;
+  }
+
+  & .zf-st-text {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+  }
+
+  & .zf-st-name {
+    overflow: hidden !important;
+    font-size: 13px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  & .zf-st-ignore {
+    padding: 2px 8px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+    opacity: 0;
+  }
+
+  & .zf-st-site:is(:hover, :focus-within) .zf-st-ignore {
+    opacity: 1;
+  }
+
+  & .zf-st-empty {
+    padding: 8px 6px !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 13px !important;
+  }
+
+  & .zf-st-ignored {
+    padding-block: 6px 0 !important;
+    font-size: 12px !important;
+
+    & summary {
+      color: var(--zf-text-secondary) !important;
+      cursor: pointer !important;
+    }
+  }
+
+  & .zf-st-ignored-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 2px 0 2px 12px !important;
+  }
+
+  & .zf-st-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-block: 8px 10px !important;
+  }
+
+  & .zf-st-clear {
+    padding: 4px 8px !important;
+    color: var(--zf-critical) !important;
+    font-size: 12px !important;
+  }
+
+  @media (forced-colors) {
+    & .zf-st-period[aria-checked="true"],
+    & .zf-st-bar[zf-today] {
+      background: Highlight !important;
+      color: HighlightText !important;
+    }
+
+    & .zf-st-bar {
+      background: CanvasText !important;
+    }
+  }
+}

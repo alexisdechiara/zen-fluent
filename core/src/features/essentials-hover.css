@@ -1,0 +1,20 @@
+/* Zen Fluent: Hover light on the Essentials (zen-fluent.essentials.hover).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "fill" keeps the hover fill alone. "reveal" adds a soft light rising
+   from the bottom edge, under the icon, as the Windows taskbar lights an
+   app under the pointer. It is a background image: the tile's fill (and
+   the variants) stays under it. */
+
+@media (-moz-pref("zen-fluent.essentials.hover", "reveal")) {
+  .zen-essentials-container
+    .tabbrowser-tab:hover
+    > .tab-stack
+    > .tab-background {
+    background-image: radial-gradient(
+      ellipse 90% 70% at 50% 100%,
+      color-mix(in srgb, var(--zf-text-primary) 16%, transparent),
+      transparent
+    ) !important;
+  }
+}

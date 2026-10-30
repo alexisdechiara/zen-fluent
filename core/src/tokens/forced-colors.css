@@ -60,6 +60,7 @@
     --zf-stroke-divider: CanvasText !important;
     --zf-stroke-strong-disabled: GrayText !important;
     --zf-elevation-control: inset 0 0 0 1px ButtonText !important;
+    --zf-variant-outline-color: ButtonText !important;
 
     /* -------- Text -------- */
     --zf-text-primary: CanvasText !important;

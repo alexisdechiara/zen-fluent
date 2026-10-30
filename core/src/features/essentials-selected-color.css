@@ -1,0 +1,20 @@
+/* Zen Fluent: Color of the selected Essential (zen-fluent.essentials.selected-color).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "accent" keeps the theme accent (components/sidebar/essentials.css).
+   "space" takes the current space's color, Zen's --zen-primary-color (the
+   dominant color of the space's theme). "icon" is
+   features/essentials-icon-color.css. --zf-essential-on-color is black or
+   white, whichever reads on that color. */
+
+@media (-moz-pref("zen-fluent.essentials.selected-color", "space")) {
+  .zen-essentials-container {
+    --zf-essential-color: var(--zen-primary-color, var(--zf-accent));
+  }
+}
+
+.zen-essentials-container {
+  --zf-essential-on-color: oklch(
+    from var(--zf-essential-color) clamp(0, (0.7 - l) * 1000, 1) 0 0deg
+  );
+}

@@ -1,0 +1,65 @@
+/* Zen Fluent: Rows of the extensions row (zen-fluent.extensions.rows).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" shows every row. 1 to 4 show at most that many and scroll the
+   rest vertically; "scroll" keeps one row that scrolls sideways (Shift +
+   wheel). The height counts the buttons and gaps, not the padding. */
+
+@media (-moz-pref("zen-fluent.extensions.rows", "1")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    box-sizing: content-box !important;
+    max-height: calc(
+      1 * var(--zf-ext-button) + 0 * var(--zf-ext-gap)
+    ) !important;
+    grid-auto-rows: var(--zf-ext-button) !important;
+    overflow: hidden auto !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.rows", "2")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    box-sizing: content-box !important;
+    max-height: calc(
+      2 * var(--zf-ext-button) + 1 * var(--zf-ext-gap)
+    ) !important;
+    grid-auto-rows: var(--zf-ext-button) !important;
+    overflow: hidden auto !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.rows", "3")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    box-sizing: content-box !important;
+    max-height: calc(
+      3 * var(--zf-ext-button) + 2 * var(--zf-ext-gap)
+    ) !important;
+    grid-auto-rows: var(--zf-ext-button) !important;
+    overflow: hidden auto !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.rows", "4")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    box-sizing: content-box !important;
+    max-height: calc(
+      4 * var(--zf-ext-button) + 3 * var(--zf-ext-gap)
+    ) !important;
+    grid-auto-rows: var(--zf-ext-button) !important;
+    overflow: hidden auto !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.rows", "scroll")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    grid-template-columns: none !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: var(--zf-ext-button) !important;
+    justify-content: start !important;
+    overflow: auto hidden !important;
+    scrollbar-width: thin !important;
+  }
+}

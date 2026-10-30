@@ -1,0 +1,37 @@
+/* Zen Fluent: Essentials tile height (zen-fluent.essentials.height).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the density's height (tokens/density.css: 42px, 36px in
+   compact). A size sets --zf-size-essential, which components/sidebar/
+   essentials.css hands to Zen as --tab-min-height. The width stays the
+   grid's (zen-fluent.essentials-per-row). */
+
+@media (-moz-pref("zen-fluent.essentials.height", "32")) {
+  :root {
+    --zf-size-essential: 32px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.height", "36")) {
+  :root {
+    --zf-size-essential: 36px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.height", "42")) {
+  :root {
+    --zf-size-essential: 42px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.height", "48")) {
+  :root {
+    --zf-size-essential: 48px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.essentials.height", "56")) {
+  :root {
+    --zf-size-essential: 56px;
+  }
+}
