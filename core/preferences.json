@@ -264,6 +264,7 @@
     "placeholder": false,
     "options": [
       { "label": "Dash and favicon glow", "value": "glow" },
+      { "label": "Glow only", "value": "glow-only" },
       { "label": "Arc (colored border, 3D edge)", "value": "arc" },
       { "label": "Fill", "value": "fill" },
       { "label": "Taskbar indicator", "value": "indicator" },
@@ -282,7 +283,8 @@
     "placeholder": false,
     "options": [
       { "label": "Accent", "value": "accent" },
-      { "label": "Space color", "value": "space" }
+      { "label": "Space color", "value": "space" },
+      { "label": "Icon color", "value": "icon" }
     ]
   },
   {

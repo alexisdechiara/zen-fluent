@@ -266,8 +266,8 @@
       }
     }
 
-    /* Lift raises the tile without any color */
-    @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) {
+    /* Lift and Glow only mark the tile without any color */
+    @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) or (-moz-pref("zen-fluent.essentials.selected-style", "glow-only")) {
       & > #zen-fluent-essentials-selected-color {
         display: none !important;
       }

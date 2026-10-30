@@ -89,6 +89,8 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-style.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-icon-color.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-running.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-hover.css") not

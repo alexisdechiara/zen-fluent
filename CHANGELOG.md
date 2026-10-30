@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Changed
 
+- The selected Essential's favicon glow is half as strong.
 - The repository holds two Sine mods: Zen Fluent (`core/`, CSS only) and Zen
   Fluent Enhanced (`enhanced/`, JavaScript, no feature yet). The 21 modules are
   now 188 files with one subject each, imported in the same order: the look
@@ -29,6 +30,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Selected Essential: a Glow only style (the favicon glow without the dash, whatever Zen's glow setting) and an Icon color (`icon`) for **Selected Essential color**: fills and marks take the favicon's color.
 - Tab note icons, if Firefox's tab notes are turned back on (`browser.tabs.notes.enabled`): the row glyph in the secondary text color, the badge over a pinned tab's icon in the accent.
 - The Boost editor window (Zen 1.24) in Fluent: Mica surfaces, WinUI buttons, the accent for active tools and Share (`core/src/components/panels/boost-editor-window.css`).
 - Zen Easel compatibility: the panels of `about:easel` take Zen Fluent's accent, Acrylic, text and stroke colors (`core/src/compat/easel.css`).

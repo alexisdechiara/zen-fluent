@@ -5,20 +5,20 @@ selected tile is marked, size, layout and indicators.
 
 Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 
-| Setting                                    | Preference                             | Values                                                                                                                                                                                                               | Default  |
-| ------------------------------------------ | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Selected Essential                         | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint<br>`side` Side bar<br>`none` None (fill only) | `glow`   |
-| Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                                                               | `accent` |
-| Open page indicator                        | `zen-fluent.essentials.running`        | `none` None<br>`dot` Dot                                                                                                                                                                                             | `none`   |
-| Hover                                      | `zen-fluent.essentials.hover`          | `fill` Fill<br>`reveal` Fill and a soft light under the icon                                                                                                                                                         | `fill`   |
-| Labels                                     | `zen-fluent.essentials.labels`         | `hide` Icons only<br>`show` Icon and title                                                                                                                                                                           | `hide`   |
-| Essentials per row                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                                                                        | `auto`   |
-| Essentials width (automatic count per row) | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                                                                  | `auto`   |
-| Icon size                                  | `zen-fluent.essentials.icon-size`      | `small` Small (16 px)<br>`medium` Medium (20 px)<br>`large` Large (24 px)                                                                                                                                            | `medium` |
-| Essentials height                          | `zen-fluent.essentials.height`         | `auto` Automatic (density)<br>`32` 32 px<br>`36` 36 px<br>`42` 42 px<br>`48` 48 px<br>`56` 56 px                                                                                                                     | `auto`   |
-| Space between Essentials                   | `zen-fluent.essentials.gap`            | `auto` Automatic (density)<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                                                                                                                 | `auto`   |
-| Alignment                                  | `zen-fluent.essentials.align`          | `start` Left<br>`center` Center                                                                                                                                                                                      | `start`  |
-| Grey Essentials icons                      | `zen-fluent.essentials-gray`           | `true` / `false`                                                                                                                                                                                                     | `false`  |
+| Setting                                    | Preference                             | Values                                                                                                                                                                                                                                        | Default  |
+| ------------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Selected Essential                         | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`glow-only` Glow only<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint<br>`side` Side bar<br>`none` None (fill only) | `glow`   |
+| Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                                                                                        | `accent` |
+| Open page indicator                        | `zen-fluent.essentials.running`        | `none` None<br>`dot` Dot                                                                                                                                                                                                                      | `none`   |
+| Hover                                      | `zen-fluent.essentials.hover`          | `fill` Fill<br>`reveal` Fill and a soft light under the icon                                                                                                                                                                                  | `fill`   |
+| Labels                                     | `zen-fluent.essentials.labels`         | `hide` Icons only<br>`show` Icon and title                                                                                                                                                                                                    | `hide`   |
+| Essentials per row                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                                                                                                 | `auto`   |
+| Essentials width (automatic count per row) | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                                                                                           | `auto`   |
+| Icon size                                  | `zen-fluent.essentials.icon-size`      | `small` Small (16 px)<br>`medium` Medium (20 px)<br>`large` Large (24 px)                                                                                                                                                                     | `medium` |
+| Essentials height                          | `zen-fluent.essentials.height`         | `auto` Automatic (density)<br>`32` 32 px<br>`36` 36 px<br>`42` 42 px<br>`48` 48 px<br>`56` 56 px                                                                                                                                              | `auto`   |
+| Space between Essentials                   | `zen-fluent.essentials.gap`            | `auto` Automatic (density)<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                                                                                                                                          | `auto`   |
+| Alignment                                  | `zen-fluent.essentials.align`          | `start` Left<br>`center` Center                                                                                                                                                                                                               | `start`  |
+| Grey Essentials icons                      | `zen-fluent.essentials-gray`           | `true` / `false`                                                                                                                                                                                                                              | `false`  |
 
 ## Notes
 
@@ -34,7 +34,10 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
   inside the tile.
   - _Dash and favicon glow_ (default): the card tile with a dash under the
     icon (the Edge style raises the tile instead), and Zen's blurred favicon
-    glow behind it while `zen.theme.essentials-favicon-bg` is on.
+    glow behind it, at half Zen's strength, while
+    `zen.theme.essentials-favicon-bg` is on.
+  - _Glow only_: the favicon glow alone, on the tile at rest, without the dash;
+    drawn by Zen Fluent, so it shows even with Zen's glow setting off.
   - _Arc_: a 2 px border in the color, a light top edge and a dark 3 px bottom
     edge (the lip is drawn inside the tile: the grid would cut an outer one).
   - _Fill_: the tile in the color; glyph icons turn black or white, whichever
@@ -44,11 +47,14 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
   - _Outline_: a 2 px ring inside the tile, no fill (the WinUI focus look).
   - _Lift_: a lighter fill, a soft shadow, 1 px up.
   - _Tint_: 25 % of the color with a 1 px border of it.
-- **Selected Essential color**: the accent, or the current space's color (Zen's
-  `--zen-primary-color`, the dominant color of the space's theme). A site's own
-  color needs a script and will come with Zen Fluent Enhanced. Contrast themes
-  keep the system colors whatever the choice. Hidden with Lift, which uses no
-  color.
+- **Selected Essential color**: the accent, the current space's color (Zen's
+  `--zen-primary-color`, the dominant color of the space's theme), or the
+  icon's color: the favicon blurred until only its color is left, as Zen's
+  glow does, for the fills (Fill, Tint, Arc's tint) and the marks (dash,
+  taskbar pill, side bar). Rings and borders (Arc, Outline, Tint's border)
+  keep the accent: their exact color needs a script, which will come with
+  Zen Fluent Enhanced. Contrast themes keep the system colors whatever the
+  choice. Hidden with Lift and Glow only, which use no color.
 - **Alignment**: Left keeps the grid. Center centers each row, the last one
   too, like the centered Windows taskbar; the tiles keep the width set above
   (or the column of a count per row), else they are nearly square (the
@@ -71,7 +77,7 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 ## Taskbar settings found elsewhere
 
 - Material and transparency: **Material** and **Tint opacity** (Appearance).
-- Indicator color: **Selected Essential color** (accent or space); a custom
+- Indicator color: **Selected Essential color** (accent, space or icon); a custom
   accent is the Appearance group's **Accent color**. The site's own color
   needs a script: it will come with Zen Fluent Enhanced.
 - Badges (count, dot, none): the Extensions group's **Badges**.
