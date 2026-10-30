@@ -95,6 +95,10 @@ come later. The owner writes to Claude in French: answer in French.
   `window.addUnloadListener` (keyed on the calling file) ran; without one Sine
   skips it. Enhanced features go through `enhanced/scripts/lib/zf-feature.sys.mjs`
   (`enhanced/scripts/README.md`).
+- A checkbox's `defaultValue` is written to the pref only when Sine builds the
+  mod's settings (`applyCheckbox` in `preferences.sys.mjs`): until the user
+  opens them, the pref is missing. Enhanced features read it with their
+  `default` (checked against `enhanced/preferences.json`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the

@@ -8,7 +8,7 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 | Setting                                    | Preference                             | Values                                                                                                                                                                                                                                        | Default  |
 | ------------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | Selected Essential                         | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`glow-only` Glow only<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint<br>`side` Side bar<br>`none` None (fill only) | `glow`   |
-| Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                                                                                        | `accent` |
+| Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color<br>`icon` Icon color                                                                                                                                                                                   | `accent` |
 | Open page indicator                        | `zen-fluent.essentials.running`        | `none` None<br>`dot` Dot                                                                                                                                                                                                                      | `none`   |
 | Hover                                      | `zen-fluent.essentials.hover`          | `fill` Fill<br>`reveal` Fill and a soft light under the icon                                                                                                                                                                                  | `fill`   |
 | Labels                                     | `zen-fluent.essentials.labels`         | `hide` Icons only<br>`show` Icon and title                                                                                                                                                                                                    | `hide`   |
@@ -52,8 +52,9 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
   icon's color: the favicon blurred until only its color is left, as Zen's
   glow does, for the fills (Fill, Tint, Arc's tint) and the marks (dash,
   taskbar pill, side bar). Rings and borders (Arc, Outline, Tint's border)
-  keep the accent: their exact color needs a script, which will come with
-  Zen Fluent Enhanced. Contrast themes keep the system colors whatever the
+  keep the accent, unless Zen Fluent Enhanced's **Icon colors** is on: it reads
+  the icon's exact color, which then paints them, the fills and the marks
+  ([docs/enhanced.md](../enhanced.md)). Contrast themes keep the system colors whatever the
   choice. Hidden with Lift and Glow only, which use no color.
 - **Alignment**: Left keeps the grid. Center centers each row, the last one
   too, like the centered Windows taskbar; the tiles keep the width set above

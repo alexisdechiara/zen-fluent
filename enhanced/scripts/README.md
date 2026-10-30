@@ -22,6 +22,7 @@ and one checkbox, `zen-fluent.enhanced.<name>`, in `enhanced/preferences.json`.
 
   const feature = ZFFeature.attach(window, {
     name: "<name>",
+    // default: true,  // when the checkbox is on by default
     start(ctx) {
       // Everything added through ctx is undone when the feature stops:
       // ctx.listen(target, type, fn), ctx.observePref(name, fn),
@@ -38,7 +39,8 @@ and one checkbox, `zen-fluent.enhanced.<name>`, in `enhanced/preferences.json`.
 ```
 
 `ZFFeature` (`lib/zf-feature.sys.mjs`) starts the feature when its pref turns
-`true`, stops it when it turns `false` or the window closes, and replaces an
+`true` (a missing pref reads as `default`, which must match the checkbox's
+`defaultValue`: Sine only writes that value once its settings page is built), stops it when it turns `false` or the window closes, and replaces an
 instance left by an earlier run of the script. A failure in `start()` is logged
 and undone.
 

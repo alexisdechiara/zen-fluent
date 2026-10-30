@@ -4,7 +4,20 @@ A second Sine mod, installed on top of Zen Fluent, for what CSS cannot do. Each
 feature is one script with its own on/off setting. JavaScript stays at the
 strict minimum: anything CSS can do lives in Zen Fluent.
 
-**Status: empty.** The mod installs and loads, with no feature yet.
+## Features
+
+| Feature     | Setting                             | Default |
+| ----------- | ----------------------------------- | ------- |
+| Icon colors | `zen-fluent.enhanced.favicon-color` | `true`  |
+
+- **Icon colors**: reads the dominant color of each tab's icon (the most
+  saturated color that covers enough of it, or the average of an icon with no
+  color). With Zen Fluent's **Selected Essential color** on _Icon color_, the
+  selected Essential takes that exact color: the rings and borders of the Arc,
+  Outline and Tint styles get it too, where Zen Fluent alone keeps the accent,
+  and the marks and fills are painted in it rather than with the blurred
+  favicon. Its lightness is kept in a middle range so a white or black icon
+  still shows. An icon that cannot be read keeps Zen Fluent's blurred favicon.
 
 ## Install
 

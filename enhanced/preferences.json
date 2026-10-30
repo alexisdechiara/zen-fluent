@@ -1,0 +1,8 @@
+[
+  {
+    "property": "zen-fluent.enhanced.favicon-color",
+    "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
+    "type": "checkbox",
+    "defaultValue": true
+  }
+]

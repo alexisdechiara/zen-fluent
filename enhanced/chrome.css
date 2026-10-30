@@ -1,3 +1,5 @@
 /* Zen Fluent Enhanced: styles of the elements the scripts add.
    User sheet: declarations take !important to win over Zen's own CSS.
    One file per feature in src/, imported here in the scripts' order. */
+
+@import url("src/favicon-color.css");

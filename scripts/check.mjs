@@ -209,6 +209,17 @@ for (const file of scriptFiles) {
     fail(
       `${file}: its checkbox zen-fluent.enhanced.${name} is missing from enhanced/preferences.json`,
     );
+  else {
+    // A missing pref reads as the script's default, before Sine writes it
+    const checkbox = prefs.find(
+      (p) => p.property === `zen-fluent.enhanced.${name}`,
+    );
+    const scripted = /\bdefault:\s*true\b/.test(code);
+    if (scripted !== (checkbox.defaultValue === true))
+      fail(
+        `${file}: default: ${scripted} differs from the checkbox's defaultValue ${checkbox.defaultValue === true}`,
+      );
+  }
 }
 
 // ---- Paths quoted in the docs exist

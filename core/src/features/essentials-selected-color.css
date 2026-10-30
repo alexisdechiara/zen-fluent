@@ -3,8 +3,8 @@
 
 /* "accent" keeps the theme accent (components/sidebar/essentials.css).
    "space" takes the current space's color, Zen's --zen-primary-color (the
-   dominant color of the space's theme). A site's own color needs a script:
-   it waits for Zen Fluent Enhanced. --zf-essential-on-color is black or
+   dominant color of the space's theme). "icon" is
+   features/essentials-icon-color.css. --zf-essential-on-color is black or
    white, whichever reads on that color. */
 
 @media (-moz-pref("zen-fluent.essentials.selected-color", "space")) {

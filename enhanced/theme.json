@@ -12,7 +12,12 @@
   "style": {
     "chrome": "chrome.css"
   },
-  "scripts": {},
+  "preferences": "preferences.json",
+  "scripts": {
+    "scripts/favicon-color.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    }
+  },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],
   "tags": ["chrome", "javascript", "fluent", "windows"],
   "fork": ["zen"]

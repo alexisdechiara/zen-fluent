@@ -9,8 +9,9 @@
    pill, the side bar) are the same layer, 12px larger than the tile so the
    blur does not fade at its edges, cut to their shape by a mask placed in
    the tile (mask-origin: content-box, 12px padding). Rings and borders
-   (Arc, Outline, Tint's border) have no image form: they keep the accent
-   until Zen Fluent Enhanced reads the exact color. */
+   (Arc, Outline, Tint's border) have no image form: they keep the accent,
+   unless Zen Fluent Enhanced reads the exact color
+   (enhanced/src/favicon-color.css). */
 
 @media not (forced-colors) {
   @media (-moz-pref("zen-fluent.essentials.selected-color", "icon")) {

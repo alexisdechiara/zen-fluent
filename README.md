@@ -35,8 +35,8 @@ window): the Mica and Acrylic backdrop shows the desktop through.
 - **Zen Fluent** (`core/`): CSS only. Install it with Sine, nothing else to set
   up.
 - **Zen Fluent Enhanced** (`enhanced/`): a JavaScript layer on top of Zen
-  Fluent, one script per feature, each one can be turned off. It has no feature
-  yet: see [docs/enhanced.md](docs/enhanced.md).
+  Fluent, one script per feature, each one can be turned off: see
+  [docs/enhanced.md](docs/enhanced.md).
 
 ## Install
 
@@ -191,6 +191,13 @@ group in [docs/settings/](docs/settings/).
 The `zen-fluent.ui.open-<group>` checkboxes are the group headers (open or
 closed; only **Appearance** is open by default) and `zen-fluent.ui.expand-all`
 (**Show all settings**, default `false`) opens every group.
+
+Zen Fluent Enhanced has its own settings, one checkbox per feature
+([docs/enhanced.md](docs/enhanced.md)):
+
+| Feature     | Preference                          | Default |
+| ----------- | ----------------------------------- | ------- |
+| Icon colors | `zen-fluent.enhanced.favicon-color` | `true`  |
 
 ## Repository
 

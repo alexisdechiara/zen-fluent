@@ -2,7 +2,8 @@
 //
 // A feature runs in one window, behind its own checkbox, the boolean pref
 // zen-fluent.enhanced.<name>: it starts when the pref turns true, stops
-// when it turns false, and stops for good when the window closes or Sine
+// when it turns false (a missing pref reads as the spec's default: Sine
+// only writes a checkbox's defaultValue once its settings page is built), and stops for good when the window closes or Sine
 // unloads the script. Everything a feature adds goes through the context
 // that start() receives, which undoes it all on stop: listeners, pref and
 // topic observers, timers, mutation observers, elements, attributes and
@@ -146,7 +147,8 @@ export class ZFFeature {
    *
    * @param {Window} win - The window the feature runs in.
    * @param {object} spec - name (the pref is zen-fluent.enhanced.<name>),
-   *   start(context), and optionally stop(context).
+   *   start(context), and optionally default (true for a feature on by
+   *   default, as in enhanced/preferences.json) and stop(context).
    * @returns {ZFFeature}
    */
   static attach(win, spec) {
@@ -182,7 +184,7 @@ export class ZFFeature {
   }
 
   get enabled() {
-    return Services.prefs.getBoolPref(this.pref, false);
+    return Services.prefs.getBoolPref(this.pref, this.#spec.default ?? false);
   }
 
   #sync() {
