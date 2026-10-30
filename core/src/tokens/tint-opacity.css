@@ -85,11 +85,21 @@
    --zen-fluent-tint-opacity-custom on the chrome windows' root. "50%" and
    "50" both mean 50 % (each form typed by its own registered property, the
    other keeps its negative initial value, max() keeps the valid one), above
-   100 % counts as 100 %; any other entry keeps the material's own coat. */
+   100 % counts as 100 %; any other entry keeps the material's own coat.
+   Firefox takes no percentage in a <number> (not even 50% / 1%), but
+   progress() reads one in a <length-percentage>: the percentage becomes a
+   length, and length / 1px a number. progress() is clamped to 0..1: its
+   range starts at -100 % so that a negative entry stays negative. */
 @property --zf-tint-opacity-custom-percentage {
   syntax: "<percentage>";
   inherits: true;
   initial-value: -1%;
+}
+
+@property --zf-tint-opacity-custom-length {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: -1px;
 }
 
 @property --zf-tint-opacity-custom-number {
@@ -102,8 +112,12 @@
   :root {
     --zf-tint-opacity-custom-percentage: var(--zen-fluent-tint-opacity-custom);
     --zf-tint-opacity-custom-number: var(--zen-fluent-tint-opacity-custom);
+    --zf-tint-opacity-custom-length: calc(
+      progress(var(--zf-tint-opacity-custom-percentage), -100%, 100%) * 200px -
+        100px
+    );
     --zf-tint-opacity-custom: max(
-      var(--zf-tint-opacity-custom-percentage) / 1%,
+      var(--zf-tint-opacity-custom-length) / 1px,
       var(--zf-tint-opacity-custom-number)
     );
     --zf-tint-opacity-valid: calc(

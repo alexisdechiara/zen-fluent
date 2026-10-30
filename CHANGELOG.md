@@ -69,6 +69,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- A custom tint opacity (`50%` or `50`) is applied: Firefox refused the percentage in a number, so every custom value fell back to 64 %. An invalid entry still keeps the material's own coat.
 - The selected Essential's accent dash is centred again, 3 px above the tile's edge: Zen's own margin had moved it 9 px aside.
 
 ## [0.1.0] - 2026-10-26
