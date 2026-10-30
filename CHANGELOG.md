@@ -29,6 +29,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Tab note icons, if Firefox's tab notes are turned back on (`browser.tabs.notes.enabled`): the row glyph in the secondary text color, the badge over a pinned tab's icon in the accent.
 - The Boost editor window (Zen 1.24) in Fluent: Mica surfaces, WinUI buttons, the accent for active tools and Share (`core/src/components/panels/boost-editor-window.css`).
 - Zen Easel compatibility: the panels of `about:easel` take Zen Fluent's accent, Acrylic, text and stroke colors (`core/src/compat/easel.css`).
 - Essentials labels (`zen-fluent.essentials.labels`, default `hide`): the page title under each icon, like labelled taskbar apps.
