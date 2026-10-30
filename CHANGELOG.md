@@ -30,6 +30,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Fluent icons in the icon picker** (`zen-fluent.enhanced.icon-picker`, default `true`): 142 Fluent UI System Icons (MIT, Microsoft) after Zen's own in its icon picker, for spaces, folders and pinned tabs.
 - Zen Fluent Enhanced: **Folder colors** (`zen-fluent.enhanced.folder-colors`, default `true`): a Folder color menu in the folder context menu, with the Windows accent palette, for the folder icon.
 - Zen Fluent Enhanced: **Browsing stats** (`zen-fluent.enhanced.browsing-stats`, default `false`): time on pages, visits and sites for today, 7 or 30 days, a bar per day and the top sites, read from Firefox's history and page interactions from the day it is turned on; Ignore a site, Clear stats.
 - Zen Fluent Enhanced: **PDF viewer** (`zen-fluent.enhanced.pdf-viewer`, default `true`), Firefox's PDF viewer in Fluent colors, and **Fluent controls on websites** (`zen-fluent.enhanced.web-controls`, default `false`), the WinUI look for buttons and text fields a site leaves unstyled, through sheets registered with Firefox's style sheet service.
@@ -93,6 +94,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- A folder given its own icon (Zen's Change icon) showed only Zen Fluent's Fluent folder icon, without that icon: it now keeps Zen's folder, which draws it.
 - Zen 1.24: the hovered media card grows over the tabs above it; their titles no longer show through its card fill: it takes Acrylic while hovered.
 - The favicon glow of the selected Essential (`zen.theme.essentials-favicon-bg`) stays inside its tile: the mod's `overflow: visible` let it spill over the neighbouring tiles.
 - Zen 1.24: the site panel's reader view button, moved to the footer, gets the footer's 32 px subtle button and the accent while reader view is on (Boost, now a quick action tile, already had the tile style).

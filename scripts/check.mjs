@@ -282,6 +282,22 @@ if (quick) {
   }
 }
 
+// ---- Fluent icons: icons.json and the SVG files match, each with its notice
+const iconDir = "enhanced/icons/fluent";
+if (fs.existsSync(path.join(root, iconDir))) {
+  const listed = json(`${iconDir}/icons.json`)?.icons ?? [];
+  const files = walk(iconDir, ".svg").map((f) => path.basename(f, ".svg"));
+  for (const name of listed)
+    if (!files.includes(name))
+      fail(`${iconDir}/icons.json: ${name}.svg missing`);
+  for (const name of files) {
+    if (!listed.includes(name))
+      fail(`${iconDir}/${name}.svg: not listed in icons.json`);
+    if (!read(`${iconDir}/${name}.svg`).includes("Microsoft Corporation"))
+      fail(`${iconDir}/${name}.svg: missing its licence comment`);
+  }
+}
+
 // ---- Paths quoted in the docs exist
 for (const file of [
   "README.md",

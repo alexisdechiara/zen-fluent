@@ -46,6 +46,9 @@
     },
     "scripts/folder-colors.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/icon-picker.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

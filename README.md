@@ -212,6 +212,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
 | Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
 | Folder colors                   | `zen-fluent.enhanced.folder-colors`               | `true`  |
+| Fluent icons in the icon picker | `zen-fluent.enhanced.icon-picker`                 | `true`  |
 
 ## Repository
 

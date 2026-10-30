@@ -1,0 +1,24 @@
+/* Zen Fluent Enhanced: the Fluent section of Zen's icon picker (zen-fluent.enhanced.icon-picker).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/icon-picker.uc.js appends a title, then the Fluent icons (or a
+   note), to Zen's icon grid: the title and note span the whole row. */
+
+#PanelUI-zen-emojis-picker-svgs {
+  & > .zf-icon-picker-header,
+  & > .zf-icon-picker-note {
+    grid-column: 1 / -1 !important;
+    margin: 0 !important;
+    padding: 8px 2px 2px !important;
+  }
+
+  & > .zf-icon-picker-header {
+    color: var(--zf-text-secondary) !important;
+    font: 600 12px / 16px var(--zf-font) !important;
+  }
+
+  & > .zf-icon-picker-note {
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+  }
+}

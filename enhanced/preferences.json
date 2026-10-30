@@ -106,5 +106,11 @@
     "label": "Folder colors ~a Folder color menu in each folder's context menu~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.icon-picker",
+    "label": "Fluent icons in the icon picker ~for spaces, folders and pinned tabs; needs Allow the mod's icons~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]
