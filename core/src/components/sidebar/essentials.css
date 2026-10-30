@@ -12,7 +12,10 @@
   .tabbrowser-tab {
     .tab-background {
       position: relative !important;
-      overflow: visible !important;
+      /* Zen's favicon glow (zen.theme.essentials-favicon-bg) is a blurred
+         ::after at inset: -50%: the tile must clip it, rounded corners
+         included, or it spills over the neighbouring tiles */
+      overflow: clip !important;
       border: 1px solid var(--zf-stroke-control) !important;
       border-radius: var(--zf-radius-card) !important;
       background-color: var(--zf-fill-card) !important;
