@@ -514,6 +514,7 @@
 @import url("src/features/animations/keyframes.css");
 @import url("src/a11y/reduced-motion.css");
 @import url("src/base/focus-ring.css");
+@import url("src/base/dom-fullscreen.css");
 
 /* Compatibility with third-party mods (docs/compatibility.md) */
 @import url("src/compat/advanced-tab-groups.css") not

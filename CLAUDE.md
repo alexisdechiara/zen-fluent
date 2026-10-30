@@ -113,6 +113,13 @@ come later. The owner writes to Claude in French: answer in French.
   with `@-moz-document`. An agent sheet only replaces the browser's
   defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
   pdf.js by its markup (`#outerContainer`).
+- A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
+  the window: listen in the capture phase to cancel it.
+- DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`
+  visible (its issue 5229, for a bar opened over the video) in the collapsed
+  toolbox, and the page card keeps its stroke and corner unless
+  `core/src/base/dom-fullscreen.css` (imported after the options) resets
+  them.
 - Zen 1.24's app menu: main view `appMenu-mainView` (Firefox's is
   `appMenu-protonMainView`), built from a template on first open: add items
   on its `ViewShowing` (capture). Firefox's Interactions are on in Zen
@@ -377,6 +384,15 @@ paints remote pages over the chrome: to picture an overlay of a loading page,
 build it on a static page. A slow local page (a server that sends a chunk, then
 waits) keeps a tab `[busy]`. Several agents can test at once: one headless
 instance each, its own profile and Marionette port.
+Visible window (only when the owner asks): `zen.sh startvis`, driven by
+`harness/vis.py` (WebDriver actions inside the browser, never OS input;
+`capture.ps1` grabs only the window's rectangle, in virtual screen
+coordinates, negative on a screen left of the main one). Keys sent in the
+content context never reach the chrome: send them in the chrome context
+with the page focused, as the OS would. A synthesized hover in a page is
+dropped within ~100 ms (the real cursor is elsewhere): Firefox sends
+`OverLink` with the link, then an empty one, so a held hover cannot be
+tested without moving the real cursor.
 Enhanced scripts: `loadSubScript` refuses `file://`; put a test script under
 the test profile's `chrome/sine-mods/<folder>/` and load
 `chrome://sine/content/<folder>/<file>`. Sine's manager is the default export

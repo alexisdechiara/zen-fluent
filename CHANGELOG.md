@@ -96,6 +96,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- Full screen video (YouTube and others): a 1px frame, the page's rounded top corner and a 2px strip of the URL bar no longer show in the top left corner.
 - A folder given its own icon (Zen's Change icon) showed only Zen Fluent's Fluent folder icon, without that icon: it now keeps Zen's folder, which draws it.
 - Zen 1.24: the hovered media card grows over the tabs above it; their titles no longer show through its card fill: it takes Acrylic while hovered.
 - The favicon glow of the selected Essential (`zen.theme.essentials-favicon-bg`) stays inside its tile: the mod's `overflow: visible` let it spill over the neighbouring tiles.

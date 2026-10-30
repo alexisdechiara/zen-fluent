@@ -1,0 +1,26 @@
+/* Zen Fluent: Full screen video (DOM full screen): the page fills the screen and nothing of the browser shows.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Imported after the options, so it wins over every page card style
+   (the WinUI corners' stroke and top corner, Zen's corners, the Edge
+   card's hairline). Zen keeps #urlbar visible in DOM full screen (its issue
+   5229: a bar opened over the video must show); closed, the mod's padding
+   left a 2px strip of it, with the remote control robot, in the top left
+   corner. It shows again as soon as it opens or takes the focus. */
+
+:root[inDOMFullscreen="true"] {
+  #tabbrowser-tabpanels .browserSidebarContainer {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #urlbar:not([breakout-extend], [open], [focused]) {
+    visibility: hidden !important;
+
+    /* Firefox shows it on its own while the browser is remote controlled */
+    & #remote-control-box {
+      visibility: hidden !important;
+    }
+  }
+}
