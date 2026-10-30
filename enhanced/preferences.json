@@ -100,5 +100,11 @@
     "label": "Browsing stats ~time on pages, visits and sites, read from your history from now on~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.folder-colors",
+    "label": "Folder colors ~a Folder color menu in each folder's context menu~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]

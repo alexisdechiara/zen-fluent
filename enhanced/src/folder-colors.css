@@ -1,0 +1,68 @@
+/* Zen Fluent Enhanced: a color per folder (zen-fluent.enhanced.folder-colors).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/folder-colors.uc.js sets zf-folder-color on a zen-folder. The
+   Windows accent palette, a lighter tone in dark mode so it reads on the
+   sidebar. It drives Zen's folder icon variables (Zen Fluent sets them to
+   the accent, components/sidebar/folders.css) and Zen Fluent's Fluent
+   folder icon (features/fluent-icons/folders.css). Subfolders keep their
+   own color: the variables are set on each folder. Contrast themes keep the
+   system colors. */
+
+@media not (forced-colors) {
+  zen-folder {
+    &[zf-folder-color="red"] {
+      --zf-folder-color: light-dark(#d13438, #ff99a4);
+    }
+
+    &[zf-folder-color="orange"] {
+      --zf-folder-color: light-dark(#ca5010, #ffb27a);
+    }
+
+    &[zf-folder-color="yellow"] {
+      --zf-folder-color: light-dark(#c19c00, #fce100);
+    }
+
+    &[zf-folder-color="green"] {
+      --zf-folder-color: light-dark(#107c10, #6ccb5f);
+    }
+
+    &[zf-folder-color="teal"] {
+      --zf-folder-color: light-dark(#038387, #4cd6d6);
+    }
+
+    &[zf-folder-color="blue"] {
+      --zf-folder-color: light-dark(#0078d4, #60cdff);
+    }
+
+    &[zf-folder-color="purple"] {
+      --zf-folder-color: light-dark(#8764b8, #c6a7ec);
+    }
+
+    &[zf-folder-color="pink"] {
+      --zf-folder-color: light-dark(#e3008c, #ff8bcb);
+    }
+
+    &[zf-folder-color="gray"] {
+      --zf-folder-color: light-dark(#69797e, #a8b3b6);
+    }
+
+    &[zf-folder-color] {
+      --zen-folder-stroke: var(--zf-folder-color) !important;
+      --zen-folder-front-bgcolor: color-mix(
+        in srgb,
+        var(--zf-folder-color) 18%,
+        transparent
+      ) !important;
+      --zen-folder-behind-bgcolor: color-mix(
+        in srgb,
+        var(--zf-folder-color) 10%,
+        transparent
+      ) !important;
+
+      & > .tab-group-label-container > .tab-group-folder-icon {
+        fill: var(--zf-folder-color) !important;
+      }
+    }
+  }
+}

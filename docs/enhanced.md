@@ -22,6 +22,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
 | Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
 | Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
+| Folder colors                   | `zen-fluent.enhanced.folder-colors`               | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -120,6 +121,12 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     again** brings it back. `www.` is merged with the site.
   - If time on pages is off in Firefox, the panel says so and offers to
     turn it on; the bars then show visits.
+- **Folder colors**: a folder's context menu gets **Folder color**: Default
+  (the accent) or one of the Windows accent colors (red, orange, yellow,
+  green, teal, blue, purple, pink, gray), a lighter tone in dark mode. It
+  colors the folder icon, Zen's or Zen Fluent's Fluent one. Each subfolder
+  keeps its own color. Colors are kept by folder in
+  `zen-fluent.enhanced.folder-colors.map` and come back with the session.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
@@ -137,12 +144,11 @@ fx-autoconfig: Sine ships its own loader, and fx-autoconfig would overwrite it.
 
 ## Planned features
 
-| Feature                                       | Setting (planned)                   |
-| --------------------------------------------- | ----------------------------------- |
-| A color per folder                            | `zen-fluent.enhanced.folder-colors` |
-| Fluent icon picker for workspaces and folders | `zen-fluent.enhanced.icon-picker`   |
-| Tab hover cards with actions                  | `zen-fluent.enhanced.hover-cards`   |
-| Glance style: link preview, Alt+click         | `zen-fluent.enhanced.glance`        |
+| Feature                                       | Setting (planned)                 |
+| --------------------------------------------- | --------------------------------- |
+| Fluent icon picker for workspaces and folders | `zen-fluent.enhanced.icon-picker` |
+| Tab hover cards with actions                  | `zen-fluent.enhanced.hover-cards` |
+| Glance style: link preview, Alt+click         | `zen-fluent.enhanced.glance`      |
 
 Each one is documented here, with its default, when it lands.
 
