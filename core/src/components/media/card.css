@@ -20,6 +20,15 @@
     box-shadow: var(--zf-shadow-2) !important;
   }
 
+  /* Zen 1.24 keeps the media toolbar at its collapsed height: hovered,
+     the card grows over the tabs above it, which showed through the card
+     fill. It takes Acrylic then, blurred (the tabs are chrome content)
+     and solid without hardware acceleration (tokens/acrylic-fallback.css). */
+  #zen-media-controls-toolbar:hover & {
+    background-color: var(--zf-acrylic) !important;
+    backdrop-filter: blur(var(--zf-acrylic-blur)) !important;
+  }
+
   /* zen-fluent.tab-text-size moves the card's text with the tab titles */
   & .zen-media-title {
     font-size: calc(13px + var(--zf-text-step)) !important;

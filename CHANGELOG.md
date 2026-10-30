@@ -78,6 +78,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- Zen 1.24: the hovered media card grows over the tabs above it; their titles no longer show through its card fill: it takes Acrylic while hovered.
 - The favicon glow of the selected Essential (`zen.theme.essentials-favicon-bg`) stays inside its tile: the mod's `overflow: visible` let it spill over the neighbouring tiles.
 - Zen 1.24: the site panel's reader view button, moved to the footer, gets the footer's 32 px subtle button and the accent while reader view is on (Boost, now a quick action tile, already had the tile style).
 - A custom tint opacity (`50%` or `50`) is applied: Firefox refused the percentage in a number, so every custom value fell back to 64 %. An invalid entry still keeps the material's own coat.
