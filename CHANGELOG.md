@@ -29,6 +29,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- An Extensions settings group for the row of pinned extensions (`zen-fluent.extensions.*`): place (above the Essentials, bottom of the sidebar, hidden), columns, rows (or one scrolling row), icon and button size (also in the classic toolbar), gap, alignment, row background (subtle, card, Acrylic) and badges (count, dot, none). **Extensions under the URL bar, WinUI style** moved to this group.
 - Selected Essential style (`zen-fluent.essentials.selected-style`, default `glow`): the dash and Zen's favicon glow as today, or Arc (colored border, 3D edge), Fill, Taskbar indicator, Outline, Lift or Tint. Every style stays inside its tile.
 - Selected Essential color (`zen-fluent.essentials.selected-color`, default `accent`): the accent or the current space's color.
 - Essentials height (`zen-fluent.essentials.height`) and space between them (`zen-fluent.essentials.gap`), both `auto` by default: the density's 42 / 36 px tiles and 6 / 4 px gap, or a fixed size.

@@ -1,0 +1,33 @@
+/* Zen Fluent: Extension badges (zen-fluent.extensions.badge).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Unread counts, blocked requests…, in the row and in the classic toolbar.
+   The row's selector matches features/pinned-extensions.css's, so it wins.
+   "show" keeps the count (features/pinned-extensions.css draws it in the
+   accent), "dot" keeps an 8px dot like the taskbar's, "hide" drops it. */
+
+@media (-moz-pref("zen-fluent.extensions.badge", "dot")) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list:not(:empty)
+    .unified-extensions-item
+    .toolbarbutton-badge,
+  #nav-bar .unified-extensions-item .toolbarbutton-badge {
+    min-width: 8px !important;
+    width: 8px !important;
+    height: 8px !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.badge", "hide")) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list:not(:empty)
+    .unified-extensions-item
+    .toolbarbutton-badge,
+  #nav-bar .unified-extensions-item .toolbarbutton-badge {
+    display: none !important;
+  }
+}

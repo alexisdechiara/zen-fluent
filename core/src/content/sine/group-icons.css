@@ -23,6 +23,10 @@
       content: "\E8A0";
     }
 
+    #zen-fluent-ui-open-extensions::after {
+      content: "\EA86";
+    }
+
     #zen-fluent-ui-open-tabs::after {
       content: "\E7C4";
     }

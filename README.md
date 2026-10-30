@@ -79,7 +79,6 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Acrylic noise                                    | `zen-fluent.acrylic-noise`                                                  | `false`            |
 | [Sidebar](docs/settings/sidebar.md)                   | Button style                                     | `zen-fluent.button-style`                                                   | `subtle`           |
 |                                                       | Hide the Forward button when it is disabled      | `zen-fluent.hide-forward-disabled`                                          | `false`            |
-|                                                       | Extensions under the URL bar, WinUI style        | `zen-fluent.pinned-extensions`                                              | `true`             |
 |                                                       | Workspace indicator                              | `zen-fluent.workspace-indicator`                                            | `true`             |
 |                                                       | Workspace icon style                             | `zen-fluent.workspace-style`                                                | `pill`             |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
@@ -90,6 +89,16 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Space between Essentials                         | `zen-fluent.essentials.gap`                                                 | `auto`             |
 |                                                       | Acrylic sidebar background in compact mode       | `zen-fluent.compact-sidebar-bg`                                             | `true`             |
 |                                                       | Edge hint at the window border in compact mode   | `zen-fluent.compact-edge-hint`                                              | `true`             |
+| [Extensions](docs/settings/extensions.md)             | WinUI style for the extensions row               | `zen-fluent.pinned-extensions`                                              | `true`             |
+|                                                       | Place                                            | `zen-fluent.extensions.position`                                            | `top`              |
+|                                                       | Columns                                          | `zen-fluent.extensions.columns`                                             | `auto`             |
+|                                                       | Rows                                             | `zen-fluent.extensions.rows`                                                | `auto`             |
+|                                                       | Icon size                                        | `zen-fluent.extensions.icon-size`                                           | `auto`             |
+|                                                       | Button size                                      | `zen-fluent.extensions.button-size`                                         | `auto`             |
+|                                                       | Space between buttons                            | `zen-fluent.extensions.gap`                                                 | `auto`             |
+|                                                       | Alignment                                        | `zen-fluent.extensions.align`                                               | `auto`             |
+|                                                       | Row background                                   | `zen-fluent.extensions.background`                                          | `none`             |
+|                                                       | Badges                                           | `zen-fluent.extensions.badge`                                               | `show`             |
 | [Tabs](docs/settings/tabs.md)                         | Tab text size                                    | `zen-fluent.tab-text-size`                                                  | `normal`           |
 |                                                       | Bold title on the selected tab                   | `zen-fluent.tab-bold`                                                       | `false`            |
 |                                                       | Accent pill on the selected tab                  | `zen-fluent.tab-pill`                                                       | `true`             |

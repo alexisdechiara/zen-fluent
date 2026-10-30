@@ -1,0 +1,47 @@
+/* Zen Fluent: Columns of the extensions row (zen-fluent.extensions.columns).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" fits as many buttons as the width allows. A count makes that many
+   columns, which may then get narrower than a button. */
+
+@media (-moz-pref("zen-fluent.extensions.columns", "3")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 3;
+    --zf-ext-min: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.columns", "4")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 4;
+    --zf-ext-min: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.columns", "5")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 5;
+    --zf-ext-min: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.columns", "6")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 6;
+    --zf-ext-min: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.columns", "7")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 7;
+    --zf-ext-min: 0px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.columns", "8")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: 8;
+    --zf-ext-min: 0px;
+  }
+}

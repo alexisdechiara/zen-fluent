@@ -1,0 +1,36 @@
+/* Zen Fluent: Alignment of the extensions row (zen-fluent.extensions.align).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the style's own: WinUI stretches the buttons across the
+   row, Edge keeps them square at the start. "stretch" widens the columns;
+   start, center and end keep square buttons and place the row. */
+
+@media (-moz-pref("zen-fluent.extensions.align", "stretch")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-track: minmax(var(--zf-ext-min), 1fr);
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.align", "start")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-track: minmax(var(--zf-ext-min), var(--zf-ext-button));
+
+    justify-content: start !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.align", "center")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-track: minmax(var(--zf-ext-min), var(--zf-ext-button));
+
+    justify-content: center !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.extensions.align", "end")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-track: minmax(var(--zf-ext-min), var(--zf-ext-button));
+
+    justify-content: end !important;
+  }
+}

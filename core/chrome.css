@@ -104,6 +104,24 @@
 /* Pinned extensions */
 @import url("src/features/pinned-extensions.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/position.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/columns.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/icon-size.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/button-size.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/gap.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/align.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/background.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/rows.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/extensions/badge.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/a11y/forced-colors-sidebar.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 
