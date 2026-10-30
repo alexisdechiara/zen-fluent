@@ -213,6 +213,9 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
 | Folder colors                   | `zen-fluent.enhanced.folder-colors`               | `true`  |
 | Fluent icons in the icon picker | `zen-fluent.enhanced.icon-picker`                 | `true`  |
+| Tab hover cards                 | `zen-fluent.enhanced.hover-cards`                 | `false` |
+| Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
+| Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
 
 ## Repository
 

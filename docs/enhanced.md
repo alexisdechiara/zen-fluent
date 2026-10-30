@@ -24,6 +24,9 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
 | Folder colors                   | `zen-fluent.enhanced.folder-colors`               | `true`  |
 | Fluent icons in the icon picker | `zen-fluent.enhanced.icon-picker`                 | `true`  |
+| Tab hover cards                 | `zen-fluent.enhanced.hover-cards`                 | `false` |
+| Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
+| Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -137,6 +140,15 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   (`svg.context-properties.content.enabled`), like Zen Fluent's icons;
   without it the section says so. An icon picked here shows as long as Zen
   Fluent Enhanced is installed.
+- **Tab hover cards** (off by default): like the taskbar's previews, after a
+  short hover (**Hover card delay**: 0.3, 0.5, 0.8 or 1.2 s) a card opens
+  beside the tab: a thumbnail of the page (Firefox's own capture, not for the
+  selected or a sleeping tab; **Page thumbnails in hover cards**), the title,
+  the address, the state (sleeping, playing, muted) and buttons: copy the
+  link, duplicate, mute or unmute, unload, close. Moving to another tab
+  switches the card at once; it closes when the pointer leaves the tab and
+  the card, on a click, a drag, a menu, or when the window loses focus.
+  Firefox's tab tooltip and its own tab preview stay hidden meanwhile.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
@@ -154,10 +166,9 @@ fx-autoconfig: Sine ships its own loader, and fx-autoconfig would overwrite it.
 
 ## Planned features
 
-| Feature                               | Setting (planned)                 |
-| ------------------------------------- | --------------------------------- |
-| Tab hover cards with actions          | `zen-fluent.enhanced.hover-cards` |
-| Glance style: link preview, Alt+click | `zen-fluent.enhanced.glance`      |
+| Feature                               | Setting (planned)            |
+| ------------------------------------- | ---------------------------- |
+| Glance style: link preview, Alt+click | `zen-fluent.enhanced.glance` |
 
 Each one is documented here, with its default, when it lands.
 

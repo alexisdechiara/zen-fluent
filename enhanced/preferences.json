@@ -112,5 +112,30 @@
     "label": "Fluent icons in the icon picker ~for spaces, folders and pinned tabs; needs Allow the mod's icons~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards",
+    "label": "Tab hover cards ~a preview and actions beside the tab under the pointer~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards.delay",
+    "label": "Hover card delay",
+    "type": "dropdown",
+    "defaultValue": "500",
+    "placeholder": false,
+    "options": [
+      { "label": "Short (0.3 s)", "value": "300" },
+      { "label": "Medium (0.5 s)", "value": "500" },
+      { "label": "Long (0.8 s)", "value": "800" },
+      { "label": "Longer (1.2 s)", "value": "1200" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.hover-cards.thumbnails",
+    "label": "Page thumbnails in hover cards",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]
