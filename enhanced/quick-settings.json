@@ -1,0 +1,118 @@
+{
+  "settings": [
+    "zen-fluent.style",
+    "zen-fluent.material",
+    "zen-fluent.tint-opacity",
+    "zen-fluent.accent",
+    "zen-fluent.corners",
+    "zen-fluent.density",
+    "zen-fluent.essentials.selected-style",
+    "zen-fluent.essentials.selected-color",
+    "zen-fluent.extensions.position",
+    "zen-fluent.variant.global",
+    "zen-fluent.variant.global-shape",
+    "zen-fluent.button-animations"
+  ],
+  "labels": {
+    "zen-fluent.extensions.position": "Extensions row",
+    "zen-fluent.variant.global": "Button fill",
+    "zen-fluent.variant.global-shape": "Button shape"
+  },
+  "presets": [
+    {
+      "id": "windows-11",
+      "name": "Windows 11",
+      "description": "Mica, WinUI corners, the dash and glow",
+      "prefs": {
+        "zen-fluent.style": "winui",
+        "zen-fluent.material": "mica",
+        "zen-fluent.corners": "winui",
+        "zen-fluent.density": "standard",
+        "zen-fluent.essentials.selected-style": "glow",
+        "zen-fluent.essentials.selected-color": "accent",
+        "zen-fluent.essentials.align": "start",
+        "zen-fluent.essentials.running": "none",
+        "zen-fluent.essentials.hover": "fill",
+        "zen-fluent.extensions.position": "top",
+        "zen-fluent.variant.global": "auto",
+        "zen-fluent.variant.global-shape": "auto"
+      }
+    },
+    {
+      "id": "edge",
+      "name": "Microsoft Edge",
+      "description": "Edge's look on Mica Alt, raised tiles",
+      "prefs": {
+        "zen-fluent.style": "edge",
+        "zen-fluent.material": "mica-alt",
+        "zen-fluent.corners": "winui",
+        "zen-fluent.density": "standard",
+        "zen-fluent.essentials.selected-style": "glow",
+        "zen-fluent.essentials.selected-color": "accent",
+        "zen-fluent.essentials.align": "start",
+        "zen-fluent.essentials.running": "none",
+        "zen-fluent.essentials.hover": "fill",
+        "zen-fluent.extensions.position": "top",
+        "zen-fluent.variant.global": "auto",
+        "zen-fluent.variant.global-shape": "auto"
+      }
+    },
+    {
+      "id": "taskbar",
+      "name": "Taskbar",
+      "description": "Centered Essentials, pill indicators, extensions at the bottom",
+      "prefs": {
+        "zen-fluent.style": "winui",
+        "zen-fluent.material": "mica",
+        "zen-fluent.corners": "winui",
+        "zen-fluent.density": "standard",
+        "zen-fluent.essentials.selected-style": "indicator",
+        "zen-fluent.essentials.selected-color": "icon",
+        "zen-fluent.essentials.align": "center",
+        "zen-fluent.essentials.running": "dot",
+        "zen-fluent.essentials.hover": "reveal",
+        "zen-fluent.extensions.position": "bottom",
+        "zen-fluent.variant.global": "ghost",
+        "zen-fluent.variant.global-shape": "rounded"
+      }
+    },
+    {
+      "id": "arc",
+      "name": "Arc",
+      "description": "Acrylic, colored Essentials, soft pills",
+      "prefs": {
+        "zen-fluent.style": "winui",
+        "zen-fluent.material": "acrylic",
+        "zen-fluent.corners": "zen",
+        "zen-fluent.density": "standard",
+        "zen-fluent.essentials.selected-style": "arc",
+        "zen-fluent.essentials.selected-color": "icon",
+        "zen-fluent.essentials.align": "start",
+        "zen-fluent.essentials.running": "none",
+        "zen-fluent.essentials.hover": "fill",
+        "zen-fluent.extensions.position": "top",
+        "zen-fluent.variant.global": "subtle",
+        "zen-fluent.variant.global-shape": "pill"
+      }
+    },
+    {
+      "id": "compact",
+      "name": "Compact",
+      "description": "Dense rows, square ghost buttons, side bar marks",
+      "prefs": {
+        "zen-fluent.style": "winui",
+        "zen-fluent.material": "mica",
+        "zen-fluent.corners": "winui",
+        "zen-fluent.density": "compact",
+        "zen-fluent.essentials.selected-style": "side",
+        "zen-fluent.essentials.selected-color": "accent",
+        "zen-fluent.essentials.align": "start",
+        "zen-fluent.essentials.running": "dot",
+        "zen-fluent.essentials.hover": "fill",
+        "zen-fluent.extensions.position": "bottom",
+        "zen-fluent.variant.global": "ghost",
+        "zen-fluent.variant.global-shape": "square"
+      }
+    }
+  ]
+}

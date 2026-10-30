@@ -44,6 +44,18 @@ and one checkbox, `zen-fluent.enhanced.<name>`, in `enhanced/preferences.json`.
 instance left by an earlier run of the script. A failure in `start()` is logged
 and undone.
 
+## Shared modules (`lib/`)
+
+- `zf-feature.sys.mjs`: the life cycle above.
+- `zf-colors.sys.mjs`: `iconOf(tab)` (the icon Zen shows), `iconColor(window,
+url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
+- `zf-toast.sys.mjs`: `showToast(window, text)`, a short message at the bottom
+  of the window (`enhanced/src/toast.css`); Zen's own toasts only take its
+  Fluent string ids.
+
+Scripts cannot reach web pages: Firefox refuses a window actor from a profile
+mod in web content processes (CLAUDE.md, "Sine 2.3").
+
 ## How Sine 2.3 runs scripts (read in its code)
 
 - `.uc.js` scripts are loaded with `loadSubScript` into every window their

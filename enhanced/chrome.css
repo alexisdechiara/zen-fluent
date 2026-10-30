@@ -2,4 +2,9 @@
    User sheet: declarations take !important to win over Zen's own CSS.
    One file per feature in src/, imported here in the scripts' order. */
 
+@import url("src/toast.css");
 @import url("src/favicon-color.css");
+@import url("src/adaptive-accent.css");
+@import url("src/extensions-below-essentials.css");
+@import url("src/tab-numbers.css");
+@import url("src/quick-settings.css");

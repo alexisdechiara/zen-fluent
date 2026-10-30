@@ -14,7 +14,22 @@
   },
   "preferences": "preferences.json",
   "scripts": {
+    "scripts/quick-settings.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/favicon-color.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/adaptive-accent.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/extensions-below-essentials.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-numbers.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/shortcuts.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     }
   },

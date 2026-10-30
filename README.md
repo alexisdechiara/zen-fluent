@@ -195,9 +195,14 @@ closed; only **Appearance** is open by default) and `zen-fluent.ui.expand-all`
 Zen Fluent Enhanced has its own settings, one checkbox per feature
 ([docs/enhanced.md](docs/enhanced.md)):
 
-| Feature     | Preference                          | Default |
-| ----------- | ----------------------------------- | ------- |
-| Icon colors | `zen-fluent.enhanced.favicon-color` | `true`  |
+| Feature                         | Preference                                        | Default |
+| ------------------------------- | ------------------------------------------------- | ------- |
+| Quick Settings                  | `zen-fluent.enhanced.quick-settings`              | `true`  |
+| Icon colors                     | `zen-fluent.enhanced.favicon-color`               | `true`  |
+| Adaptive accent                 | `zen-fluent.enhanced.adaptive-accent`             | `false` |
+| Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
+| Tab numbers while Ctrl is held  | `zen-fluent.enhanced.tab-numbers`                 | `true`  |
+| Shortcuts                       | `zen-fluent.enhanced.shortcuts`                   | `true`  |
 
 ## Repository
 

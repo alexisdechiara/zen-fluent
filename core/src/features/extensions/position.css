@@ -5,7 +5,8 @@
    above #TabsToolbar, which holds the Essentials, the tabs and the foot
    buttons. "bottom" moves it after #TabsToolbar: the very bottom of the
    sidebar, under the foot buttons. Between the Essentials and the tabs
-   would need a script (Zen Fluent Enhanced). "hidden" hides the row: the
+   needs a script (Zen Fluent Enhanced's
+   extensions-below-essentials). "hidden" hides the row: the
    extensions stay in the site panel and the Extensions menu. */
 
 @media (-moz-pref("zen-fluent.extensions.position", "bottom")) {

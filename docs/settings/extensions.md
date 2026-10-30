@@ -33,7 +33,9 @@ Group header: `zen-fluent.ui.open-extensions` (open by default: `false`).
   click each one's gear, **Unpin from Toolbar**, then **Pin to Toolbar**.
 - **Place**: above the Essentials (Zen's place) or at the very bottom of the
   sidebar, under the Library and New buttons. Between the Essentials and the
-  tabs needs a script: it will come with Zen Fluent Enhanced. Hidden: the
+  tabs needs a script: Zen Fluent Enhanced's **Extensions under the
+  Essentials** moves the row there while Place is above the Essentials
+  ([docs/enhanced.md](../enhanced.md)). Hidden: the
   extensions stay in the site panel and the Extensions menu.
 - **Columns**: Automatic fits as many buttons as the width allows; a count
   makes that many columns, narrower than a button if the sidebar is narrow.

@@ -1,0 +1,22 @@
+/* Zen Fluent Enhanced: the extensions row under the Essentials (zen-fluent.enhanced.extensions-below-essentials).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/extensions-below-essentials.uc.js moves the row after
+   #zen-essentials, inside the tab strip, and measures the Essentials grid
+   (--zf-essentials-height). The grid floats over the space, so the row,
+   which takes its place in the flow above the space, is drawn that much
+   lower: right under the grid, with the space pushed down by the row's
+   height. Zen pads the row for the top of the sidebar (8px above, none
+   below): here it gets 4px on both sides. Zen Fluent's own row settings
+   (zen-fluent.extensions.*) still apply: they find the row by its id. */
+
+@media (-moz-pref("zen-fluent.enhanced.extensions-below-essentials")) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list[zf-below-essentials]:not(:empty) {
+    /* Above the space, whose padded top it is drawn over */
+    position: relative !important;
+    z-index: 1 !important;
+    padding-block: 4px !important;
+    translate: 0 var(--zf-essentials-height, 0) !important;
+  }
+}

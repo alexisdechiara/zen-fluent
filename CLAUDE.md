@@ -35,7 +35,9 @@ come later. The owner writes to Claude in French: answer in French.
   preference does not exist).
 - `core/icons/`: SVGs with `stroke="context-fill"`. `screenshots/`: README images.
 - `enhanced/`: `theme.json` (id `Zen-Fluent-Enhanced`, `modules` = Zen Fluent's
-  exact homepage), `chrome.css`, `scripts/` (rules in `enhanced/scripts/README.md`).
+  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `scripts/`
+  (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
+  Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
 - `components.json`: manifest for the future `.exe` installer
   (`installer/README.md`). `docs/`: installation, `docs/settings/<group>.md`,
@@ -100,6 +102,11 @@ come later. The owner writes to Claude in French: answer in French.
   opens them, the pref is missing. Enhanced features read it with their
   `default` (checked against `enhanced/preferences.json`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
+- A profile mod cannot run code in web pages: `ChromeUtils.registerWindowActor`
+  with a `chrome://sine/...` module registers, but `getActor` in a
+  `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
+  as for Sine's own content actor. A page's `theme-color` or DOM is out of
+  reach; the chrome only has the tab's icon, title and URL.
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the
   variable too).

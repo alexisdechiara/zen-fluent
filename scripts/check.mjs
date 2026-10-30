@@ -145,7 +145,9 @@ const allCss = sheets.map(read).join("\n");
 const ownPrefs = prefs.filter(
   (p) =>
     p.property?.startsWith("zen-fluent.") &&
-    !p.property.startsWith("zen-fluent.ui."),
+    !p.property.startsWith("zen-fluent.ui.") &&
+    // Read by their script (checked under "Enhanced scripts")
+    !p.property.startsWith("zen-fluent.enhanced."),
 );
 for (const p of ownPrefs) {
   const dashed = p.property.replace(/\./g, "-");
@@ -181,6 +183,7 @@ const scriptFiles = [
   ...walk("enhanced/scripts", ".js"),
   ...walk("enhanced/scripts", ".mjs"),
 ];
+const featureNames = new Set();
 for (const file of scriptFiles) {
   const key = file.slice("enhanced/".length);
   const code = read(file);
@@ -204,6 +207,7 @@ for (const file of scriptFiles) {
       `${file}: must give Sine its clean-up (window.addUnloadListener?.(…))`,
     );
   const name = code.match(/\bname:\s*"([a-z][a-z0-9-]*)"/)?.[1];
+  if (name) featureNames.add(name);
   if (!name) fail(`${file}: no feature name: "…"`);
   else if (!ids.has(`zen-fluent.enhanced.${name}`))
     fail(
@@ -219,6 +223,57 @@ for (const file of scriptFiles) {
       fail(
         `${file}: default: ${scripted} differs from the checkbox's defaultValue ${checkbox.defaultValue === true}`,
       );
+  }
+}
+for (const p of prefs.filter((p) =>
+  p.property?.startsWith("zen-fluent.enhanced."),
+))
+  if (!featureNames.has(p.property.slice("zen-fluent.enhanced.".length)))
+    fail(`preferences: ${p.property} has no feature script`);
+
+// ---- Quick Settings: every setting and preset value is one of Zen Fluent's
+const quick = fs.existsSync(path.join(root, "enhanced/quick-settings.json"))
+  ? json("enhanced/quick-settings.json")
+  : null;
+if (quick) {
+  const byId = new Map(prefs.map((p) => [p.property, p]));
+  const known = (property, where) => {
+    const pref = byId.get(property);
+    if (!pref || !property.startsWith("zen-fluent."))
+      fail(
+        `enhanced/quick-settings.json: ${where} ${property} is not a Zen Fluent setting`,
+      );
+    else if (!["dropdown", "checkbox"].includes(pref.type))
+      fail(
+        `enhanced/quick-settings.json: ${where} ${property} is a ${pref.type} (dropdowns and checkboxes only)`,
+      );
+    return pref;
+  };
+  for (const property of quick.settings || []) known(property, "setting");
+  for (const property of Object.keys(quick.labels || {}))
+    if (!(quick.settings || []).includes(property))
+      fail(
+        `enhanced/quick-settings.json: label for ${property}, which is not in "settings"`,
+      );
+  for (const preset of quick.presets || []) {
+    if (!preset.id || !preset.name || !preset.description)
+      fail(
+        `enhanced/quick-settings.json: a preset needs id, name and description`,
+      );
+    for (const [property, value] of Object.entries(preset.prefs || {})) {
+      const pref = known(property, `preset ${preset.id}:`);
+      if (
+        pref?.type === "dropdown" &&
+        !pref.options.some((o) => o.value === value)
+      )
+        fail(
+          `enhanced/quick-settings.json: preset ${preset.id}: ${value} is not a value of ${property}`,
+        );
+      if (pref?.type === "checkbox" && typeof value !== "boolean")
+        fail(
+          `enhanced/quick-settings.json: preset ${preset.id}: ${property} takes true or false`,
+        );
+    }
   }
 }
 

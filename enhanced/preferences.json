@@ -1,7 +1,37 @@
 [
   {
+    "property": "zen-fluent.enhanced.quick-settings",
+    "label": "Quick Settings ~a button in the sidebar's bottom row: main settings and presets~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.favicon-color",
     "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.adaptive-accent",
+    "label": "Adaptive accent ~the accent takes the color of the site's icon~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.extensions-below-essentials",
+    "label": "Extensions under the Essentials ~single toolbar, with the extensions row on top~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-numbers",
+    "label": "Tab numbers while Ctrl is held ~the number Ctrl+1 to Ctrl+9 selects~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.shortcuts",
+    "label": "Shortcuts ~Ctrl+Alt+Shift+D density, +T light or dark, +M material~",
     "type": "checkbox",
     "defaultValue": true
   }

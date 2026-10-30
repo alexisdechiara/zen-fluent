@@ -30,6 +30,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Quick Settings** (`zen-fluent.enhanced.quick-settings`, default `true`), a sidebar button with Zen Fluent's main settings and five presets (Windows 11, Microsoft Edge, Taskbar, Arc, Compact) with Undo; **Adaptive accent** (`zen-fluent.enhanced.adaptive-accent`, default `false`), the accent in the color of the site's icon; **Extensions under the Essentials** (`zen-fluent.enhanced.extensions-below-essentials`, default `false`); **Tab numbers while Ctrl is held** (`zen-fluent.enhanced.tab-numbers`, default `true`); **Shortcuts** (`zen-fluent.enhanced.shortcuts`, default `true`) for the density, the window theme and the material.
 - Zen Fluent Enhanced's first feature, **Icon colors** (`zen-fluent.enhanced.favicon-color`, default `true`): it reads the dominant color of each tab's icon, and with **Selected Essential color** on Icon color the selected Essential takes that exact color, its rings and borders included.
 - Zen Fluent Enhanced: the life cycle every feature script shares (`enhanced/scripts/lib/zf-feature.sys.mjs`: its own checkbox, clean stop, safe reruns) and its rules in `npm run check`. No feature yet.
 - Selected Essential: a Glow only style (the favicon glow without the dash, whatever Zen's glow setting) and an Icon color (`icon`) for **Selected Essential color**: fills and marks take the favicon's color.
