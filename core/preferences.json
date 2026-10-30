@@ -199,7 +199,7 @@
   },
   {
     "property": "zen-fluent.ui.open-sidebar",
-    "label": "Sidebar ~Buttons, Essentials, workspaces, compact mode~",
+    "label": "Sidebar ~Buttons, workspaces, compact mode~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -239,10 +239,49 @@
     ]
   },
   {
-    "property": "zen-fluent.essentials-gray",
-    "label": "Grey Essentials icons",
+    "property": "zen-fluent.compact-sidebar-bg",
+    "label": "Acrylic sidebar background in compact mode",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.compact-edge-hint",
+    "label": "Edge hint at the window border in compact mode",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.ui.open-essentials",
+    "label": "Essentials ~Tiles like the Windows taskbar: selected style, size, layout, indicators~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.essentials.selected-style",
+    "label": "Selected Essential",
+    "type": "dropdown",
+    "defaultValue": "glow",
+    "placeholder": false,
+    "options": [
+      { "label": "Dash and favicon glow", "value": "glow" },
+      { "label": "Arc (colored border, 3D edge)", "value": "arc" },
+      { "label": "Fill", "value": "fill" },
+      { "label": "Taskbar indicator", "value": "indicator" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Lift", "value": "lift" },
+      { "label": "Tint", "value": "tint" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.selected-color",
+    "label": "Selected Essential color",
+    "type": "dropdown",
+    "defaultValue": "accent",
+    "placeholder": false,
+    "options": [
+      { "label": "Accent", "value": "accent" },
+      { "label": "Space color", "value": "space" }
+    ]
   },
   {
     "property": "zen-fluent.essentials-per-row",
@@ -273,33 +312,6 @@
       { "label": "64 px", "value": "64" },
       { "label": "72 px", "value": "72" },
       { "label": "80 px", "value": "80" }
-    ]
-  },
-  {
-    "property": "zen-fluent.essentials.selected-style",
-    "label": "Selected Essential",
-    "type": "dropdown",
-    "defaultValue": "glow",
-    "placeholder": false,
-    "options": [
-      { "label": "Dash and favicon glow", "value": "glow" },
-      { "label": "Arc (colored border, 3D edge)", "value": "arc" },
-      { "label": "Fill", "value": "fill" },
-      { "label": "Taskbar indicator", "value": "indicator" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Lift", "value": "lift" },
-      { "label": "Tint", "value": "tint" }
-    ]
-  },
-  {
-    "property": "zen-fluent.essentials.selected-color",
-    "label": "Selected Essential color",
-    "type": "dropdown",
-    "defaultValue": "accent",
-    "placeholder": false,
-    "options": [
-      { "label": "Accent", "value": "accent" },
-      { "label": "Space color", "value": "space" }
     ]
   },
   {
@@ -334,16 +346,10 @@
     ]
   },
   {
-    "property": "zen-fluent.compact-sidebar-bg",
-    "label": "Acrylic sidebar background in compact mode",
+    "property": "zen-fluent.essentials-gray",
+    "label": "Grey Essentials icons",
     "type": "checkbox",
-    "defaultValue": true
-  },
-  {
-    "property": "zen-fluent.compact-edge-hint",
-    "label": "Edge hint at the window border in compact mode",
-    "type": "checkbox",
-    "defaultValue": true
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.ui.open-extensions",
