@@ -106,7 +106,13 @@ come later. The owner writes to Claude in French: answer in French.
 - A Glance tab is nested in its parent tab: target
   `.tabbrowser-tab > .tab-stack > .tab-background`, not any descendant.
 - Pinned extensions (single toolbar): `#zen-overflow-extensions-list`, under the
-  URL bar. The old `#TabsToolbar-customization-target` technique no longer works.
+  URL bar. The old `#TabsToolbar-customization-target` technique no longer works:
+  extensions placed in `TabsToolbar` (Arc 2.0, Nebula) stack one per row in the
+  tab area; unpin then pin them (the panel's Pin to Toolbar puts them in
+  `nav-bar`). Zen 1.24b (CustomizableUI `getOverflowInfo`): the list only gets
+  them when (URL bar icons + extensions) x 26px exceed
+  `zen.view.overflow-webext-toolbar-threshold` (55) % of `#urlbar-container`'s
+  width; below that they sit before `#page-action-buttons` in the URL bar.
 - Mod icons (`core/icons/`, `stroke="context-fill"`): invisible without
   `svg.context-properties.content.enabled` (files outside `chrome://`); every
   icon override is in `core/src/features/fluent-icons/`, behind that preference
