@@ -90,7 +90,11 @@ come later. The owner writes to Claude in French: answer in French.
   lowercase id).
 - JavaScript: `scripts` map with `include`; scripts from a mod outside the store
   only run with `sine.allow-unsafe-js`. No per-script toggle (scripts follow the
-  mod), and every JS rebuild runs the scripts again: guard and clean up.
+  mod), and every JS rebuild runs the scripts again: guard and clean up. A
+  `.uc.js` is rerun on a rebuild only after the callback it gave to
+  `window.addUnloadListener` (keyed on the calling file) ran; without one Sine
+  skips it. Enhanced features go through `enhanced/scripts/lib/zf-feature.sys.mjs`
+  (`enhanced/scripts/README.md`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the
@@ -351,6 +355,11 @@ paints remote pages over the chrome: to picture an overlay of a loading page,
 build it on a static page. A slow local page (a server that sends a chunk, then
 waits) keeps a tab `[busy]`. Several agents can test at once: one headless
 instance each, its own profile and Marionette port.
+Enhanced scripts: `loadSubScript` refuses `file://`; put a test script under
+the test profile's `chrome/sine-mods/<folder>/` and load
+`chrome://sine/content/<folder>/<file>`. Sine's manager is the default export
+of `chrome://userscripts/content/core/manager.sys.mjs`; its
+`triggerUnloadListener(url, window)` runs a script's clean-up.
 
 ## To do
 

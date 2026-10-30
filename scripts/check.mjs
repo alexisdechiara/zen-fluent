@@ -172,6 +172,45 @@ for (const p of prefs.filter(
     );
 }
 
+// ---- Enhanced scripts: declared, the shared life cycle, a pref each
+// (enhanced/scripts/README.md). Feature scripts are .uc.js files in
+// enhanced/scripts/; shared modules in enhanced/scripts/lib/ are imported by
+// them and never declared, or Sine would also import them at startup.
+const declared = new Set(Object.keys(enhanced?.scripts || {}));
+const scriptFiles = [
+  ...walk("enhanced/scripts", ".js"),
+  ...walk("enhanced/scripts", ".mjs"),
+];
+for (const file of scriptFiles) {
+  const key = file.slice("enhanced/".length);
+  const code = read(file);
+  if (!code.startsWith("// Zen Fluent Enhanced: "))
+    fail(`${file}: missing the "// Zen Fluent Enhanced: …" header`);
+  if (key.startsWith("scripts/lib/")) {
+    if (declared.has(key))
+      fail(`enhanced/theme.json: ${key} is a shared module, not a script`);
+    continue;
+  }
+  if (!key.endsWith(".uc.js")) {
+    fail(`${file}: feature scripts are .uc.js files`);
+    continue;
+  }
+  if (!declared.has(key))
+    fail(`${file}: not declared in enhanced/theme.json "scripts"`);
+  if (!/ZFFeature\.attach\(window,/.test(code))
+    fail(`${file}: must start through ZFFeature.attach(window, …)`);
+  if (!/window\.addUnloadListener\?\.\(/.test(code))
+    fail(
+      `${file}: must give Sine its clean-up (window.addUnloadListener?.(…))`,
+    );
+  const name = code.match(/\bname:\s*"([a-z][a-z0-9-]*)"/)?.[1];
+  if (!name) fail(`${file}: no feature name: "…"`);
+  else if (!ids.has(`zen-fluent.enhanced.${name}`))
+    fail(
+      `${file}: its checkbox zen-fluent.enhanced.${name} is missing from enhanced/preferences.json`,
+    );
+}
+
 // ---- Paths quoted in the docs exist
 for (const file of [
   "README.md",
