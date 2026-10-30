@@ -605,6 +605,230 @@
     ]
   },
   {
+    "property": "zen-fluent.variant.tabs",
+    "label": "Tabs: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.tabs-shape",
+    "label": "Tabs: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.pinned-tabs",
+    "label": "Pinned tabs: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.pinned-tabs-shape",
+    "label": "Pinned tabs: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.folders",
+    "label": "Folder headers: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.folders-shape",
+    "label": "Folder headers: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.spaces",
+    "label": "Space buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.spaces-shape",
+    "label": "Space buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar",
+    "label": "URL bar: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-shape",
+    "label": "URL bar: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-buttons",
+    "label": "URL bar buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.urlbar-buttons-shape",
+    "label": "URL bar buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.badges",
+    "label": "Badges: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.badges-shape",
+    "label": "Badges: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.panel-buttons",
+    "label": "Panel and dialog buttons: fill",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Solid", "value": "solid" },
+      { "label": "Subtle", "value": "subtle" },
+      { "label": "Ghost", "value": "ghost" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.panel-buttons-shape",
+    "label": "Panel and dialog buttons: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (everywhere)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
     "property": "zen-fluent.ui.open-tabs",
     "label": "Tabs ~Text, pill, shadow, close buttons, unloaded tabs, sound, containers~",
     "type": "checkbox",

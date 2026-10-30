@@ -1,0 +1,108 @@
+/* Zen Fluent: Variant of the buttons in panels (zen-fluent.variant.panel-buttons).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The standard (not accent) Buttons of the flyouts
+   (components/panels/controls-buttons.css); the shape is for the accent
+   one too. Dialogs: see features/variants/dialog-buttons.css, same
+   setting. */
+
+/* The fill is this component's (zen-fluent.variant.panel-buttons) when it names
+   one, else the global one (zen-fluent.variant.global); "auto" on both
+   keeps the look of the other settings. The shape is, in this order: this
+   component's shape, its "pill" fill, the global shape, the global "pill"
+   fill. "rounded" keeps the component's radius. The conditions test the
+   values that set something, so that a pref not written yet falls back to
+   the global choice. */
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons", "solid")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons", "solid")) or (-moz-pref("zen-fluent.variant.panel-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.panel-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.panel-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+  :is(
+    #downloadsPanel .footer-button,
+    #identity-popup-remove-cert-exception
+  ):not([default], .primary) {
+    border-color: transparent !important;
+    background-color: var(--zf-variant-solid-bg) !important;
+    box-shadow: var(--zf-variant-solid-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-solid-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-solid-bg-press) !important;
+      box-shadow: var(--zf-variant-solid-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons", "solid")) or (-moz-pref("zen-fluent.variant.panel-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.panel-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.panel-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+  :is(
+    #downloadsPanel .footer-button,
+    #identity-popup-remove-cert-exception
+  ):not([default], .primary) {
+    border-color: transparent !important;
+    background-color: var(--zf-variant-subtle-bg) !important;
+    box-shadow: var(--zf-variant-subtle-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons", "solid")) or (-moz-pref("zen-fluent.variant.panel-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.panel-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.panel-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+  :is(
+    #downloadsPanel .footer-button,
+    #identity-popup-remove-cert-exception
+  ):not([default], .primary) {
+    border-color: transparent !important;
+    background-color: var(--zf-variant-ghost-bg) !important;
+    box-shadow: var(--zf-variant-ghost-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-ghost-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-ghost-bg-press) !important;
+      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons", "outline")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons", "solid")) or (-moz-pref("zen-fluent.variant.panel-buttons", "subtle")) or (-moz-pref("zen-fluent.variant.panel-buttons", "ghost")) or (-moz-pref("zen-fluent.variant.panel-buttons", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+  :is(
+    #downloadsPanel .footer-button,
+    #identity-popup-remove-cert-exception
+  ):not([default], .primary) {
+    border-color: transparent !important;
+    background-color: var(--zf-variant-outline-bg) !important;
+    box-shadow: var(--zf-variant-outline-stroke) !important;
+
+    &:not([disabled]):hover {
+      background-color: var(--zf-variant-outline-bg-hover) !important;
+    }
+
+    &:not([disabled]):hover:active {
+      background-color: var(--zf-variant-outline-bg-press) !important;
+      box-shadow: var(--zf-variant-outline-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons-shape", "square")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons-shape", "square")) or (-moz-pref("zen-fluent.variant.panel-buttons-shape", "rounded")) or (-moz-pref("zen-fluent.variant.panel-buttons-shape", "pill")))) and (not (-moz-pref("zen-fluent.variant.panel-buttons", "pill"))) and (-moz-pref("zen-fluent.variant.global-shape", "square"))) {
+  :is(#downloadsPanel .footer-button, #identity-popup-remove-cert-exception) {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.panel-buttons-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.panel-buttons-shape", "square")) or (-moz-pref("zen-fluent.variant.panel-buttons-shape", "rounded")) or (-moz-pref("zen-fluent.variant.panel-buttons-shape", "pill")))) and ((-moz-pref("zen-fluent.variant.panel-buttons", "pill")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.global-shape", "square")) or (-moz-pref("zen-fluent.variant.global-shape", "rounded")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")))) and (-moz-pref("zen-fluent.variant.global", "pill"))))) {
+  :is(#downloadsPanel .footer-button, #identity-popup-remove-cert-exception) {
+    border-radius: 9999px !important;
+    corner-shape: round !important;
+  }
+}

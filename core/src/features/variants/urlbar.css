@@ -1,0 +1,88 @@
+/* Zen Fluent: Variant of the URL bar field (zen-fluent.variant.urlbar).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The field at rest and hovered; focused and open, it keeps its own look.
+   Solid is the style's field (and brings it back with the Transparent URL
+   bar shape), subtle a tint without stroke, ghost and outline no fill: a
+   ghost field keeps a faint stroke, or nothing would show where to type.
+   The shape only rounds the field: the URL bar shape setting's Pill also
+   turns its buttons into circles. */
+
+/* The fill is this component's (zen-fluent.variant.urlbar) when it names
+   one, else the global one (zen-fluent.variant.global); "auto" on both
+   keeps the look of the other settings. The shape is, in this order: this
+   component's shape, its "pill" fill, the global shape, the global "pill"
+   fill. "rounded" keeps the component's radius. The conditions test the
+   values that set something, so that a pref not written yet falls back to
+   the global choice. */
+
+@media (-moz-pref("zen-fluent.variant.urlbar", "solid")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      border-color: var(--zf-url-stroke) var(--zf-url-stroke)
+        var(--zf-url-stroke-bottom) !important;
+      background-color: var(--zf-url-fill) !important;
+    }
+
+    &:hover .urlbar-background {
+      border-color: var(--zf-url-stroke) var(--zf-url-stroke)
+        var(--zf-url-stroke-bottom) !important;
+      background-color: var(--zf-url-fill-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:hover .urlbar-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      border-color: var(--zf-stroke-divider) !important;
+      background-color: transparent !important;
+    }
+
+    &:hover .urlbar-background {
+      border-color: var(--zf-stroke-divider) !important;
+      background-color: var(--zf-variant-ghost-bg-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar", "outline")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      border-color: var(--zf-variant-outline-color) !important;
+      background-color: transparent !important;
+    }
+
+    &:hover .urlbar-background {
+      border-color: var(--zf-variant-outline-color) !important;
+      background-color: var(--zf-variant-outline-bg-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-shape", "square")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-shape", "square")) or (-moz-pref("zen-fluent.variant.urlbar-shape", "rounded")) or (-moz-pref("zen-fluent.variant.urlbar-shape", "pill")))) and (not (-moz-pref("zen-fluent.variant.urlbar", "pill"))) and (-moz-pref("zen-fluent.variant.global-shape", "square"))) {
+  #urlbar:not([breakout-extend]) .urlbar-background {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.urlbar-shape", "square")) or (-moz-pref("zen-fluent.variant.urlbar-shape", "rounded")) or (-moz-pref("zen-fluent.variant.urlbar-shape", "pill")))) and ((-moz-pref("zen-fluent.variant.urlbar", "pill")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.global-shape", "square")) or (-moz-pref("zen-fluent.variant.global-shape", "rounded")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")))) and (-moz-pref("zen-fluent.variant.global", "pill"))))) {
+  #urlbar:not([breakout-extend]) .urlbar-background {
+    border-radius: 9999px !important;
+    corner-shape: round !important;
+  }
+}

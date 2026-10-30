@@ -105,6 +105,14 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/components/sidebar/collapsed.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/pinned-tabs.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/folders.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/spaces.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/components/workspace-creation.css") not
   (-moz-pref("zen-fluent.fluent-screens", false));
 
@@ -130,6 +138,8 @@
 @import url("src/features/extensions/badge.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/variants/extensions.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/variants/badges.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/a11y/forced-colors-sidebar.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
@@ -169,6 +179,10 @@
 @import url("src/components/urlbar/smoke.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/features/animations/urlbar-smoke.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/variants/urlbar.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/features/variants/urlbar-buttons.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/a11y/forced-colors-urlbar.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
@@ -339,6 +353,8 @@
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/controls-buttons.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/variants/panel-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/controls-combobox.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/controls-chips.css") not
@@ -388,6 +404,8 @@
 @import url("src/components/dialogs/content.css") not
   (-moz-pref("zen-fluent.fluent-dialogs", false));
 @import url("src/components/dialogs/buttons.css") not
+  (-moz-pref("zen-fluent.fluent-dialogs", false));
+@import url("src/features/variants/dialog-buttons.css") not
   (-moz-pref("zen-fluent.fluent-dialogs", false));
 @import url("src/components/dialogs/titles.css") not
   (-moz-pref("zen-fluent.fluent-dialogs", false));
