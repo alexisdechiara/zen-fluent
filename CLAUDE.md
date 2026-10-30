@@ -177,6 +177,14 @@ come later. The owner writes to Claude in French: answer in French.
 - XUL attributes map to `!important` UA rules in `xul.css` (`[flex="1"]`,
   `[align]`, `[pack]`): they beat user `!important`. Work around them
   (`max-height`, `align-self`, margins) instead of fighting them.
+- Zen 1.24 Boost editor: its own chrome window (`zen-boost-editor.xhtml`,
+  `#zenBoostWindow`), which gets Sine's chrome sheet; colors come from
+  `--zen-boosts-*` tokens, and its buttons have a 6px transparent border
+  their fill runs under. The Boost share card (`.zbs-*`) is left as Zen
+  designed it: it is the image people share.
+- Zen Easel (no licence: read, never copy or run): `about:easel` is a
+  system-principal page, reached by `core/userContent.css`; its tokens sit on
+  `:host` of `<zen-easel>`, overridden by user rules on the element.
 - Zen 1.24 media card: `#zen-media-controls-toolbar` keeps its collapsed
   height and the hovered card grows over the tabs above it.
 - `-moz-pref(name, "v")` is false while the pref does not exist: write a
