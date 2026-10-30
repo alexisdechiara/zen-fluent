@@ -15,6 +15,8 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 | Essentials per row                                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                          | `auto`   |
 | Selected Essential                                         | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint | `glow`   |
 | Selected Essential color                                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                 | `accent` |
+| Essentials height                                          | `zen-fluent.essentials.height`         | `auto` Automatic (density)<br>`32` 32 px<br>`36` 36 px<br>`42` 42 px<br>`48` 48 px<br>`56` 56 px                                                                       | `auto`   |
+| Space between Essentials                                   | `zen-fluent.essentials.gap`            | `auto` Automatic (density)<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                                                                   | `auto`   |
 | Acrylic sidebar background in compact mode                 | `zen-fluent.compact-sidebar-bg`        | `true` / `false`                                                                                                                                                       | `true`   |
 | Edge hint at the window border in compact mode             | `zen-fluent.compact-edge-hint`         | `true` / `false`                                                                                                                                                       | `true`   |
 
@@ -33,6 +35,9 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
   stacked at the bottom of the sidebar: in the Extensions menu (puzzle icon),
   click each one's gear, **Unpin from Toolbar**, then **Pin to Toolbar**.
 - **Essentials per row**: Automatic keeps as many 36 px columns as fit, a lone row stretched across. A count sets 2 to 6 equal columns: the tiles keep their height and gap, and keep their width when their row is not full. A sidebar too narrow for the count keeps as many 36 px columns as fit; the collapsed sidebar stays one column.
+- **Essentials height** and **Space between Essentials**: Automatic follows
+  the density (42 px tiles 6 px apart, 36 px and 4 px in compact). The width
+  stays the grid's: see Essentials per row.
 - **Selected Essential**: how the selected tile is marked. All styles stay
   inside the tile.
   - _Dash and favicon glow_ (default): the card tile with a dash under the

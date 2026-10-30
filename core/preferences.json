@@ -293,6 +293,37 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.height",
+    "label": "Essentials height",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "32 px", "value": "32" },
+      { "label": "36 px", "value": "36" },
+      { "label": "42 px", "value": "42" },
+      { "label": "48 px", "value": "48" },
+      { "label": "56 px", "value": "56" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.gap",
+    "label": "Space between Essentials",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "0 px", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "6 px", "value": "6" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" }
+    ]
+  },
+  {
     "property": "zen-fluent.compact-sidebar-bg",
     "label": "Acrylic sidebar background in compact mode",
     "type": "checkbox",
