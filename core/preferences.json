@@ -315,6 +315,18 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.icon-size",
+    "label": "Icon size",
+    "type": "dropdown",
+    "defaultValue": "medium",
+    "placeholder": false,
+    "options": [
+      { "label": "Small (16 px)", "value": "small" },
+      { "label": "Medium (20 px)", "value": "medium" },
+      { "label": "Large (24 px)", "value": "large" }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials.height",
     "label": "Essentials height",
     "type": "dropdown",

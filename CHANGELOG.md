@@ -29,6 +29,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Essentials icon size (`zen-fluent.essentials.icon-size`, default `medium`): 16, 20 or 24 px favicons.
 - Essentials alignment (`zen-fluent.essentials.align`, default `start`): Center centers each row of tiles, the last one too, like the centered Windows taskbar.
 - An Essentials settings group: the Essentials settings of the Sidebar group moved there, with the taskbar-style ones below.
 - A Variants settings group: a fill (solid, subtle, ghost, outline, or pill = pill shape with the current fill) and a shape (square, rounded, pill) for every component at once (`zen-fluent.variant.global`, `zen-fluent.variant.global-shape`) or per component (`zen-fluent.variant.<component>` and `-shape`): toolbar and sidebar buttons, extension buttons, Essentials, tabs, pinned tabs, folder headers, space buttons, URL bar, URL bar buttons, badges, panel and dialog buttons. Automatic everywhere keeps today's look.
