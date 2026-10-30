@@ -36,6 +36,8 @@
   (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/accent-selection.css");
 @import url("src/content/thin-scrollbars-web.css");
+@import url("src/compat/easel.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
 
 /* Dialogs of about:preferences */
 @import url("src/content/preferences-dialogs.css") not

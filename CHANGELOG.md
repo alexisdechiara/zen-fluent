@@ -29,6 +29,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Easel compatibility: the panels of `about:easel` take Zen Fluent's accent, Acrylic, text and stroke colors (`core/src/compat/easel.css`).
 - Essentials labels (`zen-fluent.essentials.labels`, default `hide`): the page title under each icon, like labelled taskbar apps.
 - Essentials hover (`zen-fluent.essentials.hover`, default `fill`): a soft light under the icon of the hovered tile, like the taskbar.
 - Essentials open page indicator (`zen-fluent.essentials.running`, default `none`): a dot under loaded tiles, like the taskbar's running apps. Selected Essential gets two more styles: Side bar and None (fill only).
