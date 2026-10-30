@@ -4,17 +4,19 @@ Buttons, extensions, workspaces, compact mode.
 
 Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 
-| Setting                                                    | Preference                         | Values                                                                   | Default  |
-| ---------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------ | -------- |
-| Button style                                               | `zen-fluent.button-style`          | `subtle` Subtle (fill on hover)<br>`standard` Standard (fill and border) | `subtle` |
-| Hide the Forward button when it is disabled                | `zen-fluent.hide-forward-disabled` | `true` / `false`                                                         | `false`  |
-| Extensions under the URL bar, WinUI style (single toolbar) | `zen-fluent.pinned-extensions`     | `true` / `false`                                                         | `true`   |
-| Workspace indicator                                        | `zen-fluent.workspace-indicator`   | `true` / `false`                                                         | `true`   |
-| Workspace icon style                                       | `zen-fluent.workspace-style`       | `pill` Pill<br>`fill` Fill<br>`minimal` Minimal                          | `pill`   |
-| Grey Essentials icons                                      | `zen-fluent.essentials-gray`       | `true` / `false`                                                         | `false`  |
-| Essentials per row                                         | `zen-fluent.essentials-per-row`    | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6            | `auto`   |
-| Acrylic sidebar background in compact mode                 | `zen-fluent.compact-sidebar-bg`    | `true` / `false`                                                         | `true`   |
-| Edge hint at the window border in compact mode             | `zen-fluent.compact-edge-hint`     | `true` / `false`                                                         | `true`   |
+| Setting                                                    | Preference                             | Values                                                                                                                                                                 | Default  |
+| ---------------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Button style                                               | `zen-fluent.button-style`              | `subtle` Subtle (fill on hover)<br>`standard` Standard (fill and border)                                                                                               | `subtle` |
+| Hide the Forward button when it is disabled                | `zen-fluent.hide-forward-disabled`     | `true` / `false`                                                                                                                                                       | `false`  |
+| Extensions under the URL bar, WinUI style (single toolbar) | `zen-fluent.pinned-extensions`         | `true` / `false`                                                                                                                                                       | `true`   |
+| Workspace indicator                                        | `zen-fluent.workspace-indicator`       | `true` / `false`                                                                                                                                                       | `true`   |
+| Workspace icon style                                       | `zen-fluent.workspace-style`           | `pill` Pill<br>`fill` Fill<br>`minimal` Minimal                                                                                                                        | `pill`   |
+| Grey Essentials icons                                      | `zen-fluent.essentials-gray`           | `true` / `false`                                                                                                                                                       | `false`  |
+| Essentials per row                                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                          | `auto`   |
+| Selected Essential                                         | `zen-fluent.essentials.selected-style` | `glow` Dash and favicon glow<br>`arc` Arc (colored border, 3D edge)<br>`fill` Fill<br>`indicator` Taskbar indicator<br>`outline` Outline<br>`lift` Lift<br>`tint` Tint | `glow`   |
+| Selected Essential color                                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color                                                                                                                                 | `accent` |
+| Acrylic sidebar background in compact mode                 | `zen-fluent.compact-sidebar-bg`        | `true` / `false`                                                                                                                                                       | `true`   |
+| Edge hint at the window border in compact mode             | `zen-fluent.compact-edge-hint`         | `true` / `false`                                                                                                                                                       | `true`   |
 
 ## Notes
 
@@ -31,3 +33,22 @@ Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
   stacked at the bottom of the sidebar: in the Extensions menu (puzzle icon),
   click each one's gear, **Unpin from Toolbar**, then **Pin to Toolbar**.
 - **Essentials per row**: Automatic keeps as many 36 px columns as fit, a lone row stretched across. A count sets 2 to 6 equal columns: the tiles keep their height and gap, and keep their width when their row is not full. A sidebar too narrow for the count keeps as many 36 px columns as fit; the collapsed sidebar stays one column.
+- **Selected Essential**: how the selected tile is marked. All styles stay
+  inside the tile.
+  - _Dash and favicon glow_ (default): the card tile with a dash under the
+    icon (the Edge style raises the tile instead), and Zen's blurred favicon
+    glow behind it while `zen.theme.essentials-favicon-bg` is on.
+  - _Arc_: a 2 px border in the color, a light top edge and a dark 3 px bottom
+    edge (the lip is drawn inside the tile: the grid would cut an outer one).
+  - _Fill_: the tile in the color; glyph icons turn black or white, whichever
+    reads on it, and a favicon gets a thin outline of that color.
+  - _Taskbar indicator_: a neutral fill and a 16 px rounded bar under the icon,
+    like the Windows taskbar's running app.
+  - _Outline_: a 2 px ring inside the tile, no fill (the WinUI focus look).
+  - _Lift_: a lighter fill, a soft shadow, 1 px up.
+  - _Tint_: 25 % of the color with a 1 px border of it.
+- **Selected Essential color**: the accent, or the current space's color (Zen's
+  `--zen-primary-color`, the dominant color of the space's theme). A site's own
+  color needs a script and will come with Zen Fluent Enhanced. Contrast themes
+  keep the system colors whatever the choice. Hidden with Lift, which uses no
+  color.

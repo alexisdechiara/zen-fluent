@@ -84,6 +84,8 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Workspace icon style                             | `zen-fluent.workspace-style`                                                | `pill`             |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
 |                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
+|                                                       | Selected Essential                               | `zen-fluent.essentials.selected-style`                                      | `glow`             |
+|                                                       | Selected Essential color                         | `zen-fluent.essentials.selected-color`                                      | `accent`           |
 |                                                       | Acrylic sidebar background in compact mode       | `zen-fluent.compact-sidebar-bg`                                             | `true`             |
 |                                                       | Edge hint at the window border in compact mode   | `zen-fluent.compact-edge-hint`                                              | `true`             |
 | [Tabs](docs/settings/tabs.md)                         | Tab text size                                    | `zen-fluent.tab-text-size`                                                  | `normal`           |

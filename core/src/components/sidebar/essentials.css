@@ -6,6 +6,10 @@
 }
 
 .zen-essentials-container {
+  /* What marks the selected tile: the accent, or the space's color
+     (features/essentials-selected-color.css) */
+  --zf-essential-color: var(--zf-accent);
+
   grid-template-columns: repeat(auto-fit, minmax(36px, 1fr)) !important;
   gap: var(--zf-gap-essentials) !important;
 
@@ -41,7 +45,7 @@
            above is physical, so is this margin */
         margin: 0 0 0 -7px !important;
         border-radius: 2px !important;
-        background: var(--zf-accent) !important;
+        background: var(--zf-essential-color) !important;
         opacity: 1 !important;
         z-index: 1;
       }

@@ -29,6 +29,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Selected Essential style (`zen-fluent.essentials.selected-style`, default `glow`): the dash and Zen's favicon glow as today, or Arc (colored border, 3D edge), Fill, Taskbar indicator, Outline, Lift or Tint. Every style stays inside its tile.
+- Selected Essential color (`zen-fluent.essentials.selected-color`, default `accent`): the accent or the current space's color.
 - Page loading bar as a WinUI ProgressBar (`zen-fluent.loading-bar`, default
   `winui`): Zen’s indicator becomes a 3 px indeterminate bar along the top of
   the page.

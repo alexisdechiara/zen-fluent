@@ -244,6 +244,13 @@
       }
     }
 
+    /* Lift raises the tile without any color */
+    @media (-moz-pref("zen-fluent.essentials.selected-style", "lift")) {
+      & > #zen-fluent-essentials-selected-color {
+        display: none !important;
+      }
+    }
+
     @media not (-moz-pref("zen-fluent.tint-opacity", "custom")) {
       & > #zen-fluent-tint-opacity-custom {
         display: none !important;

@@ -266,6 +266,33 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.selected-style",
+    "label": "Selected Essential",
+    "type": "dropdown",
+    "defaultValue": "glow",
+    "placeholder": false,
+    "options": [
+      { "label": "Dash and favicon glow", "value": "glow" },
+      { "label": "Arc (colored border, 3D edge)", "value": "arc" },
+      { "label": "Fill", "value": "fill" },
+      { "label": "Taskbar indicator", "value": "indicator" },
+      { "label": "Outline", "value": "outline" },
+      { "label": "Lift", "value": "lift" },
+      { "label": "Tint", "value": "tint" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.selected-color",
+    "label": "Selected Essential color",
+    "type": "dropdown",
+    "defaultValue": "accent",
+    "placeholder": false,
+    "options": [
+      { "label": "Accent", "value": "accent" },
+      { "label": "Space color", "value": "space" }
+    ]
+  },
+  {
     "property": "zen-fluent.compact-sidebar-bg",
     "label": "Acrylic sidebar background in compact mode",
     "type": "checkbox",
