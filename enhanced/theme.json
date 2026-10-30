@@ -31,6 +31,9 @@
     },
     "scripts/shortcuts.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-archive.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

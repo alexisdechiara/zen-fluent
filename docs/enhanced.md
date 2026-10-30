@@ -14,6 +14,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
 | Tab numbers while Ctrl is held  | `zen-fluent.enhanced.tab-numbers`                 | `true`  |
 | Shortcuts                       | `zen-fluent.enhanced.shortcuts`                   | `true`  |
+| Tab archiving                   | `zen-fluent.enhanced.tab-archive`                 | `false` |
+| Archive tabs unused for (hours) | `zen-fluent.enhanced.tab-archive.after`           | `12`    |
+| Keep archived tabs (days)       | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
+| Archive pinned tabs too         | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
+| Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -60,6 +65,26 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   moment and each tab shows, on its icon, the number Ctrl+1 to Ctrl+8
   selects, and 9 on the last tab. They follow Firefox's own count, so they
   match the shortcuts in every space.
+- **Tab archiving** (off by default): every 5 minutes, tabs left unused
+  longer than **Archive tabs unused for** (12 hours by default; 1 hour to 1
+  week) are saved to an archive file in the profile
+  (`zen-fluent-archive.json`), then closed; a message offers **Undo**. Never
+  archived: the selected tab, Essentials, tabs playing sound or sharing the
+  camera, microphone or screen, Picture-in-Picture, Glance and split view
+  tabs, empty tabs, pages that would ask before you leave, and private
+  windows. Pinned tabs and tabs in a folder only with their option. Sleeping
+  tabs are archived like the others.
+  - **The archive**: tab context menu › **Archived tabs…**, or
+    Ctrl+Alt+Shift+A. Search by title or address; a click opens the tab
+    again in its space (the current one if that space is gone) and takes it
+    out of the archive; × removes an entry; **Clear archive** (click twice)
+    empties it. **Archive tab** in the same menu archives the tabs at once
+    (it closes a page that would ask, keeping its address).
+  - **Keep archived tabs**: entries older than 7, 30, 90 days (default) or a
+    year are dropped; or kept forever.
+  - The archive is written through a temporary file, so a crash during a
+    write keeps the previous archive; an archive that cannot be read is
+    kept aside (`zen-fluent-archive.json.corrupt-<time>`), never overwritten.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

@@ -203,6 +203,11 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
 | Tab numbers while Ctrl is held  | `zen-fluent.enhanced.tab-numbers`                 | `true`  |
 | Shortcuts                       | `zen-fluent.enhanced.shortcuts`                   | `true`  |
+| Tab archiving                   | `zen-fluent.enhanced.tab-archive`                 | `false` |
+| Archive tabs unused for (hours) | `zen-fluent.enhanced.tab-archive.after`           | `12`    |
+| Keep archived tabs (days)       | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
+| Archive pinned tabs too         | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
+| Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
 
 ## Repository
 

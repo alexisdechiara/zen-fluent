@@ -228,7 +228,12 @@ for (const file of scriptFiles) {
 for (const p of prefs.filter((p) =>
   p.property?.startsWith("zen-fluent.enhanced."),
 ))
-  if (!featureNames.has(p.property.slice("zen-fluent.enhanced.".length)))
+  // A feature's own options are zen-fluent.enhanced.<feature>.<option>
+  if (
+    !featureNames.has(
+      p.property.slice("zen-fluent.enhanced.".length).split(".")[0],
+    )
+  )
     fail(`preferences: ${p.property} has no feature script`);
 
 // ---- Quick Settings: every setting and preset value is one of Zen Fluent's

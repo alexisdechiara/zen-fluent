@@ -49,7 +49,9 @@ and undone.
 - `zf-feature.sys.mjs`: the life cycle above.
 - `zf-colors.sys.mjs`: `iconOf(tab)` (the icon Zen shows), `iconColor(window,
 url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
-- `zf-toast.sys.mjs`: `showToast(window, text)`, a short message at the bottom
+- `zf-archive.sys.mjs`: the tab archive file, shared by every window
+  (`list`, `add`, `remove`, `prune`, `subscribe`).
+- `zf-toast.sys.mjs`: `showToast(window, text, { action })`, a short message at the bottom
   of the window (`enhanced/src/toast.css`); Zen's own toasts only take its
   Fluent string ids.
 

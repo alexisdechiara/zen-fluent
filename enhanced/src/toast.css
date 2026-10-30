@@ -32,6 +32,42 @@
     translate: 0 0;
   }
 
+  /* With an action (Undo): the text and an accent text button */
+  &[zf-action] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding-inline-end: 8px !important;
+  }
+
+  &[zf-action][zf-shown] {
+    pointer-events: auto !important;
+  }
+
+  & .zf-toast-action {
+    appearance: none !important;
+    margin: 0 !important;
+    padding: 4px 10px !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: transparent !important;
+    color: var(--zf-accent) !important;
+    font: 600 13px / 20px var(--zf-font) !important;
+    cursor: pointer !important;
+
+    &:hover {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:active {
+      background: var(--zf-fill-subtle-press) !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer) !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     transition: none;
     translate: none;
@@ -41,5 +77,9 @@
     border-color: CanvasText !important;
     background: Canvas !important;
     color: CanvasText !important;
+
+    & .zf-toast-action {
+      color: LinkText !important;
+    }
   }
 }
