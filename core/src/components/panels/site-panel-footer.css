@@ -1,7 +1,7 @@
-/* Zen Fluent: Site panel footer: connection, boost and more-actions buttons, extension messages margin.
+/* Zen Fluent: Site panel footer: connection, boost or reader view, and more-actions buttons, extension messages margin.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* -------- Footer: connection, boost, more actions -------- */
+/* -------- Footer: connection, boost (1.23) or reader view (1.24), more actions -------- */
 
 #zen-site-data-footer {
   gap: 4px !important;
@@ -60,8 +60,9 @@
   }
 }
 
-/* 16px glyphs, like the security one (Zen draws boost at 14px) */
-:is(#zen-site-data-boost, #zen-site-data-actions) {
+/* 16px glyphs, like the security one (Zen draws boost at 14px). Zen 1.24
+   moved Boost to the quick actions and reader view to the footer. */
+:is(#zen-site-data-boost, #zen-site-data-reader-mode, #zen-site-data-actions) {
   justify-content: center !important;
   width: var(--zf-size-control) !important;
   min-width: var(--zf-size-control) !important;
@@ -76,6 +77,18 @@
 
 #zen-site-data-boost[boosting] {
   color: var(--zf-accent) !important;
+}
+
+/* Reader view on: the glyph takes the accent, as boosting does above */
+#zen-site-data-reader-mode {
+  &.active {
+    color: var(--zf-accent) !important;
+    fill: currentcolor !important;
+  }
+
+  &[disabled] {
+    color: var(--zf-text-disabled) !important;
+  }
 }
 
 /* Zen pushes it with margin-left, which is the wrong side in RTL */
