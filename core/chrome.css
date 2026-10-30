@@ -337,6 +337,8 @@
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/site-panel-boost-editor.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/components/panels/boost-editor-window.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/site-panel-footer.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/components/panels/site-panel-anchor.css") not
