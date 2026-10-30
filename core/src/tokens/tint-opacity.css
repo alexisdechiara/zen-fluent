@@ -1,0 +1,114 @@
+/* Zen Fluent: Tint opacity: how much of the material's color covers the transparent window, per material or one value (zen-fluent.tint-opacity).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* tokens/window-background.css lays the material's tint once over the
+   system backdrop (Mica For Everyone, macOS vibrancy, the Linux compositor's
+   blur), at the material's own opacity: Mica 64 %, Mica Alt 79.75 % (nothing
+   over Windows' own Mica Alt), Acrylic 80.64 % light / 87.04 % dark. Any
+   other value sets one opacity for every material. Zen's compact sidebar,
+   which lies over the page, takes the single coat of the same color,
+   1 - sqrt(1 - a). An opaque window (no Mica, no transparency) has nothing
+   to show through: the setting does nothing there, and contrast themes keep
+   their Canvas window (tokens/forced-colors.css). */
+@property --zf-tint-opacity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.64;
+}
+
+@media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
+  @media (-moz-pref("zen-fluent.tint-opacity", "none")) or (-moz-pref("zen-fluent.tint-opacity", "light")) or (-moz-pref("zen-fluent.tint-opacity", "strong")) or (-moz-pref("zen-fluent.tint-opacity", "solid")) or (-moz-pref("zen-fluent.tint-opacity", "custom")) {
+    :root {
+      --zf-tint-color: var(--zf-mica);
+
+      @media (-moz-pref("zen-fluent.material", "mica-alt")) {
+        --zf-tint-color: var(--zf-mica-alt);
+      }
+
+      @media (-moz-pref("zen-fluent.material", "acrylic")) {
+        --zf-tint-color: var(--zf-acrylic-solid);
+      }
+
+      /* 1, or 0 for an invalid custom value: the material's own coat */
+      --zf-tint-opacity-valid: 1;
+      --zf-window-bg: color-mix(
+        in srgb,
+        color-mix(
+            in srgb,
+            var(--zf-tint-color) calc(var(--zf-tint-opacity) * 100%),
+            transparent
+          )
+          calc(var(--zf-tint-opacity-valid) * 100%),
+        var(--zf-window-bg-auto)
+      );
+      --zf-window-tint: color-mix(
+        in srgb,
+        color-mix(
+            in srgb,
+            var(--zf-tint-color)
+              calc((1 - sqrt(1 - var(--zf-tint-opacity))) * 100%),
+            transparent
+          )
+          calc(var(--zf-tint-opacity-valid) * 100%),
+        var(--zf-window-tint-auto)
+      );
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.tint-opacity", "none")) {
+    :root {
+      --zf-tint-opacity: 0;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.tint-opacity", "light")) {
+    :root {
+      --zf-tint-opacity: 0.4;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.tint-opacity", "strong")) {
+    :root {
+      --zf-tint-opacity: 0.85;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.tint-opacity", "solid")) {
+    :root {
+      --zf-tint-opacity: 1;
+    }
+  }
+}
+
+/* -------- Custom -------- */
+/* Sine turns the string pref zen-fluent.tint-opacity-custom into
+   --zen-fluent-tint-opacity-custom on the chrome windows' root. "50%" and
+   "50" both mean 50 % (each form typed by its own registered property, the
+   other keeps its negative initial value, max() keeps the valid one), above
+   100 % counts as 100 %; any other entry keeps the material's own coat. */
+@property --zf-tint-opacity-custom-percentage {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: -1%;
+}
+
+@property --zf-tint-opacity-custom-number {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.tint-opacity", "custom")) {
+  :root {
+    --zf-tint-opacity-custom-percentage: var(--zen-fluent-tint-opacity-custom);
+    --zf-tint-opacity-custom-number: var(--zen-fluent-tint-opacity-custom);
+    --zf-tint-opacity-custom: max(
+      var(--zf-tint-opacity-custom-percentage) / 1%,
+      var(--zf-tint-opacity-custom-number)
+    );
+    --zf-tint-opacity-valid: calc(
+      (sign(var(--zf-tint-opacity-custom) + 0.5) + 1) / 2
+    );
+    --zf-tint-opacity: clamp(0, var(--zf-tint-opacity-custom) / 100, 1);
+  }
+}

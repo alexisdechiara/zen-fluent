@@ -8,6 +8,8 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
 | ----------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | Interface style                                                                     | `zen-fluent.style`                | `winui` WinUI 3 (Windows 11)<br>`edge` Microsoft Edge (Fluent 2)                                                                                                                  | `winui`    |
 | Backdrop material (the same as the Mica For Everyone rule for zen)                  | `zen-fluent.material`             | `mica` Mica<br>`mica-alt` Mica Alt (Tabbed)<br>`acrylic` Acrylic                                                                                                                  | `mica`     |
+| Tint opacity (how much of the material's color covers the transparent window)       | `zen-fluent.tint-opacity`         | `auto` Follow the material<br>`none` None (the backdrop alone)<br>`light` Light (40 %)<br>`strong` Strong (85 %)<br>`solid` Solid (no transparency)<br>`custom` Custom            | `auto`     |
+| Custom opacity (a percentage, for example 50%)                                      | `zen-fluent.tint-opacity-custom`  | text                                                                                                                                                                              | `64%`      |
 | Accent color                                                                        | `zen-fluent.accent`               | `system` Windows accent<br>`zen` Zen workspace color<br>`blue` Blue<br>`violet` Violet<br>`mint` Mint<br>`orange` Orange<br>`pink` Pink<br>`graphite` Graphite<br>`custom` Custom | `system`   |
 | Custom color (any CSS color: #0078d4, rgb(0 120 212), teal…)                        | `zen-fluent.accent-custom`        | text                                                                                                                                                                              | `#0078d4`  |
 | Corners and gaps                                                                    | `zen-fluent.corners`              | `winui` WinUI (no gaps)<br>`zen` Zen (rounded, with gaps)                                                                                                                         | `winui`    |
@@ -37,6 +39,18 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
   `teal`…). Its row only shows when the accent is **Custom**. An invalid value
   falls back to the Windows accent, and so do internal pages (`about:`), where
   Sine does not pass text settings.
+- **Tint opacity**: how much of the material's tint covers the system
+  backdrop (Mica For Everyone, macOS, transparent Linux). **Follow the
+  material** keeps each one's own: Mica 64 %, Mica Alt 79.75 % (nothing over
+  Windows' own Mica Alt), Acrylic 80.64 % in light and 87.04 % in dark. The
+  other values set one opacity for every material, Mica Alt on Windows
+  included: none shows the backdrop alone, solid hides it. Zen's compact
+  sidebar, over the page, follows with the matching single coat. It does
+  nothing on an opaque window (no Mica, no transparency) nor in a contrast
+  theme.
+- **Custom opacity**: a percentage such as `50%` (`50` alone means percent;
+  above 100 counts as 100). Its row only shows when the opacity is
+  **Custom**. An invalid value keeps the material's own opacity.
 - **Font**: Segoe UI Variable (default), Aptos, the system font or a custom
   font. A custom font is one font name (`Inter`, `Fira Sans`, `"Fira Sans"`)
   or a list of one-word names (`Inter, Arial`). An invalid value, or a list

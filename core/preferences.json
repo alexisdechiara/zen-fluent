@@ -35,6 +35,31 @@
     ]
   },
   {
+    "property": "zen-fluent.tint-opacity",
+    "label": "Tint opacity ~how much of the material's color covers the transparent window~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the material", "value": "auto" },
+      { "label": "None (the backdrop alone)", "value": "none" },
+      { "label": "Light (40 %)", "value": "light" },
+      { "label": "Strong (85 %)", "value": "strong" },
+      { "label": "Solid (no transparency)", "value": "solid" },
+      { "label": "Custom", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.tint-opacity-custom",
+    "label": "Custom opacity ~a percentage, for example 50%~",
+    "type": "string",
+    "defaultValue": "64%",
+    "placeholder": "64%",
+    "conditions": [
+      { "if": { "property": "zen-fluent.tint-opacity", "value": "custom" } }
+    ]
+  },
+  {
     "property": "zen-fluent.accent",
     "label": "Accent color",
     "type": "dropdown",

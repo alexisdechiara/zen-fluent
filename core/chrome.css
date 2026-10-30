@@ -23,6 +23,7 @@
 @import url("src/base/typography.css");
 @import url("src/base/corner-shape.css");
 @import url("src/tokens/window-background.css");
+@import url("src/tokens/tint-opacity.css");
 @import url("src/base/window-background.css") not
   (-moz-pref("zen-fluent.fluent-window", false));
 @import url("src/base/page-card.css") not

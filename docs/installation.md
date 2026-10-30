@@ -85,7 +85,8 @@ Fluent only tints it.
    grey background).
 
 Tint laid over Mica For Everyone's backdrop (a single coat): Mica 64 %,
-Acrylic 80.64 % in light and 87.04 % in dark, Mica Alt 0 %. The Library has no
+Acrylic 80.64 % in light and 87.04 % in dark, Mica Alt 0 %; **Tint opacity**
+changes it ([appearance](settings/appearance.md)). The Library has no
 surface of its own: it shows the window material, like the sidebar it replaces.
 
 ### Mica Alt

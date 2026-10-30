@@ -23,14 +23,23 @@
 
   /* Transparent window: the tint used to be painted twice (the wrapper and
      Zen's background layer), at 40 / 55 / 56-64 %. One coat at
-     1 - (1 - a)^2 gives the very same color: 64 / 79.75 / 80.64-87.04 %. */
+     1 - (1 - a)^2 gives the very same color: 64 / 79.75 / 80.64-87.04 %.
+     These are the materials' own opacities (the -auto coats):
+     tokens/tint-opacity.css replaces them when zen-fluent.tint-opacity is
+     set. */
   @media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
-    --zf-window-tint: color-mix(in srgb, var(--zf-mica) 40%, transparent);
-    --zf-window-bg: color-mix(in srgb, var(--zf-mica) 64%, transparent);
+    --zf-window-tint: var(--zf-window-tint-auto);
+    --zf-window-bg: var(--zf-window-bg-auto);
+    --zf-window-tint-auto: color-mix(in srgb, var(--zf-mica) 40%, transparent);
+    --zf-window-bg-auto: color-mix(in srgb, var(--zf-mica) 64%, transparent);
 
     @media (-moz-pref("zen-fluent.material", "mica-alt")) {
-      --zf-window-tint: color-mix(in srgb, var(--zf-mica-alt) 55%, transparent);
-      --zf-window-bg: color-mix(
+      --zf-window-tint-auto: color-mix(
+        in srgb,
+        var(--zf-mica-alt) 55%,
+        transparent
+      );
+      --zf-window-bg-auto: color-mix(
         in srgb,
         var(--zf-mica-alt) 79.75%,
         transparent
@@ -38,8 +47,11 @@
     }
 
     @media (-moz-pref("zen-fluent.material", "acrylic")) {
-      --zf-window-tint: light-dark(rgb(252 252 252 / 56%), rgb(44 44 44 / 64%));
-      --zf-window-bg: light-dark(
+      --zf-window-tint-auto: light-dark(
+        rgb(252 252 252 / 56%),
+        rgb(44 44 44 / 64%)
+      );
+      --zf-window-bg-auto: light-dark(
         rgb(252 252 252 / 80.64%),
         rgb(44 44 44 / 87.04%)
       );
@@ -49,7 +61,7 @@
       /* Mica Alt is Mica For Everyone's own, untinted: WinUI apps leave
          every layer transparent over it */
       @media (-moz-pref("zen-fluent.material", "mica-alt")) {
-        --zf-window-bg: transparent;
+        --zf-window-bg-auto: transparent;
       }
     }
   }

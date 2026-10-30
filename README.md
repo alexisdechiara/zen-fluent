@@ -63,6 +63,8 @@ group in [docs/settings/](docs/settings/).
 | ----------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------- | ------------------ |
 | [Appearance](docs/settings/appearance.md)             | Interface style                                  | `zen-fluent.style`                                                          | `winui`            |
 |                                                       | Backdrop material                                | `zen-fluent.material`                                                       | `mica`             |
+|                                                       | Tint opacity                                     | `zen-fluent.tint-opacity`                                                   | `auto`             |
+|                                                       | Custom opacity                                   | `zen-fluent.tint-opacity-custom`                                            | `64%`              |
 |                                                       | Accent color                                     | `zen-fluent.accent`                                                         | `system`           |
 |                                                       | Custom color                                     | `zen-fluent.accent-custom`                                                  | `#0078d4`          |
 |                                                       | Corners and gaps                                 | `zen-fluent.corners`                                                        | `winui`            |
