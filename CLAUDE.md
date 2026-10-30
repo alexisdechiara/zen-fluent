@@ -169,6 +169,14 @@ come later. The owner writes to Claude in French: answer in French.
   cannot sit inside `@media`, so each file carries its own condition.
 - Firefox 158 supports `sign()` and typed arithmetic (length / length gives a
   number) in chrome CSS.
+- Firefox 159 refuses any percentage in a `<number>` context (`50% / 1%`,
+  `sign(50%)`): `progress(p, -100%, 100%)` in a `<length-percentage>`
+  registered property turns it into a length, then length / 1px a number.
+  `progress()` is clamped to 0..1. Relative color syntax works
+  (`oklch(from c clamp(0, (0.7 - l) * 1000, 1) 0 0deg)` = black or white).
+- `-moz-pref(name, "v")` is false while the pref does not exist: write a
+  condition as the list of the other values, never `not (-moz-pref(name, v))`
+  for a non-default look.
 - Firefox does not blur web content behind a `backdrop-filter`: an Acrylic
   surface over the page shows it sharp. Everything that floats over the page
   (open URL bar, compact sidebar and top bar, find bar, dialogs) takes
@@ -248,6 +256,22 @@ come later. The owner writes to Claude in French: answer in French.
   `#controls-bottom-gradient` and the sliders are `.control-item` too.
 - Zen's source (`zen-browser/desktop`, `src/zen`) is the reference for
   selectors.
+- Zen 1.24b (Gecko 159, checked 2026-10-30 against its omni.ja): of the
+  mod's ~700 selector tokens only `#zen-site-data-boost` (Boost moved to the
+  site panel's quick action tiles, `#zen-site-data-header-boost`; reader view
+  moved to the footer, `#zen-site-data-reader-mode`) and
+  `#zenSpaceRoutingDialog` (Space Routing is now a Library section,
+  `.zen-library-routing-*`) are gone. New UI: Boost sharing (`.zbs-*`), the
+  space's scroll-to-tab button (`.zen-workspace-scroll-to-tab`), `.ghost`
+  buttons.
+- Essentials: Zen's favicon glow is `.tab-background::after` (inset -50%,
+  blur 20px) clipped by `overflow` on `.tab-background`; the mod clips with
+  `overflow: clip`. `--zen-primary-color` (on `:root`) is the accent Zen
+  derives from the current space's theme.
+- Single toolbar: `#zen-overflow-extensions-list` is the first child of
+  `#titlebar` (flex column) before `#TabsToolbar`, which holds the Essentials,
+  the tabs and `#zen-sidebar-foot-buttons`: `order` can put the row at the
+  very bottom, not between the Essentials and the tabs.
 
 ## Tests
 
