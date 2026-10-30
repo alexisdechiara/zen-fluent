@@ -107,6 +107,12 @@ come later. The owner writes to Claude in French: answer in French.
   `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
   as for Sine's own content actor. A page's `theme-color` or DOM is out of
   reach; the chrome only has the tab's icon, title and URL.
+- The style sheet service does reach web pages: `loadAndRegisterSheet` of a
+  `chrome://sine/...` sheet applies in web content processes (checked on
+  Zen 1.24b, `lib/zf-sheets.sys.mjs`), and in chrome windows too: scope it
+  with `@-moz-document`. An agent sheet only replaces the browser's
+  defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
+  pdf.js by its markup (`#outerContainer`).
 - String settings: Sine rebuilds their `:root` variables when the preference
   changes through its dialog, not when a script sets it (in tests, set the
   variable too).

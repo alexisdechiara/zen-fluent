@@ -34,6 +34,12 @@
     },
     "scripts/tab-archive.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/pdf-viewer.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/web-controls.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

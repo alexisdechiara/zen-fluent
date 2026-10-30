@@ -1,0 +1,133 @@
+/* Zen Fluent Enhanced: WinUI form controls on web pages (zen-fluent.enhanced.web-controls).
+   Agent sheet, registered by scripts/web-controls.uc.js: it replaces the
+   browser's defaults only, so a page's own CSS always wins (no declaration
+   here is marked important). */
+
+/* Registered sheets reach every document, the browser's windows included:
+   web pages only (http, https, file). WinUI 3 values, in the page's color
+   scheme (light-dark() follows its color-scheme): the control fill and
+   stroke with the darker bottom edge, 4px corners, the text field's accent
+   bottom line on focus. The font stays the browser's. Contrast themes keep
+   the system's controls. */
+
+@-moz-document url-prefix("http://"), url-prefix("https://"), url-prefix("file://")
+{
+  @media not (forced-colors) {
+    :root {
+      accent-color: AccentColor;
+    }
+
+    /* -------- Buttons -------- */
+    button,
+    input:is([type="button"], [type="submit"], [type="reset"]),
+    ::file-selector-button {
+      appearance: none;
+      padding: 3px 10px;
+      border: 1px solid light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
+      border-bottom-color: light-dark(
+        rgb(0 0 0 / 16.22%),
+        rgb(255 255 255 / 4.65%)
+      );
+      border-radius: 4px;
+      background-color: light-dark(
+        rgb(255 255 255 / 70%),
+        rgb(255 255 255 / 6.05%)
+      );
+      color: light-dark(rgb(0 0 0 / 89.56%), #fff);
+
+      &:hover {
+        background-color: light-dark(
+          rgb(249 249 249 / 50%),
+          rgb(255 255 255 / 8.37%)
+        );
+      }
+
+      &:active {
+        border-bottom-color: light-dark(
+          rgb(0 0 0 / 5.78%),
+          rgb(255 255 255 / 6.98%)
+        );
+        background-color: light-dark(
+          rgb(249 249 249 / 30%),
+          rgb(255 255 255 / 3.26%)
+        );
+        color: light-dark(rgb(0 0 0 / 60.63%), rgb(255 255 255 / 78.6%));
+      }
+
+      &:disabled {
+        border-color: light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
+        background-color: light-dark(
+          rgb(249 249 249 / 30%),
+          rgb(255 255 255 / 4.19%)
+        );
+        color: light-dark(rgb(0 0 0 / 36.14%), rgb(255 255 255 / 36.28%));
+      }
+
+      &:focus-visible {
+        outline: 2px solid light-dark(rgb(0 0 0 / 89.56%), #fff);
+        outline-offset: 1px;
+      }
+    }
+
+    /* -------- Text fields -------- */
+    textarea,
+    input:is(
+      :not([type]),
+      [type="text"],
+      [type="search"],
+      [type="email"],
+      [type="url"],
+      [type="tel"],
+      [type="password"],
+      [type="number"],
+      [type="date"],
+      [type="time"],
+      [type="datetime-local"],
+      [type="month"],
+      [type="week"]
+    ) {
+      appearance: none;
+      padding: 3px 8px;
+      border: 1px solid light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
+      border-bottom-color: light-dark(
+        rgb(0 0 0 / 44.58%),
+        rgb(255 255 255 / 54.42%)
+      );
+      border-radius: 4px;
+      background-color: light-dark(
+        rgb(255 255 255 / 70%),
+        rgb(255 255 255 / 6.05%)
+      );
+      color: light-dark(rgb(0 0 0 / 89.56%), #fff);
+
+      &:hover {
+        background-color: light-dark(
+          rgb(249 249 249 / 50%),
+          rgb(255 255 255 / 8.37%)
+        );
+      }
+
+      /* The accent bottom line, 2px, drawn inside: the field keeps its size */
+      &:focus {
+        border-bottom-color: AccentColor;
+        outline: none;
+        background-color: light-dark(#fff, rgb(30 30 30 / 70%));
+        box-shadow: inset 0 -1px 0 AccentColor;
+      }
+
+      &:disabled {
+        border-color: light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
+        background-color: light-dark(
+          rgb(249 249 249 / 30%),
+          rgb(255 255 255 / 4.19%)
+        );
+        color: light-dark(rgb(0 0 0 / 36.14%), rgb(255 255 255 / 36.28%));
+      }
+
+      &::placeholder {
+        color: light-dark(rgb(0 0 0 / 60.63%), rgb(255 255 255 / 78.6%));
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -19,6 +19,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Keep archived tabs (days)       | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
 | Archive pinned tabs too         | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
 | Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
+| PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
+| Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -85,6 +87,20 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   - The archive is written through a temporary file, so a crash during a
     write keeps the previous archive; an archive that cannot be read is
     kept aside (`zen-fluent-archive.json.corrupt-<time>`), never overwritten.
+- **PDF viewer**: Firefox's PDF viewer takes Fluent colors: Mica-like
+  toolbar and sidebar, WinUI fields and buttons, solid menus, the accent on
+  the progress bar, 4 and 8 px corners. Contrast themes keep its system
+  colors.
+- **Fluent controls on websites** (off by default): buttons and text fields
+  that a site leaves to the browser's default look get the WinUI look (4 px
+  corners, the darker bottom edge, the accent line of a focused field), and
+  checkboxes, radios, sliders and progress bars the accent. A site's own
+  CSS always wins (the sheet sits at the browser's level), so styled
+  controls do not change. Only on http, https and file pages; contrast
+  themes keep the system's controls.
+  - Zen Fluent's own CSS cannot do it: Sine's content sheet only reaches
+    `about:` pages. Both features register their sheet with Firefox's style
+    sheet service, which reaches web pages.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

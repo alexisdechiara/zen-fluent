@@ -1,0 +1,85 @@
+/* Zen Fluent Enhanced: Firefox's PDF viewer in Fluent colors (zen-fluent.enhanced.pdf-viewer).
+   User sheet: declarations take !important to win over Zen's own CSS (here pdf.js's).
+   Registered by scripts/pdf-viewer.uc.js. */
+
+/* A PDF's page keeps the PDF's address, so the viewer is recognized by its
+   own markup (#outerContainer with #viewerContainer). pdf.js draws with
+   variables on :root: Mica-like bars, WinUI control fills and strokes, an
+   Acrylic-like solid menu color, the accent for the progress bar, 4px and
+   8px corners. Contrast themes keep pdf.js's system colors. */
+
+@-moz-document url-prefix("http://"), url-prefix("https://"), url-prefix("file://"), url-prefix("resource://pdf.js/")
+{
+  @media not (forced-colors) {
+    :root:has(#outerContainer #viewerContainer) {
+      --main-color: light-dark(rgb(0 0 0 / 89.56%), #fff) !important;
+      --body-bg-color: light-dark(#e8e8e8, #1a1a1a) !important;
+      --toolbar-bg-color: light-dark(#f3f3f3, #202020) !important;
+      --sidebar-toolbar-bg-color: light-dark(#f3f3f3, #202020) !important;
+      --sidebar-narrow-bg-color: light-dark(#ebebeb, #1c1c1c) !important;
+      --toolbar-border-color: light-dark(
+        rgb(0 0 0 / 8.03%),
+        rgb(0 0 0 / 40%)
+      ) !important;
+      --toolbar-icon-bg-color: light-dark(rgb(0 0 0 / 89.56%), #fff) !important;
+      --toolbar-icon-hover-bg-color: light-dark(
+        rgb(0 0 0 / 89.56%),
+        #fff
+      ) !important;
+      --button-hover-color: light-dark(
+        rgb(0 0 0 / 3.73%),
+        rgb(255 255 255 / 6.05%)
+      ) !important;
+      --toggled-btn-color: light-dark(rgb(0 0 0 / 89.56%), #fff) !important;
+      --toggled-btn-bg-color: light-dark(
+        rgb(0 0 0 / 5.78%),
+        rgb(255 255 255 / 8.37%)
+      ) !important;
+      --toggled-hover-active-btn-color: light-dark(
+        rgb(0 0 0 / 2.41%),
+        rgb(255 255 255 / 4.19%)
+      ) !important;
+      --dropdown-btn-bg-color: light-dark(
+        rgb(255 255 255 / 70%),
+        rgb(255 255 255 / 6.05%)
+      ) !important;
+      --dropdown-btn-border: 1px solid
+        light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%)) !important;
+      --separator-color: light-dark(
+        rgb(0 0 0 / 8.03%),
+        rgb(255 255 255 / 8.37%)
+      ) !important;
+      --field-color: light-dark(rgb(0 0 0 / 89.56%), #fff) !important;
+      --field-bg-color: light-dark(
+        rgb(255 255 255 / 70%),
+        rgb(255 255 255 / 6.05%)
+      ) !important;
+      --field-border-color: light-dark(
+        rgb(0 0 0 / 5.78%),
+        rgb(255 255 255 / 6.98%)
+      ) !important;
+      --doorhanger-bg-color: light-dark(#f9f9f9, #2c2c2c) !important;
+      --doorhanger-border-color: light-dark(
+        rgb(0 0 0 / 5.78%),
+        rgb(0 0 0 / 20%)
+      ) !important;
+      --doorhanger-hover-color: light-dark(
+        rgb(0 0 0 / 89.56%),
+        #fff
+      ) !important;
+      --doorhanger-separator-color: light-dark(
+        rgb(0 0 0 / 8.03%),
+        rgb(255 255 255 / 8.37%)
+      ) !important;
+      --dialog-bg-color: light-dark(#f9f9f9, #2c2c2c) !important;
+      --progressBar-color: AccentColor !important;
+      --progressBar-bg-color: light-dark(
+        rgb(0 0 0 / 8.03%),
+        rgb(255 255 255 / 8.37%)
+      ) !important;
+      --border-radius-small: 4px !important;
+      --border-radius-medium: 8px !important;
+      --button-border-radius: 4px !important;
+    }
+  }
+}

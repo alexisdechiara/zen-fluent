@@ -51,12 +51,16 @@ and undone.
 url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
 - `zf-archive.sys.mjs`: the tab archive file, shared by every window
   (`list`, `add`, `remove`, `prune`, `subscribe`).
+- `zf-sheets.sys.mjs`: `useSheet(url, "agent" | "user")`, a sheet for every
+  document (web pages included) through the style sheet service; its files
+  live in `enhanced/content/` and scope themselves with `@-moz-document`.
 - `zf-toast.sys.mjs`: `showToast(window, text, { action })`, a short message at the bottom
   of the window (`enhanced/src/toast.css`); Zen's own toasts only take its
   Fluent string ids.
 
-Scripts cannot reach web pages: Firefox refuses a window actor from a profile
-mod in web content processes (CLAUDE.md, "Sine 2.3").
+Scripts cannot run code in web pages: Firefox refuses a window actor from a
+profile mod in web content processes (CLAUDE.md, "Sine 2.3"). Style sheets
+can reach them (`zf-sheets.sys.mjs`).
 
 ## How Sine 2.3 runs scripts (read in its code)
 

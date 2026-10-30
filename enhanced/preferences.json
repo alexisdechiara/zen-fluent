@@ -82,5 +82,17 @@
     "label": "Archive tabs in folders too",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.pdf-viewer",
+    "label": "PDF viewer ~Firefox's PDF toolbar, sidebar and menus in Fluent colors~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.web-controls",
+    "label": "Fluent controls on websites ~buttons and text fields a site leaves unstyled~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

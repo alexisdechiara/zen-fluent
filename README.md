@@ -208,6 +208,8 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Keep archived tabs (days)       | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
 | Archive pinned tabs too         | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
 | Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
+| PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
+| Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
 
 ## Repository
 
