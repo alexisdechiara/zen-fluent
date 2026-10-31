@@ -1,0 +1,212 @@
+/* Zen Fluent Enhanced: the start page (enhanced/start/start.html).
+   A page of its own, not a user sheet: plain declarations. */
+
+/* Windows 11 and Edge's new tab: a bloom in the accent (two soft glows
+   over the solid base, as Windows 11's wallpaper; Zen Fluent's window is
+   see-through Mica, which a page cannot show), a greeting with the time in
+   large type, a WinUI search field with the default engine's icon, and the
+   top sites as tiles of the card fill, × on hover. Light and dark follow
+   the system, as the tokens do (light-dark()). */
+
+:root {
+  color-scheme: light dark;
+  font: 14px / 20px var(--zf-font);
+  color: var(--zf-text-primary);
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 20% 0%,
+      color-mix(in srgb, var(--zf-accent) 28%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 90% 100%,
+      color-mix(in srgb, var(--zf-accent) 18%, transparent),
+      transparent
+    ),
+    var(--zf-solid-base);
+  background-attachment: fixed;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  margin: 0;
+  place-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: min(720px, 100vw - 48px);
+  padding-block: 48px;
+}
+
+header {
+  text-align: center;
+
+  & p {
+    margin: 0;
+  }
+}
+
+#greeting {
+  color: var(--zf-text-secondary);
+  font-size: 16px;
+}
+
+#time {
+  font: 600 72px / 88px var(--zf-font-display, var(--zf-font));
+  font-variant-numeric: tabular-nums;
+}
+
+#date {
+  color: var(--zf-text-secondary);
+}
+
+#search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  padding-inline: 16px;
+  border: 1px solid var(--zf-stroke-control);
+  border-bottom-color: var(--zf-stroke-field);
+  border-radius: 24px;
+  background: var(--zf-acrylic-solid);
+  box-shadow: var(--zf-shadow-4, none);
+
+  &:focus-within {
+    border-bottom: 2px solid var(--zf-accent);
+  }
+}
+
+#engine-icon {
+  width: 20px;
+  height: 20px;
+  -moz-context-properties: fill;
+  fill: currentcolor;
+}
+
+#query {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+#sites {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.site {
+  position: relative;
+
+  & a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 8px 10px;
+    border: 1px solid var(--zf-stroke-control);
+    border-radius: var(--zf-radius-card);
+    background: var(--zf-fill-card);
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--zf-fill-control-hover);
+    }
+
+    &:active {
+      background: var(--zf-fill-subtle-press);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer, var(--zf-accent));
+      outline-offset: 0;
+    }
+  }
+
+  & .icon {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: var(--zf-radius-control);
+    background: var(--zf-layer-alt);
+
+    & img {
+      width: 24px;
+      height: 24px;
+      -moz-context-properties: fill;
+      fill: currentcolor;
+    }
+  }
+
+  & .title {
+    overflow: hidden;
+    max-width: 100%;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & .remove {
+    position: absolute;
+    inset: 4px 4px auto auto;
+    visibility: hidden;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: var(--zf-radius-control);
+    background: transparent;
+    color: var(--zf-text-secondary);
+    font:
+      10px / 22px "Segoe Fluent Icons",
+      "Segoe MDL2 Assets",
+      sans-serif;
+
+    &::before {
+      content: "\E8BB";
+    }
+
+    &:hover {
+      background: var(--zf-fill-subtle-hover);
+      color: var(--zf-text-primary);
+    }
+  }
+
+  &:is(:hover, :focus-within) .remove {
+    visibility: visible;
+  }
+}
+
+@media (forced-colors) {
+  :root {
+    background: Canvas;
+  }
+
+  #search,
+  .site a {
+    border-color: CanvasText;
+  }
+}

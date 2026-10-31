@@ -237,6 +237,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
 | Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
+| Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
 
 ## Repository
 

@@ -46,6 +46,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
 | Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
+| Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -300,6 +301,15 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   items can be dragged out again, to a page or the address bar; × (or
   Delete) takes one away. The shelf is kept in the profile
   (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
+- **Start page** (off by default): new tabs open a page of Zen Fluent's
+  own, as Windows 11 and Edge's: a greeting with the time and the date, a
+  search field with your default engine (an address opens, words search,
+  as in the URL bar), and your top sites, Firefox's own list (× removes
+  one), on a bloom in the accent. The URL bar stays empty on it. It takes
+  the place of Firefox's new tab page (unless an extension already
+  replaced it), and turns off Zen's **Replace the new tab with the URL
+  bar** (`zen.urlbar.replace-newtab`), which would never show it; both
+  come back when it is unchecked. The page: `enhanced/start/`.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

@@ -269,5 +269,11 @@
     "label": "Widgets and shelf ~a board with the time, what plays, downloads and a shelf for links~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.start-page",
+    "label": "Start page ~new tabs open a page with the time, search and top sites~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

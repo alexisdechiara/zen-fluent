@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Zen Fluent Enhanced: the start page (zen-fluent.enhanced.start-page).
+     A privileged page of the mod, opened for new tabs by
+     scripts/start-page.uc.js. Zen Fluent's WinUI tokens come from core/;
+     the accent and the space's background are copied from the window. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
+    <title>New Tab</title>
+    <link
+      rel="stylesheet"
+      href="chrome://sine/content/Zen-Fluent/core/src/tokens/winui.css" />
+    <link
+      rel="stylesheet"
+      href="chrome://sine/content/Zen-Fluent/core/src/tokens/font.css" />
+    <link rel="stylesheet" href="start.css" />
+    <script type="module" src="start.mjs"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p id="greeting"></p>
+        <p id="time"></p>
+        <p id="date"></p>
+      </header>
+      <form id="search" role="search">
+        <img id="engine-icon" alt="" />
+        <input
+          id="query"
+          type="search"
+          autocomplete="off"
+          aria-label="Search the web or type an address"
+          placeholder="Search the web or type an address" />
+      </form>
+      <ul id="sites" aria-label="Top sites"></ul>
+    </main>
+  </body>
+</html>
