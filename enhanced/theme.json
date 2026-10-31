@@ -56,6 +56,50 @@
     "scripts/glance.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
+    "scripts/breadcrumbs.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/command-palette.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/shortcut-overlay.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/snap-layouts.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-switcher.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/boost-extras.uc.js": {
+      "include": [
+        "chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml"
+      ]
+    },
+    "scripts/performance.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-notes.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/ai-controls.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/ai-chat.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/focus-session.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/shelf.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/start-page.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/quick-window.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/settings-page.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     }

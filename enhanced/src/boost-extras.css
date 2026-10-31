@@ -1,0 +1,19 @@
+/* Zen Fluent Enhanced: the extra tiles of the Boost editor (zen-fluent.enhanced.boost-extras).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/boost-extras.uc.js adds two rows of two tiles after Zen's Code
+   tile, with Zen's own tile classes (so Zen Fluent's Boost editor look
+   applies); the rows only space them as Zen's size and case row does. */
+
+#zf-boost-extras {
+  gap: 6px !important;
+}
+
+.zf-boost-extras-row {
+  gap: 6px !important;
+
+  & > button {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+}

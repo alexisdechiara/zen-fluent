@@ -8,6 +8,19 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Quick window** (`zen-fluent.enhanced.quick-window`, off by default): Ctrl+Alt+Shift+O or a link's menu opens a small unsynced window in compact mode, with a button that moves its tab to the main window, as Arc's Little Arc.
+- Zen Fluent Enhanced: **Start page** (`zen-fluent.enhanced.start-page`, off by default): new tabs show the time, a search field and the top sites on an accent bloom, as Windows 11 and Edge's new tab.
+- Zen Fluent Enhanced: **Widgets and shelf** (`zen-fluent.enhanced.shelf`, off by default): a board with the time, what is playing, the last downloads and a shelf where links, text and images dropped on it are kept for later.
+- Zen Fluent Enhanced: **Focus sessions** (`zen-fluent.enhanced.focus-session`, off by default): a timer in the sidebar's bottom row, as in Windows' Clock, with compact mode, muted tabs and blocked distracting sites while it runs.
+- Zen Fluent Enhanced: **AI controls page** (`zen-fluent.enhanced.ai-controls`) shows Firefox's AI controls page that Zen hides, and **AI chatbot panel** (`zen-fluent.enhanced.ai-chat`) turns Firefox's sidebar chatbot back on with a button in the sidebar's bottom row. Both off by default.
+- Zen Fluent Enhanced: **Tab notes** (`zen-fluent.enhanced.tab-notes`, off by default) turns on Firefox's tab notes and adds a list of every note (Ctrl+Alt+Shift+N) and the note in the hover cards.
+- Zen Fluent Enhanced: **Sleeping tabs and Performance** (`zen-fluent.enhanced.performance`, off by default): unused tabs go to sleep after a delay (`zen-fluent.enhanced.performance.sleep-after`, 30 minutes), and a Performance panel shows memory, sleeping tabs and the tabs using the most memory.
+- Zen Fluent Enhanced: **Boost editor extras** (`zen-fluent.enhanced.boost-extras`): Narrow column, No motion, Hide images and Sepia tiles in Zen's Boost editor, stored in the boost's custom CSS.
+- Zen Fluent Enhanced: **Ctrl+Tab as Alt+Tab** (`zen-fluent.enhanced.tab-switcher`, off by default): Ctrl+Tab shows the space's tabs, last used first, with thumbnails, as Windows 11's Alt+Tab.
+- Zen Fluent Enhanced: **Snap layouts** (`zen-fluent.enhanced.snap-layouts`): hovering the maximize button (or Ctrl+Alt+Shift+Z) shows Windows 11's layouts for Zen's split view, with Snap Assist to pick the other tabs; custom sizes such as two thirds and a third are kept in the session.
+- Zen Fluent Enhanced: **Keyboard shortcuts sheet** (`zen-fluent.enhanced.shortcut-overlay`): Ctrl+Alt+Shift+K shows the main shortcuts of Firefox, Zen and Zen Fluent over the window, as they are set now, with a search field.
+- Zen Fluent Enhanced: **Command Palette actions** (`zen-fluent.enhanced.command-palette`): with the Zen Command Palette mod, Zen Fluent's settings, presets, features and panels become palette commands.
+- Zen Fluent Enhanced: **Breadcrumb address** (`zen-fluent.enhanced.breadcrumbs`, off by default) shows the address as the site, its folders and the page, File Explorer style; a click on a level opens it.
 - Zen Fluent Enhanced: a **Zen Fluent** page in Zen's settings, below Sine
   Mods (`zen-fluent.enhanced.settings-page`, on by default), whose sections
   unfold as sub-items. Every setting in the style of Windows Settings, with

@@ -197,5 +197,143 @@
     "label": "Glance link preview ~hold the Glance key over a link to see where it goes~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.breadcrumbs",
+    "label": "Breadcrumb address ~the URL bar shows the site and each folder of the path; a click opens that level~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.command-palette",
+    "label": "Command Palette actions ~with the Zen Command Palette mod: Zen Fluent's settings, presets and features~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.shortcut-overlay",
+    "label": "Keyboard shortcuts sheet ~Ctrl+Alt+Shift+K: the main shortcuts over the window~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.snap-layouts",
+    "label": "Snap layouts ~hover the maximize button or Ctrl+Alt+Shift+Z: split the tabs like Windows 11~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-switcher",
+    "label": "Ctrl+Tab as Alt+Tab ~the space's tabs, last used first, with thumbnails~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.boost-extras",
+    "label": "Boost editor extras ~Narrow column, No motion, Hide images and Sepia tiles, per site~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.performance",
+    "label": "Sleeping tabs and Performance ~puts unused tabs to sleep; a panel shows memory and sleeping tabs~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.performance.sleep-after",
+    "label": "Put inactive tabs to sleep after",
+    "type": "dropdown",
+    "defaultValue": "30",
+    "placeholder": false,
+    "options": [
+      { "label": "Never", "value": "never" },
+      { "label": "5 minutes", "value": "5" },
+      { "label": "15 minutes", "value": "15" },
+      { "label": "30 minutes", "value": "30" },
+      { "label": "1 hour", "value": "60" },
+      { "label": "2 hours", "value": "120" },
+      { "label": "4 hours", "value": "240" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-notes",
+    "label": "Tab notes ~turns on Firefox's tab notes, with a list of every note~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.ai-controls",
+    "label": "AI controls ~shows Firefox's page to allow or block each AI feature~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.ai-chat",
+    "label": "AI chatbot panel ~Firefox's chatbot in the sidebar, Ctrl+Alt+X, with a button~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session",
+    "label": "Focus sessions ~a timer in the sidebar's bottom row: compact mode, muted tabs, blocked sites~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.minutes",
+    "label": "Focus session length",
+    "type": "dropdown",
+    "defaultValue": "25",
+    "placeholder": false,
+    "options": [
+      { "label": "15 minutes", "value": "15" },
+      { "label": "25 minutes", "value": "25" },
+      { "label": "45 minutes", "value": "45" },
+      { "label": "1 hour", "value": "60" },
+      { "label": "1 hour 30", "value": "90" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.compact",
+    "label": "Hide the sidebar during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.mute",
+    "label": "Mute tabs playing sound during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.block",
+    "label": "Block distracting sites during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.sites",
+    "label": "Distracting sites ~separated by commas~",
+    "type": "string",
+    "defaultValue": "youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com"
+  },
+  {
+    "property": "zen-fluent.enhanced.shelf",
+    "label": "Widgets and shelf ~a board with the time, what plays, downloads and a shelf for links~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.start-page",
+    "label": "Start page ~new tabs open a page with the time, search and top sites~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.quick-window",
+    "label": "Quick window ~Ctrl+Alt+Shift+O or a link's menu: a small window outside your spaces~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

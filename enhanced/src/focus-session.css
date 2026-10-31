@@ -1,0 +1,188 @@
+/* Zen Fluent Enhanced: focus sessions (zen-fluent.enhanced.focus-session).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/focus-session.uc.js adds #zf-focus-button to the sidebar's bottom
+   row and the #zf-focus panel. While a session runs, the button draws its
+   progress as an accent ring around the icon, and the panel shows the
+   time left in a large ring, as in Windows' Clock: a conic gradient (the
+   accent for the time gone, the control stroke for the rest) cut to a
+   ring by a radial mask, --zf-fs-progress going from 0 to 1. */
+
+#zf-focus-button[zf-running] {
+  position: relative !important;
+
+  &::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 3px !important;
+    border-radius: 50% !important;
+    background: conic-gradient(
+      var(--zf-accent) calc(var(--zf-fs-progress, 0) * 360deg),
+      var(--zf-stroke-control) 0
+    ) !important;
+    mask: radial-gradient(
+      closest-side,
+      transparent calc(100% - 2px),
+      #000 calc(100% - 1.5px)
+    ) !important;
+    pointer-events: none !important;
+  }
+}
+
+#zf-focus {
+  & .zf-fs-body {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 300px !important;
+    padding: 12px !important;
+    color: var(--zf-text-primary) !important;
+    font: 13px / 20px var(--zf-font) !important;
+  }
+
+  & button {
+    appearance: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: transparent !important;
+    color: inherit !important;
+    font: inherit !important;
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer) !important;
+      outline-offset: -2px !important;
+    }
+  }
+
+  & .zf-fs-title {
+    margin: 0 !important;
+    font: 600 14px / 20px var(--zf-font) !important;
+  }
+
+  & .zf-fs-ring {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+    width: 148px !important;
+    height: 148px !important;
+
+    &::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 !important;
+      border-radius: 50% !important;
+      background: conic-gradient(
+        var(--zf-accent) calc(var(--zf-fs-progress, 0) * 360deg),
+        var(--zf-stroke-control) 0
+      ) !important;
+      mask: radial-gradient(
+        closest-side,
+        transparent calc(100% - 6px),
+        #000 calc(100% - 5.5px)
+      ) !important;
+    }
+  }
+
+  & .zf-fs-time {
+    font: 600 32px / 40px var(--zf-font) !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  & .zf-fs-until {
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+  }
+
+  & .zf-fs-durations {
+    display: flex !important;
+    padding: 2px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: var(--zf-fill-control) !important;
+  }
+
+  & .zf-fs-duration {
+    flex: 1 !important;
+    padding: 3px 0 !important;
+    color: var(--zf-text-secondary) !important;
+    font-size: 12px !important;
+
+    &:hover {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &[aria-checked="true"] {
+      background: var(--zf-accent) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+
+  & .zf-fs-check {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+
+    & input {
+      margin: 0 !important;
+      accent-color: var(--zf-accent) !important;
+    }
+  }
+
+  & .zf-fs-sites {
+    height: 30px !important;
+    margin: 0 0 0 24px !important;
+    padding: 0 8px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+    color: var(--zf-text-primary) !important;
+    font: 12px var(--zf-font) !important;
+
+    &:focus {
+      border-bottom: 2px solid var(--zf-accent) !important;
+      outline: none !important;
+    }
+  }
+
+  & .zf-fs-primary {
+    padding: 6px 12px !important;
+    background: var(--zf-accent) !important;
+    color: var(--zf-on-accent) !important;
+
+    &:hover {
+      opacity: 0.9 !important;
+    }
+  }
+
+  & .zf-fs-actions {
+    display: flex !important;
+    gap: 8px !important;
+  }
+
+  & .zf-fs-secondary {
+    flex: 1 !important;
+    padding: 5px 12px !important;
+    background: var(--zf-fill-control) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+
+    &:hover {
+      background: var(--zf-fill-control-hover) !important;
+    }
+  }
+}
+
+@media (forced-colors) {
+  #zf-focus-button[zf-running]::after,
+  #zf-focus .zf-fs-ring::before {
+    background: conic-gradient(
+      Highlight calc(var(--zf-fs-progress, 0) * 360deg),
+      GrayText 0
+    ) !important;
+  }
+}

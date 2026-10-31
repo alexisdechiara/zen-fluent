@@ -87,6 +87,13 @@ const FEATURES = {
   "tab-switcher": "shapes",
   "boost-extras": "rocket",
   performance: "timer",
+  "tab-notes": "note",
+  "ai-controls": "shield",
+  "ai-chat": "bot",
+  "focus-session": "target",
+  shelf: "box",
+  "start-page": "home",
+  "quick-window": "desktop",
 };
 // The Home page's shortcuts to the main choices
 const HOME = {
