@@ -47,6 +47,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
 | Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
+| Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -193,7 +194,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
   keyboard shortcuts sheet, Snap layouts, Performance, Tab notes, AI controls, the AI chatbot,
-  Focus session, Widgets and shelf
+  Focus session, Widgets and shelf, Quick window
   and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
@@ -310,6 +311,14 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   replaced it), and turns off Zen's **Replace the new tab with the URL
   bar** (`zen.urlbar.replace-newtab`), which would never show it; both
   come back when it is unchecked. The page: `enhanced/start/`.
+- **Quick window** (off by default), as Arc's Little Arc: Ctrl+Alt+Shift+O,
+  a link's context menu (**Open link in a quick window**) or the Command
+  Palette opens a small window (520 x 720) beside the current one, in
+  compact mode so the page takes it all. It is Zen's unsynced window: none
+  of your spaces, and it is not restored with the session. Without a link,
+  its URL bar opens to type an address or a search. **Open in main
+  window**, at the bottom of the page, moves its tab to the window it came
+  from and closes it; closing the quick window simply drops the tab.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

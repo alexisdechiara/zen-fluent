@@ -238,6 +238,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
 | Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
+| Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
 
 ## Repository
 

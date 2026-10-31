@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Quick window** (`zen-fluent.enhanced.quick-window`, off by default): Ctrl+Alt+Shift+O or a link's menu opens a small unsynced window in compact mode, with a button that moves its tab to the main window, as Arc's Little Arc.
 - Zen Fluent Enhanced: **Start page** (`zen-fluent.enhanced.start-page`, off by default): new tabs show the time, a search field and the top sites on an accent bloom, as Windows 11 and Edge's new tab.
 - Zen Fluent Enhanced: **Widgets and shelf** (`zen-fluent.enhanced.shelf`, off by default): a board with the time, what is playing, the last downloads and a shelf where links, text and images dropped on it are kept for later.
 - Zen Fluent Enhanced: **Focus sessions** (`zen-fluent.enhanced.focus-session`, off by default): a timer in the sidebar's bottom row, as in Windows' Clock, with compact mode, muted tabs and blocked distracting sites while it runs.

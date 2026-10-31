@@ -10,7 +10,7 @@
 //   - the panels of the features that have one (Quick Settings, archived
 //     tabs, browsing stats, the shortcuts sheet, Snap layouts, Performance,
 //     Tab notes, AI controls, the AI chatbot, Focus session,
-//     Widgets and shelf) and Zen Fluent's settings
+//     Widgets and shelf, Quick window) and Zen Fluent's settings
 //     page.
 // A command only shows when it changes something (its condition). The
 // palette's script runs after this one (Sine loads mods in id order) and
@@ -206,6 +206,13 @@
         command: run("zf-shelf-button"),
         condition: has("zf-shelf-button"),
         tags: [...TAGS, "widgets", "shelf", "clock", "downloads"],
+      },
+      {
+        key: `${PREFIX}quick-window`,
+        label: "Zen Fluent: Quick window",
+        command: run("zf-quick-window-open"),
+        condition: has("zf-quick-window-open"),
+        tags: [...TAGS, "window", "little", "mini", "popup"],
       },
       {
         key: `${PREFIX}browsing-stats`,

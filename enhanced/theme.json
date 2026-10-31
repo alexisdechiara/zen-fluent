@@ -96,6 +96,9 @@
     },
     "scripts/start-page.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/quick-window.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

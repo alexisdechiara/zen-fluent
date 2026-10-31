@@ -275,5 +275,11 @@
     "label": "Start page ~new tabs open a page with the time, search and top sites~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.quick-window",
+    "label": "Quick window ~Ctrl+Alt+Shift+O or a link's menu: a small window outside your spaces~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]
