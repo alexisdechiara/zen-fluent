@@ -35,7 +35,8 @@ come later. The owner writes to Claude in French: answer in French.
   preference does not exist).
 - `core/icons/`: SVGs with `stroke="context-fill"`. `screenshots/`: README images.
 - `enhanced/`: `theme.json` (id `Zen-Fluent-Enhanced`, `modules` = Zen Fluent's
-  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `scripts/`
+  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `settings/`
+  (the `about:zen-fluent` page: HTML, CSS, a module, its icons), `scripts/`
   (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
   Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
@@ -113,6 +114,40 @@ come later. The owner writes to Claude in French: answer in French.
   with `@-moz-document`. An agent sheet only replaces the browser's
   defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
   pdf.js by its markup (`#outerContainer`).
+- An about: page from a mod: `Components.manager` `registerFactory` of an
+  `nsIAboutModule` (contract `@mozilla.org/network/protocol/about;1?what=<name>`)
+  whose `newChannel` opens a `chrome://sine/...` HTML file with
+  `originalURI` = the about: URI. Without `URI_CAN_LOAD_IN_CHILD` it loads in
+  the parent with the system principal (`Services` works). Its relative URLs
+  resolve against `about:<name>`: give it `<base href="chrome://...">`, and
+  never `<a href="#x">` (it would leave the page). Inline scripts never run
+  there: load a module file. Sine's content sheet (Zen Fluent's tokens)
+  reaches it. Sine rebuilds a text setting's variable on
+  `(stylesheets.sys.mjs).default.rebuildMods(false)`
+  (`chrome://userscripts/content/services/`).
+- about:preferences (Firefox 159, Zen 1.24b): `moz-page-nav#categories`
+  (sticky, folds to icons at `max-width: 950px`), `.main-content` (the
+  scroll container) > `.pane-container` (600px, centered) >
+  `#search-container` (sticky) + `#mainPrefPane`. Firefox's panes:
+  `setting-pane` > `section` > `moz-page-header` + `setting-group` >
+  `moz-card` > `moz-fieldset` > `setting-control` > `moz-checkbox` /
+  `moz-toggle` / `moz-select` / `moz-box-group`… Zen sets
+  `--card-padding-block` / `-inline`, which moz-card reads before
+  `--card-padding`. Zen's panes are XUL `groupbox`es. `gotoPref` needs both
+  `gCategoryInits` and `gCategoryModules` (`register_module`); Sine only
+  fills the first, so `gotoPref("paneSineMods")` throws after showing the
+  pane and `paneshown` never comes (watch a pane's `hidden` instead).
+  `gotoPref("paneX-sub")` calls the module's `handleSubcategory("sub")`.
+  At start Firefox replaces an unknown `#hash` with its default pane: read
+  `location.hash` at `document-element-inserted`. Its search
+  (`findInPage.js`) shows any `#mainPrefPane` child whose text matches,
+  even of a category never selected: a mod's own result cards go there
+  (text only: attributes are not searched); during a search every pane is
+  unhidden with `.visually-hidden`.
+- A page served by an about: module from a `chrome://` channel:
+  `history.replaceState()` throws SecurityError (use `location.hash`), and
+  its ES modules stay cached until a restart (`clearResourceCache()` is not
+  enough).
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

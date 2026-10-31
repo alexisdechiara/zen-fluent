@@ -65,7 +65,9 @@ forced-colors file (`a11y/forced-colors-<zone>.css`).
   `components/bookmarks-toolbar.css`, `features/bookmarks-autohide.css`.
 - **Fluent icons**: `features/fluent-icons/`, `features/animations/animated-icons.css`.
 - **Settings and internal pages**, in `core/userContent.css`:
-  `content/newtab.css`, `content/preferences/`, `content/sine/dialog.css`,
+  `content/newtab.css`, `content/preferences/` (the Windows 11 Settings
+  layout of Zen's settings: `layout.css`, `controls.css`),
+  `content/sine/dialog.css`, `content/sine/pane.css` (Sine's Mods pane),
   `content/zen-settings.css`, `content/toggle-switches.css`,
   `content/preferences-dialogs.css`.
 

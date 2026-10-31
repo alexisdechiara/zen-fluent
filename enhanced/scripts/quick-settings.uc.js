@@ -18,6 +18,11 @@
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-toast.sys.mjs",
   );
 
+  const { openSettings } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
+  );
+
+  const SETTINGS_PAGE = "zen-fluent.enhanced.settings-page";
   const CORE_PREFS = "chrome://sine/content/Zen-Fluent/core/preferences.json";
   const QUICK = "chrome://sine/content/Zen-Fluent-Enhanced/quick-settings.json";
   const HTML = "http://www.w3.org/1999/xhtml";
@@ -204,7 +209,12 @@
         const all = html("button", { class: "zf-qs-link" }, "All settings");
         all.addEventListener("click", () => {
           panel.hidePopup();
-          ctx.window.openPreferences("paneSineMods");
+          // The settings page when its feature runs, else Sine's dialog
+          if (Services.prefs.getBoolPref(SETTINGS_PAGE, true)) {
+            openSettings(ctx.window);
+          } else {
+            ctx.window.openPreferences("paneSineMods");
+          }
         });
         header.append(html("h2", { class: "zf-qs-title" }, "Zen Fluent"), all);
         const parts = [header];

@@ -1,0 +1,77 @@
+{
+  "mods": [
+    {
+      "name": "Advanced Tab Groups",
+      "repo": "Vertex-Mods/Advanced-Tab-Groups",
+      "status": "supported",
+      "summary": "Firefox's tab groups: their headers take the row of a Zen folder, with the folder icon tinted in the group's color."
+    },
+    {
+      "name": "ZenLibraryTweaks",
+      "repo": "JustAdumbPrsn/ZenLibraryTweaks",
+      "status": "supported",
+      "summary": "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library."
+    },
+    {
+      "name": "Glance Plus",
+      "repo": "apoapostolov/Zen-Glance-Plus",
+      "status": "supported",
+      "summary": "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons."
+    },
+    {
+      "name": "Zen Second Sidebar Enhanced",
+      "repo": "sinazadeh/zen-second-sidebar-enhanced",
+      "status": "supported",
+      "summary": "Web panels in a second sidebar: the page card's radius and shadow, WinUI hovers, Acrylic over the page."
+    },
+    {
+      "name": "Zen Command Palette",
+      "repo": "Vertex-Mods/Zen-Command-Palette",
+      "status": "supported",
+      "summary": "Commands in the URL bar: its accents and its Commands pill follow Zen Fluent's accent."
+    },
+    {
+      "name": "Zen Calmer Context Menu",
+      "repo": "sinazadeh/zen-calmer-context-menu",
+      "status": "supported",
+      "summary": "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows."
+    },
+    {
+      "name": "Zen Easel",
+      "repo": "trashshii007/zen-easel",
+      "status": "supported",
+      "summary": "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font."
+    },
+    {
+      "name": "BetterZenGradientPicker",
+      "repo": "JustAdumbPrsn/BetterZenGradientPicker",
+      "status": "partial",
+      "summary": "The picker works, but the window shows Mica rather than its gradient; its colors reach the accent through Zen workspace color."
+    },
+    {
+      "name": "Zen Page Tint",
+      "repo": "caezium/zen-page-tint",
+      "status": "conflict",
+      "summary": "Colors the window from the page, which is what Zen Fluent's material does: its layered rules win over Zen Fluent's."
+    },
+    {
+      "name": "Blended Addressbar",
+      "repo": "kkugot/blended-addressbar",
+      "status": "conflict",
+      "summary": "Recolors the URL bar and frames the page its own way, over Zen Fluent's URL bar and page card."
+    },
+    {
+      "name": "Better Find Bar",
+      "repo": "RobotoSkunk/ff-better-findbar",
+      "status": "conflict",
+      "summary": "A floating find bar where Zen Fluent draws a strip along the page: the two mix into neither."
+    },
+    {
+      "name": "SuperPins",
+      "repo": "CosmoCreeper/Zen-Themes",
+      "path": "SuperPins",
+      "status": "conflict",
+      "summary": "Its Essentials grid and workspace indicator replace Zen Fluent's own."
+    }
+  ]
+}

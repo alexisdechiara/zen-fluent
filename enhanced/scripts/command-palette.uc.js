@@ -25,6 +25,11 @@
   const ENHANCED_PREFS =
     "chrome://sine/content/Zen-Fluent-Enhanced/preferences.json";
   const QUICK = "chrome://sine/content/Zen-Fluent-Enhanced/quick-settings.json";
+  const { openSettings } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
+  );
+
+  const SETTINGS_PAGE = "zen-fluent.enhanced.settings-page";
   const PREFIX = "zen-fluent:";
   const TAGS = ["zen fluent", "fluent", "theme"];
 
@@ -121,7 +126,10 @@
       {
         key: `${PREFIX}settings`,
         label: "Zen Fluent: All settings",
-        command: () => win.openPreferences("paneSineMods"),
+        command: () =>
+          Services.prefs.getBoolPref(SETTINGS_PAGE, true)
+            ? openSettings(win)
+            : win.openPreferences("paneSineMods"),
         tags: [...TAGS, "settings", "preferences", "sine"],
       },
       {

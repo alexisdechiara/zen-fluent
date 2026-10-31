@@ -90,11 +90,13 @@
     ["tab-archive", "Ctrl+Alt+Shift+A", "Archived tabs"],
     ["browsing-stats", "Ctrl+Alt+Shift+S", "Browsing stats"],
     ["shortcut-overlay", "Ctrl+Alt+Shift+K", "This sheet"],
+    ["settings-page", "Ctrl+Alt+Shift+F", "Zen Fluent settings"],
   ];
   const DEFAULTS = {
     "tab-numbers": true,
     shortcuts: true,
     "shortcut-overlay": true,
+    "settings-page": true,
   };
 
   const ARROWS = {
