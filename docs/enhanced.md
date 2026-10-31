@@ -29,6 +29,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
 | Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
+| Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -167,6 +168,15 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   address as usual, and the breadcrumb goes away while you type. Only web and
   file addresses get one. When the bar is too narrow, the inner folders fold
   into a **…** segment that opens the last of them.
+- **Command Palette actions**: with the
+  [Zen Command Palette](https://github.com/Vertex-Mods/Zen-Command-Palette)
+  mod installed, its palette gets Zen Fluent's commands: each value of the
+  Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
+  presets, every Enhanced feature on or off, and the panels: Quick
+  Settings, archived tabs, **Archive this tab**, browsing stats and all of
+  Zen Fluent's settings. A command only shows when it changes something
+  (the current value and a feature's panel while it is off are left out).
+  Without the mod, it does nothing.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

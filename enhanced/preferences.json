@@ -149,5 +149,11 @@
     "label": "Breadcrumb address ~the URL bar shows the site and each folder of the path; a click opens that level~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.command-palette",
+    "label": "Command Palette actions ~with the Zen Command Palette mod: Zen Fluent's settings, presets and features~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]

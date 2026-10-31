@@ -220,6 +220,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
 | Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
+| Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
 
 ## Repository
 
