@@ -88,8 +88,9 @@ SOFTWARE.
 no licence file, the repository's is below).
 
 Files: the 142 icons of `enhanced/icons/fluent/` (20 px regular, listed in
-`enhanced/icons/fluent/icons.json`), unchanged but for `fill="context-fill"`
-on the root and a comment naming the icon and this licence.
+`enhanced/icons/fluent/icons.json`) and the 35 of `enhanced/settings/icons/`
+(the settings page), unchanged but for `fill="context-fill"` on the root and
+a comment naming the icon and this licence.
 
 ```
 MIT License

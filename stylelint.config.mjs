@@ -36,6 +36,11 @@ export default {
       true,
       {
         ignoreTypes: [
+          // Firefox's web components (moz-*, setting-* in about:preferences)
+          "/^moz-/",
+          "/^setting-/",
+          "backup-settings",
+          "security-privacy-card",
           "browser",
           "checkbox",
           "content-search-handoff-ui",

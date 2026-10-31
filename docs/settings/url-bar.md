@@ -4,13 +4,13 @@ Shape, accent line, URL position, icons.
 
 Group header: `zen-fluent.ui.open-urlbar` (open by default: `false`).
 
-| Setting                                                      | Preference                        | Values                                                                                                                               | Default |
-| ------------------------------------------------------------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| URL bar shape                                                | `zen-fluent.url-style`            | `auto` Follow the style (WinUI text box, Edge pill)<br>`textbox` Text box (WinUI)<br>`pill` Pill (Edge)<br>`transparent` Transparent | `auto`  |
-| Accent line under the URL bar                                | `zen-fluent.url-underline`        | `focus` On focus (WinUI)<br>`animated` On focus, animated (Fluent 2)<br>`always` Always<br>`none` Never                              | `focus` |
-| Centered URL                                                 | `zen-fluent.url-centered`         | `true` / `false`                                                                                                                     | `false` |
-| Hide the zoom level                                          | `zen-fluent.url-hide-zoom`        | `true` / `false`                                                                                                                     | `false` |
-| Hide permission icons (only the open request keeps its icon) | `zen-fluent.url-hide-permissions` | `true` / `false`                                                                                                                     | `false` |
+| Setting                                                      | Preference                        | Values                                                                                                   | Default |
+| ------------------------------------------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| URL bar shape                                                | `zen-fluent.url-style`            | `auto` Follow the style<br>`textbox` Text box (WinUI)<br>`pill` Pill (Edge)<br>`transparent` Transparent | `auto`  |
+| Accent line under the URL bar                                | `zen-fluent.url-underline`        | `focus` On focus (WinUI)<br>`animated` On focus, animated (Fluent 2)<br>`always` Always<br>`none` Never  | `focus` |
+| Centered URL                                                 | `zen-fluent.url-centered`         | `true` / `false`                                                                                         | `false` |
+| Hide the zoom level                                          | `zen-fluent.url-hide-zoom`        | `true` / `false`                                                                                         | `false` |
+| Hide permission icons (only the open request keeps its icon) | `zen-fluent.url-hide-permissions` | `true` / `false`                                                                                         | `false` |
 
 ## Notes
 

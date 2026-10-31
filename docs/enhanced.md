@@ -9,6 +9,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Feature                         | Setting                                           | Default |
 | ------------------------------- | ------------------------------------------------- | ------- |
 | Quick Settings                  | `zen-fluent.enhanced.quick-settings`              | `true`  |
+| Settings page                   | `zen-fluent.enhanced.settings-page`               | `true`  |
 | Icon colors                     | `zen-fluent.enhanced.favicon-color`               | `true`  |
 | Adaptive accent                 | `zen-fluent.enhanced.adaptive-accent`             | `false` |
 | Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
@@ -49,7 +50,56 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 
   The preset whose settings all match is shown pressed. **Undo preset** puts
   back the settings from before the last preset. **All settings** opens
-  Sine's page. The list lives in `enhanced/quick-settings.json`.
+  the settings page (Sine's dialog while the settings page is off). The list
+  lives in `enhanced/quick-settings.json`.
+
+- **Settings page**: a **Zen Fluent** page in Zen's settings, below Sine
+  Mods, with every Zen Fluent and Zen Fluent Enhanced setting in the style of
+  Windows Settings (Sine's dialog keeps working). Its sections unfold under
+  it as sub-items of Zen's navigation, icons only when Firefox folds it (at
+  950px and below). Open it from **Zen Fluent** in the app menu (under
+  Settings), **Zen Fluent settings** in the Tools menu, Ctrl+Alt+Shift+F or
+  **All settings** in Quick Settings; `about:preferences#zenFluent-tabs`
+  opens one section, and `about:zen-fluent` leads there too.
+  - _Search_: Zen's own **Find in Settings** finds Zen Fluent settings
+    (titles and descriptions) among Firefox's; a result opens the setting's
+    section and outlines it.
+  - _Overview_: a live preview of the window, then **Recently changed**
+    and **Most used** (the settings you change here, remembered in
+    `zen-fluent.enhanced.settings-page.activity`; suggestions until then),
+    the style and material as picture tiles, light or dark mode, the accent
+    swatches, and About (versions, Sine's dialog, links).
+  - _Themes_: the presets gallery with a preview of each, and **Your
+    theme**: **Export** and **Import** of your settings (a JSON file;
+    unknown or invalid values are skipped) and **Reset everything**.
+  - _A page per group_ of Zen Fluent's settings, with each setting's
+    description, a dot and a reset button on those you changed, and
+    **Reset this page** (click twice; the toast offers Undo for 10 s). The
+    pages of an area Zen Fluent styles as a zone carry its switch beside
+    Reset (**Fluent style**: Sidebar, Essentials, Extensions and Tabs for
+    the sidebar zone, URL bar; Window and menus has two): turned off, the
+    area keeps Zen's look, an InfoBar says so and offers **Turn on**, and
+    the page's cards fade.
+  - _Variants_: a drawing of the window with a numbered pin on each
+    component (buttons, URL bar and its buttons, extensions, badges,
+    Essentials, pinned tabs, folders, tabs, spaces, dialog buttons) and an
+    **All** pin on the window itself. A pin, or the part it marks, opens a
+    TeachingTip with the fill and shape as picture chips; All sets every
+    component left on Auto. The drawing shows the result on a selected
+    item, one under the pointer and one at rest. **Your changes** lists
+    what has its own look.
+  - _Enhanced_: each feature with its icon; its options show while it is
+    on.
+  - _Compatible mods_: the Sine mods checked with Zen Fluent
+    ([compatibility.md](compatibility.md)), supported, with a limit or
+    conflicting, each with its link and whether Sine has it installed; an
+    InfoBar warns when a conflicting one is on.
+
+  Every change applies at once and every value follows changes made
+  elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom
+  accent, radius, blur, opacity, font) is checked before it is saved and
+  asks Sine to rebuild its CSS variable, which Sine only does by itself from
+  its dialog. Presets, resets and imports can be undone from their toast.
 
 - **Icon colors**: reads the dominant color of each tab's icon (the most
   saturated color that covers enough of it, or the average of an icon with no
