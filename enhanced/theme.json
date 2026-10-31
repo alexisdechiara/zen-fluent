@@ -78,6 +78,9 @@
     },
     "scripts/performance.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-notes.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

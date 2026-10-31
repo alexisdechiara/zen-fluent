@@ -227,6 +227,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Boost editor extras                        | `zen-fluent.enhanced.boost-extras`                | `true`  |
 | Sleeping tabs and Performance panel        | `zen-fluent.enhanced.performance`                 | `false` |
 | Put inactive tabs to sleep after (minutes) | `zen-fluent.enhanced.performance.sleep-after`     | `30`    |
+| Tab notes                                  | `zen-fluent.enhanced.tab-notes`                   | `false` |
 
 ## Repository
 

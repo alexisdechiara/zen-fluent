@@ -201,5 +201,11 @@
       { "label": "2 hours", "value": "120" },
       { "label": "4 hours", "value": "240" }
     ]
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-notes",
+    "label": "Tab notes ~turns on Firefox's tab notes, with a list of every note~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

@@ -2,9 +2,9 @@
 //
 // Like the taskbar's previews: after a short hover (300 to 1200 ms,
 // zen-fluent.enhanced.hover-cards.delay) a card opens beside the tab with
-// its title, address, state (sleeping, playing, muted), a thumbnail of the
-// page (Firefox's own capture, as its tab previews; not for the selected
-// or a sleeping tab) and actions: copy the link, duplicate, mute, unload,
+// its title, address, state (sleeping, playing, muted), its tab note, a
+// thumbnail of the page (Firefox's own capture, as its tab previews; not
+// for the selected or a sleeping tab) and actions: copy the link, duplicate, mute, unload,
 // close. Moving to another tab switches the card at once; it closes when
 // the pointer leaves both, on a click, a drag, a menu or when the window
 // loses focus. Firefox's tab tooltip and its own tab preview stay hidden
@@ -28,6 +28,12 @@
     Number(Services.prefs.getStringPref(`${PREF}.delay`, "500")) || 500;
   const thumbnails = () =>
     Services.prefs.getBoolPref(`${PREF}.thumbnails`, true);
+  const TabNotes = () =>
+    Services.prefs.getBoolPref("browser.tabs.notes.enabled", false)
+      ? ChromeUtils.importESModule(
+          "moz-src:///browser/components/tabnotes/TabNotes.sys.mjs",
+        ).TabNotes
+      : null;
 
   const feature = ZFFeature.attach(window, {
     name: "hover-cards",
@@ -154,6 +160,17 @@
           );
         }
         parts.push(text);
+        // Firefox's tab note (tab-notes.uc.js turns them on), once read
+        if (tab.hasAttribute("tab-note")) {
+          TabNotes()
+            ?.get(tab)
+            .then((note) => {
+              if (note?.text && current === tab && text.isConnected) {
+                text.append(html("span", { class: "zf-hc-note" }, note.text));
+              }
+            })
+            .catch(() => {});
+        }
 
         const actions = html("div", { class: "zf-hc-actions" });
         actions.append(

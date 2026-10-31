@@ -8,7 +8,8 @@
 //   - the presets ("Zen Fluent preset: Taskbar");
 //   - each Enhanced feature turned on or off;
 //   - the panels of the features that have one (Quick Settings, archived
-//     tabs, browsing stats, the shortcuts sheet, Snap layouts, Performance) and Zen Fluent's settings
+//     tabs, browsing stats, the shortcuts sheet, Snap layouts, Performance,
+//     Tab notes) and Zen Fluent's settings
 //     page.
 // A command only shows when it changes something (its condition). The
 // palette's script runs after this one (Sine loads mods in id order) and
@@ -169,6 +170,13 @@
         command: run("zf-tools-performance"),
         condition: has("zf-tools-performance"),
         tags: [...TAGS, "memory", "sleeping tabs", "sleep"],
+      },
+      {
+        key: `${PREFIX}tab-notes`,
+        label: "Zen Fluent: Tab notes",
+        command: run("zf-tools-notes"),
+        condition: has("zf-tools-notes"),
+        tags: [...TAGS, "notes", "memo"],
       },
       {
         key: `${PREFIX}browsing-stats`,

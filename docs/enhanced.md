@@ -36,6 +36,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Boost editor extras                        | `zen-fluent.enhanced.boost-extras`                | `true`  |
 | Sleeping tabs and Performance panel        | `zen-fluent.enhanced.performance`                 | `false` |
 | Put inactive tabs to sleep after (minutes) | `zen-fluent.enhanced.performance.sleep-after`     | `30`    |
+| Tab notes                                  | `zen-fluent.enhanced.tab-notes`                   | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -153,7 +154,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   short hover (**Hover card delay**: 0.3, 0.5, 0.8 or 1.2 s) a card opens
   beside the tab: a thumbnail of the page (Firefox's own capture, not for the
   selected or a sleeping tab; **Page thumbnails in hover cards**), the title,
-  the address, the state (sleeping, playing, muted) and buttons: copy the
+  the address, the state (sleeping, playing, muted), the tab's note (with
+  **Tab notes**) and buttons: copy the
   link, duplicate, mute or unmute, unload, close. Moving to another tab
   switches the card at once; it closes when the pointer leaves the tab and
   the card, on a click, a drag, a menu, or when the window loses focus.
@@ -180,7 +182,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
-  keyboard shortcuts sheet, Snap layouts, Performance and all of
+  keyboard shortcuts sheet, Snap layouts, Performance, Tab notes and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
@@ -237,6 +239,18 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     **Sleep** button each. A tab's memory is an estimate: its process's,
     shared between the tabs in it (Firefox does not count per tab). **Open
     the task manager** opens `about:processes`.
+- **Tab notes** (off by default): turns on Firefox's own tab notes, which
+  Zen ships turned off (`browser.tabs.notes.enabled`, put back to Zen's
+  default when unchecked): tab context menu › **Add note** or **Edit
+  note**, and the note icon on a tab opens it. A note belongs to the page
+  (its canonical address), so it comes back when the page is opened again.
+  Zen Fluent Enhanced adds:
+  - **All notes**: Tools › **Tab notes**, the tab context menu's **All
+    notes…**, Ctrl+Alt+Shift+N or the Command Palette: every note, newest
+    first, with its site and date, a search field, and a click that goes to
+    the page's tab or opens it. Read from Firefox's notes database, never
+    written.
+  - With **Tab hover cards** on, a tab's card shows its note.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
