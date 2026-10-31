@@ -32,6 +32,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
 | Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
 | Snap layouts for split view     | `zen-fluent.enhanced.snap-layouts`                | `true`  |
+| Ctrl+Tab as Alt+Tab             | `zen-fluent.enhanced.tab-switcher`                | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -197,6 +198,16 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   zone has a tab. The sizes stay resizable with Zen's handles and come back
   with the session. A layout with more zones than tabs to offer is dimmed;
   tabs already in a split leave it for the new one.
+- **Ctrl+Tab as Alt+Tab** (off by default): Ctrl+Tab works like Windows
+  11's Alt+Tab. Hold Ctrl and press Tab: a band over the window shows the
+  space's tabs, last used first, each with its icon, its title and a
+  thumbnail of the page (its icon while there is none, as for a sleeping
+  tab). Tab moves on, Shift+Tab or the arrows move around, releasing Ctrl
+  (or Enter) goes to the highlighted tab, Escape cancels; the pointer can
+  pick a card, and **×** on a card closes its tab. A quick Ctrl+Tab goes
+  back to the previous tab without showing the band. It replaces Firefox's
+  Ctrl+Tab while it is on, including its **Ctrl+Tab cycles through tabs in
+  recently used order** previews.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

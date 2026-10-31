@@ -167,5 +167,11 @@
     "label": "Snap layouts ~hover the maximize button or Ctrl+Alt+Shift+Z: split the tabs like Windows 11~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.tab-switcher",
+    "label": "Ctrl+Tab as Alt+Tab ~the space's tabs, last used first, with thumbnails~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

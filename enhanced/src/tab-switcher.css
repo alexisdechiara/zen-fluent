@@ -1,0 +1,153 @@
+/* Zen Fluent Enhanced: Ctrl+Tab as Alt+Tab (zen-fluent.enhanced.tab-switcher).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/tab-switcher.uc.js fills #zf-switcher: Windows 11's Alt+Tab band
+   in the middle of the window (solid Acrylic color: Firefox does not blur
+   the page under it), the cards in rows. A card has the tab's icon and
+   title above a 16:10 thumbnail (the icon, large, while there is none);
+   the highlighted card gets the WinUI selection: a fill and a 2px ring in
+   the text color. × shows on the hovered or highlighted card. */
+
+#zf-switcher {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  display: grid !important;
+  place-items: center !important;
+  font: 12px / 16px var(--zf-font) !important;
+  color: var(--zf-text-primary) !important;
+
+  &[hidden] {
+    display: none !important;
+  }
+
+  & .zf-sw-band {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    max-width: calc(100vw - 64px) !important;
+    max-height: calc(100vh - 64px) !important;
+    padding: 12px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    background-clip: padding-box !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+    overflow: auto !important;
+  }
+
+  & .zf-sw-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 220px !important;
+    padding: 6px 6px 8px !important;
+    border-radius: var(--zf-radius-control) !important;
+    outline: 2px solid transparent !important;
+    outline-offset: -2px !important;
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &[zf-current] {
+      background-color: var(--zf-fill-subtle-hover) !important;
+      outline-color: var(--zf-text-primary) !important;
+    }
+  }
+
+  & .zf-sw-head {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-height: 20px !important;
+  }
+
+  & .zf-sw-icon {
+    flex: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    -moz-context-properties: fill !important;
+    fill: currentcolor !important;
+  }
+
+  & .zf-sw-title {
+    flex: 1 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  & .zf-sw-close {
+    appearance: none !important;
+    flex: none !important;
+    visibility: hidden !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: transparent !important;
+    color: var(--zf-text-secondary) !important;
+    font:
+      10px / 20px "Segoe Fluent Icons",
+      "Segoe MDL2 Assets",
+      sans-serif !important;
+
+    &::before {
+      content: "\E8BB";
+    }
+
+    &:hover {
+      background-color: var(--zf-fill-subtle-hover) !important;
+      color: var(--zf-text-primary) !important;
+    }
+  }
+
+  & .zf-sw-card:is(:hover, [zf-current]) .zf-sw-close {
+    visibility: visible !important;
+  }
+
+  & .zf-sw-preview {
+    display: grid !important;
+    place-items: center !important;
+    width: 220px !important;
+    height: 138px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-layer-alt) !important;
+    overflow: clip !important;
+  }
+
+  & .zf-sw-thumb {
+    width: 220px !important;
+    height: 138px !important;
+  }
+
+  /* hidden once a thumbnail is there */
+  & .zf-sw-thumb ~ .zf-sw-placeholder {
+    display: none !important;
+  }
+
+  & .zf-sw-placeholder {
+    width: 32px !important;
+    height: 32px !important;
+    -moz-context-properties: fill !important;
+    fill: var(--zf-text-secondary) !important;
+  }
+}
+
+@media (forced-colors) {
+  #zf-switcher {
+    & .zf-sw-band {
+      border-color: CanvasText !important;
+      background-color: Canvas !important;
+    }
+
+    & .zf-sw-card[zf-current] {
+      outline-color: Highlight !important;
+    }
+  }
+}

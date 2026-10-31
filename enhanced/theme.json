@@ -67,6 +67,9 @@
     },
     "scripts/snap-layouts.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/tab-switcher.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],
