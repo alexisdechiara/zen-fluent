@@ -179,6 +179,7 @@
               item.type = "button";
               item.className = "zf-subnav-item";
               item.dataset.page = id;
+              item.title = title;
               const image = doc.createElementNS(HTML, "img");
               image.src = `${ICONS}${icon}.svg`;
               image.alt = "";

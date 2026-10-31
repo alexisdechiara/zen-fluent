@@ -2,7 +2,7 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* Second Sidebar (SSB) draws its web panels from its own --sb2-zen-* tokens
-   on :root (an author <style>, without !important). They take the page
+   on :root (an author \3c style>, without !important). They take the page
    card's radius and shadow (core/src/base/page-card.css), the WinUI layer
    for the panel's toolbar, the subtle fills of the toolbar buttons for its
    launcher, and, for what floats over the page (an unpinned panel, the

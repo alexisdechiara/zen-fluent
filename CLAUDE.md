@@ -125,6 +125,19 @@ come later. The owner writes to Claude in French: answer in French.
   reaches it. Sine rebuilds a text setting's variable on
   `(stylesheets.sys.mjs).default.rebuildMods(false)`
   (`chrome://userscripts/content/services/`).
+- about:preferences (Firefox 159, Zen 1.24b): `moz-page-nav#categories`
+  (sticky, folds to icons at `max-width: 950px`), `.main-content` (the
+  scroll container) > `.pane-container` (600px, centered) >
+  `#search-container` (sticky) + `#mainPrefPane`. Firefox's panes:
+  `setting-pane` > `section` > `moz-page-header` + `setting-group` >
+  `moz-card` > `moz-fieldset` > `setting-control` > `moz-checkbox` /
+  `moz-toggle` / `moz-select` / `moz-box-group`… Zen sets
+  `--card-padding-block` / `-inline`, which moz-card reads before
+  `--card-padding`. Zen's panes are XUL `groupbox`es. `gotoPref` needs both
+  `gCategoryInits` and `gCategoryModules` (`register_module`); Sine only
+  fills the first, so `gotoPref("paneSineMods")` throws after showing the
+  pane and `paneshown` never comes (watch a pane's `hidden` instead).
+  `gotoPref("paneX-sub")` calls the module's `handleSubcategory("sub")`.
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

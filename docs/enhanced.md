@@ -58,7 +58,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Sine's dialog (which keeps working). Open it with **Zen Fluent** in the app
   menu (under Settings), **Zen Fluent settings** in the Tools menu,
   Ctrl+Alt+Shift+F, or **All settings** in Quick Settings; a link such as
-  `about:zen-fluent#tabs` opens one page.
+  `about:zen-fluent#tabs` opens one page. Zen's settings also get a
+  **Zen Fluent** entry below Sine Mods: its sections unfold under it as
+  sub-items (icons only when Firefox folds its navigation, at 950px and
+  below), and its pane shows the page without its own navigation
+  (`about:preferences#zenFluent`, or `#zenFluent-tabs` for one section).
   - _Home_: a live preview of the window over a Fluent bloom (style,
     material, corners, density, the selected Essential, the extensions row,
     the variants), the style and material as picture tiles, light or dark

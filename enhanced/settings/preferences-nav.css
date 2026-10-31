@@ -88,6 +88,18 @@
   }
 }
 
+/* At 950px and below Firefox's navigation shows icons only: so do these */
+@media (width <= 950px) {
+  .zf-subnav-item {
+    justify-content: center;
+    padding: 0;
+
+    & span {
+      display: none;
+    }
+  }
+}
+
 #category-zen-fluent[zf-child-selected] {
   --zf-accent: transparent;
   --zf-fill-selected: transparent;

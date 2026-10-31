@@ -13,7 +13,19 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   style of Windows Settings, with a live preview of the window, the presets
   gallery, search, per-setting and per-page reset, and settings export and
   import. Opened from the app menu, the Tools menu, Ctrl+Alt+Shift+F and
-  Quick Settings' **All settings**.
+  Quick Settings' **All settings**, and from a **Zen Fluent** entry in Zen's
+  settings, below Sine Mods, whose sections unfold as sub-items.
+
+### Changed
+
+- Zen's settings are laid out as the Windows 11 Settings app
+  (`zen-fluent.fluent-content`): a Mica background, a 320px navigation pane
+  with the search box under its title, the content beside it up to 1000px
+  wide under a 28px page title, sections titled above their cards and one
+  SettingsCard per setting, select boxes at the end of their row, WinUI
+  text boxes, 20px check boxes. Sine's Mods pane follows: page title,
+  sections, store tiles and installed mods as cards, WinUI buttons and text
+  boxes.
 
 ## [0.2.0] - 2026-10-30
 
