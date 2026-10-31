@@ -27,6 +27,10 @@ const SINE_STYLES = "chrome://userscripts/content/services/stylesheets.sys.mjs";
 const REPO = "https://github.com/alexisdechiara/zen-fluent";
 const FEATURE_ICONS = `${BASE}Zen-Fluent-Enhanced/icons/fluent/`;
 const SCHEME = "zen.view.window.scheme";
+// In Zen's settings (about:preferences#zenFluent) the page is in an iframe:
+// its sections become sub-items of Zen's own navigation
+// (settings-page.uc.js reads them from window.zfPages), only the search stays
+const EMBED = new URLSearchParams(location.search).has("embed");
 const PLATFORM =
   { win: "windows", macosx: "macos", linux: "linux" }[AppConstants.platform] ??
   AppConstants.platform;
@@ -1519,6 +1523,7 @@ function search() {
 // -------- Start --------
 
 async function start() {
+  document.documentElement.toggleAttribute("embed", EMBED);
   syncAccent();
   await load();
   $("#version").textContent = model.versions.core
@@ -1563,7 +1568,9 @@ async function start() {
     }
   });
   route();
+  window.zfPages = pages.map(({ id, title, icon }) => ({ id, title, icon }));
   document.documentElement.setAttribute("ready", "");
+  window.dispatchEvent(new CustomEvent("zf-settings-ready"));
 }
 
 start();

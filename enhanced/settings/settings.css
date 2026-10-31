@@ -1747,3 +1747,44 @@ button {
     forced-color-adjust: none;
   }
 }
+
+/* -------- Inside Zen's settings (?embed) -------- */
+
+/* The page sits in an iframe of about:preferences: Zen's navigation lists
+   its sections (settings-page.uc.js), so only the search stays, at the top
+   end, over the settings page's own background. */
+:root[embed] {
+  --mica: transparent;
+
+  background: transparent;
+
+  & .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  & .nav {
+    flex-direction: row;
+    justify-content: end;
+    padding: 0;
+  }
+
+  & .brand,
+  & .nav-scroll {
+    display: none;
+  }
+
+  & .search {
+    display: flex;
+    width: 260px;
+    margin: 0;
+  }
+
+  & .main {
+    padding: 0 4px 48px;
+  }
+
+  & .page-header {
+    padding-top: 12px;
+  }
+}

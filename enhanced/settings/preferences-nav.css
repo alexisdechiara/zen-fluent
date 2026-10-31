@@ -1,0 +1,103 @@
+/* Zen Fluent Enhanced: the Zen Fluent entry of Zen's settings.
+   An author sheet that scripts/settings-page.uc.js adds to about:preferences:
+   it styles only the elements the script adds. */
+
+/* The page's sections, under the Zen Fluent button: a hierarchical
+   NavigationView, unfolded while the Zen Fluent pane is shown. The child
+   that is selected carries the accent pill; the parent then gives up its
+   own (it reads --zf-accent and --zf-fill-selected, Zen Fluent's tokens). */
+#zf-prefs-subnav {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s cubic-bezier(0, 0, 0, 1);
+
+  &[expanded] {
+    grid-template-rows: 1fr;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.zf-subnav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#zf-prefs-subnav[expanded] .zf-subnav-list {
+  padding-block: 2px 6px;
+}
+
+.zf-subnav-item {
+  appearance: none;
+  position: relative;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px 0 40px;
+  border: 0;
+  border-radius: var(--zf-radius-control, 4px);
+  background: transparent;
+  color: var(--zf-text-primary, inherit);
+  font: inherit;
+  font-size: 0.95em;
+  text-align: start;
+
+  & img {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    -moz-context-properties: fill, fill-opacity;
+    fill: currentcolor;
+    fill-opacity: 1;
+  }
+
+  &:hover {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  }
+
+  &:active {
+    background: var(--zf-fill-subtle-press, rgb(128 128 128 / 6%));
+    color: var(--zf-text-secondary, inherit);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--zf-text-primary, currentcolor);
+    outline-offset: -2px;
+  }
+
+  &[selected] {
+    background: var(--zf-fill-selected, rgb(128 128 128 / 12%));
+    font-weight: 600;
+
+    &::before {
+      position: absolute;
+      inset: 50% auto auto 0;
+      width: 3px;
+      height: 16px;
+      margin-top: -8px;
+      border-radius: 2px;
+      background: var(--zf-accent, AccentColor);
+      content: "";
+    }
+  }
+}
+
+#category-zen-fluent[zf-child-selected] {
+  --zf-accent: transparent;
+  --zf-fill-selected: transparent;
+}
+
+/* The page, as tall as the window leaves room for (the script sets it) */
+#zf-prefs-pane > iframe {
+  display: block;
+  width: 100%;
+  height: 640px;
+  border: 0;
+  background: transparent;
+}
