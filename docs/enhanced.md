@@ -33,6 +33,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
 | Snap layouts for split view     | `zen-fluent.enhanced.snap-layouts`                | `true`  |
 | Ctrl+Tab as Alt+Tab             | `zen-fluent.enhanced.tab-switcher`                | `false` |
+| Boost editor extras             | `zen-fluent.enhanced.boost-extras`                | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -208,6 +209,15 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   back to the previous tab without showing the band. It replaces Firefox's
   Ctrl+Tab while it is on, including its **Ctrl+Tab cycles through tabs in
   recently used order** previews.
+- **Boost editor extras**: Zen's Boost editor gets four more tiles after
+  **Code**: **Narrow column** (the page's text in a 72-character column),
+  **No motion** (animations and transitions stopped), **Hide images**
+  (images, videos and background images) and **Sepia**. Each tile adds or
+  takes out a block of CSS in the boost's own custom CSS, between
+  `/* zen-fluent:<tile> */` comments you can see and edit in the Code
+  editor, so they are saved, shared and applied per site like the rest of
+  the boost, and need nothing changed in Zen. The editor window grows by
+  the new row.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

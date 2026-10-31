@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Boost editor extras** (`zen-fluent.enhanced.boost-extras`): Narrow column, No motion, Hide images and Sepia tiles in Zen's Boost editor, stored in the boost's custom CSS.
 - Zen Fluent Enhanced: **Ctrl+Tab as Alt+Tab** (`zen-fluent.enhanced.tab-switcher`, off by default): Ctrl+Tab shows the space's tabs, last used first, with thumbnails, as Windows 11's Alt+Tab.
 - Zen Fluent Enhanced: **Snap layouts** (`zen-fluent.enhanced.snap-layouts`): hovering the maximize button (or Ctrl+Alt+Shift+Z) shows Windows 11's layouts for Zen's split view, with Snap Assist to pick the other tabs; custom sizes such as two thirds and a third are kept in the session.
 - Zen Fluent Enhanced: **Keyboard shortcuts sheet** (`zen-fluent.enhanced.shortcut-overlay`): Ctrl+Alt+Shift+K shows the main shortcuts of Firefox, Zen and Zen Fluent over the window, as they are set now, with a search field.

@@ -173,5 +173,11 @@
     "label": "Ctrl+Tab as Alt+Tab ~the space's tabs, last used first, with thumbnails~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.boost-extras",
+    "label": "Boost editor extras ~Narrow column, No motion, Hide images and Sepia tiles, per site~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]

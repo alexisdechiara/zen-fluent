@@ -70,6 +70,11 @@
     },
     "scripts/tab-switcher.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/boost-extras.uc.js": {
+      "include": [
+        "chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml"
+      ]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

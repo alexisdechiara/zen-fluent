@@ -9,6 +9,8 @@ One feature = one `<name>.uc.js` file, declared in `enhanced/theme.json`:
 ```
 
 and one checkbox, `zen-fluent.enhanced.<name>`, in `enhanced/preferences.json`.
+A script for another chrome window lists that window instead (the Boost
+editor: `chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml`).
 `npm run check` enforces both, the header and the two calls below.
 
 ## Template
