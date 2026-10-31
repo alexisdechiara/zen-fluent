@@ -115,9 +115,14 @@
       };
 
       // Too long for the bar: the inner folders fold, from the site's side,
-      // into one "…" segment that opens the last folded level.
+      // into one "…" segment that opens the last folded level; in a very
+      // narrow bar, only the site and the page stay.
       const fit = () => {
-        row.querySelector(".zf-crumb-more")?.remove();
+        for (const el of row.querySelectorAll(
+          ".zf-crumb-more, .zf-more-separator",
+        )) {
+          el.remove();
+        }
         for (const el of row.querySelectorAll("[hidden]")) {
           el.hidden = false;
         }
@@ -137,12 +142,19 @@
             break;
           }
           if (!more.isConnected) {
-            sep.after(more, sep.cloneNode());
+            const moreSep = sep.cloneNode();
+            moreSep.classList.add("zf-more-separator");
+            sep.after(more, moreSep);
           }
           folder.hidden = true;
           folder.nextElementSibling.hidden = true;
           more.dataset.url = folder.dataset.url;
           more.title = folder.dataset.url;
+        }
+        // still too long: the site and the page alone, cut short
+        if (more.isConnected && row.scrollWidth > row.clientWidth) {
+          more.hidden = true;
+          more.nextElementSibling.hidden = true;
         }
       };
       const resize = new win.ResizeObserver(() => fit());
