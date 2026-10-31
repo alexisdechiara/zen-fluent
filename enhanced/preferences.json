@@ -7,7 +7,7 @@
   },
   {
     "property": "zen-fluent.enhanced.settings-page",
-    "label": "Settings page ~about:zen-fluent, every setting with a live preview; Ctrl+Alt+Shift+F~",
+    "label": "Settings page ~a Zen Fluent page in Zen's settings, below Sine Mods; Ctrl+Alt+Shift+F~",
     "type": "checkbox",
     "defaultValue": true
   },

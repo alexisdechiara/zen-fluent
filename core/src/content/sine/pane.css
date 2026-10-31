@@ -38,9 +38,13 @@
     font-size: 12px !important;
   }
 
-  /* Store tiles */
+  /* Store tiles: the grid grows, the pagination moves through the store
+     (no scroll box inside the page's scroll) */
   #sineInstallationList {
     gap: 4px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .sineInstallationItem {

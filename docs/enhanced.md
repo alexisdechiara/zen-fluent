@@ -53,31 +53,34 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   the settings page (Sine's dialog while the settings page is off). The list
   lives in `enhanced/quick-settings.json`.
 
-- **Settings page**: `about:zen-fluent`, every Zen Fluent and Zen Fluent
-  Enhanced setting on one page in the style of Windows Settings, instead of
-  Sine's dialog (which keeps working). Open it with **Zen Fluent** in the app
-  menu (under Settings), **Zen Fluent settings** in the Tools menu,
-  Ctrl+Alt+Shift+F, or **All settings** in Quick Settings; a link such as
-  `about:zen-fluent#tabs` opens one page. Zen's settings also get a
-  **Zen Fluent** entry below Sine Mods: its sections unfold under it as
-  sub-items (icons only when Firefox folds its navigation, at 950px and
-  below), and its pane shows the page without its own navigation
-  (`about:preferences#zenFluent`, or `#zenFluent-tabs` for one section).
-  - _Home_: a live preview of the window over a Fluent bloom (style,
-    material, corners, density, the selected Essential, the extensions row,
-    the variants), the style and material as picture tiles, light or dark
-    mode, the accent swatches, the presets gallery with a preview of each,
-    and a card per group.
-  - _One page per group_ of Zen Fluent's settings, with each setting's
+- **Settings page**: a **Zen Fluent** page in Zen's settings, below Sine
+  Mods, with every Zen Fluent and Zen Fluent Enhanced setting in the style of
+  Windows Settings (Sine's dialog keeps working). Its sections unfold under
+  it as sub-items of Zen's navigation, icons only when Firefox folds it (at
+  950px and below). Open it from **Zen Fluent** in the app menu (under
+  Settings), **Zen Fluent settings** in the Tools menu, Ctrl+Alt+Shift+F or
+  **All settings** in Quick Settings; `about:preferences#zenFluent-tabs`
+  opens one section, and `about:zen-fluent` leads there too.
+  - _Search_: Zen's own **Find in Settings** finds Zen Fluent settings
+    (titles and descriptions) among Firefox's; a result opens the setting's
+    section and outlines it.
+  - _Home_: a live preview of the window, the presets gallery with a preview
+    of each, the style and material as picture tiles, light or dark mode,
+    the accent swatches, then About: versions, **Export** and **Import** of
+    your settings (a JSON file; unknown or invalid values are skipped),
+    **Reset everything**, a link to Sine's dialog and to the project.
+  - _A page per group_ of Zen Fluent's settings, with each setting's
     description, a dot and a reset button on those you changed, and
-    **Reset this page** (click twice; the toast offers Undo). Variants are
-    laid out per component, fill and shape side by side.
-  - _Enhanced_: each feature with its icon, its options under it.
-  - _About_: versions, **Export** and **Import** of your settings (a JSON
-    file; unknown or invalid values are skipped), **Reset everything**, a
-    link to Sine's dialog and to the project.
-  - _Find a setting_ (Ctrl+F or /) searches titles, descriptions, choices
-    and preference names.
+    **Reset this page** (click twice; the toast offers Undo for 10 s).
+  - _Variants_: **Everywhere**'s fill and shape as picture chips, then a
+    drawing of the window with a numbered pin on each component (buttons,
+    URL bar and its buttons, extensions, badges, Essentials, pinned tabs,
+    folders, tabs, spaces, dialog buttons). A pin, or the part it marks,
+    opens a TeachingTip with that component's fill and shape; the drawing
+    shows the result on a selected item, one under the pointer and one at
+    rest. **Your changes** lists the components with their own look.
+  - _Enhanced_: each feature with its icon; its options show while it is
+    on.
 
   Every change applies at once and every value follows changes made
   elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom

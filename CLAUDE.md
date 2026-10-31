@@ -138,6 +138,16 @@ come later. The owner writes to Claude in French: answer in French.
   fills the first, so `gotoPref("paneSineMods")` throws after showing the
   pane and `paneshown` never comes (watch a pane's `hidden` instead).
   `gotoPref("paneX-sub")` calls the module's `handleSubcategory("sub")`.
+  At start Firefox replaces an unknown `#hash` with its default pane: read
+  `location.hash` at `document-element-inserted`. Its search
+  (`findInPage.js`) shows any `#mainPrefPane` child whose text matches,
+  even of a category never selected: a mod's own result cards go there
+  (text only: attributes are not searched); during a search every pane is
+  unhidden with `.visually-hidden`.
+- A page served by an about: module from a `chrome://` channel:
+  `history.replaceState()` throws SecurityError (use `location.hash`), and
+  its ES modules stay cached until a restart (`clearResourceCache()` is not
+  enough).
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

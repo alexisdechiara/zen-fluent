@@ -8,13 +8,15 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
-- Zen Fluent Enhanced: a settings page, `about:zen-fluent`
-  (`zen-fluent.enhanced.settings-page`, on by default). Every setting in the
-  style of Windows Settings, with a live preview of the window, the presets
-  gallery, search, per-setting and per-page reset, and settings export and
-  import. Opened from the app menu, the Tools menu, Ctrl+Alt+Shift+F and
-  Quick Settings' **All settings**, and from a **Zen Fluent** entry in Zen's
-  settings, below Sine Mods, whose sections unfold as sub-items.
+- Zen Fluent Enhanced: a **Zen Fluent** page in Zen's settings, below Sine
+  Mods (`zen-fluent.enhanced.settings-page`, on by default), whose sections
+  unfold as sub-items. Every setting in the style of Windows Settings, with
+  a live preview of the window, the presets gallery, per-setting and
+  per-page reset, settings export and import, and Variants as a drawing of
+  the window with a pin per component (a TeachingTip picks its fill and
+  shape). Zen's **Find in Settings** finds Zen Fluent's settings. Opened
+  from the app menu, the Tools menu, Ctrl+Alt+Shift+F and Quick Settings'
+  **All settings**.
 
 ### Changed
 

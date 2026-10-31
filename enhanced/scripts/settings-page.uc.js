@@ -20,8 +20,10 @@
 
   const HTML = "http://www.w3.org/1999/xhtml";
   const PANE = "paneZenFluent";
+  // Search results: never a pane of their own, shown by Firefox's search
+  const RESULTS = "paneZenFluentResults";
   const ICONS = "chrome://sine/content/Zen-Fluent-Enhanced/settings/icons/";
-  const PANE_ICON = `${ICONS}paint-brush.svg`;
+  const PANE_ICON = `${ICONS}sparkle.svg`;
   const PREFS_SHEET =
     "chrome://sine/content/Zen-Fluent-Enhanced/settings/preferences-nav.css";
 
@@ -96,7 +98,7 @@
         doc.defaultView?.top === doc.defaultView &&
         doc.defaultView.browsingContext?.topChromeWindow === win;
 
-      function addPane(doc) {
+      function addPane(doc, hash = doc.location.hash) {
         const prefsWin = doc.defaultView;
         const categories = doc.getElementById("categories");
         const main = doc.getElementById("mainPrefPane");
@@ -192,12 +194,61 @@
               return item;
             }),
           );
-          content.addEventListener("hashchange", markSelected);
+          content.addEventListener("zf-route", markSelected);
+          buildResults();
           if (pending) {
             showSection(pending);
             pending = "";
           }
           markSelected();
+        };
+        // Zen's search: a result card per Zen Fluent setting, as children of
+        // #mainPrefPane that Firefox's search shows when their text matches
+        // (in normal browsing their category is never shown). A card opens
+        // the setting's page and outlines it.
+        const results = [];
+        const buildResults = () => {
+          for (const result of results.splice(0)) {
+            result.remove();
+          }
+          const content = page();
+          const icons = new Map(
+            (content?.zfPages ?? []).map(({ id, icon }) => [id, icon]),
+          );
+          for (const entry of content?.zfIndex?.() ?? []) {
+            const box = doc.createElementNS(HTML, "div");
+            box.className = "zf-search-result";
+            box.dataset.category = RESULTS;
+            box.hidden = true;
+            const card = doc.createElementNS(HTML, "button");
+            card.type = "button";
+            card.className = "zf-sr-card";
+            // The path is drawn from an attribute: Firefox searches text only
+            card.dataset.path = `Zen Fluent › ${entry.pageTitle}`;
+            const image = doc.createElementNS(HTML, "img");
+            image.src = `${ICONS}${icons.get(entry.page) ?? "settings"}.svg`;
+            image.alt = "";
+            const text = doc.createElementNS(HTML, "span");
+            text.className = "zf-sr-text";
+            const title = doc.createElementNS(HTML, "span");
+            title.className = "zf-sr-title";
+            title.textContent = entry.title;
+            text.append(title);
+            if (entry.description) {
+              const description = doc.createElementNS(HTML, "span");
+              description.className = "zf-sr-desc";
+              description.textContent = entry.description;
+              text.append(description);
+            }
+            card.append(image, text);
+            card.addEventListener("click", () => {
+              prefsWin.gotoPref(PANE);
+              prefsWin.setTimeout(() => page()?.zfReveal?.(entry.property), 50);
+            });
+            box.append(card);
+            main.append(box);
+            results.push(box);
+          }
         };
         frame.addEventListener("load", () => {
           if (page()) {
@@ -232,17 +283,22 @@
         // Firefox's search() shows a pane by its hidden attribute; paneshown
         // never comes after Sine's pane (gotoPref throws on it)
         const shown = () => {
-          subnav.toggleAttribute("expanded", !pane.hidden);
+          // During a search Firefox unhides every pane, visually-hidden
+          subnav.toggleAttribute(
+            "expanded",
+            !pane.hidden && !pane.classList.contains("visually-hidden"),
+          );
           markSelected();
           fit();
         };
         const watcher = new prefsWin.MutationObserver(shown);
         watcher.observe(pane, {
           attributes: true,
-          attributeFilter: ["hidden"],
+          attributeFilter: ["hidden", "class"],
         });
         prefsWin.addEventListener("resize", fit);
-        const link = prefsWin.location.hash.match(/^#zenFluent(?:-(\w+))?$/);
+        // Firefox's own start replaced an unknown #zenFluent with its default
+        const link = hash.match(/^#zenFluent(?:-(\w+))?$/);
         if (link) {
           prefsWin.gotoPref(link[1] ? `${PANE}-${link[1]}` : PANE);
         }
@@ -254,6 +310,9 @@
           button.remove();
           subnav.remove();
           pane.remove();
+          for (const result of results) {
+            result.remove();
+          }
           sheet.remove();
           if (visible) {
             prefsWin.gotoPref("paneGeneral");
@@ -265,9 +324,10 @@
 
       ctx.observe("document-element-inserted", (doc) => {
         if (isPrefs(doc)) {
+          const hash = doc.location.hash;
           doc.addEventListener(
             "DOMContentLoaded",
-            () => doc.defaultView.setTimeout(() => addPane(doc), 0),
+            () => doc.defaultView.setTimeout(() => addPane(doc, hash), 0),
             { once: true },
           );
         }

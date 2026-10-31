@@ -1,49 +1,21 @@
 <!doctype html>
-<!-- Zen Fluent Enhanced: about:zen-fluent, the settings page.
-     Served by scripts/lib/zf-settings.sys.mjs in the parent process, with
-     the system principal. The page's address is about:zen-fluent: <base>
-     makes its relative URLs point to this folder. -->
+<!-- Zen Fluent Enhanced: the Zen Fluent pane of Zen's settings.
+     Served as about:zen-fluent by scripts/lib/zf-settings.sys.mjs in the
+     parent process, with the system principal, and shown in an iframe of
+     about:preferences (about:preferences#zenFluent), whose navigation lists
+     its sections. Its relative URLs point to this folder through <base>. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <base href="chrome://sine/content/Zen-Fluent-Enhanced/settings/" />
     <meta name="color-scheme" content="light dark" />
     <title>Zen Fluent settings</title>
-    <link rel="icon" href="icons/paint-brush.svg" />
+    <link rel="icon" href="icons/sparkle.svg" />
     <link rel="stylesheet" href="settings.css" />
     <script type="module" src="settings.mjs"></script>
   </head>
   <body>
-    <div class="app">
-      <nav class="nav" aria-label="Settings">
-        <div class="brand">
-          <span class="brand-logo" aria-hidden="true"></span>
-          <span class="brand-text">
-            <span class="brand-name">Zen Fluent</span>
-            <span class="brand-version" id="version"></span>
-          </span>
-        </div>
-        <label class="search">
-          <img class="icon" src="icons/search.svg" alt="" />
-          <input
-            id="search"
-            type="search"
-            placeholder="Find a setting"
-            aria-label="Find a setting"
-            autocomplete="off"
-            spellcheck="false" />
-          <kbd>Ctrl+F</kbd>
-        </label>
-        <div class="nav-scroll">
-          <ul class="nav-list" id="nav"></ul>
-          <span
-            class="nav-indicator"
-            id="nav-indicator"
-            aria-hidden="true"></span>
-        </div>
-      </nav>
-      <main class="main" id="main" tabindex="-1"></main>
-    </div>
+    <main class="main" id="main" tabindex="-1"></main>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

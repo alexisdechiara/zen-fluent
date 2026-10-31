@@ -27,9 +27,10 @@ const SINE_STYLES = "chrome://userscripts/content/services/stylesheets.sys.mjs";
 const REPO = "https://github.com/alexisdechiara/zen-fluent";
 const FEATURE_ICONS = `${BASE}Zen-Fluent-Enhanced/icons/fluent/`;
 const SCHEME = "zen.view.window.scheme";
-// In Zen's settings (about:preferences#zenFluent) the page is in an iframe:
-// its sections become sub-items of Zen's own navigation
-// (settings-page.uc.js reads them from window.zfPages), only the search stays
+// The page lives in Zen's settings (about:preferences#zenFluent), in an
+// iframe: Zen's navigation lists its sections (window.zfPages) and Zen's
+// search finds its settings (window.zfIndex, window.zfReveal). Opened on its
+// own, it sends the tab there.
 const EMBED = new URLSearchParams(location.search).has("embed");
 const PLATFORM =
   { win: "windows", macosx: "macos", linux: "linux" }[AppConstants.platform] ??
@@ -389,7 +390,7 @@ function toast(text, action) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(
     () => box.removeAttribute("shown"),
-    action ? 6000 : 2500,
+    action ? 10000 : 2500,
   );
 }
 
@@ -671,13 +672,7 @@ function pageHeader(page, ...actions) {
     el(
       "div.page-titles",
       {},
-      el(
-        "h1.page-title",
-        {},
-        page.id !== "home" ? el("span.crumb", {}, "Zen Fluent") : null,
-        page.id !== "home" ? icon("chevron-right") : null,
-        el("span", {}, page.title),
-      ),
+      el("h1.page-title", {}, page.title),
       page.description ? el("p.page-desc", {}, page.description) : null,
     ),
     actions.length ? el("div.page-actions", {}, actions) : null,
@@ -951,13 +946,9 @@ function renderHome(page) {
         {},
         el(
           "button.button.accent",
-          {
-            onclick: () =>
-              $("#presets")?.scrollIntoView({ behavior: "smooth" }),
-          },
-          "Browse presets",
+          { onclick: () => go("appearance") },
+          "Customize",
         ),
-        el("button.button", { onclick: () => go("appearance") }, "Customize"),
       ),
     ),
   );
@@ -987,28 +978,13 @@ function renderHome(page) {
     ? settingRow(model.prefs.get(HOME.accentCustom))
     : null;
 
-  const groups = el(
-    "div.category-grid",
-    {},
-    model.groups.map((group) =>
-      el(
-        "button.category",
-        { onclick: () => go(group.id) },
-        el("span.card-icon", {}, icon(group.icon)),
-        el(
-          "span.category-text",
-          {},
-          el("span.category-name", {}, group.title),
-          el("span.category-desc", {}, group.description),
-        ),
-        icon("chevron-right"),
-      ),
-    ),
-  );
-
   return [
     hero,
     iconsWarning(),
+    section(
+      "Presets",
+      el("div.preset-grid", { id: "presets" }, model.presets.map(presetCard)),
+    ),
     section(
       "Style",
       el(
@@ -1066,55 +1042,454 @@ function renderHome(page) {
       ),
       customRow,
     ),
-    section(
-      "Presets",
-      el("div.preset-grid", { id: "presets" }, model.presets.map(presetCard)),
-    ),
-    section("All settings", groups),
+    ...aboutSections(),
   ];
 }
 
-function variantsLayout(group) {
-  const rows = [];
-  for (let i = 0; i < group.items.length; i += 2) {
-    const fill = group.items[i];
-    const shape = group.items[i + 1];
-    if (!shape) {
-      rows.push(settingRow(fill));
-      continue;
-    }
-    const global = /everywhere/i.test(fill.title);
-    const name = global ? "Everywhere" : fill.title.replace(/:\s*fill$/i, "");
-    const id = `zf-s-${++uid}`;
-    const row = el(`div.card.setting.variant${global ? ".global" : ""}`);
-    row.append(
+// -------- Variants: a window with a pin on each component --------
+
+// Each component's look when it says Auto and Everywhere does too: the
+// fill and shape Zen Fluent gives it on its own
+const PARTS = {
+  buttons: { fill: "subtle", shape: "rounded" },
+  urlbar: { fill: "solid", shape: "rounded" },
+  "urlbar-buttons": { fill: "subtle", shape: "rounded" },
+  extensions: { fill: "subtle", shape: "rounded" },
+  badges: { fill: "solid", shape: "pill" },
+  essentials: { fill: "solid", shape: "rounded" },
+  "pinned-tabs": { fill: "subtle", shape: "rounded" },
+  folders: { fill: "subtle", shape: "rounded" },
+  tabs: { fill: "subtle", shape: "rounded" },
+  spaces: { fill: "subtle", shape: "rounded" },
+  "panel-buttons": { fill: "solid", shape: "rounded" },
+};
+const FILL_HELP = {
+  auto: "Follows Everywhere",
+  solid: "A raised control, like a WinUI button",
+  subtle: "A fill only on hover and when selected",
+  ghost: "No fill; the accent on hover",
+  outline: "A thin stroke, no fill",
+  pill: "A pill with its own fill",
+};
+const shortLabel = (label) => label.replace(/\s*\(.*\)$/, "");
+
+const variantPref = (part, kind) =>
+  model.prefs.get(
+    `zen-fluent.variant.${part}${kind === "shape" ? "-shape" : ""}`,
+  );
+
+/** The fill or shape a component shows: its own, else Everywhere's. */
+function effective(part, kind) {
+  const own = read(variantPref(part, kind));
+  if (own !== "auto") {
+    return own;
+  }
+  const global = read(variantPref("global", kind));
+  return global !== "auto" ? global : PARTS[part]?.[kind];
+}
+
+const partName = (part) =>
+  variantPref(part, "fill")?.title.replace(/:\s*fill$/i, "") ?? part;
+
+/** The choices of a fill or shape pref, each drawn on a small sample. */
+function variantChips(pref, kind) {
+  const row = el("div.vz-chips", {
+    role: "radiogroup",
+    "aria-label": kind === "fill" ? "Fill" : "Shape",
+  });
+  for (const option of pref.options) {
+    const chip = el(
+      "button.vz-chip",
+      {
+        role: "radio",
+        title: kind === "fill" ? (FILL_HELP[option.value] ?? "") : "",
+        onclick: () => write(pref, option.value),
+      },
       el(
-        "div.setting-text",
-        {},
-        el("span.setting-title", { id }, name),
+        "span.vz-sample",
+        { [`data-${kind}`]: option.value },
+        el("span.vz-item", {}, el("i.vz-glyph"), el("span.vz-text", {}, "Aa")),
         el(
-          "span.setting-desc",
-          {},
-          global ? "The fill and shape of every component that says Auto" : "",
+          "span.vz-item",
+          { hover: true },
+          el("i.vz-glyph"),
+          el("span.vz-text", {}, "Aa"),
         ),
       ),
       el(
-        "div.setting-actions",
+        "span.vz-chip-label",
         {},
-        resetButton([fill, shape], row),
-        el("label.mini-label", {}, "Fill", combo(fill, id)),
-        el("label.mini-label", {}, "Shape", combo(shape, id)),
+        option.value === "auto" ? "Auto" : shortLabel(option.label),
       ),
     );
-    rows.push(row);
+    chip.dataset.value = option.value;
+    row.append(chip);
   }
-  return [section("", ...stagger(rows))];
+  const update = () => {
+    for (const chip of row.children) {
+      chip.setAttribute("aria-checked", chip.dataset.value === read(pref));
+    }
+  };
+  update();
+  watch(pref.property, update);
+  return row;
+}
+
+/** A component of the drawing: its items and the pin that edits it. */
+function part(name, number, items, extra = "") {
+  const region = el(`div.vz-part${extra}`, { "data-part": name });
+  region.append(
+    ...items,
+    el("button.vz-pin", { "aria-haspopup": "dialog" }, String(number)),
+  );
+  return region;
+}
+const item = (attributes = {}, ...children) =>
+  el("span.vz-item", attributes, ...children);
+const glyph = () => el("i.vz-glyph");
+const words = (text) => el("span.vz-text", {}, text);
+
+function renderVariants(page) {
+  const parts = Object.keys(PARTS).filter((p) => variantPref(p, "fill"));
+  const numbers = new Map(parts.map((p, i) => [p, i + 1]));
+  const n = (p) => numbers.get(p);
+
+  // The drawing: Zen's sidebar, and a page with a dialog
+  const stage = el(
+    "div.vz-stage",
+    {},
+    el(
+      "div.vz-window",
+      {},
+      el(
+        "div.vz-sidebar",
+        {},
+        part(
+          "buttons",
+          n("buttons"),
+          [
+            item({}, glyph()),
+            item({ hover: true }, glyph()),
+            item({}, glyph()),
+          ],
+          ".row",
+        ),
+        el(
+          "div.vz-urlrow",
+          {},
+          part(
+            "urlbar",
+            n("urlbar"),
+            [item({}, words("zen-browser.app"))],
+            ".grow",
+          ),
+          part(
+            "urlbar-buttons",
+            n("urlbar-buttons"),
+            [item({}, glyph()), item({ hover: true }, glyph())],
+            ".row",
+          ),
+        ),
+        el(
+          "div.vz-extrow",
+          {},
+          part(
+            "extensions",
+            n("extensions"),
+            [
+              item({}, glyph()),
+              item({ hover: true }, glyph()),
+              item({}, glyph()),
+              item({}, glyph()),
+            ],
+            ".row",
+          ),
+          part("badges", n("badges"), [item({}, words("3"))]),
+        ),
+        part(
+          "essentials",
+          n("essentials"),
+          [
+            item({ style: "--tile: #e81123" }, glyph()),
+            item({ style: "--tile: #0078d4", selected: true }, glyph()),
+            item({ style: "--tile: #107c10", hover: true }, glyph()),
+            item({ style: "--tile: #ffb900" }, glyph()),
+          ],
+          ".grid",
+        ),
+        part(
+          "pinned-tabs",
+          n("pinned-tabs"),
+          [
+            item({}, glyph(), words("Mail")),
+            item({ hover: true }, glyph(), words("Calendar")),
+          ],
+          ".list",
+        ),
+        part(
+          "folders",
+          n("folders"),
+          [item({ hover: true }, glyph(), words("Work"))],
+          ".list",
+        ),
+        part(
+          "tabs",
+          n("tabs"),
+          [
+            item({ selected: true }, glyph(), words("Fluent Design")),
+            item({ hover: true }, glyph(), words("Release notes")),
+            item({}, glyph(), words("Weather")),
+          ],
+          ".list",
+        ),
+        part(
+          "spaces",
+          n("spaces"),
+          [
+            item({ selected: true }, glyph()),
+            item({ hover: true }, glyph()),
+            item({}, glyph()),
+          ],
+          ".row.spaces",
+        ),
+      ),
+      el(
+        "div.vz-page",
+        {},
+        el("div.vz-hero"),
+        el("div.vz-line"),
+        el("div.vz-line.short"),
+        el(
+          "div.vz-dialog",
+          {},
+          el("span.vz-dialog-title", {}, "Leave this page?"),
+          el("span.vz-line.short"),
+          part(
+            "panel-buttons",
+            n("panel-buttons"),
+            [item({ hover: true }, words("Stay")), item({}, words("Leave"))],
+            ".row.end",
+          ),
+        ),
+      ),
+    ),
+  );
+
+  // A TeachingTip with the fill and shape of one component
+  const tip = el("div.vz-tip", { role: "dialog", hidden: true });
+  stage.append(tip);
+  let open = null;
+  const regionOf = (name) => stage.querySelector(`[data-part="${name}"]`);
+  const closeTip = (focusPin = true) => {
+    if (!open) {
+      return;
+    }
+    const region = regionOf(open);
+    tip.hidden = true;
+    region?.removeAttribute("active");
+    open = null;
+    if (focusPin) {
+      region?.querySelector(".vz-pin").focus();
+    }
+  };
+  const openTip = (name) => {
+    if (open === name) {
+      closeTip();
+      return;
+    }
+    closeTip(false);
+    open = name;
+    const region = regionOf(name);
+    region.setAttribute("active", "");
+    const fill = variantPref(name, "fill");
+    const shape = variantPref(name, "shape");
+    const titleId = `zf-tip-${++uid}`;
+    tip.setAttribute("aria-labelledby", titleId);
+    tip.replaceChildren(
+      el(
+        "div.vz-tip-header",
+        {},
+        el("h3.vz-tip-title", { id: titleId }, partName(name)),
+        el(
+          "button.icon-button",
+          { "aria-label": "Close", onclick: () => closeTip() },
+          icon("dismiss"),
+        ),
+      ),
+      el(
+        "p.vz-tip-desc",
+        {},
+        "Auto takes Everywhere's choice, or this component's own look.",
+      ),
+      el("span.vz-label", {}, "Fill"),
+      variantChips(fill, "fill"),
+      el("span.vz-label", {}, "Shape"),
+      variantChips(shape, "shape"),
+      el(
+        "div.vz-tip-footer",
+        {},
+        el(
+          "button.button",
+          {
+            onclick: () => {
+              const saved = snapshot([fill, shape]);
+              reset(fill);
+              reset(shape);
+              toast(`${partName(name)}: back to Auto`, {
+                label: "Undo",
+                run: () => restore(saved),
+              });
+            },
+          },
+          icon("arrow-reset"),
+          el("span", {}, "Back to Auto"),
+        ),
+      ),
+    );
+    tip.hidden = false;
+    // Below the pin, or above it near the bottom; the tail points at it
+    const box = stage.getBoundingClientRect();
+    const pinBox = region.querySelector(".vz-pin").getBoundingClientRect();
+    const width = tip.offsetWidth;
+    const height = tip.offsetHeight;
+    const centre = pinBox.left + pinBox.width / 2 - box.left;
+    const left = Math.min(
+      Math.max(8, centre - width / 2),
+      Math.max(8, box.width - width - 8),
+    );
+    const below = pinBox.bottom - box.top + 12;
+    const above = pinBox.top - box.top - height - 12;
+    const placeBelow = below + height <= box.height || above < 0;
+    tip.style.left = `${left}px`;
+    tip.style.top = `${placeBelow ? below : above}px`;
+    tip.style.setProperty("--tail", `${centre - left}px`);
+    tip.toggleAttribute("above", !placeBelow);
+    tip.querySelector('.vz-chip[aria-checked="true"]')?.focus();
+  };
+  stage.addEventListener("click", (event) => {
+    if (event.target.closest(".vz-tip")) {
+      return;
+    }
+    const region = event.target.closest(".vz-part");
+    if (region) {
+      openTip(region.dataset.part);
+    } else {
+      closeTip(false);
+    }
+  });
+  stage.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && open) {
+      event.stopPropagation();
+      closeTip();
+    }
+  });
+
+  // Every component's current look, its pin, and the list of changes
+  const changes = el("div.vz-changes");
+  const look = (name) =>
+    [variantPref(name, "fill"), variantPref(name, "shape")]
+      .map((pref) => shortLabel(optionLabel(pref.property)))
+      .join(" · ");
+  const isChanged = (name) =>
+    !isDefault(variantPref(name, "fill")) ||
+    !isDefault(variantPref(name, "shape"));
+  const update = () => {
+    for (const name of parts) {
+      const region = regionOf(name);
+      const fill = effective(name, "fill");
+      region.dataset.fill = fill;
+      region.dataset.shape =
+        fill === "pill" ? "pill" : effective(name, "shape");
+      const pin = region.querySelector(".vz-pin");
+      pin.toggleAttribute("changed", isChanged(name));
+      pin.setAttribute("aria-label", `${partName(name)}: ${look(name)}`);
+      pin.title = `${partName(name)}: ${look(name)}`;
+    }
+    const changed = parts.filter(isChanged);
+    changes.replaceChildren(
+      ...(changed.length
+        ? changed.map((name) =>
+            el(
+              "span.vz-tag",
+              {},
+              el(
+                "button.vz-tag-main",
+                { onclick: () => openTip(name) },
+                el("span.vz-tag-number", {}, String(n(name))),
+                el("span", {}, `${partName(name)} · ${look(name)}`),
+              ),
+              el(
+                "button.vz-tag-remove",
+                {
+                  "aria-label": `${partName(name)}: back to Auto`,
+                  title: "Back to Auto",
+                  onclick: () => {
+                    reset(variantPref(name, "fill"));
+                    reset(variantPref(name, "shape"));
+                  },
+                },
+                icon("dismiss"),
+              ),
+            ),
+          )
+        : [
+            el(
+              "span.vz-empty",
+              {},
+              "Every component follows Everywhere. Click a pin to give one its own look.",
+            ),
+          ]),
+    );
+  };
+  update();
+  for (const name of ["global", ...parts]) {
+    watch(variantPref(name, "fill").property, update);
+    watch(variantPref(name, "shape").property, update);
+  }
+  page.reveal = (property) => {
+    const name = property
+      .replace("zen-fluent.variant.", "")
+      .replace(/-shape$/, "");
+    if (parts.includes(name)) {
+      regionOf(name).scrollIntoView({ block: "center" });
+      openTip(name);
+    }
+  };
+
+  return [
+    section(
+      "Everywhere",
+      el(
+        "div.card.panel.vz-everywhere",
+        { "data-pref": "zen-fluent.variant.global" },
+        el(
+          "p.setting-desc",
+          {},
+          "The fill and shape of every component left on Auto.",
+        ),
+        el("span.vz-label", {}, "Fill"),
+        variantChips(variantPref("global", "fill"), "fill"),
+        el("span.vz-label", {}, "Shape"),
+        variantChips(variantPref("global", "shape"), "shape"),
+      ),
+    ),
+    section(
+      "Components",
+      el(
+        "p.section-desc",
+        {},
+        "Click a pin, or the part of the window it marks, to choose that component's fill and shape. The drawing shows a selected item, one under the pointer and one at rest.",
+      ),
+      stage,
+    ),
+    section("Your changes", changes),
+  ];
 }
 
 function renderGroup(page) {
   const group = page.group;
   if (group.layout === "variants") {
-    return variantsLayout(group);
+    return renderVariants(page);
   }
   const rows = group.items.map((pref) => settingRow(pref));
   if (group.layout === "grid") {
@@ -1137,8 +1512,7 @@ function renderEnhanced() {
       {},
       feature.options.map((pref) => settingRow(pref, { extraClass: ".sub" })),
     );
-    const update = () =>
-      options.toggleAttribute("inactive", !read(feature.pref));
+    const update = () => (options.hidden = !read(feature.pref));
     update();
     watch(feature.pref.property, update);
     return el("div.expander", {}, row, options);
@@ -1246,7 +1620,7 @@ function link(label, url, iconName = "open") {
   );
 }
 
-function renderAbout() {
+function aboutSections() {
   const file = el("input", {
     type: "file",
     accept: ".json,application/json",
@@ -1257,23 +1631,26 @@ function renderAbout() {
     p.property.startsWith("zen-fluent."),
   );
   return [
-    el(
-      "div.card.about",
-      {},
-      el("span.brand-logo.big", { "aria-hidden": "true" }),
+    section(
+      "About",
       el(
-        "div",
+        "div.card.about",
         {},
-        el("h2.about-name", {}, "Zen Fluent"),
+        el("span.brand-logo.big", { "aria-hidden": "true" }),
         el(
-          "p.about-versions",
+          "div",
           {},
-          `Zen Fluent ${model.versions.core ?? "?"} · Zen Fluent Enhanced ${model.versions.enhanced ?? "?"}`,
-        ),
-        el(
-          "p.about-desc",
-          {},
-          "Fluent Design for Zen Browser, by alexisdechiara. MIT licence; Fluent UI System Icons © Microsoft, MIT.",
+          el("h2.about-name", {}, "Zen Fluent"),
+          el(
+            "p.about-versions",
+            {},
+            `Zen Fluent ${model.versions.core ?? "?"} · Zen Fluent Enhanced ${model.versions.enhanced ?? "?"}`,
+          ),
+          el(
+            "p.about-desc",
+            {},
+            "Fluent Design for Zen Browser, by alexisdechiara. MIT licence; Fluent UI System Icons © Microsoft, MIT.",
+          ),
         ),
       ),
     ),
@@ -1354,48 +1731,7 @@ function renderAbout() {
   ];
 }
 
-// -------- Search --------
-
-function renderSearch(query) {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const matches = (pref) => {
-    const haystack = [
-      pref.title,
-      pref.description,
-      pref.property,
-      ...(pref.options ?? []).map((o) => o.label),
-    ]
-      .join(" ")
-      .toLowerCase();
-    return words.every((w) => haystack.includes(w));
-  };
-  const results = [];
-  for (const group of model.groups) {
-    const rows = group.items.filter(matches).map((pref) => settingRow(pref));
-    if (rows.length) {
-      results.push(section(group.title, ...rows));
-    }
-  }
-  const enhanced = model.features
-    .flatMap((f) => [f.pref, ...f.options])
-    .filter(matches)
-    .map((pref) => settingRow(pref));
-  if (enhanced.length) {
-    results.push(section("Enhanced", ...enhanced));
-  }
-  return results.length
-    ? results
-    : [
-        el(
-          "div.empty",
-          {},
-          icon("search"),
-          el("p", {}, `No setting matches “${query}”`),
-        ),
-      ];
-}
-
-// -------- Navigation --------
+// -------- Pages --------
 
 function buildPages() {
   pages.push({
@@ -1424,67 +1760,17 @@ function buildPages() {
       icon: "rocket",
       render: renderEnhanced,
       prefs: model.features.flatMap((f) => [f.pref, ...f.options]),
-      separator: true,
     });
   }
-  pages.push({
-    id: "about",
-    title: "About",
-    description: "Versions, export and import, links",
-    icon: "info",
-    render: renderAbout,
-  });
-
-  const nav = $("#nav");
-  for (const page of pages) {
-    if (page.separator || page.id === "about") {
-      nav.append(el("li.nav-separator", { role: "presentation" }));
-    }
-    page.button = el(
-      "button.nav-item",
-      { onclick: () => go(page.id), title: page.title },
-      icon(page.icon),
-      el("span.nav-label", {}, page.title),
-    );
-    nav.append(el("li", {}, page.button));
-  }
 }
 
-function moveIndicator() {
-  const indicator = $("#nav-indicator");
-  const button = current?.button;
-  if (!button || $("#search").value) {
-    indicator.style.opacity = "0";
-    return;
-  }
-  indicator.style.opacity = "1";
-  indicator.style.transform = `translateY(${button.offsetTop + button.offsetHeight / 2 - 8}px)`;
-}
-
-function show(nodes, page) {
-  const main = $("#main");
-  const view = el("div.view", {}, nodes.filter(Boolean));
-  main.replaceChildren(view);
-  main.scrollTop = 0;
-  for (const p of pages) {
-    p.button?.toggleAttribute("selected", p === page);
-    if (p === page) {
-      p.button?.setAttribute("aria-current", "page");
-    } else {
-      p.button?.removeAttribute("aria-current");
-    }
-  }
-  moveIndicator();
-}
-
+// The hash, not history.replaceState(): the page's address (about:) and its
+// channel (chrome://) differ, and replaceState() throws SecurityError
 function go(id) {
-  if ($("#search").value) {
-    $("#search").value = "";
-  }
-  if (location.hash.slice(1) !== id) {
-    location.hash = id;
-  } else {
+  if (location.hash.slice(1) === id) {
     route();
+  } else {
+    location.hash = id;
   }
 }
 
@@ -1497,38 +1783,89 @@ function route() {
     page.id === "home" ? "Zen Fluent settings" : `${page.title} – Zen Fluent`;
   const actions = page.prefs?.length ? [resetPageButton(page.prefs)] : [];
   const header = page.id === "home" ? null : pageHeader(page, ...actions);
-  show([header, ...page.render(page)], page);
+  const main = $("#main");
+  main.replaceChildren(el("div.view", {}, [header, ...page.render(page)]));
+  main.scrollTop = 0;
+  window.dispatchEvent(new CustomEvent("zf-route", { detail: page.id }));
 }
 
-function search() {
-  const query = $("#search").value.trim();
-  if (!query) {
-    route();
+/** Every setting, for Zen's settings search (settings-page.uc.js). */
+function settingsIndex() {
+  const entries = [];
+  for (const group of model.groups) {
+    if (group.layout === "variants") {
+      for (const name of Object.keys(PARTS)) {
+        const fill = variantPref(name, "fill");
+        if (fill) {
+          entries.push({
+            property: fill.property,
+            page: group.id,
+            pageTitle: group.title,
+            title: partName(name),
+            description: "Fill and shape",
+          });
+        }
+      }
+      continue;
+    }
+    for (const pref of group.items) {
+      entries.push({
+        property: pref.property,
+        page: group.id,
+        pageTitle: group.title,
+        title: pref.title,
+        description: pref.description,
+      });
+    }
+  }
+  for (const pref of model.features.flatMap((f) => [f.pref, ...f.options])) {
+    entries.push({
+      property: pref.property,
+      page: "enhanced",
+      pageTitle: "Enhanced",
+      title: pref.title,
+      description: pref.description,
+    });
+  }
+  return entries;
+}
+
+/** Opens a setting's page and shows it: scrolled to, briefly outlined. */
+function reveal(property) {
+  const pref = model.prefs.get(property);
+  const id = pref?.group?.id ?? (pref ? "enhanced" : "home");
+  if (current?.id !== id) {
+    window.addEventListener("zf-route", () => reveal(property), { once: true });
+    go(id);
     return;
   }
-  dropViewWatchers();
-  show(
-    [
-      pageHeader({
-        id: "search",
-        title: "Search",
-        description: `Results for “${query}”`,
-      }),
-      ...renderSearch(query),
-    ],
-    null,
-  );
+  if (current.reveal) {
+    current.reveal(property);
+    return;
+  }
+  const row = document.querySelector(`[data-pref="${CSS.escape(property)}"]`);
+  if (!row) {
+    return;
+  }
+  row.hidden = false;
+  row.scrollIntoView({ block: "center" });
+  row.removeAttribute("flash");
+  requestAnimationFrame(() => row.setAttribute("flash", ""));
+  row.querySelector("button, select, input")?.focus({ preventScroll: true });
 }
 
 // -------- Start --------
 
 async function start() {
-  document.documentElement.toggleAttribute("embed", EMBED);
+  if (!EMBED) {
+    // One home: Zen's settings, which hold this page
+    location.replace(
+      `about:preferences#zenFluent${location.hash ? `-${location.hash.slice(1)}` : ""}`,
+    );
+    return;
+  }
   syncAccent();
   await load();
-  $("#version").textContent = model.versions.core
-    ? `Version ${model.versions.core}`
-    : "";
   if (!model.groups.length) {
     $("#main").replaceChildren(
       el(
@@ -1546,29 +1883,10 @@ async function start() {
   }
   buildPages();
   window.addEventListener("hashchange", route);
-  window.addEventListener("resize", moveIndicator);
-  $("#search").addEventListener("input", search);
-  $("#search").addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      $("#search").value = "";
-      route();
-    }
-  });
-  document.addEventListener("keydown", (event) => {
-    if (
-      (event.key === "f" &&
-        (event.ctrlKey || event.metaKey) &&
-        !event.altKey) ||
-      (event.key === "/" &&
-        !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName))
-    ) {
-      event.preventDefault();
-      $("#search").focus();
-      $("#search").select();
-    }
-  });
   route();
   window.zfPages = pages.map(({ id, title, icon }) => ({ id, title, icon }));
+  window.zfIndex = settingsIndex;
+  window.zfReveal = reveal;
   document.documentElement.setAttribute("ready", "");
   window.dispatchEvent(new CustomEvent("zf-settings-ready"));
 }

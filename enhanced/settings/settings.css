@@ -1,8 +1,10 @@
-/* Zen Fluent Enhanced: about:zen-fluent, the settings page.
+/* Zen Fluent Enhanced: about:zen-fluent, the Zen Fluent pane of Zen's settings.
    The page's own author sheet: it overrides nothing, so no important flags. */
 
-/* The Windows Settings app in WinUI 3: a NavigationView on the left,
-   SettingsCards on the right. Colors, fonts and radii are Zen Fluent's
+/* A page of the Windows Settings app in WinUI 3, shown in an iframe of
+   about:preferences beside Zen's navigation: SettingsCards on the settings
+   page's own background (the same Mica color as core's layout.css). Colors,
+   fonts and radii are Zen Fluent's
    --zf-* tokens, which Sine's content sheet brings to about: pages; the
    accent is copied from the browser window (settings.mjs), so it follows
    Zen's space color and the adaptive accent too. The preview window
@@ -17,8 +19,11 @@
   --radius-card: var(--zf-radius-card, 8px);
   --radius-big: calc(var(--radius-card) * 1.5);
   --ease: cubic-bezier(0, 0, 0, 1);
-  --nav-width: 300px;
-  --mica: color-mix(in oklab, var(--accent) 5%, light-dark(#f3f3f3, #202020));
+  --mica: color-mix(
+    in oklab,
+    var(--zf-accent, var(--accent)) 4%,
+    light-dark(#f3f3f3, #202020)
+  );
 
   color-scheme: light dark;
   background: var(--mica);
@@ -67,47 +72,24 @@ button {
 
 /* -------- Layout -------- */
 
-.app {
-  display: grid;
-  grid-template-columns: var(--nav-width) minmax(0, 1fr);
-  height: 100%;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  padding: 12px 8px 12px 12px;
-}
-
 .main {
-  min-height: 0;
+  height: 100%;
   overflow: auto;
-  padding: 0 40px 64px 28px;
-  scrollbar-gutter: stable;
+  padding: 0 4px 48px;
   outline: none;
 }
 
 .view {
   max-width: 1000px;
-  margin: 0 auto;
 }
 
-/* -------- Navigation -------- */
-
-.brand {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 12px 8px 18px;
-}
-
+/* The logo of the About card */
 .brand-logo {
   display: inline-block;
   flex: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
   background:
     radial-gradient(
       circle at 30% 25%,
@@ -122,147 +104,6 @@ button {
   box-shadow:
     0 4px 12px color-mix(in oklab, var(--accent) 35%, transparent),
     inset 0 1px 0 rgb(255 255 255 / 35%);
-
-  &.big {
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-  }
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-name {
-  font: 600 16px / 22px var(--zf-font-display, inherit);
-}
-
-.brand-version {
-  color: var(--zf-text-secondary, GrayText);
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 0 4px 12px;
-
-  & .icon {
-    position: absolute;
-    inset-inline-end: 10px;
-    opacity: 0.8;
-  }
-
-  & input {
-    width: 100%;
-    height: 32px;
-    padding: 0 34px 1px 11px;
-    border: 1px solid var(--zf-stroke-control, transparent);
-    border-bottom-color: var(--zf-stroke-field, GrayText);
-    border-radius: var(--radius);
-    background: var(--zf-fill-control, Field);
-    outline: none;
-
-    &::-moz-search-clear-button {
-      display: none;
-    }
-
-    &:hover {
-      background: var(--zf-fill-control-hover, Field);
-    }
-
-    &:focus {
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 0;
-      background: var(--zf-solid-base, Field);
-    }
-  }
-
-  & kbd {
-    position: absolute;
-    inset-inline-end: 32px;
-    color: var(--zf-text-tertiary, GrayText);
-    font: 11px var(--zf-font, inherit);
-    pointer-events: none;
-  }
-
-  & input:focus ~ kbd,
-  & input:not(:placeholder-shown) ~ kbd {
-    display: none;
-  }
-}
-
-.nav-scroll {
-  position: relative;
-  min-height: 0;
-  overflow: auto;
-  padding-inline-end: 4px;
-}
-
-.nav-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-item {
-  appearance: none;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  width: 100%;
-  height: 36px;
-  margin: 2px 0;
-  padding: 0 12px;
-  border: 0;
-  border-radius: var(--radius);
-  background: transparent;
-  text-align: start;
-  transition: background-color var(--zf-duration-fast, 83ms) linear;
-
-  &:hover {
-    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
-  }
-
-  &:active {
-    background: var(--zf-fill-subtle-press, rgb(128 128 128 / 6%));
-    color: var(--zf-text-secondary, inherit);
-  }
-
-  &[selected] {
-    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
-  }
-}
-
-.nav-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.nav-separator {
-  height: 1px;
-  margin: 6px 8px;
-  background: var(--zf-stroke-divider, GrayText);
-}
-
-/* The selected item's pill slides from item to item */
-.nav-indicator {
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 3px;
-  height: 16px;
-  border-radius: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition:
-    transform 0.25s var(--ease),
-    opacity 0.15s linear;
-  pointer-events: none;
 }
 
 /* -------- Page header -------- */
@@ -275,27 +116,14 @@ button {
   gap: 16px;
   align-items: end;
   justify-content: space-between;
-  margin: 0 -8px 8px;
-  padding: 36px 8px 16px;
+  margin: 0 -4px 8px;
+  padding: 0 4px 16px;
   background: linear-gradient(var(--mica) 80%, transparent);
 }
 
 .page-title {
-  display: flex;
-  gap: 10px;
-  align-items: center;
   margin: 0;
   font: 600 28px / 36px var(--zf-font-display, inherit);
-
-  & .crumb {
-    color: var(--zf-text-secondary, GrayText);
-  }
-
-  & .icon {
-    width: 14px;
-    height: 14px;
-    color: var(--zf-text-secondary, GrayText);
-  }
 }
 
 .page-desc {
@@ -380,6 +208,11 @@ button {
 
 .setting-desc {
   color: var(--zf-text-secondary, GrayText);
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
   font-size: 12px;
   line-height: 16px;
 }
@@ -423,25 +256,6 @@ button {
   gap: 4px;
 }
 
-.mini-label {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: var(--zf-text-secondary, GrayText);
-  font-size: 12px;
-
-  & .combo {
-    min-width: 120px;
-    color: var(--zf-text-primary, inherit);
-    font-size: 14px;
-  }
-}
-
-.variant.global {
-  margin-bottom: 12px;
-  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
-}
-
 /* An Enhanced feature and its options: a SettingsExpander */
 .expander {
   display: flex;
@@ -466,8 +280,8 @@ button {
       margin-top: -1px;
     }
 
-    &[inactive] {
-      opacity: 0.55;
+    &[hidden] {
+      display: none;
     }
   }
 }
@@ -1136,53 +950,6 @@ button {
   line-height: 16px;
 }
 
-/* Every group, as in Windows Settings' home */
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 4px;
-}
-
-.category {
-  appearance: none;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  min-height: 68px;
-  padding: 12px 16px;
-  border: 1px solid var(--zf-stroke-card, rgb(128 128 128 / 20%));
-  border-radius: var(--radius-card);
-  background: var(--zf-fill-card, transparent);
-  background-clip: padding-box;
-  text-align: start;
-
-  &:hover {
-    background-color: var(--zf-fill-card-secondary, rgb(128 128 128 / 8%));
-  }
-
-  & > .icon:last-child {
-    width: 12px;
-    height: 12px;
-    opacity: 0.7;
-  }
-}
-
-.category-text {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.category-desc {
-  overflow: hidden;
-  color: var(--zf-text-secondary, GrayText);
-  font-size: 12px;
-  line-height: 16px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* -------- About -------- */
 
 .about {
@@ -1679,25 +1446,6 @@ button {
 /* -------- Narrow windows -------- */
 
 @media (width <= 900px) {
-  :root {
-    --nav-width: 64px;
-  }
-
-  .brand-text,
-  .search,
-  .nav-label {
-    display: none;
-  }
-
-  .nav-item {
-    justify-content: center;
-    padding: 0;
-  }
-
-  .main {
-    padding-inline: 20px;
-  }
-
   .hero {
     grid-template-columns: 1fr;
   }
@@ -1736,7 +1484,7 @@ button {
     background: HighlightText;
   }
 
-  .nav-indicator,
+  .vz-pin[changed],
   .setting .setting-title::after {
     background: Highlight;
   }
@@ -1748,43 +1496,589 @@ button {
   }
 }
 
-/* -------- Inside Zen's settings (?embed) -------- */
+/* -------- A setting found by Zen's search: a short accent outline -------- */
 
-/* The page sits in an iframe of about:preferences: Zen's navigation lists
-   its sections (settings-page.uc.js), so only the search stays, at the top
-   end, over the settings page's own background. */
-:root[embed] {
-  --mica: transparent;
+[flash] {
+  animation: zf-flash 1.6s var(--ease);
+}
 
-  background: transparent;
-
-  & .app {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
+@keyframes zf-flash {
+  0%,
+  60% {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
-  & .nav {
-    flex-direction: row;
+  100% {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+
+.section-desc {
+  margin: -2px 0 8px;
+  color: var(--zf-text-secondary, GrayText);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* -------- Variants: the drawing, its pins, the TeachingTip -------- */
+
+/* Each component of the drawing (.vz-part) holds sample items drawn with
+   its fill and shape (data-fill, data-shape: the component's own choice,
+   else Everywhere's, else its default). An item can be selected or under
+   the pointer ([hover]), so subtle and ghost fills show too. The same
+   samples draw the choices in the chips. */
+.vz-part {
+  --r: var(--radius);
+
+  position: relative;
+  border-radius: calc(var(--radius) + 4px);
+  outline: 1px dashed transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.15s linear;
+
+  &:hover,
+  &[active] {
+    outline-color: var(--accent);
+  }
+
+  &.row {
+    display: flex;
+    gap: 4px;
+  }
+
+  &.end {
     justify-content: end;
-    padding: 0;
   }
 
-  & .brand,
-  & .nav-scroll {
+  &.grow {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  &.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &.spaces {
+    justify-content: center;
+    margin-top: auto;
+  }
+}
+
+:is(.vz-part, .vz-sample) {
+  &[data-shape="square"] {
+    --r: 2px;
+  }
+
+  &[data-shape="rounded"] {
+    --r: 8px;
+  }
+
+  &[data-shape="pill"],
+  &[data-fill="pill"] {
+    --r: 999px;
+  }
+}
+
+.vz-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  border-radius: var(--r);
+  color: var(--zf-text-primary, CanvasText);
+  font-size: 12px;
+  white-space: nowrap;
+  corner-shape: round;
+}
+
+.vz-glyph {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: currentcolor;
+  opacity: 0.55;
+}
+
+.vz-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fills: solid is a raised control, subtle a fill on hover and selection,
+   ghost nothing but the accent on hover, outline a stroke, pill its own
+   subtle fill on a pill */
+:is(.vz-part, .vz-sample)[data-fill="solid"] .vz-item {
+  background: var(--zf-fill-control, ButtonFace);
+  box-shadow:
+    inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder),
+    0 1px 0 light-dark(rgb(0 0 0 / 10%), rgb(0 0 0 / 30%));
+
+  &[hover] {
+    background: var(--zf-fill-control-hover, ButtonFace);
+  }
+}
+
+:is(.vz-part, .vz-sample)[data-fill="subtle"] .vz-item {
+  &[hover] {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  }
+
+  &[selected] {
+    background: var(--zf-fill-selected, rgb(128 128 128 / 15%));
+  }
+}
+
+:is(.vz-part, .vz-sample)[data-fill="ghost"] .vz-item {
+  &[hover] {
+    background: color-mix(
+      in srgb,
+      var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%)) 50%,
+      transparent
+    );
+    color: var(--accent);
+  }
+
+  &[selected] {
+    color: var(--accent);
+  }
+}
+
+:is(.vz-part, .vz-sample)[data-fill="outline"] .vz-item {
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--zf-stroke-field, GrayText) 60%, transparent);
+
+  &[hover],
+  &[selected] {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  }
+}
+
+:is(.vz-part, .vz-sample)[data-fill="pill"] .vz-item {
+  background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+
+  &[hover],
+  &[selected] {
+    background: var(--zf-fill-selected, rgb(128 128 128 / 15%));
+  }
+}
+
+/* The Auto sample: a dashed outline, meaning "inherited" */
+.vz-sample[data-fill="auto"] .vz-item,
+.vz-sample[data-shape="auto"] .vz-item {
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--zf-text-secondary, GrayText) 40%, transparent);
+}
+
+.vz-sample[data-shape] .vz-item {
+  background: var(--zf-fill-control, ButtonFace);
+  box-shadow: inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder);
+}
+
+/* The window */
+.vz-stage {
+  position: relative;
+  padding: 28px;
+  border-radius: var(--radius-big);
+  background:
+    radial-gradient(
+      60% 90% at 10% 10%,
+      color-mix(in oklab, var(--accent) 55%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      55% 80% at 95% 95%,
+      color-mix(in oklab, var(--accent) 35%, #e3008c 25%),
+      transparent 72%
+    ),
+    light-dark(#e6edf9, #141824);
+  box-shadow: 0 0 0 1px var(--zf-stroke-divider, rgb(128 128 128 / 20%));
+}
+
+.vz-window {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) 1fr;
+  gap: 8px;
+  min-height: 430px;
+  padding: 8px;
+  border: 1px solid light-dark(rgb(255 255 255 / 60%), rgb(255 255 255 / 8%));
+  border-radius: 10px;
+  background: color-mix(
+    in oklab,
+    var(--accent) 6%,
+    light-dark(rgb(240 240 240 / 94%), rgb(30 30 30 / 94%))
+  );
+  box-shadow: 0 24px 48px rgb(0 0 0 / 22%);
+  backdrop-filter: blur(48px);
+}
+
+.vz-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 6px 4px 4px;
+}
+
+.vz-urlrow,
+.vz-extrow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.vz-part[data-part="urlbar"] .vz-item {
+  height: 32px;
+  color: var(--zf-text-secondary, GrayText);
+}
+
+.vz-part[data-part="badges"] {
+  margin-inline: auto 14px;
+
+  & .vz-item {
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+  }
+
+  &[data-fill="ghost"] .vz-item,
+  &[data-fill="outline"] .vz-item {
+    background: transparent;
+    color: var(--accent);
+  }
+}
+
+.vz-part[data-part="essentials"] .vz-item {
+  justify-content: center;
+  height: 40px;
+
+  & .vz-glyph {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--tile);
+    opacity: 1;
+  }
+
+  &[selected] {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+}
+
+.vz-part[data-part="folders"] .vz-glyph {
+  border-radius: 2px 2px 4px 4px;
+}
+
+.vz-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: light-dark(#fff, #2b2b2b);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+}
+
+.vz-hero {
+  height: 34%;
+  border-radius: 6px;
+  background: linear-gradient(
+    120deg,
+    color-mix(in oklab, var(--accent) 60%, transparent),
+    color-mix(in oklab, var(--accent) 25%, #e3008c 20%)
+  );
+}
+
+.vz-line {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: light-dark(rgb(0 0 0 / 8%), rgb(255 255 255 / 9%));
+
+  &.short {
+    width: 55%;
+  }
+}
+
+.vz-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(300px, 80%);
+  margin: auto auto 8px;
+  padding: 16px;
+  border: 1px solid var(--zf-stroke-divider, rgb(128 128 128 / 20%));
+  border-radius: var(--zf-radius-overlay, 8px);
+  background: var(--zf-acrylic-solid, Canvas);
+  box-shadow: var(--zf-shadow-dialog, 0 16px 32px rgb(0 0 0 / 25%));
+}
+
+.vz-dialog-title {
+  font-weight: 600;
+}
+
+.vz-part[data-part="panel-buttons"] .vz-item {
+  justify-content: center;
+  min-width: 72px;
+
+  &:last-of-type {
+    background: var(--accent);
+    box-shadow: none;
+    color: var(--on-accent);
+  }
+}
+
+/* Pins: numbered, the accent when the component has its own look */
+.vz-pin {
+  appearance: none;
+  position: absolute;
+  inset: -11px -11px auto auto;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 2px solid light-dark(#fff, #1c1c1c);
+  border-radius: 50%;
+  background: var(--zf-text-secondary, GrayText);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 25%);
+  color: light-dark(#fff, #000);
+  font: 600 11px / 1 var(--zf-font, inherit);
+  corner-shape: round;
+  transition: transform 0.15s var(--ease);
+
+  &[changed] {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .vz-part:hover > &,
+  .vz-part[active] > &,
+  &:focus-visible {
+    transform: scale(1.15);
+  }
+}
+
+/* The TeachingTip: Acrylic flyout, tail towards its pin */
+.vz-tip {
+  position: absolute;
+  z-index: 5;
+  width: min(392px, calc(100% - 16px));
+  padding: 16px;
+  border: 1px solid var(--zf-stroke-divider, rgb(128 128 128 / 20%));
+  border-radius: var(--zf-radius-overlay, 8px);
+  background: var(--zf-acrylic-solid, Canvas);
+  box-shadow: var(--zf-shadow-flyout, 0 8px 16px rgb(0 0 0 / 14%));
+
+  &[hidden] {
     display: none;
   }
 
-  & .search {
-    display: flex;
-    width: 260px;
-    margin: 0;
+  &::before {
+    position: absolute;
+    inset: -7px auto auto calc(var(--tail, 50%) - 6px);
+    width: 12px;
+    height: 12px;
+    border: inherit;
+    border-width: 1px 0 0 1px;
+    background: inherit;
+    content: "";
+    rotate: 45deg;
   }
 
-  & .main {
-    padding: 0 4px 48px;
+  &[above]::before {
+    inset: auto auto -7px calc(var(--tail, 50%) - 6px);
+    rotate: 225deg;
   }
 
-  & .page-header {
-    padding-top: 12px;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: zf-tip-in 0.2s var(--ease);
+  }
+}
+
+@keyframes zf-tip-in {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+.vz-tip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -4px -6px 2px 0;
+}
+
+.vz-tip-title {
+  margin: 0;
+  font: 600 14px / 20px var(--zf-font, inherit);
+}
+
+.vz-tip-desc {
+  margin: 0 0 12px;
+  color: var(--zf-text-secondary, GrayText);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.vz-label {
+  display: block;
+  margin: 4px 0 6px;
+  color: var(--zf-text-secondary, GrayText);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vz-tip-footer {
+  display: flex;
+  justify-content: end;
+  margin-top: 12px;
+}
+
+/* Chips: a sample of the choice above its name */
+.vz-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.vz-chip {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 6px 6px;
+  border: 1px solid var(--zf-stroke-control, rgb(128 128 128 / 20%));
+  border-radius: var(--radius-card);
+  background: var(--zf-fill-control-alt, transparent);
+
+  &:hover {
+    background: var(--zf-fill-control-hover, transparent);
+  }
+
+  &[aria-checked="true"] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+}
+
+.vz-sample {
+  --r: var(--radius);
+
+  display: flex;
+  gap: 4px;
+
+  & .vz-item {
+    min-width: 0;
+    height: 24px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+  & .vz-glyph {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.vz-chip-label {
+  font-size: 12px;
+}
+
+.vz-everywhere {
+  & > .setting-desc {
+    margin: 0 0 8px;
+  }
+}
+
+/* Your changes: a tag per component with its own look */
+.vz-changes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vz-tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--zf-stroke-control, rgb(128 128 128 / 20%));
+  border-radius: 16px;
+  background: var(--zf-fill-card, transparent);
+  corner-shape: round;
+}
+
+.vz-tag-main,
+.vz-tag-remove {
+  appearance: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  border-radius: 16px;
+  corner-shape: round;
+
+  &:hover {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  }
+}
+
+.vz-tag-main {
+  padding: 0 8px 0 6px;
+}
+
+.vz-tag-remove {
+  justify-content: center;
+  width: 32px;
+}
+
+.vz-tag-number {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 11px;
+  font-weight: 600;
+  corner-shape: round;
+}
+
+.vz-empty {
+  color: var(--zf-text-secondary, GrayText);
+}
+
+@media (width <= 760px) {
+  .vz-window {
+    grid-template-columns: 1fr;
+  }
+
+  .vz-page {
+    display: none;
   }
 }

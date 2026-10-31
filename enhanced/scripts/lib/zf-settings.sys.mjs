@@ -1,7 +1,8 @@
 // Zen Fluent Enhanced: about:zen-fluent, Zen Fluent's settings page.
 //
 // The page is enhanced/settings/settings.html, served under about:zen-fluent
-// by an about: module registered in the parent process. Without
+// by an about: module registered in the parent process, and shown in the Zen
+// Fluent pane of Zen's settings (scripts/settings-page.uc.js). Without
 // URI_CAN_LOAD_IN_CHILD it loads in the parent with the system principal,
 // so its script reads and writes prefs directly. The module stays
 // registered while at least one window runs the settings-page feature
@@ -64,13 +65,14 @@ export function useAboutPage() {
 }
 
 /**
- * Selects the settings tab, or opens one.
+ * Opens the Zen Fluent pane of Zen's settings, in the settings tab if there
+ * is one: the settings' one home (the page above is its content).
  *
  * @param {Window} win - A browser window.
  * @param {string} [section] - A page of the settings, e.g. "tabs".
  */
 export function openSettings(win, section = "") {
-  const url = section ? `${SETTINGS_URL}#${section}` : SETTINGS_URL;
+  const url = `about:preferences#zenFluent${section ? `-${section}` : ""}`;
   win.switchToTabHavingURI(url, true, {
     ignoreFragment: "whenComparingAndReplace",
     triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal(),

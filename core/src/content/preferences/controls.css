@@ -35,6 +35,15 @@
     display: block !important;
   }
 
+  /* A section whose settings are all hidden, with no description to read
+     (Default browser once Zen is the default): no lone title */
+  setting-group:not(
+    :has(setting-control:not([hidden])),
+    :has(moz-fieldset[description])
+  ) {
+    display: none !important;
+  }
+
   /* moz-fieldset's legend and inputs, inside its shadow tree */
   fieldset > legend#label > h3 {
     margin: 0 0 4px !important;

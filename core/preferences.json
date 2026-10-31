@@ -107,7 +107,7 @@
     "placeholder": false,
     "options": [
       {
-        "label": "Follow the style (WinUI 4 px, Edge and Zen corners 8 px)",
+        "label": "Follow the style",
         "value": "auto"
       },
       { "label": "Square", "value": "square" },
@@ -306,7 +306,7 @@
     "placeholder": false,
     "options": [
       { "label": "Fill", "value": "fill" },
-      { "label": "Fill and a soft light under the icon", "value": "reveal" }
+      { "label": "Fill and soft light", "value": "reveal" }
     ]
   },
   {
@@ -1004,7 +1004,7 @@
     "placeholder": false,
     "options": [
       {
-        "label": "Follow the style (WinUI text box, Edge pill)",
+        "label": "Follow the style",
         "value": "auto"
       },
       { "label": "Text box (WinUI)", "value": "textbox" },
@@ -1076,7 +1076,7 @@
     "defaultValue": "winui",
     "placeholder": false,
     "options": [
-      { "label": "WinUI ProgressBar (top of the page)", "value": "winui" },
+      { "label": "WinUI ProgressBar", "value": "winui" },
       { "label": "Zen’s indicator", "value": "zen" }
     ]
   },
