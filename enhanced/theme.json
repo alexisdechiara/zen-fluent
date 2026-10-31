@@ -87,6 +87,9 @@
     },
     "scripts/ai-chat.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/focus-session.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

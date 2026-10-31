@@ -219,5 +219,49 @@
     "label": "AI chatbot panel ~Firefox's chatbot in the sidebar, Ctrl+Alt+X, with a button~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session",
+    "label": "Focus sessions ~a timer in the sidebar's bottom row: compact mode, muted tabs, blocked sites~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.minutes",
+    "label": "Focus session length",
+    "type": "dropdown",
+    "defaultValue": "25",
+    "placeholder": false,
+    "options": [
+      { "label": "15 minutes", "value": "15" },
+      { "label": "25 minutes", "value": "25" },
+      { "label": "45 minutes", "value": "45" },
+      { "label": "1 hour", "value": "60" },
+      { "label": "1 hour 30", "value": "90" }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.compact",
+    "label": "Hide the sidebar during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.mute",
+    "label": "Mute tabs playing sound during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.block",
+    "label": "Block distracting sites during a focus session",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.focus-session.sites",
+    "label": "Distracting sites ~separated by commas~",
+    "type": "string",
+    "defaultValue": "youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com"
   }
 ]
