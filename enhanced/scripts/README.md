@@ -49,6 +49,8 @@ and undone.
 ## Shared modules (`lib/`)
 
 - `zf-feature.sys.mjs`: the life cycle above.
+- `zf-compact.sys.mjs`: `setCompact(window, value)`, compact mode in one
+  window without changing the state the next startup opens in.
 - `zf-colors.sys.mjs`: `iconOf(tab)` (the icon Zen shows), `iconColor(window,
 url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
 - `zf-archive.sys.mjs`: the tab archive file, shared by every window

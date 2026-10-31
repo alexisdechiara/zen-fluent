@@ -4,7 +4,8 @@
 // 15 to 90 minutes and start. While the session runs, the button draws its
 // progress as a ring, the panel shows the time left in a large ring with
 // +5 min and End session, and, as chosen in the panel (and in Sine):
-//   - compact mode hides the sidebar in every window;
+//   - compact mode hides the sidebar in every window (the next startup
+//     keeps its own setting: lib/zf-compact.sys.mjs);
 //   - tabs that play sound are muted, the selected one aside;
 //   - distracting sites (zen-fluent.enhanced.focus-session.sites) are
 //     blocked: a tab that opens one goes back, with a message.
@@ -17,6 +18,9 @@
   );
   const { showToast } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-toast.sys.mjs",
+  );
+  const { setCompact } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-compact.sys.mjs",
   );
 
   const PREF = "zen-fluent.enhanced.focus-session";
@@ -110,10 +114,8 @@
           return;
         }
         session = { compact: false, muted: new Set() };
-        const compact = win.gZenCompactModeManager;
-        if (option("compact", true) && compact && !compact.preference) {
-          compact.preference = true;
-          session.compact = true;
+        if (option("compact", true)) {
+          session.compact = setCompact(win, true);
         }
         if (option("mute", true)) {
           for (const tab of gBrowser.tabs) {
@@ -125,8 +127,8 @@
         if (!session) {
           return;
         }
-        if (session.compact && win.gZenCompactModeManager?.preference) {
-          win.gZenCompactModeManager.preference = false;
+        if (session.compact) {
+          setCompact(win, false);
         }
         for (const tab of session.muted) {
           if (tab.isConnected && tab.muted) {

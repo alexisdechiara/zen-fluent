@@ -12,6 +12,9 @@
   const { ZFFeature } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
+  const { setCompact } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-compact.sys.mjs",
+  );
 
   const WIDTH = 520;
   const HEIGHT = 720;
@@ -51,12 +54,11 @@
         const { url, opener } = win.zfQuickWindow;
         ctx.attribute(doc.documentElement, "zf-quick-window");
         const setUp = () => {
-          if (
-            win.gZenCompactModeManager &&
-            !win.gZenCompactModeManager.preference
-          ) {
-            win.gZenCompactModeManager.preference = true;
-          }
+          // this window only: the next startup keeps its own setting.
+          // Zen sets up compact mode after startup and may undo it: again
+          // once it has settled
+          setCompact(win, true);
+          ctx.timeout(() => setCompact(win, true), 1000);
           if (url) {
             win.openTrustedLinkIn(url, "current");
           } else {
