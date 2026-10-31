@@ -61,6 +61,13 @@ const FEATURES = {
   "icon-picker": "emoji",
   "hover-cards": "image",
   glance: "lightbulb",
+  breadcrumbs: "map",
+  "command-palette": "window-console",
+  "shortcut-overlay": "clipboard",
+  "snap-layouts": "grid",
+  "tab-switcher": "shapes",
+  "boost-extras": "rocket",
+  performance: "timer",
 };
 // The Home page's shortcuts to the main choices
 const HOME = {
