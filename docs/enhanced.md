@@ -45,6 +45,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Mute tabs playing sound during a focus session | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
 | Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
 | Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
+| Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -191,7 +192,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
   keyboard shortcuts sheet, Snap layouts, Performance, Tab notes, AI controls, the AI chatbot,
-  Focus session and all of
+  Focus session, Widgets and shelf
+  and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
@@ -288,6 +290,16 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   When the time is up, a message and a system notification say so. The
   session is shared by all windows and survives closing the panel.
 
+- **Widgets and shelf** (off by default): a button in the sidebar's bottom
+  row, Ctrl+Alt+Shift+W or the Command Palette opens a board like Windows'
+  widgets: the time and the date, **Now playing** (the tabs playing sound,
+  to go to or mute), the last **Downloads** (a click opens a finished one),
+  and the **Shelf**: links, text and images kept for later. Drop them on
+  the shelf (dragging over the button opens the board) or click **Add this
+  page**. A click opens a link or an image in a new tab and copies a text;
+  items can be dragged out again, to a page or the address bar; × (or
+  Delete) takes one away. The shelf is kept in the profile
+  (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

@@ -9,7 +9,8 @@
 //   - each Enhanced feature turned on or off;
 //   - the panels of the features that have one (Quick Settings, archived
 //     tabs, browsing stats, the shortcuts sheet, Snap layouts, Performance,
-//     Tab notes, AI controls, the AI chatbot, Focus session) and Zen Fluent's settings
+//     Tab notes, AI controls, the AI chatbot, Focus session,
+//     Widgets and shelf) and Zen Fluent's settings
 //     page.
 // A command only shows when it changes something (its condition). The
 // palette's script runs after this one (Sine loads mods in id order) and
@@ -198,6 +199,13 @@
         command: run("zf-focus-button"),
         condition: has("zf-focus-button"),
         tags: [...TAGS, "focus", "timer", "pomodoro"],
+      },
+      {
+        key: `${PREFIX}shelf`,
+        label: "Zen Fluent: Widgets and shelf",
+        command: run("zf-shelf-button"),
+        condition: has("zf-shelf-button"),
+        tags: [...TAGS, "widgets", "shelf", "clock", "downloads"],
       },
       {
         key: `${PREFIX}browsing-stats`,

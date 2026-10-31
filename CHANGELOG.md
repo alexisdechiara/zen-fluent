@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Widgets and shelf** (`zen-fluent.enhanced.shelf`, off by default): a board with the time, what is playing, the last downloads and a shelf where links, text and images dropped on it are kept for later.
 - Zen Fluent Enhanced: **Focus sessions** (`zen-fluent.enhanced.focus-session`, off by default): a timer in the sidebar's bottom row, as in Windows' Clock, with compact mode, muted tabs and blocked distracting sites while it runs.
 - Zen Fluent Enhanced: **AI controls page** (`zen-fluent.enhanced.ai-controls`) shows Firefox's AI controls page that Zen hides, and **AI chatbot panel** (`zen-fluent.enhanced.ai-chat`) turns Firefox's sidebar chatbot back on with a button in the sidebar's bottom row. Both off by default.
 - Zen Fluent Enhanced: **Tab notes** (`zen-fluent.enhanced.tab-notes`, off by default) turns on Firefox's tab notes and adds a list of every note (Ctrl+Alt+Shift+N) and the note in the hover cards.
