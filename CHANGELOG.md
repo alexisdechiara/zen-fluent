@@ -6,6 +6,15 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- Zen Fluent Enhanced: a settings page, `about:zen-fluent`
+  (`zen-fluent.enhanced.settings-page`, on by default). Every setting in the
+  style of Windows Settings, with a live preview of the window, the presets
+  gallery, search, per-setting and per-page reset, and settings export and
+  import. Opened from the app menu, the Tools menu, Ctrl+Alt+Shift+F and
+  Quick Settings' **All settings**.
+
 ## [0.2.0] - 2026-10-30
 
 ### Changed

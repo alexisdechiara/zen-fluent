@@ -200,6 +200,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Feature                         | Preference                                        | Default |
 | ------------------------------- | ------------------------------------------------- | ------- |
 | Quick Settings                  | `zen-fluent.enhanced.quick-settings`              | `true`  |
+| Settings page                   | `zen-fluent.enhanced.settings-page`               | `true`  |
 | Icon colors                     | `zen-fluent.enhanced.favicon-color`               | `true`  |
 | Adaptive accent                 | `zen-fluent.enhanced.adaptive-accent`             | `false` |
 | Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |

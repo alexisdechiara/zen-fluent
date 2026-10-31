@@ -54,6 +54,9 @@ url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
 - `zf-sheets.sys.mjs`: `useSheet(url, "agent" | "user")`, a sheet for every
   document (web pages included) through the style sheet service; its files
   live in `enhanced/content/` and scope themselves with `@-moz-document`.
+- `zf-settings.sys.mjs`: `about:zen-fluent` (the page in
+  `enhanced/settings/`), registered while a window uses it
+  (`useAboutPage()`), and `openSettings(window, section)`.
 - `zf-stats.sys.mjs`: `siteDays(from)`, visits and time on pages per day and
   site, read from Places.
 - `zf-toast.sys.mjs`: `showToast(window, text, { action })`, a short message at the bottom

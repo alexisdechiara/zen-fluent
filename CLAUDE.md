@@ -35,7 +35,8 @@ come later. The owner writes to Claude in French: answer in French.
   preference does not exist).
 - `core/icons/`: SVGs with `stroke="context-fill"`. `screenshots/`: README images.
 - `enhanced/`: `theme.json` (id `Zen-Fluent-Enhanced`, `modules` = Zen Fluent's
-  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `scripts/`
+  exact homepage), `chrome.css`, `src/` (one CSS file per feature), `settings/`
+  (the `about:zen-fluent` page: HTML, CSS, a module, its icons), `scripts/`
   (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
   Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
@@ -113,6 +114,17 @@ come later. The owner writes to Claude in French: answer in French.
   with `@-moz-document`. An agent sheet only replaces the browser's
   defaults (a page's CSS wins). A PDF's page keeps the PDF's URL: recognize
   pdf.js by its markup (`#outerContainer`).
+- An about: page from a mod: `Components.manager` `registerFactory` of an
+  `nsIAboutModule` (contract `@mozilla.org/network/protocol/about;1?what=<name>`)
+  whose `newChannel` opens a `chrome://sine/...` HTML file with
+  `originalURI` = the about: URI. Without `URI_CAN_LOAD_IN_CHILD` it loads in
+  the parent with the system principal (`Services` works). Its relative URLs
+  resolve against `about:<name>`: give it `<base href="chrome://...">`, and
+  never `<a href="#x">` (it would leave the page). Inline scripts never run
+  there: load a module file. Sine's content sheet (Zen Fluent's tokens)
+  reaches it. Sine rebuilds a text setting's variable on
+  `(stylesheets.sys.mjs).default.rebuildMods(false)`
+  (`chrome://userscripts/content/services/`).
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

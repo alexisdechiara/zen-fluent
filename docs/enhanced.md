@@ -9,6 +9,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Feature                         | Setting                                           | Default |
 | ------------------------------- | ------------------------------------------------- | ------- |
 | Quick Settings                  | `zen-fluent.enhanced.quick-settings`              | `true`  |
+| Settings page                   | `zen-fluent.enhanced.settings-page`               | `true`  |
 | Icon colors                     | `zen-fluent.enhanced.favicon-color`               | `true`  |
 | Adaptive accent                 | `zen-fluent.enhanced.adaptive-accent`             | `false` |
 | Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
@@ -49,7 +50,36 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 
   The preset whose settings all match is shown pressed. **Undo preset** puts
   back the settings from before the last preset. **All settings** opens
-  Sine's page. The list lives in `enhanced/quick-settings.json`.
+  the settings page (Sine's dialog while the settings page is off). The list
+  lives in `enhanced/quick-settings.json`.
+
+- **Settings page**: `about:zen-fluent`, every Zen Fluent and Zen Fluent
+  Enhanced setting on one page in the style of Windows Settings, instead of
+  Sine's dialog (which keeps working). Open it with **Zen Fluent** in the app
+  menu (under Settings), **Zen Fluent settings** in the Tools menu,
+  Ctrl+Alt+Shift+F, or **All settings** in Quick Settings; a link such as
+  `about:zen-fluent#tabs` opens one page.
+  - _Home_: a live preview of the window over a Fluent bloom (style,
+    material, corners, density, the selected Essential, the extensions row,
+    the variants), the style and material as picture tiles, light or dark
+    mode, the accent swatches, the presets gallery with a preview of each,
+    and a card per group.
+  - _One page per group_ of Zen Fluent's settings, with each setting's
+    description, a dot and a reset button on those you changed, and
+    **Reset this page** (click twice; the toast offers Undo). Variants are
+    laid out per component, fill and shape side by side.
+  - _Enhanced_: each feature with its icon, its options under it.
+  - _About_: versions, **Export** and **Import** of your settings (a JSON
+    file; unknown or invalid values are skipped), **Reset everything**, a
+    link to Sine's dialog and to the project.
+  - _Find a setting_ (Ctrl+F or /) searches titles, descriptions, choices
+    and preference names.
+
+  Every change applies at once and every value follows changes made
+  elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom
+  accent, radius, blur, opacity, font) is checked before it is saved and
+  asks Sine to rebuild its CSS variable, which Sine only does by itself from
+  its dialog. Presets, resets and imports can be undone from their toast.
 
 - **Icon colors**: reads the dominant color of each tab's icon (the most
   saturated color that covers enough of it, or the average of an icon with no
