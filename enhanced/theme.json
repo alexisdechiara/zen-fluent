@@ -81,6 +81,12 @@
     },
     "scripts/tab-notes.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/ai-controls.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/ai-chat.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

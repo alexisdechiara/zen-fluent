@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **AI controls page** (`zen-fluent.enhanced.ai-controls`) shows Firefox's AI controls page that Zen hides, and **AI chatbot panel** (`zen-fluent.enhanced.ai-chat`) turns Firefox's sidebar chatbot back on with a button in the sidebar's bottom row. Both off by default.
 - Zen Fluent Enhanced: **Tab notes** (`zen-fluent.enhanced.tab-notes`, off by default) turns on Firefox's tab notes and adds a list of every note (Ctrl+Alt+Shift+N) and the note in the hover cards.
 - Zen Fluent Enhanced: **Sleeping tabs and Performance** (`zen-fluent.enhanced.performance`, off by default): unused tabs go to sleep after a delay (`zen-fluent.enhanced.performance.sleep-after`, 30 minutes), and a Performance panel shows memory, sleeping tabs and the tabs using the most memory.
 - Zen Fluent Enhanced: **Boost editor extras** (`zen-fluent.enhanced.boost-extras`): Narrow column, No motion, Hide images and Sepia tiles in Zen's Boost editor, stored in the boost's custom CSS.

@@ -207,5 +207,17 @@
     "label": "Tab notes ~turns on Firefox's tab notes, with a list of every note~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.ai-controls",
+    "label": "AI controls ~shows Firefox's page to allow or block each AI feature~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.ai-chat",
+    "label": "AI chatbot panel ~Firefox's chatbot in the sidebar, Ctrl+Alt+X, with a button~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

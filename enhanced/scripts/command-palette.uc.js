@@ -9,7 +9,7 @@
 //   - each Enhanced feature turned on or off;
 //   - the panels of the features that have one (Quick Settings, archived
 //     tabs, browsing stats, the shortcuts sheet, Snap layouts, Performance,
-//     Tab notes) and Zen Fluent's settings
+//     Tab notes, AI controls, the AI chatbot) and Zen Fluent's settings
 //     page.
 // A command only shows when it changes something (its condition). The
 // palette's script runs after this one (Sine loads mods in id order) and
@@ -177,6 +177,20 @@
         command: run("zf-tools-notes"),
         condition: has("zf-tools-notes"),
         tags: [...TAGS, "notes", "memo"],
+      },
+      {
+        key: `${PREFIX}ai-controls`,
+        label: "Zen Fluent: AI controls",
+        command: run("zf-tools-ai-controls"),
+        condition: has("zf-tools-ai-controls"),
+        tags: [...TAGS, "ai", "privacy", "block"],
+      },
+      {
+        key: `${PREFIX}ai-chat`,
+        label: "Zen Fluent: AI chatbot",
+        command: run("zf-ai-chat-button"),
+        condition: has("zf-ai-chat-button"),
+        tags: [...TAGS, "ai", "chat", "chatbot", "assistant"],
       },
       {
         key: `${PREFIX}browsing-stats`,

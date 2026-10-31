@@ -228,6 +228,8 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Sleeping tabs and Performance panel        | `zen-fluent.enhanced.performance`                 | `false` |
 | Put inactive tabs to sleep after (minutes) | `zen-fluent.enhanced.performance.sleep-after`     | `30`    |
 | Tab notes                                  | `zen-fluent.enhanced.tab-notes`                   | `false` |
+| AI controls page                           | `zen-fluent.enhanced.ai-controls`                 | `false` |
+| AI chatbot panel                           | `zen-fluent.enhanced.ai-chat`                     | `false` |
 
 ## Repository
 

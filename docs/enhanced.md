@@ -37,6 +37,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Sleeping tabs and Performance panel        | `zen-fluent.enhanced.performance`                 | `false` |
 | Put inactive tabs to sleep after (minutes) | `zen-fluent.enhanced.performance.sleep-after`     | `30`    |
 | Tab notes                                  | `zen-fluent.enhanced.tab-notes`                   | `false` |
+| AI controls page                           | `zen-fluent.enhanced.ai-controls`                 | `false` |
+| AI chatbot panel                           | `zen-fluent.enhanced.ai-chat`                     | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -182,7 +184,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
-  keyboard shortcuts sheet, Snap layouts, Performance, Tab notes and all of
+  keyboard shortcuts sheet, Snap layouts, Performance, Tab notes, AI controls, the AI chatbot
+  and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
@@ -251,6 +254,19 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     the page's tab or opens it. Read from Firefox's notes database, never
     written.
   - With **Tab hover cards** on, a tab's card shows its note.
+- **AI controls page** (off by default): shows Firefox's **AI controls**
+  page in Zen's settings, which Zen hides (`browser.preferences.aiControls`,
+  put back to Zen's default when unchecked): each AI feature can be left
+  available, turned on or blocked (translations, PDF image descriptions,
+  link preview key points, the sidebar chatbot, speech recognition), and
+  one switch blocks them all. The page sets Firefox's own switches. Tools ›
+  **AI controls** or the Command Palette opens it.
+- **AI chatbot panel** (off by default): Firefox's chatbot in the sidebar,
+  which Zen turns off (`browser.ml.chat.*`, put back to Zen's defaults
+  when unchecked). Choose Claude, ChatGPT, Gemini, HuggingChat or Mistral
+  in the panel; open or close it with the new button in the sidebar's
+  bottom row, Ctrl+Alt+X or the Command Palette. The page's context menu
+  gets **Ask an AI chatbot**, and selected text a shortcut to it.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
