@@ -7,14 +7,17 @@
 
 /* The layout goes through row-local tokens, which the extension settings
    set (features/extensions/): icon and button size, gap, the column count
-   (auto-fill or a number) and the column track. A track never gets
-   narrower than --zf-ext-min: one button, or 0 with a fixed count. */
+   (auto-fit or a number) and the column track. A track never gets
+   narrower than --zf-ext-min: one button, or 0 with a fixed count.
+   auto-fit drops the empty columns, so that a few buttons still reach
+   both edges of the row (components/sidebar/edges.css), as the Essentials
+   do, and a centered or end row really sits there. */
 @media (-moz-pref("zen-fluent.pinned-extensions")) {
   :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
     --zf-ext-icon: 16px;
     --zf-ext-button: var(--zf-size-icon-button);
     --zf-ext-gap: 2px;
-    --zf-ext-count: auto-fill;
+    --zf-ext-count: auto-fit;
     --zf-ext-min: var(--zf-ext-button);
     --zf-ext-track: minmax(var(--zf-ext-min), 1fr);
     --uei-icon-size: var(--zf-ext-icon) !important;

@@ -2,105 +2,204 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* The buttons of the extensions row (features/pinned-extensions.css):
-   its selectors, so that a later rule wins. */
+   its selectors, so that a later rule wins. With
+   zen-fluent.variant.extensions-scope = "row", the fill and shape go to the
+   row instead, a surface 4px around the buttons, which keep their own
+   look. */
 
-/* The fill is this component's (zen-fluent.variant.extensions) when it names
-   one, else the global one (zen-fluent.variant.global); "auto" on both
-   keeps the look of the other settings. The shape is, in this order: this
-   component's shape, its "pill" fill, the global shape, the global "pill"
-   fill. "rounded" keeps the component's radius. The conditions test the
-   values that set something, so that a pref not written yet falls back to
-   the global choice. */
+/* The fill is this component's (zen-fluent.variant.extensions) when it
+   names one, else the global one (zen-fluent.variant.global); "auto" on
+   both keeps the look of the other settings. The shape is, in this order:
+   this component's shape, then the global shape; a "pill" fill (from 0.3
+   and before) still reads as the pill shape. "rounded" keeps the
+   component's radius. The conditions test the values that set something, so
+   that a pref not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.extensions", "solid")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    background-color: var(--zf-variant-solid-bg) !important;
-    box-shadow: var(--zf-variant-solid-stroke) !important;
+@media (-moz-pref("zen-fluent.variant.extensions", "solid")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-solid-bg) !important;
+      box-shadow: var(--zf-variant-solid-stroke) !important;
 
-    &:hover {
-      background-color: var(--zf-variant-solid-bg-hover) !important;
+      &:hover {
+        background-color: var(--zf-variant-solid-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-solid-bg-press) !important;
+        box-shadow: var(--zf-variant-solid-stroke-press) !important;
+      }
     }
+  }
 
-    &:hover:active,
-    &[open] {
-      background-color: var(--zf-variant-solid-bg-press) !important;
-      box-shadow: var(--zf-variant-solid-stroke-press) !important;
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-solid-bg) !important;
+      box-shadow: var(--zf-variant-solid-stroke) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    background-color: var(--zf-variant-subtle-bg) !important;
-    box-shadow: var(--zf-variant-subtle-stroke) !important;
+@media (-moz-pref("zen-fluent.variant.extensions", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
 
-    &:hover {
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      &:hover {
+        background-color: var(--zf-variant-subtle-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-subtle-bg-press) !important;
+        box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+      }
     }
+  }
 
-    &:hover:active,
-    &[open] {
-      background-color: var(--zf-variant-subtle-bg-press) !important;
-      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    background-color: var(--zf-variant-ghost-bg) !important;
-    box-shadow: var(--zf-variant-ghost-stroke) !important;
+@media (-moz-pref("zen-fluent.variant.extensions", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-ghost-bg) !important;
+      box-shadow: var(--zf-variant-ghost-stroke) !important;
 
-    &:hover {
-      background-color: var(--zf-variant-ghost-bg-hover) !important;
+      &:hover {
+        background-color: var(--zf-variant-ghost-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-ghost-bg-press) !important;
+        box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+      }
     }
+  }
 
-    &:hover:active,
-    &[open] {
-      background-color: var(--zf-variant-ghost-bg-press) !important;
-      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-ghost-bg) !important;
+      box-shadow: var(--zf-variant-ghost-stroke) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "outline")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    background-color: var(--zf-variant-outline-bg) !important;
-    box-shadow: var(--zf-variant-outline-stroke) !important;
+@media (-moz-pref("zen-fluent.variant.extensions", "outline")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-outline-bg) !important;
+      box-shadow: var(--zf-variant-outline-stroke) !important;
 
-    &:hover {
-      background-color: var(--zf-variant-outline-bg-hover) !important;
+      &:hover {
+        background-color: var(--zf-variant-outline-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-outline-bg-press) !important;
+        box-shadow: var(--zf-variant-outline-stroke-press) !important;
+      }
     }
+  }
 
-    &:hover:active,
-    &[open] {
-      background-color: var(--zf-variant-outline-bg-press) !important;
-      box-shadow: var(--zf-variant-outline-stroke-press) !important;
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-outline-bg) !important;
+      box-shadow: var(--zf-variant-outline-stroke) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.extensions", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-translucent-bg) !important;
+      box-shadow: var(--zf-variant-translucent-stroke) !important;
+
+      &:hover {
+        background-color: var(--zf-variant-translucent-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-translucent-bg-press) !important;
+        box-shadow: var(--zf-variant-translucent-stroke-press) !important;
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-translucent-bg) !important;
+      box-shadow: var(--zf-variant-translucent-stroke) !important;
     }
   }
 }
 
 @media (-moz-pref("zen-fluent.variant.extensions-shape", "square")) or ((not ((-moz-pref("zen-fluent.variant.extensions-shape", "square")) or (-moz-pref("zen-fluent.variant.extensions-shape", "rounded")) or (-moz-pref("zen-fluent.variant.extensions-shape", "pill")))) and (not (-moz-pref("zen-fluent.variant.extensions", "pill"))) and (-moz-pref("zen-fluent.variant.global-shape", "square"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    border-radius: 0 !important;
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      border-radius: 0 !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      border-radius: 0 !important;
+    }
   }
 }
 
 @media (-moz-pref("zen-fluent.variant.extensions-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.extensions-shape", "square")) or (-moz-pref("zen-fluent.variant.extensions-shape", "rounded")) or (-moz-pref("zen-fluent.variant.extensions-shape", "pill")))) and ((-moz-pref("zen-fluent.variant.extensions", "pill")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")) or ((not ((-moz-pref("zen-fluent.variant.global-shape", "square")) or (-moz-pref("zen-fluent.variant.global-shape", "rounded")) or (-moz-pref("zen-fluent.variant.global-shape", "pill")))) and (-moz-pref("zen-fluent.variant.global", "pill"))))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .unified-extensions-item-action-button {
-    border-radius: 9999px !important;
-    corner-shape: round !important;
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      border-radius: 9999px !important;
+      corner-shape: round !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      border-radius: 9999px !important;
+      corner-shape: round !important;
+    }
   }
 }

@@ -24,6 +24,10 @@ tooltip {
   --zf-text-step: 0px;
   --zf-sidebar-font-size: calc(13px + var(--zf-text-step));
   --zf-sidebar-font-size-small: calc(12px + var(--zf-text-step));
+  /* How far the tabs, Essentials, extensions and URL bar sit inside Zen's
+     sidebar padding: the same edge for all (the edges.css files of
+     components/sidebar and components/urlbar) */
+  --zf-sidebar-edge: 2px;
 
   /* -------- Radii (WinUI) -------- */
   /* zen-fluent.corner-radius rescales the three (corner-radius.css) */

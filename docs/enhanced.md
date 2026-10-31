@@ -84,7 +84,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   - _Search_: Zen's own **Find in Settings** finds Zen Fluent settings
     (titles and descriptions) among Firefox's; a result opens the setting's
     section and outlines it.
-  - _Overview_: a live preview of the window, then **Recently changed**
+  - _Overview_: a live preview of the window with **Browse themes**,
+    **Customize** and a link to the project page, then **Recently changed**
     and **Most used** (the settings you change here, remembered in
     `zen-fluent.enhanced.settings-page.activity`; suggestions until then),
     the style and material as picture tiles, light or dark mode, the accent
@@ -105,15 +106,24 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     Essentials, pinned tabs, folders, tabs, spaces, dialog buttons) and an
     **All** pin on the window itself. A pin, or the part it marks, opens a
     TeachingTip with the fill and shape as picture chips; All sets every
-    component left on Auto. The drawing shows the result on a selected
-    item, one under the pointer and one at rest. **Your changes** lists
+    component left on Auto; the extensions pin also chooses whether the
+    fill and shape go to each button or to the whole row. The drawing
+    shows the result on a selected item, one under the pointer and one at
+    rest. **Your changes** lists
     what has its own look.
   - _Enhanced_: each feature with its icon; its options show while it is
     on.
-  - _Compatible mods_: the Sine mods checked with Zen Fluent
-    ([compatibility.md](compatibility.md)), supported, with a limit or
-    conflicting, each with its link and whether Sine has it installed; an
-    InfoBar warns when a conflicting one is on.
+  - _Compatible mods_: a **Marketplace** of the Sine mods checked with Zen
+    Fluent ([compatibility.md](compatibility.md)), as cards, with
+    **Install** (through Sine), and below it every mod Sine has
+    **Installed**, as a list, with its switch, its page and **Settings**:
+    the mod's own settings in a dialog drawn as Zen Fluent's, or Sine's
+    pane when this page cannot draw them. Each mod's badge says **Works**,
+    **Works with a limit**, **Not tested with this version** (the Zen
+    Fluent or mod version differs from the last check) or
+    **Incompatible**. Each section has a search field, a filter by badge
+    and a Cards / List switch, kept for the next visits; an InfoBar warns
+    when an incompatible mod is on.
 
   Every change applies at once and every value follows changes made
   elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom

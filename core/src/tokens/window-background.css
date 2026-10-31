@@ -66,6 +66,17 @@
     }
   }
 
+  /* A space with a color in Zen's gradient picker: Zen's gradient
+     (base/window-background.css) lies straight on the backdrop, as in Zen,
+     and the material's coat only comes back when no color is picked */
+  @media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
+    @media not (-moz-pref("zen-fluent.space-color", "material")) {
+      &:not([zen-default-theme="true"]) {
+        --zf-window-bg: transparent;
+      }
+    }
+  }
+
   /* What floats over the page cannot show the backdrop (Firefox does not
      blur web content): over Mica Alt it takes the opaque Mica Alt color
      rather than the Acrylic one */

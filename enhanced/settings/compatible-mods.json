@@ -1,77 +1,138 @@
 {
+  "$comment": "Sine mods checked with Zen Fluent. tested: the Zen Fluent version and the mod version of the last check; the settings page shows Works only while both still match (Zen Fluent by major.minor). status: supported, partial (works with a limit) or conflict.",
   "mods": [
     {
       "name": "Advanced Tab Groups",
+      "id": "advanced-tab-groups",
       "repo": "Vertex-Mods/Advanced-Tab-Groups",
       "status": "supported",
-      "summary": "Firefox's tab groups: their headers take the row of a Zen folder, with the folder icon tinted in the group's color."
+      "summary": "Firefox's tab groups: their headers take the row of a Zen folder, with the folder icon tinted in the group's color.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "3.12.1"
+      }
     },
     {
       "name": "ZenLibraryTweaks",
+      "id": "ZenLibraryTweaks",
       "repo": "JustAdumbPrsn/ZenLibraryTweaks",
       "status": "supported",
-      "summary": "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library."
+      "summary": "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.5.1 for Zen 1.23.3b"
+      }
     },
     {
       "name": "Glance Plus",
+      "id": "zen-glance-plus",
       "repo": "apoapostolov/Zen-Glance-Plus",
       "status": "supported",
-      "summary": "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons."
+      "summary": "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.1.0"
+      }
     },
     {
       "name": "Zen Second Sidebar Enhanced",
+      "id": "zen-second-sidebar",
       "repo": "sinazadeh/zen-second-sidebar-enhanced",
       "status": "supported",
-      "summary": "Web panels in a second sidebar: the page card's radius and shadow, WinUI hovers, Acrylic over the page."
+      "summary": "Web panels in a second sidebar: the page card's radius and shadow, WinUI hovers, Acrylic over the page.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.13.8"
+      }
     },
     {
       "name": "Zen Command Palette",
+      "id": "zen-command-palette",
       "repo": "Vertex-Mods/Zen-Command-Palette",
       "status": "supported",
-      "summary": "Commands in the URL bar: its accents and its Commands pill follow Zen Fluent's accent."
+      "summary": "Commands in the URL bar: its accents and its Commands pill follow Zen Fluent's accent.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "2.0.0"
+      }
     },
     {
       "name": "Zen Calmer Context Menu",
+      "id": "zen-context-menu",
       "repo": "sinazadeh/zen-calmer-context-menu",
       "status": "supported",
-      "summary": "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows."
+      "summary": "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "5.4.3"
+      }
     },
     {
       "name": "Zen Easel",
+      "id": "zen-easel",
       "repo": "trashshii007/zen-easel",
       "status": "supported",
-      "summary": "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font."
+      "summary": "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "0.9.0"
+      }
     },
     {
       "name": "BetterZenGradientPicker",
+      "id": "BetterZenGradientPicker",
       "repo": "JustAdumbPrsn/BetterZenGradientPicker",
-      "status": "partial",
-      "summary": "The picker works, but the window shows Mica rather than its gradient; its colors reach the accent through Zen workspace color."
+      "status": "supported",
+      "summary": "Its gradients tint the window over the backdrop, as in Zen; its colors reach the accent through Zen workspace color.",
+      "tested": {
+        "zenFluent": "0.4.0",
+        "version": "2.1 for Zen 1.23b"
+      }
     },
     {
       "name": "Zen Page Tint",
+      "id": "zen-page-tint",
       "repo": "caezium/zen-page-tint",
       "status": "conflict",
-      "summary": "Colors the window from the page, which is what Zen Fluent's material does: its layered rules win over Zen Fluent's."
+      "summary": "Colors the window from the page, which is what Zen Fluent's material does: its layered rules win over Zen Fluent's.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "2.0.0"
+      }
     },
     {
       "name": "Blended Addressbar",
+      "id": "blended-addressbar",
       "repo": "kkugot/blended-addressbar",
       "status": "conflict",
-      "summary": "Recolors the URL bar and frames the page its own way, over Zen Fluent's URL bar and page card."
+      "summary": "Recolors the URL bar and frames the page its own way, over Zen Fluent's URL bar and page card.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.7.27"
+      }
     },
     {
       "name": "Better Find Bar",
+      "id": "ff-better-findbar",
       "repo": "RobotoSkunk/ff-better-findbar",
       "status": "conflict",
-      "summary": "A floating find bar where Zen Fluent draws a strip along the page: the two mix into neither."
+      "summary": "A floating find bar where Zen Fluent draws a strip along the page: the two mix into neither.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.7.1"
+      }
     },
     {
       "name": "SuperPins",
+      "id": "ad97bb70-0066-4e42-9b5f-173a5e42c6fc",
       "repo": "CosmoCreeper/Zen-Themes",
       "path": "SuperPins",
       "status": "conflict",
-      "summary": "Its Essentials grid and workspace indicator replace Zen Fluent's own."
+      "summary": "Its Essentials grid and workspace indicator replace Zen Fluent's own.",
+      "tested": {
+        "zenFluent": "0.3.0",
+        "version": "1.7.2"
+      }
     }
   ]
 }

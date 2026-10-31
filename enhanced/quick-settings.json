@@ -91,7 +91,7 @@
         "zen-fluent.essentials.running": "none",
         "zen-fluent.essentials.hover": "fill",
         "zen-fluent.extensions.position": "top",
-        "zen-fluent.variant.global": "subtle",
+        "zen-fluent.variant.global": "translucent",
         "zen-fluent.variant.global-shape": "pill"
       }
     },

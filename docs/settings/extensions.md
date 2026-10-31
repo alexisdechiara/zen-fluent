@@ -14,7 +14,6 @@ Group header: `zen-fluent.ui.open-extensions` (open by default: `false`).
 | Button size                        | `zen-fluent.extensions.button-size` | `auto` Automatic (density)<br>`24` 24 px<br>`28` 28 px<br>`32` 32 px<br>`36` 36 px<br>`40` 40 px             | `auto`  |
 | Space between buttons              | `zen-fluent.extensions.gap`         | `auto` Automatic<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                   | `auto`  |
 | Alignment                          | `zen-fluent.extensions.align`       | `auto` Automatic (style)<br>`stretch` Stretch<br>`start` Start<br>`center` Center<br>`end` End               | `auto`  |
-| Row background                     | `zen-fluent.extensions.background`  | `none` None<br>`subtle` Subtle<br>`card` Card<br>`acrylic` Acrylic                                           | `none`  |
 | Badges                             | `zen-fluent.extensions.badge`       | `show` Count<br>`dot` Dot<br>`hide` Hidden                                                                   | `show`  |
 
 ## Notes
@@ -22,7 +21,7 @@ Group header: `zen-fluent.ui.open-extensions` (open by default: `false`).
 - **WinUI style for the extensions row**: Zen's single toolbar shows the
   extensions pinned to the toolbar in a row under the URL bar
   (`#zen-overflow-extensions-list`); the mod lays it out as WinUI buttons.
-  Columns, rows, sizes, gap, alignment and background need it on; place and
+  Columns, rows, sizes, gap and alignment need it on; place and
   badges work either way.
   Since Zen 1.24, while the URL bar's icons and the extensions take less than
   55 % of its width (`zen.view.overflow-webext-toolbar-threshold`), they sit
@@ -47,7 +46,8 @@ Group header: `zen-fluent.ui.open-extensions` (open by default: `false`).
 - **Alignment**: Automatic follows the style (WinUI stretches the buttons
   across the row, Edge keeps them square at the start); Start, Center and End
   keep square buttons.
-- **Row background**: a surface under the buttons, 4 px around them: a subtle
-  fill, a card (fill and border) or Acrylic.
+- The row's surface comes from **Variants**: with **Extension buttons: fill
+  and shape for** on The whole row, the extensions fill and shape draw one
+  surface 4 px around the buttons instead of each button.
 - **Badges**: the count (in the accent), a dot like the Windows taskbar's, or
   none; in the row and in the classic toolbar.

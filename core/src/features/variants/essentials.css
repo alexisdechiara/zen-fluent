@@ -6,15 +6,15 @@
    for every tile, the selected one too. Ghost leaves the bare icons, like
    the taskbar. */
 
-/* The fill is this component's (zen-fluent.variant.essentials) when it names
-   one, else the global one (zen-fluent.variant.global); "auto" on both
-   keeps the look of the other settings. The shape is, in this order: this
-   component's shape, its "pill" fill, the global shape, the global "pill"
-   fill. "rounded" keeps the component's radius. The conditions test the
-   values that set something, so that a pref not written yet falls back to
-   the global choice. */
+/* The fill is this component's (zen-fluent.variant.essentials) when it
+   names one, else the global one (zen-fluent.variant.global); "auto" on
+   both keeps the look of the other settings. The shape is, in this order:
+   this component's shape, then the global shape; a "pill" fill (from 0.3
+   and before) still reads as the pill shape. "rounded" keeps the
+   component's radius. The conditions test the values that set something, so
+   that a pref not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.essentials", "solid")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "solid")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -34,7 +34,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -54,7 +54,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -74,7 +74,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "outline")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "outline")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -90,6 +90,26 @@
     &:hover:active > .tab-stack > .tab-background {
       background-color: var(--zf-variant-outline-bg-press) !important;
       box-shadow: var(--zf-variant-outline-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-translucent-bg) !important;
+      box-shadow: var(--zf-variant-translucent-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-translucent-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-translucent-bg-press) !important;
+      box-shadow: var(--zf-variant-translucent-stroke-press) !important;
     }
   }
 }

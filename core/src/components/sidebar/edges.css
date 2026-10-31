@@ -1,0 +1,12 @@
+/* Zen Fluent: Common edges of the sidebar: the extensions row lines up with the tabs and Essentials.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen pads the sidebar 5px and every tab, Essential and the new tab row
+   sits 2px further in (--zf-sidebar-edge): the extensions row takes the
+   same 2px, so that its buttons, or its surface with
+   zen-fluent.variant.extensions-scope = "row", end where the tabs end.
+   components/urlbar/edges.css does the same for the URL bar. */
+
+:root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+  margin-inline: var(--zf-sidebar-edge) !important;
+}
