@@ -12,7 +12,7 @@ what Zen Fluent does about it.
 | [Zen Second Sidebar Enhanced](#zen-second-sidebar-enhanced) | Works, with Zen Fluent's compat rules |
 | [Zen Command Palette](#zen-command-palette)                 | Works, with Zen Fluent's compat rules |
 | [Zen Calmer Context Menu](#zen-calmer-context-menu)         | Works, with Zen Fluent's compat rules |
-| [BetterZenGradientPicker](#betterzengradientpicker)         | Works, but its gradient does not show |
+| [BetterZenGradientPicker](#betterzengradientpicker)         | Works                                 |
 | [Zen Easel](#zen-easel)                                     | Works, with Zen Fluent's compat rules |
 | [Zen Page Tint](#zen-page-tint)                             | Conflicts: do not use both            |
 | [Blended Addressbar](#blended-addressbar)                   | Conflicts: do not use both            |
@@ -21,6 +21,15 @@ what Zen Fluent does about it.
 
 The compat rules are part of Zen Fluent (`core/src/compat/` and a few
 component files) and need no setting: they only match what those mods add.
+
+Zen Fluent Enhanced's settings page (**Compatible mods**) reads the same list
+from `enhanced/settings/compatible-mods.json`, where each mod records the Zen
+Fluent version and the mod version of its last check (`tested`). Its badge
+says **Works** (or **Works with a limit**) only while both still match: Zen
+Fluent by major.minor, the mod by its exact version (the installed one, or
+in the Marketplace the latest one on GitHub); otherwise **Not tested with
+this version**. Conflicting mods say **Incompatible** whatever their
+version. A check updates `tested` in the same commit.
 They were checked in Zen 1.23.4b against each mod's CSS at the version given
 below, with the elements their scripts create built by hand.
 
@@ -142,10 +151,11 @@ File: `core/src/compat/calmer-context-menu.css`.
 ## BetterZenGradientPicker
 
 [JustAdumbPrsn/BetterZenGradientPicker](https://github.com/JustAdumbPrsn/BetterZenGradientPicker).
-The picker works, but the window gradient it writes does not show: Zen Fluent
-replaces Zen's gradient with Mica (or its own tint). Its colors only reach Zen
-Fluent through **Accent color** › **Zen workspace color**. Not otherwise
-checked in the browser.
+Since Zen Fluent 0.4 a space's gradient tints the window (**Space color**, on
+by default), so the gradient it writes shows over the backdrop, as in Zen;
+its colors reach the accent through **Accent color** › **Zen workspace
+color**. Checked headless on Zen 1.24b: the gradient reaches the window's
+background layer. Its first run opens a welcome screen over the window.
 
 ## Zen Easel
 

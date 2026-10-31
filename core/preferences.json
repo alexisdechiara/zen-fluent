@@ -60,6 +60,17 @@
     ]
   },
   {
+    "property": "zen-fluent.space-color",
+    "label": "Space color ~a color picked in Zen's gradient picker tints the window~",
+    "type": "dropdown",
+    "defaultValue": "zen",
+    "placeholder": false,
+    "options": [
+      { "label": "Zen's gradient, the material without one", "value": "zen" },
+      { "label": "Always the material", "value": "material" }
+    ]
+  },
+  {
     "property": "zen-fluent.accent",
     "label": "Accent color",
     "type": "dropdown",
@@ -528,19 +539,6 @@
     ]
   },
   {
-    "property": "zen-fluent.extensions.background",
-    "label": "Row background",
-    "type": "dropdown",
-    "defaultValue": "none",
-    "placeholder": false,
-    "options": [
-      { "label": "None", "value": "none" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Card", "value": "card" },
-      { "label": "Acrylic", "value": "acrylic" }
-    ]
-  },
-  {
     "property": "zen-fluent.extensions.badge",
     "label": "Badges",
     "type": "dropdown",
@@ -570,7 +568,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -598,7 +596,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -626,7 +624,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -643,6 +641,17 @@
     ]
   },
   {
+    "property": "zen-fluent.variant.extensions-scope",
+    "label": "Extension buttons: fill and shape for",
+    "type": "dropdown",
+    "defaultValue": "buttons",
+    "placeholder": false,
+    "options": [
+      { "label": "Each button", "value": "buttons" },
+      { "label": "The whole row", "value": "row" }
+    ]
+  },
+  {
     "property": "zen-fluent.variant.essentials",
     "label": "Essentials: fill",
     "type": "dropdown",
@@ -654,7 +663,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -682,7 +691,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -710,7 +719,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -738,7 +747,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -766,7 +775,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -794,7 +803,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -822,7 +831,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -850,7 +859,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {
@@ -878,7 +887,7 @@
       { "label": "Subtle", "value": "subtle" },
       { "label": "Ghost", "value": "ghost" },
       { "label": "Outline", "value": "outline" },
-      { "label": "Pill (pill shape, own fill)", "value": "pill" }
+      { "label": "Translucent (as Zen)", "value": "translucent" }
     ]
   },
   {

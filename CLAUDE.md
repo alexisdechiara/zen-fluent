@@ -369,6 +369,26 @@ zenSyncedWindow: false })` opens an unsynced window. A split's layout tree
   listeners that skip a `defaultPrevented` event. Lot 3 shortcuts:
   Ctrl+Alt+Shift+K, Z, P, N, W, O (F: the settings page).
 
+- Zen 1.24 sets `zen-default-theme="true"` on the root while the space has
+  no color in the gradient picker (Zen then writes a transparent or grey
+  `--zen-main-browser-background`); with a color it writes the gradient,
+  with the picker's opacity, on `.zen-browser-generic-background`'s
+  `::after` (`ZenGradientGenerator.mjs`, `getGradient`).
+- Sidebar edges: Zen pads the sidebar 5px; tabs, Essentials and the new tab
+  row sit 2px further in (`--zf-sidebar-edge`). Zen insets the URL bar by
+  1px on `#urlbar-container` and 1px on `.urlbar-background` (the pill
+  shape drops the second): `components/sidebar/edges.css` and
+  `components/urlbar/edges.css` line them up.
+- Settings page (Enhanced): every `.view > *` keeps its entrance animation's
+  `translate`, so each section is a stacking context and a later section
+  paints over anything overflowing an earlier one (raise that section).
+  Sine's manager (`chrome://userscripts/content/core/manager.sys.mjs`)
+  installs with `installMod(<GitHub URL>)`, removes with `removeMod(id)`,
+  toggles with `toggleTheme(getMods(), id)`; `getModPreferences(mod)` is on
+  `utils.sys.mjs`. An install or a toggle reloads `about:preferences` on
+  `#sync`. BetterZenGradientPicker opens a welcome screen over the window on
+  its first run (remove `#bgp-welcome-root` in tests).
+
 ## Tests
 
 Final campaign on 2026-10-28 on Windows 11 (26 checks out of 26, README

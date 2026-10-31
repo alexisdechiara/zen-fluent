@@ -1,0 +1,22 @@
+/* Zen Fluent: Common edges of the sidebar: the URL bar's field lines up with the tabs and Essentials.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen insets the field by 1px on #urlbar-container and 1px on
+   .urlbar-background, which the pill shape drops: the whole 2px
+   (--zf-sidebar-edge, the tabs' inset) goes to the container, so that
+   every URL bar style ends where the tabs end
+   (components/sidebar/edges.css). The open bar keeps Zen's layout. */
+
+:root[zen-single-toolbar="true"] #navigator-toolbox {
+  & #urlbar-container {
+    margin-inline: var(--zf-sidebar-edge) !important;
+  }
+
+  & #urlbar:not([breakout-extend]) {
+    padding-inline: 0 !important;
+
+    & .urlbar-background {
+      margin-inline: 0 !important;
+    }
+  }
+}

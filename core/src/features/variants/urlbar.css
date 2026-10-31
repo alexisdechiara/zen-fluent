@@ -11,12 +11,12 @@
 /* The fill is this component's (zen-fluent.variant.urlbar) when it names
    one, else the global one (zen-fluent.variant.global); "auto" on both
    keeps the look of the other settings. The shape is, in this order: this
-   component's shape, its "pill" fill, the global shape, the global "pill"
-   fill. "rounded" keeps the component's radius. The conditions test the
-   values that set something, so that a pref not written yet falls back to
-   the global choice. */
+   component's shape, then the global shape; a "pill" fill (from 0.3 and
+   before) still reads as the pill shape. "rounded" keeps the component's
+   radius. The conditions test the values that set something, so that a pref
+   not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.urlbar", "solid")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.urlbar", "solid")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")) or (-moz-pref("zen-fluent.variant.urlbar", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   #urlbar:not([breakout-extend]) {
     & .urlbar-background {
       border-color: var(--zf-url-stroke) var(--zf-url-stroke)
@@ -32,21 +32,21 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")) or (-moz-pref("zen-fluent.variant.urlbar", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
   #urlbar:not([breakout-extend]) {
     & .urlbar-background {
-      border-color: transparent !important;
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      border-color: var(--zf-variant-outline-color) !important;
+      background-color: var(--zf-variant-subtle-bg) !important;
     }
 
     &:hover .urlbar-background {
-      border-color: transparent !important;
-      background-color: var(--zf-variant-subtle-bg-press) !important;
+      border-color: var(--zf-variant-outline-color) !important;
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")) or (-moz-pref("zen-fluent.variant.urlbar", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
   #urlbar:not([breakout-extend]) {
     & .urlbar-background {
       border-color: var(--zf-stroke-divider) !important;
@@ -60,7 +60,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.urlbar", "outline")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.urlbar", "outline")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")) or (-moz-pref("zen-fluent.variant.urlbar", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   #urlbar:not([breakout-extend]) {
     & .urlbar-background {
       border-color: var(--zf-variant-outline-color) !important;
@@ -70,6 +70,20 @@
     &:hover .urlbar-background {
       border-color: var(--zf-variant-outline-color) !important;
       background-color: var(--zf-variant-outline-bg-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.urlbar", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.urlbar", "solid")) or (-moz-pref("zen-fluent.variant.urlbar", "subtle")) or (-moz-pref("zen-fluent.variant.urlbar", "ghost")) or (-moz-pref("zen-fluent.variant.urlbar", "outline")) or (-moz-pref("zen-fluent.variant.urlbar", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-translucent-bg) !important;
+    }
+
+    &:hover .urlbar-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-translucent-bg-hover) !important;
     }
   }
 }

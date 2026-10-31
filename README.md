@@ -65,6 +65,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Backdrop material                                | `zen-fluent.material`                                                       | `mica`             |
 |                                                       | Tint opacity                                     | `zen-fluent.tint-opacity`                                                   | `auto`             |
 |                                                       | Custom opacity                                   | `zen-fluent.tint-opacity-custom`                                            | `64%`              |
+|                                                       | Space color                                      | `zen-fluent.space-color`                                                    | `zen`              |
 |                                                       | Accent color                                     | `zen-fluent.accent`                                                         | `system`           |
 |                                                       | Custom color                                     | `zen-fluent.accent-custom`                                                  | `#0078d4`          |
 |                                                       | Corners and gaps                                 | `zen-fluent.corners`                                                        | `winui`            |
@@ -103,7 +104,6 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Button size                                      | `zen-fluent.extensions.button-size`                                         | `auto`             |
 |                                                       | Space between buttons                            | `zen-fluent.extensions.gap`                                                 | `auto`             |
 |                                                       | Alignment                                        | `zen-fluent.extensions.align`                                               | `auto`             |
-|                                                       | Row background                                   | `zen-fluent.extensions.background`                                          | `none`             |
 |                                                       | Badges                                           | `zen-fluent.extensions.badge`                                               | `show`             |
 | [Variants](docs/settings/variants.md)                 | Fill, everywhere                                 | `zen-fluent.variant.global`                                                 | `auto`             |
 |                                                       | Shape, everywhere                                | `zen-fluent.variant.global-shape`                                           | `auto`             |
@@ -111,6 +111,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Toolbar and sidebar buttons: shape               | `zen-fluent.variant.buttons-shape`                                          | `auto`             |
 |                                                       | Extension buttons: fill                          | `zen-fluent.variant.extensions`                                             | `auto`             |
 |                                                       | Extension buttons: shape                         | `zen-fluent.variant.extensions-shape`                                       | `auto`             |
+|                                                       | Extension buttons: fill and shape for            | `zen-fluent.variant.extensions-scope`                                       | `buttons`          |
 |                                                       | Essentials: fill                                 | `zen-fluent.variant.essentials`                                             | `auto`             |
 |                                                       | Essentials: shape                                | `zen-fluent.variant.essentials-shape`                                       | `auto`             |
 |                                                       | Tabs: fill                                       | `zen-fluent.variant.tabs`                                                   | `auto`             |

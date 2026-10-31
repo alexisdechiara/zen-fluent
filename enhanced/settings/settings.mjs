@@ -214,7 +214,8 @@ function activity() {
 /** A setting changed from its control: recent first, and one more use. */
 function change(pref, value) {
   write(pref, value);
-  if (pref.property === SCHEME) {
+  // Recently changed and Most used are Zen Fluent's, not other mods'
+  if (pref.property === SCHEME || !model.prefs.has(pref.property)) {
     return;
   }
   const data = activity();
@@ -314,10 +315,20 @@ const model = {
 function conditionsMet(pref) {
   return (pref.conditions ?? []).every((condition) => {
     const test = condition.if ?? condition.not;
-    const other = model.prefs.get(test?.property);
-    const value = other
-      ? read(other)
-      : Services.prefs.getStringPref(test?.property, "");
+    const other =
+      model.prefs.get(test?.property) ?? modPrefs.get(test?.property);
+    let value;
+    try {
+      value = other
+        ? read(other)
+        : typeof test?.value === "boolean"
+          ? Services.prefs.getBoolPref(test.property, false)
+          : typeof test?.value === "number"
+            ? Services.prefs.getIntPref(test.property, 0)
+            : Services.prefs.getStringPref(test?.property, "");
+    } catch {
+      value = undefined;
+    }
     const met = value === test?.value;
     return condition.not ? !met : met;
   });
@@ -420,17 +431,18 @@ function toast(text, action) {
   const box = $("#toast");
   box.replaceChildren(
     el("span.toast-text", {}, text),
-    action &&
-      el(
-        "button.toast-action",
-        {
-          onclick: () => {
-            action.run();
-            box.removeAttribute("shown");
+    action
+      ? el(
+          "button.toast-action",
+          {
+            onclick: () => {
+              action.run();
+              box.removeAttribute("shown");
+            },
           },
-        },
-        action.label,
-      ),
+          action.label,
+        )
+      : null,
   );
   box.setAttribute("shown", "");
   clearTimeout(toastTimer);
@@ -935,21 +947,6 @@ function accentSwatches() {
   return row;
 }
 
-function heroSummary() {
-  const chips = el("div.chips");
-  const update = () =>
-    chips.replaceChildren(
-      ...[HOME.style, HOME.material, HOME.accent].map((p) =>
-        el("span.chip", {}, optionLabel(p)),
-      ),
-    );
-  update();
-  for (const property of [HOME.style, HOME.material, HOME.accent]) {
-    watch(property, update);
-  }
-  return chips;
-}
-
 function iconsWarning() {
   const pref = model.prefs.get("svg.context-properties.content.enabled");
   if (!pref) {
@@ -994,7 +991,6 @@ function renderOverview(page) {
         {},
         "Mica, Mica Alt, Acrylic and WinUI 3 controls, or the Microsoft Edge look. Every change applies at once.",
       ),
-      heroSummary(),
       el(
         "div.hero-actions",
         {},
@@ -1004,6 +1000,12 @@ function renderOverview(page) {
           "Browse themes",
         ),
         el("button.button", { onclick: () => go("appearance") }, "Customize"),
+        el(
+          "button.hero-link",
+          { onclick: () => openLink(REPO) },
+          el("span", {}, "Project page"),
+          icon("arrow-right"),
+        ),
       ),
     ),
   );
@@ -1154,27 +1156,27 @@ function renderThemes() {
 
 // -------- Compatible mods --------
 
-const MOD_STATUS = {
-  supported: {
-    title: "Supported",
-    description: "Zen Fluent adapts to them: nothing to set.",
-    icon: "checkmark-circle",
-    badge: "Supported",
-  },
-  partial: {
-    title: "Works with a limit",
-    description: "They work, with the limit given.",
-    icon: "warning",
-    badge: "Limit",
-  },
-  conflict: {
-    title: "Conflicts",
-    description:
-      "They style the same parts their own way: use one or the other.",
-    icon: "dismiss-circle",
-    badge: "Conflicts",
-  },
+// What a mod's badge says: the registry's verdict while its check still
+// holds (same Zen Fluent major.minor, same mod version), else "untested"
+const VERDICTS = {
+  works: { label: "Works", icon: "checkmark-circle" },
+  partial: { label: "Works with a limit", icon: "warning" },
+  untested: { label: "Not tested with this version", icon: "info" },
+  conflict: { label: "Incompatible", icon: "dismiss-circle" },
 };
+const SINE_MANAGER = "chrome://userscripts/content/core/manager.sys.mjs";
+// Zen Fluent and Zen Fluent Enhanced are this page's own mods
+const OWN_MODS = new Set(["Zen-Fluent", "Zen-Fluent-Enhanced"]);
+// The types this page draws; any other sends the mod's settings to Sine
+const MOD_PREF_TYPES = new Set([
+  "checkbox",
+  "dropdown",
+  "string",
+  "text",
+  "separator",
+]);
+// Each section's filter and layout, kept for the session's next visits
+const MODS_VIEW = "zen-fluent.enhanced.settings-page.mods-view";
 
 const docsAnchor = (name) =>
   name
@@ -1188,55 +1190,452 @@ function openLink(url) {
   });
 }
 
-function renderMods() {
-  const cards = new Map();
-  const card = (mod) => {
-    const status = MOD_STATUS[mod.status] ?? MOD_STATUS.supported;
-    const installed = el("span.mod-installed", { hidden: true });
-    const node = el(
-      `div.card.setting.mod.${mod.status}`,
-      { "data-pref": `mod:${mod.name}` },
-      el("span.card-icon.mod-status", {}, icon(status.icon)),
-      el(
-        "div.setting-text",
-        {},
-        el(
-          "span.setting-title",
-          {},
-          mod.name,
-          el("span.mod-badge", {}, status.badge),
-          installed,
+const modPage = (mod) =>
+  `https://github.com/${mod.repo}${mod.path ? `/tree/main/${mod.path}` : ""}`;
+const minor = (version = "") => version.split(".").slice(0, 2).join(".");
+
+/** The registry's entry for an installed Sine mod, if it has one. */
+function registryEntry(installed) {
+  const homepage = installed.homepage?.toLowerCase() ?? "";
+  return model.mods.find(
+    (mod) =>
+      mod.id === installed.id ||
+      (homepage.includes(mod.repo.toLowerCase()) &&
+        (!mod.path || homepage.includes(`/${mod.path.toLowerCase()}`))) ||
+      mod.name.toLowerCase() === installed.name?.toLowerCase(),
+  );
+}
+
+/** The verdict and the sentence under it, for a version of a mod. */
+function verdict(mod, version) {
+  if (!mod) {
+    return {
+      key: "untested",
+      reason: "Not in Zen Fluent's list of checked mods.",
+    };
+  }
+  if (mod.status === "conflict") {
+    return { key: "conflict", reason: mod.summary };
+  }
+  const tested = mod.tested ?? {};
+  if (minor(tested.zenFluent) !== minor(model.versions.core)) {
+    return {
+      key: "untested",
+      reason: `Last checked with Zen Fluent ${tested.zenFluent ?? "?"}; this is ${model.versions.core}.`,
+    };
+  }
+  if (version && tested.version && version !== tested.version) {
+    return {
+      key: "untested",
+      reason: `Checked with version ${tested.version}; this one is ${version}.`,
+    };
+  }
+  return {
+    key: mod.status === "partial" ? "partial" : "works",
+    reason: mod.summary,
+  };
+}
+
+function verdictBadge(key) {
+  const info = VERDICTS[key];
+  return el(
+    `span.mod-verdict.${key}`,
+    {},
+    icon(info.icon),
+    el("span", {}, info.label),
+  );
+}
+
+function modsView() {
+  try {
+    return JSON.parse(Services.prefs.getStringPref(MODS_VIEW, "{}"));
+  } catch {
+    return {};
+  }
+}
+
+/** Search, filter and layout over a list of mods, redrawn on each change. */
+function modBrowser(name, { layout, entries, draw, empty }) {
+  const saved = modsView()[name] ?? {};
+  const state = {
+    query: "",
+    filter: saved.filter ?? "all",
+    layout: saved.layout ?? layout,
+  };
+  const save = () => {
+    const all = modsView();
+    all[name] = { filter: state.filter, layout: state.layout };
+    Services.prefs.setStringPref(MODS_VIEW, JSON.stringify(all));
+  };
+  const body = el("div.mod-items");
+  const search = el("input.textbox.mod-search", {
+    type: "search",
+    placeholder: "Search",
+    "aria-label": `Search the ${name === "market" ? "marketplace" : "installed mods"}`,
+    oninput: () => {
+      state.query = search.value.trim().toLowerCase();
+      redraw();
+    },
+  });
+  const filter = el("select.combo", {
+    "aria-label": "Show",
+    onchange: () => {
+      state.filter = filter.value;
+      save();
+      redraw();
+    },
+  });
+  filter.append(
+    el("option", { value: "all" }, "All"),
+    ...Object.entries(VERDICTS).map(([key, info]) =>
+      el("option", { value: key }, info.label),
+    ),
+  );
+  filter.value = state.filter;
+  const layoutButton = (value, label, iconName) =>
+    el(
+      "button.icon-button.mod-layout",
+      {
+        "data-layout": value,
+        title: label,
+        "aria-label": label,
+        onclick: () => {
+          state.layout = value;
+          save();
+          redraw();
+        },
+      },
+      icon(iconName),
+    );
+  const layouts = el(
+    "div.mod-layouts",
+    { role: "group", "aria-label": "Display" },
+    layoutButton("cards", "Cards", "apps"),
+    layoutButton("list", "List", "list"),
+  );
+  const count = el("span.mod-count", { "aria-live": "polite" });
+  function redraw() {
+    const all = entries();
+    const shown = all.filter(
+      (entry) =>
+        (state.filter === "all" || entry.verdict.key === state.filter) &&
+        (!state.query ||
+          `${entry.name} ${entry.author} ${entry.summary}`
+            .toLowerCase()
+            .includes(state.query)),
+    );
+    for (const button of layouts.children) {
+      button.setAttribute(
+        "aria-pressed",
+        button.dataset.layout === state.layout,
+      );
+    }
+    body.dataset.layout = state.layout;
+    count.textContent =
+      shown.length === all.length
+        ? `${all.length} ${all.length === 1 ? "mod" : "mods"}`
+        : `${shown.length} of ${all.length}`;
+    body.replaceChildren(
+      ...(shown.length
+        ? shown.map((entry) => draw(entry, state.layout))
+        : [el("p.mod-empty", {}, all.length ? "No mod matches." : empty)]),
+    );
+  }
+  redraw();
+  return {
+    node: el(
+      "div.mod-browser",
+      {},
+      el("div.mod-toolbar", {}, search, filter, count, layouts),
+      body,
+    ),
+    redraw,
+  };
+}
+
+/** A mod as a card (cards) or a SettingsCard row (list). */
+function modItem(entry, layout, actions) {
+  const title = el(
+    "span.mod-title",
+    {},
+    el("span.mod-name", {}, entry.name),
+    entry.version ? el("span.mod-version", {}, `v${entry.version}`) : null,
+  );
+  const meta = el(
+    "span.mod-meta",
+    {},
+    entry.author ? `by ${entry.author}` : "",
+  );
+  const reason = el("span.setting-desc", {}, entry.verdict.reason);
+  if (layout === "cards") {
+    return el(
+      `article.card.mod-card.${entry.verdict.key}`,
+      { "data-pref": entry.pref ?? "" },
+      el("div.mod-card-head", {}, title, verdictBadge(entry.verdict.key)),
+      meta,
+      el("p.mod-summary", {}, entry.summary || entry.verdict.reason),
+      entry.summary && entry.verdict.reason !== entry.summary
+        ? el("p.mod-reason", {}, entry.verdict.reason)
+        : null,
+      el("div.mod-card-actions", {}, ...actions),
+    );
+  }
+  return el(
+    `div.card.setting.mod-row.${entry.verdict.key}`,
+    { "data-pref": entry.pref ?? "" },
+    el("span.card-icon.mod-status", {}, icon(VERDICTS[entry.verdict.key].icon)),
+    el(
+      "div.setting-text",
+      {},
+      el("span.setting-title", {}, title, verdictBadge(entry.verdict.key)),
+      meta,
+      reason,
+    ),
+    el("div.setting-actions", {}, ...actions),
+  );
+}
+
+const openButton = (entry) =>
+  el(
+    "button.icon-button",
+    {
+      title: "Open its page",
+      "aria-label": `${entry.name}: open its page`,
+      onclick: () => openLink(entry.page),
+    },
+    icon("open"),
+  );
+
+// -------- A mod's own settings, drawn as Zen Fluent's --------
+
+// The mods' prefs, apart from Zen Fluent's (model.prefs), for conditions
+const modPrefs = new Map();
+
+function openInSine() {
+  chromeWindow().openPreferences("paneSineMods");
+}
+
+/** Its preferences.json, or null when this page cannot draw all of it. */
+async function drawableModPrefs(installed) {
+  if (!installed.preferences) {
+    return null;
+  }
+  let raw;
+  try {
+    raw =
+      await ChromeUtils.importESModule(SINE_UTILS).default.getModPreferences(
+        installed,
+      );
+  } catch {
+    return null;
+  }
+  const drawable =
+    Array.isArray(raw) &&
+    raw.length &&
+    raw.every(
+      (pref) =>
+        MOD_PREF_TYPES.has(pref.type) &&
+        (pref.type !== "dropdown" ||
+          pref.options?.every((option) => typeof option.value === "string")) &&
+        (pref.conditions ?? []).every(
+          (condition) => condition.if || condition.not,
         ),
-        el("span.setting-desc", {}, mod.summary),
-      ),
+    );
+  return drawable ? raw : null;
+}
+
+async function openModSettings(installed) {
+  const raw = await drawableModPrefs(installed);
+  if (!raw) {
+    openInSine();
+    return;
+  }
+  const rows = [];
+  for (const item of raw) {
+    if (item.disabledOn?.includes(PLATFORM)) {
+      continue;
+    }
+    const label = splitLabel(item.label ?? "");
+    if (item.type === "separator") {
+      rows.push(el("h3.mod-dialog-section", {}, label.title));
+      continue;
+    }
+    if (item.type === "text") {
+      rows.push(el("p.section-desc", {}, label.title));
+      continue;
+    }
+    const pref = { ...item, ...label };
+    modPrefs.set(pref.property, pref);
+    observePrefs([pref.property]);
+    rows.push(settingRow(pref));
+  }
+  const dialog = el(
+    "dialog.mod-dialog",
+    { "aria-label": `${installed.name}: settings` },
+    el(
+      "div.mod-dialog-header",
+      {},
+      el("h2.mod-dialog-title", {}, installed.name),
       el(
-        "div.setting-actions",
-        {},
+        "button.icon-button",
+        { "aria-label": "Close", onclick: () => dialog.close() },
+        icon("dismiss"),
+      ),
+    ),
+    el("div.mod-dialog-content", {}, ...rows),
+    el(
+      "div.mod-dialog-footer",
+      {},
+      el(
+        "button.button",
+        {
+          onclick: () => {
+            dialog.close();
+            openInSine();
+          },
+        },
+        "Open in Sine",
+      ),
+      el("button.button.accent", { onclick: () => dialog.close() }, "Done"),
+    ),
+  );
+  dialog.addEventListener("close", () => dialog.remove());
+  document.body.append(dialog);
+  dialog.showModal();
+}
+
+function renderMods() {
+  let installedMods = [];
+  let manager = null;
+  // The marketplace: the registry, with each mod's latest version from its
+  // repository once fetched (the verdict then compares it with the check)
+  const latest = new Map();
+  const marketEntries = () =>
+    model.mods.map((mod) => {
+      const installed = installedMods.find((m) => registryEntry(m) === mod);
+      const version = installed?.version ?? latest.get(mod);
+      return {
+        name: mod.name,
+        author: mod.repo.split("/")[0],
+        summary: mod.summary,
+        version,
+        verdict: verdict(mod, version),
+        page: modPage(mod),
+        pref: `mod:${mod.name}`,
+        mod,
+        installed,
+      };
+    });
+  const market = modBrowser("market", {
+    layout: "cards",
+    entries: marketEntries,
+    empty: "No mod in the list.",
+    draw: (entry, layout) =>
+      modItem(entry, layout, [
+        entry.installed
+          ? el(
+              "span.mod-installed",
+              {},
+              entry.installed.enabled ? "Installed" : "Installed, off",
+            )
+          : entry.verdict.key === "conflict"
+            ? null
+            : el(
+                "button.button.accent",
+                {
+                  disabled: !manager,
+                  onclick: async (event) => {
+                    const button = event.currentTarget;
+                    button.disabled = true;
+                    button.textContent = "Installing…";
+                    try {
+                      await manager.installMod(entry.page);
+                      toast(`${entry.name} installed`);
+                    } catch (error) {
+                      console.error("[Zen Fluent] install failed", error);
+                      toast(`${entry.name} could not be installed`);
+                    }
+                    await refresh();
+                  },
+                },
+                "Install",
+              ),
         el(
           "button.button",
           {
             onclick: () =>
-              openLink(`${DOCS}/compatibility.md#${docsAnchor(mod.name)}`),
+              openLink(`${DOCS}/compatibility.md#${docsAnchor(entry.name)}`),
           },
           "Details",
         ),
+        openButton(entry),
+      ]),
+  });
+
+  const installedEntries = () =>
+    installedMods.map((installed) => {
+      const mod = registryEntry(installed);
+      return {
+        name: installed.name ?? installed.id,
+        author:
+          installed.author ??
+          installed.homepage?.match(/github\.com\/([^/]+)/)?.[1] ??
+          "",
+        summary: mod?.summary ?? installed.description ?? "",
+        version: installed.version,
+        verdict: verdict(mod, installed.version),
+        page:
+          installed.homepage && installed.homepage !== "{store}"
+            ? installed.homepage
+            : mod
+              ? modPage(mod)
+              : "",
+        installed,
+      };
+    });
+  const installed = modBrowser("installed", {
+    layout: "list",
+    entries: installedEntries,
+    empty: "Sine has no other mod installed.",
+    draw: (entry, layout) => {
+      const id = `zf-mod-${++uid}`;
+      const on = el("button.switch", {
+        role: "switch",
+        "aria-label": `${entry.name}: on`,
+        "aria-checked": String(!!entry.installed.enabled),
+        onclick: async () => {
+          const mods =
+            await ChromeUtils.importESModule(SINE_UTILS).default.getMods();
+          await manager?.toggleTheme(mods, entry.installed.id);
+          await refresh();
+        },
+      });
+      on.append(el("span.knob"));
+      on.id = id;
+      return modItem(entry, layout, [
+        entry.installed.preferences
+          ? el(
+              "button.button",
+              { onclick: () => openModSettings(entry.installed) },
+              icon("settings"),
+              el("span", {}, "Settings"),
+            )
+          : null,
+        entry.page ? openButton(entry) : null,
         el(
-          "button.icon-button",
-          {
-            title: "Open its page",
-            "aria-label": `${mod.name}: open its page`,
-            onclick: () =>
-              openLink(
-                `https://github.com/${mod.repo}${mod.path ? `/tree/main/${mod.path}` : ""}`,
-              ),
-          },
-          icon("open"),
+          "span.toggle",
+          {},
+          el(
+            "span.switch-state",
+            { "aria-hidden": "true" },
+            entry.installed.enabled ? "On" : "Off",
+          ),
+          on,
         ),
-      ),
-    );
-    cards.set(mod, { node, installed });
-    return node;
-  };
+      ]);
+    },
+  });
+
   const conflictBar = el(
     "div.infobar.caution",
     { role: "alert", hidden: true },
@@ -1244,87 +1643,102 @@ function renderMods() {
     el(
       "div.infobar-text",
       {},
-      el("strong", {}, "A conflicting mod is on"),
+      el("strong", {}, "An incompatible mod is on"),
       el("span"),
     ),
-    el(
-      "button.button",
-      { onclick: () => chromeWindow().openPreferences("paneSineMods") },
-      "Sine Mods",
-    ),
+    el("button.button", { onclick: openInSine }, "Sine Mods"),
   );
-  // Which of them Sine has installed (its own list, read only)
-  (async () => {
-    let installed = [];
+
+  // Sine's list (read again after an install or a switch), then each
+  // registered mod's latest version
+  async function refresh() {
     try {
-      installed = Object.values(
+      manager ??= ChromeUtils.importESModule(SINE_MANAGER).default;
+      installedMods = Object.values(
         await ChromeUtils.importESModule(SINE_UTILS).default.getMods(),
-      );
+      ).filter((mod) => !OWN_MODS.has(mod.id));
     } catch {
-      return;
+      installedMods = [];
     }
-    const on = [];
-    for (const [mod, { node, installed: chip }] of cards) {
-      const repo = mod.repo.toLowerCase();
-      const found = installed.find(
-        (m) =>
-          m.homepage?.toLowerCase().includes(repo) ||
-          m.name?.toLowerCase() === mod.name.toLowerCase(),
-      );
-      if (found) {
-        chip.hidden = false;
-        chip.textContent = found.enabled ? "Installed" : "Installed, off";
-        node.toggleAttribute("installed", true);
-        if (found.enabled && mod.status === "conflict") {
-          on.push(mod.name);
+    const on = installedMods
+      .filter((m) => m.enabled && registryEntry(m)?.status === "conflict")
+      .map((m) => m.name);
+    conflictBar.hidden = !on.length;
+    conflictBar.querySelector(".infobar-text > span").textContent =
+      `${on.join(" and ")} ${on.length > 1 ? "style" : "styles"} the same parts as Zen Fluent: turn one off below or in Sine Mods.`;
+    market.redraw();
+    installed.redraw();
+  }
+  refresh();
+  (async () => {
+    await Promise.all(
+      model.mods.map(async (mod) => {
+        try {
+          const url = `https://raw.githubusercontent.com/${mod.repo}/HEAD/${mod.path ? `${mod.path}/` : ""}theme.json`;
+          const response = await fetch(url, {
+            signal: AbortSignal.timeout(8000),
+          });
+          const version = (await response.json()).version;
+          if (version) {
+            latest.set(mod, String(version));
+          }
+        } catch {
+          // Offline or moved: the verdict keeps the registry's check
         }
-      }
-    }
-    if (on.length) {
-      conflictBar.hidden = false;
-      conflictBar.querySelector(".infobar-text > span").textContent =
-        `${on.join(" and ")} ${on.length > 1 ? "style" : "styles"} the same parts as Zen Fluent: turn one off in Sine Mods.`;
-    }
+      }),
+    );
+    market.redraw();
   })();
+
   return [
     conflictBar,
-    ...Object.entries(MOD_STATUS).map(([status, info]) => {
-      const mods = model.mods.filter((mod) => mod.status === status);
-      return mods.length
-        ? section(
-            info.title,
-            el("p.section-desc", {}, info.description),
-            ...mods.map(card),
-          )
-        : null;
-    }),
-  ].filter(Boolean);
+    section(
+      "Marketplace",
+      el(
+        "p.section-desc",
+        {},
+        "Mods checked with Zen Fluent. Works means checked with this version of Zen Fluent and the mod's latest version.",
+      ),
+      market.node,
+    ),
+    section(
+      "Installed",
+      el(
+        "p.section-desc",
+        {},
+        "Every mod Sine has installed, and whether its version was checked with this Zen Fluent.",
+      ),
+      installed.node,
+    ),
+  ];
 }
 
 // -------- Variants: a window with a pin on each component --------
 
 // Each component's look when it and All components both say Auto: the
-// fill and shape Zen Fluent gives it on its own
+// fill and shape Zen Fluent gives it on its own ("native": the WinUI
+// subtle button, a fill on hover and selection only, which no fill choice
+// names)
 const PARTS = {
-  buttons: { fill: "subtle", shape: "rounded" },
+  buttons: { fill: "native", shape: "rounded" },
   urlbar: { fill: "solid", shape: "rounded" },
-  "urlbar-buttons": { fill: "subtle", shape: "rounded" },
-  extensions: { fill: "subtle", shape: "rounded" },
+  "urlbar-buttons": { fill: "native", shape: "rounded" },
+  extensions: { fill: "native", shape: "rounded" },
   badges: { fill: "solid", shape: "pill" },
   essentials: { fill: "solid", shape: "rounded" },
-  "pinned-tabs": { fill: "subtle", shape: "rounded" },
-  folders: { fill: "subtle", shape: "rounded" },
-  tabs: { fill: "subtle", shape: "rounded" },
-  spaces: { fill: "subtle", shape: "rounded" },
+  "pinned-tabs": { fill: "native", shape: "rounded" },
+  folders: { fill: "native", shape: "rounded" },
+  tabs: { fill: "native", shape: "rounded" },
+  spaces: { fill: "native", shape: "rounded" },
   "panel-buttons": { fill: "solid", shape: "rounded" },
 };
 const FILL_HELP = {
   auto: "Follows All components",
   solid: "A raised control, like a WinUI button",
-  subtle: "A fill only on hover and when selected",
+  subtle: "A light fill inside a thin stroke",
   ghost: "No fill; the accent on hover",
   outline: "A thin stroke, no fill",
-  pill: "A pill with its own fill",
+  translucent: "Zen's see-through fill",
 };
 const shortLabel = (label) => label.replace(/\s*\(.*\)$/, "");
 
@@ -1572,7 +1986,11 @@ function renderVariants(page) {
     region.setAttribute("active", "");
     const fill = variantPref(name, "fill");
     const shape = variantPref(name, "shape");
+    // The extensions choose whether the fill and shape go to each button
+    // or to the whole row
+    const scope = model.prefs.get(`zen-fluent.variant.${name}-scope`);
     const titleId = `zf-tip-${++uid}`;
+    const scopeId = `zf-tip-scope-${uid}`;
     tip.setAttribute("aria-labelledby", titleId);
     tip.replaceChildren(
       el(
@@ -1596,6 +2014,12 @@ function renderVariants(page) {
       variantChips(fill, "fill"),
       el("span.vz-label", {}, "Shape"),
       variantChips(shape, "shape"),
+      ...(scope
+        ? [
+            el("span.vz-label", { id: scopeId }, "Applies to"),
+            combo(scope, scopeId),
+          ]
+        : []),
       el(
         "div.vz-tip-footer",
         {},
@@ -1603,9 +2027,12 @@ function renderVariants(page) {
           "button.button",
           {
             onclick: () => {
-              const saved = snapshot([fill, shape]);
+              const saved = snapshot([fill, shape, scope].filter(Boolean));
               reset(fill);
               reset(shape);
+              if (scope) {
+                reset(scope);
+              }
               toast(`${partName(name)}: back to Auto`, {
                 label: "Undo",
                 run: () => restore(saved),
@@ -1657,13 +2084,16 @@ function renderVariants(page) {
 
   // Every component's current look, its pin, and the list of changes
   const changes = el("div.vz-changes");
+  const scopeOf = (name) => model.prefs.get(`zen-fluent.variant.${name}-scope`);
   const look = (name) =>
-    [variantPref(name, "fill"), variantPref(name, "shape")]
+    [variantPref(name, "fill"), variantPref(name, "shape"), scopeOf(name)]
+      .filter(Boolean)
       .map((pref) => shortLabel(optionLabel(pref.property)))
       .join(" · ");
   const isChanged = (name) =>
     !isDefault(variantPref(name, "fill")) ||
-    !isDefault(variantPref(name, "shape"));
+    !isDefault(variantPref(name, "shape")) ||
+    (!!scopeOf(name) && !isDefault(scopeOf(name)));
   const update = () => {
     for (const name of parts) {
       const region = regionOf(name);
@@ -1671,6 +2101,9 @@ function renderVariants(page) {
       region.dataset.fill = fill;
       region.dataset.shape =
         fill === "pill" ? "pill" : effective(name, "shape");
+      if (scopeOf(name)) {
+        region.dataset.scope = read(scopeOf(name));
+      }
       const pin = region.querySelector(".vz-pin");
       pin.toggleAttribute("changed", isChanged(name));
       pin.setAttribute("aria-label", `${partName(name)}: ${look(name)}`);
@@ -1701,6 +2134,9 @@ function renderVariants(page) {
                   onclick: () => {
                     reset(variantPref(name, "fill"));
                     reset(variantPref(name, "shape"));
+                    if (scopeOf(name)) {
+                      reset(scopeOf(name));
+                    }
                   },
                 },
                 icon("dismiss"),
@@ -1720,6 +2156,9 @@ function renderVariants(page) {
   for (const name of ["global", ...parts]) {
     watch(variantPref(name, "fill").property, update);
     watch(variantPref(name, "shape").property, update);
+    if (scopeOf(name)) {
+      watch(scopeOf(name).property, update);
+    }
   }
   page.reveal = (property) => {
     const name = property

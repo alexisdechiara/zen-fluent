@@ -145,8 +145,6 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/extensions/align.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
-@import url("src/features/extensions/background.css") not
-  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/extensions/rows.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/extensions/badge.css") not
@@ -154,6 +152,8 @@
 @import url("src/features/variants/extensions.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/variants/badges.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/components/sidebar/edges.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/a11y/forced-colors-sidebar.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
@@ -197,6 +197,8 @@
 @import url("src/features/variants/urlbar.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/features/variants/urlbar-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/edges.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/a11y/forced-colors-urlbar.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));

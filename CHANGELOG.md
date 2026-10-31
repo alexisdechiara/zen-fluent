@@ -6,6 +6,47 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- A space's color tints the window: a color picked in Zen's gradient picker
+  shows over Mica, Mica Alt or Acrylic as in Zen, and the material's own
+  color only shows when the space has none (`zen-fluent.space-color`, Zen's
+  gradient by default; Always the material keeps the old look).
+- Variants: a **Translucent** fill, Zen's own see-through fills (a share of
+  the text color, the selected item in Zen's white veil). The Arc preset
+  uses it.
+- Variants: **Extension buttons: fill and shape for**
+  (`zen-fluent.variant.extensions-scope`): each button, or the whole row as
+  one surface 4px around the buttons.
+- Zen Fluent Enhanced, Compatible mods: a **Marketplace** of the checked mods
+  as cards, with **Install** through Sine, and every installed Sine mod as a
+  list, with its switch, its page and **Settings** (its own settings in a
+  dialog, or Sine's pane when the page cannot draw them). Each mod's badge
+  says Works, Works with a limit, Not tested with this version or
+  Incompatible, from the Zen Fluent and mod versions of its last check
+  (`tested` in `enhanced/settings/compatible-mods.json`), the Marketplace
+  reading each mod's latest version on GitHub. Search, a filter by badge
+  and a Cards / List switch on each section.
+
+### Changed
+
+- Variants: **Subtle** sits between Solid and Outline (half the control
+  fill inside the outline's stroke). The fill lists drop **Pill**: the
+  shape gives it, and a Pill fill saved before still reads as the pill
+  shape.
+- The URL bar, the Essentials, the tabs and the extensions row share the
+  same left and right edges in the sidebar, in every style; the extension
+  buttons stretch to both edges as the Essentials do (Automatic alignment),
+  and Center and End really center or end a short row.
+- Zen Fluent Enhanced, Overview: the hero drops its summary badges and gets
+  a **Project page** link beside its buttons.
+- BetterZenGradientPicker now works fully: its gradient shows in the window.
+
+### Removed
+
+- Extensions: **Row background** (`zen-fluent.extensions.background`): the
+  row's surface now comes from the extensions variant on The whole row.
+
 ## [0.3.0] - 2026-10-31
 
 ### Added

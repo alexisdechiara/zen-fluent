@@ -1,13 +1,15 @@
-/* Zen Fluent: Variant fills: solid, subtle, ghost and outline states for features/variants/.
+/* Zen Fluent: Variant fills: solid, subtle, ghost, outline and translucent states for features/variants/.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* Each fill gives a rest, hover and pressed background and a stroke (a
    box-shadow): solid is the WinUI Button (control fill, elevation stroke),
-   subtle the WinUI SubtleButton (a fill on hover only), ghost has no fill
-   at rest, a faint one on hover and accent glyphs, outline a 1px stroke
-   with subtle fills. The -selected tokens draw the selected item of a list
-   (tabs, spaces): a raised control, the WinUI selection fill, nothing, or
-   the outline. The Edge style takes the Fluent 2 fields and hovers.
+   subtle sits between solid and outline (half the control fill inside the
+   outline's stroke), ghost has no fill at rest, a faint one on hover and
+   accent glyphs, outline a 1px stroke with subtle fills, translucent Zen's
+   own see-through fills (a share of the text color). The -selected tokens
+   draw the selected item of a list (tabs, spaces): a raised control, the
+   control fill in the outline, nothing, the outline, or Zen's white
+   veil. The Edge style takes the Fluent 2 fields and hovers.
    Contrast themes map these fills to ButtonFace (tokens/forced-colors.css). */
 
 :root {
@@ -19,14 +21,18 @@
   --zf-variant-solid-selected: var(--zf-fill-control);
   --zf-variant-solid-selected-hover: var(--zf-fill-control-hover);
   --zf-variant-solid-selected-stroke: var(--zf-elevation-control);
-  --zf-variant-subtle-bg: transparent;
-  --zf-variant-subtle-bg-hover: var(--zf-fill-subtle-hover);
-  --zf-variant-subtle-bg-press: var(--zf-fill-subtle-press);
-  --zf-variant-subtle-stroke: none;
-  --zf-variant-subtle-stroke-press: none;
-  --zf-variant-subtle-selected: var(--zf-fill-selected);
-  --zf-variant-subtle-selected-hover: var(--zf-fill-selected-hover);
-  --zf-variant-subtle-selected-stroke: none;
+  --zf-variant-subtle-bg: color-mix(
+    in srgb,
+    var(--zf-fill-control) 50%,
+    transparent
+  );
+  --zf-variant-subtle-bg-hover: var(--zf-fill-control-hover);
+  --zf-variant-subtle-bg-press: var(--zf-fill-control-press);
+  --zf-variant-subtle-stroke: var(--zf-variant-outline-stroke);
+  --zf-variant-subtle-stroke-press: var(--zf-variant-outline-stroke);
+  --zf-variant-subtle-selected: var(--zf-fill-control);
+  --zf-variant-subtle-selected-hover: var(--zf-fill-control-hover);
+  --zf-variant-subtle-selected-stroke: var(--zf-variant-outline-stroke);
   --zf-variant-ghost-bg: transparent;
   --zf-variant-ghost-bg-hover: color-mix(
     in srgb,
@@ -53,6 +59,29 @@
   --zf-variant-outline-selected: transparent;
   --zf-variant-outline-selected-hover: var(--zf-fill-subtle-hover);
   --zf-variant-outline-selected-stroke: var(--zf-variant-outline-stroke);
+  --zf-variant-translucent-bg: light-dark(
+    color-mix(in oklch, var(--zf-text-primary) 8%, transparent),
+    color-mix(in oklch, var(--zf-text-primary) 15%, transparent)
+  );
+  --zf-variant-translucent-bg-hover: light-dark(
+    color-mix(in oklch, var(--zf-text-primary) 12%, transparent),
+    color-mix(in oklch, var(--zf-text-primary) 20%, transparent)
+  );
+  --zf-variant-translucent-bg-press: light-dark(
+    color-mix(in oklch, var(--zf-text-primary) 5%, transparent),
+    color-mix(in oklch, var(--zf-text-primary) 10%, transparent)
+  );
+  --zf-variant-translucent-stroke: none;
+  --zf-variant-translucent-stroke-press: none;
+  --zf-variant-translucent-selected: light-dark(
+    rgb(255 255 255 / 70%),
+    rgb(255 255 255 / 12%)
+  );
+  --zf-variant-translucent-selected-hover: light-dark(
+    rgb(255 255 255 / 85%),
+    rgb(255 255 255 / 16%)
+  );
+  --zf-variant-translucent-selected-stroke: 0 1px 2px rgb(0 0 0 / 8%);
 
   @media (-moz-pref("zen-fluent.style", "edge")) {
     --zf-variant-solid-bg: var(--zf-edge-field);
@@ -61,14 +90,19 @@
     --zf-variant-solid-stroke: inset 0 0 0 1px var(--zf-edge-field-stroke);
     --zf-variant-solid-stroke-press: inset 0 0 0 1px
       var(--zf-edge-field-stroke-hover);
-    --zf-variant-subtle-bg-hover: var(--zf-edge-hover);
+    --zf-variant-subtle-bg: color-mix(
+      in srgb,
+      var(--zf-edge-field) 50%,
+      transparent
+    );
+    --zf-variant-subtle-bg-hover: var(--zf-edge-field-hover);
     --zf-variant-subtle-bg-press: var(--zf-edge-pressed);
     --zf-variant-solid-selected: var(--zf-edge-raised);
     --zf-variant-solid-selected-hover: var(--zf-edge-raised);
     --zf-variant-solid-selected-stroke: inset 0 0 0 1px
       var(--zf-edge-field-stroke);
-    --zf-variant-subtle-selected: var(--zf-edge-hover);
-    --zf-variant-subtle-selected-hover: var(--zf-edge-pressed);
+    --zf-variant-subtle-selected: var(--zf-edge-raised);
+    --zf-variant-subtle-selected-hover: var(--zf-edge-raised);
     --zf-variant-outline-selected-hover: var(--zf-edge-hover);
     --zf-variant-ghost-bg-hover: color-mix(
       in srgb,
