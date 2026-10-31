@@ -6,6 +6,18 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-31
+
+### Added
+
+- Zen Fluent Enhanced: **Site color** (`zen-fluent.enhanced.site-color`,
+  off by default): the window takes a tint of the site in the selected tab,
+  over the space's theme, read from the top of the page (a site's header,
+  usually its `theme-color`), else from its icon; the space's theme comes
+  back on a site without a color. **Site color strength**
+  (`zen-fluent.enhanced.site-color.strength`): Light (default), Medium or
+  Strong.
+
 ## [0.4.0] - 2026-10-31
 
 ### Added

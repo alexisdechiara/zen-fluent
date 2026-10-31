@@ -204,6 +204,8 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
+| Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
 | Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
 | Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |

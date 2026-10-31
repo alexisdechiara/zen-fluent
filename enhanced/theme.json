@@ -4,9 +4,9 @@
   "author": "alexisdechiara",
   "name": "Zen Fluent Enhanced",
   "description": "JavaScript features for Zen Fluent, each one can be turned off. Installs Zen Fluent if it is missing.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "createdAt": "2026-10-29",
-  "updatedAt": "2026-10-31T13:24:47Z",
+  "updatedAt": "2026-10-31T16:59:58Z",
   "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/docs/enhanced.md",
   "image": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/screenshots/dark-mica.png",
   "style": {
@@ -21,6 +21,9 @@
       "include": ["chrome://browser/content/browser.xhtml"]
     },
     "scripts/adaptive-accent.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/site-color.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
     "scripts/extensions-below-essentials.uc.js": {

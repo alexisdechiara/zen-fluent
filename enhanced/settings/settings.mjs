@@ -69,6 +69,7 @@ const FEATURES = {
   "quick-settings": "wrench",
   "favicon-color": "color",
   "adaptive-accent": "paint-brush",
+  "site-color": "drop",
   "extensions-below-essentials": "puzzle-piece",
   "tab-numbers": "tag",
   shortcuts: "flash",

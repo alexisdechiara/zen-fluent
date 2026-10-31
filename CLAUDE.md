@@ -107,7 +107,9 @@ come later. The owner writes to Claude in French: answer in French.
   with a `chrome://sine/...` module registers, but `getActor` in a
   `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
   as for Sine's own content actor. A page's `theme-color` or DOM is out of
-  reach; the chrome only has the tab's icon, title and URL.
+  reach; the chrome only has the tab's icon, title and URL, and the page's
+  pixels: `browser.browsingContext.currentWindowGlobal.drawSnapshot(rect,
+scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
 - The style sheet service does reach web pages: `loadAndRegisterSheet` of a
   `chrome://sine/...` sheet applies in web content processes (checked on
   Zen 1.24b, `lib/zf-sheets.sys.mjs`), and in chrome windows too: scope it

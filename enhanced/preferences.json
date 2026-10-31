@@ -24,6 +24,33 @@
     "defaultValue": false
   },
   {
+    "property": "zen-fluent.enhanced.site-color",
+    "label": "Site color ~the window takes the color of the site in the selected tab, over the space's theme~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.site-color.strength",
+    "label": "Site color strength",
+    "type": "dropdown",
+    "defaultValue": "light",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Light",
+        "value": "light"
+      },
+      {
+        "label": "Medium",
+        "value": "medium"
+      },
+      {
+        "label": "Strong",
+        "value": "strong"
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.enhanced.extensions-below-essentials",
     "label": "Extensions under the Essentials ~single toolbar, with the extensions row on top~",
     "type": "checkbox",

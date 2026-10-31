@@ -31,7 +31,7 @@
 
       /* 1, or 0 for an invalid custom value: the material's own coat */
       --zf-tint-opacity-valid: 1;
-      --zf-window-bg: color-mix(
+      --zf-window-coat: color-mix(
         in srgb,
         color-mix(
             in srgb,

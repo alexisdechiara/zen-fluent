@@ -12,6 +12,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
+| Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
 | Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
 | Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
@@ -145,6 +147,19 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   changes with it, and the Mica tint too. Off by default. A page's
   `theme-color` is not read: it lives in the page's process, where Firefox
   only runs code shipped with the browser.
+- **Site color**: the window (sidebar, toolbars, the gaps around the page)
+  takes a tint of the site in the selected tab, **over the space's theme**:
+  the gradient picked in Zen's theme picker gives way while a site has a
+  color, and comes back on a site without one. The color is the top of the
+  page as the browser drew it, where a site's header usually shows the
+  color its `theme-color` names; a white, black or grey top gives way to the
+  dominant color of the tab's icon, and a grey icon to the space's theme.
+  The page is read again when it finishes loading and a moment later (for
+  headers painted late). **Site color strength**: _Light_ (15 % of the
+  site's color, default), _Medium_ (30 %) or _Strong_ (50 %); the color is
+  kept light in a light window and dark in a dark one so text stays
+  readable. Off by default; it works with **Adaptive accent** (the accent
+  follows the icon).
 - **Extensions under the Essentials**: with a single toolbar, moves the
   pinned extensions row from above the Essentials to between the Essentials
   and the tabs, which CSS cannot do. Only while Zen Fluent's

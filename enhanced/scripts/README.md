@@ -52,7 +52,7 @@ and undone.
 - `zf-compact.sys.mjs`: `setCompact(window, value)`, compact mode in one
   window without changing the state the next startup opens in.
 - `zf-colors.sys.mjs`: `iconOf(tab)` (the icon Zen shows), `iconColor(window,
-url)` (dominant color of an icon, cached per process), `chroma()`, `rgb()`.
+url)` (dominant color of an icon, cached per process), `pageTopColor(window, browser)` (the color across the top of a page, drawn in the chrome), `chroma()`, `rgb()`.
 - `zf-archive.sys.mjs`: the tab archive file, shared by every window
   (`list`, `add`, `remove`, `prune`, `subscribe`).
 - `zf-sheets.sys.mjs`: `useSheet(url, "agent" | "user")`, a sheet for every

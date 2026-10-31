@@ -5,21 +5,24 @@
 /* One uniform material behind the sidebar, the toolbars, the Library and the
    gaps around the page: it is painted once, on #zen-main-app-wrapper, which
    holds the whole window, and every layer above it stays transparent.
-   --zf-window-bg is that coat; --zf-window-tint is a single coat of the same
-   tint, for Zen's own compact sidebar, which lies over the page. */
+   --zf-window-bg is that coat; --zf-window-coat is the material's own coat,
+   before a space's gradient clears it (Enhanced's site color mixes into it);
+   --zf-window-tint is a single coat of the same tint, for Zen's own compact
+   sidebar, which lies over the page. */
 
 :root {
-  --zf-window-bg: var(--zf-mica);
+  --zf-window-bg: var(--zf-window-coat);
+  --zf-window-coat: var(--zf-mica);
 
   @media (-moz-pref("zen-fluent.material", "mica-alt")) {
-    --zf-window-bg: var(--zf-mica-alt);
+    --zf-window-coat: var(--zf-mica-alt);
   }
 
   @media (-moz-pref("zen-fluent.material", "acrylic")) {
-    --zf-window-bg: var(--zf-acrylic-solid);
+    --zf-window-coat: var(--zf-acrylic-solid);
   }
 
-  --zf-window-tint: var(--zf-window-bg);
+  --zf-window-tint: var(--zf-window-coat);
 
   /* Transparent window: the tint used to be painted twice (the wrapper and
      Zen's background layer), at 40 / 55 / 56-64 %. One coat at
@@ -29,7 +32,7 @@
      set. */
   @media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
     --zf-window-tint: var(--zf-window-tint-auto);
-    --zf-window-bg: var(--zf-window-bg-auto);
+    --zf-window-coat: var(--zf-window-bg-auto);
     --zf-window-tint-auto: color-mix(in srgb, var(--zf-mica) 40%, transparent);
     --zf-window-bg-auto: color-mix(in srgb, var(--zf-mica) 64%, transparent);
 

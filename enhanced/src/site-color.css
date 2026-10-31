@@ -1,0 +1,58 @@
+/* Zen Fluent Enhanced: the window in the color of the site in the selected tab (zen-fluent.enhanced.site-color).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/site-color.uc.js sets --zf-site-color and zf-site-color on the
+   window's root while the selected tab's site has a color. It is mixed into
+   the material's own coat (--zf-window-coat) and into the coat of Zen's
+   compact sidebar, and Zen's gradient is cleared under it: the site's color
+   replaces the space's theme, and the theme comes back on a site without
+   one. A light window keeps it light and a dark window dark, so text stays
+   readable. */
+
+@media not (forced-colors) {
+  @media (-moz-pref("zen-fluent.enhanced.site-color")) {
+    :root[zf-site-color] {
+      --zf-site-strength: 15%;
+
+      @media (-moz-pref("zen-fluent.enhanced.site-color.strength", "medium")) {
+        --zf-site-strength: 30%;
+      }
+
+      @media (-moz-pref("zen-fluent.enhanced.site-color.strength", "strong")) {
+        --zf-site-strength: 50%;
+      }
+
+      --zf-site-tint: light-dark(
+        oklch(from var(--zf-site-color) max(l, 0.75) c h),
+        oklch(from var(--zf-site-color) min(l, 0.4) c h)
+      );
+      --zf-window-bg: color-mix(
+        in srgb,
+        var(--zf-site-tint) var(--zf-site-strength),
+        var(--zf-window-coat)
+      ) !important;
+    }
+
+    :root[zf-site-color],
+    :root[zf-site-color] .zen-browser-generic-background {
+      --zen-main-browser-background: transparent !important;
+      --zen-main-browser-background-old: transparent !important;
+      --zen-main-browser-background-toolbar: color-mix(
+        in srgb,
+        var(--zf-site-tint) var(--zf-site-strength),
+        var(--zf-window-tint)
+      ) !important;
+      --zen-main-browser-background-toolbar-old: color-mix(
+        in srgb,
+        var(--zf-site-tint) var(--zf-site-strength),
+        var(--zf-window-tint)
+      ) !important;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      #zen-main-app-wrapper.browser-toolbox-background {
+        transition: background-color 0.3s ease !important;
+      }
+    }
+  }
+}

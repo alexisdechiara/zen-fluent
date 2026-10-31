@@ -4,9 +4,9 @@
   "author": "alexisdechiara",
   "name": "Zen Fluent",
   "description": "Mica, Mica Alt, Acrylic and WinUI 3 controls for Zen, or the Microsoft Edge look. CSS only, every option in the settings.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "createdAt": "2026-10-26",
-  "updatedAt": "2026-10-31T13:24:47Z",
+  "updatedAt": "2026-10-31T16:59:58Z",
   "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/README.md",
   "image": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/screenshots/dark-mica.png",
   "style": {
