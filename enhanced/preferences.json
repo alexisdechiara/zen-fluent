@@ -155,5 +155,11 @@
     "label": "Command Palette actions ~with the Zen Command Palette mod: Zen Fluent's settings, presets and features~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.shortcut-overlay",
+    "label": "Keyboard shortcuts sheet ~Ctrl+Alt+Shift+K: the main shortcuts over the window~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]

@@ -8,7 +8,8 @@
 //   - the presets ("Zen Fluent preset: Taskbar");
 //   - each Enhanced feature turned on or off;
 //   - the panels of the features that have one (Quick Settings, archived
-//     tabs, browsing stats) and Zen Fluent's settings page.
+//     tabs, browsing stats, the shortcuts sheet) and Zen Fluent's settings
+//     page.
 // A command only shows when it changes something (its condition). The
 // palette's script runs after this one (Sine loads mods in id order) and
 // again on its own rebuilds: a timer adds the commands to whichever palette
@@ -147,6 +148,13 @@
           !!doc.getElementById("zf-context-archive-tab") &&
           !win.gBrowser.selectedTab.hasAttribute("zen-essential"),
         tags: [...TAGS, "archive", "close"],
+      },
+      {
+        key: `${PREFIX}shortcuts`,
+        label: "Zen Fluent: Keyboard shortcuts sheet",
+        command: run("zf-help-shortcuts"),
+        condition: has("zf-help-shortcuts"),
+        tags: [...TAGS, "keyboard", "keys", "help"],
       },
       {
         key: `${PREFIX}browsing-stats`,

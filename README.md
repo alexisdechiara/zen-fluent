@@ -221,6 +221,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
 | Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
+| Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
 
 ## Repository
 

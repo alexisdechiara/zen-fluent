@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Keyboard shortcuts sheet** (`zen-fluent.enhanced.shortcut-overlay`): Ctrl+Alt+Shift+K shows the main shortcuts of Firefox, Zen and Zen Fluent over the window, as they are set now, with a search field.
 - Zen Fluent Enhanced: **Command Palette actions** (`zen-fluent.enhanced.command-palette`): with the Zen Command Palette mod, Zen Fluent's settings, presets, features and panels become palette commands.
 - Zen Fluent Enhanced: **Breadcrumb address** (`zen-fluent.enhanced.breadcrumbs`, off by default) shows the address as the site, its folders and the page, File Explorer style; a click on a level opens it.
 

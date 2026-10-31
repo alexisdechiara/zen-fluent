@@ -30,6 +30,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
 | Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
+| Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -173,10 +174,18 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   mod installed, its palette gets Zen Fluent's commands: each value of the
   Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
   presets, every Enhanced feature on or off, and the panels: Quick
-  Settings, archived tabs, **Archive this tab**, browsing stats and all of
+  Settings, archived tabs, **Archive this tab**, browsing stats, the
+  keyboard shortcuts sheet and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
+- **Keyboard shortcuts sheet**: Ctrl+Alt+Shift+K, Help › **Keyboard
+  shortcuts sheet** or the Command Palette opens a card over the window with
+  the main shortcuts of Firefox and Zen (tabs, page, Zen, window), then Zen
+  Fluent's own while their feature is on, with a search field. Each one is
+  read from the browser, so a shortcut changed in `about:keyboard` shows as
+  it is now and a removed one is left out. Escape, the same keys or a click
+  outside closes it.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
