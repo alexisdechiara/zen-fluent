@@ -319,6 +319,21 @@ come later. The owner writes to Claude in French: answer in French.
   the tabs and `#zen-sidebar-foot-buttons`: `order` can put the row at the
   very bottom, not between the Essentials and the tabs.
 
+- Lot 3 (checked headless on Zen 1.24b, 2026-10-31): Firefox 158 has no
+  `Services.search` (import `SearchService` from
+  `moz-src:///toolkit/components/search/SearchService.sys.mjs`). Every
+  compact mode toggle writes `zen.view.compact.enable-at-startup`: toggle
+  one window with `enhanced/scripts/lib/zf-compact.sys.mjs`. Firefox's tab
+  notes (`browser.tabs.notes.enabled`), AI controls page
+  (`browser.preferences.aiControls`) and sidebar chatbot (`browser.ml.chat.*`)
+  are off in Zen but work once turned on. Zen 1.24 has no tab inactivity
+  timer (`zen.tab-unloader.*` is a leftover setting). `OpenBrowserWindow({
+zenSyncedWindow: false })` opens an unsynced window. A split's layout tree
+  (`gZenViewSplitter._data[i].layoutTree`, any sizes) is saved with the
+  session. Ctrl+Tab handlers (tabbox, Firefox's ctrlTab) are system-group
+  listeners that skip a `defaultPrevented` event. Lot 3 shortcuts:
+  Ctrl+Alt+Shift+K, Z, P, N, W, O (F: the settings page).
+
 ## Tests
 
 Final campaign on 2026-10-28 on Windows 11 (26 checks out of 26, README
