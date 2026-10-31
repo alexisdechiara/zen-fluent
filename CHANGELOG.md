@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- Zen Fluent Enhanced: **Breadcrumb address** (`zen-fluent.enhanced.breadcrumbs`, off by default) shows the address as the site, its folders and the page, File Explorer style; a click on a level opens it.
+
 ## [0.2.0] - 2026-10-30
 
 ### Changed

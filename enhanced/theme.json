@@ -55,6 +55,9 @@
     },
     "scripts/glance.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/breadcrumbs.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

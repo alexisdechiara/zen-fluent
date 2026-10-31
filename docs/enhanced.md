@@ -28,6 +28,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
 | Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
 | Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
+| Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -158,6 +159,14 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   is released or the pointer leaves the link; nothing shows while Glance is
   off. The page itself is never read: the link is the one Firefox shows in
   its status bar.
+- **Breadcrumb address** (off by default): while the URL bar shows the
+  page's address, it reads like File Explorer's address bar: the site, each
+  folder of the path, then the page, with a chevron between them. A click on
+  the site or a folder opens that level (Ctrl or middle click: in a new tab,
+  Shift: in a new window); a click on the page or the empty space edits the
+  address as usual, and the breadcrumb goes away while you type. Only web and
+  file addresses get one. When the bar is too narrow, the inner folders fold
+  into a **…** segment that opens the last of them.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

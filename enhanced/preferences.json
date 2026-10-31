@@ -143,5 +143,11 @@
     "label": "Glance link preview ~hold the Glance key over a link to see where it goes~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.breadcrumbs",
+    "label": "Breadcrumb address ~the URL bar shows the site and each folder of the path; a click opens that level~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]
