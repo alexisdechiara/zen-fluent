@@ -161,7 +161,8 @@
           }
         };
         const markSelected = () => {
-          const id = page()?.location.hash.slice(1) || "home";
+          // The page shown, which an unknown #hash falls back from
+          const id = page()?.document.documentElement.dataset.page;
           for (const item of list.children) {
             item.toggleAttribute("selected", item.dataset.page === id);
           }

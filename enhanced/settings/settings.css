@@ -1526,7 +1526,7 @@ button {
 
 /* Each component of the drawing (.vz-part) holds sample items drawn with
    its fill and shape (data-fill, data-shape: the component's own choice,
-   else Everywhere's, else its default). An item can be selected or under
+   else All components', else its default). An item can be selected or under
    the pointer ([hover]), so subtle and ghost fills show too. The same
    samples draw the choices in the chips. */
 .vz-part {
@@ -1709,6 +1709,16 @@ button {
 }
 
 .vz-window {
+  position: relative;
+  outline: 1px dashed transparent;
+  outline-offset: 4px;
+  transition: outline-color 0.15s linear;
+
+  &:hover:not(:has(.vz-part:hover)),
+  &[active] {
+    outline-color: var(--accent);
+  }
+
   display: grid;
   grid-template-columns: minmax(220px, 0.42fr) 1fr;
   gap: 8px;
@@ -1874,6 +1884,7 @@ button {
 
   .vz-part:hover > &,
   .vz-part[active] > &,
+  .vz-window[active] > &,
   &:focus-visible {
     transform: scale(1.15);
   }
@@ -2008,12 +2019,6 @@ button {
   font-size: 12px;
 }
 
-.vz-everywhere {
-  & > .setting-desc {
-    margin: 0 0 8px;
-  }
-}
-
 /* Your changes: a tag per component with its own look */
 .vz-changes {
   display: flex;
@@ -2081,4 +2086,103 @@ button {
   .vz-page {
     display: none;
   }
+}
+
+/* "All components": the window's own pin, at its top start corner */
+.vz-pin-all {
+  inset: -11px auto auto -11px;
+  width: auto;
+  padding: 0 8px;
+  border-radius: 11px;
+}
+
+/* -------- Zones: the switch in a page header, the page while it is off -------- */
+
+.zone-switch {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 4px 0 12px;
+  border-inline-end: 1px solid var(--zf-stroke-divider, rgb(128 128 128 / 20%));
+  margin-inline-end: 4px;
+}
+
+.zone-label {
+  color: var(--zf-text-secondary, GrayText);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.infobar.zone-off {
+  margin: 0 0 8px;
+}
+
+.view[zone-off] > .section {
+  opacity: 0.6;
+  transition: opacity 0.15s linear;
+
+  &:hover,
+  &:focus-within {
+    opacity: 1;
+  }
+}
+
+/* -------- Overview: where a recommended setting lives -------- */
+
+.setting-path {
+  color: var(--zf-text-tertiary, GrayText);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* -------- Compatible mods -------- */
+
+.mod {
+  & .mod-status .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.supported .mod-status {
+    color: var(--zf-success, #0f7b0f);
+  }
+
+  &.partial .mod-status {
+    color: var(--zf-caution, #9d5d00);
+  }
+
+  &.conflict .mod-status {
+    color: var(--zf-critical, #c42b1c);
+  }
+
+  & .setting-title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    align-items: center;
+  }
+}
+
+.mod-badge,
+.mod-installed {
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 16px;
+  corner-shape: round;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.mod-badge {
+  background: var(--zf-fill-control, rgb(128 128 128 / 12%));
+  color: var(--zf-text-secondary, GrayText);
+}
+
+.mod-installed {
+  background: var(--accent);
+  color: var(--on-accent);
 }

@@ -22,7 +22,21 @@ const SOURCES = {
   quick: `${BASE}Zen-Fluent-Enhanced/quick-settings.json`,
   coreTheme: `${BASE}Zen-Fluent/theme.json`,
   enhancedTheme: `${BASE}Zen-Fluent-Enhanced/theme.json`,
+  mods: `${BASE}Zen-Fluent-Enhanced/settings/compatible-mods.json`,
 };
+const SINE_UTILS = "chrome://userscripts/content/core/utils.sys.mjs";
+const DOCS = "https://github.com/alexisdechiara/zen-fluent/blob/main/docs";
+// What you changed here, for Overview's Recently changed and Most used
+const ACTIVITY = "zen-fluent.enhanced.settings-page.activity";
+// Overview's suggestions before you change anything
+const SUGGESTED = [
+  "zen-fluent.density",
+  "zen-fluent.essentials.selected-style",
+  "zen-fluent.tab-pill",
+  "zen-fluent.url-underline",
+  "zen-fluent.corner-radius",
+  "zen-fluent.tab-switch-animation",
+];
 const SINE_STYLES = "chrome://userscripts/content/services/stylesheets.sys.mjs";
 const REPO = "https://github.com/alexisdechiara/zen-fluent";
 const FEATURE_ICONS = `${BASE}Zen-Fluent-Enhanced/icons/fluent/`;
@@ -182,6 +196,30 @@ function write(pref, value) {
   }
 }
 
+function activity() {
+  try {
+    return JSON.parse(Services.prefs.getStringPref(ACTIVITY, "{}"));
+  } catch {
+    return {};
+  }
+}
+
+/** A setting changed from its control: recent first, and one more use. */
+function change(pref, value) {
+  write(pref, value);
+  if (pref.property === SCHEME) {
+    return;
+  }
+  const data = activity();
+  data.recent = [
+    pref.property,
+    ...(data.recent ?? []).filter((p) => p !== pref.property),
+  ].slice(0, 12);
+  data.counts = data.counts ?? {};
+  data.counts[pref.property] = (data.counts[pref.property] ?? 0) + 1;
+  Services.prefs.setStringPref(ACTIVITY, JSON.stringify(data));
+}
+
 /** Back to the default. A text setting keeps a value, for Sine's variable. */
 function reset(pref) {
   if (pref.type === "string") {
@@ -325,6 +363,7 @@ async function load() {
   }
   model.features = [...features.values()];
   model.presets = data.quick?.presets ?? [];
+  model.mods = data.mods?.mods ?? [];
   model.versions = {
     core: data.coreTheme?.version,
     enhanced: data.enhancedTheme?.version,
@@ -402,7 +441,7 @@ function toggle(pref, labelledBy) {
   const button = el("button.switch", {
     role: "switch",
     "aria-labelledby": labelledBy,
-    onclick: () => write(pref, !read(pref)),
+    onclick: () => change(pref, !read(pref)),
   });
   button.append(el("span.knob"));
   const state = el("span.switch-state", { "aria-hidden": "true" });
@@ -419,7 +458,7 @@ function toggle(pref, labelledBy) {
 function combo(pref, labelledBy) {
   const select = el("select.combo", {
     "aria-labelledby": labelledBy,
-    onchange: () => write(pref, select.value),
+    onchange: () => change(pref, select.value),
   });
   for (const option of pref.options ?? []) {
     select.append(el("option", { value: option.value }, option.label));
@@ -456,7 +495,7 @@ function text(pref, labelledBy) {
     }
     input.removeAttribute("aria-invalid");
     if (value !== read(pref)) {
-      write(pref, value);
+      change(pref, value);
     }
   };
   input.addEventListener("change", commit);
@@ -543,7 +582,10 @@ function watchConditions(pref, node) {
 }
 
 /** A SettingsCard: title, description, control. */
-function settingRow(pref, { iconName, iconBase, extraClass = "" } = {}) {
+function settingRow(
+  pref,
+  { iconName, iconBase, extraClass = "", path = "" } = {},
+) {
   const id = `zf-s-${++uid}`;
   const row = el(`div.card.setting${extraClass}`, {
     "data-pref": pref.property,
@@ -555,6 +597,7 @@ function settingRow(pref, { iconName, iconBase, extraClass = "" } = {}) {
     el(
       "div.setting-text",
       {},
+      path ? el("span.setting-path", {}, path) : null,
       el("span.setting-title", { id }, pref.title),
       pref.description ? el("span.setting-desc", {}, pref.description) : null,
     ),
@@ -746,7 +789,11 @@ function applyPreset(preset) {
 function presetCard(preset) {
   const card = el(
     "button.preset",
-    { onclick: () => applyPreset(preset), "aria-pressed": "false" },
+    {
+      onclick: () => applyPreset(preset),
+      "aria-pressed": "false",
+      "data-pref": `preset:${preset.id}`,
+    },
     el("div.preset-art", {}, preview(preset.prefs)),
     el(
       "span.preset-text",
@@ -786,7 +833,7 @@ function choiceTiles(property, describe, art) {
       "button.tile",
       {
         role: "radio",
-        onclick: () => write(pref, option.value),
+        onclick: () => change(pref, option.value),
       },
       art?.(option.value),
       el(
@@ -825,7 +872,7 @@ function modeTiles() {
   for (const [value, label, name] of modes) {
     const button = el(
       "button.segment",
-      { role: "radio", onclick: () => write(pref, value) },
+      { role: "radio", onclick: () => change(pref, value) },
       icon(name),
       el("span", {}, label),
     );
@@ -866,7 +913,7 @@ function accentSwatches() {
       title: option.label,
       "aria-label": option.label,
       style: `--swatch: ${color}`,
-      onclick: () => write(pref, option.value),
+      onclick: () => change(pref, option.value),
     });
     swatch.dataset.value = option.value;
     row.append(swatch);
@@ -923,7 +970,7 @@ function iconsWarning() {
   return bar;
 }
 
-function renderHome(page) {
+function renderOverview(page) {
   const art = livePreview();
   const hero = el(
     "div.hero",
@@ -946,9 +993,10 @@ function renderHome(page) {
         {},
         el(
           "button.button.accent",
-          { onclick: () => go("appearance") },
-          "Customize",
+          { onclick: () => go("themes") },
+          "Browse themes",
         ),
+        el("button.button", { onclick: () => go("appearance") }, "Customize"),
       ),
     ),
   );
@@ -981,10 +1029,7 @@ function renderHome(page) {
   return [
     hero,
     iconsWarning(),
-    section(
-      "Presets",
-      el("div.preset-grid", { id: "presets" }, model.presets.map(presetCard)),
-    ),
+    ...recommendations(),
     section(
       "Style",
       el(
@@ -1046,9 +1091,212 @@ function renderHome(page) {
   ];
 }
 
+/** Recently changed and Most used, else a few suggestions. */
+function recommendations() {
+  const data = activity();
+  // Variants and the mode have their own pages and controls
+  const shown = (property) =>
+    model.prefs.get(property)?.group &&
+    !property.startsWith("zen-fluent.variant.");
+  const recent = (data.recent ?? []).filter(shown).slice(0, 4);
+  const used = Object.entries(data.counts ?? {})
+    .filter(([property, count]) => count > 1 && shown(property))
+    .filter(([property]) => !recent.includes(property))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([property]) => property);
+  const row = (property) => {
+    const pref = model.prefs.get(property);
+    return settingRow(pref, { path: pref.group.title });
+  };
+  if (!recent.length && !used.length) {
+    return [
+      section(
+        "Suggested for you",
+        el(
+          "p.section-desc",
+          {},
+          "Settings people change first. What you change shows up here.",
+        ),
+        ...SUGGESTED.filter(shown).slice(0, 4).map(row),
+      ),
+    ];
+  }
+  return [
+    recent.length ? section("Recently changed", ...recent.map(row)) : null,
+    used.length ? section("Most used", ...used.map(row)) : null,
+  ].filter(Boolean);
+}
+
+// -------- Themes --------
+
+function renderThemes() {
+  return [
+    section(
+      "Themes",
+      el(
+        "p.section-desc",
+        {},
+        "A theme sets several settings at once: a look, an Essentials style, an extensions layout and a variant. The toast offers Undo.",
+      ),
+      el("div.preset-grid", { id: "presets" }, model.presets.map(presetCard)),
+    ),
+    themeFileSection(),
+  ];
+}
+
+// -------- Compatible mods --------
+
+const MOD_STATUS = {
+  supported: {
+    title: "Supported",
+    description: "Zen Fluent adapts to them: nothing to set.",
+    icon: "checkmark-circle",
+    badge: "Supported",
+  },
+  partial: {
+    title: "Works with a limit",
+    description: "They work, with the limit given.",
+    icon: "warning",
+    badge: "Limit",
+  },
+  conflict: {
+    title: "Conflicts",
+    description:
+      "They style the same parts their own way: use one or the other.",
+    icon: "dismiss-circle",
+    badge: "Conflicts",
+  },
+};
+
+const docsAnchor = (name) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/ /g, "-");
+
+function openLink(url) {
+  chromeWindow().openWebLinkIn(url, "tab", {
+    triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal(),
+  });
+}
+
+function renderMods() {
+  const cards = new Map();
+  const card = (mod) => {
+    const status = MOD_STATUS[mod.status] ?? MOD_STATUS.supported;
+    const installed = el("span.mod-installed", { hidden: true });
+    const node = el(
+      `div.card.setting.mod.${mod.status}`,
+      { "data-pref": `mod:${mod.name}` },
+      el("span.card-icon.mod-status", {}, icon(status.icon)),
+      el(
+        "div.setting-text",
+        {},
+        el(
+          "span.setting-title",
+          {},
+          mod.name,
+          el("span.mod-badge", {}, status.badge),
+          installed,
+        ),
+        el("span.setting-desc", {}, mod.summary),
+      ),
+      el(
+        "div.setting-actions",
+        {},
+        el(
+          "button.button",
+          {
+            onclick: () =>
+              openLink(`${DOCS}/compatibility.md#${docsAnchor(mod.name)}`),
+          },
+          "Details",
+        ),
+        el(
+          "button.icon-button",
+          {
+            title: "Open its page",
+            "aria-label": `${mod.name}: open its page`,
+            onclick: () =>
+              openLink(
+                `https://github.com/${mod.repo}${mod.path ? `/tree/main/${mod.path}` : ""}`,
+              ),
+          },
+          icon("open"),
+        ),
+      ),
+    );
+    cards.set(mod, { node, installed });
+    return node;
+  };
+  const conflictBar = el(
+    "div.infobar.caution",
+    { role: "alert", hidden: true },
+    icon("warning"),
+    el(
+      "div.infobar-text",
+      {},
+      el("strong", {}, "A conflicting mod is on"),
+      el("span"),
+    ),
+    el(
+      "button.button",
+      { onclick: () => chromeWindow().openPreferences("paneSineMods") },
+      "Sine Mods",
+    ),
+  );
+  // Which of them Sine has installed (its own list, read only)
+  (async () => {
+    let installed = [];
+    try {
+      installed = Object.values(
+        await ChromeUtils.importESModule(SINE_UTILS).default.getMods(),
+      );
+    } catch {
+      return;
+    }
+    const on = [];
+    for (const [mod, { node, installed: chip }] of cards) {
+      const repo = mod.repo.toLowerCase();
+      const found = installed.find(
+        (m) =>
+          m.homepage?.toLowerCase().includes(repo) ||
+          m.name?.toLowerCase() === mod.name.toLowerCase(),
+      );
+      if (found) {
+        chip.hidden = false;
+        chip.textContent = found.enabled ? "Installed" : "Installed, off";
+        node.toggleAttribute("installed", true);
+        if (found.enabled && mod.status === "conflict") {
+          on.push(mod.name);
+        }
+      }
+    }
+    if (on.length) {
+      conflictBar.hidden = false;
+      conflictBar.querySelector(".infobar-text > span").textContent =
+        `${on.join(" and ")} ${on.length > 1 ? "style" : "styles"} the same parts as Zen Fluent: turn one off in Sine Mods.`;
+    }
+  })();
+  return [
+    conflictBar,
+    ...Object.entries(MOD_STATUS).map(([status, info]) => {
+      const mods = model.mods.filter((mod) => mod.status === status);
+      return mods.length
+        ? section(
+            info.title,
+            el("p.section-desc", {}, info.description),
+            ...mods.map(card),
+          )
+        : null;
+    }),
+  ].filter(Boolean);
+}
+
 // -------- Variants: a window with a pin on each component --------
 
-// Each component's look when it says Auto and Everywhere does too: the
+// Each component's look when it and All components both say Auto: the
 // fill and shape Zen Fluent gives it on its own
 const PARTS = {
   buttons: { fill: "subtle", shape: "rounded" },
@@ -1064,7 +1312,7 @@ const PARTS = {
   "panel-buttons": { fill: "solid", shape: "rounded" },
 };
 const FILL_HELP = {
-  auto: "Follows Everywhere",
+  auto: "Follows All components",
   solid: "A raised control, like a WinUI button",
   subtle: "A fill only on hover and when selected",
   ghost: "No fill; the accent on hover",
@@ -1078,7 +1326,7 @@ const variantPref = (part, kind) =>
     `zen-fluent.variant.${part}${kind === "shape" ? "-shape" : ""}`,
   );
 
-/** The fill or shape a component shows: its own, else Everywhere's. */
+/** The fill or shape a component shows: its own, else All components'. */
 function effective(part, kind) {
   const own = read(variantPref(part, kind));
   if (own !== "auto") {
@@ -1089,7 +1337,9 @@ function effective(part, kind) {
 }
 
 const partName = (part) =>
-  variantPref(part, "fill")?.title.replace(/:\s*fill$/i, "") ?? part;
+  part === "global"
+    ? "All components"
+    : (variantPref(part, "fill")?.title.replace(/:\s*fill$/i, "") ?? part);
 
 /** The choices of a fill or shape pref, each drawn on a small sample. */
 function variantChips(pref, kind) {
@@ -1102,8 +1352,13 @@ function variantChips(pref, kind) {
       "button.vz-chip",
       {
         role: "radio",
-        title: kind === "fill" ? (FILL_HELP[option.value] ?? "") : "",
-        onclick: () => write(pref, option.value),
+        title:
+          option.value === "auto" && pref.property.includes(".global")
+            ? "Each component's own look"
+            : kind === "fill"
+              ? (FILL_HELP[option.value] ?? "")
+              : "",
+        onclick: () => change(pref, option.value),
       },
       el(
         "span.vz-sample",
@@ -1160,7 +1415,7 @@ function renderVariants(page) {
     {},
     el(
       "div.vz-window",
-      {},
+      { "data-part": "global" },
       el(
         "div.vz-sidebar",
         {},
@@ -1275,6 +1530,13 @@ function renderVariants(page) {
     ),
   );
 
+  // The window itself is "All components": its pin, or a click on it
+  stage
+    .querySelector(".vz-window")
+    .append(
+      el("button.vz-pin.vz-pin-all", { "aria-haspopup": "dialog" }, "All"),
+    );
+
   // A TeachingTip with the fill and shape of one component
   const tip = el("div.vz-tip", { role: "dialog", hidden: true });
   stage.append(tip);
@@ -1319,7 +1581,9 @@ function renderVariants(page) {
       el(
         "p.vz-tip-desc",
         {},
-        "Auto takes Everywhere's choice, or this component's own look.",
+        name === "global"
+          ? "Every component left on Auto takes this fill and shape."
+          : "Auto takes the choice of All components, or this component's own look.",
       ),
       el("span.vz-label", {}, "Fill"),
       variantChips(fill, "fill"),
@@ -1370,7 +1634,7 @@ function renderVariants(page) {
     if (event.target.closest(".vz-tip")) {
       return;
     }
-    const region = event.target.closest(".vz-part");
+    const region = event.target.closest(".vz-part, .vz-window");
     if (region) {
       openTip(region.dataset.part);
     } else {
@@ -1405,7 +1669,11 @@ function renderVariants(page) {
       pin.setAttribute("aria-label", `${partName(name)}: ${look(name)}`);
       pin.title = `${partName(name)}: ${look(name)}`;
     }
-    const changed = parts.filter(isChanged);
+    const all = stage.querySelector(".vz-pin-all");
+    all.toggleAttribute("changed", isChanged("global"));
+    all.setAttribute("aria-label", `All components: ${look("global")}`);
+    all.title = `All components: ${look("global")}`;
+    const changed = ["global", ...parts].filter(isChanged);
     changes.replaceChildren(
       ...(changed.length
         ? changed.map((name) =>
@@ -1415,7 +1683,7 @@ function renderVariants(page) {
               el(
                 "button.vz-tag-main",
                 { onclick: () => openTip(name) },
-                el("span.vz-tag-number", {}, String(n(name))),
+                el("span.vz-tag-number", {}, String(n(name) ?? "All")),
                 el("span", {}, `${partName(name)} · ${look(name)}`),
               ),
               el(
@@ -1436,7 +1704,7 @@ function renderVariants(page) {
             el(
               "span.vz-empty",
               {},
-              "Every component follows Everywhere. Click a pin to give one its own look.",
+              "Every component has its default look. Click a pin to change one, or All to change them all.",
             ),
           ]),
     );
@@ -1450,7 +1718,7 @@ function renderVariants(page) {
     const name = property
       .replace("zen-fluent.variant.", "")
       .replace(/-shape$/, "");
-    if (parts.includes(name)) {
+    if (name === "global" || parts.includes(name)) {
       regionOf(name).scrollIntoView({ block: "center" });
       openTip(name);
     }
@@ -1458,32 +1726,80 @@ function renderVariants(page) {
 
   return [
     section(
-      "Everywhere",
-      el(
-        "div.card.panel.vz-everywhere",
-        { "data-pref": "zen-fluent.variant.global" },
-        el(
-          "p.setting-desc",
-          {},
-          "The fill and shape of every component left on Auto.",
-        ),
-        el("span.vz-label", {}, "Fill"),
-        variantChips(variantPref("global", "fill"), "fill"),
-        el("span.vz-label", {}, "Shape"),
-        variantChips(variantPref("global", "shape"), "shape"),
-      ),
-    ),
-    section(
       "Components",
       el(
         "p.section-desc",
         {},
-        "Click a pin, or the part of the window it marks, to choose that component's fill and shape. The drawing shows a selected item, one under the pointer and one at rest.",
+        "Click a pin, or the part of the window it marks, to choose that component's fill and shape; All, or the window itself, sets every component left on Auto. The drawing shows a selected item, one under the pointer and one at rest.",
       ),
       stage,
     ),
     section("Your changes", changes),
   ];
+}
+
+// -------- Zones: the Fluent style of an area, on its pages --------
+
+// The zone each page styles (Zones, zen-fluent.fluent-<zone>): its switch
+// sits in the page header beside Reset, as Zia does
+const PAGE_ZONES = {
+  sidebar: ["sidebar"],
+  essentials: ["sidebar"],
+  extensions: ["sidebar"],
+  tabs: ["sidebar"],
+  urlbar: ["urlbar"],
+  window: ["window", "menus"],
+};
+
+const zonePrefs = (page) =>
+  (PAGE_ZONES[page.id] ?? [])
+    .map((zone) => model.prefs.get(`zen-fluent.fluent-${zone}`))
+    .filter(Boolean);
+
+/** "Fluent style" (or the zone's name, when a page has two) and a switch. */
+function zoneSwitch(pref, named) {
+  const id = `zf-z-${++uid}`;
+  return el(
+    "span.zone-switch",
+    { title: pref.description },
+    el(
+      "span.zone-label",
+      { id },
+      named ? `${pref.title} in Fluent` : "Fluent style",
+    ),
+    toggle(pref, id),
+  );
+}
+
+/** An InfoBar while a page's zone keeps Zen's look; its cards fade. */
+function zoneBanner(zones, view) {
+  const text = el("span");
+  const bar = el(
+    "div.infobar.zone-off",
+    { role: "status" },
+    icon("info"),
+    el("div.infobar-text", {}, el("strong", {}, "Zen's own look here"), text),
+    el(
+      "button.button",
+      { onclick: () => zones.forEach((pref) => write(pref, true)) },
+      "Turn on",
+    ),
+  );
+  const update = () => {
+    const off = zones.filter((pref) => !read(pref));
+    bar.hidden = !off.length;
+    view.toggleAttribute("zone-off", off.length > 0);
+    text.textContent = `${off
+      .map((pref) => pref.title)
+      .join(
+        " and ",
+      )} ${off.length > 1 ? "keep" : "keeps"} Zen's look: the settings below apply once the Fluent style is on again.`;
+  };
+  update();
+  for (const pref of zones) {
+    watch(pref.property, update);
+  }
+  return bar;
 }
 
 function renderGroup(page) {
@@ -1620,7 +1936,8 @@ function link(label, url, iconName = "open") {
   );
 }
 
-function aboutSections() {
+/** Your theme as a file: export, import, reset. */
+function themeFileSection() {
   const file = el("input", {
     type: "file",
     accept: ".json,application/json",
@@ -1630,6 +1947,61 @@ function aboutSections() {
   const every = [...model.prefs.values()].filter((p) =>
     p.property.startsWith("zen-fluent."),
   );
+  return section(
+    "Your theme",
+    el(
+      "div.card.setting",
+      {},
+      el("span.card-icon", {}, icon("arrow-download")),
+      el(
+        "div.setting-text",
+        {},
+        el("span.setting-title", {}, "Export"),
+        el(
+          "span.setting-desc",
+          {},
+          "Every setting you changed, in a JSON file to keep or share",
+        ),
+      ),
+      el("button.button", { onclick: exportSettings }, "Export"),
+    ),
+    el(
+      "div.card.setting",
+      {},
+      el("span.card-icon", {}, icon("arrow-upload")),
+      el(
+        "div.setting-text",
+        {},
+        el("span.setting-title", {}, "Import"),
+        el(
+          "span.setting-desc",
+          {},
+          "Apply an exported file; unknown or invalid values are skipped",
+        ),
+      ),
+      el("button.button", { onclick: () => file.click() }, "Import…"),
+      file,
+    ),
+    el(
+      "div.card.setting",
+      {},
+      el("span.card-icon", {}, icon("arrow-reset")),
+      el(
+        "div.setting-text",
+        {},
+        el("span.setting-title", {}, "Reset everything"),
+        el(
+          "span.setting-desc",
+          {},
+          "Every Zen Fluent and Enhanced setting back to its default",
+        ),
+      ),
+      resetPageButton(every, "Reset everything"),
+    ),
+  );
+}
+
+function aboutSections() {
   return [
     section(
       "About",
@@ -1655,56 +2027,7 @@ function aboutSections() {
       ),
     ),
     section(
-      "Your settings",
-      el(
-        "div.card.setting",
-        {},
-        el("span.card-icon", {}, icon("arrow-download")),
-        el(
-          "div.setting-text",
-          {},
-          el("span.setting-title", {}, "Export"),
-          el(
-            "span.setting-desc",
-            {},
-            "Every setting you changed, in a JSON file",
-          ),
-        ),
-        el("button.button", { onclick: exportSettings }, "Export"),
-      ),
-      el(
-        "div.card.setting",
-        {},
-        el("span.card-icon", {}, icon("arrow-upload")),
-        el(
-          "div.setting-text",
-          {},
-          el("span.setting-title", {}, "Import"),
-          el(
-            "span.setting-desc",
-            {},
-            "Apply an exported file; unknown or invalid values are skipped",
-          ),
-        ),
-        el("button.button", { onclick: () => file.click() }, "Import…"),
-        file,
-      ),
-      el(
-        "div.card.setting",
-        {},
-        el("span.card-icon", {}, icon("arrow-reset")),
-        el(
-          "div.setting-text",
-          {},
-          el("span.setting-title", {}, "Reset everything"),
-          el(
-            "span.setting-desc",
-            {},
-            "Every Zen Fluent and Enhanced setting back to its default",
-          ),
-        ),
-        resetPageButton(every, "Reset everything"),
-      ),
+      "Zen Fluent",
       el(
         "div.card.setting",
         {},
@@ -1734,13 +2057,22 @@ function aboutSections() {
 // -------- Pages --------
 
 function buildPages() {
-  pages.push({
-    id: "home",
-    title: "Home",
-    icon: "home",
-    description: "",
-    render: renderHome,
-  });
+  pages.push(
+    {
+      id: "overview",
+      title: "Overview",
+      icon: "home",
+      description: "",
+      render: renderOverview,
+    },
+    {
+      id: "themes",
+      title: "Themes",
+      icon: "style-guide",
+      description: "Ready-made looks, and your own as a file",
+      render: renderThemes,
+    },
+  );
   for (const group of model.groups) {
     pages.push({
       id: group.id,
@@ -1762,6 +2094,15 @@ function buildPages() {
       prefs: model.features.flatMap((f) => [f.pref, ...f.options]),
     });
   }
+  if (model.mods.length) {
+    pages.push({
+      id: "mods",
+      title: "Compatible mods",
+      description: "Sine mods checked with Zen Fluent",
+      icon: "plug-connected",
+      render: renderMods,
+    });
+  }
 }
 
 // The hash, not history.replaceState(): the page's address (about:) and its
@@ -1775,17 +2116,32 @@ function go(id) {
 }
 
 function route() {
-  const id = location.hash.slice(1) || "home";
+  const id = location.hash.slice(1) || "overview";
   const page = pages.find((p) => p.id === id) ?? pages[0];
   current = page;
   dropViewWatchers();
   document.title =
-    page.id === "home" ? "Zen Fluent settings" : `${page.title} – Zen Fluent`;
-  const actions = page.prefs?.length ? [resetPageButton(page.prefs)] : [];
-  const header = page.id === "home" ? null : pageHeader(page, ...actions);
+    page.id === "overview"
+      ? "Zen Fluent settings"
+      : `${page.title} – Zen Fluent`;
+  const zones = zonePrefs(page);
+  const actions = [
+    ...zones.map((pref) => zoneSwitch(pref, zones.length > 1)),
+    ...(page.prefs?.length ? [resetPageButton(page.prefs)] : []),
+  ];
+  const header = page.id === "overview" ? null : pageHeader(page, ...actions);
   const main = $("#main");
-  main.replaceChildren(el("div.view", {}, [header, ...page.render(page)]));
+  const view = el("div.view");
+  view.append(
+    ...[
+      header,
+      zones.length ? zoneBanner(zones, view) : null,
+      ...page.render(page),
+    ].filter(Boolean),
+  );
+  main.replaceChildren(view);
   main.scrollTop = 0;
+  document.documentElement.dataset.page = page.id;
   window.dispatchEvent(new CustomEvent("zf-route", { detail: page.id }));
 }
 
@@ -1794,7 +2150,7 @@ function settingsIndex() {
   const entries = [];
   for (const group of model.groups) {
     if (group.layout === "variants") {
-      for (const name of Object.keys(PARTS)) {
+      for (const name of ["global", ...Object.keys(PARTS)]) {
         const fill = variantPref(name, "fill");
         if (fill) {
           entries.push({
@@ -1818,6 +2174,24 @@ function settingsIndex() {
       });
     }
   }
+  for (const preset of model.presets) {
+    entries.push({
+      property: `preset:${preset.id}`,
+      page: "themes",
+      pageTitle: "Themes",
+      title: preset.name,
+      description: preset.description,
+    });
+  }
+  for (const mod of model.mods) {
+    entries.push({
+      property: `mod:${mod.name}`,
+      page: "mods",
+      pageTitle: "Compatible mods",
+      title: mod.name,
+      description: mod.summary,
+    });
+  }
   for (const pref of model.features.flatMap((f) => [f.pref, ...f.options])) {
     entries.push({
       property: pref.property,
@@ -1833,7 +2207,11 @@ function settingsIndex() {
 /** Opens a setting's page and shows it: scrolled to, briefly outlined. */
 function reveal(property) {
   const pref = model.prefs.get(property);
-  const id = pref?.group?.id ?? (pref ? "enhanced" : "home");
+  const id = property.startsWith("preset:")
+    ? "themes"
+    : property.startsWith("mod:")
+      ? "mods"
+      : (pref?.group?.id ?? (pref ? "enhanced" : "overview"));
   if (current?.id !== id) {
     window.addEventListener("zf-route", () => reveal(property), { once: true });
     go(id);
