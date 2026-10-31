@@ -6,6 +6,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-31
+
 ### Added
 
 - Zen Fluent Enhanced: **Quick window** (`zen-fluent.enhanced.quick-window`, off by default): Ctrl+Alt+Shift+O or a link's menu opens a small unsynced window in compact mode, with a button that moves its tab to the main window, as Arc's Little Arc.

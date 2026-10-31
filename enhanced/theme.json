@@ -4,9 +4,9 @@
   "author": "alexisdechiara",
   "name": "Zen Fluent Enhanced",
   "description": "JavaScript features for Zen Fluent, each one can be turned off. Installs Zen Fluent if it is missing.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "createdAt": "2026-10-29",
-  "updatedAt": "2026-10-30T17:13:22Z",
+  "updatedAt": "2026-10-31T12:20:57Z",
   "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/docs/enhanced.md",
   "image": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/screenshots/dark-mica.png",
   "style": {
