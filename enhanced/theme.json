@@ -75,6 +75,9 @@
       "include": [
         "chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml"
       ]
+    },
+    "scripts/performance.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Added
 
+- Zen Fluent Enhanced: **Sleeping tabs and Performance** (`zen-fluent.enhanced.performance`, off by default): unused tabs go to sleep after a delay (`zen-fluent.enhanced.performance.sleep-after`, 30 minutes), and a Performance panel shows memory, sleeping tabs and the tabs using the most memory.
 - Zen Fluent Enhanced: **Boost editor extras** (`zen-fluent.enhanced.boost-extras`): Narrow column, No motion, Hide images and Sepia tiles in Zen's Boost editor, stored in the boost's custom CSS.
 - Zen Fluent Enhanced: **Ctrl+Tab as Alt+Tab** (`zen-fluent.enhanced.tab-switcher`, off by default): Ctrl+Tab shows the space's tabs, last used first, with thumbnails, as Windows 11's Alt+Tab.
 - Zen Fluent Enhanced: **Snap layouts** (`zen-fluent.enhanced.snap-layouts`): hovering the maximize button (or Ctrl+Alt+Shift+Z) shows Windows 11's layouts for Zen's split view, with Snap Assist to pick the other tabs; custom sizes such as two thirds and a third are kept in the session.

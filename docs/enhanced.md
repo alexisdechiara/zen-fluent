@@ -6,34 +6,36 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 
 ## Features
 
-| Feature                         | Setting                                           | Default |
-| ------------------------------- | ------------------------------------------------- | ------- |
-| Quick Settings                  | `zen-fluent.enhanced.quick-settings`              | `true`  |
-| Icon colors                     | `zen-fluent.enhanced.favicon-color`               | `true`  |
-| Adaptive accent                 | `zen-fluent.enhanced.adaptive-accent`             | `false` |
-| Extensions under the Essentials | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
-| Tab numbers while Ctrl is held  | `zen-fluent.enhanced.tab-numbers`                 | `true`  |
-| Shortcuts                       | `zen-fluent.enhanced.shortcuts`                   | `true`  |
-| Tab archiving                   | `zen-fluent.enhanced.tab-archive`                 | `false` |
-| Archive tabs unused for (hours) | `zen-fluent.enhanced.tab-archive.after`           | `12`    |
-| Keep archived tabs (days)       | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
-| Archive pinned tabs too         | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
-| Archive tabs in folders too     | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
-| PDF viewer                      | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
-| Fluent controls on websites     | `zen-fluent.enhanced.web-controls`                | `false` |
-| Browsing stats                  | `zen-fluent.enhanced.browsing-stats`              | `false` |
-| Folder colors                   | `zen-fluent.enhanced.folder-colors`               | `true`  |
-| Fluent icons in the icon picker | `zen-fluent.enhanced.icon-picker`                 | `true`  |
-| Tab hover cards                 | `zen-fluent.enhanced.hover-cards`                 | `false` |
-| Hover card delay (ms)           | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
-| Page thumbnails in hover cards  | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
-| Glance link preview             | `zen-fluent.enhanced.glance`                      | `true`  |
-| Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
-| Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
-| Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
-| Snap layouts for split view     | `zen-fluent.enhanced.snap-layouts`                | `true`  |
-| Ctrl+Tab as Alt+Tab             | `zen-fluent.enhanced.tab-switcher`                | `false` |
-| Boost editor extras             | `zen-fluent.enhanced.boost-extras`                | `true`  |
+| Feature                                    | Setting                                           | Default |
+| ------------------------------------------ | ------------------------------------------------- | ------- |
+| Quick Settings                             | `zen-fluent.enhanced.quick-settings`              | `true`  |
+| Icon colors                                | `zen-fluent.enhanced.favicon-color`               | `true`  |
+| Adaptive accent                            | `zen-fluent.enhanced.adaptive-accent`             | `false` |
+| Extensions under the Essentials            | `zen-fluent.enhanced.extensions-below-essentials` | `false` |
+| Tab numbers while Ctrl is held             | `zen-fluent.enhanced.tab-numbers`                 | `true`  |
+| Shortcuts                                  | `zen-fluent.enhanced.shortcuts`                   | `true`  |
+| Tab archiving                              | `zen-fluent.enhanced.tab-archive`                 | `false` |
+| Archive tabs unused for (hours)            | `zen-fluent.enhanced.tab-archive.after`           | `12`    |
+| Keep archived tabs (days)                  | `zen-fluent.enhanced.tab-archive.keep`            | `90`    |
+| Archive pinned tabs too                    | `zen-fluent.enhanced.tab-archive.pinned`          | `false` |
+| Archive tabs in folders too                | `zen-fluent.enhanced.tab-archive.folders`         | `false` |
+| PDF viewer                                 | `zen-fluent.enhanced.pdf-viewer`                  | `true`  |
+| Fluent controls on websites                | `zen-fluent.enhanced.web-controls`                | `false` |
+| Browsing stats                             | `zen-fluent.enhanced.browsing-stats`              | `false` |
+| Folder colors                              | `zen-fluent.enhanced.folder-colors`               | `true`  |
+| Fluent icons in the icon picker            | `zen-fluent.enhanced.icon-picker`                 | `true`  |
+| Tab hover cards                            | `zen-fluent.enhanced.hover-cards`                 | `false` |
+| Hover card delay (ms)                      | `zen-fluent.enhanced.hover-cards.delay`           | `500`   |
+| Page thumbnails in hover cards             | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`  |
+| Glance link preview                        | `zen-fluent.enhanced.glance`                      | `true`  |
+| Breadcrumb address                         | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
+| Command Palette actions                    | `zen-fluent.enhanced.command-palette`             | `true`  |
+| Keyboard shortcuts sheet                   | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
+| Snap layouts for split view                | `zen-fluent.enhanced.snap-layouts`                | `true`  |
+| Ctrl+Tab as Alt+Tab                        | `zen-fluent.enhanced.tab-switcher`                | `false` |
+| Boost editor extras                        | `zen-fluent.enhanced.boost-extras`                | `true`  |
+| Sleeping tabs and Performance panel        | `zen-fluent.enhanced.performance`                 | `false` |
+| Put inactive tabs to sleep after (minutes) | `zen-fluent.enhanced.performance.sleep-after`     | `30`    |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -178,7 +180,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
-  keyboard shortcuts sheet, Snap layouts and all of
+  keyboard shortcuts sheet, Snap layouts, Performance and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
@@ -218,6 +220,23 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   editor, so they are saved, shared and applied per site like the rest of
   the boost, and need nothing changed in Zen. The editor window grows by
   the new row.
+- **Sleeping tabs and Performance** (off by default), as in Edge:
+  - **Sleeping tabs**: tabs left unused longer than **Put inactive tabs to
+    sleep after** (30 minutes by default; 5 minutes to 4 hours, or never)
+    are unloaded with Firefox's own mechanism: the tab stays with its
+    history and reloads when you select it. Never put to sleep: the
+    selected tab, tabs playing sound or sharing the camera, microphone or
+    screen, Picture-in-Picture, Glance and the split view on screen, and
+    (Firefox's rule) a page that would ask before leaving or shows a
+    dialog. Zen 1.24 has no inactivity timer of its own, and Firefox only
+    unloads tabs when memory runs low.
+  - **Performance panel**: app menu › **Performance**, Tools ›
+    **Performance**, Ctrl+Alt+Shift+P or the Command Palette. The memory
+    Zen uses, the active and sleeping tabs, the sleep delay, **Put N other
+    tabs to sleep** at once, and the tabs using the most memory with a
+    **Sleep** button each. A tab's memory is an estimate: its process's,
+    shared between the tabs in it (Firefox does not count per tab). **Open
+    the task manager** opens `about:processes`.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

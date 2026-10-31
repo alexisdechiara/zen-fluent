@@ -179,5 +179,27 @@
     "label": "Boost editor extras ~Narrow column, No motion, Hide images and Sepia tiles, per site~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.performance",
+    "label": "Sleeping tabs and Performance ~puts unused tabs to sleep; a panel shows memory and sleeping tabs~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.performance.sleep-after",
+    "label": "Put inactive tabs to sleep after",
+    "type": "dropdown",
+    "defaultValue": "30",
+    "placeholder": false,
+    "options": [
+      { "label": "Never", "value": "never" },
+      { "label": "5 minutes", "value": "5" },
+      { "label": "15 minutes", "value": "15" },
+      { "label": "30 minutes", "value": "30" },
+      { "label": "1 hour", "value": "60" },
+      { "label": "2 hours", "value": "120" },
+      { "label": "4 hours", "value": "240" }
+    ]
   }
 ]

@@ -1,0 +1,174 @@
+/* Zen Fluent Enhanced: the Performance panel (zen-fluent.enhanced.performance).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/performance.uc.js builds the panel as Edge's performance hub: a
+   title, three tiles (memory, active and sleeping tabs), the sleep delay
+   (a WinUI ComboBox), an accent button that puts the other tabs to sleep,
+   the tabs using the most memory with a Sleep button each, and a link to
+   the task manager. Zen Fluent styles the panel itself. */
+
+#zf-performance {
+  & > * {
+    box-sizing: border-box !important;
+    width: 360px !important;
+    margin: 0 !important;
+    padding-inline: 12px !important;
+    color: var(--zf-text-primary) !important;
+    font: 13px / 20px var(--zf-font) !important;
+  }
+
+  & button {
+    appearance: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: transparent !important;
+    color: inherit !important;
+    font: inherit !important;
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer) !important;
+      outline-offset: -2px !important;
+    }
+
+    &:disabled {
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+
+  & .zf-pf-title {
+    padding-block: 10px 6px !important;
+    font: 600 14px / 20px var(--zf-font) !important;
+  }
+
+  & .zf-pf-tiles {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    padding-block: 4px !important;
+  }
+
+  & .zf-pf-tile {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 8px 10px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background: var(--zf-fill-card) !important;
+  }
+
+  & .zf-pf-value {
+    font: 600 18px / 24px var(--zf-font) !important;
+  }
+
+  & .zf-pf-label,
+  & .zf-pf-memory {
+    color: var(--zf-text-secondary) !important;
+    font-size: 11px !important;
+  }
+
+  & .zf-pf-setting {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    padding-block: 10px 6px !important;
+  }
+
+  & .zf-pf-select {
+    min-height: 28px !important;
+    padding: 0 8px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background-color: var(--zf-fill-control) !important;
+    color: var(--zf-text-primary) !important;
+    font: inherit !important;
+  }
+
+  & .zf-pf-primary {
+    width: calc(100% - 24px) !important;
+    margin: 4px 12px !important;
+    padding: 5px 12px !important;
+    background: var(--zf-accent) !important;
+    color: var(--zf-on-accent) !important;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9 !important;
+    }
+
+    &:disabled {
+      background: var(--zf-fill-control-disabled) !important;
+      color: var(--zf-text-disabled) !important;
+    }
+  }
+
+  & .zf-pf-subtitle {
+    padding-block: 10px 2px !important;
+    color: var(--zf-text-secondary) !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+  }
+
+  & .zf-pf-list {
+    padding-block: 0 !important;
+    list-style: none !important;
+
+    & li {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      min-height: 32px !important;
+    }
+  }
+
+  & .zf-pf-icon {
+    flex: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    -moz-context-properties: fill !important;
+    fill: currentcolor !important;
+  }
+
+  & .zf-pf-name {
+    flex: 1 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  & .zf-pf-sleep {
+    padding: 2px 8px !important;
+    background: var(--zf-fill-control) !important;
+    box-shadow: inset 0 0 0 1px var(--zf-stroke-control) !important;
+
+    &:hover:not(:disabled) {
+      background: var(--zf-fill-control-hover) !important;
+    }
+
+    &:disabled {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+  }
+
+  & .zf-pf-link {
+    align-self: start !important;
+    width: auto !important;
+    margin: 6px 6px 10px !important;
+    padding: 2px 6px !important;
+    color: var(--zf-accent) !important;
+    font-size: 12px !important;
+
+    &:hover {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+  }
+}
+
+@media (forced-colors) {
+  #zf-performance .zf-pf-primary:not(:disabled) {
+    background: ButtonText !important;
+    color: ButtonFace !important;
+  }
+}
