@@ -31,6 +31,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
 | Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
 | Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
+| Snap layouts for split view     | `zen-fluent.enhanced.snap-layouts`                | `true`  |
 
 - **Quick Settings**: a gear button in the sidebar's bottom row, before the
   New button. Its panel has a gallery of presets and Zen Fluent's main
@@ -175,7 +176,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Quick Settings settings (_Zen Fluent: Backdrop material: Acrylic_), the
   presets, every Enhanced feature on or off, and the panels: Quick
   Settings, archived tabs, **Archive this tab**, browsing stats, the
-  keyboard shortcuts sheet and all of
+  keyboard shortcuts sheet, Snap layouts and all of
   Zen Fluent's settings. A command only shows when it changes something
   (the current value and a feature's panel while it is off are left out).
   Without the mod, it does nothing.
@@ -186,6 +187,16 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   read from the browser, so a shortcut changed in `about:keyboard` shows as
   it is now and a removed one is left out. Escape, the same keys or a click
   outside closes it.
+- **Snap layouts**: Windows 11's Snap layouts for Zen's split view. Hover
+  the window's maximize button for half a second (or Ctrl+Alt+Shift+Z, the
+  tab context menu's **Snap layouts…**, the Command Palette): a flyout shows
+  six layouts, two halves, two thirds and a third, three columns, one zone
+  and two stacked, four quarters, two stacked halves. A click on a zone puts
+  the selected tab there; **Snap Assist** then lists the space's recent
+  tabs (Essentials aside) for each zone left, and the split opens once every
+  zone has a tab. The sizes stay resizable with Zen's handles and come back
+  with the session. A layout with more zones than tabs to offer is dimmed;
+  tabs already in a split leave it for the new one.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

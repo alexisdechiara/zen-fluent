@@ -222,6 +222,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Breadcrumb address              | `zen-fluent.enhanced.breadcrumbs`                 | `false` |
 | Command Palette actions         | `zen-fluent.enhanced.command-palette`             | `true`  |
 | Keyboard shortcuts sheet        | `zen-fluent.enhanced.shortcut-overlay`            | `true`  |
+| Snap layouts for split view     | `zen-fluent.enhanced.snap-layouts`                | `true`  |
 
 ## Repository
 

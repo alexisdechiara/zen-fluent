@@ -161,5 +161,11 @@
     "label": "Keyboard shortcuts sheet ~Ctrl+Alt+Shift+K: the main shortcuts over the window~",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.snap-layouts",
+    "label": "Snap layouts ~hover the maximize button or Ctrl+Alt+Shift+Z: split the tabs like Windows 11~",
+    "type": "checkbox",
+    "defaultValue": true
   }
 ]

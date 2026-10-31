@@ -64,6 +64,9 @@
     },
     "scripts/shortcut-overlay.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/snap-layouts.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],
