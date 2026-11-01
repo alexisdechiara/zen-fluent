@@ -346,7 +346,7 @@
     }
 
     /* The Firefox setting the Fluent icons need, without them */
-    @media not (-moz-pref("zen-fluent.fluent-icons")) {
+    @media (-moz-pref("zen-fluent.fluent-icons", false)) {
       & > #svg-context-properties-content-enabled {
         display: none !important;
       }

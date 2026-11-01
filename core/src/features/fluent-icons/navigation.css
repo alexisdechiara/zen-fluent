@@ -6,7 +6,7 @@
    grants to files outside chrome:// when svg.context-properties.content.enabled
    is on; without it they would be invisible, so Zen keeps its own icons. */
 
-@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+@media (not (-moz-pref("zen-fluent.fluent-icons", false))) and (-moz-pref("svg.context-properties.content.enabled")) {
   /* -------- Navigation: WinUI arrows, or macOS chevrons -------- */
 
   #back-button {

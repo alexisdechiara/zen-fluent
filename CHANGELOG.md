@@ -6,6 +6,16 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Fixed
+
+- Before the mod's settings were first opened, the settings on by default
+  looked off: Sine only writes a checkbox's default then, and the CSS read
+  the missing preference as off. The space name was hidden, and the Fluent
+  icons, button animations, pill tabs, tab shadow, pinned extensions row,
+  compact sidebar background and compact edge hint were missing. These
+  settings now only turn off on an explicit `false`, and `npm run check`
+  refuses the old form.
+
 ## [0.4.2] - 2026-11-01
 
 ### Changed

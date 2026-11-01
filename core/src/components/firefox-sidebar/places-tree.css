@@ -166,7 +166,7 @@
 
   /* Accent pill, kept while the tree is unfocused (WinUI keeps it too);
      none in Edge style, as on the tabs */
-  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
+  @media (not (-moz-pref("zen-fluent.tab-pill", false))) and (not (-moz-pref("zen-fluent.style", "edge"))) and (not (forced-colors)) {
     .sidebar-placesTreechildren::-moz-tree-row(selected) {
       background-image: linear-gradient(
         var(--zf-accent),

@@ -56,7 +56,7 @@
       background-color: var(--zf-fill-control) !important;
       border-color: var(--zf-stroke-control) !important;
 
-      @media (-moz-pref("zen-fluent.tab-shadow")) {
+      @media not (-moz-pref("zen-fluent.tab-shadow", false)) {
         box-shadow: var(--zf-shadow-tab) !important;
 
         @media (-moz-pref("zen-fluent.extra-highlights")) {
@@ -69,7 +69,7 @@
   }
 
   /* Accent pill (WinUI only: Edge marks the tab by raising it) */
-  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+  @media (not (-moz-pref("zen-fluent.tab-pill", false))) and (not (-moz-pref("zen-fluent.style", "edge"))) {
     &:is([selected], [visuallyselected]):not([zen-glance-tab])
       > .tab-stack
       > .tab-background::after {

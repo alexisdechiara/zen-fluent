@@ -40,7 +40,7 @@
       background-image: var(--zf-noise) !important;
     }
 
-    @media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
+    @media not (-moz-pref("zen-fluent.compact-sidebar-bg", false)) {
       :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background,
       :root[zen-compact-mode="true"][zen-single-toolbar="true"]
         #zen-appcontent-navbar-wrapper:is(

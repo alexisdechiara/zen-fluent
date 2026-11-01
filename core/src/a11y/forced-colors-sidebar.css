@@ -117,7 +117,7 @@
   }
 
   /* -------- Pinned extensions: Edge's pressed field -------- */
-  @media (-moz-pref("zen-fluent.pinned-extensions")) and (-moz-pref("zen-fluent.style", "edge")) and (-moz-pref("zen-fluent.button-style", "standard")) {
+  @media (not (-moz-pref("zen-fluent.pinned-extensions", false))) and (-moz-pref("zen-fluent.style", "edge")) and (-moz-pref("zen-fluent.button-style", "standard")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)
       .unified-extensions-item-action-button:is(:hover:active, [open]) {

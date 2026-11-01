@@ -157,6 +157,19 @@ for (const p of ownPrefs) {
 for (const m of allCss.matchAll(/-moz-pref\(\s*"(zen-fluent\.[^"]+)"/g))
   if (!ids.has(m[1]))
     fail(`CSS reads ${m[1]}, which no preferences.json declares`);
+// A checkbox on by default has no pref until Sine builds the mod's settings:
+// a bare -moz-pref(name) reads it as off. Test an explicit false instead.
+const onByDefault = new Set(
+  prefs
+    .filter((p) => p.type === "checkbox" && p.defaultValue === true)
+    .map((p) => p.property),
+);
+for (const f of sheets)
+  for (const m of read(f).matchAll(/-moz-pref\(\s*"(zen-fluent\.[^"]+)"\s*\)/g))
+    if (onByDefault.has(m[1]))
+      fail(
+        `${f}: ${m[1]} is on by default but missing until Sine writes it: test -moz-pref("${m[1]}", false)`,
+      );
 
 const readme = read("README.md");
 const shown = (v) =>

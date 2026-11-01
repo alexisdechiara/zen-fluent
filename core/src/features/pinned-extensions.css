@@ -12,7 +12,7 @@
    auto-fit drops the empty columns, so that a few buttons still reach
    both edges of the row (components/sidebar/edges.css), as the Essentials
    do, and a centered or end row really sits there. */
-@media (-moz-pref("zen-fluent.pinned-extensions")) {
+@media not (-moz-pref("zen-fluent.pinned-extensions", false)) {
   :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
     --zf-ext-icon: 16px;
     --zf-ext-button: var(--zf-size-icon-button);

@@ -54,7 +54,10 @@ points by name: no file under `src/` may end in `chrome.css` or
 - **Names**: preferences `zen-fluent.*` (Enhanced: `zen-fluent.enhanced.*`),
   variables `--zf-*`, ids, classes, attributes and keyframes `zf-`.
 - **Every setting** goes through `@media (-moz-pref("zen-fluent.xxx", "value"))`.
-  A setting that is on by default reads `not (-moz-pref(name, false))`.
+  A setting that is on by default reads `not (-moz-pref(name, false))` (and
+  its off look `(-moz-pref(name, false))`): Sine only writes the default once
+  the mod's settings are opened, so until then the preference is missing and a
+  bare `-moz-pref(name)` reads it as off. `npm run check` refuses that form.
 - Code comments in English; docs in English first.
 - Zen's source ([zen-browser/desktop](https://github.com/zen-browser/desktop),
   `src/zen`) is the reference for selectors; check them live (Ctrl+Shift+Alt+I ›
