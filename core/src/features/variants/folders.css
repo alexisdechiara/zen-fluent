@@ -12,7 +12,7 @@
    radius. The conditions test the values that set something, so that a pref
    not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.folders", "solid")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.folders", "solid")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   zen-folder > .tab-group-label-container {
     &::before {
       background-color: var(--zf-variant-solid-bg) !important;
@@ -30,43 +30,43 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.folders", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.folders", "standard")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   zen-folder > .tab-group-label-container {
     &::before {
-      background-color: var(--zf-variant-subtle-bg) !important;
-      box-shadow: var(--zf-variant-subtle-stroke) !important;
+      background-color: var(--zf-variant-standard-bg) !important;
+      box-shadow: var(--zf-variant-standard-stroke) !important;
     }
 
     &:hover::before {
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      background-color: var(--zf-variant-standard-bg-hover) !important;
     }
 
     &:hover:active::before {
-      background-color: var(--zf-variant-subtle-bg-press) !important;
-      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+      background-color: var(--zf-variant-standard-bg-press) !important;
+      box-shadow: var(--zf-variant-standard-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.folders", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.folders", "tint")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   zen-folder > .tab-group-label-container {
     &::before {
-      background-color: var(--zf-variant-ghost-bg) !important;
-      box-shadow: var(--zf-variant-ghost-stroke) !important;
+      background-color: var(--zf-variant-tint-bg) !important;
+      box-shadow: var(--zf-variant-tint-stroke) !important;
     }
 
     &:hover::before {
-      background-color: var(--zf-variant-ghost-bg-hover) !important;
+      background-color: var(--zf-variant-tint-bg-hover) !important;
     }
 
     &:hover:active::before {
-      background-color: var(--zf-variant-ghost-bg-press) !important;
-      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+      background-color: var(--zf-variant-tint-bg-press) !important;
+      box-shadow: var(--zf-variant-tint-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.folders", "outline")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.folders", "outline")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   zen-folder > .tab-group-label-container {
     &::before {
       background-color: var(--zf-variant-outline-bg) !important;
@@ -84,7 +84,43 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.folders", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  zen-folder > .tab-group-label-container {
+    &::before {
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+    }
+
+    &:hover::before {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:hover:active::before {
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.folders", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  zen-folder > .tab-group-label-container {
+    &::before {
+      background-color: var(--zf-variant-transparent-bg) !important;
+      box-shadow: var(--zf-variant-transparent-stroke) !important;
+    }
+
+    &:hover::before {
+      background-color: var(--zf-variant-transparent-bg-hover) !important;
+    }
+
+    &:hover:active::before {
+      background-color: var(--zf-variant-transparent-bg-press) !important;
+      box-shadow: var(--zf-variant-transparent-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.folders", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.folders", "solid")) or (-moz-pref("zen-fluent.variant.folders", "standard")) or (-moz-pref("zen-fluent.variant.folders", "tint")) or (-moz-pref("zen-fluent.variant.folders", "outline")) or (-moz-pref("zen-fluent.variant.folders", "subtle")) or (-moz-pref("zen-fluent.variant.folders", "transparent")) or (-moz-pref("zen-fluent.variant.folders", "translucent")) or (-moz-pref("zen-fluent.variant.folders", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   zen-folder > .tab-group-label-container {
     &::before {
       background-color: var(--zf-variant-translucent-bg) !important;

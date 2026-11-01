@@ -117,10 +117,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      {
-        "label": "Follow the style",
-        "value": "auto"
-      },
+      { "label": "Follow the style", "value": "auto" },
       { "label": "Square", "value": "square" },
       { "label": "Small (2 px)", "value": "small" },
       { "label": "Medium (4 px)", "value": "medium" },
@@ -147,6 +144,99 @@
     "options": [
       { "label": "Standard", "value": "standard" },
       { "label": "Compact (WinUI compact sizing)", "value": "compact" }
+    ]
+  },
+  {
+    "property": "zen-fluent.expert",
+    "label": "Expert mode ~more settings: gaps around the page, its corners, the sidebar’s padding, row height, space between tabs~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.page-gap",
+    "label": "Gap around the page ~between the page and the window’s edges~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "None", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" },
+      { "label": "16 px", "value": "16" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.page-gap-custom",
+    "label": "Custom gap around the page ~in px, for example 6px~",
+    "type": "string",
+    "defaultValue": "6px",
+    "placeholder": "6px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.page-gap", "value": "custom" } }
+    ]
+  },
+  {
+    "property": "zen-fluent.page-gap-sidebar",
+    "label": "Gap between the sidebar and the page",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "None", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" },
+      { "label": "16 px", "value": "16" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.page-gap-sidebar-custom",
+    "label": "Custom gap beside the sidebar ~in px, for example 6px~",
+    "type": "string",
+    "defaultValue": "6px",
+    "placeholder": "6px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.page-gap-sidebar", "value": "custom" } }
+    ]
+  },
+  {
+    "property": "zen-fluent.page-radius",
+    "label": "Page corners ~the radius of the page card~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "Square", "value": "0" },
+      { "label": "4 px", "value": "4" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" },
+      { "label": "16 px", "value": "16" },
+      { "label": "24 px", "value": "24" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.page-radius-custom",
+    "label": "Custom page corners ~in px, for example 10px~",
+    "type": "string",
+    "defaultValue": "10px",
+    "placeholder": "10px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.page-radius", "value": "custom" } }
     ]
   },
   {
@@ -226,6 +316,34 @@
     ]
   },
   {
+    "property": "zen-fluent.sidebar-padding",
+    "label": "Sidebar padding ~between the sidebar’s content and its edges; Zen: 5 px~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "None", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "5 px", "value": "5" },
+      { "label": "8 px", "value": "8" },
+      { "label": "12 px", "value": "12" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.sidebar-padding-custom",
+    "label": "Custom sidebar padding ~in px, for example 6px~",
+    "type": "string",
+    "defaultValue": "6px",
+    "placeholder": "6px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.sidebar-padding", "value": "custom" } }
+    ]
+  },
+  {
     "property": "zen-fluent.hide-forward-disabled",
     "label": "Hide the Forward button when it is disabled",
     "type": "checkbox",
@@ -248,6 +366,12 @@
       { "label": "Fill", "value": "fill" },
       { "label": "Minimal", "value": "minimal" }
     ]
+  },
+  {
+    "property": "zen-fluent.compact-flush",
+    "label": "Page fills the window in compact mode ~no gap and square corners while the sidebar is hidden~",
+    "type": "checkbox",
+    "defaultValue": false
   },
   {
     "property": "zen-fluent.compact-sidebar-bg",
@@ -564,11 +688,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (each component's own)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -592,11 +724,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -620,11 +760,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -659,11 +807,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -687,11 +843,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -715,11 +879,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -743,11 +915,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -771,11 +951,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -799,11 +987,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -827,11 +1023,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -855,11 +1059,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -883,11 +1095,19 @@
     "placeholder": false,
     "options": [
       { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid", "value": "solid" },
-      { "label": "Subtle", "value": "subtle" },
-      { "label": "Ghost", "value": "ghost" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Translucent (as Zen)", "value": "translucent" }
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
     ]
   },
   {
@@ -919,6 +1139,62 @@
       { "label": "Small", "value": "small" },
       { "label": "Normal", "value": "normal" },
       { "label": "Large", "value": "large" }
+    ]
+  },
+  {
+    "property": "zen-fluent.tab-height",
+    "label": "Row height ~tabs, folders, the new tab row, Library rows~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "28 px", "value": "28" },
+      { "label": "32 px", "value": "32" },
+      { "label": "36 px", "value": "36" },
+      { "label": "40 px", "value": "40" },
+      { "label": "44 px", "value": "44" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.tab-height-custom",
+    "label": "Custom row height ~in px, for example 38px~",
+    "type": "string",
+    "defaultValue": "38px",
+    "placeholder": "38px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.tab-height", "value": "custom" } }
+    ]
+  },
+  {
+    "property": "zen-fluent.tab-gap",
+    "label": "Space between tabs",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Follow the style", "value": "auto" },
+      { "label": "None", "value": "0" },
+      { "label": "2 px", "value": "2" },
+      { "label": "4 px", "value": "4" },
+      { "label": "6 px", "value": "6" },
+      { "label": "8 px", "value": "8" },
+      { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+  },
+  {
+    "property": "zen-fluent.tab-gap-custom",
+    "label": "Custom space between tabs ~in px, for example 3px~",
+    "type": "string",
+    "defaultValue": "3px",
+    "placeholder": "3px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.tab-gap", "value": "custom" } }
     ]
   },
   {
@@ -1012,10 +1288,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      {
-        "label": "Follow the style",
-        "value": "auto"
-      },
+      { "label": "Follow the style", "value": "auto" },
       { "label": "Text box (WinUI)", "value": "textbox" },
       { "label": "Pill (Edge)", "value": "pill" },
       { "label": "Transparent", "value": "transparent" }
@@ -1041,7 +1314,7 @@
     "defaultValue": "solid",
     "placeholder": false,
     "options": [
-      { "label": "White or black", "value": "solid" },
+      { "label": "White or black (opaque)", "value": "solid" },
       { "label": "Translucent (Arc)", "value": "translucent" },
       { "label": "Space color", "value": "theme" },
       { "label": "Material", "value": "material" }

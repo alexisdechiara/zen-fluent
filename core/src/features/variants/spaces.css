@@ -14,7 +14,7 @@
    radius. The conditions test the values that set something, so that a pref
    not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.spaces", "solid")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.spaces", "solid")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   #zen-workspaces-button toolbarbutton {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -34,47 +34,47 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.spaces", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.spaces", "standard")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   #zen-workspaces-button toolbarbutton {
     background-color: transparent !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      background-color: var(--zf-variant-standard-bg-hover) !important;
     }
 
     &[active="true"] {
-      background-color: var(--zf-variant-subtle-selected) !important;
-      box-shadow: var(--zf-variant-subtle-selected-stroke) !important;
+      background-color: var(--zf-variant-standard-selected) !important;
+      box-shadow: var(--zf-variant-standard-selected-stroke) !important;
     }
 
     &[active="true"]:hover {
-      background-color: var(--zf-variant-subtle-selected-hover) !important;
+      background-color: var(--zf-variant-standard-selected-hover) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.spaces", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.spaces", "tint")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   #zen-workspaces-button toolbarbutton {
     background-color: transparent !important;
     box-shadow: none !important;
 
     &:hover {
-      background-color: var(--zf-variant-ghost-bg-hover) !important;
+      background-color: var(--zf-variant-tint-bg-hover) !important;
     }
 
     &[active="true"] {
-      background-color: var(--zf-variant-ghost-selected) !important;
-      box-shadow: var(--zf-variant-ghost-selected-stroke) !important;
+      background-color: var(--zf-variant-tint-selected) !important;
+      box-shadow: var(--zf-variant-tint-selected-stroke) !important;
     }
 
     &[active="true"]:hover {
-      background-color: var(--zf-variant-ghost-selected-hover) !important;
+      background-color: var(--zf-variant-tint-selected-hover) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.spaces", "outline")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.spaces", "outline")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   #zen-workspaces-button toolbarbutton {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -94,7 +94,47 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.spaces", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  #zen-workspaces-button toolbarbutton {
+    background-color: transparent !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &[active="true"] {
+      background-color: var(--zf-variant-subtle-selected) !important;
+      box-shadow: var(--zf-variant-subtle-selected-stroke) !important;
+    }
+
+    &[active="true"]:hover {
+      background-color: var(--zf-variant-subtle-selected-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.spaces", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  #zen-workspaces-button toolbarbutton {
+    background-color: transparent !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: var(--zf-variant-transparent-bg-hover) !important;
+    }
+
+    &[active="true"] {
+      background-color: var(--zf-variant-transparent-selected) !important;
+      box-shadow: var(--zf-variant-transparent-selected-stroke) !important;
+    }
+
+    &[active="true"]:hover {
+      background-color: var(--zf-variant-transparent-selected-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.spaces", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.spaces", "solid")) or (-moz-pref("zen-fluent.variant.spaces", "standard")) or (-moz-pref("zen-fluent.variant.spaces", "tint")) or (-moz-pref("zen-fluent.variant.spaces", "outline")) or (-moz-pref("zen-fluent.variant.spaces", "subtle")) or (-moz-pref("zen-fluent.variant.spaces", "transparent")) or (-moz-pref("zen-fluent.variant.spaces", "translucent")) or (-moz-pref("zen-fluent.variant.spaces", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   #zen-workspaces-button toolbarbutton {
     background-color: transparent !important;
     box-shadow: none !important;

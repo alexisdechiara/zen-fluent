@@ -15,7 +15,7 @@
    radius. The conditions test the values that set something, so that a pref
    not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.buttons", "solid")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.buttons", "solid")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   :is(#navigator-toolbox, #zen-appcontent-navbar-container)
     toolbarbutton.toolbarbutton-1:not(
       #tabs-newtab-button,
@@ -50,19 +50,19 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.buttons", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.buttons", "standard")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   :is(#navigator-toolbox, #zen-appcontent-navbar-container)
     toolbarbutton.toolbarbutton-1:not(
       #tabs-newtab-button,
       #zen-media-controls-toolbar *,
       #zen-workspaces-button *
     ) {
-    --toolbarbutton-background-color: var(--zf-variant-subtle-bg) !important;
+    --toolbarbutton-background-color: var(--zf-variant-standard-bg) !important;
     --toolbarbutton-background-color-hover: var(
-      --zf-variant-subtle-bg-hover
+      --zf-variant-standard-bg-hover
     ) !important;
     --toolbarbutton-background-color-active: var(
-      --zf-variant-subtle-bg-press
+      --zf-variant-standard-bg-press
     ) !important;
 
     &
@@ -71,7 +71,7 @@
         .toolbarbutton-badge-stack,
         .toolbarbutton-text
       ) {
-      box-shadow: var(--zf-variant-subtle-stroke) !important;
+      box-shadow: var(--zf-variant-standard-stroke) !important;
     }
 
     &:not([disabled]):is(:hover:active, [open], [checked])
@@ -80,24 +80,24 @@
         .toolbarbutton-badge-stack,
         .toolbarbutton-text
       ) {
-      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+      box-shadow: var(--zf-variant-standard-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.buttons", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.buttons", "tint")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   :is(#navigator-toolbox, #zen-appcontent-navbar-container)
     toolbarbutton.toolbarbutton-1:not(
       #tabs-newtab-button,
       #zen-media-controls-toolbar *,
       #zen-workspaces-button *
     ) {
-    --toolbarbutton-background-color: var(--zf-variant-ghost-bg) !important;
+    --toolbarbutton-background-color: var(--zf-variant-tint-bg) !important;
     --toolbarbutton-background-color-hover: var(
-      --zf-variant-ghost-bg-hover
+      --zf-variant-tint-bg-hover
     ) !important;
     --toolbarbutton-background-color-active: var(
-      --zf-variant-ghost-bg-press
+      --zf-variant-tint-bg-press
     ) !important;
 
     &
@@ -106,7 +106,7 @@
         .toolbarbutton-badge-stack,
         .toolbarbutton-text
       ) {
-      box-shadow: var(--zf-variant-ghost-stroke) !important;
+      box-shadow: var(--zf-variant-tint-stroke) !important;
     }
 
     &:not([disabled]):is(:hover:active, [open], [checked])
@@ -115,16 +115,12 @@
         .toolbarbutton-badge-stack,
         .toolbarbutton-text
       ) {
-      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
-    }
-
-    &:not([disabled]):hover {
-      color: var(--zf-variant-ghost-color-hover) !important;
+      box-shadow: var(--zf-variant-tint-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.buttons", "outline")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.buttons", "outline")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   :is(#navigator-toolbox, #zen-appcontent-navbar-container)
     toolbarbutton.toolbarbutton-1:not(
       #tabs-newtab-button,
@@ -159,7 +155,87 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.buttons", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-background-color: var(--zf-variant-subtle-bg) !important;
+    --toolbarbutton-background-color-hover: var(
+      --zf-variant-subtle-bg-hover
+    ) !important;
+    --toolbarbutton-background-color-active: var(
+      --zf-variant-subtle-bg-press
+    ) !important;
+
+    &
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+    }
+
+    &:not([disabled]):is(:hover:active, [open], [checked])
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+
+    &:not([disabled]):hover {
+      color: var(--zf-variant-subtle-color-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.buttons", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  :is(#navigator-toolbox, #zen-appcontent-navbar-container)
+    toolbarbutton.toolbarbutton-1:not(
+      #tabs-newtab-button,
+      #zen-media-controls-toolbar *,
+      #zen-workspaces-button *
+    ) {
+    --toolbarbutton-background-color: var(
+      --zf-variant-transparent-bg
+    ) !important;
+    --toolbarbutton-background-color-hover: var(
+      --zf-variant-transparent-bg-hover
+    ) !important;
+    --toolbarbutton-background-color-active: var(
+      --zf-variant-transparent-bg-press
+    ) !important;
+
+    &
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-variant-transparent-stroke) !important;
+    }
+
+    &:not([disabled]):is(:hover:active, [open], [checked])
+      > :is(
+        .toolbarbutton-icon,
+        .toolbarbutton-badge-stack,
+        .toolbarbutton-text
+      ) {
+      box-shadow: var(--zf-variant-transparent-stroke-press) !important;
+    }
+
+    &:not([disabled]):hover {
+      color: var(--zf-variant-transparent-color-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.buttons", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.buttons", "solid")) or (-moz-pref("zen-fluent.variant.buttons", "standard")) or (-moz-pref("zen-fluent.variant.buttons", "tint")) or (-moz-pref("zen-fluent.variant.buttons", "outline")) or (-moz-pref("zen-fluent.variant.buttons", "subtle")) or (-moz-pref("zen-fluent.variant.buttons", "transparent")) or (-moz-pref("zen-fluent.variant.buttons", "translucent")) or (-moz-pref("zen-fluent.variant.buttons", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   :is(#navigator-toolbox, #zen-appcontent-navbar-container)
     toolbarbutton.toolbarbutton-1:not(
       #tabs-newtab-button,

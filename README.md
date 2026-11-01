@@ -72,6 +72,13 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Corner radius                                    | `zen-fluent.corner-radius`                                                  | `auto`             |
 |                                                       | Custom radius                                    | `zen-fluent.corner-radius-custom`                                           | `6px`              |
 |                                                       | Density                                          | `zen-fluent.density`                                                        | `standard`         |
+|                                                       | Expert mode                                      | `zen-fluent.expert`                                                         | `false`            |
+|                                                       | Gap around the page (expert)                     | `zen-fluent.page-gap`                                                       | `auto`             |
+|                                                       | Custom gap around the page                       | `zen-fluent.page-gap-custom`                                                | `6px`              |
+|                                                       | Gap between the sidebar and the page (expert)    | `zen-fluent.page-gap-sidebar`                                               | `auto`             |
+|                                                       | Custom gap beside the sidebar                    | `zen-fluent.page-gap-sidebar-custom`                                        | `6px`              |
+|                                                       | Page corners (expert)                            | `zen-fluent.page-radius`                                                    | `auto`             |
+|                                                       | Custom page corners                              | `zen-fluent.page-radius-custom`                                             | `10px`             |
 |                                                       | Font                                             | `zen-fluent.font`                                                           | `segoe`            |
 |                                                       | Custom font                                      | `zen-fluent.font-custom`                                                    | `(empty)`          |
 |                                                       | Text selection in the accent color               | `zen-fluent.accent-selection`                                               | `true`             |
@@ -79,9 +86,12 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Custom blur                                      | `zen-fluent.acrylic-blur-custom`                                            | `20px`             |
 |                                                       | Acrylic noise                                    | `zen-fluent.acrylic-noise`                                                  | `false`            |
 | [Sidebar](docs/settings/sidebar.md)                   | Button style                                     | `zen-fluent.button-style`                                                   | `subtle`           |
+|                                                       | Sidebar padding (expert)                         | `zen-fluent.sidebar-padding`                                                | `auto`             |
+|                                                       | Custom sidebar padding                           | `zen-fluent.sidebar-padding-custom`                                         | `6px`              |
 |                                                       | Hide the Forward button when it is disabled      | `zen-fluent.hide-forward-disabled`                                          | `false`            |
 |                                                       | Workspace indicator                              | `zen-fluent.workspace-indicator`                                            | `true`             |
 |                                                       | Workspace icon style                             | `zen-fluent.workspace-style`                                                | `pill`             |
+|                                                       | Page fills the window in compact mode            | `zen-fluent.compact-flush`                                                  | `false`            |
 |                                                       | Acrylic sidebar background in compact mode       | `zen-fluent.compact-sidebar-bg`                                             | `true`             |
 |                                                       | Edge hint at the window border in compact mode   | `zen-fluent.compact-edge-hint`                                              | `true`             |
 | [Essentials](docs/settings/essentials.md)             | Selected Essential                               | `zen-fluent.essentials.selected-style`                                      | `glow`             |
@@ -131,6 +141,10 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Panel and dialog buttons: fill                   | `zen-fluent.variant.panel-buttons`                                          | `auto`             |
 |                                                       | Panel and dialog buttons: shape                  | `zen-fluent.variant.panel-buttons-shape`                                    | `auto`             |
 | [Tabs](docs/settings/tabs.md)                         | Tab text size                                    | `zen-fluent.tab-text-size`                                                  | `normal`           |
+|                                                       | Row height (expert)                              | `zen-fluent.tab-height`                                                     | `auto`             |
+|                                                       | Custom row height                                | `zen-fluent.tab-height-custom`                                              | `38px`             |
+|                                                       | Space between tabs (expert)                      | `zen-fluent.tab-gap`                                                        | `auto`             |
+|                                                       | Custom space between tabs                        | `zen-fluent.tab-gap-custom`                                                 | `3px`              |
 |                                                       | Bold title on the selected tab                   | `zen-fluent.tab-bold`                                                       | `false`            |
 |                                                       | Accent pill on the selected tab                  | `zen-fluent.tab-pill`                                                       | `true`             |
 |                                                       | Tab shadow                                       | `zen-fluent.tab-shadow`                                                     | `true`             |

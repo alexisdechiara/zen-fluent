@@ -29,3 +29,12 @@
     display: none !important;
   }
 }
+
+/* A Glance is a 24px chip nested in its parent's row: the rules above
+   (it is selected, or hovered with its parent) put a close button beside
+   it, past the row's end and against the sidebar's edge. A Glance closes
+   from its own buttons, beside the page. The selected parent matches
+   those rules too (descendant combinator): .tab-stack outweighs them. */
+.tabbrowser-tab[zen-glance-tab] > .tab-stack .tab-close-button {
+  display: none !important;
+}

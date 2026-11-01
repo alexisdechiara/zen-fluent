@@ -45,3 +45,32 @@
     --zen-themed-toolbar-bg-transparent: transparent !important;
   }
 }
+
+/* A space with a color: Zen picks the scheme of the sidebar and the page
+   card (color-scheme on #browser, zen-should-be-dark-mode on the root)
+   from the raw color, as if it covered the window, while on a transparent
+   window it lies at the picker's opacity over a backdrop of the window's
+   own scheme. A dark pick over a light window gave light text on a light
+   pink (1.3:1). When Zen's pick and the window's scheme disagree, the
+   material's coat, in Zen's pick, goes back under the gradient. The
+   window's scheme: zen.view.window.scheme 0 dark, 1 light, else the
+   system's. */
+@media (-moz-windows-mica) or (-moz-platform: macos) or ((-moz-platform: linux) and -moz-pref("zen.widget.linux.transparency")) {
+  @media not (-moz-pref("zen-fluent.space-color", "material")) {
+    @media (-moz-pref("zen.view.window.scheme", 1)) or ((not ((-moz-pref("zen.view.window.scheme", 0)) or (-moz-pref("zen.view.window.scheme", 1)))) and (not (-moz-system-dark-theme))) {
+      :root[zen-should-be-dark-mode="true"]:not([zen-default-theme="true"])
+        #zen-main-app-wrapper.browser-toolbox-background {
+        color-scheme: dark !important;
+        background-color: var(--zf-window-coat-strong) !important;
+      }
+    }
+
+    @media (-moz-pref("zen.view.window.scheme", 0)) or ((not ((-moz-pref("zen.view.window.scheme", 0)) or (-moz-pref("zen.view.window.scheme", 1)))) and (-moz-system-dark-theme)) {
+      :root[zen-should-be-dark-mode="false"]:not([zen-default-theme="true"])
+        #zen-main-app-wrapper.browser-toolbox-background {
+        color-scheme: light !important;
+        background-color: var(--zf-window-coat-strong) !important;
+      }
+    }
+  }
+}

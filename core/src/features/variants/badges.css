@@ -2,9 +2,11 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* Extension counts (row, sidebar and toolbar) and the Library's
-   downloads count. Solid is the accent with its text color, subtle an
-   accent tint in an accent ring, ghost the accent text on the window
-   color, outline adds an accent ring, translucent a see-through accent. Every badge keeps a ring of the window color, which
+   downloads count. Solid and standard are the accent with its text color
+   (Fluent 2's filled badge), tint an accent tint in an accent ring (its
+   tint badge), subtle and transparent the accent text on the window color
+   (its ghost badge), outline adds an accent ring, translucent a
+   see-through accent. Every badge keeps a ring of the window color, which
    separates it from the icon below. */
 
 /* The fill is this component's (zen-fluent.variant.badges) when it names
@@ -15,7 +17,7 @@
    radius. The conditions test the values that set something, so that a pref
    not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.badges", "solid")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.badges", "solid")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   :root[zen-single-toolbar="true"]
     #zen-overflow-extensions-list:not(:empty)
     .toolbarbutton-badge,
@@ -28,7 +30,20 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.badges", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.badges", "standard")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list:not(:empty)
+    .toolbarbutton-badge,
+  #navigator-toolbox .toolbarbutton-badge,
+  #nav-bar .toolbarbutton-badge,
+  #zen-library-button .zen-library-download-badge {
+    background-color: var(--zf-accent) !important;
+    color: var(--zf-on-accent) !important;
+    box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.badges", "tint")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   :root[zen-single-toolbar="true"]
     #zen-overflow-extensions-list:not(:empty)
     .toolbarbutton-badge,
@@ -47,20 +62,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.badges", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
-  :root[zen-single-toolbar="true"]
-    #zen-overflow-extensions-list:not(:empty)
-    .toolbarbutton-badge,
-  #navigator-toolbox .toolbarbutton-badge,
-  #nav-bar .toolbarbutton-badge,
-  #zen-library-button .zen-library-download-badge {
-    background-color: var(--zf-solid-base) !important;
-    color: var(--zf-accent) !important;
-    box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
-  }
-}
-
-@media (-moz-pref("zen-fluent.variant.badges", "outline")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.badges", "outline")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   :root[zen-single-toolbar="true"]
     #zen-overflow-extensions-list:not(:empty)
     .toolbarbutton-badge,
@@ -75,7 +77,33 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.badges", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list:not(:empty)
+    .toolbarbutton-badge,
+  #navigator-toolbox .toolbarbutton-badge,
+  #nav-bar .toolbarbutton-badge,
+  #zen-library-button .zen-library-download-badge {
+    background-color: var(--zf-solid-base) !important;
+    color: var(--zf-accent) !important;
+    box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.badges", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  :root[zen-single-toolbar="true"]
+    #zen-overflow-extensions-list:not(:empty)
+    .toolbarbutton-badge,
+  #navigator-toolbox .toolbarbutton-badge,
+  #nav-bar .toolbarbutton-badge,
+  #zen-library-button .zen-library-download-badge {
+    background-color: var(--zf-solid-base) !important;
+    color: var(--zf-accent) !important;
+    box-shadow: 0 0 0 1.5px var(--zf-solid-base) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.badges", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.badges", "solid")) or (-moz-pref("zen-fluent.variant.badges", "standard")) or (-moz-pref("zen-fluent.variant.badges", "tint")) or (-moz-pref("zen-fluent.variant.badges", "outline")) or (-moz-pref("zen-fluent.variant.badges", "subtle")) or (-moz-pref("zen-fluent.variant.badges", "transparent")) or (-moz-pref("zen-fluent.variant.badges", "translucent")) or (-moz-pref("zen-fluent.variant.badges", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   :root[zen-single-toolbar="true"]
     #zen-overflow-extensions-list:not(:empty)
     .toolbarbutton-badge,

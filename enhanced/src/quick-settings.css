@@ -1,10 +1,12 @@
-/* Zen Fluent Enhanced: the Quick Settings panel (zen-fluent.enhanced.quick-settings).
+/* Zen Fluent Enhanced: the Quick Settings board (zen-fluent.enhanced.quick-settings).
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* scripts/quick-settings.uc.js builds the panel: a header, the presets as
-   cards (the current one pressed, outlined in the accent) and a two-column
-   grid of labels and controls. Zen Fluent already styles the panel itself,
-   its menulists and checkboxes; this lays out the content. */
+/* scripts/quick-settings.uc.js builds the board (a Library tab, or a
+   panel): a header, the presets as cards (the current one pressed,
+   outlined in the accent) and a grid of labels and controls, each dropdown
+   under its label. Zen Fluent already styles the panel, the dropdowns
+   (core/src/components/panels/controls-combobox.css) and the checkboxes;
+   this lays out the content. */
 
 #zf-quick-settings {
   --zf-qs-width: 360px;
@@ -127,9 +129,16 @@
     font: 400 13px / 18px var(--zf-font) !important;
   }
 
+  /* A dropdown takes the whole row under its label (a WinUI ComboBox
+     header): side by side, its values were cut short */
   & .zf-qs-control {
-    min-width: 150px !important;
+    min-width: 0 !important;
     margin: 0 !important;
+  }
+
+  & menulist.zf-qs-control {
+    grid-column: 1 / -1 !important;
+    margin-block-end: 6px !important;
   }
 
   & checkbox.zf-qs-control {

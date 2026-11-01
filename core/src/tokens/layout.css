@@ -1,0 +1,424 @@
+/* Zen Fluent: Expert mode lengths: gaps around the page, its corners, the sidebar's padding, row height and the space between tabs.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Each expert setting (zen-fluent.expert on) is a dropdown of lengths or
+   "custom", read here into one registered length, --zf-<setting>. With the
+   expert mode off, or on "auto", nothing is set: the style's own lengths
+   stay (features/layout.css applies them). A custom entry is Sine's string
+   pref zen-fluent.<setting>-custom, --zen-fluent-<setting>-custom on the
+   chrome windows' root: "6px" and "6" both mean 6px; anything else (text,
+   a negative length) falls back to the length named in each block. */
+
+/* -------- page-gap -------- */
+
+@property --zf-page-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8px;
+}
+
+@property --zf-page-gap-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-page-gap-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "0")) {
+  :root {
+    --zf-page-gap: 0;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "2")) {
+  :root {
+    --zf-page-gap: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "4")) {
+  :root {
+    --zf-page-gap: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "8")) {
+  :root {
+    --zf-page-gap: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "12")) {
+  :root {
+    --zf-page-gap: 12px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "16")) {
+  :root {
+    --zf-page-gap: 16px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap", "custom")) {
+  :root {
+    --zf-page-gap-l: var(--zen-fluent-page-gap-custom);
+    --zf-page-gap-n: var(--zen-fluent-page-gap-custom);
+    --zf-page-gap-raw: max(var(--zf-page-gap-l), var(--zf-page-gap-n) * 1px);
+    --zf-page-gap-ok: calc((sign(var(--zf-page-gap-raw) + 0.5px) + 1) / 2);
+    --zf-page-gap: calc(
+      var(--zf-page-gap-ok) * var(--zf-page-gap-raw) +
+        (1 - var(--zf-page-gap-ok)) * 8px
+    );
+  }
+}
+
+/* -------- page-gap-sidebar -------- */
+
+@property --zf-page-gap-sidebar {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --zf-page-gap-sidebar-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-page-gap-sidebar-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "0")) {
+  :root {
+    --zf-page-gap-sidebar: 0;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "2")) {
+  :root {
+    --zf-page-gap-sidebar: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "4")) {
+  :root {
+    --zf-page-gap-sidebar: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "8")) {
+  :root {
+    --zf-page-gap-sidebar: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "12")) {
+  :root {
+    --zf-page-gap-sidebar: 12px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "16")) {
+  :root {
+    --zf-page-gap-sidebar: 16px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-gap-sidebar", "custom")) {
+  :root {
+    --zf-page-gap-sidebar-l: var(--zen-fluent-page-gap-sidebar-custom);
+    --zf-page-gap-sidebar-n: var(--zen-fluent-page-gap-sidebar-custom);
+    --zf-page-gap-sidebar-raw: max(
+      var(--zf-page-gap-sidebar-l),
+      var(--zf-page-gap-sidebar-n) * 1px
+    );
+    --zf-page-gap-sidebar-ok: calc(
+      (sign(var(--zf-page-gap-sidebar-raw) + 0.5px) + 1) / 2
+    );
+    --zf-page-gap-sidebar: calc(
+      var(--zf-page-gap-sidebar-ok) * var(--zf-page-gap-sidebar-raw) +
+        (1 - var(--zf-page-gap-sidebar-ok)) * 0px
+    );
+  }
+}
+
+/* -------- page-radius -------- */
+
+@property --zf-page-radius {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8px;
+}
+
+@property --zf-page-radius-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-page-radius-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "0")) {
+  :root {
+    --zf-page-radius: 0;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "4")) {
+  :root {
+    --zf-page-radius: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "8")) {
+  :root {
+    --zf-page-radius: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "12")) {
+  :root {
+    --zf-page-radius: 12px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "16")) {
+  :root {
+    --zf-page-radius: 16px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "24")) {
+  :root {
+    --zf-page-radius: 24px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.page-radius", "custom")) {
+  :root {
+    --zf-page-radius-l: var(--zen-fluent-page-radius-custom);
+    --zf-page-radius-n: var(--zen-fluent-page-radius-custom);
+    --zf-page-radius-raw: max(
+      var(--zf-page-radius-l),
+      var(--zf-page-radius-n) * 1px
+    );
+    --zf-page-radius-ok: calc(
+      (sign(var(--zf-page-radius-raw) + 0.5px) + 1) / 2
+    );
+    --zf-page-radius: calc(
+      var(--zf-page-radius-ok) * var(--zf-page-radius-raw) +
+        (1 - var(--zf-page-radius-ok)) * 8px
+    );
+  }
+}
+
+/* -------- sidebar-padding -------- */
+
+@property --zf-sidebar-padding {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 5px;
+}
+
+@property --zf-sidebar-padding-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-sidebar-padding-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "0")) {
+  :root {
+    --zf-sidebar-padding: 0;
+  }
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "2")) {
+  :root {
+    --zf-sidebar-padding: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "5")) {
+  :root {
+    --zf-sidebar-padding: 5px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "8")) {
+  :root {
+    --zf-sidebar-padding: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "12")) {
+  :root {
+    --zf-sidebar-padding: 12px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.sidebar-padding", "custom")) {
+  :root {
+    --zf-sidebar-padding-l: var(--zen-fluent-sidebar-padding-custom);
+    --zf-sidebar-padding-n: var(--zen-fluent-sidebar-padding-custom);
+    --zf-sidebar-padding-raw: max(
+      var(--zf-sidebar-padding-l),
+      var(--zf-sidebar-padding-n) * 1px
+    );
+    --zf-sidebar-padding-ok: calc(
+      (sign(var(--zf-sidebar-padding-raw) + 0.5px) + 1) / 2
+    );
+    --zf-sidebar-padding: calc(
+      var(--zf-sidebar-padding-ok) * var(--zf-sidebar-padding-raw) +
+        (1 - var(--zf-sidebar-padding-ok)) * 5px
+    );
+  }
+}
+
+/* -------- tab-height -------- */
+
+@property --zf-tab-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 36px;
+}
+
+@property --zf-tab-height-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-tab-height-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "28")) {
+  :root {
+    --zf-tab-height: 28px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "32")) {
+  :root {
+    --zf-tab-height: 32px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "36")) {
+  :root {
+    --zf-tab-height: 36px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "40")) {
+  :root {
+    --zf-tab-height: 40px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "44")) {
+  :root {
+    --zf-tab-height: 44px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-height", "custom")) {
+  :root {
+    --zf-tab-height-l: var(--zen-fluent-tab-height-custom);
+    --zf-tab-height-n: var(--zen-fluent-tab-height-custom);
+    --zf-tab-height-raw: max(
+      var(--zf-tab-height-l),
+      var(--zf-tab-height-n) * 1px
+    );
+    --zf-tab-height-ok: calc((sign(var(--zf-tab-height-raw) + 0.5px) + 1) / 2);
+    --zf-tab-height: calc(
+      var(--zf-tab-height-ok) * var(--zf-tab-height-raw) +
+        (1 - var(--zf-tab-height-ok)) * 36px
+    );
+  }
+}
+
+/* -------- tab-gap -------- */
+
+@property --zf-tab-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4px;
+}
+
+@property --zf-tab-gap-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-tab-gap-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "0")) {
+  :root {
+    --zf-tab-gap: 0;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "2")) {
+  :root {
+    --zf-tab-gap: 2px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "4")) {
+  :root {
+    --zf-tab-gap: 4px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "6")) {
+  :root {
+    --zf-tab-gap: 6px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "8")) {
+  :root {
+    --zf-tab-gap: 8px;
+  }
+}
+
+@media (-moz-pref("zen-fluent.tab-gap", "custom")) {
+  :root {
+    --zf-tab-gap-l: var(--zen-fluent-tab-gap-custom);
+    --zf-tab-gap-n: var(--zen-fluent-tab-gap-custom);
+    --zf-tab-gap-raw: max(var(--zf-tab-gap-l), var(--zf-tab-gap-n) * 1px);
+    --zf-tab-gap-ok: calc((sign(var(--zf-tab-gap-raw) + 0.5px) + 1) / 2);
+    --zf-tab-gap: calc(
+      var(--zf-tab-gap-ok) * var(--zf-tab-gap-raw) +
+        (1 - var(--zf-tab-gap-ok)) * 4px
+    );
+  }
+}

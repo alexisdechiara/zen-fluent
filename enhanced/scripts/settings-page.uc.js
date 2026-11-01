@@ -76,6 +76,9 @@
             id: "zf-appmenu-settings",
             class: "subviewbutton",
             label: "Zen Fluent",
+            // without an icon its label sat 16px left of the others
+            image:
+              "chrome://sine/content/Zen-Fluent-Enhanced/settings/icons/paint-brush.svg",
           });
           settings.after(button);
           ctx.listen(button, "command", () => {

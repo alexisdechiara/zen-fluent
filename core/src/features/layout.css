@@ -1,0 +1,141 @@
+/* Zen Fluent: Expert mode: gaps around the page, its corners, the sidebar's padding, row height and the space between tabs.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Each rule applies only with zen-fluent.expert on and its setting off
+   "auto" (lengths: tokens/layout.css). Imported after the page card files
+   and the corners, whose margins and radii it replaces. */
+
+/* -------- Gap between the page and the window's edges -------- */
+/* Zen lays the gaps from --zen-element-separation: the band above the page
+   (single toolbar) reads it on the root, the page's margins on the
+   wrapper. The sidebar's side is the next setting, but with the sidebar
+   hidden (compact mode) it is a window edge too. */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.page-gap", "0")) or (-moz-pref("zen-fluent.page-gap", "2")) or (-moz-pref("zen-fluent.page-gap", "4")) or (-moz-pref("zen-fluent.page-gap", "8")) or (-moz-pref("zen-fluent.page-gap", "12")) or (-moz-pref("zen-fluent.page-gap", "16")) or (-moz-pref("zen-fluent.page-gap", "custom"))) {
+  :root {
+    --zen-element-separation: var(--zf-page-gap) !important;
+  }
+
+  :root:not([inDOMFullscreen="true"], [popup-window]) #zen-tabbox-wrapper {
+    --zen-element-separation: var(--zf-page-gap) !important;
+    margin-block-end: var(--zf-page-gap) !important;
+    margin-inline-end: var(--zf-page-gap) !important;
+  }
+
+  :root[zen-right-side="true"]:not([inDOMFullscreen="true"], [popup-window])
+    #zen-tabbox-wrapper {
+    margin-inline: var(--zf-page-gap) 0 !important;
+  }
+
+  :root[zen-compact-mode="true"]:not([inDOMFullscreen="true"], [popup-window])
+    #zen-tabbox-wrapper {
+    margin-inline: var(--zf-page-gap) !important;
+  }
+
+  /* Compact mode, single toolbar: nothing above the page */
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]:not(
+      [customizing],
+      [inDOMFullscreen="true"]
+    )
+    #zen-tabbox-wrapper {
+    margin-block-start: var(--zf-page-gap) !important;
+  }
+
+  /* WinUI corners round and stroke the sidebar's side only, the page being
+     flush with the window: with a gap it floats, rounded and stroked all
+     round */
+  @media (not (-moz-pref("zen-fluent.page-gap", "0"))) and (-moz-pref("zen-fluent.corners", "winui")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+    :root
+      #tabbrowser-tabpanels:not([zen-split-view="true"])
+      .browserSidebarContainer:not(.zen-glance-overlay),
+    :root[zen-compact-mode="true"]
+      #tabbrowser-tabpanels:not([zen-split-view="true"])
+      .browserSidebarContainer:not(.zen-glance-overlay),
+    :root[zen-right-side="true"]
+      #tabbrowser-tabpanels:not([zen-split-view="true"])
+      .browserSidebarContainer:not(.zen-glance-overlay) {
+      border: 0 !important;
+      border-radius: var(
+        --zf-page-radius-set,
+        var(--zf-radius-overlay)
+      ) !important;
+      box-shadow:
+        0 0 0 1px var(--zf-stroke-control),
+        var(--zf-shadow-card) !important;
+    }
+  }
+}
+
+/* -------- Gap between the sidebar and the page -------- */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.page-gap-sidebar", "0")) or (-moz-pref("zen-fluent.page-gap-sidebar", "2")) or (-moz-pref("zen-fluent.page-gap-sidebar", "4")) or (-moz-pref("zen-fluent.page-gap-sidebar", "8")) or (-moz-pref("zen-fluent.page-gap-sidebar", "12")) or (-moz-pref("zen-fluent.page-gap-sidebar", "16")) or (-moz-pref("zen-fluent.page-gap-sidebar", "custom"))) {
+  :root:not([zen-compact-mode="true"], [inDOMFullscreen="true"], [popup-window])
+    #zen-tabbox-wrapper {
+    margin-inline-start: var(--zf-page-gap-sidebar) !important;
+  }
+
+  :root[zen-right-side="true"]:not(
+      [zen-compact-mode="true"],
+      [inDOMFullscreen="true"],
+      [popup-window]
+    )
+    #zen-tabbox-wrapper {
+    margin-inline: 0 var(--zf-page-gap-sidebar) !important;
+  }
+}
+
+/* -------- The page's corners -------- */
+/* --zf-page-radius-set replaces the page card's radius in every corner
+   style (base/page-card.css, corners-winui/page-card.css,
+   style-edge/page-card.css, the split panes); unset, each keeps its own */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.page-radius", "0")) or (-moz-pref("zen-fluent.page-radius", "4")) or (-moz-pref("zen-fluent.page-radius", "8")) or (-moz-pref("zen-fluent.page-radius", "12")) or (-moz-pref("zen-fluent.page-radius", "16")) or (-moz-pref("zen-fluent.page-radius", "24")) or (-moz-pref("zen-fluent.page-radius", "custom"))) {
+  :root {
+    --zf-page-radius-set: var(--zf-page-radius);
+  }
+}
+
+/* -------- Sidebar padding -------- */
+/* Zen pads the expanded sidebar 5px on the sides and at the bottom */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.sidebar-padding", "0")) or (-moz-pref("zen-fluent.sidebar-padding", "2")) or (-moz-pref("zen-fluent.sidebar-padding", "5")) or (-moz-pref("zen-fluent.sidebar-padding", "8")) or (-moz-pref("zen-fluent.sidebar-padding", "12")) or (-moz-pref("zen-fluent.sidebar-padding", "custom"))) {
+  #navigator-toolbox[zen-sidebar-expanded="true"] {
+    padding-inline: var(--zf-sidebar-padding) !important;
+    padding-block-end: var(--zf-sidebar-padding) !important;
+  }
+}
+
+/* -------- Row height: tabs, folders, the new tab row, Library rows -------- */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.tab-height", "28")) or (-moz-pref("zen-fluent.tab-height", "32")) or (-moz-pref("zen-fluent.tab-height", "36")) or (-moz-pref("zen-fluent.tab-height", "40")) or (-moz-pref("zen-fluent.tab-height", "44")) or (-moz-pref("zen-fluent.tab-height", "custom"))) {
+  :root {
+    --zf-size-nav-item: var(--zf-tab-height) !important;
+  }
+}
+
+/* -------- Space between tabs -------- */
+/* Firefox spaces the tab rows with the backgrounds' block margins
+   (--tab-margin-block, 2px each, 4px between two tabs); its inline margin
+   stays the sidebar's edge */
+@media (-moz-pref("zen-fluent.expert")) and ((-moz-pref("zen-fluent.tab-gap", "0")) or (-moz-pref("zen-fluent.tab-gap", "2")) or (-moz-pref("zen-fluent.tab-gap", "4")) or (-moz-pref("zen-fluent.tab-gap", "6")) or (-moz-pref("zen-fluent.tab-gap", "8")) or (-moz-pref("zen-fluent.tab-gap", "custom"))) {
+  #tabbrowser-tabs .tabbrowser-tab > .tab-stack > .tab-background {
+    margin-block: calc(var(--zf-tab-gap) / 2) !important;
+  }
+}
+
+/* -------- Page fills the window in compact mode (zen-fluent.compact-flush,
+   not an expert setting) -------- */
+/* While the sidebar is hidden, the page takes the whole window: no gap, no
+   corners, no stroke (the band above it in a single toolbar is already
+   out of the way: base/compact-mode.css) */
+@media (-moz-pref("zen-fluent.compact-flush")) {
+  :root[zen-compact-mode="true"]:not([customizing], [popup-window])
+    #zen-tabbox-wrapper {
+    --zen-element-separation: 0px !important;
+
+    margin: 0 !important;
+  }
+
+  :root[zen-compact-mode="true"]
+    #tabbrowser-tabpanels
+    .browserSidebarContainer:not(.zen-glance-overlay) {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+}

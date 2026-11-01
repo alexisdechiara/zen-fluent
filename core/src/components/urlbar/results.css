@@ -17,6 +17,14 @@
   padding-block: 4px !important;
 }
 
+/* The view's 4px is the only space above the first row: Firefox adds
+   its results padding and Zen a 10px margin, an empty 24px band under the
+   input row */
+.urlbarView-results {
+  margin-block-start: 0 !important;
+  padding-block-start: 0 !important;
+}
+
 /* Without results (Zen hides the list) the surface is the input row alone */
 #urlbar[noresults] .urlbarView {
   padding-block: 0 !important;

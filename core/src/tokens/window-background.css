@@ -87,3 +87,41 @@
     --zf-acrylic-over-page: var(--zf-mica-alt);
   }
 }
+
+/* -------- Zen's scheme against the system's -------- */
+/* Windows draws the backdrop (Mica, Mica Alt, Acrylic) in the system's
+   scheme, not in the one picked in Zen (zen.view.window.scheme: 0 dark,
+   1 light, 2 the system's). The tints are made for a backdrop of their own
+   scheme: a dark coat at 64 % over a light Mica gave a mid grey (#6a6b6e)
+   under light text. When the two disagree, the coat covers the backdrop
+   almost whole (--zf-window-coat-strong, also laid under a space's
+   gradient by base/window-background.css). A tint opacity set in the
+   settings still wins (tokens/tint-opacity.css). */
+:root {
+  --zf-window-coat-strong: color-mix(in srgb, var(--zf-mica) 92%, transparent);
+
+  @media (-moz-pref("zen-fluent.material", "mica-alt")) {
+    --zf-window-coat-strong: color-mix(
+      in srgb,
+      var(--zf-mica-alt) 92%,
+      transparent
+    );
+  }
+
+  @media (-moz-pref("zen-fluent.material", "acrylic")) {
+    --zf-window-coat-strong: color-mix(
+      in srgb,
+      var(--zf-acrylic-solid) 92%,
+      transparent
+    );
+  }
+}
+
+@media (-moz-windows-mica) {
+  @media ((-moz-pref("zen.view.window.scheme", 0)) and (not (-moz-system-dark-theme))) or ((-moz-pref("zen.view.window.scheme", 1)) and (-moz-system-dark-theme)) {
+    :root {
+      --zf-window-bg-auto: var(--zf-window-coat-strong);
+      --zf-window-tint-auto: var(--zf-window-coat-strong);
+    }
+  }
+}

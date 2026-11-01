@@ -782,6 +782,12 @@ function section(title, ...children) {
   );
 }
 
+/** A section whose settings flow in columns on a wide window. */
+function columns(node) {
+  node.classList.add("columns");
+  return node;
+}
+
 function stagger(nodes) {
   nodes.forEach((node, i) => node.style.setProperty("--i", Math.min(i, 14)));
   return nodes;
@@ -2258,7 +2264,7 @@ function renderGroup(page) {
   if (group.layout === "grid") {
     return [section("", el("div.card-grid", {}, stagger(rows)))];
   }
-  return [section("", ...stagger(rows))];
+  return [columns(section("", ...stagger(rows)))];
 }
 
 function renderEnhanced() {
@@ -2296,7 +2302,7 @@ function renderEnhanced() {
         ),
       ),
     ),
-    section("", ...stagger(cards)),
+    columns(section("", ...stagger(cards))),
   ];
 }
 

@@ -16,6 +16,7 @@
 @import url("src/tokens/density.css");
 @import url("src/tokens/essentials-height.css");
 @import url("src/tokens/essentials-gap.css");
+@import url("src/tokens/layout.css");
 @import url("src/tokens/variants.css");
 @import url("src/tokens/host-bridge.css");
 @import url("src/tokens/focus.css");
@@ -520,6 +521,7 @@
 @import url("src/features/animations/keyframes.css");
 @import url("src/a11y/reduced-motion.css");
 @import url("src/base/focus-ring.css");
+@import url("src/features/layout.css");
 @import url("src/base/dom-fullscreen.css");
 
 /* Compatibility with third-party mods (docs/compatibility.md) */

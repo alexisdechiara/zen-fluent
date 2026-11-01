@@ -4,7 +4,7 @@
 /* -------- Content card -------- */
 
 #tabbrowser-tabpanels .browserSidebarContainer {
-  border-radius: var(--zf-radius-overlay) !important;
+  border-radius: var(--zf-page-radius-set, var(--zf-radius-overlay)) !important;
   corner-shape: round !important;
   box-shadow: var(--zf-shadow-card) !important;
 

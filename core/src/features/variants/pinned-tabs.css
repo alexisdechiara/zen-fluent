@@ -12,7 +12,7 @@
    component's radius. The conditions test the values that set something, so
    that a pref not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
@@ -39,7 +39,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
@@ -48,25 +48,25 @@
     }
 
     &:hover > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      background-color: var(--zf-variant-standard-bg-hover) !important;
     }
 
     &:is([selected], [visuallyselected], [multiselected])
       > .tab-stack
       > .tab-background {
-      background-color: var(--zf-variant-subtle-selected) !important;
-      box-shadow: var(--zf-variant-subtle-selected-stroke) !important;
+      background-color: var(--zf-variant-standard-selected) !important;
+      box-shadow: var(--zf-variant-standard-selected-stroke) !important;
     }
 
     &:is([selected], [visuallyselected], [multiselected]):hover
       > .tab-stack
       > .tab-background {
-      background-color: var(--zf-variant-subtle-selected-hover) !important;
+      background-color: var(--zf-variant-standard-selected-hover) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
@@ -75,25 +75,25 @@
     }
 
     &:hover > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-ghost-bg-hover) !important;
+      background-color: var(--zf-variant-tint-bg-hover) !important;
     }
 
     &:is([selected], [visuallyselected], [multiselected])
       > .tab-stack
       > .tab-background {
-      background-color: var(--zf-variant-ghost-selected) !important;
-      box-shadow: var(--zf-variant-ghost-selected-stroke) !important;
+      background-color: var(--zf-variant-tint-selected) !important;
+      box-shadow: var(--zf-variant-tint-selected-stroke) !important;
     }
 
     &:is([selected], [visuallyselected], [multiselected]):hover
       > .tab-stack
       > .tab-background {
-      background-color: var(--zf-variant-ghost-selected-hover) !important;
+      background-color: var(--zf-variant-tint-selected-hover) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
@@ -120,7 +120,61 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:is([selected], [visuallyselected], [multiselected])
+      > .tab-stack
+      > .tab-background {
+      background-color: var(--zf-variant-subtle-selected) !important;
+      box-shadow: var(--zf-variant-subtle-selected-stroke) !important;
+    }
+
+    &:is([selected], [visuallyselected], [multiselected]):hover
+      > .tab-stack
+      > .tab-background {
+      background-color: var(--zf-variant-subtle-selected-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-transparent-bg-hover) !important;
+    }
+
+    &:is([selected], [visuallyselected], [multiselected])
+      > .tab-stack
+      > .tab-background {
+      background-color: var(--zf-variant-transparent-selected) !important;
+      box-shadow: var(--zf-variant-transparent-selected-stroke) !important;
+    }
+
+    &:is([selected], [visuallyselected], [multiselected]):hover
+      > .tab-stack
+      > .tab-background {
+      background-color: var(--zf-variant-transparent-selected-hover) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.pinned-tabs", "solid")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "standard")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "tint")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "outline")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "subtle")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "transparent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "translucent")) or (-moz-pref("zen-fluent.variant.pinned-tabs", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   #tabbrowser-tabs .tabbrowser-tab[pinned]:not([zen-essential]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;

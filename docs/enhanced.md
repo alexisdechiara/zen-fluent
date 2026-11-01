@@ -63,12 +63,12 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     defaults);
   - _Microsoft Edge_: the Edge style on Mica Alt;
   - _Taskbar_: centered Essentials with the taskbar pill in the icon's
-    color, running dots, the reveal hover, extensions at the bottom, ghost
+    color, running dots, the reveal hover, extensions at the bottom, subtle
     buttons;
   - _Arc_: Acrylic, Zen corners, Arc Essentials in the icon's color, subtle
     pill buttons;
   - _Compact_: the compact density, side bar marks, running dots, extensions
-    at the bottom, square ghost buttons.
+    at the bottom, square subtle buttons.
 
   The preset whose settings all match is shown pressed. **Undo preset** puts
   back the settings from before the last preset. **All settings** opens

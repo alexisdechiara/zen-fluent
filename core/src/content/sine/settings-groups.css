@@ -225,6 +225,66 @@
       }
     }
 
+    /* Expert mode: its rows only show while it is on, and each custom
+       length only with "Custom" picked */
+    @media not (-moz-pref("zen-fluent.expert")) {
+      &
+        > :is(
+          #zen-fluent-page-gap,
+          #zen-fluent-page-gap-custom,
+          #zen-fluent-page-gap-sidebar,
+          #zen-fluent-page-gap-sidebar-custom,
+          #zen-fluent-page-radius,
+          #zen-fluent-page-radius-custom,
+          #zen-fluent-sidebar-padding,
+          #zen-fluent-sidebar-padding-custom,
+          #zen-fluent-tab-height,
+          #zen-fluent-tab-height-custom,
+          #zen-fluent-tab-gap,
+          #zen-fluent-tab-gap-custom
+        ) {
+        display: none !important;
+      }
+    }
+
+    @media (-moz-pref("zen-fluent.expert")) {
+      @media not (-moz-pref("zen-fluent.page-gap", "custom")) {
+        & > #zen-fluent-page-gap-custom {
+          display: none !important;
+        }
+      }
+
+      @media not (-moz-pref("zen-fluent.page-gap-sidebar", "custom")) {
+        & > #zen-fluent-page-gap-sidebar-custom {
+          display: none !important;
+        }
+      }
+
+      @media not (-moz-pref("zen-fluent.page-radius", "custom")) {
+        & > #zen-fluent-page-radius-custom {
+          display: none !important;
+        }
+      }
+
+      @media not (-moz-pref("zen-fluent.sidebar-padding", "custom")) {
+        & > #zen-fluent-sidebar-padding-custom {
+          display: none !important;
+        }
+      }
+
+      @media not (-moz-pref("zen-fluent.tab-height", "custom")) {
+        & > #zen-fluent-tab-height-custom {
+          display: none !important;
+        }
+      }
+
+      @media not (-moz-pref("zen-fluent.tab-gap", "custom")) {
+        & > #zen-fluent-tab-gap-custom {
+          display: none !important;
+        }
+      }
+    }
+
     @media not (-moz-pref("zen-fluent.font", "custom")) {
       & > #zen-fluent-font-custom {
         display: none !important;

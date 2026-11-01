@@ -25,7 +25,7 @@
 
   /* User sheets reach into shadow trees: the nav button's full-height
      indicator becomes the 3x16 WinUI pill */
-  button[role="tab"]:has(> .page-nav-icon)::before {
+  :is(button[role="tab"], a.moz-page-nav-link):has(> .page-nav-icon)::before {
     inset-block: 50% auto !important;
     height: 16px !important;
     margin-top: -8px !important;

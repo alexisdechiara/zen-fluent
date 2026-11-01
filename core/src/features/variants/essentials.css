@@ -3,8 +3,8 @@
 
 /* The fill is for the tiles at rest (components/sidebar/essentials.css):
    the selected one keeps zen-fluent.essentials.selected-style. The shape is
-   for every tile, the selected one too. Ghost leaves the bare icons, like
-   the taskbar. */
+   for every tile, the selected one too. Subtle and transparent leave the
+   bare icons, like the taskbar. */
 
 /* The fill is this component's (zen-fluent.variant.essentials) when it
    names one, else the global one (zen-fluent.variant.global); "auto" on
@@ -14,7 +14,7 @@
    component's radius. The conditions test the values that set something, so
    that a pref not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.essentials", "solid")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "solid")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -34,47 +34,47 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "standard")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
-      background-color: var(--zf-variant-subtle-bg) !important;
-      box-shadow: var(--zf-variant-subtle-stroke) !important;
+      background-color: var(--zf-variant-standard-bg) !important;
+      box-shadow: var(--zf-variant-standard-stroke) !important;
     }
 
     &:hover > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-subtle-bg-hover) !important;
+      background-color: var(--zf-variant-standard-bg-hover) !important;
     }
 
     &:hover:active > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-subtle-bg-press) !important;
-      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+      background-color: var(--zf-variant-standard-bg-press) !important;
+      box-shadow: var(--zf-variant-standard-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "tint")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
       border-color: transparent !important;
-      background-color: var(--zf-variant-ghost-bg) !important;
-      box-shadow: var(--zf-variant-ghost-stroke) !important;
+      background-color: var(--zf-variant-tint-bg) !important;
+      box-shadow: var(--zf-variant-tint-stroke) !important;
     }
 
     &:hover > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-ghost-bg-hover) !important;
+      background-color: var(--zf-variant-tint-bg-hover) !important;
     }
 
     &:hover:active > .tab-stack > .tab-background {
-      background-color: var(--zf-variant-ghost-bg-press) !important;
-      box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+      background-color: var(--zf-variant-tint-bg-press) !important;
+      box-shadow: var(--zf-variant-tint-stroke-press) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "outline")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "outline")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {
@@ -94,7 +94,47 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.essentials", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-subtle-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-subtle-bg-press) !important;
+      box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  .zen-essentials-container
+    .tabbrowser-tab:not([selected], [visuallyselected]) {
+    & > .tab-stack > .tab-background {
+      border-color: transparent !important;
+      background-color: var(--zf-variant-transparent-bg) !important;
+      box-shadow: var(--zf-variant-transparent-stroke) !important;
+    }
+
+    &:hover > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-transparent-bg-hover) !important;
+    }
+
+    &:hover:active > .tab-stack > .tab-background {
+      background-color: var(--zf-variant-transparent-bg-press) !important;
+      box-shadow: var(--zf-variant-transparent-stroke-press) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.essentials", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.essentials", "solid")) or (-moz-pref("zen-fluent.variant.essentials", "standard")) or (-moz-pref("zen-fluent.variant.essentials", "tint")) or (-moz-pref("zen-fluent.variant.essentials", "outline")) or (-moz-pref("zen-fluent.variant.essentials", "subtle")) or (-moz-pref("zen-fluent.variant.essentials", "transparent")) or (-moz-pref("zen-fluent.variant.essentials", "translucent")) or (-moz-pref("zen-fluent.variant.essentials", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   .zen-essentials-container
     .tabbrowser-tab:not([selected], [visuallyselected]) {
     & > .tab-stack > .tab-background {

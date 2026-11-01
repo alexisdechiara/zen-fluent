@@ -6,8 +6,28 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Changed
+
+- **Variant fills take Microsoft's names** (Fluent 2 and WinUI), and Solid
+  is now opaque: **Solid** (opaque, `ControlSolidFillColorDefault`),
+  **Standard** (new: WinUI's default button, the see-through control fill
+  that Solid used to be), **Tint** (was Subtle: a tint in a border),
+  **Outline**, **Subtle** (was Ghost: a fill on hover only),
+  **Transparent** (new: no fill, accent glyph on hover) and
+  **Translucent**. A Ghost fill saved before reads as Subtle; a Subtle fill
+  saved before now reads as the new Subtle: pick Tint for the old look.
+
 ### Added
 
+- **Expert mode** (`zen-fluent.expert`, off by default): shows and applies
+  more settings: **Gap around the page**, **Gap between the sidebar and the
+  page**, **Page corners**, **Sidebar padding**, **Row height** and **Space
+  between tabs**, each a list of lengths or a custom one.
+- **Page fills the window in compact mode** (`zen-fluent.compact-flush`):
+  no gap, corners or stroke while the sidebar is hidden.
+- Zen Fluent Enhanced: on a wide window, the settings page lays its
+  settings out in two columns (three from 2000 px), and Zen's settings give
+  it the room.
 - **Floating URL bar color** (`zen-fluent.url-floating-color`): white or
   black (default), translucent like Arc, the space's color, or the
   material (the previous look, opaque Mica Alt under Mica Alt).
@@ -31,6 +51,27 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   diagonal in the corners. It is now an inset shadow that follows the
   radius (WinUI's elevation border), and the input row takes the field's
   radius.
+- Split view: the right pane overflowed the window by 5px (Zen pulls the
+  tabbox past the edge by its own 9px gap, the panes used 4px).
+- Media card: with two media playing, the card stacked behind showed its
+  icon and buttons through the front one.
+- Zen set to dark on a light Windows (or the reverse): Windows draws Mica
+  in the system's scheme, and the dark tint over it gave a mid grey. When
+  the two disagree, the window's coat now covers the backdrop at 92 %.
+- A space with a color that Zen reads as dark, on a light window: light
+  text on a light tint (1.3:1). The material's coat, in Zen's scheme, now
+  goes under the gradient when the two disagree.
+- Multiple toolbars: the URL bar opened in place was cut at the window's
+  top (a 48px row centered on a 38px toolbar); the row now fits the
+  toolbar, and the empty 24px band above the results is gone.
+- Zen Fluent Enhanced: Quick settings dropdowns take the WinUI ComboBox
+  look, each under its label at full width (values were cut short).
+- Zen Fluent Enhanced: the app menu's Zen Fluent item has an icon (its
+  label sat 16px left of the others).
+- about:preferences: Keyboard Shortcuts and Extensions and themes (links,
+  not buttons) took Firefox's spacing, 7px off the other items.
+- Glance: the Glance chip nested in its parent's row no longer shows a
+  close button past the row's end.
 
 ## [0.4.1] - 2026-10-31
 

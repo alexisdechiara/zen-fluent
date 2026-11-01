@@ -29,6 +29,13 @@
     backdrop-filter: blur(var(--zf-acrylic-blur)) !important;
   }
 
+  /* Two media playing: Zen stacks the other card behind, scaled down and
+     faded. The translucent card fill let its icon and buttons show
+     through the front card: only its edge shows */
+  &[stacked-behind] > * {
+    visibility: hidden !important;
+  }
+
   /* zen-fluent.tab-text-size moves the card's text with the tab titles */
   & .zen-media-title {
     font-size: calc(13px + var(--zf-text-step)) !important;

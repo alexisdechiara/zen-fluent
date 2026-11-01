@@ -15,7 +15,7 @@
    component's radius. The conditions test the values that set something, so
    that a pref not written yet falls back to the global choice. */
 
-@media (-moz-pref("zen-fluent.variant.extensions", "solid")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
+@media (-moz-pref("zen-fluent.variant.extensions", "solid")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "solid"))) {
   @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)
@@ -46,22 +46,22 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "subtle")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "subtle"))) {
+@media (-moz-pref("zen-fluent.variant.extensions", "standard")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "standard"))) {
   @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)
       .unified-extensions-item-action-button {
-      background-color: var(--zf-variant-subtle-bg) !important;
-      box-shadow: var(--zf-variant-subtle-stroke) !important;
+      background-color: var(--zf-variant-standard-bg) !important;
+      box-shadow: var(--zf-variant-standard-stroke) !important;
 
       &:hover {
-        background-color: var(--zf-variant-subtle-bg-hover) !important;
+        background-color: var(--zf-variant-standard-bg-hover) !important;
       }
 
       &:hover:active,
       &[open] {
-        background-color: var(--zf-variant-subtle-bg-press) !important;
-        box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+        background-color: var(--zf-variant-standard-bg-press) !important;
+        box-shadow: var(--zf-variant-standard-stroke-press) !important;
       }
     }
   }
@@ -71,28 +71,28 @@
       margin-top: 6px !important;
       padding: 4px !important;
       border-radius: var(--zf-radius-card) !important;
-      background-color: var(--zf-variant-subtle-bg) !important;
-      box-shadow: var(--zf-variant-subtle-stroke) !important;
+      background-color: var(--zf-variant-standard-bg) !important;
+      box-shadow: var(--zf-variant-standard-stroke) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "ghost"))) {
+@media (-moz-pref("zen-fluent.variant.extensions", "tint")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "tint"))) {
   @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)
       .unified-extensions-item-action-button {
-      background-color: var(--zf-variant-ghost-bg) !important;
-      box-shadow: var(--zf-variant-ghost-stroke) !important;
+      background-color: var(--zf-variant-tint-bg) !important;
+      box-shadow: var(--zf-variant-tint-stroke) !important;
 
       &:hover {
-        background-color: var(--zf-variant-ghost-bg-hover) !important;
+        background-color: var(--zf-variant-tint-bg-hover) !important;
       }
 
       &:hover:active,
       &[open] {
-        background-color: var(--zf-variant-ghost-bg-press) !important;
-        box-shadow: var(--zf-variant-ghost-stroke-press) !important;
+        background-color: var(--zf-variant-tint-bg-press) !important;
+        box-shadow: var(--zf-variant-tint-stroke-press) !important;
       }
     }
   }
@@ -102,13 +102,13 @@
       margin-top: 6px !important;
       padding: 4px !important;
       border-radius: var(--zf-radius-card) !important;
-      background-color: var(--zf-variant-ghost-bg) !important;
-      box-shadow: var(--zf-variant-ghost-stroke) !important;
+      background-color: var(--zf-variant-tint-bg) !important;
+      box-shadow: var(--zf-variant-tint-stroke) !important;
     }
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "outline")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
+@media (-moz-pref("zen-fluent.variant.extensions", "outline")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "outline"))) {
   @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)
@@ -139,7 +139,69 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.variant.extensions", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
+@media (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and ((-moz-pref("zen-fluent.variant.global", "subtle")) or (-moz-pref("zen-fluent.variant.global", "ghost")))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+
+      &:hover {
+        background-color: var(--zf-variant-subtle-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-subtle-bg-press) !important;
+        box-shadow: var(--zf-variant-subtle-stroke-press) !important;
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-subtle-bg) !important;
+      box-shadow: var(--zf-variant-subtle-stroke) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.extensions", "transparent")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "transparent"))) {
+  @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"]
+      #zen-overflow-extensions-list:not(:empty)
+      .unified-extensions-item-action-button {
+      background-color: var(--zf-variant-transparent-bg) !important;
+      box-shadow: var(--zf-variant-transparent-stroke) !important;
+
+      &:hover {
+        background-color: var(--zf-variant-transparent-bg-hover) !important;
+      }
+
+      &:hover:active,
+      &[open] {
+        background-color: var(--zf-variant-transparent-bg-press) !important;
+        box-shadow: var(--zf-variant-transparent-stroke-press) !important;
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+    :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+      margin-top: 6px !important;
+      padding: 4px !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-variant-transparent-bg) !important;
+      box-shadow: var(--zf-variant-transparent-stroke) !important;
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.variant.extensions", "translucent")) or ((not ((-moz-pref("zen-fluent.variant.extensions", "solid")) or (-moz-pref("zen-fluent.variant.extensions", "standard")) or (-moz-pref("zen-fluent.variant.extensions", "tint")) or (-moz-pref("zen-fluent.variant.extensions", "outline")) or (-moz-pref("zen-fluent.variant.extensions", "subtle")) or (-moz-pref("zen-fluent.variant.extensions", "transparent")) or (-moz-pref("zen-fluent.variant.extensions", "translucent")) or (-moz-pref("zen-fluent.variant.extensions", "ghost")))) and (-moz-pref("zen-fluent.variant.global", "translucent"))) {
   @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
     :root[zen-single-toolbar="true"]
       #zen-overflow-extensions-list:not(:empty)

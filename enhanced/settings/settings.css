@@ -83,6 +83,33 @@ button {
   max-width: 1000px;
 }
 
+/* -------- Wide windows -------- */
+/* A settings page's rows (and Enhanced's features) flow in two columns
+   from 1300px, three from 2000px, so an ultrawide screen is not one narrow
+   column with empty space beside it. A row keeps its expander with it. */
+@media (width >= 1300px) {
+  .view {
+    max-width: none;
+  }
+
+  .section.columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 12px;
+    align-items: start;
+
+    & > :is(.section-title, .section-desc, .infobar) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+@media (width >= 2000px) {
+  .section.columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* The logo of the About card */
 .brand-logo {
   display: inline-block;
