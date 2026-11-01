@@ -606,87 +606,11 @@ function watchConditions(pref, node) {
 }
 
 /** A SettingsCard: title, description, control. */
-// Settings chosen on pictures, as the Themes page draws them: each choice
-// is the preview window with that value
-const VISUAL = new Set([
-  "zen-fluent.style",
-  "zen-fluent.material",
-  "zen-fluent.corners",
-  "zen-fluent.density",
-]);
-
-/** A dropdown pref as cards, each one the preview drawn with its value. */
-function visualPicker(pref, labelledBy) {
-  const group = el("div.vpick", {
-    role: "radiogroup",
-    "aria-labelledby": labelledBy,
-  });
-  for (const option of pref.options) {
-    group.append(
-      el(
-        "button.vpick-card",
-        {
-          role: "radio",
-          "data-value": option.value,
-          onclick: () => change(pref, option.value),
-          onkeydown: (event) => {
-            const step = {
-              ArrowRight: 1,
-              ArrowDown: 1,
-              ArrowLeft: -1,
-              ArrowUp: -1,
-            }[event.key];
-            if (step) {
-              event.preventDefault();
-              const cards = [...group.children];
-              const next =
-                cards[
-                  (cards.indexOf(event.currentTarget) + step + cards.length) %
-                    cards.length
-                ];
-              next.focus();
-              next.click();
-            }
-          },
-        },
-        preview({ [pref.property]: option.value }),
-        el("span.vpick-label", {}, option.label),
-      ),
-    );
-  }
-  const update = () => {
-    for (const card of group.children) {
-      const on = card.dataset.value === read(pref);
-      card.setAttribute("aria-checked", on);
-      card.tabIndex = on ? 0 : -1;
-    }
-  };
-  update();
-  watch(pref.property, update);
-  return group;
-}
-
 function settingRow(
   pref,
   { iconName, iconBase, extraClass = "", path = "" } = {},
 ) {
   const id = `zf-s-${++uid}`;
-  if (VISUAL.has(pref.property) && pref.type === "dropdown") {
-    const row = el("div.card.setting.visual", { "data-pref": pref.property });
-    row.append(
-      el(
-        "div.setting-text",
-        {},
-        path ? el("span.setting-path", {}, path) : null,
-        el("span.setting-title", { id }, pref.title),
-        pref.description ? el("span.setting-desc", {}, pref.description) : null,
-      ),
-      el("div.setting-actions", {}, resetButton([pref], row)),
-      visualPicker(pref, id),
-    );
-    watchConditions(pref, row);
-    return row;
-  }
   const row = el(`div.card.setting${extraClass}`, {
     "data-pref": pref.property,
   });
@@ -1252,6 +1176,7 @@ const VERDICTS = {
   untested: { label: "Not tested with this version", icon: "info" },
   unchecked: { label: "Not checked", icon: "info" },
   conflict: { label: "Incompatible", icon: "dismiss-circle" },
+  breaks: { label: "Breaks Zen Fluent", icon: "dismiss-circle" },
 };
 // Sine's marketplace, as its own page reads it (services/marketplace.sys.mjs)
 const MARKETPLACE = "https://sineorg.github.io/store/marketplace.json";
@@ -1261,7 +1186,16 @@ const MOD_SORTS = {
   name: "Name",
   compatibility: "Compatibility",
 };
-const VERDICT_ORDER = ["works", "partial", "untested", "unchecked", "conflict"];
+const VERDICT_ORDER = [
+  "works",
+  "partial",
+  "untested",
+  "unchecked",
+  "conflict",
+  "breaks",
+];
+// Mods per page of a list: a grid of cards, or rows
+const PAGE_SIZE = { cards: 12, list: 20 };
 const SINE_MANAGER = "chrome://userscripts/content/core/manager.sys.mjs";
 // Zen Fluent and Zen Fluent Enhanced are this page's own mods
 const OWN_MODS = new Set(["Zen-Fluent", "Zen-Fluent-Enhanced"]);
@@ -1282,9 +1216,10 @@ const docsAnchor = (name) =>
     .replace(/[^a-z0-9 ]/g, "")
     .replace(/ /g, "-");
 
+// A web page in a new tab: openWebLinkIn() throws on the system principal
 function openLink(url) {
   chromeWindow().openWebLinkIn(url, "tab", {
-    triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal(),
+    triggeringPrincipal: Services.scriptSecurityManager.createNullPrincipal({}),
   });
 }
 
@@ -1312,8 +1247,8 @@ function verdict(mod, version) {
       reason: "Not in Zen Fluent's list of checked mods yet.",
     };
   }
-  if (mod.status === "conflict") {
-    return { key: "conflict", reason: mod.summary };
+  if (mod.status === "conflict" || mod.status === "breaks") {
+    return { key: mod.status, reason: mod.summary };
   }
   const tested = mod.tested ?? {};
   if (minor(tested.zenFluent) !== minor(model.versions.core)) {
@@ -1353,14 +1288,18 @@ function modsView() {
 }
 
 /** Search, filter and layout over a list of mods, redrawn on each change. */
-function modBrowser(name, { layout, entries, draw, empty }) {
+function modBrowser(
+  name,
+  { layout, entries, draw, empty, verdicts = Object.keys(VERDICTS) },
+) {
   const saved = modsView()[name] ?? {};
   const state = {
     query: "",
-    filter: saved.filter ?? "all",
+    filter: verdicts.includes(saved.filter) ? saved.filter : "all",
     layout: saved.layout ?? layout,
     sort: saved.sort ?? "popular",
     tag: "all",
+    page: 0,
   };
   const save = () => {
     const all = modsView();
@@ -1376,7 +1315,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     onchange: () => {
       state.sort = sort.value;
       save();
-      redraw();
+      restart();
     },
   });
   sort.append(
@@ -1390,7 +1329,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     "aria-label": "Tag",
     onchange: () => {
       state.tag = tag.value;
-      redraw();
+      restart();
     },
   });
   let tagsShown = "";
@@ -1401,7 +1340,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     "aria-label": `Search the ${name === "market" ? "marketplace" : "installed mods"}`,
     oninput: () => {
       state.query = search.value.trim().toLowerCase();
-      redraw();
+      restart();
     },
   });
   const filter = el("select.combo", {
@@ -1409,14 +1348,12 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     onchange: () => {
       state.filter = filter.value;
       save();
-      redraw();
+      restart();
     },
   });
   filter.append(
     el("option", { value: "all" }, "All"),
-    ...Object.entries(VERDICTS).map(([key, info]) =>
-      el("option", { value: key }, info.label),
-    ),
+    ...verdicts.map((key) => el("option", { value: key }, VERDICTS[key].label)),
   );
   filter.value = state.filter;
   const layoutButton = (value, label, iconName) =>
@@ -1429,7 +1366,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
         onclick: () => {
           state.layout = value;
           save();
-          redraw();
+          restart();
         },
       },
       icon(iconName),
@@ -1441,6 +1378,78 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     layoutButton("list", "List", "list"),
   );
   const count = el("span.mod-count", { "aria-live": "polite" });
+  // A PipsPager-like row under the list: Previous, the pages, Next
+  const pager = el("nav.mod-pager", { "aria-label": "Pages" });
+  const node = el(
+    "div.mod-browser",
+    {},
+    el("div.mod-toolbar", {}, search, filter, tag, sort, count, layouts),
+    body,
+    pager,
+  );
+  const goTo = (page) => {
+    state.page = page;
+    redraw();
+    node.scrollIntoView({ block: "start", behavior: "smooth" });
+  };
+  const pageButton = (page, current) =>
+    el(
+      "button.button.mod-page",
+      {
+        "aria-label": `Page ${page + 1}`,
+        "aria-current": current ? "page" : null,
+        onclick: () => goTo(page),
+      },
+      String(page + 1),
+    );
+  function drawPager(pages) {
+    pager.hidden = pages < 2;
+    if (pager.hidden) {
+      pager.replaceChildren();
+      return;
+    }
+    // The first, the last and the two around the current one; … between
+    const numbers = [
+      ...new Set([0, state.page - 1, state.page, state.page + 1, pages - 1]),
+    ]
+      .filter((page) => page >= 0 && page < pages)
+      .sort((a, b) => a - b);
+    const items = [];
+    numbers.forEach((page, i) => {
+      if (i && page - numbers[i - 1] > 1) {
+        items.push(el("span.mod-page-gap", { "aria-hidden": "true" }, "…"));
+      }
+      items.push(pageButton(page, page === state.page));
+    });
+    pager.replaceChildren(
+      el(
+        "button.icon-button.mod-page-step.previous",
+        {
+          "aria-label": "Previous page",
+          title: "Previous page",
+          disabled: state.page === 0,
+          onclick: () => goTo(state.page - 1),
+        },
+        icon("chevron-right"),
+      ),
+      ...items,
+      el(
+        "button.icon-button.mod-page-step",
+        {
+          "aria-label": "Next page",
+          title: "Next page",
+          disabled: state.page === pages - 1,
+          onclick: () => goTo(state.page + 1),
+        },
+        icon("chevron-right"),
+      ),
+    );
+  }
+  // A new search, filter, sort or layout starts from the first page
+  function restart() {
+    state.page = 0;
+    redraw();
+  }
   function redraw() {
     const all = entries();
     // the tags several mods share (the marketplace has many one-offs)
@@ -1492,9 +1501,15 @@ function modBrowser(name, { layout, entries, draw, empty }) {
       shown.length === all.length
         ? `${all.length} ${all.length === 1 ? "mod" : "mods"}`
         : `${shown.length} of ${all.length}`;
+    const size = PAGE_SIZE[state.layout] ?? PAGE_SIZE.list;
+    const pages = Math.ceil(shown.length / size);
+    state.page = Math.max(0, Math.min(state.page, pages - 1));
+    drawPager(pages);
     body.replaceChildren(
       ...(shown.length
-        ? shown.map((entry) => draw(entry, state.layout))
+        ? shown
+            .slice(state.page * size, (state.page + 1) * size)
+            .map((entry) => draw(entry, state.layout))
         : [
             el(
               "p.mod-empty",
@@ -1509,15 +1524,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     );
   }
   redraw();
-  return {
-    node: el(
-      "div.mod-browser",
-      {},
-      el("div.mod-toolbar", {}, search, filter, tag, sort, count, layouts),
-      body,
-    ),
-    redraw,
-  };
+  return { node, redraw };
 }
 
 /** A mod as a card (cards) or a SettingsCard row (list). */
@@ -1687,6 +1694,81 @@ async function openModSettings(installed) {
   dialog.showModal();
 }
 
+/**
+ * Asks before installing a mod that does not work with Zen Fluent (a
+ * ContentDialog; Cancel is the default button). Resolves to true to install.
+ */
+function confirmInstall(name, mod) {
+  const breaks = mod.status === "breaks";
+  return new Promise((resolve) => {
+    let answer = false;
+    const cancel = el(
+      "button.button.accent",
+      { onclick: () => dialog.close() },
+      "Cancel",
+    );
+    const dialog = el(
+      "dialog.mod-dialog.mod-confirm",
+      { "aria-label": `Install ${name}?` },
+      el(
+        "div.mod-dialog-header",
+        {},
+        el("h2.mod-dialog-title", {}, `Install ${name}?`),
+      ),
+      el(
+        "div.mod-dialog-content",
+        {},
+        el(
+          `div.infobar.${breaks ? "critical" : "caution"}`,
+          {},
+          icon(breaks ? "dismiss-circle" : "warning"),
+          el(
+            "div.infobar-text",
+            {},
+            el(
+              "strong",
+              {},
+              breaks
+                ? `${name} replaces Zen's whole look`
+                : `${name} is incompatible with Zen Fluent`,
+            ),
+            el("span", {}, mod.summary),
+          ),
+        ),
+        el(
+          "p.section-desc",
+          {},
+          breaks
+            ? "With both on, the window is unusable: turn one of them off in Installed right after."
+            : "Both style the same parts, so some of them will look wrong while both are on. You can turn one off in Installed.",
+        ),
+      ),
+      el(
+        "div.mod-dialog-footer",
+        {},
+        el(
+          "button.button",
+          {
+            onclick: () => {
+              answer = true;
+              dialog.close();
+            },
+          },
+          "Install anyway",
+        ),
+        cancel,
+      ),
+    );
+    dialog.addEventListener("close", () => {
+      dialog.remove();
+      resolve(answer);
+    });
+    document.body.append(dialog);
+    dialog.showModal();
+    cancel.focus();
+  });
+}
+
 function renderMods() {
   let installedMods = [];
   let manager = null;
@@ -1723,6 +1805,10 @@ function renderMods() {
         continue;
       }
       const mod = checkedEntry(data);
+      // A whole theme (Nebula, Arc 2.0…) cannot run with Zen Fluent
+      if (mod?.status === "breaks") {
+        continue;
+      }
       if (mod) {
         listed.add(mod);
       }
@@ -1751,7 +1837,7 @@ function renderMods() {
     }
     // Checked mods that are not in the marketplace (installed from GitHub)
     for (const mod of model.mods) {
-      if (listed.has(mod)) {
+      if (listed.has(mod) || mod.status === "breaks") {
         continue;
       }
       const installed = installedFor(null, mod);
@@ -1786,6 +1872,7 @@ function renderMods() {
   const market = modBrowser("market", {
     layout: "cards",
     entries: marketEntries,
+    verdicts: Object.keys(VERDICTS).filter((key) => key !== "breaks"),
     empty: () =>
       store === null
         ? "Loading Sine's marketplace…"
@@ -1827,8 +1914,15 @@ function renderMods() {
                   entry.verdict.key === "conflict"
                     ? "It styles the same parts as Zen Fluent: one of the two should stay off"
                     : "",
-                onclick: (event) =>
-                  busy(event.currentTarget, "Installing…", async () => {
+                onclick: async (event) => {
+                  const button = event.currentTarget;
+                  if (
+                    entry.verdict.key === "conflict" &&
+                    !(await confirmInstall(entry.name, entry.mod))
+                  ) {
+                    return;
+                  }
+                  await busy(button, "Installing…", async () => {
                     try {
                       await entry.install();
                       toast(`${entry.name} installed`);
@@ -1837,7 +1931,8 @@ function renderMods() {
                       toast(`${entry.name} could not be installed`);
                     }
                     await refresh();
-                  }),
+                  });
+                },
               },
               entry.verdict.key === "conflict" ? "Install anyway" : "Install",
             ),
@@ -1963,7 +2058,6 @@ function renderMods() {
       el("strong", {}, "An incompatible mod is on"),
       el("span"),
     ),
-    el("button.button", { onclick: openInSine }, "Sine Mods"),
   );
 
   // Sine's list (read again after an install or a switch), then each
@@ -1977,12 +2071,19 @@ function renderMods() {
     } catch {
       installedMods = [];
     }
-    const on = installedMods
-      .filter((m) => m.enabled && registryEntry(m)?.status === "conflict")
-      .map((m) => m.name);
+    const clash = (status) =>
+      installedMods
+        .filter((m) => m.enabled && registryEntry(m)?.status === status)
+        .map((m) => m.name);
+    const breaking = clash("breaks");
+    const on = [...breaking, ...clash("conflict")];
     conflictBar.hidden = !on.length;
+    conflictBar.classList.toggle("critical", breaking.length > 0);
+    conflictBar.classList.toggle("caution", !breaking.length);
     conflictBar.querySelector(".infobar-text > span").textContent =
-      `${on.join(" and ")} ${on.length > 1 ? "style" : "styles"} the same parts as Zen Fluent: turn one off below or in Sine Mods.`;
+      breaking.length
+        ? `${breaking.join(" and ")} ${breaking.length > 1 ? "replace" : "replaces"} Zen's whole look and cannot run with Zen Fluent: turn ${breaking.length > 1 ? "them" : "it"} off below.`
+        : `${on.join(" and ")} ${on.length > 1 ? "style" : "styles"} the same parts as Zen Fluent: turn one off below.`;
     market.redraw();
     installed.redraw();
   }
@@ -2034,6 +2135,13 @@ function renderMods() {
           const url = repo.value.trim();
           if (!/^(https:\/\/github\.com\/)?[\w.-]+\/[\w.-]+/.test(url)) {
             toast("A GitHub address, for example https://github.com/user/repo");
+            return;
+          }
+          const mod = registryEntry({ homepage: url });
+          if (
+            (mod?.status === "conflict" || mod?.status === "breaks") &&
+            !(await confirmInstall(mod.name, mod))
+          ) {
             return;
           }
           try {
@@ -2094,7 +2202,7 @@ function renderMods() {
       el(
         "p.section-desc",
         {},
-        "Sine's marketplace, with each mod's compatibility with Zen Fluent: Works means checked with this version of Zen Fluent and the mod's version; Not checked, not in Zen Fluent's list yet.",
+        "Sine's marketplace, with each mod's compatibility with Zen Fluent: Works means checked with this version of Zen Fluent and the mod's version; Not checked, not in Zen Fluent's list yet. Whole themes that replace Zen's look (Nebula, Arc 2.0, Zia…) are left out: they cannot run with Zen Fluent.",
       ),
       market.node,
     ),
@@ -2435,6 +2543,19 @@ function renderVariants(page) {
     // The extensions have two looks, both applied: each button's and the
     // row's, one tab each (a WinUI SelectorBar)
     const hasRow = name === "extensions" && !!variantPref(ROW, "fill");
+    // 0.4.2's "whole row" gave the buttons' look to the row: as long as it
+    // holds, Each button would style the row. Its look moves to The row.
+    if (hasRow && read(model.prefs.get(SCOPE)) === "row") {
+      const rowFill = variantPref(ROW, "fill");
+      const rowShape = variantPref(ROW, "shape");
+      if (isDefault(rowFill) && isDefault(rowShape)) {
+        write(rowFill, read(fill));
+        write(rowShape, read(shape));
+        reset(fill);
+        reset(shape);
+      }
+      reset(model.prefs.get(SCOPE));
+    }
     const titleId = `zf-tip-${++uid}`;
     const choices = (target) =>
       el(
@@ -2915,11 +3036,7 @@ function link(label, url, iconName = "open") {
   return el(
     "button.link-row.card",
     {
-      onclick: () =>
-        chromeWindow().openWebLinkIn(url, "tab", {
-          triggeringPrincipal:
-            Services.scriptSecurityManager.getSystemPrincipal(),
-        }),
+      onclick: () => openLink(url),
     },
     icon(iconName),
     el("span", {}, label),

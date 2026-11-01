@@ -674,6 +674,14 @@ button {
     }
   }
 
+  &.critical {
+    background: var(--zf-critical-bg, light-dark(#fde7e9, #442726));
+
+    & > .icon {
+      color: var(--zf-critical, #c42b1c);
+    }
+  }
+
   &[hidden] {
     display: none;
   }
@@ -2350,6 +2358,58 @@ button {
   color: var(--zf-text-secondary, GrayText);
 }
 
+/* The pages of a long list, under it: Previous, numbers, Next */
+.mod-pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.mod-page {
+  min-width: 32px;
+  padding-inline: 8px;
+
+  &[aria-current="page"] {
+    border-color: transparent;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
+.mod-page-step {
+  width: 32px;
+  height: 32px;
+
+  &.previous .icon {
+    transform: scaleX(-1);
+  }
+
+  &:dir(rtl) .icon {
+    transform: scaleX(-1);
+  }
+
+  &.previous:dir(rtl) .icon {
+    transform: none;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.mod-page-gap {
+  min-width: 20px;
+  color: var(--zf-text-secondary, GrayText);
+  text-align: center;
+}
+
 .mod-title {
   display: inline-flex;
   flex-wrap: wrap;
@@ -2458,7 +2518,7 @@ button {
     --tone: var(--zf-caution, #9d5d00);
   }
 
-  &.conflict {
+  &:is(.conflict, .breaks) {
     --tone: var(--zf-critical, #c42b1c);
   }
 }
@@ -2472,7 +2532,7 @@ button {
     fill: var(--zf-caution, #9d5d00);
   }
 
-  &.conflict .mod-status .icon {
+  &:is(.conflict, .breaks) .mod-status .icon {
     fill: var(--zf-critical, #c42b1c);
   }
 }
@@ -2524,6 +2584,19 @@ button {
   gap: 4px;
   padding: 8px 24px 16px;
   overflow: auto;
+}
+
+/* Asking before installing an incompatible mod: its InfoBar, then a line */
+.mod-confirm {
+  width: min(480px, calc(100vw - 48px));
+
+  & .infobar {
+    margin-top: 0;
+  }
+
+  & .section-desc {
+    margin: 12px 0 0;
+  }
 }
 
 .mod-dialog-section {
@@ -2678,61 +2751,4 @@ button {
   & .icon {
     fill: var(--zf-critical, #c42b1c);
   }
-}
-
-/* -------- Settings chosen on pictures (style, material, corners,
-   density): the preview window per choice, as on the Themes page -------- */
-
-.setting.visual {
-  flex-wrap: wrap;
-  align-items: start;
-
-  & > .setting-text {
-    flex: 1 1 0;
-  }
-}
-
-.vpick {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 8px;
-  width: 100%;
-}
-
-.vpick-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 6px 6px 8px;
-  border: 1px solid var(--zf-stroke-control, ButtonBorder);
-  border-radius: var(--radius-card);
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-align: start;
-  cursor: pointer;
-
-  & .mock {
-    pointer-events: none;
-  }
-
-  &:hover {
-    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
-  }
-
-  &[aria-checked="true"] {
-    border-color: transparent;
-    outline: 2px solid var(--accent);
-    outline-offset: -1px;
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--zf-focus-outer, var(--accent));
-    outline-offset: 1px;
-  }
-}
-
-.vpick-label {
-  font-size: 12px;
-  line-height: 16px;
 }

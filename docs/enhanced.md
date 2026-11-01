@@ -76,8 +76,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   the settings page (Sine's dialog while the settings page is off). The list
   lives in `enhanced/quick-settings.json`.
 
-- **Settings page**: a **Zen Fluent** page in Zen's settings, below Sine
-  Mods, with every Zen Fluent and Zen Fluent Enhanced setting in the style of
+- **Settings page**: a **Zen Fluent** page in Zen's settings, in place of
+  Sine Mods (its **Mods** section replaces it), with every Zen Fluent and Zen Fluent Enhanced setting in the style of
   Windows Settings (Sine's dialog keeps working). Its sections unfold under
   it as sub-items of Zen's navigation, icons only when Firefox folds it (at
   950px and below). Open it from **Zen Fluent** in the app menu (under
@@ -124,8 +124,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     ([compatibility.md](compatibility.md)): **Works**, **Works with a
     limit**, **Not tested with this version** (the Zen Fluent or mod
     version differs from the last check), **Not checked** (not in Zen
-    Fluent's list yet) or **Incompatible**. **Install** goes through Sine
-    (**Install anyway** for an incompatible one), **Update to vX** shows
+    Fluent's list yet) or **Incompatible**. Whole themes that replace Zen's
+    look (Nebula, Arc 2.0, Zia…: **Breaks Zen Fluent**) are left out.
+    **Install** goes through Sine; for an incompatible mod, **Install
+    anyway** asks first in a dialog (Cancel is the default), as does **Add a
+    mod** for an incompatible or breaking one. **Update to vX** shows
     when the installed version is older. **Add a mod** installs one from
     its GitHub address. **Installed** lists every mod Sine has, with its
     switch, its page, **Settings** (the mod's own settings in a dialog
@@ -133,8 +136,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     **Uninstall** (a second click confirms) and **Check for updates**.
     Each section has a search field, filters by badge and by tag, a sort
     (most stars, recently updated, name, compatibility) and a Cards / List
-    switch, kept for the next visits; an InfoBar warns when an
-    incompatible mod is on.
+    switch, kept for the next visits, and pages (12 cards or 20 rows each);
+    an InfoBar warns when an incompatible or breaking mod is on.
 
   Every change applies at once and every value follows changes made
   elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom
@@ -386,9 +389,10 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Delete) takes one away. The shelf is kept in the profile
   (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
 - **Window glow** (on by default): when the window changes color (another
-  space, a site with Site color, the adaptive accent), its background
-  lights up briefly in the new color, under the sidebar's content and the
-  page, and fades out. Nothing with reduced motion.
+  space or theme, light or dark mode), its background lights up softly in
+  the new color, under the sidebar's content and the page, and fades out.
+  Switching tabs never glows, even with Site color or the adaptive accent.
+  Nothing with reduced motion.
 - **Start page** (off by default): new tabs open a page of Zen Fluent's
   own, as Windows 11 and Edge's: a greeting with the time and the date, a
   search field with your default engine (an address opens, words search,

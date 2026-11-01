@@ -1,5 +1,5 @@
 {
-  "$comment": "Sine mods checked with Zen Fluent. tested: the Zen Fluent version and the mod version of the last check; the settings page shows Works only while both still match (Zen Fluent by major.minor). status: supported, partial (works with a limit) or conflict.",
+  "$comment": "Sine mods checked with Zen Fluent. tested: the Zen Fluent version and the mod version of the last check; the settings page shows Works only while both still match (Zen Fluent by major.minor). status: supported, partial (works with a limit), conflict (some parts look wrong; the page asks before installing it) or breaks (a whole theme that replaces Zen's look: left out of the page's marketplace).",
   "mods": [
     {
       "name": "Advanced Tab Groups",
@@ -132,6 +132,83 @@
       "tested": {
         "zenFluent": "0.3.0",
         "version": "1.7.2"
+      }
+    },
+    {
+      "name": "Nebula",
+      "id": "Nebula",
+      "repo": "JustADumbPrsn/Zen-Nebula",
+      "status": "breaks",
+      "summary": "A whole theme for Zen: its sidebar, tabs, URL bar and page frame replace Zen Fluent's own, and the two together break the window.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "3.3.3"
+      }
+    },
+    {
+      "name": "Arc 2.0",
+      "id": "Arc-2.0",
+      "repo": "YashjitPal/Arc-2.0",
+      "status": "breaks",
+      "summary": "An Arc-like theme for the whole window: its sidebar, tabs and URL bar replace Zen Fluent's own, and the two together break the window.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "3.4"
+      }
+    },
+    {
+      "name": "Zia",
+      "id": "zia",
+      "repo": "z1n-k/zia",
+      "status": "breaks",
+      "summary": "Rebuilds Zen with its own page card, site-colored toolbar and sidebar, over every part Zen Fluent styles: the two together break the window.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "2.114.1"
+      }
+    },
+    {
+      "name": "Neo Zen",
+      "id": "Neo-Zen",
+      "repo": "JustVibingWhileCoding/Neo-Zen",
+      "status": "breaks",
+      "summary": "A whole theme for Zen that restyles the same window as Zen Fluent: the two together break it.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.21.3-neo.1"
+      }
+    },
+    {
+      "name": "Livs Theme",
+      "id": "livstheme",
+      "repo": "designlivs/livstheme",
+      "status": "breaks",
+      "summary": "A new look for the whole of Zen (sidebar, Essentials, tabs, URL bar): it replaces Zen Fluent's, and the two together break the window.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "name": "macaron",
+      "id": "macaron",
+      "repo": "SehajveerSingh2005/macaron",
+      "status": "breaks",
+      "summary": "A neobrutalist theme for the whole window: its borders and colors replace Zen Fluent's, and the two together break it.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.5.6"
+      }
+    },
+    {
+      "name": "Wireframe 2.0",
+      "id": "wireframe-2.0",
+      "repo": "SehajveerSingh2005/zen-wireframe-2.0",
+      "status": "breaks",
+      "summary": "A minimal squared theme for the whole window: it replaces Zen Fluent's look, and the two together break it.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "3.0.0"
       }
     }
   ]

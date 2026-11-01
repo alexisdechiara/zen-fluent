@@ -18,6 +18,7 @@ what Zen Fluent does about it.
 | [Blended Addressbar](#blended-addressbar)                   | Conflicts: do not use both            |
 | [Better Find Bar](#better-find-bar)                         | Conflicts: do not use both            |
 | [SuperPins](#superpins)                                     | Conflicts: do not use both            |
+| [Whole themes](#whole-themes)                               | Break Zen Fluent: never use both      |
 
 The compat rules are part of Zen Fluent (`core/src/compat/` and a few
 component files) and need no setting: they only match what those mods add.
@@ -209,6 +210,25 @@ bar with the strip's fill and sizes. Use one or the other.
 Fluent's, and its workspace indicator options overlap Zen Fluent's
 (**Workspace indicator**). Some of its rules target elements and attributes
 Zen 1.23 no longer has, so they do nothing. Use one or the other.
+
+## Whole themes
+
+Themes that restyle the whole window replace Zen Fluent rather than add to
+it: with both on, the sidebar, tabs, URL bar and page frame get two looks at
+once and the window is unusable. Zen Fluent Enhanced's **Mods** page leaves
+them out of its marketplace, asks before installing one from its GitHub
+address, and warns while one is on (**Breaks Zen Fluent**). Turn the theme or
+Zen Fluent off.
+
+| Theme                                                                    | Checked (version) |
+| ------------------------------------------------------------------------ | ----------------- |
+| [Nebula](https://github.com/JustADumbPrsn/Zen-Nebula)                    | 3.3.3             |
+| [Arc 2.0](https://github.com/YashjitPal/Arc-2.0)                         | 3.4               |
+| [Zia](https://github.com/z1n-k/zia)                                      | 2.114.1           |
+| [Neo Zen](https://github.com/JustVibingWhileCoding/Neo-Zen)              | 1.21.3-neo.1      |
+| [Livs Theme](https://github.com/designlivs/livstheme)                    | 1.0.0             |
+| [macaron](https://github.com/SehajveerSingh2005/macaron)                 | 1.5.6             |
+| [Wireframe 2.0](https://github.com/SehajveerSingh2005/zen-wireframe-2.0) | 3.0.0             |
 
 ## Reporting a problem
 

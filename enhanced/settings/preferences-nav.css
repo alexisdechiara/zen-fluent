@@ -1,6 +1,12 @@
 /* Zen Fluent Enhanced: the Zen Fluent entry and search results in Zen's settings.
    An author sheet that scripts/settings-page.uc.js adds to about:preferences:
-   it styles only the elements the script adds. */
+   it styles the elements the script adds, and hides Sine's own entry. */
+
+/* The settings page's Mods replaces Sine Mods (Sine's pane still opens
+   from a mod's Settings or Open in Sine) */
+#category-sine-mods {
+  display: none;
+}
 
 /* The page's sections, under the Zen Fluent button: a hierarchical
    NavigationView, unfolded while the Zen Fluent pane is shown. The child

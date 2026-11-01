@@ -6,6 +6,34 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Changed
+
+- Zen Fluent Enhanced, **Mods**: the marketplace and the installed mods
+  show in pages (12 cards or 20 rows), and Sine's own **Sine Mods** entry
+  leaves Zen's settings while the settings page is on (Mods replaces it).
+- Whole themes that replace Zen's look (Nebula, Arc 2.0, Zia, Neo Zen, Livs
+  Theme, macaron, Wireframe 2.0) are marked **Breaks Zen Fluent** and left
+  out of the Mods page's marketplace
+  ([compatibility](docs/compatibility.md#whole-themes)).
+- Installing an incompatible mod, from the marketplace or a GitHub address,
+  asks first in a dialog.
+- The settings page's Appearance chooses **Style**, **Material**, **Corners
+  and gaps** and **Density** in dropdowns again (the Overview and Themes
+  pages keep their pictures).
+- **Window glow** is softer and only shows when the space's colors or the
+  color scheme change.
+
+### Fixed
+
+- Mods: the button that opens a mod's page (and the links of the settings
+  page) did nothing: Firefox refuses the system principal for a web link.
+- **Window glow** flashed the whole window on tab switches: Zen rewrites
+  its background layers with the same colors, and the glow's stacking
+  context came and went with each glow.
+- Variants, extensions: with 0.4.2's "Fill and shape for: The whole row"
+  still saved, **Each button** styled the row. Opening the extensions pin
+  moves that look to **The row**.
+
 ## [0.4.3] - 2026-11-01
 
 ### Added
