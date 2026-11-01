@@ -38,7 +38,7 @@ Group header: `zen-fluent.ui.open-variants` (open by default: `false`).
 Two axes, so that choices combine: the **fill** (solid, standard, tint,
 outline, subtle, transparent, translucent) and the **shape** (square,
 rounded, pill). A **Pill** fill saved by 0.3 or before still reads as the
-pill shape, and a **Ghost** fill saved by 0.4 or before as Subtle.
+pill shape, and a **Ghost** fill saved by 0.4.1 or before as Subtle.
 
 - The fill of a component is its own when it names one, else the one set
   for every component; Automatic on both keeps the look of the other

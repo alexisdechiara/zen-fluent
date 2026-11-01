@@ -408,7 +408,7 @@ hides any of them. With
 [ZenLibraryTweaks](compatibility.md#zenlibrarytweaks), they can be
 reordered and removed like its own sections; one removed there stays
 removed. While the Library is off (`zen.library.enabled`), each board
-opens in a panel from a button in the bottom row, as before 0.5. The
+opens in a panel from a button in the bottom row, as before 0.4.2. The
 tabs' labels are in English and French
 (`enhanced/l10n/<locale>/zen-fluent-enhanced.ftl`).
 

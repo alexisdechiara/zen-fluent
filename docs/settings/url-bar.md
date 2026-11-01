@@ -27,7 +27,7 @@ Group header: `zen-fluent.ui.open-urlbar` (open by default: `false`).
   (default); translucent like Arc's command bar (the blur reaches the
   sidebar, not the page: Firefox never blurs web content, the page is only
   dimmed); tinted with the space's color (white or black while the space has
-  no color); or the material, as before 0.5 (the opaque Mica Alt color under
+  no color); or the material, as before 0.4.2 (the opaque Mica Alt color under
   Mica Alt). While the bar floats, its place in the sidebar keeps the resting
   field's look (fill, stroke and corners) instead of Zen's.
 - **Hide permission icons**: only the request on screen keeps its icon; a
