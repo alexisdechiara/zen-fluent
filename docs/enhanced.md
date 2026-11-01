@@ -12,6 +12,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
 | Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
 | Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
@@ -108,24 +109,32 @@ strict minimum: anything CSS can do lives in Zen Fluent.
     Essentials, pinned tabs, folders, tabs, spaces, dialog buttons) and an
     **All** pin on the window itself. A pin, or the part it marks, opens a
     TeachingTip with the fill and shape as picture chips; All sets every
-    component left on Auto; the extensions pin also chooses whether the
-    fill and shape go to each button or to the whole row. The drawing
+    component left on Auto; the extensions pin has two tabs, **Each
+    button** and **The row**, both applied at once. On a window 1300 px
+    wide or more, the fill and shape show in a panel on the right of the
+    drawing instead of a TeachingTip. The drawing
     shows the result on a selected item, one under the pointer and one at
     rest. **Your changes** lists
     what has its own look.
   - _Enhanced_: each feature with its icon; its options show while it is
     on.
-  - _Compatible mods_: a **Marketplace** of the Sine mods checked with Zen
-    Fluent ([compatibility.md](compatibility.md)), as cards, with
-    **Install** (through Sine), and below it every mod Sine has
-    **Installed**, as a list, with its switch, its page and **Settings**:
-    the mod's own settings in a dialog drawn as Zen Fluent's, or Sine's
-    pane when this page cannot draw them. Each mod's badge says **Works**,
-    **Works with a limit**, **Not tested with this version** (the Zen
-    Fluent or mod version differs from the last check) or
-    **Incompatible**. Each section has a search field, a filter by badge
-    and a Cards / List switch, kept for the next visits; an InfoBar warns
-    when an incompatible mod is on.
+  - _Mods_: Sine's marketplace on this page. **Marketplace** lists every
+    mod of Sine's store (its preview, stars, last update, whether it runs
+    scripts) with its compatibility with Zen Fluent
+    ([compatibility.md](compatibility.md)): **Works**, **Works with a
+    limit**, **Not tested with this version** (the Zen Fluent or mod
+    version differs from the last check), **Not checked** (not in Zen
+    Fluent's list yet) or **Incompatible**. **Install** goes through Sine
+    (**Install anyway** for an incompatible one), **Update to vX** shows
+    when the installed version is older. **Add a mod** installs one from
+    its GitHub address. **Installed** lists every mod Sine has, with its
+    switch, its page, **Settings** (the mod's own settings in a dialog
+    drawn as Zen Fluent's, or Sine's pane when this page cannot draw them),
+    **Uninstall** (a second click confirms) and **Check for updates**.
+    Each section has a search field, filters by badge and by tag, a sort
+    (most stars, recently updated, name, compatibility) and a Cards / List
+    switch, kept for the next visits; an InfoBar warns when an
+    incompatible mod is on.
 
   Every change applies at once and every value follows changes made
   elsewhere (Sine, Quick Settings, a shortcut). A text setting (custom
@@ -376,6 +385,10 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   items can be dragged out again, to a page or the address bar; × (or
   Delete) takes one away. The shelf is kept in the profile
   (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
+- **Window glow** (on by default): when the window changes color (another
+  space, a site with Site color, the adaptive accent), its background
+  lights up briefly in the new color, under the sidebar's content and the
+  page, and fades out. Nothing with reduced motion.
 - **Start page** (off by default): new tabs open a page of Zen Fluent's
   own, as Windows 11 and Edge's: a greeting with the time and the date, a
   search field with your default engine (an address opens, words search,

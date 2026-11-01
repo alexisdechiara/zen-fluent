@@ -23,6 +23,9 @@
     "scripts/adaptive-accent.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
+    "scripts/window-glow.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/site-color.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },

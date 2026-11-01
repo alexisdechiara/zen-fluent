@@ -93,3 +93,19 @@
     height: 24px !important;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.icon-size", "custom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-icon: var(--zf-cv-ext-icon);
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack
+    > .toolbarbutton-icon {
+    width: var(--zf-cv-ext-icon) !important;
+    height: var(--zf-cv-ext-icon) !important;
+  }
+}

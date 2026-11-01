@@ -1388,7 +1388,7 @@ button {
   content: "";
 }
 
-.mock[data-fill="ghost"] .mock-tab[selected] {
+.mock:is([data-fill="transparent"], [data-fill="ghost"]) .mock-tab[selected] {
   background: transparent;
   box-shadow: none;
 }
@@ -1402,7 +1402,7 @@ button {
   background: color-mix(in oklab, var(--accent) 22%, var(--m-tab-fill));
 }
 
-.mock[data-fill="subtle"] .mock-tab[selected] {
+.mock[data-fill="tint"] .mock-tab[selected] {
   box-shadow: inset 0 0 0 1px var(--m-faint);
 }
 
@@ -1674,11 +1674,24 @@ button {
   text-overflow: ellipsis;
 }
 
-/* Fills: solid is a raised control, subtle a light fill in a stroke,
-   ghost nothing but the accent on hover, outline a stroke, translucent
-   Zen's see-through fill; native (a component's own look) a fill on hover
-   and selection */
+/* Fills, by their Fluent 2 and WinUI names: solid an opaque control,
+   standard WinUI's see-through control fill in its border, tint a light
+   fill in a thin border, outline a border, subtle a fill on hover only,
+   transparent nothing but the accent on hover, translucent Zen's
+   see-through fill; native (a component's own look) a fill on hover and
+   selection */
 :is(.vz-part, .vz-sample)[data-fill="solid"] .vz-item {
+  background: light-dark(#fff, #2d2d2d);
+  box-shadow:
+    inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder),
+    0 1px 0 light-dark(rgb(0 0 0 / 10%), rgb(0 0 0 / 30%));
+
+  &[hover] {
+    background: light-dark(#f9f9f9, #323232);
+  }
+}
+
+:is(.vz-part, .vz-sample)[data-fill="standard"] .vz-item {
   background: var(--zf-fill-control, ButtonFace);
   box-shadow:
     inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder),
@@ -1699,7 +1712,7 @@ button {
   }
 }
 
-:is(.vz-part, .vz-sample)[data-fill="subtle"] .vz-item {
+:is(.vz-part, .vz-sample)[data-fill="tint"] .vz-item {
   background: color-mix(
     in srgb,
     var(--zf-fill-control, ButtonFace) 50%,
@@ -1714,16 +1727,15 @@ button {
   }
 }
 
-:is(.vz-part, .vz-sample)[data-fill="ghost"] .vz-item {
-  &[hover] {
-    background: color-mix(
-      in srgb,
-      var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%)) 50%,
-      transparent
-    );
-    color: var(--accent);
+:is(.vz-part, .vz-sample)[data-fill="subtle"] .vz-item {
+  &[hover],
+  &[selected] {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
   }
+}
 
+:is(.vz-part, .vz-sample)[data-fill="transparent"] .vz-item {
+  &[hover],
   &[selected] {
     color: var(--accent);
   }
@@ -1758,45 +1770,54 @@ button {
   }
 }
 
-/* Extensions on "The whole row": the row is the surface, its buttons stay
-   bare */
-.vz-part[data-scope="row"] {
+/* The extensions row's own look, around its buttons (both apply) */
+.vz-part:is(
+  [data-row-fill="solid"],
+  [data-row-fill="standard"],
+  [data-row-fill="tint"],
+  [data-row-fill="outline"],
+  [data-row-fill="translucent"]
+) {
   padding: 4px;
   border-radius: calc(var(--r) + 4px);
 
-  & .vz-item {
-    background: none;
-    box-shadow: none;
-
-    &[hover] {
-      background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
-    }
+  &[data-row-shape="square"] {
+    border-radius: 0;
   }
 
-  &[data-fill="solid"] {
-    background: var(--zf-fill-control, ButtonFace);
-    box-shadow: inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder);
+  &[data-row-shape="pill"] {
+    border-radius: 999px;
   }
+}
 
-  &:is([data-fill="subtle"], [data-fill="outline"]) {
-    box-shadow: inset 0 0 0 1px
-      color-mix(in srgb, var(--zf-stroke-field, GrayText) 60%, transparent);
-  }
+.vz-part[data-row-fill="solid"] {
+  background: light-dark(#fff, #2d2d2d);
+  box-shadow: inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder);
+}
 
-  &[data-fill="subtle"] {
-    background: color-mix(
-      in srgb,
-      var(--zf-fill-control, ButtonFace) 50%,
-      transparent
-    );
-  }
+.vz-part[data-row-fill="standard"] {
+  background: var(--zf-fill-control, ButtonFace);
+  box-shadow: inset 0 0 0 1px var(--zf-stroke-control, ButtonBorder);
+}
 
-  &[data-fill="translucent"] {
-    background: light-dark(
-      color-mix(in oklch, CanvasText 8%, transparent),
-      color-mix(in oklch, CanvasText 15%, transparent)
-    );
-  }
+.vz-part:is([data-row-fill="tint"], [data-row-fill="outline"]) {
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--zf-stroke-field, GrayText) 60%, transparent);
+}
+
+.vz-part[data-row-fill="tint"] {
+  background: color-mix(
+    in srgb,
+    var(--zf-fill-control, ButtonFace) 50%,
+    transparent
+  );
+}
+
+.vz-part[data-row-fill="translucent"] {
+  background: light-dark(
+    color-mix(in oklch, CanvasText 8%, transparent),
+    color-mix(in oklch, CanvasText 15%, transparent)
+  );
 }
 
 /* The Auto sample: a dashed outline, meaning "inherited" */
@@ -1891,7 +1912,8 @@ button {
     font-weight: 600;
   }
 
-  &[data-fill="ghost"] .vz-item,
+  &[data-fill="subtle"] .vz-item,
+  &[data-fill="transparent"] .vz-item,
   &[data-fill="outline"] .vz-item {
     background: transparent;
     color: var(--accent);
@@ -2517,4 +2539,200 @@ button {
   padding: 16px 24px;
   border-top: 1px solid var(--zf-stroke-card, rgb(128 128 128 / 20%));
   background: var(--zf-fill-layer, transparent);
+}
+
+/* -------- Variants: the extensions' two looks, the docked panel -------- */
+
+/* WinUI SelectorBar: text items, the selected one marked by a 3px accent
+   pill under its label */
+.vz-selector {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0 8px;
+}
+
+.vz-selector-item {
+  position: relative;
+  padding: 6px 12px 9px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--zf-text-secondary, GrayText);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+    color: var(--zf-text-primary, CanvasText);
+  }
+
+  &[aria-selected="true"] {
+    color: var(--zf-text-primary, CanvasText);
+    font-weight: 600;
+
+    &::after {
+      position: absolute;
+      inset: auto 0 2px;
+      width: 16px;
+      height: 3px;
+      margin: 0 auto;
+      border-radius: 2px;
+      background: var(--accent);
+      content: "";
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--zf-focus-outer, var(--accent));
+    outline-offset: -2px;
+  }
+}
+
+.vz-tip-choices {
+  display: contents;
+}
+
+.vz-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* A wide window: the stage and, on its right, the panel of the component
+   picked (All components until one is), in place of the TeachingTip */
+.vz-side {
+  display: none;
+}
+
+@media (width >= 1300px) {
+  .vz-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 400px);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .vz-side {
+    display: block;
+    position: sticky;
+    top: 16px;
+  }
+
+  .vz-tip[docked] {
+    position: static;
+    width: auto;
+    box-shadow: none;
+    background: var(--zf-fill-card, transparent);
+    border-color: var(--zf-stroke-card, rgb(128 128 128 / 20%));
+    animation: none;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+/* -------- Mods: the marketplace's previews, Sine's tools -------- */
+
+.mod-toolbar {
+  flex-wrap: wrap;
+}
+
+.mod-image {
+  width: calc(100% + 32px);
+  aspect-ratio: 16 / 9;
+  margin: -14px -16px 4px;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  object-fit: cover;
+}
+
+.mod-card {
+  overflow: hidden;
+}
+
+.mod-tools .setting-actions {
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.mod-repo {
+  width: min(320px, 40vw);
+}
+
+.mod-section-head {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  justify-content: space-between;
+
+  & .section-desc {
+    flex: 1;
+  }
+}
+
+/* Uninstall waits for a second click: the button shows it */
+.icon-button[confirm] {
+  background: var(--zf-critical-bg, rgb(196 43 28 / 15%));
+
+  & .icon {
+    fill: var(--zf-critical, #c42b1c);
+  }
+}
+
+/* -------- Settings chosen on pictures (style, material, corners,
+   density): the preview window per choice, as on the Themes page -------- */
+
+.setting.visual {
+  flex-wrap: wrap;
+  align-items: start;
+
+  & > .setting-text {
+    flex: 1 1 0;
+  }
+}
+
+.vpick {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.vpick-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 6px 8px;
+  border: 1px solid var(--zf-stroke-control, ButtonBorder);
+  border-radius: var(--radius-card);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+
+  & .mock {
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: var(--zf-fill-subtle-hover, rgb(128 128 128 / 10%));
+  }
+
+  &[aria-checked="true"] {
+    border-color: transparent;
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--zf-focus-outer, var(--accent));
+    outline-offset: 1px;
+  }
+}
+
+.vpick-label {
+  font-size: 12px;
+  line-height: 16px;
 }

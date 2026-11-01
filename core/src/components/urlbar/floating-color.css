@@ -2,20 +2,22 @@
    User sheet: declarations take !important to win over Zen's own CSS. */
 
 /* The floating bar lies over the page, which Firefox never blurs behind a
-   backdrop-filter, so every choice but the translucent one is opaque:
+   backdrop-filter, so every choice but the translucent one is opaque. The
+   names are the variants' (tokens/variants.css):
    - solid (default): white in light, near black in dark;
-   - material: the surface everything floating takes (open.css), the
-     opaque Mica Alt color under Mica Alt;
+   - standard: the surface everything floating takes (open.css), the
+     window's material (the opaque Mica Alt color under Mica Alt);
+   - tint: the solid card tinted with the space's color (Zen's
+     --zen-primary-color), with the accent while the space has none;
    - translucent: a see-through glass card, as in Arc: the blur reaches the
-     window's chrome, the page under it is only dimmed (smoke.css);
-   - theme: the solid card tinted with the space's color (Zen's
-     --zen-primary-color), the solid one while the space has no color. */
+     window's chrome, the page under it is only dimmed (smoke.css).
+   "material" and "theme" (0.4.2) read as standard and tint. */
 
 #urlbar[breakout-extend][zen-floating-urlbar="true"] {
   --zf-url-floating-solid: light-dark(#fff, #1c1c1c);
 }
 
-@media (-moz-pref("zen-fluent.url-floating-color", "solid")) or (not ((-moz-pref("zen-fluent.url-floating-color", "material")) or (-moz-pref("zen-fluent.url-floating-color", "translucent")) or (-moz-pref("zen-fluent.url-floating-color", "theme")))) {
+@media (-moz-pref("zen-fluent.url-floating-color", "solid")) or (not ((-moz-pref("zen-fluent.url-floating-color", "standard")) or (-moz-pref("zen-fluent.url-floating-color", "material")) or (-moz-pref("zen-fluent.url-floating-color", "translucent")) or (-moz-pref("zen-fluent.url-floating-color", "tint")) or (-moz-pref("zen-fluent.url-floating-color", "theme")))) {
   #urlbar[breakout-extend][zen-floating-urlbar="true"] .urlbar-background {
     background-color: var(--zf-url-floating-solid) !important;
   }
@@ -31,7 +33,7 @@
   }
 }
 
-@media (-moz-pref("zen-fluent.url-floating-color", "theme")) {
+@media (-moz-pref("zen-fluent.url-floating-color", "tint")) or (-moz-pref("zen-fluent.url-floating-color", "theme")) {
   #urlbar[breakout-extend][zen-floating-urlbar="true"] .urlbar-background {
     background-color: color-mix(
       in oklab,
@@ -43,6 +45,10 @@
   :root[zen-default-theme="true"]
     #urlbar[breakout-extend][zen-floating-urlbar="true"]
     .urlbar-background {
-    background-color: var(--zf-url-floating-solid) !important;
+    background-color: color-mix(
+      in oklab,
+      var(--zf-accent) 18%,
+      var(--zf-url-floating-solid)
+    ) !important;
   }
 }

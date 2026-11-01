@@ -22,7 +22,7 @@ what Zen Fluent does about it.
 The compat rules are part of Zen Fluent (`core/src/compat/` and a few
 component files) and need no setting: they only match what those mods add.
 
-Zen Fluent Enhanced's settings page (**Compatible mods**) reads the same list
+Zen Fluent Enhanced's settings page (**Mods**, Sine's marketplace with these verdicts) reads the same list
 from `enhanced/settings/compatible-mods.json`, where each mod records the Zen
 Fluent version and the mod version of its last check (`tested`). Its badge
 says **Works** (or **Works with a limit**) only while both still match: Zen

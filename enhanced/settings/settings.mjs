@@ -97,6 +97,7 @@ const FEATURES = {
   "quick-window": "desktop",
 };
 // The Home page's shortcuts to the main choices
+const EXPERT = "zen-fluent.expert";
 const HOME = {
   style: "zen-fluent.style",
   material: "zen-fluent.material",
@@ -366,7 +367,10 @@ async function load() {
       continue;
     }
     const pref = { ...raw, ...splitLabel(raw.label), group };
-    group.items.push(pref);
+    // The expert mode's switch lives on Overview, not in its group
+    if (pref.property !== EXPERT) {
+      group.items.push(pref);
+    }
     model.prefs.set(pref.property, pref);
   }
   const features = new Map();
@@ -602,11 +606,87 @@ function watchConditions(pref, node) {
 }
 
 /** A SettingsCard: title, description, control. */
+// Settings chosen on pictures, as the Themes page draws them: each choice
+// is the preview window with that value
+const VISUAL = new Set([
+  "zen-fluent.style",
+  "zen-fluent.material",
+  "zen-fluent.corners",
+  "zen-fluent.density",
+]);
+
+/** A dropdown pref as cards, each one the preview drawn with its value. */
+function visualPicker(pref, labelledBy) {
+  const group = el("div.vpick", {
+    role: "radiogroup",
+    "aria-labelledby": labelledBy,
+  });
+  for (const option of pref.options) {
+    group.append(
+      el(
+        "button.vpick-card",
+        {
+          role: "radio",
+          "data-value": option.value,
+          onclick: () => change(pref, option.value),
+          onkeydown: (event) => {
+            const step = {
+              ArrowRight: 1,
+              ArrowDown: 1,
+              ArrowLeft: -1,
+              ArrowUp: -1,
+            }[event.key];
+            if (step) {
+              event.preventDefault();
+              const cards = [...group.children];
+              const next =
+                cards[
+                  (cards.indexOf(event.currentTarget) + step + cards.length) %
+                    cards.length
+                ];
+              next.focus();
+              next.click();
+            }
+          },
+        },
+        preview({ [pref.property]: option.value }),
+        el("span.vpick-label", {}, option.label),
+      ),
+    );
+  }
+  const update = () => {
+    for (const card of group.children) {
+      const on = card.dataset.value === read(pref);
+      card.setAttribute("aria-checked", on);
+      card.tabIndex = on ? 0 : -1;
+    }
+  };
+  update();
+  watch(pref.property, update);
+  return group;
+}
+
 function settingRow(
   pref,
   { iconName, iconBase, extraClass = "", path = "" } = {},
 ) {
   const id = `zf-s-${++uid}`;
+  if (VISUAL.has(pref.property) && pref.type === "dropdown") {
+    const row = el("div.card.setting.visual", { "data-pref": pref.property });
+    row.append(
+      el(
+        "div.setting-text",
+        {},
+        path ? el("span.setting-path", {}, path) : null,
+        el("span.setting-title", { id }, pref.title),
+        pref.description ? el("span.setting-desc", {}, pref.description) : null,
+      ),
+      el("div.setting-actions", {}, resetButton([pref], row)),
+      visualPicker(pref, id),
+    );
+    watchConditions(pref, row);
+    return row;
+  }
   const row = el(`div.card.setting${extraClass}`, {
     "data-pref": pref.property,
   });
@@ -1033,8 +1113,6 @@ function renderOverview(page) {
     hero.style.removeProperty("--tilt-y");
   });
 
-  const styleArt = (value) =>
-    el("span.tile-art", { "data-style": value }, el("i"), el("i"), el("i"));
   const materialArt = (value) =>
     el("span.tile-art.material", { "data-material": value }, el("i"));
 
@@ -1042,25 +1120,18 @@ function renderOverview(page) {
     ? settingRow(model.prefs.get(HOME.accentCustom))
     : null;
 
+  // Expert mode: every setting, and a custom value for each length
+  const expert = model.prefs.get(EXPERT)
+    ? settingRow(model.prefs.get(EXPERT), {
+        iconName: "wrench",
+        iconBase: FEATURE_ICONS,
+      })
+    : null;
+
   return [
     hero,
     iconsWarning(),
     ...recommendations(),
-    section(
-      "Style",
-      el(
-        "div.card.panel",
-        {},
-        choiceTiles(
-          HOME.style,
-          {
-            winui: "Windows 11 controls, Mica and WinUI corners",
-            edge: "Microsoft Edge: a framed page, rounder tabs",
-          },
-          styleArt,
-        ),
-      ),
-    ),
     section(
       "Material",
       el(
@@ -1102,6 +1173,15 @@ function renderOverview(page) {
         ),
       ),
       customRow,
+    ),
+    section(
+      "Expert mode",
+      el(
+        "p.section-desc",
+        {},
+        "Shows every setting, the interface style among them (a theme sets it otherwise), and lets you type your own value wherever a setting is a number: gaps, sizes, counts, corners.",
+      ),
+      expert,
     ),
     ...aboutSections(),
   ];
@@ -1161,16 +1241,27 @@ function renderThemes() {
   ];
 }
 
-// -------- Compatible mods --------
+// -------- Mods: Sine's marketplace and the installed mods --------
 
 // What a mod's badge says: the registry's verdict while its check still
-// holds (same Zen Fluent major.minor, same mod version), else "untested"
+// holds (same Zen Fluent major.minor, same mod version), "untested" once it
+// no longer does, "unchecked" for a mod the registry does not list
 const VERDICTS = {
   works: { label: "Works", icon: "checkmark-circle" },
   partial: { label: "Works with a limit", icon: "warning" },
   untested: { label: "Not tested with this version", icon: "info" },
+  unchecked: { label: "Not checked", icon: "info" },
   conflict: { label: "Incompatible", icon: "dismiss-circle" },
 };
+// Sine's marketplace, as its own page reads it (services/marketplace.sys.mjs)
+const MARKETPLACE = "https://sineorg.github.io/store/marketplace.json";
+const MOD_SORTS = {
+  popular: "Most stars",
+  updated: "Recently updated",
+  name: "Name",
+  compatibility: "Compatibility",
+};
+const VERDICT_ORDER = ["works", "partial", "untested", "unchecked", "conflict"];
 const SINE_MANAGER = "chrome://userscripts/content/core/manager.sys.mjs";
 // Zen Fluent and Zen Fluent Enhanced are this page's own mods
 const OWN_MODS = new Set(["Zen-Fluent", "Zen-Fluent-Enhanced"]);
@@ -1217,8 +1308,8 @@ function registryEntry(installed) {
 function verdict(mod, version) {
   if (!mod) {
     return {
-      key: "untested",
-      reason: "Not in Zen Fluent's list of checked mods.",
+      key: "unchecked",
+      reason: "Not in Zen Fluent's list of checked mods yet.",
     };
   }
   if (mod.status === "conflict") {
@@ -1268,12 +1359,41 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     query: "",
     filter: saved.filter ?? "all",
     layout: saved.layout ?? layout,
+    sort: saved.sort ?? "popular",
+    tag: "all",
   };
   const save = () => {
     const all = modsView();
-    all[name] = { filter: state.filter, layout: state.layout };
+    all[name] = {
+      filter: state.filter,
+      layout: state.layout,
+      sort: state.sort,
+    };
     Services.prefs.setStringPref(MODS_VIEW, JSON.stringify(all));
   };
+  const sort = el("select.combo", {
+    "aria-label": "Sort by",
+    onchange: () => {
+      state.sort = sort.value;
+      save();
+      redraw();
+    },
+  });
+  sort.append(
+    ...Object.entries(MOD_SORTS).map(([key, label]) =>
+      el("option", { value: key }, label),
+    ),
+  );
+  sort.value = state.sort;
+  // The marketplace's tags, filled in once its list is in
+  const tag = el("select.combo", {
+    "aria-label": "Tag",
+    onchange: () => {
+      state.tag = tag.value;
+      redraw();
+    },
+  });
+  let tagsShown = "";
   const body = el("div.mod-items");
   const search = el("input.textbox.mod-search", {
     type: "search",
@@ -1323,14 +1443,44 @@ function modBrowser(name, { layout, entries, draw, empty }) {
   const count = el("span.mod-count", { "aria-live": "polite" });
   function redraw() {
     const all = entries();
-    const shown = all.filter(
-      (entry) =>
-        (state.filter === "all" || entry.verdict.key === state.filter) &&
-        (!state.query ||
-          `${entry.name} ${entry.author} ${entry.summary}`
-            .toLowerCase()
-            .includes(state.query)),
-    );
+    // the tags several mods share (the marketplace has many one-offs)
+    const counts = new Map();
+    for (const t of all.flatMap((entry) => [...new Set(entry.tags ?? [])])) {
+      counts.set(t.toLowerCase(), (counts.get(t.toLowerCase()) ?? 0) + 1);
+    }
+    const tags = [...counts]
+      .filter(([, n]) => n >= 3)
+      .map(([t]) => t)
+      .sort();
+    if (tags.join() !== tagsShown) {
+      tagsShown = tags.join();
+      tag.replaceChildren(
+        el("option", { value: "all" }, "All tags"),
+        ...tags.map((t) => el("option", { value: t }, t)),
+      );
+      tag.value = tags.includes(state.tag) ? state.tag : "all";
+      tag.hidden = !tags.length;
+    }
+    const by = {
+      popular: (a, b) => (b.stars ?? -1) - (a.stars ?? -1),
+      updated: (a, b) => (b.updated ?? "").localeCompare(a.updated ?? ""),
+      name: (a, b) => a.name.localeCompare(b.name),
+      compatibility: (a, b) =>
+        VERDICT_ORDER.indexOf(a.verdict.key) -
+        VERDICT_ORDER.indexOf(b.verdict.key),
+    }[state.sort];
+    const shown = all
+      .filter(
+        (entry) =>
+          (state.filter === "all" || entry.verdict.key === state.filter) &&
+          (state.tag === "all" ||
+            entry.tags?.some((t) => t.toLowerCase() === state.tag)) &&
+          (!state.query ||
+            `${entry.name} ${entry.author} ${entry.summary} ${(entry.tags ?? []).join(" ")}`
+              .toLowerCase()
+              .includes(state.query)),
+      )
+      .sort((a, b) => by(a, b) || a.name.localeCompare(b.name));
     for (const button of layouts.children) {
       button.setAttribute(
         "aria-pressed",
@@ -1345,7 +1495,17 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     body.replaceChildren(
       ...(shown.length
         ? shown.map((entry) => draw(entry, state.layout))
-        : [el("p.mod-empty", {}, all.length ? "No mod matches." : empty)]),
+        : [
+            el(
+              "p.mod-empty",
+              {},
+              all.length
+                ? "No mod matches."
+                : typeof empty === "function"
+                  ? empty()
+                  : empty,
+            ),
+          ]),
     );
   }
   redraw();
@@ -1353,7 +1513,7 @@ function modBrowser(name, { layout, entries, draw, empty }) {
     node: el(
       "div.mod-browser",
       {},
-      el("div.mod-toolbar", {}, search, filter, count, layouts),
+      el("div.mod-toolbar", {}, search, filter, tag, sort, count, layouts),
       body,
     ),
     redraw,
@@ -1371,13 +1531,29 @@ function modItem(entry, layout, actions) {
   const meta = el(
     "span.mod-meta",
     {},
-    entry.author ? `by ${entry.author}` : "",
+    [
+      entry.author ? `by ${entry.author}` : "",
+      entry.stars != null ? `★ ${entry.stars.toLocaleString()}` : "",
+      entry.updated ? `updated ${entry.updated.slice(0, 10)}` : "",
+      entry.scripts ? "runs scripts" : "",
+    ]
+      .filter(Boolean)
+      .join(" · "),
   );
   const reason = el("span.setting-desc", {}, entry.verdict.reason);
   if (layout === "cards") {
     return el(
       `article.card.mod-card.${entry.verdict.key}`,
       { "data-pref": entry.pref ?? "" },
+      entry.image
+        ? el("img.mod-image", {
+            src: entry.image,
+            alt: "",
+            loading: "lazy",
+            referrerpolicy: "no-referrer",
+            onerror: (event) => event.currentTarget.remove(),
+          })
+        : null,
       el("div.mod-card-head", {}, title, verdictBadge(entry.verdict.key)),
       meta,
       el("p.mod-summary", {}, entry.summary || entry.verdict.reason),
@@ -1514,14 +1690,73 @@ async function openModSettings(installed) {
 function renderMods() {
   let installedMods = [];
   let manager = null;
-  // The marketplace: the registry, with each mod's latest version from its
-  // repository once fetched (the verdict then compares it with the check)
+  // Sine's marketplace (its own filters: this fork, this system), and each
+  // registered mod's latest version from its repository once fetched (the
+  // verdict then compares it with the check)
+  let store = null;
   const latest = new Map();
-  const marketEntries = () =>
-    model.mods.map((mod) => {
-      const installed = installedMods.find((m) => registryEntry(m) === mod);
+  const fits = (data) =>
+    (!data.os || data.os.some((os) => os.toLowerCase().includes(PLATFORM))) &&
+    (!data.fork ||
+      data.fork.some((fork) => fork.toLowerCase().includes("zen"))) &&
+    !data.notFork?.some((fork) => fork.toLowerCase().includes("zen"));
+  const storeURL = () =>
+    (Services.prefs.getBoolPref("sine.allow-external-marketplace", false) &&
+      Services.prefs.getStringPref("sine.marketplace-url", "")) ||
+    MARKETPLACE;
+  /** The registry's entry for a marketplace mod, matched by its homepage. */
+  const checkedEntry = (data) =>
+    registryEntry({ id: data.id, name: data.name, homepage: data.homepage });
+  const installedFor = (data, mod) =>
+    installedMods.find(
+      (m) =>
+        m.id === data?.id ||
+        (mod && registryEntry(m) === mod) ||
+        (data?.homepage &&
+          m.homepage?.toLowerCase() === data.homepage.toLowerCase()),
+    );
+  const marketEntries = () => {
+    const entries = [];
+    const listed = new Set();
+    for (const data of Object.values(store ?? {})) {
+      if (!fits(data) || OWN_MODS.has(data.id)) {
+        continue;
+      }
+      const mod = checkedEntry(data);
+      if (mod) {
+        listed.add(mod);
+      }
+      const installed = installedFor(data, mod);
+      entries.push({
+        name: data.name ?? data.id,
+        author:
+          data.author ??
+          data.homepage?.match(/github\.com\/([^/]+)/)?.[1] ??
+          "",
+        summary: mod?.summary ?? data.description ?? "",
+        version: installed?.version ?? data.version,
+        latest: data.version,
+        verdict: verdict(mod, installed?.version ?? data.version),
+        page: data.homepage ?? (mod ? modPage(mod) : ""),
+        pref: mod ? `mod:${mod.name}` : `store:${data.id}`,
+        image: data.image,
+        stars: data.stars,
+        updated: data.updatedAt ?? data.createdAt,
+        tags: data.tags ?? [],
+        scripts: !!data.scripts && Object.keys(data.scripts).length > 0,
+        install: () => manager.installMod(data.id, "store"),
+        mod,
+        installed,
+      });
+    }
+    // Checked mods that are not in the marketplace (installed from GitHub)
+    for (const mod of model.mods) {
+      if (listed.has(mod)) {
+        continue;
+      }
+      const installed = installedFor(null, mod);
       const version = installed?.version ?? latest.get(mod);
-      return {
+      entries.push({
         name: mod.name,
         author: mod.repo.split("/")[0],
         summary: mod.summary,
@@ -1529,53 +1764,96 @@ function renderMods() {
         verdict: verdict(mod, version),
         page: modPage(mod),
         pref: `mod:${mod.name}`,
+        tags: [],
+        install: () => manager.installMod(modPage(mod)),
         mod,
         installed,
-      };
-    });
+      });
+    }
+    return entries;
+  };
+  const busy = async (button, text, run) => {
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = text;
+    try {
+      await run();
+    } finally {
+      button.textContent = label;
+      button.disabled = false;
+    }
+  };
   const market = modBrowser("market", {
     layout: "cards",
     entries: marketEntries,
-    empty: "No mod in the list.",
+    empty: () =>
+      store === null
+        ? "Loading Sine's marketplace…"
+        : store === false
+          ? "Sine's marketplace could not be read (offline?): the checked mods only."
+          : "No mod in the marketplace.",
     draw: (entry, layout) =>
       modItem(entry, layout, [
         entry.installed
-          ? el(
-              "span.mod-installed",
-              {},
-              entry.installed.enabled ? "Installed" : "Installed, off",
-            )
-          : entry.verdict.key === "conflict"
-            ? null
-            : el(
+          ? entry.latest &&
+            entry.installed.version &&
+            entry.latest !== entry.installed.version
+            ? el(
                 "button.button.accent",
                 {
                   disabled: !manager,
-                  onclick: async (event) => {
-                    const button = event.currentTarget;
-                    button.disabled = true;
-                    button.textContent = "Installing…";
+                  onclick: (event) =>
+                    busy(event.currentTarget, "Updating…", async () => {
+                      const changed = await manager.updateMods("manual");
+                      toast(
+                        changed ? `${entry.name} updated` : "Nothing to update",
+                      );
+                      await refresh();
+                    }),
+                },
+                icon("arrow-download"),
+                el("span", {}, `Update to v${entry.latest}`),
+              )
+            : el(
+                "span.mod-installed",
+                {},
+                entry.installed.enabled ? "Installed" : "Installed, off",
+              )
+          : el(
+              `button.button${entry.verdict.key === "conflict" ? "" : ".accent"}`,
+              {
+                disabled: !manager,
+                title:
+                  entry.verdict.key === "conflict"
+                    ? "It styles the same parts as Zen Fluent: one of the two should stay off"
+                    : "",
+                onclick: (event) =>
+                  busy(event.currentTarget, "Installing…", async () => {
                     try {
-                      await manager.installMod(entry.page);
+                      await entry.install();
                       toast(`${entry.name} installed`);
                     } catch (error) {
                       console.error("[Zen Fluent] install failed", error);
                       toast(`${entry.name} could not be installed`);
                     }
                     await refresh();
-                  },
-                },
-                "Install",
-              ),
-        el(
-          "button.button",
-          {
-            onclick: () =>
-              openLink(`${DOCS}/compatibility.md#${docsAnchor(entry.name)}`),
-          },
-          "Details",
-        ),
-        openButton(entry),
+                  }),
+              },
+              entry.verdict.key === "conflict" ? "Install anyway" : "Install",
+            ),
+        entry.mod
+          ? el(
+              "button.button",
+              {
+                onclick: () =>
+                  openLink(
+                    `${DOCS}/compatibility.md#${docsAnchor(entry.mod.name)}`,
+                  ),
+              },
+              "Details",
+            )
+          : null,
+        entry.page ? openButton(entry) : null,
       ]),
   });
 
@@ -1619,6 +1897,37 @@ function renderMods() {
       });
       on.append(el("span.knob"));
       on.id = id;
+      const remove = el(
+        "button.icon-button",
+        {
+          title: "Uninstall",
+          "aria-label": `${entry.name}: uninstall`,
+          onclick: async (event) => {
+            const button = event.currentTarget;
+            // A second click within 4 s confirms
+            if (!button.hasAttribute("confirm")) {
+              button.setAttribute("confirm", "");
+              button.title = "Click again to uninstall";
+              toast(`Click again to uninstall ${entry.name}`);
+              setTimeout(() => {
+                button.removeAttribute("confirm");
+                button.title = "Uninstall";
+              }, 4000);
+              return;
+            }
+            button.disabled = true;
+            try {
+              await manager?.removeMod(entry.installed.id);
+              toast(`${entry.name} uninstalled`);
+            } catch (error) {
+              console.error("[Zen Fluent] uninstall failed", error);
+              toast(`${entry.name} could not be uninstalled`);
+            }
+            await refresh();
+          },
+        },
+        icon("dismiss-circle"),
+      );
       return modItem(entry, layout, [
         entry.installed.preferences
           ? el(
@@ -1629,6 +1938,7 @@ function renderMods() {
             )
           : null,
         entry.page ? openButton(entry) : null,
+        remove,
         el(
           "span.toggle",
           {},
@@ -1678,6 +1988,18 @@ function renderMods() {
   }
   refresh();
   (async () => {
+    try {
+      const response = await fetch(storeURL(), {
+        signal: AbortSignal.timeout(10000),
+        cache: "no-cache",
+      });
+      store = await response.json();
+    } catch {
+      store = false;
+    }
+    market.redraw();
+  })();
+  (async () => {
     await Promise.all(
       model.mods.map(async (mod) => {
         try {
@@ -1697,6 +2019,74 @@ function renderMods() {
     market.redraw();
   })();
 
+  // Sine's own tools: its update check and an install from GitHub
+  const repo = el("input.textbox.mod-repo", {
+    type: "url",
+    placeholder: "https://github.com/user/repo",
+    "aria-label": "A mod's GitHub address",
+    onkeydown: (event) => event.key === "Enter" && installFromURL.click(),
+  });
+  const installFromURL = el(
+    "button.button",
+    {
+      onclick: (event) =>
+        busy(event.currentTarget, "Installing…", async () => {
+          const url = repo.value.trim();
+          if (!/^(https:\/\/github\.com\/)?[\w.-]+\/[\w.-]+/.test(url)) {
+            toast("A GitHub address, for example https://github.com/user/repo");
+            return;
+          }
+          try {
+            manager ??= ChromeUtils.importESModule(SINE_MANAGER).default;
+            await manager.installMod(url);
+            toast("Mod installed");
+            repo.value = "";
+          } catch (error) {
+            console.error("[Zen Fluent] install failed", error);
+            toast("This mod could not be installed");
+          }
+          await refresh();
+        }),
+    },
+    icon("arrow-download"),
+    el("span", {}, "Install"),
+  );
+  const tools = el(
+    "div.card.setting.mod-tools",
+    {},
+    el("span.card-icon", {}, icon("link")),
+    el(
+      "div.setting-text",
+      {},
+      el("span.setting-title", {}, "Install from GitHub"),
+      el(
+        "span.setting-desc",
+        {},
+        "A mod outside the marketplace; its scripts only run with Sine's JS from unofficial sources",
+      ),
+    ),
+    el("div.setting-actions", {}, repo, installFromURL),
+  );
+  const updates = el(
+    "button.button",
+    {
+      onclick: (event) =>
+        busy(event.currentTarget, "Checking…", async () => {
+          try {
+            manager ??= ChromeUtils.importESModule(SINE_MANAGER).default;
+            const changed = await manager.updateMods("manual");
+            toast(changed ? "Mods updated" : "Every mod is up to date");
+          } catch (error) {
+            console.error("[Zen Fluent] update check failed", error);
+            toast("The update check failed");
+          }
+          await refresh();
+        }),
+    },
+    icon("arrow-reset"),
+    el("span", {}, "Check for updates"),
+  );
+
   return [
     conflictBar,
     section(
@@ -1704,16 +2094,22 @@ function renderMods() {
       el(
         "p.section-desc",
         {},
-        "Mods checked with Zen Fluent. Works means checked with this version of Zen Fluent and the mod's latest version.",
+        "Sine's marketplace, with each mod's compatibility with Zen Fluent: Works means checked with this version of Zen Fluent and the mod's version; Not checked, not in Zen Fluent's list yet.",
       ),
       market.node,
     ),
+    section("Add a mod", tools),
     section(
       "Installed",
       el(
-        "p.section-desc",
+        "div.mod-section-head",
         {},
-        "Every mod Sine has installed, and whether its version was checked with this Zen Fluent.",
+        el(
+          "p.section-desc",
+          {},
+          "Every mod Sine has installed, and whether its version was checked with this Zen Fluent. Uninstall asks for a second click.",
+        ),
+        updates,
       ),
       installed.node,
     ),
@@ -1741,18 +2137,41 @@ const PARTS = {
 };
 const FILL_HELP = {
   auto: "Follows All components",
-  solid: "A raised control, like a WinUI button",
-  subtle: "A light fill inside a thin stroke",
-  ghost: "No fill; the accent on hover",
-  outline: "A thin stroke, no fill",
+  solid: "Opaque, nothing shows through (WinUI control solid fill)",
+  standard: "WinUI's default button: see-through control fill and border",
+  tint: "A light fill inside a thin border (Fluent 2 tint)",
+  outline: "A thin border, no fill (Fluent 2 outline)",
+  subtle: "No fill until hovered (Fluent 2 subtle)",
+  transparent: "No fill; the accent on hover (Fluent 2 transparent)",
   translucent: "Zen's see-through fill",
 };
+// The extensions row has a look of its own, beside its buttons'
+const ROW = "extensions-row";
+const SCOPE = "zen-fluent.variant.extensions-scope";
 const shortLabel = (label) => label.replace(/\s*\(.*\)$/, "");
 
 const variantPref = (part, kind) =>
   model.prefs.get(
     `zen-fluent.variant.${part}${kind === "shape" ? "-shape" : ""}`,
   );
+
+/** The row's fill or shape: its own, the buttons' (the 0.4.2 "whole row"
+    choice, until a row look is picked), else none. */
+function effectiveRow(kind) {
+  const own = read(variantPref(ROW, kind));
+  if (own !== "auto") {
+    return own;
+  }
+  const legacy =
+    read(model.prefs.get(SCOPE)) === "row" &&
+    read(variantPref(ROW, "fill")) === "auto" &&
+    read(variantPref(ROW, "shape")) === "auto";
+  return legacy
+    ? effective("extensions", kind)
+    : kind === "fill"
+      ? "none"
+      : "rounded";
+}
 
 /** The fill or shape a component shows: its own, else All components'. */
 function effective(part, kind) {
@@ -1965,10 +2384,15 @@ function renderVariants(page) {
       el("button.vz-pin.vz-pin-all", { "aria-haspopup": "dialog" }, "All"),
     );
 
-  // A TeachingTip with the fill and shape of one component
+  // A TeachingTip with the fill and shape of one component; on a wide
+  // window, a panel docked on the stage's right that always shows one
+  // (All components when none is picked)
   const tip = el("div.vz-tip", { role: "dialog", hidden: true });
+  const side = el("aside.vz-side", { "aria-label": "Fill and shape" });
   stage.append(tip);
+  const wide = window.matchMedia("(width >= 1300px)");
   let open = null;
+  let tipTab = null;
   const regionOf = (name) => stage.querySelector(`[data-part="${name}"]`);
   const closeTip = (focusPin = true) => {
     if (!open) {
@@ -1981,23 +2405,93 @@ function renderVariants(page) {
     if (focusPin) {
       region?.querySelector(".vz-pin").focus();
     }
+    if (wide.matches) {
+      openTip("global", false);
+    }
   };
-  const openTip = (name) => {
+  const openTip = (name, focus = true) => {
     if (open === name) {
-      closeTip();
+      if (!wide.matches) {
+        closeTip();
+      }
       return;
     }
-    closeTip(false);
+    const wasOpen = open;
+    open = null;
+    if (wasOpen) {
+      regionOf(wasOpen)?.removeAttribute("active");
+    }
     open = name;
+    const docked = wide.matches;
+    const home = docked ? side : stage;
+    if (tip.parentNode !== home) {
+      home.append(tip);
+    }
+    tip.toggleAttribute("docked", docked);
     const region = regionOf(name);
     region.setAttribute("active", "");
     const fill = variantPref(name, "fill");
     const shape = variantPref(name, "shape");
-    // The extensions choose whether the fill and shape go to each button
-    // or to the whole row
-    const scope = model.prefs.get(`zen-fluent.variant.${name}-scope`);
+    // The extensions have two looks, both applied: each button's and the
+    // row's, one tab each (a WinUI SelectorBar)
+    const hasRow = name === "extensions" && !!variantPref(ROW, "fill");
     const titleId = `zf-tip-${++uid}`;
-    const scopeId = `zf-tip-scope-${uid}`;
+    const choices = (target) =>
+      el(
+        "div.vz-tip-choices",
+        {},
+        el("span.vz-label", {}, "Fill"),
+        variantChips(variantPref(target, "fill"), "fill"),
+        el("span.vz-label", {}, "Shape"),
+        variantChips(variantPref(target, "shape"), "shape"),
+      );
+    let tabs = null;
+    let body = choices(name);
+    if (hasRow) {
+      const panel = el("div.vz-tab-panel", { role: "tabpanel" }, body);
+      const show = (target) => {
+        tipTab = target;
+        for (const tab of tabs.children) {
+          const on = tab.dataset.target === target;
+          tab.setAttribute("aria-selected", on);
+          tab.tabIndex = on ? 0 : -1;
+        }
+        panel.replaceChildren(choices(target));
+      };
+      tabs = el(
+        "div.vz-selector",
+        { role: "tablist", "aria-label": "Extensions" },
+        ...[
+          [name, "Each button"],
+          [ROW, "The row"],
+        ].map(([target, label]) =>
+          el(
+            "button.vz-selector-item",
+            {
+              role: "tab",
+              "data-target": target,
+              onclick: () => show(target),
+              onkeydown: (event) => {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                  show(target === ROW ? name : ROW);
+                  tabs.querySelector('[aria-selected="true"]').focus();
+                }
+              },
+            },
+            label,
+          ),
+        ),
+      );
+      body = panel;
+      queueMicrotask(() => show(tipTab === ROW ? ROW : name));
+    }
+    const rowPrefs = hasRow
+      ? [
+          variantPref(ROW, "fill"),
+          variantPref(ROW, "shape"),
+          model.prefs.get(SCOPE),
+        ]
+      : [];
     tip.setAttribute("aria-labelledby", titleId);
     tip.replaceChildren(
       el(
@@ -2017,16 +2511,8 @@ function renderVariants(page) {
           ? "Every component left on Auto takes this fill and shape."
           : "Auto takes the choice of All components, or this component's own look.",
       ),
-      el("span.vz-label", {}, "Fill"),
-      variantChips(fill, "fill"),
-      el("span.vz-label", {}, "Shape"),
-      variantChips(shape, "shape"),
-      ...(scope
-        ? [
-            el("span.vz-label", { id: scopeId }, "Applies to"),
-            combo(scope, scopeId),
-          ]
-        : []),
+      ...(tabs ? [tabs] : []),
+      body,
       el(
         "div.vz-tip-footer",
         {},
@@ -2034,11 +2520,11 @@ function renderVariants(page) {
           "button.button",
           {
             onclick: () => {
-              const saved = snapshot([fill, shape, scope].filter(Boolean));
-              reset(fill);
-              reset(shape);
-              if (scope) {
-                reset(scope);
+              const saved = snapshot(
+                [fill, shape, ...rowPrefs].filter(Boolean),
+              );
+              for (const pref of [fill, shape, ...rowPrefs].filter(Boolean)) {
+                reset(pref);
               }
               toast(`${partName(name)}: back to Auto`, {
                 label: "Undo",
@@ -2052,6 +2538,14 @@ function renderVariants(page) {
       ),
     );
     tip.hidden = false;
+    if (docked) {
+      tip.style.removeProperty("left");
+      tip.style.removeProperty("top");
+      if (focus) {
+        tip.querySelector('.vz-chip[aria-checked="true"]')?.focus();
+      }
+      return;
+    }
     // Below the pin, or above it near the bottom; the tail points at it
     const box = stage.getBoundingClientRect();
     const pinBox = region.querySelector(".vz-pin").getBoundingClientRect();
@@ -2082,25 +2576,50 @@ function renderVariants(page) {
       closeTip(false);
     }
   });
-  stage.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && open) {
-      event.stopPropagation();
-      closeTip();
+  for (const host of [stage, side]) {
+    host.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && open && open !== "global") {
+        event.stopPropagation();
+        closeTip();
+      }
+    });
+  }
+  // Docked on a wide window, a popup otherwise: follow the window's width
+  const place = () => {
+    const name = open ?? "global";
+    open = null;
+    tip.hidden = true;
+    if (wide.matches || name !== "global") {
+      openTip(name, false);
     }
-  });
+  };
+  wide.addEventListener("change", place);
+  queueMicrotask(() => wide.matches && openTip("global", false));
 
   // Every component's current look, its pin, and the list of changes
   const changes = el("div.vz-changes");
-  const scopeOf = (name) => model.prefs.get(`zen-fluent.variant.${name}-scope`);
-  const look = (name) =>
-    [variantPref(name, "fill"), variantPref(name, "shape"), scopeOf(name)]
-      .filter(Boolean)
+  const rowOf = (name) =>
+    name === "extensions"
+      ? [variantPref(ROW, "fill"), variantPref(ROW, "shape")].filter(Boolean)
+      : [];
+  const scopeOf = (name) =>
+    name === "extensions" && read(model.prefs.get(SCOPE)) === "row"
+      ? model.prefs.get(SCOPE)
+      : null;
+  const look = (name) => {
+    const own = [variantPref(name, "fill"), variantPref(name, "shape")]
       .map((pref) => shortLabel(optionLabel(pref.property)))
       .join(" · ");
+    const row = rowOf(name);
+    return row.length && !row.every(isDefault)
+      ? `${own}; row: ${row.map((pref) => shortLabel(optionLabel(pref.property))).join(" · ")}`
+      : own;
+  };
   const isChanged = (name) =>
     !isDefault(variantPref(name, "fill")) ||
     !isDefault(variantPref(name, "shape")) ||
-    (!!scopeOf(name) && !isDefault(scopeOf(name)));
+    !rowOf(name).every(isDefault) ||
+    !!scopeOf(name);
   const update = () => {
     for (const name of parts) {
       const region = regionOf(name);
@@ -2108,8 +2627,13 @@ function renderVariants(page) {
       region.dataset.fill = fill;
       region.dataset.shape =
         fill === "pill" ? "pill" : effective(name, "shape");
-      if (scopeOf(name)) {
-        region.dataset.scope = read(scopeOf(name));
+      if (name === "extensions") {
+        region.dataset.rowFill = effectiveRow("fill");
+        region.dataset.rowShape = effectiveRow("shape");
+        // the 0.4.2 "whole row": the buttons stay bare
+        if (scopeOf(name) && rowOf(name).every(isDefault)) {
+          region.dataset.fill = "native";
+        }
       }
       const pin = region.querySelector(".vz-pin");
       pin.toggleAttribute("changed", isChanged(name));
@@ -2141,6 +2665,9 @@ function renderVariants(page) {
                   onclick: () => {
                     reset(variantPref(name, "fill"));
                     reset(variantPref(name, "shape"));
+                    for (const pref of rowOf(name)) {
+                      reset(pref);
+                    }
                     if (scopeOf(name)) {
                       reset(scopeOf(name));
                     }
@@ -2163,14 +2690,25 @@ function renderVariants(page) {
   for (const name of ["global", ...parts]) {
     watch(variantPref(name, "fill").property, update);
     watch(variantPref(name, "shape").property, update);
-    if (scopeOf(name)) {
-      watch(scopeOf(name).property, update);
+  }
+  if (variantPref(ROW, "fill")) {
+    for (const pref of [...rowOf("extensions"), model.prefs.get(SCOPE)]) {
+      watch(pref.property, update);
+    }
+    // A row look picked here ends the 0.4.2 "whole row" choice
+    for (const pref of rowOf("extensions")) {
+      watch(pref.property, () => {
+        if (!isDefault(pref) && read(model.prefs.get(SCOPE)) === "row") {
+          reset(model.prefs.get(SCOPE));
+        }
+      });
     }
   }
   page.reveal = (property) => {
     const name = property
       .replace("zen-fluent.variant.", "")
-      .replace(/-shape$/, "");
+      .replace(/-shape$/, "")
+      .replace(/-row$|-scope$/, "");
     if (name === "global" || parts.includes(name)) {
       regionOf(name).scrollIntoView({ block: "center" });
       openTip(name);
@@ -2185,7 +2723,7 @@ function renderVariants(page) {
         {},
         "Click a pin, or the part of the window it marks, to choose that component's fill and shape; All, or the window itself, sets every component left on Auto. The drawing shows a selected item, one under the pointer and one at rest.",
       ),
-      stage,
+      el("div.vz-layout", {}, stage, side),
     ),
     section("Your changes", changes),
   ];
@@ -2550,8 +3088,8 @@ function buildPages() {
   if (model.mods.length) {
     pages.push({
       id: "mods",
-      title: "Compatible mods",
-      description: "Sine mods checked with Zen Fluent",
+      title: "Mods",
+      description: "Sine's marketplace and your mods, with their compatibility",
       icon: "plug-connected",
       render: renderMods,
     });
@@ -2640,7 +3178,7 @@ function settingsIndex() {
     entries.push({
       property: `mod:${mod.name}`,
       page: "mods",
-      pageTitle: "Compatible mods",
+      pageTitle: "Mods",
       title: mod.name,
       description: mod.summary,
     });

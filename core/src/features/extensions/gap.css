@@ -38,3 +38,10 @@
     --zf-ext-gap: 12px;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.gap", "custom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-gap: var(--zf-cv-ext-gap);
+  }
+}

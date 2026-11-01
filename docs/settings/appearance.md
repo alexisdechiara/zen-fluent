@@ -8,40 +8,45 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
 | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | Interface style                                                                                                       | `zen-fluent.style`                   | `winui` WinUI 3 (Windows 11)<br>`edge` Microsoft Edge (Fluent 2)                                                                                                                  | `winui`    |
 | Backdrop material (the same as the Mica For Everyone rule for zen)                                                    | `zen-fluent.material`                | `mica` Mica<br>`mica-alt` Mica Alt (Tabbed)<br>`acrylic` Acrylic                                                                                                                  | `mica`     |
-| Tint opacity (how much of the material's color covers the transparent window)                                         | `zen-fluent.tint-opacity`            | `auto` Follow the material<br>`none` None (the backdrop alone)<br>`light` Light (40 %)<br>`strong` Strong (85 %)<br>`solid` Solid (no transparency)<br>`custom` Custom            | `auto`     |
+| Tint opacity (how much of the material's color covers the transparent window)                                         | `zen-fluent.tint-opacity`            | `auto` Automatic (the material’s)<br>`none` None (the backdrop alone)<br>`light` Light (40 %)<br>`strong` Strong (85 %)<br>`solid` Solid (no transparency)<br>`custom` Custom     | `auto`     |
 | Custom opacity (a percentage, for example 50%)                                                                        | `zen-fluent.tint-opacity-custom`     | text                                                                                                                                                                              | `64%`      |
 | Space color (a color picked in Zen's gradient picker tints the window)                                                | `zen-fluent.space-color`             | `zen` Zen's gradient, the material without one<br>`material` Always the material                                                                                                  | `zen`      |
 | Accent color                                                                                                          | `zen-fluent.accent`                  | `system` Windows accent<br>`zen` Zen workspace color<br>`blue` Blue<br>`violet` Violet<br>`mint` Mint<br>`orange` Orange<br>`pink` Pink<br>`graphite` Graphite<br>`custom` Custom | `system`   |
 | Custom color (any CSS color: #0078d4, rgb(0 120 212), teal…)                                                          | `zen-fluent.accent-custom`           | text                                                                                                                                                                              | `#0078d4`  |
 | Corners and gaps                                                                                                      | `zen-fluent.corners`                 | `winui` WinUI (no gaps)<br>`zen` Zen (rounded, with gaps)                                                                                                                         | `winui`    |
-| Corner radius (buttons, tabs, cards and menus; circles and pills stay round)                                          | `zen-fluent.corner-radius`           | `auto` Follow the style<br>`square` Square<br>`small` Small (2 px)<br>`medium` Medium (4 px)<br>`large` Large (8 px)<br>`custom` Custom                                           | `auto`     |
+| Corner radius (buttons, tabs, cards and menus; circles and pills stay round)                                          | `zen-fluent.corner-radius`           | `auto` Automatic (the style’s)<br>`square` Square<br>`small` Small (2 px)<br>`medium` Medium (4 px)<br>`large` Large (8 px)<br>`custom` Custom                                    | `auto`     |
 | Custom radius (of buttons and tabs, in px, for example 6px; cards and menus follow)                                   | `zen-fluent.corner-radius-custom`    | text                                                                                                                                                                              | `6px`      |
 | Density (row and control heights; not Zen’s compact mode)                                                             | `zen-fluent.density`                 | `standard` Standard<br>`compact` Compact (WinUI compact sizing)                                                                                                                   | `standard` |
 | Expert mode (more settings: gaps around the page, its corners, the sidebar’s padding, row height, space between tabs) | `zen-fluent.expert`                  | `true` / `false`                                                                                                                                                                  | `false`    |
-| Gap around the page (expert)                                                                                          | `zen-fluent.page-gap`                | `auto` Follow the style<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`custom` Custom                                                            | `auto`     |
+| Gap around the page (expert)                                                                                          | `zen-fluent.page-gap`                | `auto` Automatic (the style’s)<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`custom` Custom                                                     | `auto`     |
 | Custom gap around the page                                                                                            | `zen-fluent.page-gap-custom`         | a length in px                                                                                                                                                                    | `6px`      |
-| Gap between the sidebar and the page (expert)                                                                         | `zen-fluent.page-gap-sidebar`        | `auto` Follow the style<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`custom` Custom                                                            | `auto`     |
+| Gap between the sidebar and the page (expert)                                                                         | `zen-fluent.page-gap-sidebar`        | `auto` Automatic (the style’s)<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`custom` Custom                                                     | `auto`     |
 | Custom gap beside the sidebar                                                                                         | `zen-fluent.page-gap-sidebar-custom` | a length in px                                                                                                                                                                    | `6px`      |
-| Page corners (expert)                                                                                                 | `zen-fluent.page-radius`             | `auto` Follow the style<br>`0` Square<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`24` 24 px<br>`custom` Custom                                                        | `auto`     |
+| Page corners (expert)                                                                                                 | `zen-fluent.page-radius`             | `auto` Automatic (the style’s)<br>`0` Square<br>`4` 4 px<br>`8` 8 px<br>`12` 12 px<br>`16` 16 px<br>`24` 24 px<br>`custom` Custom                                                 | `auto`     |
 | Custom page corners                                                                                                   | `zen-fluent.page-radius-custom`      | a length in px                                                                                                                                                                    | `10px`     |
 | Font                                                                                                                  | `zen-fluent.font`                    | `segoe` Segoe UI Variable<br>`aptos` Aptos<br>`system` System font<br>`custom` Custom                                                                                             | `segoe`    |
 | Custom font (a font name, for example Inter or Fira Sans)                                                             | `zen-fluent.font-custom`             | text                                                                                                                                                                              | `(empty)`  |
 | Text selection in the accent color                                                                                    | `zen-fluent.accent-selection`        | `true` / `false`                                                                                                                                                                  | `true`     |
-| Acrylic blur (split view header and Glance buttons)                                                                   | `zen-fluent.acrylic-blur`            | `auto` Default (20 px)<br>`none` None<br>`light` Light (10 px)<br>`strong` Strong (30 px, as in WinUI)<br>`custom` Custom                                                         | `auto`     |
+| Acrylic blur (split view header and Glance buttons)                                                                   | `zen-fluent.acrylic-blur`            | `auto` Automatic (20 px)<br>`none` None<br>`light` Light (10 px)<br>`strong` Strong (30 px, as in WinUI)<br>`custom` Custom                                                       | `auto`     |
 | Custom blur (a radius in px, for example 30px)                                                                        | `zen-fluent.acrylic-blur-custom`     | text                                                                                                                                                                              | `20px`     |
 | Acrylic noise (menus, panels and floating surfaces)                                                                   | `zen-fluent.acrylic-noise`           | `true` / `false`                                                                                                                                                                  | `false`    |
 
 ## Notes
 
-- **Expert mode**: shows (and applies) the settings marked "expert" in
-  every group: the gap between the page and the window's edges, the gap
-  beside the sidebar, the page's corners (Appearance), the sidebar's padding
-  (Sidebar), the row height and the space between tabs (Tabs). Each is a
-  list of lengths or **Custom** (a length in px: `6px` or `6`; anything else
-  falls back to the style's usual length). Turned off, the expert settings
-  keep their values but no longer apply. With WinUI corners, a gap around
-  the page makes it a floating card, rounded and stroked all round.
-
+- **Expert mode** (on the settings page's Overview, in Sine's
+  dialog here): shows (and applies) the settings marked "expert" in every
+  group: **Interface style** (a theme sets it otherwise: Windows 11,
+  Microsoft Edge), the gap between the page and the window's edges, the
+  gap beside the sidebar, the page's corners (Appearance), the sidebar's
+  padding (Sidebar), the row height and the space between tabs (Tabs). It
+  also gives every numeric setting a **Custom (expert mode)** value: the
+  Essentials (per row, width, height, gap), the extensions row (columns,
+  rows, icon and button size, gap) and Zen Fluent Enhanced's times (tab
+  archive, hover card delay, sleeping tabs, focus session length). A
+  custom value is a number (`6px` or `6` for a length); anything else falls
+  back to the usual value. Turned off, the expert settings keep their
+  values but no longer apply. With WinUI corners, a gap around the page
+  makes it a floating card, rounded and stroked all round.
 - **Interface style**: see [Edge style](../core.md#edge-style). In the Edge style,
   **Corners and gaps** does not apply and its row is hidden.
 - **Density**: compact follows WinUI’s compact sizing. Controls (buttons,
@@ -79,7 +84,7 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
   the split view header, Glance buttons, the status text and floating surfaces
   (not with Mica Alt). It goes away without hardware acceleration, with reduced
   transparency and in high contrast.
-- **Corner radius**: **Follow the style** keeps each style's radii for
+- **Corner radius**: **Automatic** keeps each style's radii for
   controls, cards and overlays: WinUI 4 / 8 / 8 px, Zen corners 8 / 10 / 12 px,
   Edge 8 / 8 / 12 px. The other values set the radius of buttons, tabs, rows
   and fields (square 0, small 2 px, medium 4 px, large 8 px, or custom); cards

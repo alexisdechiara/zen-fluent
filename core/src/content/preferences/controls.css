@@ -83,6 +83,28 @@
     align-content: center !important;
   }
 
+  /* A setting nested under a checkbox (Permissions: the pop-up and
+     add-on exceptions): a SettingsExpander item, full width under its
+     card with a divider, not a smaller card inside the card. Firefox
+     indents the nested slot 23px inside the checkbox. */
+  moz-fieldset
+    > setting-control:has(> moz-checkbox > setting-control[slot="nested"]) {
+    padding-bottom: 0 !important;
+  }
+
+  moz-checkbox > setting-control[slot="nested"] {
+    display: block !important;
+    margin: 12px -16px 0 calc(-16px - 23px) !important;
+
+    & > :is(moz-box-button, moz-box-link, moz-box-item) {
+      --box-border: 0 !important;
+      --box-border-block-start: 1px solid var(--zf-stroke-divider) !important;
+      --box-border-radius: 0 !important;
+      --box-border-radius-end: 0 0 var(--zf-radius-card) var(--zf-radius-card) !important;
+      --box-padding: 12px 16px 12px 55px !important;
+    }
+  }
+
   /* A setting's description: Caption, secondary text */
   .description.text-deemphasized {
     font-size: 12px !important;

@@ -98,6 +98,14 @@
     }
   }
 
+  /* -------- What Zen Fluent replaces -------- */
+  /* Firefox's Window density (Zen Fluent's Density sets the sizes) and
+     browser theme (Zen Fluent paints the window): two settings for one
+     thing, so only Zen Fluent's show */
+  setting-group:is(#windowDensity, #browserTheme) {
+    display: none !important;
+  }
+
   /* -------- Page titles -------- */
 
   /* Firefox's panes: the page header's title, without its icon */

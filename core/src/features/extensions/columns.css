@@ -45,3 +45,11 @@
     --zf-ext-min: 0px;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.columns", "custom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-count: var(--zf-cv-ext-columns);
+    --zf-ext-min: 0px;
+  }
+}

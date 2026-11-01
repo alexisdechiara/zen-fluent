@@ -13,14 +13,15 @@
   },
   {
     "property": "zen-fluent.style",
-    "label": "Interface style",
+    "label": "Interface style ~expert: a theme sets it (Themes: Windows 11, Microsoft Edge)~",
     "type": "dropdown",
     "defaultValue": "winui",
     "placeholder": false,
     "options": [
       { "label": "WinUI 3 (Windows 11)", "value": "winui" },
       { "label": "Microsoft Edge (Fluent 2)", "value": "edge" }
-    ]
+    ],
+    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
   },
   {
     "property": "zen-fluent.material",
@@ -41,7 +42,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the material", "value": "auto" },
+      { "label": "Automatic (the material’s)", "value": "auto" },
       { "label": "None (the backdrop alone)", "value": "none" },
       { "label": "Light (40 %)", "value": "light" },
       { "label": "Strong (85 %)", "value": "strong" },
@@ -117,7 +118,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "Square", "value": "square" },
       { "label": "Small (2 px)", "value": "small" },
       { "label": "Medium (4 px)", "value": "medium" },
@@ -159,7 +160,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "None", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "4 px", "value": "4" },
@@ -188,7 +189,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "None", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "4 px", "value": "4" },
@@ -217,7 +218,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "Square", "value": "0" },
       { "label": "4 px", "value": "4" },
       { "label": "8 px", "value": "8" },
@@ -275,7 +276,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Default (20 px)", "value": "auto" },
+      { "label": "Automatic (20 px)", "value": "auto" },
       { "label": "None", "value": "none" },
       { "label": "Light (10 px)", "value": "light" },
       { "label": "Strong (30 px, as in WinUI)", "value": "strong" },
@@ -322,7 +323,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "None", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "5 px", "value": "5" },
@@ -462,12 +463,26 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic", "value": "auto" },
+      { "label": "Automatic (as many as fit)", "value": "auto" },
       { "label": "2", "value": "2" },
       { "label": "3", "value": "3" },
       { "label": "4", "value": "4" },
       { "label": "5", "value": "5" },
-      { "label": "6", "value": "6" }
+      { "label": "6", "value": "6" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials-per-row-custom",
+    "label": "Custom Essentials per row ~a whole number, for example 7~",
+    "type": "string",
+    "defaultValue": "7",
+    "placeholder": "7",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": { "property": "zen-fluent.essentials-per-row", "value": "custom" }
+      }
     ]
   },
   {
@@ -483,7 +498,19 @@
       { "label": "56 px", "value": "56" },
       { "label": "64 px", "value": "64" },
       { "label": "72 px", "value": "72" },
-      { "label": "80 px", "value": "80" }
+      { "label": "80 px", "value": "80" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.width-custom",
+    "label": "Custom Essential width ~in px, for example 60px~",
+    "type": "string",
+    "defaultValue": "60px",
+    "placeholder": "60px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.essentials.width", "value": "custom" } }
     ]
   },
   {
@@ -505,12 +532,26 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "Automatic (the density’s)", "value": "auto" },
       { "label": "32 px", "value": "32" },
       { "label": "36 px", "value": "36" },
       { "label": "42 px", "value": "42" },
       { "label": "48 px", "value": "48" },
-      { "label": "56 px", "value": "56" }
+      { "label": "56 px", "value": "56" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.height-custom",
+    "label": "Custom Essential height ~in px, for example 40px~",
+    "type": "string",
+    "defaultValue": "40px",
+    "placeholder": "40px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": { "property": "zen-fluent.essentials.height", "value": "custom" }
+      }
     ]
   },
   {
@@ -520,13 +561,25 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "Automatic (the density’s)", "value": "auto" },
       { "label": "0 px", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "4 px", "value": "4" },
       { "label": "6 px", "value": "6" },
       { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" }
+      { "label": "12 px", "value": "12" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.gap-custom",
+    "label": "Custom gap between Essentials ~in px, for example 5px~",
+    "type": "string",
+    "defaultValue": "5px",
+    "placeholder": "5px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.essentials.gap", "value": "custom" } }
     ]
   },
   {
@@ -577,13 +630,27 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic", "value": "auto" },
+      { "label": "Automatic (as many as fit)", "value": "auto" },
       { "label": "3", "value": "3" },
       { "label": "4", "value": "4" },
       { "label": "5", "value": "5" },
       { "label": "6", "value": "6" },
       { "label": "7", "value": "7" },
-      { "label": "8", "value": "8" }
+      { "label": "8", "value": "8" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.columns-custom",
+    "label": "Custom extension columns ~a whole number, for example 9~",
+    "type": "string",
+    "defaultValue": "9",
+    "placeholder": "9",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": { "property": "zen-fluent.extensions.columns", "value": "custom" }
+      }
     ]
   },
   {
@@ -593,12 +660,24 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "All", "value": "auto" },
+      { "label": "Automatic (every row)", "value": "auto" },
       { "label": "1", "value": "1" },
       { "label": "2", "value": "2" },
       { "label": "3", "value": "3" },
       { "label": "4", "value": "4" },
-      { "label": "One row, scrolls sideways", "value": "scroll" }
+      { "label": "One row, scrolls sideways", "value": "scroll" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.rows-custom",
+    "label": "Custom extension rows ~a whole number, for example 5~",
+    "type": "string",
+    "defaultValue": "5",
+    "placeholder": "5",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.extensions.rows", "value": "custom" } }
     ]
   },
   {
@@ -614,7 +693,24 @@
       { "label": "16 px", "value": "16" },
       { "label": "18 px", "value": "18" },
       { "label": "20 px", "value": "20" },
-      { "label": "24 px", "value": "24" }
+      { "label": "24 px", "value": "24" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.icon-size-custom",
+    "label": "Custom extension icon size ~in px, for example 22px~",
+    "type": "string",
+    "defaultValue": "22px",
+    "placeholder": "22px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.extensions.icon-size",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -624,12 +720,29 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (density)", "value": "auto" },
+      { "label": "Automatic (the density’s)", "value": "auto" },
       { "label": "24 px", "value": "24" },
       { "label": "28 px", "value": "28" },
       { "label": "32 px", "value": "32" },
       { "label": "36 px", "value": "36" },
-      { "label": "40 px", "value": "40" }
+      { "label": "40 px", "value": "40" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.button-size-custom",
+    "label": "Custom extension button size ~in px, for example 30px~",
+    "type": "string",
+    "defaultValue": "30px",
+    "placeholder": "30px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.extensions.button-size",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -639,13 +752,25 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic", "value": "auto" },
+      { "label": "Automatic (the density’s)", "value": "auto" },
       { "label": "0 px", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "4 px", "value": "4" },
       { "label": "6 px", "value": "6" },
       { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" }
+      { "label": "12 px", "value": "12" },
+      { "label": "Custom (expert mode)", "value": "custom" }
+    ]
+  },
+  {
+    "property": "zen-fluent.extensions.gap-custom",
+    "label": "Custom gap between extensions ~in px, for example 3px~",
+    "type": "string",
+    "defaultValue": "3px",
+    "placeholder": "3px",
+    "conditions": [
+      { "if": { "property": "zen-fluent.expert", "value": true } },
+      { "if": { "property": "zen-fluent.extensions.gap", "value": "custom" } }
     ]
   },
   {
@@ -655,7 +780,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (style)", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "Stretch", "value": "stretch" },
       { "label": "Start", "value": "start" },
       { "label": "Center", "value": "center" },
@@ -789,14 +914,58 @@
     ]
   },
   {
+    "property": "zen-fluent.variant.extensions-row",
+    "label": "Extensions row: fill ~the surface around the buttons~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (the row background setting)", "value": "auto" },
+      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Standard (WinUI button: control fill and border)",
+        "value": "standard"
+      },
+      { "label": "Tint (tinted fill and border)", "value": "tint" },
+      { "label": "Outline (border only)", "value": "outline" },
+      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Transparent (accent glyph on hover)",
+        "value": "transparent"
+      },
+      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+    ]
+  },
+  {
+    "property": "zen-fluent.variant.extensions-row-shape",
+    "label": "Extensions row: shape",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      { "label": "Automatic (rounded)", "value": "auto" },
+      { "label": "Square", "value": "square" },
+      { "label": "Rounded", "value": "rounded" },
+      { "label": "Pill", "value": "pill" }
+    ]
+  },
+  {
     "property": "zen-fluent.variant.extensions-scope",
-    "label": "Extension buttons: fill and shape for",
+    "label": "Extension buttons: fill and shape for ~saved by 0.4.2 or before; pick a row fill or shape instead~",
     "type": "dropdown",
     "defaultValue": "buttons",
     "placeholder": false,
     "options": [
       { "label": "Each button", "value": "buttons" },
       { "label": "The whole row", "value": "row" }
+    ],
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.variant.extensions-scope",
+          "value": "row"
+        }
+      }
     ]
   },
   {
@@ -1148,7 +1317,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "28 px", "value": "28" },
       { "label": "32 px", "value": "32" },
       { "label": "36 px", "value": "36" },
@@ -1176,7 +1345,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "None", "value": "0" },
       { "label": "2 px", "value": "2" },
       { "label": "4 px", "value": "4" },
@@ -1288,7 +1457,7 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Follow the style", "value": "auto" },
+      { "label": "Automatic (the style’s)", "value": "auto" },
       { "label": "Text box (WinUI)", "value": "textbox" },
       { "label": "Pill (Edge)", "value": "pill" },
       { "label": "Transparent", "value": "transparent" }
@@ -1314,10 +1483,13 @@
     "defaultValue": "solid",
     "placeholder": false,
     "options": [
-      { "label": "White or black (opaque)", "value": "solid" },
-      { "label": "Translucent (Arc)", "value": "translucent" },
-      { "label": "Space color", "value": "theme" },
-      { "label": "Material", "value": "material" }
+      { "label": "Solid (white or black, opaque)", "value": "solid" },
+      { "label": "Standard (the window’s material)", "value": "standard" },
+      { "label": "Tint (the space’s color, else the accent)", "value": "tint" },
+      {
+        "label": "Translucent (see-through glass, as in Arc)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1467,6 +1639,12 @@
   {
     "property": "zen-fluent.nav-bounce",
     "label": "Back / Forward arrow bounce",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.gradient-animation",
+    "label": "Moving gradient ~the space’s gradient drifts slowly~",
     "type": "checkbox",
     "defaultValue": false
   },

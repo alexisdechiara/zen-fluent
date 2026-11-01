@@ -1,0 +1,27 @@
+/* Zen Fluent: The space's gradient drifts slowly (zen-fluent.gradient-animation).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Zen paints a space's colors on its background layers' ::after: a flat
+   color for one color, a gradient for several. Drawn 160 % large, a
+   gradient drifts from one corner to the other and back over a minute,
+   and the hue sways 10° either way, so a flat color moves too. Only while
+   the space has a color, and never with reduced motion. */
+
+@media (-moz-pref("zen-fluent.gradient-animation")) and (prefers-reduced-motion: no-preference) {
+  :root:not([zen-default-theme="true"]) .zen-browser-generic-background::after {
+    background-size: 160% 160% !important;
+    animation: zf-gradient-drift 30s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes zf-gradient-drift {
+  0% {
+    background-position: 0% 0%;
+    filter: hue-rotate(-10deg);
+  }
+
+  100% {
+    background-position: 100% 100%;
+    filter: hue-rotate(10deg);
+  }
+}

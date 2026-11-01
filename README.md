@@ -100,19 +100,28 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Hover                                            | `zen-fluent.essentials.hover`                                               | `fill`             |
 |                                                       | Labels                                           | `zen-fluent.essentials.labels`                                              | `hide`             |
 |                                                       | Essentials per row                               | `zen-fluent.essentials-per-row`                                             | `auto`             |
+|                                                       | Custom Essentials per row                        | `zen-fluent.essentials-per-row-custom`                                      | `7`                |
 |                                                       | Essentials width                                 | `zen-fluent.essentials.width`                                               | `auto`             |
+|                                                       | Custom Essential width                           | `zen-fluent.essentials.width-custom`                                        | `60px`             |
 |                                                       | Icon size                                        | `zen-fluent.essentials.icon-size`                                           | `medium`           |
 |                                                       | Essentials height                                | `zen-fluent.essentials.height`                                              | `auto`             |
+|                                                       | Custom Essential height                          | `zen-fluent.essentials.height-custom`                                       | `40px`             |
 |                                                       | Space between Essentials                         | `zen-fluent.essentials.gap`                                                 | `auto`             |
+|                                                       | Custom gap between Essentials                    | `zen-fluent.essentials.gap-custom`                                          | `5px`              |
 |                                                       | Alignment                                        | `zen-fluent.essentials.align`                                               | `start`            |
 |                                                       | Grey Essentials icons                            | `zen-fluent.essentials-gray`                                                | `false`            |
 | [Extensions](docs/settings/extensions.md)             | WinUI style for the extensions row               | `zen-fluent.pinned-extensions`                                              | `true`             |
 |                                                       | Place                                            | `zen-fluent.extensions.position`                                            | `top`              |
 |                                                       | Columns                                          | `zen-fluent.extensions.columns`                                             | `auto`             |
+|                                                       | Custom extension columns                         | `zen-fluent.extensions.columns-custom`                                      | `9`                |
 |                                                       | Rows                                             | `zen-fluent.extensions.rows`                                                | `auto`             |
+|                                                       | Custom extension rows                            | `zen-fluent.extensions.rows-custom`                                         | `5`                |
 |                                                       | Icon size                                        | `zen-fluent.extensions.icon-size`                                           | `auto`             |
+|                                                       | Custom extension icon size                       | `zen-fluent.extensions.icon-size-custom`                                    | `22px`             |
 |                                                       | Button size                                      | `zen-fluent.extensions.button-size`                                         | `auto`             |
+|                                                       | Custom extension button size                     | `zen-fluent.extensions.button-size-custom`                                  | `30px`             |
 |                                                       | Space between buttons                            | `zen-fluent.extensions.gap`                                                 | `auto`             |
+|                                                       | Custom gap between extensions                    | `zen-fluent.extensions.gap-custom`                                          | `3px`              |
 |                                                       | Alignment                                        | `zen-fluent.extensions.align`                                               | `auto`             |
 |                                                       | Badges                                           | `zen-fluent.extensions.badge`                                               | `show`             |
 | [Variants](docs/settings/variants.md)                 | Fill, everywhere                                 | `zen-fluent.variant.global`                                                 | `auto`             |
@@ -121,7 +130,9 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Toolbar and sidebar buttons: shape               | `zen-fluent.variant.buttons-shape`                                          | `auto`             |
 |                                                       | Extension buttons: fill                          | `zen-fluent.variant.extensions`                                             | `auto`             |
 |                                                       | Extension buttons: shape                         | `zen-fluent.variant.extensions-shape`                                       | `auto`             |
-|                                                       | Extension buttons: fill and shape for            | `zen-fluent.variant.extensions-scope`                                       | `buttons`          |
+|                                                       | Extensions row: fill                             | `zen-fluent.variant.extensions-row`                                         | `auto`             |
+|                                                       | Extensions row: shape                            | `zen-fluent.variant.extensions-row-shape`                                   | `auto`             |
+|                                                       | Extension buttons: fill and shape for (0.4.2)    | `zen-fluent.variant.extensions-scope`                                       | `buttons`          |
 |                                                       | Essentials: fill                                 | `zen-fluent.variant.essentials`                                             | `auto`             |
 |                                                       | Essentials: shape                                | `zen-fluent.variant.essentials-shape`                                       | `auto`             |
 |                                                       | Tabs: fill                                       | `zen-fluent.variant.tabs`                                                   | `auto`             |
@@ -174,6 +185,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | Menu animation                                   | `zen-fluent.menu-animation`                                                 | `flyout`           |
 |                                                       | WinUI 3 button animations                        | `zen-fluent.button-animations`                                              | `true`             |
 |                                                       | Back / Forward arrow bounce                      | `zen-fluent.nav-bounce`                                                     | `false`            |
+|                                                       | Moving gradient                                  | `zen-fluent.gradient-animation`                                             | `false`            |
 |                                                       | Animated icons                                   | `zen-fluent.animated-icons`                                                 | `true`             |
 | [Zones](docs/settings/zones.md)                       | Window                                           | `zen-fluent.fluent-window`                                                  | `true`             |
 |                                                       | Sidebar                                          | `zen-fluent.fluent-sidebar`                                                 | `true`             |
@@ -219,6 +231,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
 | Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
 | Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
@@ -226,7 +239,9 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
 | Tab archiving                                  | `zen-fluent.enhanced.tab-archive`                 | `false`                                                              |
 | Archive tabs unused for (hours)                | `zen-fluent.enhanced.tab-archive.after`           | `12`                                                                 |
+|                                                | Custom time before archiving                      | `zen-fluent.enhanced.tab-archive.after-custom`                       | `36`  |
 | Keep archived tabs (days)                      | `zen-fluent.enhanced.tab-archive.keep`            | `90`                                                                 |
+|                                                | Custom time archived tabs are kept                | `zen-fluent.enhanced.tab-archive.keep-custom`                        | `60`  |
 | Archive pinned tabs too                        | `zen-fluent.enhanced.tab-archive.pinned`          | `false`                                                              |
 | Archive tabs in folders too                    | `zen-fluent.enhanced.tab-archive.folders`         | `false`                                                              |
 | PDF viewer                                     | `zen-fluent.enhanced.pdf-viewer`                  | `true`                                                               |
@@ -236,6 +251,7 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Fluent icons in the icon picker                | `zen-fluent.enhanced.icon-picker`                 | `true`                                                               |
 | Tab hover cards                                | `zen-fluent.enhanced.hover-cards`                 | `false`                                                              |
 | Hover card delay (ms)                          | `zen-fluent.enhanced.hover-cards.delay`           | `500`                                                                |
+|                                                | Custom hover card delay                           | `zen-fluent.enhanced.hover-cards.delay-custom`                       | `400` |
 | Page thumbnails in hover cards                 | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`                                                               |
 | Glance link preview                            | `zen-fluent.enhanced.glance`                      | `true`                                                               |
 | Breadcrumb address                             | `zen-fluent.enhanced.breadcrumbs`                 | `false`                                                              |
@@ -246,11 +262,13 @@ Zen Fluent Enhanced has its own settings, one checkbox per feature
 | Boost editor extras                            | `zen-fluent.enhanced.boost-extras`                | `true`                                                               |
 | Sleeping tabs and Performance panel            | `zen-fluent.enhanced.performance`                 | `false`                                                              |
 | Put inactive tabs to sleep after (minutes)     | `zen-fluent.enhanced.performance.sleep-after`     | `30`                                                                 |
+|                                                | Custom time before tabs sleep                     | `zen-fluent.enhanced.performance.sleep-after-custom`                 | `45`  |
 | Tab notes                                      | `zen-fluent.enhanced.tab-notes`                   | `false`                                                              |
 | AI controls page                               | `zen-fluent.enhanced.ai-controls`                 | `false`                                                              |
 | AI chatbot panel                               | `zen-fluent.enhanced.ai-chat`                     | `false`                                                              |
 | Focus sessions                                 | `zen-fluent.enhanced.focus-session`               | `false`                                                              |
 | Focus session length (minutes)                 | `zen-fluent.enhanced.focus-session.minutes`       | `25`                                                                 |
+|                                                | Custom focus session length                       | `zen-fluent.enhanced.focus-session.minutes-custom`                   | `50`  |
 | Hide the sidebar during a focus session        | `zen-fluent.enhanced.focus-session.compact`       | `true`                                                               |
 | Mute tabs playing sound during a focus session | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
 | Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |

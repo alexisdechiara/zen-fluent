@@ -10,7 +10,7 @@
 // loses focus. Firefox's tab tooltip and its own tab preview stay hidden
 // meanwhile (enhanced/src/hover-cards.css). Off by default.
 {
-  const { ZFFeature } = ChromeUtils.importESModule(
+  const { ZFFeature, choice } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
   const { showToast } = ChromeUtils.importESModule(
@@ -24,8 +24,7 @@
   const HTML = "http://www.w3.org/1999/xhtml";
   const ICONS = "chrome://browser/skin/zen-icons/";
 
-  const showDelay = () =>
-    Number(Services.prefs.getStringPref(`${PREF}.delay`, "500")) || 500;
+  const showDelay = () => Number(choice(`${PREF}.delay`, "500")) || 500;
   const thumbnails = () =>
     Services.prefs.getBoolPref(`${PREF}.thumbnails`, true);
   const TabNotes = () =>

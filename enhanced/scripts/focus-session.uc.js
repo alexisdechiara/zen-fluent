@@ -15,7 +15,7 @@
 // everything comes back as it was. The session's end time is a pref
 // (zen-fluent.enhanced.focus-session.until), so all windows share it.
 {
-  const { ZFFeature } = ChromeUtils.importESModule(
+  const { ZFFeature, choice } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
   const { showToast } = ChromeUtils.importESModule(
@@ -174,9 +174,7 @@
       ctx.onCleanup(() => gBrowser.removeTabsProgressListener(guard));
 
       // -------- The board --------
-      let minutes = Number(
-        Services.prefs.getStringPref(`${PREF}.minutes`, "25"),
-      );
+      let minutes = Number(choice(`${PREF}.minutes`, "25")) || 25;
       const ring = (fraction, size) => {
         const el = html("div", { class: `zf-fs-ring zf-fs-ring-${size}` });
         el.style.setProperty("--zf-fs-progress", String(fraction));

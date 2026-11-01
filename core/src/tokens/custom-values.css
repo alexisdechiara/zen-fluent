@@ -1,0 +1,281 @@
+/* Zen Fluent: Custom values of the expert mode for the numeric settings of the Essentials and the extensions row.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* With zen-fluent.expert on, a numeric setting's "custom" reads Sine's
+   string pref <setting>-custom (--zen-fluent-<setting>-custom on the chrome
+   windows' root) into one registered value, --zf-cv-<name>: "6px" and "6"
+   both mean 6px for a length; a count is a whole number. Anything else
+   falls back to the value named in each block. The settings' own files
+   use it in their "custom" block. tokens/layout.css does the same for the
+   expert lengths of the page and the tabs. */
+
+@property --zf-cv-essentials-per-row {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 4;
+}
+
+@property --zf-cv-essentials-per-row-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials-per-row", "custom")) {
+  :root {
+    --zf-cv-essentials-per-row-n: var(--zen-fluent-essentials-per-row-custom);
+    --zf-cv-essentials-per-row: max(1, var(--zf-cv-essentials-per-row-n));
+  }
+}
+
+@property --zf-cv-essentials-width {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 48px;
+}
+
+@property --zf-cv-essentials-width-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-essentials-width-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.width", "custom")) {
+  :root {
+    --zf-cv-essentials-width-l: var(--zen-fluent-essentials-width-custom);
+    --zf-cv-essentials-width-n: var(--zen-fluent-essentials-width-custom);
+    --zf-cv-essentials-width-raw: max(
+      var(--zf-cv-essentials-width-l),
+      var(--zf-cv-essentials-width-n) * 1px
+    );
+    --zf-cv-essentials-width-ok: calc(
+      (sign(var(--zf-cv-essentials-width-raw) + 0.5px) + 1) / 2
+    );
+    --zf-cv-essentials-width: calc(
+      var(--zf-cv-essentials-width-ok) * var(--zf-cv-essentials-width-raw) +
+        (1 - var(--zf-cv-essentials-width-ok)) * 48px
+    );
+  }
+}
+
+@property --zf-cv-essentials-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 42px;
+}
+
+@property --zf-cv-essentials-height-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-essentials-height-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.height", "custom")) {
+  :root {
+    --zf-cv-essentials-height-l: var(--zen-fluent-essentials-height-custom);
+    --zf-cv-essentials-height-n: var(--zen-fluent-essentials-height-custom);
+    --zf-cv-essentials-height-raw: max(
+      var(--zf-cv-essentials-height-l),
+      var(--zf-cv-essentials-height-n) * 1px
+    );
+    --zf-cv-essentials-height-ok: calc(
+      (sign(var(--zf-cv-essentials-height-raw) + 0.5px) + 1) / 2
+    );
+    --zf-cv-essentials-height: calc(
+      var(--zf-cv-essentials-height-ok) * var(--zf-cv-essentials-height-raw) +
+        (1 - var(--zf-cv-essentials-height-ok)) * 42px
+    );
+  }
+}
+
+@property --zf-cv-essentials-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 6px;
+}
+
+@property --zf-cv-essentials-gap-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-essentials-gap-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.gap", "custom")) {
+  :root {
+    --zf-cv-essentials-gap-l: var(--zen-fluent-essentials-gap-custom);
+    --zf-cv-essentials-gap-n: var(--zen-fluent-essentials-gap-custom);
+    --zf-cv-essentials-gap-raw: max(
+      var(--zf-cv-essentials-gap-l),
+      var(--zf-cv-essentials-gap-n) * 1px
+    );
+    --zf-cv-essentials-gap-ok: calc(
+      (sign(var(--zf-cv-essentials-gap-raw) + 0.5px) + 1) / 2
+    );
+    --zf-cv-essentials-gap: calc(
+      var(--zf-cv-essentials-gap-ok) * var(--zf-cv-essentials-gap-raw) +
+        (1 - var(--zf-cv-essentials-gap-ok)) * 6px
+    );
+  }
+}
+
+@property --zf-cv-ext-columns {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 5;
+}
+
+@property --zf-cv-ext-columns-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.columns", "custom")) {
+  :root {
+    --zf-cv-ext-columns-n: var(--zen-fluent-extensions-columns-custom);
+    --zf-cv-ext-columns: max(1, var(--zf-cv-ext-columns-n));
+  }
+}
+
+@property --zf-cv-ext-icon {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
+
+@property --zf-cv-ext-icon-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-ext-icon-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.icon-size", "custom")) {
+  :root {
+    --zf-cv-ext-icon-l: var(--zen-fluent-extensions-icon-size-custom);
+    --zf-cv-ext-icon-n: var(--zen-fluent-extensions-icon-size-custom);
+    --zf-cv-ext-icon-raw: max(
+      var(--zf-cv-ext-icon-l),
+      var(--zf-cv-ext-icon-n) * 1px
+    );
+    --zf-cv-ext-icon-ok: calc(
+      (sign(var(--zf-cv-ext-icon-raw) + 0.5px) + 1) / 2
+    );
+    --zf-cv-ext-icon: calc(
+      var(--zf-cv-ext-icon-ok) * var(--zf-cv-ext-icon-raw) +
+        (1 - var(--zf-cv-ext-icon-ok)) * 16px
+    );
+  }
+}
+
+@property --zf-cv-ext-button {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 32px;
+}
+
+@property --zf-cv-ext-button-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-ext-button-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.button-size", "custom")) {
+  :root {
+    --zf-cv-ext-button-l: var(--zen-fluent-extensions-button-size-custom);
+    --zf-cv-ext-button-n: var(--zen-fluent-extensions-button-size-custom);
+    --zf-cv-ext-button-raw: max(
+      var(--zf-cv-ext-button-l),
+      var(--zf-cv-ext-button-n) * 1px
+    );
+    --zf-cv-ext-button-ok: calc(
+      (sign(var(--zf-cv-ext-button-raw) + 0.5px) + 1) / 2
+    );
+    --zf-cv-ext-button: calc(
+      var(--zf-cv-ext-button-ok) * var(--zf-cv-ext-button-raw) +
+        (1 - var(--zf-cv-ext-button-ok)) * 32px
+    );
+  }
+}
+
+@property --zf-cv-ext-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4px;
+}
+
+@property --zf-cv-ext-gap-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-ext-gap-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.gap", "custom")) {
+  :root {
+    --zf-cv-ext-gap-l: var(--zen-fluent-extensions-gap-custom);
+    --zf-cv-ext-gap-n: var(--zen-fluent-extensions-gap-custom);
+    --zf-cv-ext-gap-raw: max(
+      var(--zf-cv-ext-gap-l),
+      var(--zf-cv-ext-gap-n) * 1px
+    );
+    --zf-cv-ext-gap-ok: calc((sign(var(--zf-cv-ext-gap-raw) + 0.5px) + 1) / 2);
+    --zf-cv-ext-gap: calc(
+      var(--zf-cv-ext-gap-ok) * var(--zf-cv-ext-gap-raw) +
+        (1 - var(--zf-cv-ext-gap-ok)) * 4px
+    );
+  }
+}
+
+@property --zf-cv-ext-rows {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 2;
+}
+
+@property --zf-cv-ext-rows-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.rows", "custom")) {
+  :root {
+    --zf-cv-ext-rows-n: var(--zen-fluent-extensions-rows-custom);
+    --zf-cv-ext-rows: max(1, var(--zf-cv-ext-rows-n));
+  }
+}

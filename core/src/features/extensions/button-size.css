@@ -90,3 +90,21 @@
     place-items: center !important;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.button-size", "custom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    --zf-ext-button: var(--zf-cv-ext-button);
+  }
+
+  :root:not([zen-single-toolbar="true"])
+    #nav-bar
+    .unified-extensions-item-action-button
+    > .toolbarbutton-badge-stack {
+    box-sizing: border-box !important;
+    width: var(--zf-cv-ext-button) !important;
+    height: var(--zf-cv-ext-button) !important;
+    padding: 0 !important;
+    place-items: center !important;
+  }
+}

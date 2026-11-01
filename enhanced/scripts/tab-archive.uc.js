@@ -15,7 +15,7 @@
 // space, remove entries. Entries older than the kept period
 // (zen-fluent.enhanced.tab-archive.keep, 90 days) are dropped.
 {
-  const { ZFFeature } = ChromeUtils.importESModule(
+  const { ZFFeature, choice } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
   const archive = ChromeUtils.importESModule(
@@ -38,10 +38,9 @@
   const HTML = "http://www.w3.org/1999/xhtml";
 
   const option = (name) => Services.prefs.getBoolPref(`${PREF}.${name}`, false);
-  const delay = () =>
-    (Number(Services.prefs.getStringPref(`${PREF}.after`, "12")) || 12) * HOUR;
+  const delay = () => (Number(choice(`${PREF}.after`, "12")) || 12) * HOUR;
   const keptDays = () => {
-    const value = Services.prefs.getStringPref(`${PREF}.keep`, "90");
+    const value = choice(`${PREF}.keep`, "90");
     return value === "forever" ? null : Number(value) || 90;
   };
 

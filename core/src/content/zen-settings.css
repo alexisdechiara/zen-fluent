@@ -4,34 +4,115 @@
 @-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
   url-prefix("about:config") {
   /* --------------------------- ZEN SETTINGS --------------------------- */
-  /* Zen's own panes (Look and Feel, Tab Management…): each group is a card
-     with a heading, toggles on the right and 32px ComboBoxes */
+  /* Zen's own panes (Look and Feel, Tab Management…) as WinUI's Settings
+     app lays them out: a group's title and description are plain text,
+     and every setting is a SettingsCard of its own (a row with its toggle
+     or ComboBox at the end), 4px apart, rather than one card holding a
+     list of crowded rows. A note under a setting continues its card;
+     indented settings stay indented. */
 
   groupbox[data-category^="paneZen"] {
-    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
 
-    & > label > h2 {
-      margin: 0 !important;
-      font-size: 14px !important;
-      font-weight: 600 !important;
+    /* The group's title and description, and the subtitles inside it */
+    & > label {
+      margin: 16px 0 0 !important;
+
+      &:first-child {
+        margin-top: 0 !important;
+      }
+
+      & > h2 {
+        margin: 0 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        line-height: 20px !important;
+      }
     }
 
-    & > description {
-      font-size: 13px !important;
+    & > label + description {
+      margin: 0 0 4px !important;
+      font-size: 12px !important;
+      line-height: 16px !important;
       color: var(--zf-text-secondary) !important;
     }
 
-    & checkbox {
+    /* A setting: a SettingsCard */
+    & > :is(checkbox, hbox:not(#zenLayoutList), vbox:has(menulist)),
+    & > vbox.indent > checkbox {
+      box-sizing: border-box !important;
+      min-height: 52px !important;
+      margin: 0 !important;
+      padding: 10px 16px !important;
+      border: 1px solid var(--zf-stroke-card, var(--zf-stroke-divider)) !important;
+      border-radius: var(--zf-radius-card) !important;
+      background-color: var(--zf-fill-card) !important;
+      background-clip: padding-box !important;
+      align-items: center !important;
+    }
+
+    & > checkbox,
+    & > vbox.indent > checkbox {
       flex-direction: row-reverse !important;
       gap: 16px;
-      min-height: 32px;
+
+      & .checkbox-label-box {
+        flex: 1 !important;
+      }
+    }
+
+    /* A label and its ComboBox: the ComboBox at the end of the card */
+    & > hbox:has(> menulist) {
+      justify-content: space-between !important;
+      gap: 16px !important;
+    }
+
+    /* Zen wraps settings in vbox.indent: under a setting it is a child
+       one, indented; under a group's description it is only Zen's own
+       spacing */
+    & > vbox.indent {
+      margin: 0 !important;
+    }
+
+    & > checkbox + vbox.indent {
+      margin-inline-start: 32px !important;
+    }
+
+    /* A note under a setting continues its card */
+    & > :is(checkbox, hbox):has(+ description) {
+      border-end-start-radius: 0 !important;
+      border-end-end-radius: 0 !important;
+    }
+
+    & > :is(checkbox, hbox) + description {
+      box-sizing: border-box !important;
+      margin: -4px 0 0 !important;
+      padding: 0 16px 12px !important;
+      border: 1px solid var(--zf-stroke-card, var(--zf-stroke-divider)) !important;
+      border-top: 0 !important;
+      border-radius: 0 0 var(--zf-radius-card) var(--zf-radius-card) !important;
+      background-color: var(--zf-fill-card) !important;
+      background-clip: padding-box !important;
+      font-size: 12px !important;
+      line-height: 16px !important;
+      color: var(--zf-text-secondary) !important;
     }
 
     & menulist {
-      min-width: 170px;
+      min-width: 200px;
       height: 32px !important;
       padding: 0 10px 0 12px !important;
       font-size: 14px !important;
+    }
+
+    /* The layout pictures keep their own row, on the page */
+    & > #zenLayoutList {
+      margin: 0 0 8px !important;
     }
   }
 

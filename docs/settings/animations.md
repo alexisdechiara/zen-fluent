@@ -4,16 +4,22 @@ Tab switch, URL bar, menus, buttons, animated icons.
 
 Group header: `zen-fluent.ui.open-animations` (open by default: `false`).
 
-| Setting                     | Preference                        | Values                                                                                                                                                          | Default  |
-| --------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Tab switch animation        | `zen-fluent.tab-switch-animation` | `fluent` Fluent (entrance)<br>`fade` Fade<br>`none` None                                                                                                        | `fluent` |
-| URL bar opening animation   | `zen-fluent.urlbar-animation`     | `fade` Fade<br>`zoom` Zoom<br>`slide` Slide<br>`stagger` Staggered results<br>`stagger-up` Staggered upward<br>`bounce` Bounce (Microsoft Store)<br>`none` None | `fade`   |
-| Menu animation              | `zen-fluent.menu-animation`       | `flyout` Flyout (WinUI)<br>`popin` From the button<br>`fade` Fade<br>`none` None                                                                                | `flyout` |
-| WinUI 3 button animations   | `zen-fluent.button-animations`    | `true` / `false`                                                                                                                                                | `true`   |
-| Back / Forward arrow bounce | `zen-fluent.nav-bounce`           | `true` / `false`                                                                                                                                                | `false`  |
-| Animated icons              | `zen-fluent.animated-icons`       | `true` / `false`                                                                                                                                                | `true`   |
+| Setting                                              | Preference                        | Values                                                                                                                                                          | Default  |
+| ---------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Tab switch animation                                 | `zen-fluent.tab-switch-animation` | `fluent` Fluent (entrance)<br>`fade` Fade<br>`none` None                                                                                                        | `fluent` |
+| URL bar opening animation                            | `zen-fluent.urlbar-animation`     | `fade` Fade<br>`zoom` Zoom<br>`slide` Slide<br>`stagger` Staggered results<br>`stagger-up` Staggered upward<br>`bounce` Bounce (Microsoft Store)<br>`none` None | `fade`   |
+| Menu animation                                       | `zen-fluent.menu-animation`       | `flyout` Flyout (WinUI)<br>`popin` From the button<br>`fade` Fade<br>`none` None                                                                                | `flyout` |
+| WinUI 3 button animations                            | `zen-fluent.button-animations`    | `true` / `false`                                                                                                                                                | `true`   |
+| Back / Forward arrow bounce                          | `zen-fluent.nav-bounce`           | `true` / `false`                                                                                                                                                | `false`  |
+| Moving gradient (the space’s gradient drifts slowly) | `zen-fluent.gradient-animation`   | `true` / `false`                                                                                                                                                | `false`  |
+| Animated icons                                       | `zen-fluent.animated-icons`       | `true` / `false`                                                                                                                                                | `true`   |
 
 ## Notes
+
+- **Moving gradient**: a space's colors (picked in Zen's gradient picker)
+  move slowly: a gradient drifts from one corner to the other and back over
+  a minute, and the hue sways 10° either way, so a single color moves too.
+  Nothing moves without a color, or with reduced motion.
 
 - **URL bar opening animation**: fade, zoom, and, from Firefox-WinUI, slide,
   staggered results (down or up) and the Microsoft Store bounce. Results only

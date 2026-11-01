@@ -17,6 +17,7 @@
 @import url("src/tokens/essentials-height.css");
 @import url("src/tokens/essentials-gap.css");
 @import url("src/tokens/layout.css");
+@import url("src/tokens/custom-values.css");
 @import url("src/tokens/variants.css");
 @import url("src/tokens/host-bridge.css");
 @import url("src/tokens/focus.css");
@@ -512,6 +513,7 @@
 @import url("src/features/animations/menu-animation.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/animations/button-animations.css");
+@import url("src/features/animations/gradient-drift.css");
 @import url("src/features/animations/nav-bounce.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/animations/animated-icons.css") not

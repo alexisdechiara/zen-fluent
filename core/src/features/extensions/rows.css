@@ -63,3 +63,17 @@
     scrollbar-width: thin !important;
   }
 }
+
+/* Expert mode: a custom count of rows (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.rows", "custom")) {
+  :root[zen-single-toolbar="true"] #zen-overflow-extensions-list:not(:empty) {
+    box-sizing: content-box !important;
+    max-height: calc(
+      var(--zf-cv-ext-rows) * var(--zf-ext-button) +
+        (var(--zf-cv-ext-rows) - 1) * var(--zf-ext-gap)
+    ) !important;
+    grid-auto-rows: var(--zf-ext-button) !important;
+    overflow: hidden auto !important;
+    scrollbar-width: thin !important;
+  }
+}

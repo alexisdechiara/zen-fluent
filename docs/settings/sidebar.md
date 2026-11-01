@@ -4,17 +4,17 @@ Buttons, workspaces, compact mode.
 
 Group header: `zen-fluent.ui.open-sidebar` (open by default: `false`).
 
-| Setting                                        | Preference                          | Values                                                                                                   | Default  |
-| ---------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------- | -------- |
-| Button style                                   | `zen-fluent.button-style`           | `subtle` Subtle (fill on hover)<br>`standard` Standard (fill and border)                                 | `subtle` |
-| Sidebar padding (expert)                       | `zen-fluent.sidebar-padding`        | `auto` Follow the style<br>`0` None<br>`2` 2 px<br>`5` 5 px<br>`8` 8 px<br>`12` 12 px<br>`custom` Custom | `auto`   |
-| Custom sidebar padding                         | `zen-fluent.sidebar-padding-custom` | a length in px                                                                                           | `6px`    |
-| Hide the Forward button when it is disabled    | `zen-fluent.hide-forward-disabled`  | `true` / `false`                                                                                         | `false`  |
-| Workspace indicator                            | `zen-fluent.workspace-indicator`    | `true` / `false`                                                                                         | `true`   |
-| Workspace icon style                           | `zen-fluent.workspace-style`        | `pill` Pill<br>`fill` Fill<br>`minimal` Minimal                                                          | `pill`   |
-| Page fills the window in compact mode          | `zen-fluent.compact-flush`          | `true` / `false`                                                                                         | `false`  |
-| Acrylic sidebar background in compact mode     | `zen-fluent.compact-sidebar-bg`     | `true` / `false`                                                                                         | `true`   |
-| Edge hint at the window border in compact mode | `zen-fluent.compact-edge-hint`      | `true` / `false`                                                                                         | `true`   |
+| Setting                                        | Preference                          | Values                                                                                                          | Default  |
+| ---------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
+| Button style                                   | `zen-fluent.button-style`           | `subtle` Subtle (fill on hover)<br>`standard` Standard (fill and border)                                        | `subtle` |
+| Sidebar padding (expert)                       | `zen-fluent.sidebar-padding`        | `auto` Automatic (the style’s)<br>`0` None<br>`2` 2 px<br>`5` 5 px<br>`8` 8 px<br>`12` 12 px<br>`custom` Custom | `auto`   |
+| Custom sidebar padding                         | `zen-fluent.sidebar-padding-custom` | a length in px                                                                                                  | `6px`    |
+| Hide the Forward button when it is disabled    | `zen-fluent.hide-forward-disabled`  | `true` / `false`                                                                                                | `false`  |
+| Workspace indicator                            | `zen-fluent.workspace-indicator`    | `true` / `false`                                                                                                | `true`   |
+| Workspace icon style                           | `zen-fluent.workspace-style`        | `pill` Pill<br>`fill` Fill<br>`minimal` Minimal                                                                 | `pill`   |
+| Page fills the window in compact mode          | `zen-fluent.compact-flush`          | `true` / `false`                                                                                                | `false`  |
+| Acrylic sidebar background in compact mode     | `zen-fluent.compact-sidebar-bg`     | `true` / `false`                                                                                                | `true`   |
+| Edge hint at the window border in compact mode | `zen-fluent.compact-edge-hint`      | `true` / `false`                                                                                                | `true`   |
 
 ## Notes
 

@@ -55,3 +55,10 @@
     }
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.width", "custom")) {
+  #navigator-toolbox[zen-sidebar-expanded] .zen-essentials-container {
+    --zf-essential-width: var(--zf-cv-essentials-width);
+  }
+}

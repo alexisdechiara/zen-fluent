@@ -6,6 +6,52 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- Zen Fluent Enhanced: **Mods**, in place of Compatible mods: Sine's
+  marketplace on the settings page, with each mod's compatibility with Zen
+  Fluent (**Not checked** for a mod outside Zen Fluent's list), previews,
+  stars, filters by badge and tag, a sort, Install, Update, Uninstall,
+  Check for updates and an install from a GitHub address.
+- **Extensions row: fill** and **shape**: the row and its buttons each
+  have their own look, both applied (the settings page's extensions pin
+  has a tab for each). The 0.4.2 "Fill and shape for: The whole row" still
+  works until a row look is picked.
+- The settings page's Variants panel docks on the right of the drawing on
+  a window 1300 px wide or more.
+- **Style**, **Material**, **Corners and gaps** and **Density** are chosen
+  on pictures on the settings page, as on the Themes page.
+- Expert mode: a **Custom (expert mode)** value for every numeric setting
+  (Essentials, extensions row, Enhanced's times), and its switch on
+  Overview. **Interface style** only shows in expert mode: a theme sets it.
+- **Moving gradient** (`zen-fluent.gradient-animation`, off): the space's
+  gradient drifts slowly.
+- Zen Fluent Enhanced: **Window glow** (`zen-fluent.enhanced.window-glow`,
+  on): a short glow when the window changes color.
+
+### Changed
+
+- **Floating URL bar color** takes the variants' names: Solid (default),
+  Standard (the material), Tint (the space's color, else the accent, so it
+  never looks like Solid) and Translucent. "Material" and "Space color"
+  read as Standard and Tint.
+- Every "auto" choice reads **Automatic (…)**.
+- Zen's settings panes (Look and Feel, Tab Management) lay their settings
+  out as WinUI's Settings app: one card per setting, 4 px apart, group
+  titles as text, child settings indented. Firefox's nested settings
+  (Permissions: pop-up and add-on exceptions) are expander items under
+  their card instead of a card inside a card.
+- Firefox's **Window density** and **Browser theme** are hidden: Zen
+  Fluent's Density and colors replace them.
+
+### Fixed
+
+- Picture-in-Picture: the bottom buttons are centred on play / pause, and
+  every icon has the same size.
+- Close is reached by throwing the cursor into the window's top-right
+  corner (Fitts's law): its target runs to the corner, and Zen's hover
+  band starts at the window's top.
+
 ## [0.4.2] - 2026-11-01
 
 ### Changed

@@ -24,7 +24,21 @@
     }
   }
 
+  /* One icon size for every button (Firefox draws 60 %, its own size or
+     "contain" depending on the button), 20px in play / pause */
+  #controls .control-button {
+    background-size: 16px 16px !important;
+  }
+
+  /* The bottom row's buttons centred on play / pause (44px), not on its
+     top edge */
+  .controls-bottom-lower
+    > :is(.start-controls, .center-controls, .end-controls) {
+    align-items: center !important;
+  }
+
   #controls #playpause {
+    background-size: 20px 20px !important;
     width: 44px !important;
     max-width: none !important;
     height: 44px !important;

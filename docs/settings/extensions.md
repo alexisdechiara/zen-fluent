@@ -9,11 +9,11 @@ Group header: `zen-fluent.ui.open-extensions` (open by default: `false`).
 | WinUI style for the extensions row | `zen-fluent.pinned-extensions`      | `true` / `false`                                                                                             | `true`  |
 | Place                              | `zen-fluent.extensions.position`    | `top` Above the Essentials<br>`bottom` Bottom of the sidebar<br>`hidden` Hidden                              | `top`   |
 | Columns                            | `zen-fluent.extensions.columns`     | `auto` Automatic<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6<br>`7` 7<br>`8` 8                                       | `auto`  |
-| Rows                               | `zen-fluent.extensions.rows`        | `auto` All<br>`1` 1<br>`2` 2<br>`3` 3<br>`4` 4<br>`scroll` One row, scrolls sideways                         | `auto`  |
+| Rows                               | `zen-fluent.extensions.rows`        | `auto` Automatic (every row)<br>`1` 1<br>`2` 2<br>`3` 3<br>`4` 4<br>`scroll` One row, scrolls sideways       | `auto`  |
 | Icon size                          | `zen-fluent.extensions.icon-size`   | `auto` Automatic (16 px)<br>`12` 12 px<br>`14` 14 px<br>`16` 16 px<br>`18` 18 px<br>`20` 20 px<br>`24` 24 px | `auto`  |
-| Button size                        | `zen-fluent.extensions.button-size` | `auto` Automatic (density)<br>`24` 24 px<br>`28` 28 px<br>`32` 32 px<br>`36` 36 px<br>`40` 40 px             | `auto`  |
+| Button size                        | `zen-fluent.extensions.button-size` | `auto` Automatic (the density’s)<br>`24` 24 px<br>`28` 28 px<br>`32` 32 px<br>`36` 36 px<br>`40` 40 px       | `auto`  |
 | Space between buttons              | `zen-fluent.extensions.gap`         | `auto` Automatic<br>`0` 0 px<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`12` 12 px                   | `auto`  |
-| Alignment                          | `zen-fluent.extensions.align`       | `auto` Automatic (style)<br>`stretch` Stretch<br>`start` Start<br>`center` Center<br>`end` End               | `auto`  |
+| Alignment                          | `zen-fluent.extensions.align`       | `auto` Automatic (the style’s)<br>`stretch` Stretch<br>`start` Start<br>`center` Center<br>`end` End         | `auto`  |
 | Badges                             | `zen-fluent.extensions.badge`       | `show` Count<br>`dot` Dot<br>`hide` Hidden                                                                   | `show`  |
 
 ## Notes

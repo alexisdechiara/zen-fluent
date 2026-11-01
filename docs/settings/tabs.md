@@ -4,23 +4,23 @@ Text, pill, shadow, close buttons, highlights, unloaded tabs, sound, containers,
 
 Group header: `zen-fluent.ui.open-tabs` (open by default: `false`).
 
-| Setting                                                         | Preference                       | Values                                                                                                           | Default   |
-| --------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- | --------- |
-| Tab text size                                                   | `zen-fluent.tab-text-size`       | `small` Small<br>`normal` Normal<br>`large` Large                                                                | `normal`  |
-| Row height (expert)                                             | `zen-fluent.tab-height`          | `auto` Follow the style<br>`28` 28 px<br>`32` 32 px<br>`36` 36 px<br>`40` 40 px<br>`44` 44 px<br>`custom` Custom | `auto`    |
-| Custom row height                                               | `zen-fluent.tab-height-custom`   | a length in px                                                                                                   | `38px`    |
-| Space between tabs (expert)                                     | `zen-fluent.tab-gap`             | `auto` Follow the style<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`custom` Custom           | `auto`    |
-| Custom space between tabs                                       | `zen-fluent.tab-gap-custom`      | a length in px                                                                                                   | `3px`     |
-| Bold title on the selected tab                                  | `zen-fluent.tab-bold`            | `true` / `false`                                                                                                 | `false`   |
-| Accent pill on the selected tab                                 | `zen-fluent.tab-pill`            | `true` / `false`                                                                                                 | `true`    |
-| Tab shadow (Zen corners)                                        | `zen-fluent.tab-shadow`          | `true` / `false`                                                                                                 | `true`    |
-| Tab close button                                                | `zen-fluent.tab-close-button`    | `1` Selected tab and hover<br>`2` Hover only<br>`3` Never                                                        | `1`       |
-| Close button in the collapsed sidebar                           | `zen-fluent.collapsed-tab-close` | `default` Default (top start corner)<br>`overlay` Badge in the corner<br>`hidden` Hidden                         | `default` |
-| Highlights on the selected tab, menus and panels                | `zen-fluent.extra-highlights`    | `true` / `false`                                                                                                 | `false`   |
-| Dim unloaded tabs (favicon and title faded until the tab loads) | `zen-fluent.dim-unloaded-tabs`   | `true` / `false`                                                                                                 | `true`    |
-| Animated sound bars on playing tabs                             | `zen-fluent.sound-bars`          | `true` / `false`                                                                                                 | `true`    |
-| Container tabs                                                  | `zen-fluent.container-tabs`      | `line` Colored line<br>`tint` Colored line and tint<br>`none` Zen’s look                                         | `line`    |
-| “Drag tabs here” in empty folders                               | `zen-fluent.empty-folder-hint`   | `true` / `false`                                                                                                 | `true`    |
+| Setting                                                         | Preference                       | Values                                                                                                                  | Default   |
+| --------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------- |
+| Tab text size                                                   | `zen-fluent.tab-text-size`       | `small` Small<br>`normal` Normal<br>`large` Large                                                                       | `normal`  |
+| Row height (expert)                                             | `zen-fluent.tab-height`          | `auto` Automatic (the style’s)<br>`28` 28 px<br>`32` 32 px<br>`36` 36 px<br>`40` 40 px<br>`44` 44 px<br>`custom` Custom | `auto`    |
+| Custom row height                                               | `zen-fluent.tab-height-custom`   | a length in px                                                                                                          | `38px`    |
+| Space between tabs (expert)                                     | `zen-fluent.tab-gap`             | `auto` Automatic (the style’s)<br>`0` None<br>`2` 2 px<br>`4` 4 px<br>`6` 6 px<br>`8` 8 px<br>`custom` Custom           | `auto`    |
+| Custom space between tabs                                       | `zen-fluent.tab-gap-custom`      | a length in px                                                                                                          | `3px`     |
+| Bold title on the selected tab                                  | `zen-fluent.tab-bold`            | `true` / `false`                                                                                                        | `false`   |
+| Accent pill on the selected tab                                 | `zen-fluent.tab-pill`            | `true` / `false`                                                                                                        | `true`    |
+| Tab shadow (Zen corners)                                        | `zen-fluent.tab-shadow`          | `true` / `false`                                                                                                        | `true`    |
+| Tab close button                                                | `zen-fluent.tab-close-button`    | `1` Selected tab and hover<br>`2` Hover only<br>`3` Never                                                               | `1`       |
+| Close button in the collapsed sidebar                           | `zen-fluent.collapsed-tab-close` | `default` Default (top start corner)<br>`overlay` Badge in the corner<br>`hidden` Hidden                                | `default` |
+| Highlights on the selected tab, menus and panels                | `zen-fluent.extra-highlights`    | `true` / `false`                                                                                                        | `false`   |
+| Dim unloaded tabs (favicon and title faded until the tab loads) | `zen-fluent.dim-unloaded-tabs`   | `true` / `false`                                                                                                        | `true`    |
+| Animated sound bars on playing tabs                             | `zen-fluent.sound-bars`          | `true` / `false`                                                                                                        | `true`    |
+| Container tabs                                                  | `zen-fluent.container-tabs`      | `line` Colored line<br>`tint` Colored line and tint<br>`none` Zen’s look                                                | `line`    |
+| “Drag tabs here” in empty folders                               | `zen-fluent.empty-folder-hint`   | `true` / `false`                                                                                                        | `true`    |
 
 ## Notes
 

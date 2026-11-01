@@ -135,6 +135,22 @@ class FeatureContext {
   }
 }
 
+/**
+ * A dropdown pref's value; its "custom" choice (the expert mode) reads the
+ * string pref <name>-custom instead, or the fallback while that is empty.
+ *
+ * @param {string} name - The dropdown pref.
+ * @param {string} fallback - Its default value.
+ * @returns {string}
+ */
+export function choice(name, fallback) {
+  const value = Services.prefs.getStringPref(name, fallback);
+  if (value !== "custom") {
+    return value;
+  }
+  return Services.prefs.getStringPref(`${name}-custom`, "").trim() || fallback;
+}
+
 export class ZFFeature {
   #window;
   #spec;

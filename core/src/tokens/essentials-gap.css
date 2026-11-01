@@ -41,3 +41,10 @@
     --zf-gap-essentials: 12px;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.gap", "custom")) {
+  :root {
+    --zf-gap-essentials: var(--zf-cv-essentials-gap);
+  }
+}

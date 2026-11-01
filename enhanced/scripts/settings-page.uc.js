@@ -152,7 +152,7 @@
 
         let pending = "";
         const page = () =>
-          frame.contentDocument?.documentElement.hasAttribute("ready")
+          frame.contentDocument?.documentElement?.hasAttribute("ready")
             ? frame.contentWindow
             : null;
         const showSection = (id) => {

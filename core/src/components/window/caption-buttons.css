@@ -61,6 +61,28 @@
     }
   }
 
+  /* Fitts's law, as in Windows: the cursor thrown into the window's
+     top-right corner lands on Close. Its target runs to the corner (the
+     rounded styles' margin, and the 1px row Zen keeps above the toolbar)
+     without changing how it looks. */
+  /* Single toolbar: Zen's hover band (which shows the caption buttons)
+     starts 1px down, a leftover of its layout: it starts at the window's
+     top, the page does not move */
+  :root[zen-single-toolbar="true"] #zen-appcontent-navbar-wrapper {
+    margin-block: -1px 1px !important;
+  }
+
+  .titlebar-close {
+    position: relative !important;
+    overflow: visible !important;
+
+    &::after {
+      position: absolute;
+      inset: -4px -4px 0 0;
+      content: "";
+    }
+  }
+
   .titlebar-close:hover {
     background-color: #c42b1c !important;
     color: #fff !important;

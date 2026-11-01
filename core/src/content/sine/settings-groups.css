@@ -3,6 +3,99 @@
 
 @-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
   url-prefix("about:config") {
+  /* Expert mode: the custom value of a numeric setting, in Zen Fluent's
+     and Zen Fluent Enhanced's dialogs, only with the expert mode on and
+     "Custom" picked */
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials-per-row", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-essentials-per-row-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.width", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-essentials-width-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.height", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-essentials-height-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.gap", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-essentials-gap-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.columns", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-extensions-columns-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.rows", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-extensions-rows-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.icon-size", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-extensions-icon-size-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.button-size", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-extensions-button-size-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.extensions.gap", "custom"))) {
+    .sineItemPreferenceDialogContent > #zen-fluent-extensions-gap-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.enhanced.tab-archive.after", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-enhanced-tab-archive-after-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.enhanced.tab-archive.keep", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-enhanced-tab-archive-keep-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.enhanced.hover-cards.delay", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-enhanced-hover-cards-delay-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.enhanced.performance.sleep-after", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-enhanced-performance-sleep-after-custom {
+      display: none !important;
+    }
+  }
+
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.enhanced.focus-session.minutes", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-enhanced-focus-session-minutes-custom {
+      display: none !important;
+    }
+  }
+
   /* ------------------------ SINE: SETTINGS GROUPS ------------------------ */
   /* Each group of Zen Fluent's dialog is a WinUI SettingsExpander. Its header
      is a checkbox setting, zen-fluent.ui.open-<group>. The state is read on
@@ -230,6 +323,7 @@
     @media not (-moz-pref("zen-fluent.expert")) {
       &
         > :is(
+          #zen-fluent-style,
           #zen-fluent-page-gap,
           #zen-fluent-page-gap-custom,
           #zen-fluent-page-gap-sidebar,
@@ -282,6 +376,14 @@
         & > #zen-fluent-tab-gap-custom {
           display: none !important;
         }
+      }
+    }
+
+    /* The 0.4.2 choice, only while it still moves the buttons' look to the
+       row */
+    @media not (-moz-pref("zen-fluent.variant.extensions-scope", "row")) {
+      & > #zen-fluent-variant-extensions-scope {
+        display: none !important;
       }
     }
 

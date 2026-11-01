@@ -35,3 +35,10 @@
     --zf-size-essential: 56px;
   }
 }
+
+/* Expert mode: a custom value (tokens/custom-values.css) */
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.height", "custom")) {
+  :root {
+    --zf-size-essential: var(--zf-cv-essentials-height);
+  }
+}

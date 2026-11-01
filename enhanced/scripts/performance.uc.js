@@ -16,7 +16,7 @@
 // with a Sleep button. A tab's memory is its process's, shared out between
 // the tabs in that process (an estimate: Firefox does not count per tab).
 {
-  const { ZFFeature } = ChromeUtils.importESModule(
+  const { ZFFeature, choice } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
   const { showToast } = ChromeUtils.importESModule(
@@ -88,7 +88,7 @@
 
       // -------- Sleeping tabs --------
       const sweep = () => {
-        const after = Services.prefs.getStringPref(SLEEP_AFTER, "30");
+        const after = choice(SLEEP_AFTER, "30");
         if (after === "never" || !Number(after)) {
           return;
         }
