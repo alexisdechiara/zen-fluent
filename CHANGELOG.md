@@ -6,6 +6,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-01
+
 ### Changed
 
 - **Variant fills take Microsoft's names** (Fluent 2 and WinUI), and Solid
