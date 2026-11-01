@@ -1,11 +1,12 @@
 // Zen Fluent Enhanced: Quick Settings and the presets gallery.
 //
-// A button in the sidebar's bottom row opens a panel with Zen Fluent's main
-// settings and a row of presets. Both are listed in
+// The Quick settings tab of Zen's Library (a panel from a button in the
+// sidebar's bottom row while the Library is off: lib/zf-library.sys.mjs)
+// shows Zen Fluent's main settings and a row of presets. Both are listed in
 // enhanced/quick-settings.json; labels and choices are read from Zen
 // Fluent's own core/preferences.json, so they always match Sine's dialog
 // (a few labels, out of their group's context, are renamed in "labels").
-// The panel writes the same zen-fluent.* prefs as that dialog (dropdowns
+// The board writes the same zen-fluent.* prefs as that dialog (dropdowns
 // and checkboxes only: Sine would not rebuild a text setting's variable).
 // A preset sets every pref it names; Undo puts back the values from before
 // the last preset. The current preset, if every one of its prefs matches,
@@ -20,6 +21,9 @@
 
   const { openSettings } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
+  );
+  const { librarySurface } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-library.sys.mjs",
   );
 
   const SETTINGS_PAGE = "zen-fluent.enhanced.settings-page";
@@ -58,37 +62,6 @@
     default: true,
     start(ctx) {
       const { document } = ctx;
-      const foot = document.getElementById("zen-sidebar-foot-buttons");
-      const popups = document.getElementById("mainPopupSet");
-      if (!foot || !popups) {
-        return;
-      }
-
-      const button = ctx.element("toolbarbutton", {
-        id: "zf-quick-settings-button",
-        class: "toolbarbutton-1 chromeclass-toolbar-additional",
-        label: "Quick settings",
-        tooltiptext: "Zen Fluent quick settings",
-        image: "chrome://global/skin/icons/settings.svg",
-        removable: "false",
-        skipintoolbarset: "true",
-      });
-      foot.insertBefore(
-        button,
-        document.getElementById("zen-create-new-button"),
-      );
-      const panel = ctx.element(
-        "panel",
-        {
-          id: "zf-quick-settings",
-          type: "arrow",
-          role: "dialog",
-          "aria-label": "Zen Fluent quick settings",
-          orient: "vertical",
-        },
-        popups,
-      );
-      ctx.onCleanup(() => panel.hidePopup());
 
       let prefs = null;
       let quick = null;
@@ -107,6 +80,15 @@
         (error) =>
           console.error("[Zen Fluent Enhanced] quick settings: no data", error),
       );
+
+      const board = librarySurface(ctx, {
+        id: "zf-quick-settings",
+        label: "Zen Fluent quick settings",
+        l10nId: "zf-library-quick-settings",
+        icon: "chrome://global/skin/icons/settings.svg",
+        button: { id: "zf-quick-settings-button" },
+        onShow: () => loaded.then(build),
+      });
 
       const html = (tag, attributes = {}, text = "") => {
         const el = document.createElementNS(HTML, tag);
@@ -208,7 +190,7 @@
         const header = html("div", { class: "zf-qs-header" });
         const all = html("button", { class: "zf-qs-link" }, "All settings");
         all.addEventListener("click", () => {
-          panel.hidePopup();
+          board.hide();
           // The settings page when its feature runs, else Sine's dialog
           if (Services.prefs.getBoolPref(SETTINGS_PAGE, true)) {
             openSettings(ctx.window);
@@ -226,7 +208,7 @@
               "Zen Fluent's settings could not be read: is Zen Fluent installed?",
             ),
           );
-          panel.replaceChildren(...parts);
+          board.content.replaceChildren(...parts);
           return;
         }
         parts.push(html("h3", { class: "zf-qs-heading" }, "Presets"));
@@ -243,14 +225,8 @@
           .filter(Boolean)
           .forEach((pref, index) => grid.append(...settingRow(pref, index)));
         parts.push(grid);
-        panel.replaceChildren(...parts);
+        board.content.replaceChildren(...parts);
       }
-
-      ctx.listen(button, "command", async () => {
-        await loaded;
-        build();
-        panel.openPopup(button, "before_start");
-      });
     },
   });
 

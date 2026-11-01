@@ -1,9 +1,11 @@
 // Zen Fluent Enhanced: focus sessions, as in Windows' Clock app.
 //
-// A timer button in Zen's sidebar bottom row opens the Focus panel: pick
-// 15 to 90 minutes and start. While the session runs, the button draws its
-// progress as a ring, the panel shows the time left in a large ring with
-// +5 min and End session, and, as chosen in the panel (and in Sine):
+// The Focus tab of Zen's Library (a panel from a timer button in the
+// sidebar's bottom row while the Library is off: lib/zf-library.sys.mjs):
+// pick 15 to 90 minutes and start. While the session runs, a timer button
+// shows in the bottom row and draws its progress as a ring, the board shows
+// the time left in a large ring with +5 min and End session, and, as chosen
+// on the board (and in Sine):
 //   - compact mode hides the sidebar in every window (the next startup
 //     keeps its own setting: lib/zf-compact.sys.mjs);
 //   - tabs that play sound are muted, the selected one aside;
@@ -21,6 +23,9 @@
   );
   const { setCompact } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-compact.sys.mjs",
+  );
+  const { librarySurface } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-library.sys.mjs",
   );
 
   const PREF = "zen-fluent.enhanced.focus-session";
@@ -65,10 +70,6 @@
       const win = ctx.window;
       const doc = ctx.document;
       const gBrowser = win.gBrowser;
-      const foot = doc.getElementById("zen-sidebar-foot-buttons");
-      if (!foot) {
-        return;
-      }
       const html = (tag, attributes = {}, text = "") => {
         const el = doc.createElementNS(HTML, tag);
         for (const [name, value] of Object.entries(attributes)) {
@@ -78,34 +79,19 @@
         return el;
       };
 
-      const button = ctx.element("toolbarbutton", {
-        id: "zf-focus-button",
-        class: "toolbarbutton-1 chromeclass-toolbar-additional",
-        label: "Focus",
-        tooltiptext: "Focus session",
-        image: ICON,
-        removable: "false",
-        skipintoolbarset: "true",
+      const board = librarySurface(ctx, {
+        id: "zf-focus",
+        label: "Focus session",
+        l10nId: "zf-library-focus",
+        icon: ICON,
+        button: { id: "zf-focus-button" },
+        // the timer and its ring stay in sight while a session runs
+        keepButton: () => running(),
+        onShow: () => render(),
       });
-      foot.insertBefore(button, doc.getElementById("zen-create-new-button"));
-
-      const panel = ctx.element(
-        "panel",
-        {
-          id: "zf-focus",
-          type: "arrow",
-          role: "dialog",
-          "aria-label": "Focus session",
-          orient: "vertical",
-        },
-        doc.getElementById("mainPopupSet"),
-      );
-      ctx.onCleanup(() => panel.hidePopup());
+      const button = board.button;
       const body = html("div", { class: "zf-fs-body" });
-      panel.append(body);
-      ctx.listen(button, "command", () =>
-        panel.openPopup(button, "before_start"),
-      );
+      board.content.append(body);
 
       // -------- What a session changes in this window --------
       let session = null; // { compact, muted: Set }
@@ -187,7 +173,7 @@
       gBrowser.addTabsProgressListener(guard);
       ctx.onCleanup(() => gBrowser.removeTabsProgressListener(guard));
 
-      // -------- The panel --------
+      // -------- The board --------
       let minutes = Number(
         Services.prefs.getStringPref(`${PREF}.minutes`, "25"),
       );
@@ -246,8 +232,8 @@
           "Start focus session",
         );
         start.addEventListener("click", () => {
-          // compact mode would hide the panel's anchor anyway
-          panel.hidePopup();
+          // compact mode hides the sidebar, with the Library or the anchor
+          board.hide();
           Services.prefs.setStringPref(LENGTH, String(minutes * 60000));
           Services.prefs.setStringPref(
             UNTIL,
@@ -316,11 +302,6 @@
           renderIdle();
         }
       }
-      ctx.listen(panel, "popupshowing", (event) => {
-        if (event.target === panel) {
-          render();
-        }
-      });
 
       // -------- The clock --------
       function finish(done) {
@@ -361,9 +342,9 @@
           "tooltiptext",
           `Focus session: ${clock(left)} left`,
         );
-        if (panel.state === "open") {
-          const time = panel.querySelector(".zf-fs-time");
-          const big = panel.querySelector(".zf-fs-ring");
+        if (board.shown) {
+          const time = body.querySelector(".zf-fs-time");
+          const big = body.querySelector(".zf-fs-ring");
           if (time && big && body.querySelector(".zf-fs-until")) {
             time.textContent = clock(left);
             big.style.setProperty(
@@ -386,7 +367,8 @@
           button.setAttribute("tooltiptext", "Focus session");
           end();
         }
-        if (panel.state === "open") {
+        board.refresh();
+        if (board.shown) {
           render();
         }
       };

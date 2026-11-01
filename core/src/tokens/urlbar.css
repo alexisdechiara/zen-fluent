@@ -16,7 +16,11 @@
    the view opens, so the line is drawn in both states. */
 
 /* -------- Field colours: WinUI, or Edge (Fluent 2) -------- */
+/* Set on the container too: while the bar floats, Zen leaves the container
+   in its place, which takes the resting field's look
+   (components/urlbar/placeholder.css) */
 
+#urlbar-container,
 #urlbar {
   --zf-url-fill: var(--zf-fill-control);
   --zf-url-fill-hover: var(--zf-fill-control-hover);

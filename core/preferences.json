@@ -1035,6 +1035,19 @@
     ]
   },
   {
+    "property": "zen-fluent.url-floating-color",
+    "label": "Floating URL bar color",
+    "type": "dropdown",
+    "defaultValue": "solid",
+    "placeholder": false,
+    "options": [
+      { "label": "White or black", "value": "solid" },
+      { "label": "Translucent (Arc)", "value": "translucent" },
+      { "label": "Space color", "value": "theme" },
+      { "label": "Material", "value": "material" }
+    ]
+  },
+  {
     "property": "zen-fluent.url-centered",
     "label": "Centered URL",
     "type": "checkbox",

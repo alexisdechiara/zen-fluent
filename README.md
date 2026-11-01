@@ -143,6 +143,7 @@ group in [docs/settings/](docs/settings/).
 |                                                       | “Drag tabs here” in empty folders                | `zen-fluent.empty-folder-hint`                                              | `true`             |
 | [URL bar](docs/settings/url-bar.md)                   | URL bar shape                                    | `zen-fluent.url-style`                                                      | `auto`             |
 |                                                       | Accent line under the URL bar                    | `zen-fluent.url-underline`                                                  | `focus`            |
+|                                                       | Floating URL bar color                           | `zen-fluent.url-floating-color`                                             | `solid`            |
 |                                                       | Centered URL                                     | `zen-fluent.url-centered`                                                   | `false`            |
 |                                                       | Hide the zoom level                              | `zen-fluent.url-hide-zoom`                                                  | `false`            |
 |                                                       | Hide permission icons                            | `zen-fluent.url-hide-permissions`                                           | `false`            |

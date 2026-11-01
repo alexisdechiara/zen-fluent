@@ -172,6 +172,10 @@
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/components/urlbar/buttons.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/placeholder.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
+@import url("src/components/urlbar/floating-color.css") not
+  (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/components/urlbar/open.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/components/urlbar/accent-line.css") not

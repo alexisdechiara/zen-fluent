@@ -78,6 +78,9 @@ Files: `core/src/compat/advanced-tab-groups.css`,
   it.
 - In edit mode, the dashed outline follows the radius of the tab's pill, and
   the remove badge stays on its corner.
+- Zen Fluent Enhanced's **Widgets**, **Focus** and **Quick settings** tabs
+  are sections it can reorder and remove; a section removed in its edit
+  mode stays removed (`enhanced/scripts/lib/zf-library.sys.mjs`).
 - Its colored Library icons and outlines use Zen Fluent's folder tint (the
   accent), its bookmark folders take the Fluent folder icons, and the row a
   context menu was opened on keeps the hover fill.

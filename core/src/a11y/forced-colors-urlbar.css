@@ -44,9 +44,11 @@
     outline-offset: -1px !important;
   }
 
-  /* Zen fills the bar's place in the toolbar while it floats open */
+  /* Zen fills the bar's place in the toolbar while it floats open: the
+     place keeps a ButtonText edge, no fill */
   #urlbar-container:has(#urlbar[breakout-extend]) {
     background-color: transparent !important;
+    border-color: ButtonText !important;
   }
 
   /* The open bar outlines itself: the page under it is not dimmed */

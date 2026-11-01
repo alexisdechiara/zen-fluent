@@ -1,0 +1,54 @@
+/* Zen Fluent Enhanced: Widgets, Focus and Quick settings as tabs of Zen's Library.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/lib/zf-library.sys.mjs adds one Library section per board
+   (.zf-library-section, data-section = the board's id). Zen draws its tab
+   icons from 36-frame sprites played when a tab is picked: ours are single
+   Fluent glyphs (context-fill), centered in the sprite's box and drawn in
+   the stroke color Zen gives the sprites. In the section, a board takes
+   the content's width (its panel has a fixed one) and scrolls. */
+
+.zen-library-tab[data-section^="zf-"] .zen-library-tab-icon-image {
+  width: var(--zen-library-sprite-size) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 24px !important;
+  fill: var(--stroke) !important;
+  animation: none !important;
+}
+
+.zen-library-tab[data-section="zf-shelf"] .zen-library-tab-icon-image {
+  background-image: url("../icons/fluent/apps.svg") !important;
+}
+
+.zen-library-tab[data-section="zf-focus"] .zen-library-tab-icon-image {
+  background-image: url("../icons/fluent/timer.svg") !important;
+}
+
+.zen-library-tab[data-section="zf-quick-settings"] .zen-library-tab-icon-image {
+  background-image: url("../icons/fluent/settings.svg") !important;
+}
+
+.zf-library-section {
+  overflow: hidden auto !important;
+
+  & > .zf-board {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+  }
+
+  & #zf-shelf .zf-sh-body {
+    width: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  & #zf-focus .zf-fs-body {
+    width: auto !important;
+  }
+
+  & #zf-quick-settings {
+    --zf-qs-width: 100%;
+  }
+}

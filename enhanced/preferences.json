@@ -1,7 +1,7 @@
 [
   {
     "property": "zen-fluent.enhanced.quick-settings",
-    "label": "Quick Settings ~a button in the sidebar's bottom row: main settings and presets~",
+    "label": "Quick Settings ~a tab of the Library: main settings and presets~",
     "type": "checkbox",
     "defaultValue": true
   },
@@ -303,7 +303,7 @@
   },
   {
     "property": "zen-fluent.enhanced.focus-session",
-    "label": "Focus sessions ~a timer in the sidebar's bottom row: compact mode, muted tabs, blocked sites~",
+    "label": "Focus sessions ~a tab of the Library: compact mode, muted tabs, blocked sites~",
     "type": "checkbox",
     "defaultValue": false
   },
@@ -347,7 +347,7 @@
   },
   {
     "property": "zen-fluent.enhanced.shelf",
-    "label": "Widgets and shelf ~a board with the time, what plays, downloads and a shelf for links~",
+    "label": "Widgets and shelf ~a tab of the Library: the time, what plays, downloads and a shelf for links~",
     "type": "checkbox",
     "defaultValue": false
   },

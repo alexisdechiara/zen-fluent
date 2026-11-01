@@ -1,0 +1,48 @@
+/* Zen Fluent: Color of the floating URL bar (zen-fluent.url-floating-color).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The floating bar lies over the page, which Firefox never blurs behind a
+   backdrop-filter, so every choice but the translucent one is opaque:
+   - solid (default): white in light, near black in dark;
+   - material: the surface everything floating takes (open.css), the
+     opaque Mica Alt color under Mica Alt;
+   - translucent: a see-through glass card, as in Arc: the blur reaches the
+     window's chrome, the page under it is only dimmed (smoke.css);
+   - theme: the solid card tinted with the space's color (Zen's
+     --zen-primary-color), the solid one while the space has no color. */
+
+#urlbar[breakout-extend][zen-floating-urlbar="true"] {
+  --zf-url-floating-solid: light-dark(#fff, #1c1c1c);
+}
+
+@media (-moz-pref("zen-fluent.url-floating-color", "solid")) or (not ((-moz-pref("zen-fluent.url-floating-color", "material")) or (-moz-pref("zen-fluent.url-floating-color", "translucent")) or (-moz-pref("zen-fluent.url-floating-color", "theme")))) {
+  #urlbar[breakout-extend][zen-floating-urlbar="true"] .urlbar-background {
+    background-color: var(--zf-url-floating-solid) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.url-floating-color", "translucent")) {
+  #urlbar[breakout-extend][zen-floating-urlbar="true"] .urlbar-background {
+    background-color: light-dark(
+      rgb(255 255 255 / 72%),
+      rgb(32 32 32 / 72%)
+    ) !important;
+    backdrop-filter: blur(var(--zf-acrylic-blur)) saturate(1.5) !important;
+  }
+}
+
+@media (-moz-pref("zen-fluent.url-floating-color", "theme")) {
+  #urlbar[breakout-extend][zen-floating-urlbar="true"] .urlbar-background {
+    background-color: color-mix(
+      in oklab,
+      var(--zen-primary-color) 24%,
+      var(--zf-url-floating-solid)
+    ) !important;
+  }
+
+  :root[zen-default-theme="true"]
+    #urlbar[breakout-extend][zen-floating-urlbar="true"]
+    .urlbar-background {
+    background-color: var(--zf-url-floating-solid) !important;
+  }
+}

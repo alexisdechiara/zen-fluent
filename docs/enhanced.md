@@ -52,8 +52,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
 | Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
 
-- **Quick Settings**: a gear button in the sidebar's bottom row, before the
-  New button. Its panel has a gallery of presets and Zen Fluent's main
+- **Quick Settings**: the **Quick settings** tab of Zen's Library (see
+  [Boards in the Library](#boards-in-the-library)). It has a gallery of presets and Zen Fluent's main
   settings (style, material, tint, accent, corners, density, the selected
   Essential, the extensions row, the variants, the button animations), with
   the labels and choices of Zen Fluent's own settings. A preset sets
@@ -352,11 +352,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   in the panel; open or close it with the new button in the sidebar's
   bottom row, Ctrl+Alt+X or the Command Palette. The page's context menu
   gets **Ask an AI chatbot**, and selected text a shortcut to it.
-- **Focus sessions** (off by default), as in Windows' Clock app: a timer
-  button in the sidebar's bottom row (or the Command Palette) opens the
-  Focus panel. Pick 15, 25, 45, 60 or 90 minutes (**Focus session
-  length**) and start. While it runs, the button draws its progress as a
-  ring, and the panel shows the time left with **+5 min** and **End
+- **Focus sessions** (off by default), as in Windows' Clock app: the
+  **Focus** tab of Zen's Library (or the Command Palette). Pick 15, 25, 45,
+  60 or 90 minutes (**Focus session length**) and start. While it runs, a
+  timer button shows in the sidebar's bottom row and draws its progress as
+  a ring (a click opens the Focus tab), and the board shows the time left with **+5 min** and **End
   session**. As chosen in the panel or in Sine, during the session:
   - **Hide the sidebar**: compact mode in every window, put back after;
   - **Mute tabs playing sound**, the selected one aside, unmuted after;
@@ -367,13 +367,12 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   When the time is up, a message and a system notification say so. The
   session is shared by all windows and survives closing the panel.
 
-- **Widgets and shelf** (off by default): a button in the sidebar's bottom
-  row, Ctrl+Alt+Shift+W or the Command Palette opens a board like Windows'
-  widgets: the time and the date, **Now playing** (the tabs playing sound,
+- **Widgets and shelf** (off by default): the **Widgets** tab of Zen's
+  Library, Ctrl+Alt+Shift+W or the Command Palette opens a board like
+  Windows' widgets: the time and the date, **Now playing** (the tabs playing sound,
   to go to or mute), the last **Downloads** (a click opens a finished one),
   and the **Shelf**: links, text and images kept for later. Drop them on
-  the shelf (dragging over the button opens the board) or click **Add this
-  page**. A click opens a link or an image in a new tab and copies a text;
+  the shelf or click **Add this page**. A click opens a link or an image in a new tab and copies a text;
   items can be dragged out again, to a page or the address bar; × (or
   Delete) takes one away. The shelf is kept in the profile
   (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
@@ -399,6 +398,19 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,
   Acrylic). The keys are read by position, so they stay the same on any
   keyboard layout. A message shows the new value.
+
+### Boards in the Library
+
+Widgets, Focus and Quick settings are tabs of Zen's Library, after Zen's
+own (Widgets, Focus, Quick settings): they add no button to the sidebar's
+bottom row. Zen's **Choose tabs** (the brush at the bottom of the Library)
+hides any of them. With
+[ZenLibraryTweaks](compatibility.md#zenlibrarytweaks), they can be
+reordered and removed like its own sections; one removed there stays
+removed. While the Library is off (`zen.library.enabled`), each board
+opens in a panel from a button in the bottom row, as before 0.5. The
+tabs' labels are in English and French
+(`enhanced/l10n/<locale>/zen-fluent-enhanced.ftl`).
 
 ## Install
 

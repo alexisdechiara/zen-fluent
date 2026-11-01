@@ -6,6 +6,32 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- **Floating URL bar color** (`zen-fluent.url-floating-color`): white or
+  black (default), translucent like Arc, the space's color, or the
+  material (the previous look, opaque Mica Alt under Mica Alt).
+
+### Changed
+
+- Zen Fluent Enhanced: **Widgets**, **Focus** and **Quick settings** are
+  tabs of Zen's Library instead of buttons in the sidebar's bottom row
+  (Focus shows its timer there only while a session runs). Zen's Choose
+  tabs hides them; with ZenLibraryTweaks they are reordered and removed
+  like its own sections. While the Library is off, each opens in a panel
+  from its button, as before.
+
+### Fixed
+
+- While the URL bar floats, its place in the sidebar kept Zen's look (a
+  14px radius and the toolbar button fill): it now keeps the resting
+  field's fill, stroke and corners in every URL bar shape.
+- The text box URL bar's bottom corners looked cut square: its stronger
+  bottom line was a border of another color, which Gecko splits on a
+  diagonal in the corners. It is now an inset shadow that follows the
+  radius (WinUI's elevation border), and the input row takes the field's
+  radius.
+
 ## [0.4.1] - 2026-10-31
 
 ### Added

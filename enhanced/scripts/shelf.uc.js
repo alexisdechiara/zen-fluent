@@ -1,12 +1,13 @@
-// Zen Fluent Enhanced: widgets and a shelf, in a panel of their own.
+// Zen Fluent Enhanced: widgets and a shelf, in a tab of Zen's Library.
 //
-// A button in Zen's sidebar bottom row (or Ctrl+Alt+Shift+W, or the
-// Command Palette) opens a board like Windows' widgets:
+// The Widgets tab of the Library (or Ctrl+Alt+Shift+W, or the Command
+// Palette; a panel from a button in Zen's sidebar bottom row while the
+// Library is off: lib/zf-library.sys.mjs) is a board like Windows' widgets:
 //   - the time and the date;
 //   - what is playing: the tabs playing sound, to go to or to mute;
 //   - the last downloads, to open;
 //   - the shelf: links, text and images kept for later. Drop them on the
-//     shelf (or on the button: the board opens), or add the current page.
+//     shelf (or on the button: the panel opens), or add the current page.
 //     A click opens a link or an image in a new tab and copies a text;
 //     items can be dragged out again; × takes one away.
 // The shelf is a JSON file in the profile (zen-fluent-shelf.json, written
@@ -17,6 +18,9 @@
   );
   const { showToast } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-toast.sys.mjs",
+  );
+  const { librarySurface } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-library.sys.mjs",
   );
   const { Downloads } = ChromeUtils.importESModule(
     "resource://gre/modules/Downloads.sys.mjs",
@@ -105,10 +109,6 @@
       const win = ctx.window;
       const doc = ctx.document;
       const gBrowser = win.gBrowser;
-      const foot = doc.getElementById("zen-sidebar-foot-buttons");
-      if (!foot) {
-        return;
-      }
       const html = (tag, attributes = {}, text = "") => {
         const el = doc.createElementNS(HTML, tag);
         for (const [name, value] of Object.entries(attributes)) {
@@ -118,37 +118,27 @@
         return el;
       };
 
-      const button = ctx.element("toolbarbutton", {
-        id: "zf-shelf-button",
-        class: "toolbarbutton-1 chromeclass-toolbar-additional",
+      let clockTimer = 0;
+      const board = librarySurface(ctx, {
+        id: "zf-shelf",
         label: "Widgets and shelf",
-        tooltiptext: "Widgets and shelf",
-        image: ICON,
-        removable: "false",
-        skipintoolbarset: "true",
-      });
-      foot.insertBefore(button, doc.getElementById("zen-create-new-button"));
-
-      const panel = ctx.element(
-        "panel",
-        {
-          id: "zf-shelf",
-          type: "arrow",
-          role: "dialog",
-          "aria-label": "Widgets and shelf",
-          orient: "vertical",
+        l10nId: "zf-library-widgets",
+        icon: ICON,
+        button: { id: "zf-shelf-button" },
+        onShow: () => {
+          tickClock();
+          win.clearInterval(clockTimer);
+          clockTimer = win.setInterval(tickClock, 15000);
+          renderPlaying();
+          renderDownloads();
+          renderShelf();
         },
-        doc.getElementById("mainPopupSet"),
-      );
-      ctx.onCleanup(() => panel.hidePopup());
+        onHide: () => win.clearInterval(clockTimer),
+      });
+      const button = board.button;
       const body = html("div", { class: "zf-sh-body" });
-      panel.append(body);
-      const openPanel = () => {
-        if (panel.state === "closed") {
-          panel.openPopup(button, "before_start");
-        }
-      };
-      ctx.listen(button, "command", openPanel);
+      board.content.append(body);
+      const openPanel = () => board.show();
 
       // -------- Widgets --------
       const clock = html("section", { class: "zf-sh-widget zf-sh-clock" });
@@ -186,7 +176,7 @@
             html("span", { class: "zf-sh-label" }, tab.label),
           );
           go.addEventListener("click", () => {
-            panel.hidePopup();
+            board.hide();
             gBrowser.selectedTab = tab;
           });
           const mute = html(
@@ -240,7 +230,7 @@
             open.disabled = !download.succeeded;
             open.title = download.succeeded ? "Open" : "";
             open.addEventListener("click", () => {
-              panel.hidePopup();
+              board.hide();
               download.launch().catch(() => {});
             });
             row.append(open, html("span", { class: "zf-sh-meta" }, state));
@@ -394,25 +384,9 @@
 
       body.append(clock, playing, downloads, shelf);
 
-      let clockTimer = 0;
-      ctx.listen(panel, "popupshowing", (event) => {
-        if (event.target !== panel) {
-          return;
-        }
-        tickClock();
-        clockTimer = win.setInterval(tickClock, 15000);
-        renderPlaying();
-        renderDownloads();
-        renderShelf();
-      });
-      ctx.listen(panel, "popuphidden", (event) => {
-        if (event.target === panel) {
-          win.clearInterval(clockTimer);
-        }
-      });
       ctx.onCleanup(() => win.clearInterval(clockTimer));
       ctx.observe(TOPIC, () => {
-        if (panel.state === "open") {
+        if (board.shown) {
           renderShelf();
         }
       });

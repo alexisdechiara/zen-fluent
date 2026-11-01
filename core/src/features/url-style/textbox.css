@@ -1,13 +1,22 @@
 /* Zen Fluent: Textbox shape (default under WinUI): stronger bottom edge.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* Textbox: the stronger bottom edge (WinUI) */
+/* Textbox: the stronger bottom edge (WinUI). It is an inset shadow over
+   the 1px stroke, not the bottom border: Gecko splits the corner between
+   two border colors on a diagonal, which cut the bottom corners square;
+   the shadow follows the radius into both of them, like WinUI's
+   elevation border. */
 @media (-moz-pref("zen-fluent.url-style", "textbox")) or ((not (-moz-pref("zen-fluent.style", "edge"))) and (not (-moz-pref("zen-fluent.url-style", "pill"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))) {
   #urlbar:not([breakout-extend]) .urlbar-background {
-    border-bottom-color: var(--zf-url-stroke-bottom) !important;
+    box-shadow: inset 0 -1px 0 var(--zf-url-stroke-bottom) !important;
   }
 
   #urlbar:not([breakout-extend]):hover .urlbar-background {
-    border-bottom-color: var(--zf-url-stroke-bottom-hover) !important;
+    box-shadow: inset 0 -1px 0 var(--zf-url-stroke-bottom-hover) !important;
+  }
+
+  /* Firefox rounds the input row 8px inside the 4px field */
+  #urlbar:not([breakout-extend]) .urlbar-input-container {
+    border-radius: var(--zf-radius-control) !important;
   }
 }

@@ -64,6 +64,10 @@ url)` (dominant color of an icon, cached per process), `pageTopColor(window, bro
   `about:preferences#zenFluent`.
 - `zf-stats.sys.mjs`: `siteDays(from)`, visits and time on pages per day and
   site, read from Places.
+- `zf-library.sys.mjs`: `librarySurface(ctx, spec)`, a feature's board as
+  a tab of Zen's Library (a panel from a bottom-row button while the
+  Library is off); compatible with ZenLibraryTweaks' sections. Tab labels
+  in `enhanced/l10n/<locale>/zen-fluent-enhanced.ftl`.
 - `zf-toast.sys.mjs`: `showToast(window, text, { action })`, a short message at the bottom
   of the window (`enhanced/src/toast.css`); Zen's own toasts only take its
   Fluent string ids.
