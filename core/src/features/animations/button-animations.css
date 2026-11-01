@@ -5,7 +5,7 @@
 @media not (prefers-reduced-motion: reduce) {
   /* -------- Buttons (Firefox-WinUI) -------- */
 
-  @media (-moz-pref("zen-fluent.button-animations")) {
+  @media not (-moz-pref("zen-fluent.button-animations", false)) {
     :is(toolbarbutton, .tabbrowser-tab, .urlbarView-row) {
       transition:
         background-color var(--zf-duration-fast) linear,

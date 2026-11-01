@@ -28,7 +28,7 @@
       transition: opacity var(--zf-duration-normal) linear !important;
     }
 
-    @media (-moz-pref("zen-fluent.button-animations")) {
+    @media not (-moz-pref("zen-fluent.button-animations", false)) {
       & > .findbar-closebutton {
         transition:
           opacity var(--zf-duration-normal) linear,

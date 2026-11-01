@@ -49,7 +49,7 @@
   }
 
   /* The accent pill (components/sidebar/tabs.css) covers the same edge */
-  @media (-moz-pref("zen-fluent.tab-pill")) and (not (-moz-pref("zen-fluent.style", "edge"))) {
+  @media (not (-moz-pref("zen-fluent.tab-pill", false))) and (not (-moz-pref("zen-fluent.style", "edge"))) {
     .tabbrowser-tab[usercontextid]:not([zen-essential], [zen-glance-tab]):is(
         [selected],
         [visuallyselected]

@@ -4,7 +4,7 @@
 @-moz-document url-prefix("about:preferences"), url-prefix("about:addons"),
   url-prefix("about:config") {
   /* The rows of an opening group slide in, as Expander content */
-  @media (prefers-reduced-motion: no-preference) and (-moz-pref("zen-fluent.button-animations")) {
+  @media (prefers-reduced-motion: no-preference) and (not (-moz-pref("zen-fluent.button-animations", false))) {
     .sineItemPreferenceDialogContent:has(> [id^="zen-fluent-ui-open-"])
       > hbox:not([id^="zen-fluent-ui-open-"]) {
       transition:

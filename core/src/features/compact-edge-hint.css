@@ -4,7 +4,7 @@
 /* A small handle on the window edge while compact mode hides the sidebar,
    gone as soon as the sidebar shows (same attributes as Zen's own rule). */
 
-@media (-moz-pref("zen-fluent.compact-edge-hint")) and ((-moz-pref("zen.view.compact.hide-tabbar")) or (-moz-pref("zen.view.use-single-toolbar"))) {
+@media (not (-moz-pref("zen-fluent.compact-edge-hint", false))) and ((-moz-pref("zen.view.compact.hide-tabbar")) or (-moz-pref("zen.view.use-single-toolbar"))) {
   :root[zen-compact-mode="true"]:not([customizing], [inDOMFullscreen="true"])
     #zen-main-app-wrapper::after {
     content: "";

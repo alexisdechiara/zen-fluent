@@ -1,7 +1,7 @@
 /* Zen Fluent: Fluent icons: open and closed folders.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-@media (-moz-pref("zen-fluent.fluent-icons")) and (-moz-pref("svg.context-properties.content.enabled")) {
+@media (not (-moz-pref("zen-fluent.fluent-icons", false))) and (-moz-pref("svg.context-properties.content.enabled")) {
   /* -------- Folders: open / closed instead of Zen's animated folder -------- */
   /* Zen folders (and their copies in the Library's Spaces), and the bookmark
      folders ZenLibraryTweaks adds to the Library, which clone Zen's folder

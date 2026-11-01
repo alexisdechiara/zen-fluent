@@ -4,7 +4,7 @@
 /* -------- Compact mode: floating Acrylic sidebar (Arc 2.0), solid since it
    lies over the page -------- */
 
-@media (-moz-pref("zen-fluent.compact-sidebar-bg")) {
+@media not (-moz-pref("zen-fluent.compact-sidebar-bg", false)) {
   :root[zen-compact-mode="true"] #navigator-toolbox .zen-toolbar-background {
     background-color: var(--zf-acrylic-over-page) !important;
     backdrop-filter: none !important;
