@@ -11,8 +11,12 @@
      list of crowded rows. A note under a setting continues its card;
      indented settings stay indented. */
 
+  /* :not([hidden]): a user !important display would beat Firefox's
+     [hidden] rule and show every Zen pane on every page */
   groupbox[data-category^="paneZen"] {
-    display: flex !important;
+    &:not([hidden]) {
+      display: flex !important;
+    }
     flex-direction: column !important;
     gap: 4px !important;
     padding: 0 !important;

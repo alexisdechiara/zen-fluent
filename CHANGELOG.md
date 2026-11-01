@@ -43,6 +43,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   their card instead of a card inside a card.
 - Firefox's **Window density** and **Browser theme** are hidden: Zen
   Fluent's Density and colors replace them.
+- The README is a short presentation (what each mod does, a gallery,
+  install); the table of every setting and its default moved to
+  `docs/settings/README.md`. New screenshots on Zen 1.24, with the pages of
+  Zen's website, plus the Edge style and Enhanced's settings page and Quick
+  Settings.
 
 ### Fixed
 

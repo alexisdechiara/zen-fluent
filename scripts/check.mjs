@@ -158,7 +158,8 @@ for (const m of allCss.matchAll(/-moz-pref\(\s*"(zen-fluent\.[^"]+)"/g))
   if (!ids.has(m[1]))
     fail(`CSS reads ${m[1]}, which no preferences.json declares`);
 
-const readme = read("README.md");
+// Every setting has a row with its default in docs/settings/README.md
+const readme = read("docs/settings/README.md");
 const shown = (v) =>
   typeof v === "boolean" ? String(v) : v === "" ? "(empty)" : v;
 for (const p of prefs.filter(
@@ -167,10 +168,10 @@ for (const p of prefs.filter(
   const row = readme
     .split("\n")
     .find((l) => l.startsWith("|") && l.includes(`\`${p.property}\``));
-  if (!row) fail(`README: no settings row for ${p.property}`);
+  if (!row) fail(`docs/settings/README.md: no settings row for ${p.property}`);
   else if (!row.includes(`\`${shown(p.defaultValue)}\``))
     fail(
-      `README: the row of ${p.property} must show its default \`${shown(p.defaultValue)}\``,
+      `docs/settings/README.md: the row of ${p.property} must show its default \`${shown(p.defaultValue)}\``,
     );
 }
 

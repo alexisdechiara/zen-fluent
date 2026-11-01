@@ -26,8 +26,8 @@ Install it from GitHub as well, from its folder:
 `alexisdechiara/zen-fluent/tree/main/enhanced`. It installs Zen Fluent if it is
 missing. Sine only runs JavaScript from mods outside its store when **Enable
 installing JS from unofficial sources** is checked in Sine's settings
-(`sine.allow-unsafe-js`). Enhanced has no feature yet: see
-[enhanced.md](enhanced.md).
+(`sine.allow-unsafe-js`). Restart Zen once installed. Its features and their
+switches: [enhanced.md](enhanced.md).
 
 ## Fluent icons
 
@@ -54,7 +54,7 @@ Until that preference is `true` (**Allow the mod's icons** in Sine, or
    `chrome/userContent.css`, `@import url("core/userContent.css");` (create
    the files if needed; imports go before any other rule).
 4. In `about:config`, create the `zen-fluent.*` preferences of the
-   [settings table](../README.md#settings) with their defaults: without Sine,
+   [settings table](settings/README.md) with their defaults: without Sine,
    nothing writes them. Also set `svg.context-properties.content.enabled` to
    `true` for the icons.
 5. Restart Zen.

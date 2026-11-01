@@ -56,8 +56,8 @@ come later. The owner writes to Claude in French: answer in French.
   wherever we override Zen; comment it only when the reason is different.
 - Every setting goes through `@media (-moz-pref("zen-fluent.xxx", "value"))`.
 - Names: `--zf-*`, `zf-` for ids, classes, attributes, keyframes.
-- A new setting: `core/preferences.json`, its CSS, a README row with its default
-  (checked), and `docs/settings/<group>.md`. A change: a `CHANGELOG.md` entry
+- A new setting: `core/preferences.json`, its CSS, a row with its default in
+  `docs/settings/README.md` (checked), and `docs/settings/<group>.md`. A change: a `CHANGELOG.md` entry
   under **Unreleased**. Release: `npm run release -- X.Y.Z`, then tag `vX.Y.Z`.
 - Code taken from another project keeps its licence notice:
   `THIRD-PARTY-NOTICES.md` plus a line in the file header. Nebula is GPL-3.0:
@@ -456,6 +456,15 @@ paints remote pages over the chrome: to picture an overlay of a loading page,
 build it on a static page. A slow local page (a server that sends a chunk, then
 waits) keeps a tab `[busy]`. Several agents can test at once: one headless
 instance each, its own profile and Marionette port.
+README screenshots (retaken 2026-11-01, Zen 1.24b): the pages of Zen's own
+website videos, for comparison (Essentials Discord, Element, ChatGPT, Reddit,
+GitHub, YouTube; space "Personal" with ChatGPT and YouTube pinned;
+tryalcove.com and its /download page; Wikipedia "Dachshund" for Glance),
+1280 x 800 window. `zen.view.window.scheme`: 0 dark, 1 light, 2 system. For
+light shots on a dark Windows, set `ui.systemUsesDarkTheme` = 0 and reload
+the tabs, or SVG favicons (ChatGPT) stay white. Mica only shows on the
+active window: `SetForegroundWindow` from a process the app started works
+(no synthesized input).
 Visible window (only when the owner asks): `zen.sh startvis`, driven by
 `harness/vis.py` (WebDriver actions inside the browser, never OS input;
 `capture.ps1` grabs only the window's rectangle, in virtual screen
@@ -483,8 +492,6 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
   behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
   shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
   Calmer's accent menus.
-- Retake `screenshots/sine.png` (English labels, collapsible groups) and add an
-  Edge style screenshot.
 - Density: the text box URL bar keeps Zen's height in compact (Zen writes
   `--urlbar-height` inline and sizes its container itself); only the pill
   follows `--zf-size-url-field`.
