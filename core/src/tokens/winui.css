@@ -43,7 +43,13 @@ tooltip {
   );
   --zf-accent-hover: color-mix(in srgb, var(--zf-accent) 90%, transparent);
   --zf-accent-pressed: color-mix(in srgb, var(--zf-accent) 80%, transparent);
-  --zf-on-accent: light-dark(#fff, #000);
+  /* Black or white, whichever reads on the accent: WinUI's white in light
+     and black in dark for the system accent, but an adaptive or custom
+     accent can be light in light mode (a yellow site gave white text on
+     yellow, e.g. the autofilled part of the floating URL bar) */
+  --zf-on-accent: oklch(
+    from var(--zf-accent) clamp(0, (0.7 - l) * 1000, 1) 0 0deg
+  );
   --zf-accent-disabled: light-dark(
     rgb(0 0 0 / 21.69%),
     rgb(255 255 255 / 15.81%)

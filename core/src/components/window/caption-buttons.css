@@ -76,10 +76,16 @@
     position: relative !important;
     overflow: visible !important;
 
+    /* Windows asks the browser what lies under the cursor before any
+       click: the window's drag region answers "caption" there (hover,
+       but the click moves the window instead of closing it).
+       -moz-window-dragging is not inherited: the extension must leave the
+       drag region itself */
     &::after {
       position: absolute;
       inset: -4px -4px 0 0;
       content: "";
+      -moz-window-dragging: no-drag;
     }
   }
 

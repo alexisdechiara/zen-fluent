@@ -1,0 +1,34 @@
+name: Mods
+
+# Checks the mods of enhanced/settings/compatible-mods.json against their
+# repositories (scripts/check-mods.mjs): a new version to check again, an
+# archived or missing repository, an active Vertex Mods repository not in
+# the list. Weekly, on demand, and when the list changes.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+  push:
+    paths:
+      - enhanced/settings/compatible-mods.json
+      - scripts/check-mods.mjs
+  pull_request:
+    paths:
+      - enhanced/settings/compatible-mods.json
+      - scripts/check-mods.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  mods:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-mods.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

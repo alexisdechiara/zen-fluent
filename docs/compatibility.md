@@ -12,8 +12,9 @@ what Zen Fluent does about it.
 | [Zen Second Sidebar Enhanced](#zen-second-sidebar-enhanced) | Works, with Zen Fluent's compat rules |
 | [Zen Command Palette](#zen-command-palette)                 | Works, with Zen Fluent's compat rules |
 | [Zen Calmer Context Menu](#zen-calmer-context-menu)         | Works, with Zen Fluent's compat rules |
-| [BetterZenGradientPicker](#betterzengradientpicker)         | Works                                 |
+| [BetterZenGradientPicker](#betterzengradientpicker)         | Works, with Zen Fluent's compat rules |
 | [Zen Easel](#zen-easel)                                     | Works, with Zen Fluent's compat rules |
+| [Vertex Mods](#vertex-mods)                                 | Works, with Zen Fluent's compat rules |
 | [Zen Page Tint](#zen-page-tint)                             | Conflicts: do not use both            |
 | [Blended Addressbar](#blended-addressbar)                   | Conflicts: do not use both            |
 | [Better Find Bar](#better-find-bar)                         | Conflicts: do not use both            |
@@ -32,7 +33,18 @@ in the Marketplace the latest one on GitHub); otherwise **Not tested with
 this version**. Conflicting mods say **Incompatible** whatever their
 version. A check updates `tested` in the same commit.
 They were checked in Zen 1.23.4b against each mod's CSS at the version given
-below, with the elements their scripts create built by hand.
+below, with the elements their scripts create built by hand. The Vertex Mods
+and the mods of **Featured** were checked again on Zen 1.24b with Zen
+Fluent 0.4.3, all installed through Sine together.
+
+**Featured**, at the top of the Mods page, lists the mods Zen Fluent
+recommends, in the order of `featured` in the same file.
+
+A weekly CI job (`.github/workflows/mods.yml`, `npm run check:mods`) reads
+each mod's repository: a version newer than `tested` is flagged with the
+selectors of its CSS that touch an id Zen Fluent styles (what to look at
+again), an archived or missing repository too, and an active Vertex Mods
+repository (not archived, pushed this year) missing from the list.
 
 ## How mods share the page
 
@@ -122,6 +134,46 @@ File: `core/src/features/fluent-icons/glance-split.css`.
 Files: `core/src/compat/second-sidebar.css`,
 `core/src/components/firefox-sidebar/panel.css`.
 
+## Vertex Mods
+
+The [Vertex Mods](https://github.com/orgs/Vertex-Mods/repositories) share a
+small design system: every panel, popup and dialog is drawn from
+`--zenux-*` tokens. Zen Fluent gives those tokens its own values (Segoe UI
+Variable, WinUI fills and strokes, the accent, the control / card / overlay
+radii, the flyout and dialog shadows); what floats over the page takes the
+solid surface, since Firefox does not blur web content. A theme picked in a
+mod's own settings (Search Engine Select's light or AMOLED) still wins.
+File: `core/src/compat/zenux.css`. Checked (Zen 1.24b, Zen Fluent 0.4.3):
+
+- **Advanced Tab Groups** 3.12.1, **Zen Command Palette** 2.0.0: see their
+  own sections.
+- **Zen Tidy Tabs** 2.0.1: its sort button and wave line sit in the tab
+  list as they are.
+- **Tidy Downloads** 4.2.3: its cards and tooltip, by the Library button.
+- **Reopen Closed Tabs Menu** 1.1.9 and **Search Engine Select** 1.1.33:
+  their panels take the tokens above.
+- **Browse Bot** 3.0.0: with its AI find bar on, Ctrl+F is a card floating
+  in a corner of the page; Zen Fluent's find bar strip gave it a
+  see-through Layer fill and a top divider. The card takes the solid
+  surface, an overlay's corners, a stroke and the flyout shadow. File:
+  `core/src/compat/browse-bot.css`.
+- **Compact Settings** 1.1.4: it folds the settings' navigation into an
+  icon strip that opens on hover, and its rules win over Zen Fluent's
+  320px pane. Zen Fluent kept the search box under the pane's title, where
+  it floated over the page, and showed the title's first letter in the
+  strip: while the mod is on, the search box goes to the top of the page,
+  the title stays hidden as the mod draws it, and Zen Fluent's sections
+  stay folded until the strip opens. Files:
+  `core/src/compat/compact-settings.css`,
+  `enhanced/settings/preferences-nav.css`.
+- **Floating Sidebar** 1.1.3: unpinned, the Firefox sidebar floats over the
+  page and showed it through Zen Fluent's sidebar fill; it becomes a card
+  with the solid surface and the dialog shadow. Pinned, it keeps Zen
+  Fluent's docked look. File: `core/src/compat/floating-sidebar.css`.
+- **Zen Auto Wallpaper** 0.2.2: its button sits in the gradient picker.
+- **Search Keyboard Shortcuts** 1.1.6: its search and filters on Zen's
+  keyboard shortcuts page.
+
 ## Zen Command Palette
 
 [Vertex-Mods/Zen-Command-Palette](https://github.com/Vertex-Mods/Zen-Command-Palette)
@@ -154,12 +206,18 @@ File: `core/src/compat/calmer-context-menu.css`.
 
 ## BetterZenGradientPicker
 
-[JustAdumbPrsn/BetterZenGradientPicker](https://github.com/JustAdumbPrsn/BetterZenGradientPicker).
-Since Zen Fluent 0.4 a space's gradient tints the window (**Space color**, on
-by default), so the gradient it writes shows over the backdrop, as in Zen;
-its colors reach the accent through **Accent color** › **Zen workspace
-color**. Checked headless on Zen 1.24b: the gradient reaches the window's
-background layer. Its first run opens a welcome screen over the window.
+[JustAdumbPrsn/BetterZenGradientPicker](https://github.com/JustAdumbPrsn/BetterZenGradientPicker)
+(checked: 2.1 for Zen 1.23b, on Zen 1.24b). It redraws Zen's gradient
+picker. Sine loads its sheet before Zen Fluent's (`BetterZenGradientPicker`
+sorts before `Zen-Fluent`), so Zen Fluent's picker rules won over half of
+its design and the two mixed. While its picker is there (its lightness
+wave, `#zen-picker-lightness-wrapper`, marks it), Zen Fluent's look of the
+picker steps aside; the panel keeps Zen Fluent's surface and Zen's 10px
+padding. Since Zen Fluent 0.4 a space's gradient tints the window (**Space
+color**, on by default), so the gradient it writes shows over the
+backdrop, as in Zen; its colors reach the accent through **Accent color** ›
+**Zen workspace color**. Its first run opens a welcome screen over the
+window. File: `core/src/components/panels/gradient-picker.css`.
 
 ## Zen Easel
 

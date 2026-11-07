@@ -537,5 +537,10 @@
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/compat/calmer-context-menu.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/compat/zenux.css");
+@import url("src/compat/floating-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/compat/browse-bot.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
 
 /* Add your own CSS below. */

@@ -70,6 +70,7 @@ const FEATURES = {
   "favicon-color": "color",
   "adaptive-accent": "paint-brush",
   "site-color": "drop",
+  "space-settings": "design-ideas",
   "extensions-below-essentials": "puzzle-piece",
   "tab-numbers": "tag",
   shortcuts: "flash",
@@ -119,6 +120,10 @@ const MATERIALS = {
   acrylic: "Translucent: you see what is behind the window",
 };
 
+// The French interface (lib/zf-l10n.sys.mjs)
+const l10n = ChromeUtils.importESModule(
+  `${BASE}Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs`,
+);
 const $ = (selector, root = document) => root.querySelector(selector);
 const chromeWindow = () =>
   window.browsingContext.topChromeWindow ??
@@ -158,8 +163,24 @@ function splitLabel(label = "") {
 
 // -------- Prefs --------
 
+/** True while settings per space are on: a space's overrides aside, the
+    page edits your own values (lib/zf-spaces.sys.mjs, the base). */
+function perSpace(property) {
+  try {
+    return (
+      Services.prefs.getBoolPref(SPACE_FEATURE, true) &&
+      spaces().overridable(property)
+    );
+  } catch {
+    return false;
+  }
+}
+
 function read(pref) {
   const { property, type, defaultValue } = pref;
+  if (perSpace(property)) {
+    return spaces().baseValue(property) ?? defaultValue;
+  }
   try {
     if (type === "checkbox") {
       return Services.prefs.getBoolPref(property, defaultValue);
@@ -189,6 +210,10 @@ function rebuildSine() {
 }
 
 function write(pref, value) {
+  if (perSpace(pref.property)) {
+    spaces().setBase(pref.property, value);
+    return;
+  }
   try {
     if (pref.type === "checkbox") {
       Services.prefs.setBoolPref(pref.property, value);
@@ -235,6 +260,15 @@ function reset(pref) {
   if (pref.type === "string") {
     write(pref, pref.defaultValue);
   } else {
+    clear(pref);
+  }
+}
+
+/** No user value: the default shows. */
+function clear(pref) {
+  if (perSpace(pref.property)) {
+    spaces().setBase(pref.property, null);
+  } else {
     Services.prefs.clearUserPref(pref.property);
   }
 }
@@ -245,7 +279,9 @@ const isDefault = (pref) => read(pref) === pref.defaultValue;
 function snapshot(prefs) {
   return prefs.map((pref) => ({
     pref,
-    had: Services.prefs.prefHasUserValue(pref.property),
+    had: perSpace(pref.property)
+      ? spaces().baseValue(pref.property) !== null
+      : Services.prefs.prefHasUserValue(pref.property),
     value: read(pref),
   }));
 }
@@ -254,7 +290,7 @@ function restore(saved) {
     if (had || pref.type === "string") {
       write(pref, value);
     } else {
-      Services.prefs.clearUserPref(pref.property);
+      clear(pref);
     }
   }
 }
@@ -282,6 +318,16 @@ const observer = {
   observe(_subject, _topic, property) {
     for (const entry of watchers.get(property) ?? []) {
       entry.fn();
+    }
+    // Your own values of the settings spaces override live there too
+    if (property === SPACE_DATA) {
+      for (const { property: setting } of spaces().SETTINGS) {
+        if (setting !== property) {
+          for (const entry of watchers.get(setting) ?? []) {
+            entry.fn();
+          }
+        }
+      }
     }
     for (const fn of anyChange) {
       fn(property);
@@ -387,6 +433,7 @@ async function load() {
   model.features = [...features.values()];
   model.presets = data.quick?.presets ?? [];
   model.mods = data.mods?.mods ?? [];
+  model.featured = data.mods?.featured ?? [];
   model.versions = {
     core: data.coreTheme?.version,
     enhanced: data.enhancedTheme?.version,
@@ -397,7 +444,7 @@ async function load() {
     defaultValue: 2,
     title: "Mode",
   });
-  observePrefs(model.prefs.keys());
+  observePrefs([...model.prefs.keys(), SPACE_DATA]);
 }
 
 // -------- The accent, as the browser window shows it --------
@@ -625,8 +672,27 @@ function settingRow(
       el("span.setting-title", { id }, pref.title),
       pref.description ? el("span.setting-desc", {}, pref.description) : null,
     ),
-    el("div.setting-actions", {}, resetButton([pref], row), control(pref, id)),
   );
+  const space = scopeShown ? scopedSpace() : null;
+  if (!space) {
+    row.append(
+      el(
+        "div.setting-actions",
+        {},
+        spaceChips(pref),
+        resetButton([pref], row),
+        control(pref, id),
+      ),
+    );
+  } else if (perSpace(pref.property)) {
+    row.setAttribute("scoped", "");
+    row.append(el("div.setting-actions", {}, scopedControl(pref, space, id)));
+  } else {
+    // A setting every space shares, shown but not editable for one space
+    row.setAttribute("unscoped", "");
+    row.title = "The same in every space";
+    row.append(el("div.setting-actions", { inert: true }, control(pref, id)));
+  }
   watchConditions(pref, row);
   return row;
 }
@@ -1532,17 +1598,18 @@ function modItem(entry, layout, actions) {
   const title = el(
     "span.mod-title",
     {},
-    el("span.mod-name", {}, entry.name),
+    el("span.mod-name", { translate: "no" }, entry.name),
     entry.version ? el("span.mod-version", {}, `v${entry.version}`) : null,
   );
   const meta = el(
     "span.mod-meta",
     {},
     [
-      entry.author ? `by ${entry.author}` : "",
+      // One line: each part translated on its own (lib/zf-l10n.sys.mjs)
+      entry.author ? l10n.t(`by ${entry.author}`) : "",
       entry.stars != null ? `★ ${entry.stars.toLocaleString()}` : "",
-      entry.updated ? `updated ${entry.updated.slice(0, 10)}` : "",
-      entry.scripts ? "runs scripts" : "",
+      entry.updated ? l10n.t(`updated ${entry.updated.slice(0, 10)}`) : "",
+      entry.scripts ? l10n.t("runs scripts") : "",
     ]
       .filter(Boolean)
       .join(" · "),
@@ -1698,6 +1765,132 @@ async function openModSettings(installed) {
  * Asks before installing a mod that does not work with Zen Fluent (a
  * ContentDialog; Cancel is the default button). Resolves to true to install.
  */
+/** A mod's card, opened: what it does, its compatibility, its links. */
+function modDetails(entry, primaryAction) {
+  const mod = entry.mod;
+  const facts = [
+    ["Author", entry.author],
+    ["Version", entry.version ? `v${entry.version}` : ""],
+    ["Updated", entry.updated?.slice(0, 10) ?? ""],
+    ["Stars", entry.stars != null ? entry.stars.toLocaleString() : ""],
+    ["Scripts", entry.scripts ? "Runs scripts" : ""],
+  ].filter(([, value]) => value);
+  // The verdict's own words, or the versions it was checked with
+  const compatibility =
+    entry.verdict.reason && entry.verdict.reason !== entry.summary
+      ? entry.verdict.reason
+      : mod?.tested
+        ? `Checked with Zen Fluent ${mod.tested.zenFluent} and v${mod.tested.version}.`
+        : (VERDICTS[entry.verdict.key]?.label ?? "");
+  const close = el(
+    "button.icon-button",
+    { title: "Close", "aria-label": "Close", onclick: () => dialog.close() },
+    icon("dismiss"),
+  );
+  const description =
+    entry.description && entry.description !== entry.summary
+      ? entry.description
+      : "";
+  const tone =
+    entry.verdict.key === "works"
+      ? ""
+      : entry.verdict.key === "conflict"
+        ? ".critical"
+        : ".caution";
+  const dialog = el(
+    "dialog.mod-dialog.mod-details",
+    { "aria-label": entry.name },
+    entry.image
+      ? el("img.mod-details-image", {
+          src: entry.image,
+          alt: "",
+          referrerpolicy: "no-referrer",
+          onerror: (event) => event.currentTarget.remove(),
+        })
+      : null,
+    el(
+      "div.mod-dialog-header",
+      {},
+      el(
+        "h2.mod-dialog-title",
+        {},
+        el("span", { translate: "no" }, entry.name),
+        verdictBadge(entry.verdict.key),
+      ),
+      close,
+    ),
+    el(
+      "div.mod-dialog-content",
+      {},
+      entry.summary ? el("p.mod-details-summary", {}, entry.summary) : null,
+      description
+        ? el("p.section-desc", { translate: "no" }, description)
+        : null,
+      el(
+        `div.infobar${tone}`,
+        {},
+        icon(VERDICTS[entry.verdict.key]?.icon ?? "info"),
+        el(
+          "div.infobar-text",
+          {},
+          el("strong", {}, VERDICTS[entry.verdict.key]?.label ?? ""),
+          el("span", {}, compatibility),
+        ),
+      ),
+      facts.length
+        ? el(
+            "dl.mod-details-facts",
+            {},
+            ...facts.flatMap(([label, value]) => [
+              el("dt", {}, label),
+              el("dd", {}, value),
+            ]),
+          )
+        : null,
+      (entry.tags ?? []).length
+        ? el(
+            "div.mod-details-tags",
+            { translate: "no" },
+            ...entry.tags.map((tag) => el("span.mod-tag", {}, tag)),
+          )
+        : null,
+    ),
+    el(
+      "div.mod-dialog-footer",
+      {},
+      mod
+        ? el(
+            "button.button",
+            {
+              onclick: () =>
+                openLink(`${DOCS}/compatibility.md#${docsAnchor(mod.name)}`),
+            },
+            "Compatibility notes",
+          )
+        : null,
+      entry.page
+        ? el(
+            "button.button",
+            { onclick: () => openLink(entry.page) },
+            icon("open"),
+            el("span", {}, "GitHub page"),
+          )
+        : null,
+      primaryAction(entry),
+    ),
+  );
+  dialog.addEventListener("close", () => dialog.remove());
+  // A click on the backdrop closes it
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+  document.body.append(dialog);
+  dialog.showModal();
+  close.focus();
+}
+
 function confirmInstall(name, mod) {
   const breaks = mod.status === "breaks";
   return new Promise((resolve) => {
@@ -1820,6 +2013,7 @@ function renderMods() {
           data.homepage?.match(/github\.com\/([^/]+)/)?.[1] ??
           "",
         summary: mod?.summary ?? data.description ?? "",
+        description: data.description ?? "",
         version: installed?.version ?? data.version,
         latest: data.version,
         verdict: verdict(mod, installed?.version ?? data.version),
@@ -1869,6 +2063,69 @@ function renderMods() {
       button.disabled = false;
     }
   };
+  /** Install, Update or a greyed Installed: on a card and in Details. */
+  const primaryAction = (entry) =>
+    entry.installed
+      ? entry.latest &&
+        entry.installed.version &&
+        entry.latest !== entry.installed.version
+        ? el(
+            "button.button.accent",
+            {
+              disabled: !manager,
+              onclick: (event) =>
+                busy(event.currentTarget, "Updating…", async () => {
+                  const changed = await manager.updateMods("manual");
+                  toast(
+                    changed ? `${entry.name} updated` : "Nothing to update",
+                  );
+                  await refresh();
+                }),
+            },
+            icon("arrow-download"),
+            el("span", {}, `Update to v${entry.latest}`),
+          )
+        : // Same size as Install, greyed: it is done
+          el(
+            "button.button.mod-installed-button",
+            { disabled: true },
+            icon("checkmark"),
+            el(
+              "span",
+              {},
+              entry.installed.enabled ? "Installed" : "Installed, off",
+            ),
+          )
+      : el(
+          `button.button${entry.verdict.key === "conflict" ? "" : ".accent"}`,
+          {
+            disabled: !manager,
+            title:
+              entry.verdict.key === "conflict"
+                ? "It styles the same parts as Zen Fluent: one of the two should stay off"
+                : "",
+            onclick: async (event) => {
+              const button = event.currentTarget;
+              if (
+                entry.verdict.key === "conflict" &&
+                !(await confirmInstall(entry.name, entry.mod))
+              ) {
+                return;
+              }
+              await busy(button, "Installing…", async () => {
+                try {
+                  await entry.install();
+                  toast(`${entry.name} installed`);
+                } catch (error) {
+                  console.error("[Zen Fluent] install failed", error);
+                  toast(`${entry.name} could not be installed`);
+                }
+                await refresh();
+              });
+            },
+          },
+          entry.verdict.key === "conflict" ? "Install anyway" : "Install",
+        );
   const market = modBrowser("market", {
     layout: "cards",
     entries: marketEntries,
@@ -1881,73 +2138,12 @@ function renderMods() {
           : "No mod in the marketplace.",
     draw: (entry, layout) =>
       modItem(entry, layout, [
-        entry.installed
-          ? entry.latest &&
-            entry.installed.version &&
-            entry.latest !== entry.installed.version
-            ? el(
-                "button.button.accent",
-                {
-                  disabled: !manager,
-                  onclick: (event) =>
-                    busy(event.currentTarget, "Updating…", async () => {
-                      const changed = await manager.updateMods("manual");
-                      toast(
-                        changed ? `${entry.name} updated` : "Nothing to update",
-                      );
-                      await refresh();
-                    }),
-                },
-                icon("arrow-download"),
-                el("span", {}, `Update to v${entry.latest}`),
-              )
-            : el(
-                "span.mod-installed",
-                {},
-                entry.installed.enabled ? "Installed" : "Installed, off",
-              )
-          : el(
-              `button.button${entry.verdict.key === "conflict" ? "" : ".accent"}`,
-              {
-                disabled: !manager,
-                title:
-                  entry.verdict.key === "conflict"
-                    ? "It styles the same parts as Zen Fluent: one of the two should stay off"
-                    : "",
-                onclick: async (event) => {
-                  const button = event.currentTarget;
-                  if (
-                    entry.verdict.key === "conflict" &&
-                    !(await confirmInstall(entry.name, entry.mod))
-                  ) {
-                    return;
-                  }
-                  await busy(button, "Installing…", async () => {
-                    try {
-                      await entry.install();
-                      toast(`${entry.name} installed`);
-                    } catch (error) {
-                      console.error("[Zen Fluent] install failed", error);
-                      toast(`${entry.name} could not be installed`);
-                    }
-                    await refresh();
-                  });
-                },
-              },
-              entry.verdict.key === "conflict" ? "Install anyway" : "Install",
-            ),
-        entry.mod
-          ? el(
-              "button.button",
-              {
-                onclick: () =>
-                  openLink(
-                    `${DOCS}/compatibility.md#${docsAnchor(entry.mod.name)}`,
-                  ),
-              },
-              "Details",
-            )
-          : null,
+        primaryAction(entry),
+        el(
+          "button.button",
+          { onclick: () => modDetails(entry, primaryAction) },
+          "Details",
+        ),
         entry.page ? openButton(entry) : null,
       ]),
   });
@@ -2195,8 +2391,49 @@ function renderMods() {
     el("span", {}, "Check for updates"),
   );
 
+  // Featured: the mods Zen Fluent recommends (compatible-mods.json)
+  const featuredBox = el("div.mod-items.mod-featured", {
+    "data-layout": "cards",
+  });
+  const drawFeatured = () => {
+    const order = model.featured ?? [];
+    const entries = marketEntries()
+      .filter((entry) => entry.mod && order.includes(entry.mod.id))
+      .sort((a, b) => order.indexOf(a.mod.id) - order.indexOf(b.mod.id));
+    featuredBox.replaceChildren(
+      ...entries.map((entry) =>
+        modItem(entry, "cards", [
+          primaryAction(entry),
+          el(
+            "button.button",
+            { onclick: () => modDetails(entry, primaryAction) },
+            "Details",
+          ),
+          entry.page ? openButton(entry) : null,
+        ]),
+      ),
+    );
+  };
+  const redrawMarket = market.redraw;
+  market.redraw = (...args) => {
+    drawFeatured();
+    return redrawMarket(...args);
+  };
+  drawFeatured();
+
   return [
     conflictBar,
+    (model.featured ?? []).length
+      ? section(
+          "Featured",
+          el(
+            "p.section-desc",
+            {},
+            "Mods that make Zen better and that Zen Fluent styles to match, checked with this version.",
+          ),
+          featuredBox,
+        )
+      : null,
     section(
       "Marketplace",
       el(
@@ -2208,7 +2445,7 @@ function renderMods() {
     ),
     section("Add a mod", tools),
     section(
-      "Installed",
+      "Installed mods",
       el(
         "div.mod-section-head",
         {},
@@ -3162,6 +3399,377 @@ function aboutSections() {
   ];
 }
 
+// -------- Spaces: settings per space --------
+
+const SPACE_DATA = "zen-fluent.enhanced.space-settings.data";
+
+// The space the pages edit (the picker in their header), or null for your
+// own settings. It stays while you move between pages.
+let scope = null;
+// True on a page that shows the picker: the others keep your own settings
+let scopeShown = false;
+
+const spaceList = () => chromeWindow()?.gZenWorkspaces?.getWorkspaces() ?? [];
+const spaceLabel = (space) =>
+  space.icon && !space.icon.endsWith(".svg")
+    ? `${space.icon}  ${space.name}`
+    : space.name;
+
+/** The space being edited, while it still exists and the feature is on. */
+function scopedSpace() {
+  if (!scope || !Services.prefs.getBoolPref(SPACE_FEATURE, true)) {
+    return null;
+  }
+  return spaceList().find((s) => s.uuid === scope) ?? null;
+}
+
+/** "Settings for": your own settings, or one space's. */
+function scopePicker(page) {
+  const list = spaceList();
+  const prefs = page.prefs ?? [];
+  if (
+    !Services.prefs.getBoolPref(SPACE_FEATURE, true) ||
+    !list.length ||
+    !prefs.some((pref) => perSpace(pref.property))
+  ) {
+    return null;
+  }
+  const id = `zf-s-${++uid}`;
+  const select = el("select.combo.scope-picker", {
+    "aria-labelledby": id,
+    onchange: () => {
+      scope = select.value || null;
+      route();
+    },
+  });
+  select.append(el("option", { value: "" }, "All spaces"));
+  for (const space of list) {
+    select.append(
+      el("option", { value: space.uuid, translate: "no" }, spaceLabel(space)),
+    );
+  }
+  select.value = scopedSpace()?.uuid ?? "";
+  return el(
+    "span.scope",
+    {},
+    el("span.scope-label", { id }, "Settings for"),
+    select,
+  );
+}
+
+/** While a space is edited: what it changes, and the way back. */
+function scopeBanner(page) {
+  const space = scopedSpace();
+  if (!space || !(page.prefs ?? []).length) {
+    return null;
+  }
+  return el(
+    "div.infobar.scope-banner",
+    { role: "status" },
+    icon("layer"),
+    el(
+      "div.infobar-text",
+      {},
+      el("strong", {}, `Settings of ${space.name}`),
+      el(
+        "span",
+        {},
+        "What you pick here only applies in this space; “Your setting” follows your own. The other settings are the same in every space.",
+      ),
+    ),
+    el(
+      "button.button",
+      {
+        onclick: () => {
+          scope = null;
+          route();
+        },
+      },
+      "All spaces",
+    ),
+  );
+}
+
+/** A setting's value in one space: "Your setting (…)" or its own. */
+function scopedControl(pref, space, labelledBy) {
+  const def = spaceSetting(
+    spaces().SETTINGS.find((s) => s.property === pref.property),
+  );
+  // "Automatic (the material's)" → "Automatic": the select stays short
+  const labelOf = (value) =>
+    (
+      def.options.find((o) => o.value === value)?.label ?? String(value)
+    ).replace(/\s*\(.*\)$/, "");
+  const select = el("select.combo", {
+    "aria-labelledby": labelledBy,
+    onchange: () =>
+      spaces().setOverride(
+        space.uuid,
+        pref.property,
+        select.value === "inherit" ? undefined : JSON.parse(select.value),
+      ),
+  });
+  const inherit = el("option", { value: "inherit" });
+  select.append(inherit);
+  for (const option of def.options) {
+    select.append(
+      el("option", { value: JSON.stringify(option.value) }, option.label),
+    );
+  }
+  const row = () => select.closest(".setting");
+  const update = () => {
+    inherit.textContent = `Your setting (${labelOf(read(pref))})`;
+    const overrides = spaces().readData().spaces[space.uuid] ?? {};
+    const own = pref.property in overrides;
+    select.value = own
+      ? JSON.stringify(overrides[pref.property] ?? def.fallback)
+      : "inherit";
+    row()?.toggleAttribute("modified", own);
+  };
+  update();
+  setTimeout(update, 0);
+  watch(SPACE_DATA, update);
+  watch(pref.property, update);
+  return select;
+}
+
+/** Your own settings: the spaces that give this one a value of their own. */
+function spaceChips(pref) {
+  if (!perSpace(pref.property)) {
+    return null;
+  }
+  const box = el("span.space-chips");
+  const update = () => {
+    const data = spaces().readData();
+    box.replaceChildren(
+      ...spaceList()
+        .filter((space) => pref.property in (data.spaces[space.uuid] ?? {}))
+        .map((space) =>
+          el(
+            "button.space-chip",
+            {
+              title: `${space.name} has its own value: edit it`,
+              onclick: () => {
+                scope = space.uuid;
+                route();
+              },
+            },
+            el("span", { translate: "no" }, spaceLabel(space)),
+          ),
+        ),
+    );
+  };
+  update();
+  watch(SPACE_DATA, update);
+  return box;
+}
+
+const SPACES_LIB = `${BASE}Zen-Fluent-Enhanced/scripts/lib/zf-spaces.sys.mjs`;
+const SPACE_FEATURE = "zen-fluent.enhanced.space-settings";
+let spacesLib = null;
+const spaces = () => (spacesLib ??= ChromeUtils.importESModule(SPACES_LIB));
+const SCHEME_OPTIONS = [
+  { label: "System", value: 2 },
+  { label: "Light", value: 1 },
+  { label: "Dark", value: 0 },
+];
+
+/** A setting a space can override: its title and its typed choices. */
+function spaceSetting({ property, type }) {
+  if (property === SCHEME) {
+    return { property, title: "Mode", options: SCHEME_OPTIONS, fallback: 2 };
+  }
+  const pref = model.prefs.get(property);
+  if (!pref) {
+    return null;
+  }
+  if (type === "bool") {
+    return {
+      property,
+      title: pref.title,
+      options: [
+        { label: "On", value: true },
+        { label: "Off", value: false },
+      ],
+      fallback: pref.defaultValue,
+    };
+  }
+  return {
+    property,
+    title: pref.title,
+    options: (pref.options ?? []).map(({ label, value }) => ({ label, value })),
+    fallback: pref.defaultValue,
+  };
+}
+
+function spaceIcon(space) {
+  if (space.icon?.endsWith(".svg")) {
+    return el("img.icon.space-icon", { src: space.icon, alt: "" });
+  }
+  return el("span.space-icon", { "aria-hidden": "true" }, space.icon || "•");
+}
+
+/** One space: its overrides, each with its value, and "Add a setting". */
+function spaceCard(space, defs, data, activeId) {
+  const lib = spaces();
+  const overrides = data.spaces[space.uuid] ?? {};
+  const count = Object.keys(overrides).length;
+  const card = el("div.card.space-card", { "data-space": space.uuid });
+  card.append(
+    el(
+      "div.setting.space-header",
+      {},
+      el("span.card-icon", {}, spaceIcon(space)),
+      el(
+        "div.setting-text",
+        {},
+        el("span.setting-title", { translate: "no" }, space.name),
+        el(
+          "span.setting-desc",
+          {},
+          count
+            ? `${count} setting${count > 1 ? "s" : ""} of its own`
+            : "Follows your settings",
+        ),
+      ),
+      el(
+        "div.setting-actions",
+        {},
+        space.uuid === activeId ? el("span.space-current", {}, "Shown") : null,
+        el(
+          "button.button",
+          { onclick: () => lib.clearSpace(space.uuid), disabled: !count },
+          icon("arrow-reset"),
+          el("span", {}, "Like the others"),
+        ),
+      ),
+    ),
+  );
+  for (const def of defs) {
+    if (!(def.property in overrides)) {
+      continue;
+    }
+    const value = overrides[def.property] ?? def.fallback;
+    const id = `zf-s-${++uid}`;
+    const select = el("select.combo", {
+      "aria-labelledby": id,
+      onchange: () =>
+        lib.setOverride(space.uuid, def.property, JSON.parse(select.value)),
+    });
+    for (const option of def.options) {
+      select.append(
+        el("option", { value: JSON.stringify(option.value) }, option.label),
+      );
+    }
+    select.value = JSON.stringify(value);
+    card.append(
+      el(
+        "div.setting.sub.space-row",
+        {},
+        el("div.setting-text", {}, el("span.setting-title", { id }, def.title)),
+        el(
+          "div.setting-actions",
+          {},
+          select,
+          el(
+            "button.icon-button",
+            {
+              title: "Use your setting",
+              "aria-label": `${def.title}: use your setting`,
+              onclick: () =>
+                lib.setOverride(space.uuid, def.property, undefined),
+            },
+            icon("dismiss"),
+          ),
+        ),
+      ),
+    );
+  }
+  const free = defs.filter((def) => !(def.property in overrides));
+  if (free.length) {
+    const add = el("select.combo.space-add", {
+      "aria-label": `Add a setting to ${space.name}`,
+      onchange: () => {
+        const def = free.find((d) => d.property === add.value);
+        // It starts from the value shown now
+        const base = lib.baseValue(def.property);
+        lib.setOverride(space.uuid, def.property, base ?? def.fallback);
+      },
+    });
+    add.append(el("option", { value: "", selected: true }, "Add a setting…"));
+    for (const def of free) {
+      add.append(el("option", { value: def.property }, def.title));
+    }
+    card.append(el("div.setting.sub.space-row", {}, add));
+  }
+  return card;
+}
+
+function renderSpaces() {
+  const lib = spaces();
+  const manager = chromeWindow()?.gZenWorkspaces;
+  const defs = lib.SETTINGS.map(spaceSetting).filter(Boolean);
+  const focus = lib.takeFocus();
+  const list = el("div.space-list");
+  const featureBar = el(
+    "div.infobar.caution",
+    { role: "status" },
+    icon("warning"),
+    el(
+      "div.infobar-text",
+      {},
+      el("strong", {}, "Settings per space are off"),
+      el("span", {}, "Every space shows your settings."),
+    ),
+    el(
+      "button.button",
+      { onclick: () => Services.prefs.setBoolPref(SPACE_FEATURE, true) },
+      "Turn on",
+    ),
+  );
+  const draw = () => {
+    featureBar.hidden = Services.prefs.getBoolPref(SPACE_FEATURE, true);
+    const data = lib.readData();
+    const all = manager?.getWorkspaces() ?? [];
+    list.replaceChildren(
+      ...(all.length
+        ? all.map((space) =>
+            spaceCard(space, defs, data, manager.activeWorkspace),
+          )
+        : [el("div.empty", {}, icon("layer"), "No spaces in this window")]),
+    );
+  };
+  draw();
+  watch(lib.DATA_PREF, draw);
+  watch(SPACE_FEATURE, draw);
+  if (focus) {
+    setTimeout(() => {
+      const card = list.querySelector(`[data-space="${CSS.escape(focus)}"]`);
+      card?.scrollIntoView({ block: "center" });
+      card?.setAttribute("focused", "");
+    }, 50);
+  }
+  return [
+    featureBar,
+    el(
+      "div.infobar",
+      {},
+      icon("info"),
+      el(
+        "div.infobar-text",
+        {},
+        el("strong", {}, "A space can look its own way"),
+        el(
+          "span",
+          {},
+          "Give a space its own mode, material, accent or site color: it takes them when you switch to it, and your settings come back in the other spaces. With several windows, the space of the window you use last decides.",
+        ),
+      ),
+    ),
+    section("", list),
+  ];
+}
+
 // -------- Pages --------
 
 function buildPages() {
@@ -3202,6 +3810,15 @@ function buildPages() {
       prefs: model.features.flatMap((f) => [f.pref, ...f.options]),
     });
   }
+  if (model.prefs.has(SPACE_FEATURE)) {
+    pages.push({
+      id: "spaces",
+      title: "Spaces",
+      description: "Settings of their own for some of your spaces",
+      icon: "layer",
+      render: renderSpaces,
+    });
+  }
   if (model.mods.length) {
     pages.push({
       id: "mods",
@@ -3233,10 +3850,13 @@ function route() {
       ? "Zen Fluent settings"
       : `${page.title} – Zen Fluent`;
   const zones = zonePrefs(page);
+  const scoped = scopedSpace() && page.prefs?.some((p) => perSpace(p.property));
+  scopeShown = Boolean(scoped);
   const actions = [
+    scopePicker(page),
     ...zones.map((pref) => zoneSwitch(pref, zones.length > 1)),
-    ...(page.prefs?.length ? [resetPageButton(page.prefs)] : []),
-  ];
+    ...(page.prefs?.length && !scoped ? [resetPageButton(page.prefs)] : []),
+  ].filter(Boolean);
   const header = page.id === "overview" ? null : pageHeader(page, ...actions);
   const main = $("#main");
   const view = el("div.view");
@@ -3244,6 +3864,7 @@ function route() {
     ...[
       header,
       zones.length ? zoneBanner(zones, view) : null,
+      scoped ? scopeBanner(page) : null,
       ...page.render(page),
     ].filter(Boolean),
   );
@@ -3351,6 +3972,11 @@ async function start() {
     return;
   }
   syncAccent();
+  // In French when Zen is: every text of the page, as it is drawn
+  if (l10n.language()) {
+    document.documentElement.lang = l10n.language();
+    l10n.watch(document);
+  }
   await load();
   if (!model.groups.length) {
     $("#main").replaceChildren(

@@ -180,3 +180,12 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+/* Compact Settings (Vertex-Mods/Compact-Settings) folds the navigation
+   into an icon strip that opens on hover: the sections stay folded with
+   it, or their 18 rows pushed Zen's own panes out of the strip */
+@media (-moz-pref("compact-settings.enabled")) and (width > 950px) {
+  #categories:not(:hover) #zf-prefs-subnav {
+    display: none;
+  }
+}

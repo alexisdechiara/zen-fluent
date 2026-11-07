@@ -181,11 +181,13 @@ One checkbox per feature, with its options; what each feature does:
 | ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
 | Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
+| Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
 | Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
 | Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
 | Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
+| Settings per space                             | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
 | Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
 | Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |

@@ -29,6 +29,9 @@
     "scripts/site-color.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
+    "scripts/space-settings.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/extensions-below-essentials.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },

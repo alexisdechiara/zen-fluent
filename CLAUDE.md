@@ -391,6 +391,28 @@ zenSyncedWindow: false })` opens an unsynced window. A split's layout tree
   `#sync`. BetterZenGradientPicker opens a welcome screen over the window on
   its first run (remove `#bgp-welcome-root` in tests).
 
+- Mods (checked 2026-11-07, Zen 1.24b): Sine's mod sheets are all user
+  sheets, imported in id order: `BetterZenGradientPicker` (capital B) loads
+  before `Zen-Fluent`, so Zen Fluent wins ties against it (its picker rules
+  step aside with `:has(#zen-picker-lightness-wrapper)`). Compact Settings
+  wins over `content/preferences/layout.css` by specificity
+  (`#preferences-stack #categories`). Vertex Mods share `--zenux-*` tokens
+  on `:root` (`core/src/compat/zenux.css`). BetterZenGradientPicker and
+  ZenLibraryTweaks open a welcome screen that hides `#browser`'s children
+  inline: set `zen.better-gradient-picker.welcome-screen.seen` and
+  `librarytweaks-welcome-seen` in tests. `npm run check:mods` checks the
+  listed mods' repositories (weekly CI).
+- Enhanced's French interface (`lib/zf-l10n.sys.mjs`): a dictionary keyed
+  by the English text, applied to the settings page DOM and to `zf-`
+  elements of the browser windows; user names take `translate="no"`. Two
+  UI texts with one English wording and two French ones must differ in
+  English ("Installed" button, "Installed mods" section). Test with
+  `intl.locale.requested` = `fr` (Zen ships `fr`); the root's `lang`
+  follows (`:lang(fr)` works in chrome CSS).
+- Sine reruns every script after an install or a toggle: a feature's
+  clean-up runs, then its new start. `settings-page.uc.js` remembers the
+  shown section across that (`rememberSection` in `zf-settings.sys.mjs`).
+
 ## Tests
 
 Final campaign on 2026-10-28 on Windows 11 (26 checks out of 26, README

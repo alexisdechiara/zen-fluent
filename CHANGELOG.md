@@ -6,6 +6,38 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ## [Unreleased]
 
+### Added
+
+- Zen Fluent Enhanced, **Settings per space**: a space can have its own
+  mode, style, material and tint, space color, accent, density, floating URL
+  bar color, and Enhanced's site color, adaptive accent and window glow. Set
+  them on the settings page's new **Spaces** page (or **Space settings…**
+  in a space's context menu), or on each settings page with **Settings
+  for** in its header
+  ([Enhanced](docs/enhanced.md#features)).
+
+- Zen Fluent Enhanced in **French** when Zen is: the settings page, Zen's
+  settings entries, menus, toasts, Library boards and Command Palette
+  actions (`enhanced/l10n/fr/strings.json`). Sine's own dialog keeps the
+  English labels. The empty folder hint of Zen Fluent follows too.
+- **Open Zen's settings on Zen Fluent** (on by default): the settings
+  button opens Zen Fluent's Overview.
+
+- Compatibility with the active Vertex Mods (Zen Tidy Tabs, Tidy
+  Downloads, Reopen Closed Tabs Menu, Browse Bot, Zen Auto Wallpaper,
+  Search Keyboard Shortcuts, Search Engine Select, Compact Settings,
+  Floating Sidebar): their shared `--zenux-*` tokens take Zen Fluent's, and
+  Browse Bot's floating find bar, Compact Settings' icon strip and Floating
+  Sidebar's unpinned sidebar get compat rules
+  ([compatibility](docs/compatibility.md#vertex-mods)).
+- Zen Fluent Enhanced, **Mods**: a **Featured** section (Zen Fluent's
+  picks), **Details** opens the mod's card in a dialog (what it does, its
+  compatibility, version, links) instead of the documentation, and
+  **Installed** is a greyed button of the Install button's size.
+- A weekly CI job checks the listed mods for new versions to check again
+  and the Vertex Mods for repositories missing from the list
+  (`npm run check:mods`).
+
 ### Changed
 
 - Zen Fluent Enhanced, **Mods**: the marketplace and the installed mods
@@ -25,6 +57,28 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- BetterZenGradientPicker: Zen Fluent's look of the gradient picker won
+  over half of the mod's redesign; it steps aside while the mod's picker is
+  there.
+- Themes: the previews of the Taskbar and Compact themes now draw their
+  Subtle fill (nothing filled at rest).
+
+- Installing, turning on or off a mod from the Mods page left Zen's
+  settings on another pane: the page comes back on its section once Sine
+  has run the scripts again.
+
+- Text on the accent (selected text, the autofilled part of the floating
+  URL bar, accent buttons) picks black or white by the accent's lightness:
+  a light adaptive or custom accent gave white text on a light color.
+- The media card in the sidebar is opaque: the tab titles under it showed
+  through, hovered or not.
+- Windows: clicking the window's very top-right corner (the cursor thrown
+  there) only lit Close up: that strip was still part of the window's drag
+  region.
+- Zen Fluent Enhanced, **Fluent controls on websites**: only fields and
+  buttons without a class or a style attribute change. Styled ones, such as
+  Google's search box, got the accent line and borders on the sides they
+  left alone.
 - Mods: the button that opens a mod's page (and the links of the settings
   page) did nothing: Firefox refuses the system principal for a web link.
 - **Window glow** flashed the whole window on tab switches: Zen rewrites

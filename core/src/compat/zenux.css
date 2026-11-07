@@ -1,0 +1,42 @@
+/* Zen Fluent: compatibility with Vertex Mods' shared design tokens (--zenux-*): Reopen Closed Tabs Menu, Search Engine Select, Browse Bot, Zen Command Palette.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Vertex Mods draw their panels, popups and dialogs from one set of tokens
+   (utils-zen-design.css, copied into each mod, on :root). They take Zen
+   Fluent's: Segoe UI Variable, WinUI fills and strokes, the accent, the
+   control / card / overlay radii and the flyout shadows. A mod's own theme
+   choice set on its panel (Search Engine Select's light or AMOLED) stays.
+   What floats over the page takes the solid surface: Firefox does not blur
+   web content behind it. */
+
+:root {
+  --zenux-font: var(--zf-font) !important;
+  --zenux-bg: var(--zf-acrylic-over-page) !important;
+  --zenux-surface: var(--zf-fill-subtle-hover) !important;
+  --zenux-surface-hover: var(--zf-fill-subtle-press) !important;
+  --zenux-surface-active: var(--zf-fill-subtle-press) !important;
+  --zenux-border: var(--zf-stroke-control) !important;
+  --zenux-border-soft: var(--zf-stroke-divider) !important;
+  --zenux-separator: var(--zf-stroke-divider) !important;
+  --zenux-text: var(--zf-text-primary) !important;
+  --zenux-muted: var(--zf-text-secondary) !important;
+  --zenux-faint: var(--zf-text-tertiary) !important;
+  --zenux-accent: var(--zf-accent) !important;
+  --zenux-accent-solid: var(--zf-accent) !important;
+  --zenux-accent-strong: var(--zf-accent-hover) !important;
+  --zenux-accent-text: var(--zf-accent) !important;
+  --zenux-input-bg: var(--zf-fill-control) !important;
+  --zenux-radius-s: var(--zf-radius-control) !important;
+  --zenux-radius-m: var(--zf-radius-card) !important;
+  --zenux-radius-l: var(--zf-radius-overlay) !important;
+  --zenux-shadow-s: var(--zf-shadow-flyout) !important;
+  --zenux-shadow-l: var(--zf-shadow-dialog) !important;
+
+  /* Browse Bot's "acrylic" find bar and dialogs lie over the page */
+  --acrylic-glass-bg: var(--zf-acrylic-over-page) !important;
+}
+
+/* Text on a solid accent fill: Zen Fluent's, black or white by the accent */
+.zenux-btn-primary {
+  color: var(--zf-on-accent) !important;
+}

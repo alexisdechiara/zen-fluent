@@ -8,25 +8,26 @@
 .zen-media-card {
   padding: 10px 8px 8px 12px !important;
   border-radius: var(--zf-radius-card) !important;
-  background-color: var(--zf-fill-card) !important;
+  /* Opaque: Zen 1.24 keeps the media toolbar at its collapsed height, so
+     the card lies over the tabs above it (more so when hovered, when it
+     grows), and a see-through fill, even blurred, let their titles show
+     through. The card fill is laid over the solid surface of what floats
+     over the page (tokens/winui.css) */
+  --zf-media-card-fill: var(--zf-fill-card);
+  background-color: var(--zf-acrylic-over-page) !important;
+  background-image: linear-gradient(
+    var(--zf-media-card-fill),
+    var(--zf-media-card-fill)
+  ) !important;
   outline: 1px solid var(--zf-stroke-control) !important;
   outline-offset: -1px !important;
   box-shadow: none !important;
 
   /* Edge: a raised card with the page card's hairline */
   @media (-moz-pref("zen-fluent.style", "edge")) {
-    background-color: var(--zf-edge-raised) !important;
+    --zf-media-card-fill: var(--zf-edge-raised);
     outline-color: var(--zf-edge-card-stroke) !important;
     box-shadow: var(--zf-shadow-2) !important;
-  }
-
-  /* Zen 1.24 keeps the media toolbar at its collapsed height: hovered,
-     the card grows over the tabs above it, which showed through the card
-     fill. It takes Acrylic then, blurred (the tabs are chrome content)
-     and solid without hardware acceleration (tokens/acrylic-fallback.css). */
-  #zen-media-controls-toolbar:hover & {
-    background-color: var(--zf-acrylic) !important;
-    backdrop-filter: blur(var(--zf-acrylic-blur)) !important;
   }
 
   /* Two media playing: Zen stacks the other card behind, scaled down and

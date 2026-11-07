@@ -25,6 +25,8 @@
 // the window): an update of the mod only reaches it after a restart, since
 // ES modules are loaded once per process.
 
+import { watchWindow } from "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs";
+
 const PREF_PREFIX = "zen-fluent.enhanced.";
 const LOG_PREFIX = "[Zen Fluent Enhanced]";
 
@@ -168,6 +170,8 @@ export class ZFFeature {
    * @returns {ZFFeature}
    */
   static attach(win, spec) {
+    // What features add to the window, in French when Zen is
+    watchWindow(win);
     const key = ZFFeature.#key(spec.name);
     win[key]?.destroy();
     const feature = new ZFFeature(win, spec);

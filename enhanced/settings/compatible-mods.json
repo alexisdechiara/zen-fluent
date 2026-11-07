@@ -1,5 +1,14 @@
 {
-  "$comment": "Sine mods checked with Zen Fluent. tested: the Zen Fluent version and the mod version of the last check; the settings page shows Works only while both still match (Zen Fluent by major.minor). status: supported, partial (works with a limit), conflict (some parts look wrong; the page asks before installing it) or breaks (a whole theme that replaces Zen's look: left out of the page's marketplace).",
+  "$comment": "Sine mods checked with Zen Fluent. tested: the Zen Fluent version and the mod version of the last check; the settings page shows Works only while both still match (Zen Fluent by major.minor). status: supported, partial (works with a limit), conflict (some parts look wrong; the page asks before installing it) or breaks (a whole theme that replaces Zen's look: left out of the page's marketplace). featured: the mods the Mods page puts first, in this order.",
+  "featured": [
+    "advanced-tab-groups",
+    "zen-tidy-tabs",
+    "ZenLibraryTweaks",
+    "zen-glance-plus",
+    "zen-context-menu",
+    "zen-tidy-downloads",
+    "zen-easel"
+  ],
   "mods": [
     {
       "name": "Advanced Tab Groups",
@@ -8,7 +17,7 @@
       "status": "supported",
       "summary": "Firefox's tab groups: their headers take the row of a Zen folder, with the folder icon tinted in the group's color.",
       "tested": {
-        "zenFluent": "0.3.0",
+        "zenFluent": "0.4.3",
         "version": "3.12.1"
       }
     },
@@ -19,7 +28,7 @@
       "status": "supported",
       "summary": "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library.",
       "tested": {
-        "zenFluent": "0.3.0",
+        "zenFluent": "0.4.3",
         "version": "1.5.1 for Zen 1.23.3b"
       }
     },
@@ -30,7 +39,7 @@
       "status": "supported",
       "summary": "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons.",
       "tested": {
-        "zenFluent": "0.3.0",
+        "zenFluent": "0.4.3",
         "version": "1.1.0"
       }
     },
@@ -50,9 +59,9 @@
       "id": "zen-command-palette",
       "repo": "Vertex-Mods/Zen-Command-Palette",
       "status": "supported",
-      "summary": "Commands in the URL bar: its accents and its Commands pill follow Zen Fluent's accent.",
+      "summary": "Commands in the URL bar: its panels and Commands pill take Zen Fluent's accent, font, corners and surfaces.",
       "tested": {
-        "zenFluent": "0.3.0",
+        "zenFluent": "0.4.3",
         "version": "2.0.0"
       }
     },
@@ -63,8 +72,8 @@
       "status": "supported",
       "summary": "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows.",
       "tested": {
-        "zenFluent": "0.3.0",
-        "version": "5.4.3"
+        "zenFluent": "0.4.3",
+        "version": "5.5.1"
       }
     },
     {
@@ -74,7 +83,7 @@
       "status": "supported",
       "summary": "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font.",
       "tested": {
-        "zenFluent": "0.3.0",
+        "zenFluent": "0.4.3",
         "version": "0.9.0"
       }
     },
@@ -83,10 +92,109 @@
       "id": "BetterZenGradientPicker",
       "repo": "JustAdumbPrsn/BetterZenGradientPicker",
       "status": "supported",
-      "summary": "Its gradients tint the window over the backdrop, as in Zen; its colors reach the accent through Zen workspace color.",
+      "summary": "It redraws the gradient picker: Zen Fluent's own look of the picker steps aside while it is there, and its gradients tint the window as in Zen.",
       "tested": {
-        "zenFluent": "0.4.0",
+        "zenFluent": "0.4.3",
         "version": "2.1 for Zen 1.23b"
+      }
+    },
+    {
+      "name": "Zen Tidy Tabs",
+      "id": "zen-tidy-tabs",
+      "repo": "Vertex-Mods/Zen-Tidy-Tabs",
+      "status": "supported",
+      "summary": "Sorts a space's tabs into folders with Firefox's local AI: its sort button and wave line sit in Zen Fluent's tab list.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "2.0.1"
+      }
+    },
+    {
+      "name": "Tidy Downloads",
+      "id": "zen-tidy-downloads",
+      "repo": "Vertex-Mods/Zen-Tidy-Downloads",
+      "status": "supported",
+      "summary": "Renames finished downloads with AI: its cards and tooltip float by the Library button over Zen Fluent's sidebar.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "4.2.3"
+      }
+    },
+    {
+      "name": "Reopen Closed Tabs Menu",
+      "id": "reopen-closed-tabs",
+      "repo": "Vertex-Mods/Reopen-Closed-Tabs-Menu",
+      "status": "supported",
+      "summary": "A searchable menu of recently closed tabs: its panel takes Zen Fluent's font, accent, corners and surfaces.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.1.9"
+      }
+    },
+    {
+      "name": "Browse Bot",
+      "id": "browse-bot",
+      "repo": "Vertex-Mods/Browse-Bot",
+      "status": "supported",
+      "summary": "Turns Ctrl+F into a floating AI chat: the card takes Zen Fluent's solid surface over the page, its corners, stroke and accent.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "3.0.0"
+      }
+    },
+    {
+      "name": "Zen Auto Wallpaper",
+      "id": "zen-auto-wallpaper",
+      "repo": "Vertex-Mods/zen-auto-wallpaper",
+      "status": "supported",
+      "summary": "A wallpaper per space, set from the gradient picker: its button sits among the picker's own.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "0.2.2"
+      }
+    },
+    {
+      "name": "Search Keyboard Shortcuts",
+      "id": "settings-shortcuts-search",
+      "repo": "Vertex-Mods/Search-Keyboard-Shortcuts",
+      "status": "supported",
+      "summary": "A search box and filters on Zen's keyboard shortcuts page, inside Zen Fluent's settings layout.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.1.6"
+      }
+    },
+    {
+      "name": "Search Engine Select",
+      "id": "search-engine-select",
+      "repo": "Vertex-Mods/Search-Engine-Select",
+      "status": "supported",
+      "summary": "A floating engine switcher on search result pages: it takes Zen Fluent's tokens, and its own light or AMOLED theme still wins when picked.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.1.33"
+      }
+    },
+    {
+      "name": "Compact Settings",
+      "id": "compact-settings",
+      "repo": "Vertex-Mods/Compact-Settings",
+      "status": "supported",
+      "summary": "Folds the settings' navigation into an icon strip: Zen Fluent's pane gives way to it, and the search box moves to the top of the page.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.1.4"
+      }
+    },
+    {
+      "name": "Floating Sidebar",
+      "id": "floating-sidebar",
+      "repo": "Vertex-Mods/Floating-Sidebar",
+      "status": "supported",
+      "summary": "Unpins the Firefox sidebar over the page: unpinned, it becomes a Zen Fluent card with a solid surface and a shadow.",
+      "tested": {
+        "zenFluent": "0.4.3",
+        "version": "1.1.3"
       }
     },
     {

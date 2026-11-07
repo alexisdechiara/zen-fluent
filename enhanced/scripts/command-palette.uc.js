@@ -28,6 +28,9 @@
   const { openSettings } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
   );
+  const { t } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs",
+  );
 
   const SETTINGS_PAGE = "zen-fluent.enhanced.settings-page";
   const PREFIX = "zen-fluent:";
@@ -253,11 +256,12 @@
             .filter((pref) => pref.property)
             .map((pref) => [pref.property, pref]),
         );
+        // In French when Zen is (lib/zf-l10n.sys.mjs)
         return [
           ...panelCommands(win),
           ...settingCommands(prefs, quick),
           ...featureCommands(enhanced),
-        ];
+        ].map((command) => ({ ...command, label: t(command.label) }));
       };
 
       const sync = () => {

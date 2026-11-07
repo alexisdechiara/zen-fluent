@@ -1,0 +1,21 @@
+/* Zen Fluent: compatibility with Browse Bot (Vertex-Mods/Browse-Bot): its floating find bar keeps its own frame.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* With its AI find bar on, Browse Bot turns Ctrl+F into a card floating
+   over the page corner. Zen Fluent's strip (components/findbar/strip.css)
+   gave it the Layer fill, a see-through surface over the page, and the
+   strip's top divider: the card takes the surface of what floats over the
+   page instead, with an overlay's corners, stroke and shadow. Its tokens
+   come from compat/zenux.css. */
+
+@media (-moz-pref("extension.browse-bot.findbar-ai.enabled")) and (not (forced-colors)) {
+  .browserContainer > findbar {
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    background: var(
+      --browse-bot-dialog-bg,
+      var(--zf-acrylic-over-page)
+    ) !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+  }
+}

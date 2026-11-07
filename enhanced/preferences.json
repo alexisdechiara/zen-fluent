@@ -12,6 +12,12 @@
     "defaultValue": true
   },
   {
+    "property": "zen-fluent.enhanced.settings-page.home",
+    "label": "Open Zen's settings on Zen Fluent ~the settings button opens the Overview~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.favicon-color",
     "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
     "type": "checkbox",
@@ -46,6 +52,12 @@
       { "label": "Medium", "value": "medium" },
       { "label": "Strong", "value": "strong" }
     ]
+  },
+  {
+    "property": "zen-fluent.enhanced.space-settings",
+    "label": "Settings per space ~a space can have its own mode, material, accent, site color… (settings page, Spaces)~",
+    "type": "checkbox",
+    "defaultValue": true
   },
   {
     "property": "zen-fluent.enhanced.extensions-below-essentials",

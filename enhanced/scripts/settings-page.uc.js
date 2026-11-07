@@ -13,11 +13,20 @@
   const { ZFFeature } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
-  const { SETTINGS_URL, openSettings, useAboutPage } =
-    ChromeUtils.importESModule(
-      "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
-    );
+  const {
+    SETTINGS_URL,
+    openSettings,
+    useAboutPage,
+    rememberSection,
+    takeSection,
+  } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-settings.sys.mjs",
+  );
 
+  const { t } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs",
+  );
+  const FEATURE = "zen-fluent.enhanced.settings-page";
   const HTML = "http://www.w3.org/1999/xhtml";
   const PANE = "paneZenFluent";
   // Search results: never a pane of their own, shown by Firefox's search
@@ -46,6 +55,26 @@
       }
 
       const open = () => openSettings(win);
+
+      // Zen's settings button (and every "open the settings" without a
+      // pane) opens Zen Fluent's Overview rather than the pane Firefox
+      // shows last, zen-fluent.enhanced.settings-page.home
+      const firefoxOpen = win.openPreferences;
+      if (typeof firefoxOpen === "function") {
+        const openPreferences = function (paneID, ...rest) {
+          if (!paneID && Services.prefs.getBoolPref(`${FEATURE}.home`, true)) {
+            openSettings(win);
+            return Promise.resolve();
+          }
+          return firefoxOpen.call(this, paneID, ...rest);
+        };
+        win.openPreferences = openPreferences;
+        ctx.onCleanup(() => {
+          if (win.openPreferences === openPreferences) {
+            win.openPreferences = firefoxOpen;
+          }
+        });
+      }
 
       const tools = document.getElementById("menu_ToolsPopup");
       if (tools) {
@@ -146,7 +175,7 @@
         pane.hidden = true;
         const frame = doc.createElementNS(HTML, "iframe");
         frame.src = `${SETTINGS_URL}?embed`;
-        frame.title = "Zen Fluent settings";
+        frame.title = t("Zen Fluent settings");
         pane.append(frame);
         main.append(pane);
 
@@ -185,12 +214,12 @@
               item.type = "button";
               item.className = "zf-subnav-item";
               item.dataset.page = id;
-              item.title = title;
+              item.title = t(title);
               const image = doc.createElementNS(HTML, "img");
               image.src = `${ICONS}${icon}.svg`;
               image.alt = "";
               const label = doc.createElementNS(HTML, "span");
-              label.textContent = title;
+              label.textContent = t(title);
               item.append(image, label);
               item.addEventListener("click", () =>
                 prefsWin.gotoPref(`${PANE}-${id}`),
@@ -228,7 +257,7 @@
             card.type = "button";
             card.className = "zf-sr-card";
             // The path is drawn from an attribute: Firefox searches text only
-            card.dataset.path = `Zen Fluent › ${entry.pageTitle}`;
+            card.dataset.path = `Zen Fluent › ${t(entry.pageTitle)}`;
             const image = doc.createElementNS(HTML, "img");
             image.src = `${ICONS}${icons.get(entry.page) ?? "settings"}.svg`;
             image.alt = "";
@@ -236,12 +265,12 @@
             text.className = "zf-sr-text";
             const title = doc.createElementNS(HTML, "span");
             title.className = "zf-sr-title";
-            title.textContent = entry.title;
+            title.textContent = t(entry.title);
             text.append(title);
             if (entry.description) {
               const description = doc.createElementNS(HTML, "span");
               description.className = "zf-sr-desc";
-              description.textContent = entry.description;
+              description.textContent = t(entry.description);
               text.append(description);
             }
             card.append(image, text);
@@ -303,7 +332,15 @@
         prefsWin.addEventListener("resize", fit);
         // Firefox's own start replaced an unknown #zenFluent with its default
         const link = hash.match(/^#zenFluent(?:-(\w+))?$/);
-        if (link) {
+        // Sine runs the scripts again after an install or a mod turned on
+        // or off: the page was shown, it comes back on the same section
+        const back = takeSection(doc);
+        if (back !== null) {
+          // Firefox still takes our removed pane for the one shown and
+          // would skip showing it: another first, in the same tick
+          prefsWin.gotoPref("paneGeneral");
+          prefsWin.gotoPref(back ? `${PANE}-${back}` : PANE);
+        } else if (link) {
           prefsWin.gotoPref(link[1] ? `${PANE}-${link[1]}` : PANE);
         }
         const remove = () => {
@@ -311,6 +348,9 @@
           prefsWin.removeEventListener("resize", fit);
           watcher.disconnect();
           const visible = !pane.hidden;
+          // Read before the frame goes
+          const section =
+            frame.contentDocument?.documentElement?.dataset.page ?? "";
           button.remove();
           subnav.remove();
           pane.remove();
@@ -318,7 +358,11 @@
             result.remove();
           }
           sheet.remove();
-          if (visible) {
+          if (visible && Services.prefs.getBoolPref(FEATURE, true)) {
+            // A rebuild, not the feature turned off: the next run of this
+            // script shows it again
+            rememberSection(doc, section);
+          } else if (visible) {
             prefsWin.gotoPref("paneGeneral");
           }
         };

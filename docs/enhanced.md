@@ -10,11 +10,13 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
 | Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
+| Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
 | Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
 | Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
 | Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
+| Settings per space                             | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
 | Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
 | Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
 | Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
@@ -83,7 +85,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   950px and below). Open it from **Zen Fluent** in the app menu (under
   Settings), **Zen Fluent settings** in the Tools menu, Ctrl+Alt+Shift+F or
   **All settings** in Quick Settings; `about:preferences#zenFluent-tabs`
-  opens one section, and `about:zen-fluent` leads there too.
+  opens one section, and `about:zen-fluent` leads there too. **Open Zen's
+  settings on Zen Fluent** (on by default): Zen's settings button, and
+  anything that opens the settings without naming a pane, shows the
+  Overview. The page stays on its section when Sine runs the scripts again
+  (a mod installed, turned on or off).
   - _Search_: Zen's own **Find in Settings** finds Zen Fluent settings
     (titles and descriptions) among Firefox's; a result opens the setting's
     section and outlines it.
@@ -172,6 +178,23 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   kept light in a light window and dark in a dark one so text stays
   readable. Off by default; it works with **Adaptive accent** (the accent
   follows the icon).
+- **Settings per space**: a space can give its own value to the settings
+  that change the whole window: the mode (light, dark, system), the style,
+  the material and its tint, the space color, the accent, the density, the
+  floating URL bar's color, and Enhanced's **Site color** (and its
+  strength), **Adaptive accent** and **Window glow**. Set them on the
+  settings page's **Spaces** page (all spaces in one list, also opened by
+  **Space settings…** in a space's context menu), or on each settings page:
+  **Settings for** in its header picks a space, its settings then offer
+  **Your setting** or a value of the space's own, and the settings every
+  space shares are dimmed. With **All spaces** picked, a chip next to a
+  setting names the spaces with a value of their own (a click edits it), and
+  the page edits your own values, even those the space shown overrides. Switching to the space writes its values; the other
+  spaces get yours back. Settings are shared by every window, so with
+  several windows open the space of the window you use last decides. A
+  setting changed by hand while a space overrides it becomes that space's
+  value. Turning the feature off puts your own values back. On by default
+  (it does nothing until a space has a setting of its own).
 - **Extensions under the Essentials**: with a single toolbar, moves the
   pinned extensions row from above the Essentials to between the Essentials
   and the tabs, which CSS cannot do. Only while Zen Fluent's
@@ -209,8 +232,9 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   that a site leaves to the browser's default look get the WinUI look (4 px
   corners, the darker bottom edge, the accent line of a focused field), and
   checkboxes, radios, sliders and progress bars the accent. A site's own
-  CSS always wins (the sheet sits at the browser's level), so styled
-  controls do not change. Only on http, https and file pages; contrast
+  CSS always wins (the sheet sits at the browser's level), and only
+  controls without a class or a style attribute change, so a site that
+  styles a field partly (Google's search box) keeps its look. Only on http, https and file pages; contrast
   themes keep the system's controls.
   - Zen Fluent's own CSS cannot do it: Sine's content sheet only reaches
     `about:` pages. Both features register their sheet with Firefox's style
@@ -428,6 +452,14 @@ removed. While the Library is off (`zen.library.enabled`), each board
 opens in a panel from a button in the bottom row, as before 0.4.2. The
 tabs' labels are in English and French
 (`enhanced/l10n/<locale>/zen-fluent-enhanced.ftl`).
+
+## Languages
+
+Zen Fluent Enhanced speaks French when Zen is in French: the settings page,
+the Zen Fluent entries of Zen's settings, menus, toasts, Library boards and
+Command Palette actions. Sine's own settings dialog keeps the English labels
+(it reads a single `preferences.json`). Translations live in
+`enhanced/l10n/<language>/strings.json`, keyed by the English text.
 
 ## Install
 
