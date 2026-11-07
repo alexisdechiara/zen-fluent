@@ -38,6 +38,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   and the Vertex Mods for repositories missing from the list
   (`npm run check:mods`).
 
+- **Windows installer** (`ZenFluentSetup.exe`, built from
+  `installer/ZenFluentSetup.ps1` and attached to each release): installs
+  Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the picked
+  profile, the way Sine itself installs mods, with consent for
+  `sine.allow-unsafe-js` ([installer](installer/README.md)).
+
 ### Changed
 
 - Zen Fluent Enhanced, **Mods**: the marketplace and the installed mods

@@ -18,7 +18,7 @@ core/
     compat/              rules for third-party mods (docs/compatibility.md)
 enhanced/                Zen Fluent Enhanced (id Zen-Fluent-Enhanced)
   theme.json · chrome.css · scripts/
-components.json          manifest for the future installer (installer/README.md)
+components.json          components the installer knows (installer/README.md)
 scripts/                 check.mjs, release.mjs
 docs/
 ```

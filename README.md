@@ -60,7 +60,12 @@ Windows 11 with Mica For Everyone, Zen 1.24. The pages are the ones of
 
 ## Install
 
-You need Zen 1.23 or later and [Sine](https://github.com/CosmoCreeper/Sine),
+**Windows**: download `ZenFluentSetup.exe` from the
+[latest release](https://github.com/alexisdechiara/zen-fluent/releases/latest),
+close Zen and run it: it installs Sine, Zen Fluent and Zen Fluent Enhanced
+([details](installer/README.md)).
+
+By hand, you need Zen 1.23 or later and [Sine](https://github.com/CosmoCreeper/Sine),
 Zen's mod manager (download its installer from
 [its releases](https://github.com/CosmoCreeper/Sine/releases), run it, restart
 Zen).

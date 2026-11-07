@@ -1,5 +1,17 @@
 # Installation
 
+## Windows: the installer
+
+`ZenFluentSetup.exe`, attached to each
+[release](https://github.com/alexisdechiara/zen-fluent/releases), installs
+Sine (if it is missing), Zen Fluent and, if you keep it checked, Zen Fluent
+Enhanced in the Zen profile you pick, then you open Zen. Close Zen first.
+Zen Fluent Enhanced needs the box that allows scripts of mods installed
+outside Sine's store (`sine.allow-unsafe-js`). Windows asks for
+administrator rights only when Sine's loader has to go into Zen's folder.
+What it does, and its options without the window:
+[installer/README.md](../installer/README.md).
+
 ## With Sine
 
 [Sine](https://github.com/CosmoCreeper/Sine) is the mod manager for Zen.

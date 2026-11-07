@@ -1,0 +1,60 @@
+name: Installer
+
+# Builds installer/ZenFluentSetup.ps1 into ZenFluentSetup.exe (ps2exe, a
+# window application without a console). Every run keeps it as an artifact;
+# a release tag (vX.Y.Z) attaches it to the GitHub release (created when the
+# tag has none yet).
+
+on:
+  # Branch pushes that touch the installer; every release tag (GitHub
+  # does not apply path filters to tags)
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+    paths:
+      - installer/**
+      - .github/workflows/installer.yml
+  pull_request:
+    paths:
+      - installer/**
+      - .github/workflows/installer.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the script parses in Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile("$PWD\installer\ZenFluentSetup.ps1", [ref]$null, [ref]$errors)
+          if ($errors) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }
+      - name: Build ZenFluentSetup.exe
+        shell: powershell
+        run: |
+          Install-Module ps2exe -Scope CurrentUser -Force
+          $version = (Get-Content theme.json -Raw | ConvertFrom-Json).version
+          Invoke-ps2exe -inputFile installer\ZenFluentSetup.ps1 -outputFile ZenFluentSetup.exe `
+            -noConsole -title "Zen Fluent setup" -product "Zen Fluent" `
+            -description "Installs Sine, Zen Fluent and Zen Fluent Enhanced" `
+            -copyright "MIT, alexisdechiara" -version "$version.0"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ZenFluentSetup
+          path: |
+            ZenFluentSetup.exe
+            installer/ZenFluentSetup.ps1
+      - name: Attach to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1 ||
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes
+          gh release upload "$GITHUB_REF_NAME" ZenFluentSetup.exe installer/ZenFluentSetup.ps1 --clobber
