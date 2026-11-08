@@ -48,9 +48,12 @@
         </Grid>
 
         <!-- The page shown, at its own height (the window fits it); a scroll
-             when the screen is too short -->
-        <ScrollViewer x:Name="PageScroller" Grid.Row="2" Padding="40,16,40,24">
-            <Grid x:Name="PageHost" VerticalAlignment="Top" SizeChanged="Content_SizeChanged">
+             when the screen is too short. The page's margin is inside the
+             scroller, not its padding: a ScrollViewer clips at its padding,
+             which cut the right tile's border (the tile rows reach 12px
+             into the margin) and the focus outlines. -->
+        <ScrollViewer x:Name="PageScroller" Grid.Row="2">
+            <Grid x:Name="PageHost" VerticalAlignment="Top" Margin="40,16,40,24" SizeChanged="Content_SizeChanged">
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="40" FromVerticalOffset="0" />

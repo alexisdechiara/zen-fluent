@@ -212,7 +212,7 @@ public sealed partial class MainWindow : Window
     {
         if (PageHost.ActualHeight <= 0) return FirstHeight;
         var header = Header.Visibility == Visibility.Visible ? Header.ActualHeight : 0;
-        return AppTitleBar.ActualHeight + header + PageScroller.Padding.Top + PageScroller.Padding.Bottom
+        return AppTitleBar.ActualHeight + header + PageHost.Margin.Top + PageHost.Margin.Bottom
                + PageHost.ActualHeight + Footer.ActualHeight;
     }
 
