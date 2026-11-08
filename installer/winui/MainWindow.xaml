@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Zen Fluent setup: one page of settings cards on Mica, the title bar
-     drawn into the window, the actions in a footer, as in Windows 11's
-     own setup dialogs. -->
+<!-- Zen Fluent setup: one page on Mica, the title bar drawn into the window.
+     Choices are option cards, as in Zen's own welcome screens (a radio,
+     a title and its lines, an illustration; the chosen card outlined in
+     the accent): the Zen version, then its profile in a select, then Zen
+     Fluent or Zen Fluent Enhanced. The cards are built in code
+     (MainWindow.xaml.cs). The actions sit in a footer. -->
 <Window
     x:Class="ZenFluentSetup.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -25,72 +28,49 @@
         </Grid>
 
         <ScrollViewer Grid.Row="1">
-            <StackPanel MaxWidth="720" Padding="32,4,32,24" Spacing="12">
+            <StackPanel MaxWidth="760" Padding="32,4,32,24" Spacing="8">
                 <TextBlock Text="Zen Fluent" Style="{StaticResource TitleLargeTextBlockStyle}" />
-                <TextBlock x:Name="LeadText" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,8" />
+                <TextBlock x:Name="LeadText" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,12" />
 
-                <!-- Zen version -->
-                <Border Style="{StaticResource SettingsCard}">
-                    <StackPanel Spacing="8">
-                        <Grid ColumnSpacing="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Glyph="&#xE774;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
-                            <StackPanel Grid.Column="1" Spacing="8">
-                                <TextBlock x:Name="EditionHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                                <Grid ColumnSpacing="8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <ComboBox x:Name="EditionBox" HorizontalAlignment="Stretch" SelectionChanged="EditionBox_SelectionChanged" />
-                                    <Button x:Name="BrowseButton" Grid.Column="1" Click="BrowseButton_Click" />
-                                </Grid>
-                                <TextBlock x:Name="DirText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                            </StackPanel>
-                        </Grid>
-                        <InfoBar x:Name="VersionWarning" Severity="Warning" IsClosable="False" IsOpen="False" />
+                <!-- Zen version: a card each, then the profile -->
+                <Grid Margin="0,8,0,0">
+                    <TextBlock x:Name="EditionHeader" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+                    <HyperlinkButton x:Name="BrowseButton" HorizontalAlignment="Right" Click="BrowseButton_Click" />
+                </Grid>
+                <Grid x:Name="EditionCards" ColumnSpacing="12" RowSpacing="12" />
+                <ComboBox x:Name="ProfileBox" HorizontalAlignment="Stretch" Margin="0,4,0,0" SelectionChanged="ProfileBox_SelectionChanged" />
+
+                <!-- What to install: Zen Fluent or Zen Fluent Enhanced -->
+                <TextBlock x:Name="ComponentsHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" />
+                <Grid x:Name="ComponentCards" ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+                <!-- Scripts outside Sine's store: Zen Fluent Enhanced only -->
+                <Border x:Name="ConsentBorder" CornerRadius="8" BorderThickness="1" Padding="16,12" Margin="0,4,0,0"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    <StackPanel Spacing="4">
+                        <CheckBox x:Name="ConsentCheck" Checked="ConsentCheck_Changed" Unchecked="ConsentCheck_Changed">
+                            <TextBlock x:Name="ConsentText" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <StackPanel x:Name="ConsentError" Orientation="Horizontal" Spacing="8" Visibility="Collapsed" Margin="28,0,0,0">
+                            <FontIcon Glyph="&#xEA39;" FontSize="14" Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
+                            <TextBlock x:Name="ConsentErrorText" TextWrapping="Wrap" Foreground="{ThemeResource SystemFillColorCriticalBrush}" Style="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <!-- Profile -->
-                <Border Style="{StaticResource SettingsCard}">
-                    <Grid ColumnSpacing="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <FontIcon Glyph="&#xE77B;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
-                        <StackPanel Grid.Column="1" Spacing="8">
-                            <TextBlock x:Name="ProfileHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                            <ComboBox x:Name="ProfileBox" HorizontalAlignment="Stretch" SelectionChanged="ProfileBox_SelectionChanged" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <!-- Sine: installed with the mods, or kept -->
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="4,4,0,0">
+                    <FontIcon Glyph="&#xE946;" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    <TextBlock x:Name="SineText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                </StackPanel>
 
-                <!-- What to install -->
-                <Border Style="{StaticResource SettingsCard}">
-                    <Grid ColumnSpacing="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <FontIcon Glyph="&#xE896;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
-                        <StackPanel Grid.Column="1" Spacing="4">
-                            <TextBlock x:Name="ComponentsHeader" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,4" />
-                            <CheckBox x:Name="SineCheck" IsChecked="True" IsEnabled="False" />
-                            <CheckBox x:Name="FluentCheck" IsChecked="True" IsEnabled="False" />
-                            <CheckBox x:Name="EnhancedCheck" Checked="EnhancedCheck_Changed" Unchecked="EnhancedCheck_Changed" />
-                            <CheckBox x:Name="ConsentCheck" Margin="28,0,0,0">
-                                <TextBlock x:Name="ConsentText" TextWrapping="Wrap" />
-                            </CheckBox>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <InfoBar x:Name="ResultBar" IsClosable="True" IsOpen="False" />
+                <InfoBar x:Name="ResultBar" IsClosable="True" IsOpen="False" Margin="0,12,0,0" />
                 <ProgressBar x:Name="Progress" IsIndeterminate="True" Visibility="Collapsed" />
 
                 <Expander x:Name="DetailsExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">

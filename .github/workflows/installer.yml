@@ -34,6 +34,7 @@ jobs:
     env:
       # The branch (or tag) the installer installs Zen Fluent from
       SOURCE_REF: ${{ github.head_ref || github.ref_name }}
+      HAS_SIGNPATH: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -47,6 +48,33 @@ jobs:
             -p:Platform=x64 -p:SourceRef="$env:SOURCE_REF" -p:Version=$version -o publish
           Copy-Item publish/ZenFluentSetup.exe ZenFluentSetup.exe
           Get-Item ZenFluentSetup.exe | Select-Object Name, Length
+      # Signing with SignPath Foundation (free for open source), once the
+      # project is accepted: the repository then gets the secret
+      # SIGNPATH_API_TOKEN and the variables SIGNPATH_ORGANIZATION_ID,
+      # SIGNPATH_PROJECT_SLUG and SIGNPATH_POLICY_SLUG. Without them the
+      # exe stays unsigned.
+      - name: Upload the unsigned exe for signing
+        id: unsigned
+        if: env.HAS_SIGNPATH == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZenFluentSetup-unsigned
+          path: ZenFluentSetup.exe
+      - name: Sign with SignPath
+        if: env.HAS_SIGNPATH == 'true'
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_POLICY_SLUG }}
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+      - name: Use the signed exe
+        if: env.HAS_SIGNPATH == 'true'
+        shell: pwsh
+        run: Copy-Item signed/ZenFluentSetup.exe ZenFluentSetup.exe -Force
       - name: The window builds (--selftest, never shown)
         shell: pwsh
         run: |

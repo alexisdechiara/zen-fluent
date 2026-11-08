@@ -10,7 +10,7 @@ public static class S
     private static readonly Dictionary<string, (string En, string Fr)> Text = new()
     {
         ["Title"] = ("Zen Fluent setup", "Installation de Zen Fluent"),
-        ["Lead"] = ("Mica, Acrylic and the controls of Windows 11 for Zen. Close Zen, pick its version and profile, then install.", "Mica, Acrylic et les contrôles de Windows 11 pour Zen. Fermez Zen, choisissez sa version et son profil, puis installez."),
+        ["Lead"] = ("Mica, Acrylic and the controls of Windows 11 for Zen. Close Zen, pick its version, its profile and what to install.", "Mica, Acrylic et les contrôles de Windows 11 pour Zen. Fermez Zen, puis choisissez sa version, son profil et ce qu'il faut installer."),
         ["Edition"] = ("Zen version", "Version de Zen"),
         ["OtherFolder"] = ("Other folder…", "Autre dossier…"),
         ["TooOld"] = ("Zen Fluent needs Zen 1.23 or later: update {0} first.", "Zen Fluent nécessite Zen 1.23 ou plus récent : mettez d'abord {0} à jour."),
@@ -22,6 +22,13 @@ public static class S
         ["Fluent"] = ("Zen Fluent: Mica, Acrylic and WinUI 3 for Zen", "Zen Fluent : Mica, Acrylic et WinUI 3 pour Zen"),
         ["Enhanced"] = ("Zen Fluent Enhanced: settings page, French interface, features", "Zen Fluent Enhanced : page de paramètres, interface en français, fonctions"),
         ["UnsafeJs"] = ("Allow the scripts of mods installed outside Sine's store (needed by Zen Fluent Enhanced: sine.allow-unsafe-js)", "Autoriser les scripts des mods installés hors de la boutique de Sine (nécessaire à Zen Fluent Enhanced : sine.allow-unsafe-js)"),
+        ["CoreLine"] = ("The Fluent look: Mica, Acrylic and the controls of Windows 11, with every setting in Sine.", "Le style Fluent : Mica, Acrylic et les contrôles de Windows 11, avec tous ses réglages dans Sine."),
+        ["CoreTag"] = ("CSS only", "CSS uniquement"),
+        ["EnhancedLine"] = ("All of Zen Fluent, plus its settings page, the welcome tour, settings per space and the features.", "Tout Zen Fluent, plus sa page de paramètres, la visite guidée, les réglages par espace et les fonctions."),
+        ["EnhancedTag"] = ("Includes Zen Fluent · runs scripts", "Inclut Zen Fluent · exécute des scripts"),
+        ["ConsentNeeded"] = ("Check this box to install Zen Fluent Enhanced, or pick Zen Fluent.", "Cochez cette case pour installer Zen Fluent Enhanced, ou choisissez Zen Fluent."),
+        ["SineNote"] = ("Sine, Zen's mod manager, is installed with it.", "Sine, le gestionnaire de mods de Zen, est installé avec."),
+        ["SineKeptNote"] = ("Sine is already in this profile: it is kept.", "Sine est déjà dans ce profil : il est conservé."),
         ["Install"] = ("Install", "Installer"),
         ["Close"] = ("Close", "Fermer"),
         ["Details"] = ("Details", "Détails"),

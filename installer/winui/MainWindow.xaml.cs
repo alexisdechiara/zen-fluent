@@ -12,6 +12,10 @@ public sealed partial class MainWindow : Window
     private readonly List<ZenEdition> editions;
     private readonly List<ZenProfile> allProfiles;
     private List<ZenProfile> profiles = new();
+    private readonly List<OptionCard> editionCards = new();
+    private readonly List<OptionCard> componentCards = new();
+    private int edition = -1;
+    private bool enhanced = true;
     private bool running;
 
     public MainWindow()
@@ -19,38 +23,29 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
 
         // Windows 11: Mica behind the window, the title bar drawn in it
-        if (MicaController.IsSupported())
-        {
-            SystemBackdrop = new MicaBackdrop();
-        }
-        else
-        {
-            SystemBackdrop = new DesktopAcrylicBackdrop();
-        }
+        SystemBackdrop = MicaController.IsSupported() ? new MicaBackdrop() : new DesktopAcrylicBackdrop();
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
-        AppWindow.Resize(new SizeInt32(720, 860));
+        AppWindow.Resize(new SizeInt32(820, 940));
         Title = S.Get("Title");
 
         TitleText.Text = S.Get("Title");
         LeadText.Text = S.Get("Lead");
         EditionHeader.Text = S.Get("Edition");
         BrowseButton.Content = S.Get("OtherFolder");
-        ProfileHeader.Text = S.Get("Profile");
+        ProfileBox.Header = S.Get("Profile");
         ComponentsHeader.Text = S.Get("Components");
-        SineCheck.Content = S.Get("Sine");
-        FluentCheck.Content = S.Get("Fluent");
-        EnhancedCheck.Content = S.Get("Enhanced");
         ConsentText.Text = S.Get("UnsafeJs");
+        ConsentErrorText.Text = S.Get("ConsentNeeded");
         DetailsExpander.Header = S.Get("Details");
         CloseButton.Content = S.Get("Close");
         InstallButton.Content = S.Get("Install");
         SourceText.Text = string.Format(S.Get("Source"), Installer.SourceRef);
-        EnhancedCheck.IsChecked = true;
 
+        BuildComponentCards();
         editions = Zen.GetEditions();
         allProfiles = Zen.GetProfiles();
-        FillEditions(0);
+        BuildEditionCards(0);
         if (editions.Count == 0)
         {
             ShowResult(InfoBarSeverity.Warning, S.Get("NoZen"), "");
@@ -59,25 +54,142 @@ public sealed partial class MainWindow : Window
 
     /// <summary>What the window found, for --selftest.</summary>
     public string SelfTestSummary =>
-        $"editions={editions.Count} profiles={allProfiles.Count} source={Installer.SourceRef}";
+        $"editions={editions.Count} profiles={allProfiles.Count} cards={editionCards.Count}+{componentCards.Count} source={Installer.SourceRef}";
 
-    private ZenEdition? Edition =>
-        EditionBox.SelectedIndex >= 0 && EditionBox.SelectedIndex < editions.Count ? editions[EditionBox.SelectedIndex] : null;
+    private ZenEdition? Edition => edition >= 0 && edition < editions.Count ? editions[edition] : null;
 
     private ZenProfile? Profile =>
         ProfileBox.SelectedIndex >= 0 && ProfileBox.SelectedIndex < profiles.Count ? profiles[ProfileBox.SelectedIndex] : null;
 
-    private void FillEditions(int select)
+    // -------- Option cards --------
+
+    /// <summary>A card to pick, as in Zen's welcome screens: a radio, a
+    /// title and its lines, an illustration; outlined in the accent when
+    /// picked, a click anywhere on it picks it.</summary>
+    private sealed class OptionCard
     {
-        EditionBox.Items.Clear();
-        foreach (var edition in editions)
+        public required Border Root { get; init; }
+        public required RadioButton Radio { get; init; }
+
+        public void SetSelected(bool selected)
         {
-            EditionBox.Items.Add(edition.Label);
+            Radio.IsChecked = selected;
+            Root.BorderBrush = Brush(selected ? "AccentFillColorDefaultBrush" : "CardStrokeColorDefaultBrush");
+            Root.BorderThickness = new Thickness(selected ? 2 : 1);
+            // Keeps the content in place when the border thickens
+            Root.Padding = selected ? new Thickness(19) : new Thickness(20);
         }
-        if (editions.Count > 0)
+    }
+
+    private static Brush Brush(string key) => (Brush)Application.Current.Resources[key];
+
+    private static TextBlock Line(string text, string style = "CaptionTextBlockStyle", string brush = "TextFillColorSecondaryBrush") =>
+        new()
         {
-            EditionBox.SelectedIndex = Math.Min(select, editions.Count - 1);
+            Text = text,
+            TextWrapping = TextWrapping.Wrap,
+            Style = (Style)Application.Current.Resources[style],
+            Foreground = Brush(brush),
+        };
+
+    private static OptionCard MakeCard(string group, string glyph, string title, IEnumerable<UIElement> lines, Action pick)
+    {
+        var radio = new RadioButton { GroupName = group, MinWidth = 0, Padding = new Thickness(0), VerticalAlignment = VerticalAlignment.Top };
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(radio, title);
+        var text = new StackPanel { Spacing = 2 };
+        text.Children.Add(new TextBlock
+        {
+            Text = title,
+            TextWrapping = TextWrapping.Wrap,
+            Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"],
+            FontSize = 16,
+            Margin = new Thickness(0, 4, 0, 2),
+        });
+        foreach (var line in lines) text.Children.Add(line);
+        var art = new FontIcon
+        {
+            Glyph = glyph,
+            FontSize = 36,
+            Foreground = Brush("AccentTextFillColorPrimaryBrush"),
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(8, 4, 0, 0),
+        };
+        var grid = new Grid { ColumnSpacing = 4 };
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        grid.Children.Add(radio);
+        Grid.SetColumn(text, 1);
+        grid.Children.Add(text);
+        Grid.SetColumn(art, 2);
+        grid.Children.Add(art);
+
+        var root = new Border
+        {
+            Child = grid,
+            CornerRadius = new CornerRadius(8),
+            Background = Brush("CardBackgroundFillColorDefaultBrush"),
+            MinHeight = 124,
+        };
+        var card = new OptionCard { Root = root, Radio = radio };
+        card.SetSelected(false);
+        root.Tapped += (_, _) => pick();
+        radio.Checked += (_, _) => pick();
+        root.PointerEntered += (_, _) => root.Background = Brush("CardBackgroundFillColorSecondaryBrush");
+        root.PointerExited += (_, _) => root.Background = Brush("CardBackgroundFillColorDefaultBrush");
+        return card;
+    }
+
+    /// <summary>Lays cards out two by row.</summary>
+    private static void Place(Grid grid, IReadOnlyList<OptionCard> cards)
+    {
+        grid.Children.Clear();
+        grid.ColumnDefinitions.Clear();
+        grid.RowDefinitions.Clear();
+        var columns = cards.Count == 1 ? 1 : 2;
+        for (var c = 0; c < columns; c++) grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        for (var i = 0; i < cards.Count; i++)
+        {
+            if (i % columns == 0) grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            Grid.SetColumn(cards[i].Root, i % columns);
+            Grid.SetRow(cards[i].Root, i / columns);
+            grid.Children.Add(cards[i].Root);
         }
+    }
+
+    // -------- Zen version --------
+
+    private void BuildEditionCards(int select)
+    {
+        editionCards.Clear();
+        for (var i = 0; i < editions.Count; i++)
+        {
+            var index = i;
+            var e = editions[i];
+            var lines = new List<UIElement>();
+            if (!string.IsNullOrEmpty(e.Version)) lines.Add(Line(e.Version, "BodyTextBlockStyle"));
+            lines.Add(Line(e.Dir, "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"));
+            if (e.TooOld)
+            {
+                var warning = Line(string.Format(S.Get("TooOld"), e.Label), "CaptionTextBlockStyle", "SystemFillColorCautionBrush");
+                warning.Margin = new Thickness(0, 6, 0, 0);
+                lines.Add(warning);
+            }
+            var twilight = e.Name.Contains("twilight", StringComparison.OrdinalIgnoreCase);
+            // a moon for Twilight, a globe for Zen Browser
+            editionCards.Add(MakeCard("edition", twilight ? "" : "", e.Name, lines, () => SelectEdition(index)));
+        }
+        Place(EditionCards, editionCards);
+        if (editions.Count > 0) SelectEdition(Math.Min(select, editions.Count - 1));
+    }
+
+    private void SelectEdition(int index)
+    {
+        if (index == edition) return;
+        edition = index;
+        for (var i = 0; i < editionCards.Count; i++) editionCards[i].SetSelected(i == index);
+        ResultBar.IsOpen = false;
+        FillProfiles();
     }
 
     /// <summary>The chosen Zen's profiles, the one it opens by default first.</summary>
@@ -85,24 +197,13 @@ public sealed partial class MainWindow : Window
     {
         ProfileBox.Items.Clear();
         profiles = new();
-        var edition = Edition;
-        if (edition is null)
-        {
-            DirText.Text = "";
-            VersionWarning.IsOpen = false;
-            return;
-        }
-        DirText.Text = edition.Dir;
-        VersionWarning.Message = string.Format(S.Get("TooOld"), edition.Label);
-        VersionWarning.IsOpen = edition.TooOld;
-        profiles = Zen.ProfilesOf(edition, allProfiles);
+        var e = Edition;
+        if (e is null) return;
+        profiles = Zen.ProfilesOf(e, allProfiles);
         foreach (var profile in profiles)
         {
             var label = $"{profile.Name}  ({profile.Folder})";
-            if (Zen.OpensByDefault(edition, profile))
-            {
-                label += "  — " + S.Get("OpensDefault");
-            }
+            if (Zen.OpensByDefault(e, profile)) label += "  — " + S.Get("OpensDefault");
             ProfileBox.Items.Add(label);
         }
         if (profiles.Count > 0)
@@ -116,27 +217,19 @@ public sealed partial class MainWindow : Window
         UpdateSineState();
     }
 
-    private void UpdateSineState()
-    {
-        var edition = Edition;
-        var profile = Profile;
-        if (edition is null || profile is null) return;
-        SineCheck.Content = Zen.SineInstalled(edition.Dir, profile.Path) ? S.Get("SineThere") : S.Get("Sine");
-    }
-
-    private void EditionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        ResultBar.IsOpen = false;
-        FillProfiles();
-    }
-
     private void ProfileBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => UpdateSineState();
 
-    // Checked in code, after InitializeComponent: set in XAML, it fired
-    // before ConsentCheck existed and the window failed to load
-    private void EnhancedCheck_Changed(object sender, RoutedEventArgs e)
+    private void UpdateSineState()
     {
-        if (ConsentCheck is not null) ConsentCheck.IsEnabled = EnhancedCheck.IsChecked == true;
+        if (SineText is null) return;
+        var e = Edition;
+        var profile = Profile;
+        if (e is null || profile is null)
+        {
+            SineText.Text = "";
+            return;
+        }
+        SineText.Text = Zen.SineInstalled(e.Dir, profile.Path) ? S.Get("SineKeptNote") : S.Get("SineNote");
     }
 
     private async void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -151,24 +244,74 @@ public sealed partial class MainWindow : Window
             ShowResult(InfoBarSeverity.Warning, S.Get("NotZen"), "");
             return;
         }
-        var edition = Zen.EditionFromFolder(folder.Path);
-        var index = editions.FindIndex(x => string.Equals(x.Dir, edition.Dir, StringComparison.OrdinalIgnoreCase));
+        var found = Zen.EditionFromFolder(folder.Path);
+        var index = editions.FindIndex(x => string.Equals(x.Dir, found.Dir, StringComparison.OrdinalIgnoreCase));
         if (index < 0)
         {
-            editions.Add(edition);
+            editions.Add(found);
             index = editions.Count - 1;
         }
-        FillEditions(index);
+        edition = -1;
+        BuildEditionCards(index);
     }
+
+    // -------- Zen Fluent or Zen Fluent Enhanced --------
+
+    private void BuildComponentCards()
+    {
+        componentCards.Add(MakeCard("component", "", "Zen Fluent", new UIElement[]
+        {
+            Line(S.Get("CoreLine")),
+            Line(S.Get("CoreTag"), "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"),
+        }, () => SelectComponent(false)));
+        componentCards.Add(MakeCard("component", "", "Zen Fluent Enhanced", new UIElement[]
+        {
+            Line(S.Get("EnhancedLine")),
+            Line(S.Get("EnhancedTag"), "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"),
+        }, () => SelectComponent(true)));
+        for (var i = 0; i < componentCards.Count; i++)
+        {
+            Grid.SetColumn(componentCards[i].Root, i);
+            ComponentCards.Children.Add(componentCards[i].Root);
+        }
+        SelectComponent(true);
+    }
+
+    private void SelectComponent(bool withEnhanced)
+    {
+        enhanced = withEnhanced;
+        componentCards[0].SetSelected(!withEnhanced);
+        componentCards[1].SetSelected(withEnhanced);
+        ConsentBorder.Visibility = withEnhanced ? Visibility.Visible : Visibility.Collapsed;
+        SetConsentError(false);
+    }
+
+    private void ConsentCheck_Changed(object sender, RoutedEventArgs e)
+    {
+        if (ConsentCheck.IsChecked == true) SetConsentError(false);
+    }
+
+    /// <summary>Install was clicked with Enhanced picked and the box left
+    /// unchecked: the box turns red, with what to do.</summary>
+    private void SetConsentError(bool error)
+    {
+        if (ConsentError is null) return;
+        ConsentError.Visibility = error ? Visibility.Visible : Visibility.Collapsed;
+        ConsentBorder.BorderBrush = Brush(error ? "SystemFillColorCriticalBrush" : "CardStrokeColorDefaultBrush");
+        ConsentBorder.Background = Brush(error ? "SystemFillColorCriticalBackgroundBrush" : "CardBackgroundFillColorDefaultBrush");
+        ConsentText.Foreground = Brush(error ? "SystemFillColorCriticalBrush" : "TextFillColorPrimaryBrush");
+    }
+
+    // -------- Actions --------
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 
     private async void InstallButton_Click(object sender, RoutedEventArgs e)
     {
-        var edition = Edition;
-        var profile = Profile;
         if (running) return;
-        if (edition is null)
+        var zen = Edition;
+        var profile = Profile;
+        if (zen is null)
         {
             ShowResult(InfoBarSeverity.Warning, S.Get("NoZen"), "");
             return;
@@ -178,6 +321,13 @@ public sealed partial class MainWindow : Window
             ShowResult(InfoBarSeverity.Warning, S.Get("NoProfile"), "");
             return;
         }
+        var consent = ConsentCheck.IsChecked == true;
+        if (enhanced && !consent)
+        {
+            SetConsentError(true);
+            ConsentCheck.Focus(FocusState.Programmatic);
+            return;
+        }
 
         running = true;
         ResultBar.IsOpen = false;
@@ -185,8 +335,7 @@ public sealed partial class MainWindow : Window
         InstallButton.IsEnabled = false;
         InstallButton.Content = S.Get("Installing");
         Progress.Visibility = Visibility.Visible;
-        var enhanced = EnhancedCheck.IsChecked == true;
-        var consent = ConsentCheck.IsChecked == true;
+        var withEnhanced = enhanced;
         var queue = DispatcherQueue;
         var installer = new Installer(message => queue.TryEnqueue(() =>
         {
@@ -194,7 +343,7 @@ public sealed partial class MainWindow : Window
         }));
         try
         {
-            await Task.Run(() => installer.RunAsync(edition, profile, enhanced, consent));
+            await Task.Run(() => installer.RunAsync(zen, profile, withEnhanced, withEnhanced && consent));
             ShowResult(InfoBarSeverity.Success, S.Get("Done"), S.Get("DoneTitle"));
             UpdateSineState();
         }
