@@ -12,6 +12,24 @@
     }
   }
 
+  @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.border-width", "custom"))) {
+    .sineItemPreferenceDialogContent
+      > #zen-fluent-essentials-border-width-custom {
+      display: none !important;
+    }
+  }
+
+  /* The border's width, only with a border that has one */
+  @media not ((-moz-pref("zen-fluent.essentials.border", "subtle")) or (-moz-pref("zen-fluent.essentials.border", "strong")) or (-moz-pref("zen-fluent.essentials.border", "color")) or (-moz-pref("zen-fluent.essentials.border", "gap")) or (-moz-pref("zen-fluent.essentials.border", "gap-color"))) {
+    .sineItemPreferenceDialogContent
+      > :is(
+        #zen-fluent-essentials-border-width,
+        #zen-fluent-essentials-border-width-custom
+      ) {
+      display: none !important;
+    }
+  }
+
   @media not ((-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.width", "custom"))) {
     .sineItemPreferenceDialogContent > #zen-fluent-essentials-width-custom {
       display: none !important;

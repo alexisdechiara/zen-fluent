@@ -865,6 +865,56 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.border-width",
+    "label": "Border width",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Automatic (the border's)",
+        "value": "auto"
+      },
+      {
+        "label": "Thin (1 px)",
+        "value": "thin"
+      },
+      {
+        "label": "Medium (2 px)",
+        "value": "medium"
+      },
+      {
+        "label": "Thick (3 px)",
+        "value": "thick"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.essentials.border-width-custom",
+    "label": "Custom border width ~in px, for example 2px~",
+    "type": "string",
+    "defaultValue": "2px",
+    "placeholder": "2px",
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.essentials.border-width",
+          "value": "custom"
+        }
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials.labels",
     "label": "Labels",
     "type": "dropdown",

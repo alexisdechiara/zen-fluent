@@ -14,7 +14,8 @@ one `vX.Y.Z` tag.
 - **Tile border** (Essentials, `zen-fluent.essentials.border`): the line
   around each Essential: the fill's own (default), none, a subtle or strong
   line, the icon's color, or a ring with a gap, neutral or in the icon's
-  color ([Essentials](docs/settings/essentials.md)).
+  color, with its **Border width**: thin, medium, thick, or any width in
+  expert mode ([Essentials](docs/settings/essentials.md)).
 - Zen Fluent Enhanced, **Settings search as Ctrl+F**
   (`zen-fluent.enhanced.settings-search`, on): Zen's "Find in Settings"
   counts its matches ("3 of 12") with Previous and Next (Enter, Shift+Enter,
