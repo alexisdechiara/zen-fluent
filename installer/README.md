@@ -71,9 +71,11 @@ on 5xx answers and timeouts, then the installer says GitHub may be down.
 
 ## Testing it
 
-The application starts its bootloader step without a window
-(`ZenFluentSetup.exe --bootloader <zip> <folder>`, what its elevated copy
-runs): a quick check that a build starts. The script:
+`ZenFluentSetup.exe --selftest <file>` builds the window without showing
+it (XAML, the Zen editions and profiles found) and writes `ok …` or the
+error to `<file>`: the CI runs it on every build, and it checks a build on
+a desktop without opening anything. Any failure at startup is written to
+`%TEMP%\ZenFluentSetup-error.log` and shown in a message box. The script:
 
 Point it at a throwaway profile and a folder with a `zen.exe` file in it;
 then start the real Zen on that profile (`-no-remote -profile <folder>`):

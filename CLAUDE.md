@@ -45,7 +45,11 @@ come later. The owner writes to Claude in French: answer in French.
   `.github/workflows/installer.yml` (no .NET SDK on the owner's PC).
   `installer/ZenFluentSetup.ps1`: the same steps for scripts (Windows
   PowerShell 5.1; UTF-8 with BOM or 5.1 misreads the accents). Keep both in
-  step. Test it with `-NoGui` on a throwaway profile, then start the
+  step. Test a build without a window: `ZenFluentSetup.exe --selftest
+<file>` (the CI runs it). A WinUI app without a console vanishes on an
+  exception in `InitializeComponent` (e.g. a `Checked` handler fired by
+  `IsChecked` set in XAML before the controls below exist): set such
+  values in code. Test it with `-NoGui` on a throwaway profile, then start the
   real Zen on it. `components.json`: the components it knows
   (`installer/README.md`). Sine's release tag differs from its title
   (title v2.3.4c2, tag `v2.3.4.1c`). `docs/`: installation, `docs/settings/<group>.md`,
