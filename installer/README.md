@@ -16,6 +16,28 @@ or tag they were built from. A branch push also publishes them as the
 pre-release `installer-<branch>` (replaced at each push): a stable
 download link to test a branch.
 
+The window picks with option cards, as Zen's welcome screens do: a card
+per installed Zen version (its version, folder, and a warning before Zen
+1.23), the chosen version's profile in a select, then Zen Fluent or Zen
+Fluent Enhanced side by side. The box allowing scripts of mods outside
+Sine's store shows with Enhanced only, and turns red when Install is
+clicked without it.
+
+## Signing
+
+The exe is not signed yet: SmartScreen may warn about it (More info › Run
+anyway). [SignPath Foundation](https://signpath.org) signs open source
+projects for free. Its terms ask for an OSI licence (MIT), builds from this
+repository's CI, team roles with multi-factor authentication, a manual
+approval of each release, a "Code signing policy" section on the home and
+download pages, and an uninstaller for an installer (not written yet).
+Once accepted, the repository gets the secret `SIGNPATH_API_TOKEN` and the
+variables `SIGNPATH_ORGANIZATION_ID`, `SIGNPATH_PROJECT_SLUG` and
+`SIGNPATH_POLICY_SLUG`: the CI then signs the exe
+(`signpath/github-action-submit-signing-request`) before publishing it.
+
+## Downloads
+
 Downloads do not use GitHub's API (the latest bootloader comes from
 `releases/latest/download`) and are tried five times over about a minute
 on 5xx answers and timeouts, then the installer says GitHub may be down.
