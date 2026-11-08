@@ -251,6 +251,121 @@ public sealed class Installer
         }
     }
 
+    /// <summary>
+    /// Takes Zen Fluent and Zen Fluent Enhanced out of a profile (their
+    /// folders and mods.json entries, the file saved first), and if asked
+    /// their settings (zen-fluent.* in prefs.js) and Sine with every mod it
+    /// installed (the profile's chrome\JS, utils and sine-mods, and its
+    /// bootloader in Zen's folder, which only goes when it is Sine's).
+    /// </summary>
+    public async Task UninstallAsync(ZenEdition edition, ZenProfile profile, bool removeSettings, bool removeSine)
+    {
+        if (Zen.ProfileInUse(profile.Path)) throw new InvalidOperationException(S.Get("ZenRunning"));
+        var chrome = System.IO.Path.Combine(profile.Path, "chrome");
+        var modsDir = System.IO.Path.Combine(chrome, "sine-mods");
+
+        if (removeSine)
+        {
+            foreach (var name in new[] { "JS", "utils", "sine-mods" })
+            {
+                var dir = System.IO.Path.Combine(chrome, name);
+                if (!Directory.Exists(dir)) continue;
+                log(string.Format(S.Get("Removing"), dir));
+                DeleteDirectory(dir);
+            }
+            await RemoveBootloaderAsync(edition.Dir);
+        }
+        else
+        {
+            foreach (var id in new[] { "Zen-Fluent", "Zen-Fluent-Enhanced" })
+            {
+                var dir = System.IO.Path.Combine(modsDir, id);
+                if (!Directory.Exists(dir)) continue;
+                log(string.Format(S.Get("Removing"), dir));
+                DeleteDirectory(dir);
+            }
+            var listFile = System.IO.Path.Combine(modsDir, "mods.json");
+            if (File.Exists(listFile))
+            {
+                var backup = listFile + ".zen-fluent-setup.bak";
+                File.Copy(listFile, backup, overwrite: true);
+                log(string.Format(S.Get("Backup"), backup));
+                var text = File.ReadAllText(listFile);
+                if (!string.IsNullOrWhiteSpace(text) && JsonNode.Parse(text) is JsonObject list)
+                {
+                    list.Remove("Zen-Fluent");
+                    list.Remove("Zen-Fluent-Enhanced");
+                    File.WriteAllText(listFile, list.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                }
+            }
+        }
+
+        if (removeSettings)
+        {
+            log(S.Get("RemovingSettings"));
+            var prefsFile = System.IO.Path.Combine(profile.Path, "prefs.js");
+            if (File.Exists(prefsFile))
+            {
+                var kept = File.ReadAllLines(prefsFile).Where(l => !l.StartsWith("user_pref(\"zen-fluent.")).ToList();
+                File.WriteAllText(prefsFile, string.Join("\n", kept) + "\n");
+            }
+        }
+        ClearStartupCache(profile.Path);
+        log(S.Get("Uninstalled"));
+    }
+
+    /// <summary>A folder, or a junction to one (unlinked, never emptied).</summary>
+    private static void DeleteDirectory(string dir)
+    {
+        var isLink = new DirectoryInfo(dir).Attributes.HasFlag(FileAttributes.ReparsePoint);
+        Directory.Delete(dir, recursive: !isLink);
+    }
+
+    /// <summary>Sine's bootloader files in Zen's folder, when they are Sine's.</summary>
+    public static bool RemoveBootloaderFiles(string zenDir)
+    {
+        var config = System.IO.Path.Combine(zenDir, "config.js");
+        if (!File.Exists(config) || !File.ReadAllText(config).Contains("sine.sys.mjs")) return false;
+        File.Delete(config);
+        var prefs = System.IO.Path.Combine(zenDir, "defaults", "pref", "config-prefs.js");
+        if (File.Exists(prefs)) File.Delete(prefs);
+        return true;
+    }
+
+    private async Task RemoveBootloaderAsync(string zenDir)
+    {
+        var config = System.IO.Path.Combine(zenDir, "config.js");
+        if (!File.Exists(config) || !File.ReadAllText(config).Contains("sine.sys.mjs"))
+        {
+            log(S.Get("BootloaderNotSine"));
+            return;
+        }
+        log(string.Format(S.Get("RemovingBootloader"), zenDir));
+        if (Writable(zenDir))
+        {
+            RemoveBootloaderFiles(zenDir);
+            return;
+        }
+        log(S.Get("Elevate"));
+        var start = new ProcessStartInfo(Environment.ProcessPath!, $"--remove-bootloader \"{zenDir}\"")
+        {
+            UseShellExecute = true,
+            Verb = "runas",
+        };
+        Process? process;
+        try
+        {
+            process = Process.Start(start);
+        }
+        catch (System.ComponentModel.Win32Exception)
+        {
+            throw new InvalidOperationException(S.Get("ElevateRefusedRemove"));
+        }
+        if (process is null) throw new InvalidOperationException(S.Get("ElevateRefusedRemove"));
+        await process.WaitForExitAsync();
+        if (File.Exists(config)) throw new InvalidOperationException(string.Format(S.Get("BootloaderRemoveFailed"), zenDir));
+    }
+
     // GitHub sometimes answers 5xx or times out: five tries over about a
     // minute; a 4xx fails at once
     private async Task DownloadAsync(string url, string file)

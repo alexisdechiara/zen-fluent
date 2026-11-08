@@ -41,6 +41,7 @@
                 <ComboBox x:Name="ProfileBox" HorizontalAlignment="Stretch" Margin="0,4,0,0" SelectionChanged="ProfileBox_SelectionChanged" />
 
                 <!-- What to install: Zen Fluent or Zen Fluent Enhanced -->
+                <StackPanel x:Name="InstallPanel" Spacing="8">
                 <TextBlock x:Name="ComponentsHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" />
                 <Grid x:Name="ComponentCards" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
@@ -69,6 +70,20 @@
                     <FontIcon Glyph="&#xE946;" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                     <TextBlock x:Name="SineText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
                 </StackPanel>
+                </StackPanel>
+
+                <!-- Uninstall: what to remove from the chosen profile -->
+                <StackPanel x:Name="UninstallPanel" Spacing="8" Visibility="Collapsed">
+                    <TextBlock x:Name="UninstallHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" />
+                    <Border Style="{StaticResource SettingsCard}">
+                        <StackPanel Spacing="4">
+                            <CheckBox x:Name="RemoveModsCheck" IsEnabled="False" />
+                            <CheckBox x:Name="RemoveSettingsCheck" />
+                            <CheckBox x:Name="RemoveSineCheck" Checked="RemoveSineCheck_Changed" Unchecked="RemoveSineCheck_Changed" />
+                            <InfoBar x:Name="RemoveSineWarning" Severity="Warning" IsClosable="False" IsOpen="False" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
                 <InfoBar x:Name="ResultBar" IsClosable="True" IsOpen="False" Margin="0,12,0,0" />
                 <ProgressBar x:Name="Progress" IsIndeterminate="True" Visibility="Collapsed" />
@@ -83,10 +98,13 @@
 
         <!-- Footer -->
         <Border Grid.Row="2" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Padding="24,16">
-                <Button x:Name="CloseButton" MinWidth="120" Click="CloseButton_Click" />
-                <Button x:Name="InstallButton" MinWidth="120" Style="{StaticResource AccentButtonStyle}" Click="InstallButton_Click" />
-            </StackPanel>
+            <Grid Padding="24,16">
+                <HyperlinkButton x:Name="ModeButton" HorizontalAlignment="Left" Click="ModeButton_Click" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                    <Button x:Name="CloseButton" MinWidth="120" Click="CloseButton_Click" />
+                    <Button x:Name="InstallButton" MinWidth="120" Style="{StaticResource AccentButtonStyle}" Click="InstallButton_Click" />
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>

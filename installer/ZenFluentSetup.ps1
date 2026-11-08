@@ -40,6 +40,16 @@
 .PARAMETER ReinstallSine
   Install Sine's bootloader and engine even when Sine is there.
 
+.PARAMETER Uninstall
+  With -NoGui: take Zen Fluent and Zen Fluent Enhanced out of the profile
+  (their folders and mods.json entries, the file saved first).
+.PARAMETER RemoveSettings
+  With -Uninstall: also remove every zen-fluent.* preference.
+.PARAMETER RemoveSine
+  With -Uninstall: also remove Sine and every mod it installed (the
+  profile's chrome\JS, utils and sine-mods, and Sine's loader in Zen's
+  folder when it is Sine's).
+
 .EXAMPLE
   .\ZenFluentSetup.ps1
 .EXAMPLE
@@ -55,6 +65,9 @@ param(
   [switch]$AllowUnsafeJs,
   [string]$Ref = "main",
   [switch]$ReinstallSine,
+  [switch]$Uninstall,
+  [switch]$RemoveSettings,
+  [switch]$RemoveSine,
   # Internal: the elevated copy of this script that writes the bootloader
   [string]$BootloaderZip,
   [string]$BootloaderTarget
@@ -70,6 +83,16 @@ $SineRepo = "CosmoCreeper/Sine"
 $SineTag = "v2.3.4.1c"
 $BootloaderRepo = "sineorg/bootloader"
 $Prefs = @{ "svg.context-properties.content.enabled" = "true" }
+
+# -------- Elevated step: Sine's loader out of Zen's folder --------
+if ($BootloaderTarget -and $Uninstall -and -not $BootloaderZip) {
+  $config = Join-Path $BootloaderTarget "config.js"
+  if ((Test-Path $config) -and ((Get-Content -LiteralPath $config -Raw) -match "sine\.sys\.mjs")) {
+    Remove-Item -LiteralPath $config -Force
+    Remove-Item -LiteralPath (Join-Path $BootloaderTarget "defaults\pref\config-prefs.js") -Force -ErrorAction SilentlyContinue
+  }
+  exit 0
+}
 
 # -------- Elevated step: the bootloader into Zen's folder --------
 if ($BootloaderZip -and $BootloaderTarget) {
@@ -107,6 +130,10 @@ $Text = @{
   Mod           = @("Installing {0}", "Installation de {0}")
   PrefsSet      = @("Setting preferences", "Réglage des préférences")
   Cache         = @("Clearing Zen's startup cache", "Vidage du cache de démarrage de Zen")
+  Removing      = @("Removing {0}", "Suppression de {0}")
+  RemovingSettings = @("Removing Zen Fluent's settings", "Suppression des réglages de Zen Fluent")
+  RemovingLoader = @("Removing Sine's loader from {0}", "Suppression du chargeur de Sine de {0}")
+  Uninstalled   = @("Done. Zen Fluent is no longer in this profile.", "Terminé. Zen Fluent n'est plus dans ce profil.")
   Done          = @("Done. Open Zen: Zen Fluent is in Zen's settings.", "Terminé. Ouvrez Zen : Zen Fluent est dans les paramètres de Zen.")
   Failed        = @("The installation failed: {0}", "L'installation a échoué : {0}")
   Backup        = @("Previous mods.json saved as {0}", "Ancien mods.json enregistré sous {0}")
@@ -405,6 +432,64 @@ function Clear-StartupCache([string]$ProfileDir, [scriptblock]$Log) {
   }
 }
 
+function Remove-Folder([string]$Dir, [scriptblock]$Log) {
+  $item = Get-Item -LiteralPath $Dir -Force -ErrorAction SilentlyContinue
+  if (-not $item) { return }
+  & $Log ((T "Removing") -f $Dir)
+  # A junction (a development checkout) is unlinked, never emptied
+  if ($item.LinkType) { $item.Delete() } else { Remove-Item -LiteralPath $Dir -Recurse -Force }
+}
+
+function Invoke-Uninstall {
+  param([string]$Zen, [string]$ProfileDir, [bool]$Settings, [bool]$Sine, [scriptblock]$Log)
+  if (Test-ProfileInUse $ProfileDir) { throw (T "ZenRunning") }
+  $chrome = Join-Path $ProfileDir "chrome"
+  $modsDir = Join-Path $chrome "sine-mods"
+  if ($Sine) {
+    foreach ($name in @("JS", "utils", "sine-mods")) { Remove-Folder (Join-Path $chrome $name) $Log }
+    $config = Join-Path $Zen "config.js"
+    if ((Test-Path $config) -and ((Get-Content -LiteralPath $config -Raw) -match "sine\.sys\.mjs")) {
+      & $Log ((T "RemovingLoader") -f $Zen)
+      if (Test-Writable $Zen) {
+        Remove-Item -LiteralPath $config -Force
+        Remove-Item -LiteralPath (Join-Path $Zen "defaults\pref\config-prefs.js") -Force -ErrorAction SilentlyContinue
+      } else {
+        & $Log (T "Elevate")
+        $self = Get-SelfCommand
+        $argList = $self.Args + @("-Uninstall", "-BootloaderTarget", "`"$Zen`"")
+        $process = Start-Process -FilePath $self.File -ArgumentList $argList -Verb RunAs -Wait -PassThru -WindowStyle Hidden
+        if (Test-Path $config) { throw "Sine's loader could not be removed from $Zen" }
+      }
+    }
+  } else {
+    foreach ($id in @("Zen-Fluent", "Zen-Fluent-Enhanced")) { Remove-Folder (Join-Path $modsDir $id) $Log }
+    $listFile = Join-Path $modsDir "mods.json"
+    if (Test-Path $listFile) {
+      $backup = "$listFile.zen-fluent-setup.bak"
+      Copy-Item -LiteralPath $listFile -Destination $backup -Force
+      & $Log ((T "Backup") -f $backup)
+      $raw = Get-Content -LiteralPath $listFile -Raw -Encoding UTF8
+      if ($raw -and $raw.Trim()) {
+        $list = [ordered]@{}
+        foreach ($p in ($raw | ConvertFrom-Json).PSObject.Properties) {
+          if ($p.Name -notin @("Zen-Fluent", "Zen-Fluent-Enhanced")) { $list[$p.Name] = $p.Value }
+        }
+        Write-Utf8 $listFile ($list | ConvertTo-Json -Depth 32)
+      }
+    }
+  }
+  if ($Settings) {
+    & $Log (T "RemovingSettings")
+    $prefsFile = Join-Path $ProfileDir "prefs.js"
+    if (Test-Path $prefsFile) {
+      $kept = @(Get-Content -LiteralPath $prefsFile -Encoding UTF8 | Where-Object { $_ -notlike 'user_pref("zen-fluent.*' })
+      Write-Utf8 $prefsFile (($kept -join "`n") + "`n")
+    }
+  }
+  Clear-StartupCache $ProfileDir $Log
+  & $Log (T "Uninstalled")
+}
+
 function Invoke-Setup {
   param([string]$Zen, [string]$ProfileDir, [bool]$WithEnhanced, [bool]$Consent, [scriptblock]$Log)
   if (Test-ProfileInUse $ProfileDir) { throw (T "ZenRunning") }
@@ -448,7 +533,11 @@ if ($NoGui) {
   if (-not $ProfilePath) { $ProfilePath = (Get-EditionProfiles $chosen @(Get-ZenProfiles) | Select-Object -First 1).Path }
   if (-not $ProfilePath) { Write-Error (T "NoProfile"); exit 1 }
   try {
-    Invoke-Setup -Zen $chosen.Dir -ProfileDir $ProfilePath -WithEnhanced $Enhanced.IsPresent -Consent $AllowUnsafeJs.IsPresent -Log $log
+    if ($Uninstall) {
+      Invoke-Uninstall -Zen $chosen.Dir -ProfileDir $ProfilePath -Settings $RemoveSettings.IsPresent -Sine $RemoveSine.IsPresent -Log $log
+    } else {
+      Invoke-Setup -Zen $chosen.Dir -ProfileDir $ProfilePath -WithEnhanced $Enhanced.IsPresent -Consent $AllowUnsafeJs.IsPresent -Log $log
+    }
   } catch {
     Write-Error ((T "Failed") -f $_.Exception.Message)
     exit 1

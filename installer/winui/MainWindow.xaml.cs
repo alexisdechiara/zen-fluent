@@ -17,6 +17,7 @@ public sealed partial class MainWindow : Window
     private int edition = -1;
     private bool enhanced = true;
     private bool running;
+    private bool uninstalling;
 
     public MainWindow()
     {
@@ -41,6 +42,13 @@ public sealed partial class MainWindow : Window
         CloseButton.Content = S.Get("Close");
         InstallButton.Content = S.Get("Install");
         SourceText.Text = string.Format(S.Get("Source"), Installer.SourceRef);
+        ModeButton.Content = S.Get("UninstallMode");
+        UninstallHeader.Text = S.Get("UninstallHeader");
+        RemoveModsCheck.Content = S.Get("RemoveMods");
+        RemoveModsCheck.IsChecked = true;
+        RemoveSettingsCheck.Content = S.Get("RemoveSettings");
+        RemoveSineCheck.Content = S.Get("RemoveSine");
+        RemoveSineWarning.Message = S.Get("RemoveSineWarning");
 
         BuildComponentCards();
         editions = Zen.GetEditions();
@@ -302,6 +310,63 @@ public sealed partial class MainWindow : Window
         ConsentText.Foreground = Brush(error ? "SystemFillColorCriticalBrush" : "TextFillColorPrimaryBrush");
     }
 
+    // -------- Uninstall --------
+
+    /// <summary>Install or uninstall: the same Zen version and profile, then
+    /// either what to install or what to remove.</summary>
+    private void ModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (running) return;
+        uninstalling = !uninstalling;
+        InstallPanel.Visibility = uninstalling ? Visibility.Collapsed : Visibility.Visible;
+        UninstallPanel.Visibility = uninstalling ? Visibility.Visible : Visibility.Collapsed;
+        ModeButton.Content = S.Get(uninstalling ? "BackToInstall" : "UninstallMode");
+        InstallButton.Content = S.Get(uninstalling ? "Uninstall" : "Install");
+        ResultBar.IsOpen = false;
+    }
+
+    private void RemoveSineCheck_Changed(object sender, RoutedEventArgs e)
+    {
+        if (RemoveSineWarning is not null) RemoveSineWarning.IsOpen = RemoveSineCheck.IsChecked == true;
+    }
+
+    private async Task RunUninstallAsync(ZenEdition zen, ZenProfile profile)
+    {
+        running = true;
+        ResultBar.IsOpen = false;
+        LogText.Text = "";
+        InstallButton.IsEnabled = false;
+        ModeButton.IsEnabled = false;
+        InstallButton.Content = S.Get("Uninstalling");
+        Progress.Visibility = Visibility.Visible;
+        var removeSettings = RemoveSettingsCheck.IsChecked == true;
+        var removeSine = RemoveSineCheck.IsChecked == true;
+        var queue = DispatcherQueue;
+        var installer = new Installer(message => queue.TryEnqueue(() =>
+        {
+            LogText.Text += (LogText.Text.Length > 0 ? "\n" : "") + message;
+        }));
+        try
+        {
+            await Task.Run(() => installer.UninstallAsync(zen, profile, removeSettings, removeSine));
+            ShowResult(InfoBarSeverity.Success, S.Get("Uninstalled"), S.Get("UninstalledTitle"));
+            UpdateSineState();
+        }
+        catch (Exception error)
+        {
+            ShowResult(InfoBarSeverity.Error, error.Message, S.Get("UninstallFailed"));
+            DetailsExpander.IsExpanded = true;
+        }
+        finally
+        {
+            running = false;
+            InstallButton.IsEnabled = true;
+            ModeButton.IsEnabled = true;
+            InstallButton.Content = S.Get("Uninstall");
+            Progress.Visibility = Visibility.Collapsed;
+        }
+    }
+
     // -------- Actions --------
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
@@ -319,6 +384,11 @@ public sealed partial class MainWindow : Window
         if (profile is null)
         {
             ShowResult(InfoBarSeverity.Warning, S.Get("NoProfile"), "");
+            return;
+        }
+        if (uninstalling)
+        {
+            await RunUninstallAsync(zen, profile);
             return;
         }
         var consent = ConsentCheck.IsChecked == true;

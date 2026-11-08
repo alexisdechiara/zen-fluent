@@ -45,7 +45,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   `installer/ZenFluentSetup.ps1` for scripts): installs
   Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the profile
   picked from the chosen edition (Zen Browser or Zen Twilight), the way Sine itself installs mods, with consent for
-  `sine.allow-unsafe-js` ([installer](installer/README.md)).
+  `sine.allow-unsafe-js`; **Uninstall…** takes Zen Fluent out again, with
+  its settings and Sine if asked ([installer](installer/README.md)).
 
 - Zen Fluent Enhanced, **Welcome tour**: at the first start, a tour over
   Zen's welcome video to pick a theme, the mode and the accent, turn on a

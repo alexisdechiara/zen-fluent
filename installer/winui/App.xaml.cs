@@ -4,6 +4,8 @@
 //   --bootloader <zip> <folder>  unpack Sine's bootloader into Zen's
 //                                protected folder (the copy started with
 //                                administrator rights), then quit
+//   --remove-bootloader <folder> remove Sine's bootloader from Zen's
+//                                protected folder (when it is Sine's)
 //   --selftest <file>            build the window without showing it, write
 //                                "ok" or the error to <file>, then quit
 // Any failure is written to %TEMP%\ZenFluentSetup-error.log and shown in a
@@ -37,6 +39,21 @@ public partial class App : Application
             try
             {
                 ZipFile.ExtractToDirectory(Args[index + 1], Args[index + 2], overwriteFiles: true);
+                Environment.Exit(0);
+            }
+            catch (Exception error)
+            {
+                Fatal(error, show: false);
+                Environment.Exit(1);
+            }
+        }
+
+        index = Array.IndexOf(Args, "--remove-bootloader");
+        if (index >= 0 && index + 1 < Args.Length)
+        {
+            try
+            {
+                Installer.RemoveBootloaderFiles(Args[index + 1]);
                 Environment.Exit(0);
             }
             catch (Exception error)

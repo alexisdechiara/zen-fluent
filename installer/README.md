@@ -23,6 +23,24 @@ Fluent Enhanced side by side. The box allowing scripts of mods outside
 Sine's store shows with Enhanced only, and turns red when Install is
 clicked without it.
 
+## Uninstalling
+
+**Uninstall…**, at the bottom of the window, keeps the Zen version and
+profile and asks what to remove:
+
+- Zen Fluent and Zen Fluent Enhanced (always): their folders in
+  `chrome\sine-mods` and their entries in `mods.json`, the file saved as
+  `mods.json.zen-fluent-setup.bak` first;
+- their settings: every `zen-fluent.*` preference in `prefs.js`;
+- Sine and every mod it installed: the profile's `chrome\JS`, `utils` and
+  `sine-mods`, and Sine's loader in Zen's folder (`config.js` and
+  `defaults\pref\config-prefs.js`, only when `config.js` is Sine's;
+  administrator rights when the folder is protected). Sine then stops
+  loading in every profile of that Zen version.
+
+The startup cache is cleared, and the profile must not be in use. Without
+the window: `-NoGui -Uninstall`, with `-RemoveSettings` and `-RemoveSine`.
+
 ## Signing
 
 The exe is not signed yet: SmartScreen may warn about it (More info › Run
@@ -30,7 +48,7 @@ anyway). [SignPath Foundation](https://signpath.org) signs open source
 projects for free. Its terms ask for an OSI licence (MIT), builds from this
 repository's CI, team roles with multi-factor authentication, a manual
 approval of each release, a "Code signing policy" section on the home and
-download pages, and an uninstaller for an installer (not written yet).
+download pages, and an uninstaller for an installer (Uninstall…, above).
 Once accepted, the repository gets the secret `SIGNPATH_API_TOKEN` and the
 variables `SIGNPATH_ORGANIZATION_ID`, `SIGNPATH_PROJECT_SLUG` and
 `SIGNPATH_POLICY_SLUG`: the CI then signs the exe
@@ -80,16 +98,19 @@ on 5xx answers and timeouts, then the installer says GitHub may be down.
 .\ZenFluentSetup.ps1 -NoGui -Enhanced -AllowUnsafeJs
 ```
 
-| Parameter        | Meaning                                                    |
-| ---------------- | ---------------------------------------------------------- |
-| `-NoGui`         | No window: install with the parameters below.              |
-| `-Edition`       | `Zen Browser` (default) or `Zen Twilight`.                 |
-| `-ZenDir`        | Zen's folder (with `zen.exe`), instead of `-Edition`.      |
-| `-ProfilePath`   | The profile folder. Default: the one the edition opens.    |
-| `-Enhanced`      | Also install Zen Fluent Enhanced (needs `-AllowUnsafeJs`). |
-| `-AllowUnsafeJs` | Consent to set `sine.allow-unsafe-js`.                     |
-| `-Ref`           | Branch or tag of this repository to install (`main`).      |
-| `-ReinstallSine` | Install Sine even when it is there.                        |
+| Parameter         | Meaning                                                    |
+| ----------------- | ---------------------------------------------------------- |
+| `-NoGui`          | No window: install with the parameters below.              |
+| `-Edition`        | `Zen Browser` (default) or `Zen Twilight`.                 |
+| `-ZenDir`         | Zen's folder (with `zen.exe`), instead of `-Edition`.      |
+| `-ProfilePath`    | The profile folder. Default: the one the edition opens.    |
+| `-Enhanced`       | Also install Zen Fluent Enhanced (needs `-AllowUnsafeJs`). |
+| `-AllowUnsafeJs`  | Consent to set `sine.allow-unsafe-js`.                     |
+| `-Ref`            | Branch or tag of this repository to install (`main`).      |
+| `-ReinstallSine`  | Install Sine even when it is there.                        |
+| `-Uninstall`      | Remove Zen Fluent and Zen Fluent Enhanced instead.         |
+| `-RemoveSettings` | With `-Uninstall`: also every `zen-fluent.*` preference.   |
+| `-RemoveSine`     | With `-Uninstall`: also Sine and every mod it installed.   |
 
 ## Testing it
 
