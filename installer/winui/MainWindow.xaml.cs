@@ -46,6 +46,7 @@ public sealed partial class MainWindow : Window
         CloseButton.Content = S.Get("Close");
         InstallButton.Content = S.Get("Install");
         SourceText.Text = string.Format(S.Get("Source"), Installer.SourceRef);
+        EnhancedCheck.IsChecked = true;
 
         editions = Zen.GetEditions();
         allProfiles = Zen.GetProfiles();
@@ -131,8 +132,12 @@ public sealed partial class MainWindow : Window
 
     private void ProfileBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => UpdateSineState();
 
-    private void EnhancedCheck_Changed(object sender, RoutedEventArgs e) =>
-        ConsentCheck.IsEnabled = EnhancedCheck.IsChecked == true;
+    // Checked in code, after InitializeComponent: set in XAML, it fired
+    // before ConsentCheck existed and the window failed to load
+    private void EnhancedCheck_Changed(object sender, RoutedEventArgs e)
+    {
+        if (ConsentCheck is not null) ConsentCheck.IsEnabled = EnhancedCheck.IsChecked == true;
+    }
 
     private async void BrowseButton_Click(object sender, RoutedEventArgs e)
     {

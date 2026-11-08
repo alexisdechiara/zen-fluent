@@ -82,7 +82,7 @@
                             <TextBlock x:Name="ComponentsHeader" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,4" />
                             <CheckBox x:Name="SineCheck" IsChecked="True" IsEnabled="False" />
                             <CheckBox x:Name="FluentCheck" IsChecked="True" IsEnabled="False" />
-                            <CheckBox x:Name="EnhancedCheck" IsChecked="True" Checked="EnhancedCheck_Changed" Unchecked="EnhancedCheck_Changed" />
+                            <CheckBox x:Name="EnhancedCheck" Checked="EnhancedCheck_Changed" Unchecked="EnhancedCheck_Changed" />
                             <CheckBox x:Name="ConsentCheck" Margin="28,0,0,0">
                                 <TextBlock x:Name="ConsentText" TextWrapping="Wrap" />
                             </CheckBox>
