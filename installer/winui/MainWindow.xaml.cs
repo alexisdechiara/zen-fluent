@@ -1,5 +1,16 @@
-// Zen Fluent setup: the window.
+// Zen Fluent setup: the window, a wizard.
+//
+// Install:    Zen (version + profile) -> What (Zen Fluent or Enhanced) -> Work -> Done
+// Uninstall:  Zen -> Uninstall (what to remove)                        -> Work -> Done
+//
+// Each page is a panel of MainWindow.xaml, kept out of the tree and put in
+// PageHost when shown: PageHost's EntranceThemeTransition slides it in.
+// Picking uses GridView tiles (WinUI's own selection: an accent outline,
+// keyboard arrows), not radio buttons.
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Microsoft.UI.Composition.SystemBackdrops;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -12,12 +23,14 @@ public sealed partial class MainWindow : Window
     private readonly List<ZenEdition> editions;
     private readonly List<ZenProfile> allProfiles;
     private List<ZenProfile> profiles = new();
-    private readonly List<OptionCard> editionCards = new();
-    private readonly List<OptionCard> componentCards = new();
-    private int edition = -1;
-    private bool enhanced = true;
-    private bool running;
+    private readonly List<FrameworkElement> pages;
+    private FrameworkElement? page;
     private bool uninstalling;
+    private bool running;
+    private bool succeeded;
+
+    [DllImport("user32.dll")]
+    private static extern uint GetDpiForWindow(IntPtr hwnd);
 
     public MainWindow()
     {
@@ -27,67 +40,194 @@ public sealed partial class MainWindow : Window
         SystemBackdrop = MicaController.IsSupported() ? new MicaBackdrop() : new DesktopAcrylicBackdrop();
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
-        AppWindow.Resize(new SizeInt32(820, 940));
-        Title = S.Get("Title");
+        var scale = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this)) / 96.0;
+        if (scale <= 0) scale = 1;
+        AppWindow.Resize(new SizeInt32((int)(760 * scale), (int)(700 * scale)));
+        if (AppWindow.Presenter is OverlappedPresenter presenter) presenter.IsMaximizable = false;
+        // No closing halfway through: the profile would be left half done
+        AppWindow.Closing += (_, args) => args.Cancel = running;
 
-        TitleText.Text = S.Get("Title");
-        LeadText.Text = S.Get("Lead");
-        EditionHeader.Text = S.Get("Edition");
+        Title = S.Get("Title");
+        TitleText.Text = Installer.SourceRef == "main" ? S.Get("Title") : $"{S.Get("Title")} · {Installer.SourceRef}";
         BrowseButton.Content = S.Get("OtherFolder");
-        ProfileBox.Header = S.Get("Profile");
-        ComponentsHeader.Text = S.Get("Components");
+        ProfileHeader.Text = S.Get("Profile");
         ConsentText.Text = S.Get("UnsafeJs");
         ConsentErrorText.Text = S.Get("ConsentNeeded");
         DetailsExpander.Header = S.Get("Details");
-        CloseButton.Content = S.Get("Close");
-        InstallButton.Content = S.Get("Install");
-        SourceText.Text = string.Format(S.Get("Source"), Installer.SourceRef);
+        DoneDetails.Header = S.Get("Details");
         ModeButton.Content = S.Get("UninstallMode");
-        UninstallHeader.Text = S.Get("UninstallHeader");
+        BackButton.Content = S.Get("Back");
+        DangerButton.Content = S.Get("Uninstall");
         RemoveModsCheck.Content = S.Get("RemoveMods");
         RemoveModsCheck.IsChecked = true;
         RemoveSettingsCheck.Content = S.Get("RemoveSettings");
         RemoveSineCheck.Content = S.Get("RemoveSine");
         RemoveSineWarning.Message = S.Get("RemoveSineWarning");
 
-        BuildComponentCards();
+        // The pages leave their store; one at a time goes into PageHost
+        pages = new() { ZenPage, WhatPage, UninstallPage, WorkPage, DonePage };
+        PageStore.Children.Clear();
+
+        BuildComponentTiles();
         editions = Zen.GetEditions();
         allProfiles = Zen.GetProfiles();
-        BuildEditionCards(0);
-        if (editions.Count == 0)
+        BuildEditionTiles(0);
+        ShowPage(ZenPage);
+    }
+
+    /// <summary>What the window found, for --selftest. It also shows every
+    /// page once, so a page that fails to build fails the test.</summary>
+    public string SelfTestSummary
+    {
+        get
         {
-            ShowResult(InfoBarSeverity.Warning, S.Get("NoZen"), "");
+            foreach (var p in pages) ShowPage(p);
+            uninstalling = true;
+            ShowPage(UninstallPage);
+            uninstalling = false;
+            ShowPage(ZenPage);
+            return $"editions={editions.Count} profiles={allProfiles.Count} tiles={EditionGrid.Items.Count}+{ComponentGrid.Items.Count} pages={pages.Count} source={Installer.SourceRef}";
         }
     }
 
-    /// <summary>What the window found, for --selftest.</summary>
-    public string SelfTestSummary =>
-        $"editions={editions.Count} profiles={allProfiles.Count} cards={editionCards.Count}+{componentCards.Count} source={Installer.SourceRef}";
-
-    private ZenEdition? Edition => edition >= 0 && edition < editions.Count ? editions[edition] : null;
+    private ZenEdition? Edition =>
+        EditionGrid.SelectedIndex >= 0 && EditionGrid.SelectedIndex < editions.Count ? editions[EditionGrid.SelectedIndex] : null;
 
     private ZenProfile? Profile =>
         ProfileBox.SelectedIndex >= 0 && ProfileBox.SelectedIndex < profiles.Count ? profiles[ProfileBox.SelectedIndex] : null;
 
-    // -------- Option cards --------
+    private bool Enhanced => ComponentGrid.SelectedIndex != 0;
 
-    /// <summary>A card to pick, as in Zen's welcome screens: a radio, a
-    /// title and its lines, an illustration; outlined in the accent when
-    /// picked, a click anywhere on it picks it.</summary>
-    private sealed class OptionCard
+    // -------- Pages --------
+
+    private void ShowPage(FrameworkElement next)
     {
-        public required Border Root { get; init; }
-        public required RadioButton Radio { get; init; }
+        page = next;
+        PageHost.Children.Clear();
+        PageHost.Children.Add(next);
+        UpdateChrome();
+    }
 
-        public void SetSelected(bool selected)
+    /// <summary>The header and the footer of the page shown.</summary>
+    private void UpdateChrome()
+    {
+        var step = page == ZenPage ? 1 : page == WhatPage || page == UninstallPage ? 2 : 0;
+        StepRow.Visibility = step > 0 ? Visibility.Visible : Visibility.Collapsed;
+        if (step > 0)
         {
-            Radio.IsChecked = selected;
-            Root.BorderBrush = Brush(selected ? "AccentFillColorDefaultBrush" : "CardStrokeColorDefaultBrush");
-            Root.BorderThickness = new Thickness(selected ? 2 : 1);
-            // Keeps the content in place when the border thickens
-            Root.Padding = selected ? new Thickness(19) : new Thickness(20);
+            StepText.Text = string.Format(S.Get("Step"), step, 2);
+            StepPips.SelectedPageIndex = step - 1;
+        }
+
+        (string title, string lead) = page switch
+        {
+            _ when page == ZenPage => (S.Get("ZenTitle"), S.Get("ZenLead")),
+            _ when page == WhatPage => (S.Get("WhatTitle"), S.Get("WhatLead")),
+            _ when page == UninstallPage => (S.Get("UninstallTitle"), S.Get("UninstallLead")),
+            _ when page == WorkPage => (S.Get(uninstalling ? "WorkUninstall" : "WorkInstall"), S.Get("WorkLead")),
+            _ => ("", ""),
+        };
+        PageTitle.Text = title;
+        PageLead.Text = lead;
+        PageTitle.Visibility = title.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+        PageLead.Visibility = lead.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+        // Footer: a link on the first page; Back, the main action, Close
+        ModeButton.Visibility = page == ZenPage ? Visibility.Visible : Visibility.Collapsed;
+        BackButton.Visibility = page == WhatPage || page == UninstallPage ? Visibility.Visible : Visibility.Collapsed;
+        DangerButton.Visibility = page == UninstallPage ? Visibility.Visible : Visibility.Collapsed;
+        NextButton.Visibility = page == UninstallPage || page == WorkPage || (page == DonePage && uninstalling && succeeded)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
+        NextButton.Content = page switch
+        {
+            _ when page == WhatPage => S.Get("Install"),
+            _ when page == DonePage => S.Get(succeeded ? "OpenZen" : "TryAgain"),
+            _ => S.Get("Next"),
+        };
+        CloseButton.Content = S.Get(page == DonePage ? "Close" : "Cancel");
+        CloseButton.IsEnabled = !running;
+        CloseButton.Visibility = page == WorkPage ? Visibility.Collapsed : Visibility.Visible;
+        UpdateNext();
+    }
+
+    /// <summary>The first page goes on once a Zen recent enough and one of
+    /// its profiles are picked.</summary>
+    private void UpdateNext()
+    {
+        if (page != ZenPage)
+        {
+            NextButton.IsEnabled = !running;
+            ModeButton.IsEnabled = !running;
+            return;
+        }
+        var ready = Edition is { TooOld: false } && Profile is not null;
+        NextButton.IsEnabled = ready;
+        ModeButton.IsEnabled = ready;
+    }
+
+    private void NextButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (running) return;
+        if (page == ZenPage)
+        {
+            if (!CheckClosed()) return;
+            uninstalling = false;
+            ShowPage(WhatPage);
+        }
+        else if (page == WhatPage)
+        {
+            _ = InstallAsync();
+        }
+        else if (page == DonePage)
+        {
+            if (succeeded) OpenZen();
+            else ShowPage(uninstalling ? UninstallPage : WhatPage);
         }
     }
+
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (running) return;
+        uninstalling = false;
+        ShowPage(ZenPage);
+    }
+
+    private void ModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (running || Edition is null || Profile is not { } profile) return;
+        if (!CheckClosed()) return;
+        uninstalling = true;
+        UninstallTarget.Text = profile.Name;
+        UninstallTargetLine.Text = $"{Edition.Label} · {string.Format(S.Get("ProfileFolder"), profile.Folder)}";
+        ShowPage(UninstallPage);
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!running) Close();
+    }
+
+    /// <summary>Zen must be closed on the profile: said on the first page,
+    /// before anything is chosen for nothing.</summary>
+    private bool CheckClosed()
+    {
+        if (Profile is { } profile && Zen.ProfileInUse(profile.Path))
+        {
+            ShowZenInfo(InfoBarSeverity.Error, S.Get("ZenRunning"));
+            return false;
+        }
+        return true;
+    }
+
+    private void ShowZenInfo(InfoBarSeverity severity, string message)
+    {
+        ZenInfo.Severity = severity;
+        ZenInfo.Message = message;
+        ZenInfo.IsOpen = message.Length > 0;
+    }
+
+    // -------- Tiles --------
 
     private static Brush Brush(string key) => (Brush)Application.Current.Resources[key];
 
@@ -100,103 +240,83 @@ public sealed partial class MainWindow : Window
             Foreground = Brush(brush),
         };
 
-    private static OptionCard MakeCard(string group, string glyph, string title, IEnumerable<UIElement> lines, Action pick)
+    /// <summary>A tile: an icon in a tinted square, a title (with an
+    /// optional badge) and its lines. The GridViewItem around it draws the
+    /// card, the hover and the accent outline of the picked tile.</summary>
+    private static FrameworkElement Tile(string glyph, string title, string? badge, IEnumerable<UIElement> lines)
     {
-        var radio = new RadioButton { GroupName = group, MinWidth = 0, Padding = new Thickness(0), VerticalAlignment = VerticalAlignment.Top };
-        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(radio, title);
-        var text = new StackPanel { Spacing = 2 };
-        text.Children.Add(new TextBlock
+        var panel = new StackPanel { Spacing = 4, Padding = new Thickness(16), Width = 328, MinHeight = 156 };
+        var icon = new Border { Style = (Style)Application.Current.Resources["TileIconBox"], Margin = new Thickness(0, 0, 0, 8) };
+        icon.Child = new FontIcon { Glyph = glyph, FontSize = 24, Foreground = Brush("AccentTextFillColorPrimaryBrush") };
+        panel.Children.Add(icon);
+
+        var head = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+        head.Children.Add(new TextBlock
         {
             Text = title,
-            TextWrapping = TextWrapping.Wrap,
             Style = (Style)Application.Current.Resources["BodyStrongTextBlockStyle"],
             FontSize = 16,
-            Margin = new Thickness(0, 4, 0, 2),
+            VerticalAlignment = VerticalAlignment.Center,
         });
-        foreach (var line in lines) text.Children.Add(line);
-        var art = new FontIcon
+        if (badge is not null)
         {
-            Glyph = glyph,
-            FontSize = 36,
-            Foreground = Brush("AccentTextFillColorPrimaryBrush"),
-            VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(8, 4, 0, 0),
-        };
-        var grid = new Grid { ColumnSpacing = 4 };
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        grid.Children.Add(radio);
-        Grid.SetColumn(text, 1);
-        grid.Children.Add(text);
-        Grid.SetColumn(art, 2);
-        grid.Children.Add(art);
-
-        var root = new Border
-        {
-            Child = grid,
-            CornerRadius = new CornerRadius(8),
-            Background = Brush("CardBackgroundFillColorDefaultBrush"),
-            MinHeight = 124,
-        };
-        var card = new OptionCard { Root = root, Radio = radio };
-        card.SetSelected(false);
-        root.Tapped += (_, _) => pick();
-        radio.Checked += (_, _) => pick();
-        root.PointerEntered += (_, _) => root.Background = Brush("CardBackgroundFillColorSecondaryBrush");
-        root.PointerExited += (_, _) => root.Background = Brush("CardBackgroundFillColorDefaultBrush");
-        return card;
-    }
-
-    /// <summary>Lays cards out two by row.</summary>
-    private static void Place(Grid grid, IReadOnlyList<OptionCard> cards)
-    {
-        grid.Children.Clear();
-        grid.ColumnDefinitions.Clear();
-        grid.RowDefinitions.Clear();
-        var columns = cards.Count == 1 ? 1 : 2;
-        for (var c = 0; c < columns; c++) grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        for (var i = 0; i < cards.Count; i++)
-        {
-            if (i % columns == 0) grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            Grid.SetColumn(cards[i].Root, i % columns);
-            Grid.SetRow(cards[i].Root, i / columns);
-            grid.Children.Add(cards[i].Root);
+            head.Children.Add(new Border
+            {
+                Background = Brush("AccentFillColorDefaultBrush"),
+                CornerRadius = new CornerRadius(4),
+                Padding = new Thickness(6, 1, 6, 2),
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = new TextBlock
+                {
+                    Text = badge,
+                    Style = (Style)Application.Current.Resources["CaptionTextBlockStyle"],
+                    Foreground = Brush("TextOnAccentFillColorPrimaryBrush"),
+                },
+            });
         }
+        panel.Children.Add(head);
+        foreach (var line in lines) panel.Children.Add(line);
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(panel, title);
+        return panel;
     }
 
-    // -------- Zen version --------
+    // -------- Step 1: Zen version and profile --------
 
-    private void BuildEditionCards(int select)
+    private void BuildEditionTiles(int select)
     {
-        editionCards.Clear();
-        for (var i = 0; i < editions.Count; i++)
+        EditionGrid.Items.Clear();
+        foreach (var e in editions)
         {
-            var index = i;
-            var e = editions[i];
             var lines = new List<UIElement>();
             if (!string.IsNullOrEmpty(e.Version)) lines.Add(Line(e.Version, "BodyTextBlockStyle"));
             lines.Add(Line(e.Dir, "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"));
             if (e.TooOld)
             {
                 var warning = Line(string.Format(S.Get("TooOld"), e.Label), "CaptionTextBlockStyle", "SystemFillColorCautionBrush");
-                warning.Margin = new Thickness(0, 6, 0, 0);
+                warning.Margin = new Thickness(0, 4, 0, 0);
                 lines.Add(warning);
             }
             var twilight = e.Name.Contains("twilight", StringComparison.OrdinalIgnoreCase);
             // a moon for Twilight, a globe for Zen Browser
-            editionCards.Add(MakeCard("edition", twilight ? "" : "", e.Name, lines, () => SelectEdition(index)));
+            EditionGrid.Items.Add(Tile(twilight ? "" : "", e.Name, null, lines));
         }
-        Place(EditionCards, editionCards);
-        if (editions.Count > 0) SelectEdition(Math.Min(select, editions.Count - 1));
+        if (editions.Count == 0)
+        {
+            ShowZenInfo(InfoBarSeverity.Warning, S.Get("NoZen"));
+            FillProfiles();
+            return;
+        }
+        EditionGrid.SelectedIndex = Math.Min(select, editions.Count - 1);
     }
 
-    private void SelectEdition(int index)
+    private void EditionGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (index == edition) return;
-        edition = index;
-        for (var i = 0; i < editionCards.Count; i++) editionCards[i].SetSelected(i == index);
-        ResultBar.IsOpen = false;
+        // Keeps a tile picked: clicking the picked one again does not unpick it
+        if (EditionGrid.SelectedIndex < 0 && editions.Count > 0 && e.RemovedItems.Count > 0)
+        {
+            EditionGrid.SelectedItem = e.RemovedItems[0];
+            return;
+        }
         FillProfiles();
     }
 
@@ -205,39 +325,40 @@ public sealed partial class MainWindow : Window
     {
         ProfileBox.Items.Clear();
         profiles = new();
-        var e = Edition;
-        if (e is null) return;
-        profiles = Zen.ProfilesOf(e, allProfiles);
-        foreach (var profile in profiles)
+        var edition = Edition;
+        if (edition is not null)
         {
-            var label = $"{profile.Name}  ({profile.Folder})";
-            if (Zen.OpensByDefault(e, profile)) label += "  — " + S.Get("OpensDefault");
-            ProfileBox.Items.Add(label);
+            profiles = Zen.ProfilesOf(edition, allProfiles);
+            foreach (var profile in profiles)
+            {
+                var label = profile.Name;
+                if (Zen.OpensByDefault(edition, profile)) label += " — " + S.Get("OpensDefault");
+                ProfileBox.Items.Add(label);
+            }
         }
-        if (profiles.Count > 0)
-        {
-            ProfileBox.SelectedIndex = 0;
-        }
-        else
-        {
-            ShowResult(InfoBarSeverity.Warning, S.Get("NoProfile"), "");
-        }
-        UpdateSineState();
+        ProfileBox.IsEnabled = profiles.Count > 0;
+        if (profiles.Count > 0) ProfileBox.SelectedIndex = 0;
+
+        if (edition is null) return;
+        if (edition.TooOld) ShowZenInfo(InfoBarSeverity.Warning, string.Format(S.Get("TooOld"), edition.Label));
+        else if (profiles.Count == 0) ShowZenInfo(InfoBarSeverity.Warning, S.Get("NoProfile"));
+        else ShowZenInfo(InfoBarSeverity.Informational, "");
+        UpdateProfile();
     }
 
-    private void ProfileBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => UpdateSineState();
+    private void ProfileBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => UpdateProfile();
 
-    private void UpdateSineState()
+    private void UpdateProfile()
     {
-        if (SineText is null) return;
-        var e = Edition;
+        if (ProfileLine is null) return;
         var profile = Profile;
-        if (e is null || profile is null)
-        {
-            SineText.Text = "";
-            return;
-        }
-        SineText.Text = Zen.SineInstalled(e.Dir, profile.Path) ? S.Get("SineKeptNote") : S.Get("SineNote");
+        ProfileLine.Text = profile is null ? "" : string.Format(S.Get("ProfileFolder"), profile.Folder);
+        if (ZenInfo.Severity == InfoBarSeverity.Error) ShowZenInfo(InfoBarSeverity.Informational, "");
+        var edition = Edition;
+        SineText.Text = edition is null || profile is null
+            ? ""
+            : S.Get(Zen.SineInstalled(edition.Dir, profile.Path) ? "SineKeptNote" : "SineNote");
+        UpdateNext();
     }
 
     private async void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -249,7 +370,7 @@ public sealed partial class MainWindow : Window
         if (folder is null) return;
         if (!File.Exists(Path.Combine(folder.Path, "zen.exe")))
         {
-            ShowResult(InfoBarSeverity.Warning, S.Get("NotZen"), "");
+            ShowZenInfo(InfoBarSeverity.Warning, S.Get("NotZen"));
             return;
         }
         var found = Zen.EditionFromFolder(folder.Path);
@@ -259,38 +380,35 @@ public sealed partial class MainWindow : Window
             editions.Add(found);
             index = editions.Count - 1;
         }
-        edition = -1;
-        BuildEditionCards(index);
+        BuildEditionTiles(index);
     }
 
-    // -------- Zen Fluent or Zen Fluent Enhanced --------
+    // -------- Step 2: Zen Fluent or Zen Fluent Enhanced --------
 
-    private void BuildComponentCards()
+    private void BuildComponentTiles()
     {
-        componentCards.Add(MakeCard("component", "", "Zen Fluent", new UIElement[]
+        ComponentGrid.Items.Add(Tile("", "Zen Fluent", null, new UIElement[]
         {
-            Line(S.Get("CoreLine")),
+            Line(S.Get("CoreLine"), "BodyTextBlockStyle"),
             Line(S.Get("CoreTag"), "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"),
-        }, () => SelectComponent(false)));
-        componentCards.Add(MakeCard("component", "", "Zen Fluent Enhanced", new UIElement[]
+        }));
+        ComponentGrid.Items.Add(Tile("", "Zen Fluent Enhanced", S.Get("Recommended"), new UIElement[]
         {
-            Line(S.Get("EnhancedLine")),
+            Line(S.Get("EnhancedLine"), "BodyTextBlockStyle"),
             Line(S.Get("EnhancedTag"), "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"),
-        }, () => SelectComponent(true)));
-        for (var i = 0; i < componentCards.Count; i++)
-        {
-            Grid.SetColumn(componentCards[i].Root, i);
-            ComponentCards.Children.Add(componentCards[i].Root);
-        }
-        SelectComponent(true);
+        }));
+        ComponentGrid.SelectedIndex = 1;
     }
 
-    private void SelectComponent(bool withEnhanced)
+    private void ComponentGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        enhanced = withEnhanced;
-        componentCards[0].SetSelected(!withEnhanced);
-        componentCards[1].SetSelected(withEnhanced);
-        ConsentBorder.Visibility = withEnhanced ? Visibility.Visible : Visibility.Collapsed;
+        if (ComponentGrid.SelectedIndex < 0 && e.RemovedItems.Count > 0)
+        {
+            ComponentGrid.SelectedItem = e.RemovedItems[0];
+            return;
+        }
+        if (ConsentCard is null) return;
+        ConsentCard.Visibility = Enhanced ? Visibility.Visible : Visibility.Collapsed;
         SetConsentError(false);
     }
 
@@ -300,142 +418,108 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>Install was clicked with Enhanced picked and the box left
-    /// unchecked: the box turns red, with what to do.</summary>
+    /// unchecked: the card turns red, with what to do.</summary>
     private void SetConsentError(bool error)
     {
-        if (ConsentError is null) return;
+        if (ConsentError is null || ConsentCard is null) return;
         ConsentError.Visibility = error ? Visibility.Visible : Visibility.Collapsed;
-        ConsentBorder.BorderBrush = Brush(error ? "SystemFillColorCriticalBrush" : "CardStrokeColorDefaultBrush");
-        ConsentBorder.Background = Brush(error ? "SystemFillColorCriticalBackgroundBrush" : "CardBackgroundFillColorDefaultBrush");
+        ConsentCard.BorderBrush = Brush(error ? "SystemFillColorCriticalBrush" : "CardStrokeColorDefaultBrush");
+        ConsentCard.Background = Brush(error ? "SystemFillColorCriticalBackgroundBrush" : "CardBackgroundFillColorDefaultBrush");
         ConsentText.Foreground = Brush(error ? "SystemFillColorCriticalBrush" : "TextFillColorPrimaryBrush");
     }
 
     // -------- Uninstall --------
-
-    /// <summary>Install or uninstall: the same Zen version and profile, then
-    /// either what to install or what to remove.</summary>
-    private void ModeButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (running) return;
-        uninstalling = !uninstalling;
-        InstallPanel.Visibility = uninstalling ? Visibility.Collapsed : Visibility.Visible;
-        UninstallPanel.Visibility = uninstalling ? Visibility.Visible : Visibility.Collapsed;
-        ModeButton.Content = S.Get(uninstalling ? "BackToInstall" : "UninstallMode");
-        InstallButton.Content = S.Get(uninstalling ? "Uninstall" : "Install");
-        ResultBar.IsOpen = false;
-    }
 
     private void RemoveSineCheck_Changed(object sender, RoutedEventArgs e)
     {
         if (RemoveSineWarning is not null) RemoveSineWarning.IsOpen = RemoveSineCheck.IsChecked == true;
     }
 
-    private async Task RunUninstallAsync(ZenEdition zen, ZenProfile profile)
+    private void DangerButton_Click(object sender, RoutedEventArgs e)
     {
-        running = true;
-        ResultBar.IsOpen = false;
-        LogText.Text = "";
-        InstallButton.IsEnabled = false;
-        ModeButton.IsEnabled = false;
-        InstallButton.Content = S.Get("Uninstalling");
-        Progress.Visibility = Visibility.Visible;
+        if (running || Edition is not { } zen || Profile is not { } profile) return;
         var removeSettings = RemoveSettingsCheck.IsChecked == true;
         var removeSine = RemoveSineCheck.IsChecked == true;
-        var queue = DispatcherQueue;
-        var installer = new Installer(message => queue.TryEnqueue(() =>
-        {
-            LogText.Text += (LogText.Text.Length > 0 ? "\n" : "") + message;
-        }));
-        try
-        {
-            await Task.Run(() => installer.UninstallAsync(zen, profile, removeSettings, removeSine));
-            ShowResult(InfoBarSeverity.Success, S.Get("Uninstalled"), S.Get("UninstalledTitle"));
-            UpdateSineState();
-        }
-        catch (Exception error)
-        {
-            ShowResult(InfoBarSeverity.Error, error.Message, S.Get("UninstallFailed"));
-            DetailsExpander.IsExpanded = true;
-        }
-        finally
-        {
-            running = false;
-            InstallButton.IsEnabled = true;
-            ModeButton.IsEnabled = true;
-            InstallButton.Content = S.Get("Uninstall");
-            Progress.Visibility = Visibility.Collapsed;
-        }
+        _ = RunAsync(installer => installer.UninstallAsync(zen, profile, removeSettings, removeSine));
     }
 
-    // -------- Actions --------
+    // -------- Install, progress and result --------
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
-
-    private async void InstallButton_Click(object sender, RoutedEventArgs e)
+    private Task InstallAsync()
     {
-        if (running) return;
-        var zen = Edition;
-        var profile = Profile;
-        if (zen is null)
-        {
-            ShowResult(InfoBarSeverity.Warning, S.Get("NoZen"), "");
-            return;
-        }
-        if (profile is null)
-        {
-            ShowResult(InfoBarSeverity.Warning, S.Get("NoProfile"), "");
-            return;
-        }
-        if (uninstalling)
-        {
-            await RunUninstallAsync(zen, profile);
-            return;
-        }
+        if (Edition is not { } zen || Profile is not { } profile) return Task.CompletedTask;
+        var enhanced = Enhanced;
         var consent = ConsentCheck.IsChecked == true;
         if (enhanced && !consent)
         {
             SetConsentError(true);
             ConsentCheck.Focus(FocusState.Programmatic);
-            return;
+            return Task.CompletedTask;
         }
+        return RunAsync(installer => installer.RunAsync(zen, profile, enhanced, enhanced && consent));
+    }
 
+    /// <summary>Shows the progress page, runs the work off the UI thread
+    /// with each step written to the page, then shows the result.</summary>
+    private async Task RunAsync(Func<Installer, Task> work)
+    {
         running = true;
-        ResultBar.IsOpen = false;
         LogText.Text = "";
-        InstallButton.IsEnabled = false;
-        InstallButton.Content = S.Get("Installing");
-        Progress.Visibility = Visibility.Visible;
-        var withEnhanced = enhanced;
+        WorkStep.Text = "";
+        DetailsExpander.IsExpanded = false;
+        ShowPage(WorkPage);
         var queue = DispatcherQueue;
         var installer = new Installer(message => queue.TryEnqueue(() =>
         {
             LogText.Text += (LogText.Text.Length > 0 ? "\n" : "") + message;
+            WorkStep.Text = message;
         }));
+        string? failure = null;
         try
         {
-            await Task.Run(() => installer.RunAsync(zen, profile, withEnhanced, withEnhanced && consent));
-            ShowResult(InfoBarSeverity.Success, S.Get("Done"), S.Get("DoneTitle"));
-            UpdateSineState();
+            await Task.Run(() => work(installer));
         }
         catch (Exception error)
         {
-            ShowResult(InfoBarSeverity.Error, error.Message, S.Get("Failed"));
-            DetailsExpander.IsExpanded = true;
+            failure = error.Message;
         }
-        finally
-        {
-            running = false;
-            InstallButton.IsEnabled = true;
-            InstallButton.Content = S.Get("Install");
-            Progress.Visibility = Visibility.Collapsed;
-        }
+        // Lets the last log lines in before the result copies them
+        await Task.Yield();
+        running = false;
+        ShowDone(failure);
     }
 
-    private void ShowResult(InfoBarSeverity severity, string message, string title)
+    private void ShowDone(string? failure)
     {
-        ResultBar.Severity = severity;
-        ResultBar.Title = title;
-        ResultBar.Message = message;
-        ResultBar.IsOpen = true;
+        succeeded = failure is null;
+        DoneBadge.Background = Brush(succeeded ? "AccentFillColorDefaultBrush" : "SystemFillColorCriticalBrush");
+        DoneGlyph.Glyph = succeeded ? "" : "";
+        DoneTitle.Text = S.Get(succeeded
+            ? (uninstalling ? "UninstalledTitle" : "DoneTitle")
+            : (uninstalling ? "UninstallFailed" : "Failed"));
+        DoneText.Text = failure ?? S.Get(uninstalling ? "UninstalledText" : "DoneText");
+        DoneLog.Text = LogText.Text;
+        DoneDetails.IsExpanded = !succeeded;
+        ShowPage(DonePage);
+        if (succeeded) UpdateProfile();
+    }
+
+    /// <summary>Starts the chosen Zen on the chosen profile, then closes.</summary>
+    private void OpenZen()
+    {
+        if (Edition is not { } zen || Profile is not { } profile) return;
+        try
+        {
+            Process.Start(new ProcessStartInfo(Path.Combine(zen.Dir, "zen.exe"))
+            {
+                ArgumentList = { "-profile", profile.Path },
+                UseShellExecute = false,
+            });
+            Close();
+        }
+        catch (Exception error)
+        {
+            DoneText.Text = error.Message;
+        }
     }
 }

@@ -16,6 +16,30 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="CornerRadius" Value="8" />
                 <Setter Property="Padding" Value="16" />
+                <Setter Property="MinHeight" Value="68" />
+            </Style>
+
+            <!-- Tiles to pick from (GridView): WinUI's own selection, an accent
+                 outline on the picked tile, no check box -->
+            <Style x:Key="TileItemStyle" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
+                <Setter Property="Margin" Value="0,0,12,12" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <!-- An icon in a tinted rounded square, as Windows 11's Settings
+                 draws its pages' icons -->
+            <Style x:Key="TileIconBox" TargetType="Border">
+                <Setter Property="Width" Value="48" />
+                <Setter Property="Height" Value="48" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{ThemeResource SubtleFillColorSecondaryBrush}" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Zen Fluent setup: one page on Mica, the title bar drawn into the window.
-     Choices are option cards, as in Zen's own welcome screens (a radio,
-     a title and its lines, an illustration; the chosen card outlined in
-     the accent): the Zen version, then its profile in a select, then Zen
-     Fluent or Zen Fluent Enhanced. The cards are built in code
-     (MainWindow.xaml.cs). The actions sit in a footer. -->
+<!-- Zen Fluent setup: a wizard, as Windows 11's own setup screens. A header
+     (the step, its pips, the page's title and line), one page at a time
+     sliding in, and a footer with Back / Next. Pages: the Zen version and
+     its profile, what to install, the progress, the result; uninstalling is
+     a path of its own. The pages are kept in PageStore and moved into
+     PageHost one at a time (MainWindow.xaml.cs), which plays WinUI's
+     entrance transition. -->
 <Window
     x:Class="ZenFluentSetup.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,6 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -27,34 +29,64 @@
             <TextBlock x:Name="TitleText" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" />
         </Grid>
 
-        <ScrollViewer Grid.Row="1">
-            <StackPanel MaxWidth="760" Padding="32,4,32,24" Spacing="8">
-                <TextBlock Text="Zen Fluent" Style="{StaticResource TitleLargeTextBlockStyle}" />
-                <TextBlock x:Name="LeadText" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,12" />
+        <!-- Header: the step, then the page's title and line -->
+        <Grid Grid.Row="1" Padding="40,12,40,8" RowSpacing="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="StepRow">
+                <TextBlock x:Name="StepText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" />
+                <PipsPager x:Name="StepPips" HorizontalAlignment="Right" NumberOfPages="2" PreviousButtonVisibility="Collapsed" NextButtonVisibility="Collapsed" IsHitTestVisible="False" />
+            </Grid>
+            <TextBlock x:Name="PageTitle" Grid.Row="1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
+            <TextBlock x:Name="PageLead" Grid.Row="2" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+        </Grid>
 
-                <!-- Zen version: a card each, then the profile -->
-                <Grid Margin="0,8,0,0">
-                    <TextBlock x:Name="EditionHeader" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
-                    <HyperlinkButton x:Name="BrowseButton" HorizontalAlignment="Right" Click="BrowseButton_Click" />
-                </Grid>
-                <Grid x:Name="EditionCards" ColumnSpacing="12" RowSpacing="12" />
-                <ComboBox x:Name="ProfileBox" HorizontalAlignment="Stretch" Margin="0,4,0,0" SelectionChanged="ProfileBox_SelectionChanged" />
+        <!-- The page shown -->
+        <ScrollViewer Grid.Row="2" Padding="40,12,40,24">
+            <Grid x:Name="PageHost">
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="48" FromVerticalOffset="0" />
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+            </Grid>
+        </ScrollViewer>
 
-                <!-- What to install: Zen Fluent or Zen Fluent Enhanced -->
-                <StackPanel x:Name="InstallPanel" Spacing="8">
-                <TextBlock x:Name="ComponentsHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" />
-                <Grid x:Name="ComponentCards" ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                </Grid>
+        <!-- The pages, moved into PageHost one at a time -->
+        <Grid x:Name="PageStore" Grid.Row="2" Visibility="Collapsed">
 
-                <!-- Scripts outside Sine's store: Zen Fluent Enhanced only -->
-                <Border x:Name="ConsentBorder" CornerRadius="8" BorderThickness="1" Padding="16,12" Margin="0,4,0,0"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                    <StackPanel Spacing="4">
+            <!-- 1. Zen version, then its profile -->
+            <StackPanel x:Name="ZenPage" Spacing="8">
+                <GridView x:Name="EditionGrid" SelectionMode="Single" ItemContainerStyle="{StaticResource TileItemStyle}"
+                          SelectionChanged="EditionGrid_SelectionChanged" Padding="0" Margin="0,0,-12,0" />
+                <HyperlinkButton x:Name="BrowseButton" Click="BrowseButton_Click" Margin="-12,-8,0,8" />
+                <Border Style="{StaticResource SettingsCard}">
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE77B;" FontSize="20" VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock x:Name="ProfileHeader" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBlock x:Name="ProfileLine" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                        </StackPanel>
+                        <ComboBox x:Name="ProfileBox" Grid.Column="2" MinWidth="260" MaxWidth="320" VerticalAlignment="Center" SelectionChanged="ProfileBox_SelectionChanged" />
+                    </Grid>
+                </Border>
+                <InfoBar x:Name="ZenInfo" IsClosable="False" IsOpen="False" />
+            </StackPanel>
+
+            <!-- 2. What to install -->
+            <StackPanel x:Name="WhatPage" Spacing="8">
+                <GridView x:Name="ComponentGrid" SelectionMode="Single" ItemContainerStyle="{StaticResource TileItemStyle}"
+                          SelectionChanged="ComponentGrid_SelectionChanged" Padding="0" Margin="0,0,-12,0" />
+                <Border x:Name="ConsentCard" Style="{StaticResource SettingsCard}">
+                    <StackPanel Spacing="6">
                         <CheckBox x:Name="ConsentCheck" Checked="ConsentCheck_Changed" Unchecked="ConsentCheck_Changed">
                             <TextBlock x:Name="ConsentText" TextWrapping="Wrap" />
                         </CheckBox>
@@ -64,45 +96,79 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-
-                <!-- Sine: installed with the mods, or kept -->
                 <StackPanel Orientation="Horizontal" Spacing="8" Margin="4,4,0,0">
                     <FontIcon Glyph="&#xE946;" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                     <TextBlock x:Name="SineText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
                 </StackPanel>
-                </StackPanel>
+            </StackPanel>
 
-                <!-- Uninstall: what to remove from the chosen profile -->
-                <StackPanel x:Name="UninstallPanel" Spacing="8" Visibility="Collapsed">
-                    <TextBlock x:Name="UninstallHeader" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,20,0,0" />
-                    <Border Style="{StaticResource SettingsCard}">
-                        <StackPanel Spacing="4">
-                            <CheckBox x:Name="RemoveModsCheck" IsEnabled="False" />
-                            <CheckBox x:Name="RemoveSettingsCheck" />
-                            <CheckBox x:Name="RemoveSineCheck" Checked="RemoveSineCheck_Changed" Unchecked="RemoveSineCheck_Changed" />
-                            <InfoBar x:Name="RemoveSineWarning" Severity="Warning" IsClosable="False" IsOpen="False" Margin="0,4,0,0" />
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-
-                <InfoBar x:Name="ResultBar" IsClosable="True" IsOpen="False" Margin="0,12,0,0" />
-                <ProgressBar x:Name="Progress" IsIndeterminate="True" Visibility="Collapsed" />
-
+            <!-- 3. Working: installing or uninstalling -->
+            <StackPanel x:Name="WorkPage" Spacing="12">
+                <ProgressBar IsIndeterminate="True" Margin="0,8,0,0" />
+                <TextBlock x:Name="WorkStep" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" />
                 <Expander x:Name="DetailsExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                     <TextBlock x:Name="LogText" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
                 </Expander>
-
-                <TextBlock x:Name="SourceText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
             </StackPanel>
-        </ScrollViewer>
+
+            <!-- 4. The result -->
+            <StackPanel x:Name="DonePage" Spacing="16" HorizontalAlignment="Center" Margin="0,32,0,0" MaxWidth="480">
+                <Border x:Name="DoneBadge" Width="72" Height="72" CornerRadius="36" HorizontalAlignment="Center" Background="{ThemeResource AccentFillColorDefaultBrush}">
+                    <FontIcon x:Name="DoneGlyph" Glyph="&#xE73E;" FontSize="32" Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                </Border>
+                <TextBlock x:Name="DoneTitle" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock x:Name="DoneText" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
+                <Expander x:Name="DoneDetails" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <TextBlock x:Name="DoneLog" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
+                </Expander>
+            </StackPanel>
+
+            <!-- Uninstall: what to remove from the chosen profile -->
+            <StackPanel x:Name="UninstallPage" Spacing="8">
+                <Border Style="{StaticResource SettingsCard}">
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE77B;" FontSize="20" VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1">
+                            <TextBlock x:Name="UninstallTarget" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" />
+                            <TextBlock x:Name="UninstallTargetLine" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Style="{StaticResource SettingsCard}">
+                    <StackPanel Spacing="4">
+                        <CheckBox x:Name="RemoveModsCheck" IsEnabled="False" />
+                        <CheckBox x:Name="RemoveSettingsCheck" />
+                        <CheckBox x:Name="RemoveSineCheck" Checked="RemoveSineCheck_Changed" Unchecked="RemoveSineCheck_Changed" />
+                    </StackPanel>
+                </Border>
+                <InfoBar x:Name="RemoveSineWarning" Severity="Warning" IsClosable="False" IsOpen="False" />
+            </StackPanel>
+        </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
+        <Border Grid.Row="3" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
             <Grid Padding="24,16">
                 <HyperlinkButton x:Name="ModeButton" HorizontalAlignment="Left" Click="ModeButton_Click" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                    <Button x:Name="BackButton" MinWidth="120" Click="BackButton_Click" />
+                    <Button x:Name="NextButton" MinWidth="120" Style="{StaticResource AccentButtonStyle}" Click="NextButton_Click" />
+                    <!-- Destructive: WinUI's critical red, with its hover and press shades -->
+                    <Button x:Name="DangerButton" MinWidth="120" Click="DangerButton_Click" Visibility="Collapsed"
+                            Foreground="White" BorderThickness="0">
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="ButtonBackground" Color="#C42B1C" />
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#B12719" />
+                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#9E2316" />
+                            <SolidColorBrush x:Key="ButtonForeground" Color="White" />
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#E6FFFFFF" />
+                        </Button.Resources>
+                    </Button>
                     <Button x:Name="CloseButton" MinWidth="120" Click="CloseButton_Click" />
-                    <Button x:Name="InstallButton" MinWidth="120" Style="{StaticResource AccentButtonStyle}" Click="InstallButton_Click" />
                 </StackPanel>
             </Grid>
         </Border>

@@ -16,17 +16,29 @@ or tag they were built from. A branch push also publishes them as the
 pre-release `installer-<branch>` (replaced at each push): a stable
 download link to test a branch.
 
-The window picks with option cards, as Zen's welcome screens do: a card
-per installed Zen version (its version, folder, and a warning before Zen
-1.23), the chosen version's profile in a select, then Zen Fluent or Zen
-Fluent Enhanced side by side. The box allowing scripts of mods outside
-Sine's store shows with Enhanced only, and turns red when Install is
-clicked without it.
+The window is a wizard, as Windows 11's own setup screens: a step and its
+pips, a title and a line, one page at a time sliding in, Back / Next at
+the bottom.
+
+1. **Where should Zen Fluent go?** A tile per installed Zen version (its
+   version, folder, and a warning before Zen 1.23), then the chosen
+   version's profile in a settings card. Next waits for a recent enough
+   Zen and a profile, and stops with an error while Zen is open on it.
+2. **What do you want to install?** Zen Fluent or Zen Fluent Enhanced
+   (recommended), two tiles. The box allowing scripts of mods outside
+   Sine's store shows with Enhanced only, and turns red when Install is
+   clicked without it.
+3. The progress, the current step, and the log under Details.
+4. The result: **Open Zen** starts the chosen Zen on the chosen profile;
+   on a failure, the error, the log open, and **Try again**.
+
+Tiles are `GridView` items: WinUI's own selection (an accent outline,
+arrow keys), no radio buttons.
 
 ## Uninstalling
 
-**Uninstall…**, at the bottom of the window, keeps the Zen version and
-profile and asks what to remove:
+**Uninstall Zen Fluent…**, at the bottom of the first page, keeps the Zen
+version and profile and asks what to remove (a red Uninstall button):
 
 - Zen Fluent and Zen Fluent Enhanced (always): their folders in
   `chrome\sine-mods` and their entries in `mods.json`, the file saved as
