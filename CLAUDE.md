@@ -172,6 +172,10 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   highlight: lift a range out of it to show it in another color
   (`enhanced/scripts/settings-search.uc.js`). An author `<link>` in the
   page does not reach shadow trees: `::highlight()` rules go in a user sheet.
+  Zen Fluent's pane joins the results: settings.mjs `zfSearch(query)` draws
+  the matching rows (its frame, as tall as them), Firefox having hidden the
+  pane (no text of its own matches). A range must not be filtered on
+  `getClientRects()` while its pane is still hidden.
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

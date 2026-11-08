@@ -95,6 +95,12 @@
     }
   }
 
+  /* During a search, the navigation keeps only the categories with
+     matches, without Zen Fluent's sections */
+  #categories[zf-ss-filtering] > :is([zf-ss-miss], #zf-prefs-subnav, hr) {
+    display: none !important;
+  }
+
   /* A category with matches: its count after its name, and its name strong */
   moz-page-nav-button > .zf-ss-badge {
     display: inline-block !important;

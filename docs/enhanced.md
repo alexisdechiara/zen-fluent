@@ -94,8 +94,11 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   Overview. The page stays on its section when Sine runs the scripts again
   (a mod installed, turned on or off).
   - _Search_: Zen's own **Find in Settings** finds Zen Fluent settings
-    (titles and descriptions) among Firefox's; a result opens the setting's
-    section and outlines it.
+    (titles and descriptions, and every setting of a page whose name
+    matches): they show among Firefox's results, under Zen Fluent's name,
+    as real settings with the words highlighted. With **Settings search as
+    Ctrl+F**, the navigation keeps only the categories with matches, and a
+    count with Previous / Next (Enter, F3) goes through all of them.
   - _Overview_: a live preview of the window with **Browse themes**,
     **Customize** and a link to the project page, then **Recently changed**
     and **Most used** (the settings you change here, remembered in

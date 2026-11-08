@@ -29,8 +29,6 @@
   const FEATURE = "zen-fluent.enhanced.settings-page";
   const HTML = "http://www.w3.org/1999/xhtml";
   const PANE = "paneZenFluent";
-  // Search results: never a pane of their own, shown by Firefox's search
-  const RESULTS = "paneZenFluentResults";
   const ICONS = "chrome://sine/content/Zen-Fluent-Enhanced/settings/icons/";
   const PANE_ICON = `${ICONS}sparkle.svg`;
   const PREFS_SHEET =
@@ -228,61 +226,53 @@
             }),
           );
           content.addEventListener("zf-route", markSelected);
-          buildResults();
+          content.addEventListener("zf-search-resize", () => fit());
+          // A search typed before the page was ready
+          if (prefsWin.gSearchResultsPane?.query) {
+            onSearch({ detail: prefsWin.gSearchResultsPane.query });
+          }
           if (pending) {
             showSection(pending);
             pending = "";
           }
           markSelected();
         };
-        // Zen's search: a result card per Zen Fluent setting, as children of
-        // #mainPrefPane that Firefox's search shows when their text matches
-        // (in normal browsing their category is never shown). A card opens
-        // the setting's page and outlines it.
-        const results = [];
-        const buildResults = () => {
-          for (const result of results.splice(0)) {
-            result.remove();
-          }
+        // Zen's search: when it is done, the page shows its matching
+        // settings (real rows, the words highlighted) and the pane joins the
+        // results under its name, as tall as its matches. Firefox hid it (no
+        // text of its own matches): shown again here. settings-search.uc.js
+        // walks its matches through zfSearchRanges / zfSearchMark, after
+        // zf-ss-refresh.
+        const heading = doc.createElementNS(HTML, "h2");
+        heading.className = "zf-search-heading";
+        heading.textContent = "Zen Fluent";
+        pane.prepend(heading);
+        const onSearch = (event) => {
           const content = page();
-          const icons = new Map(
-            (content?.zfPages ?? []).map(({ id, icon }) => [id, icon]),
-          );
-          for (const entry of content?.zfIndex?.() ?? []) {
-            const box = doc.createElementNS(HTML, "div");
-            box.className = "zf-search-result";
-            box.dataset.category = RESULTS;
-            box.hidden = true;
-            const card = doc.createElementNS(HTML, "button");
-            card.type = "button";
-            card.className = "zf-sr-card";
-            // The path is drawn from an attribute: Firefox searches text only
-            card.dataset.path = `Zen Fluent › ${t(entry.pageTitle)}`;
-            const image = doc.createElementNS(HTML, "img");
-            image.src = `${ICONS}${icons.get(entry.page) ?? "settings"}.svg`;
-            image.alt = "";
-            const text = doc.createElementNS(HTML, "span");
-            text.className = "zf-sr-text";
-            const title = doc.createElementNS(HTML, "span");
-            title.className = "zf-sr-title";
-            title.textContent = t(entry.title);
-            text.append(title);
-            if (entry.description) {
-              const description = doc.createElementNS(HTML, "span");
-              description.className = "zf-sr-desc";
-              description.textContent = t(entry.description);
-              text.append(description);
-            }
-            card.append(image, text);
-            card.addEventListener("click", () => {
-              prefsWin.gotoPref(PANE);
-              prefsWin.setTimeout(() => page()?.zfReveal?.(entry.property), 50);
-            });
-            box.append(card);
-            main.append(box);
-            results.push(box);
+          if (!content?.zfSearch) {
+            return;
           }
+          const query =
+            event.detail ?? prefsWin.gSearchResultsPane?.query ?? "";
+          const count = content.zfSearch(query);
+          pane.toggleAttribute("zf-searching", Boolean(query && count));
+          if (query && count) {
+            pane.hidden = false;
+            pane.classList.remove("visually-hidden");
+            const none = doc.getElementById("no-results-message");
+            if (none) {
+              none.hidden = true;
+            }
+          }
+          fit();
+          prefsWin.dispatchEvent(new prefsWin.CustomEvent("zf-ss-refresh"));
         };
+        prefsWin.addEventListener("PreferencesSearchCompleted", onSearch);
+        pane.zfSearchRanges = () =>
+          pane.hasAttribute("zf-searching")
+            ? (page()?.zfSearchRanges?.() ?? [])
+            : [];
+        pane.zfSearchMark = (index) => page()?.zfSearchMark?.(index) ?? null;
         frame.addEventListener("load", () => {
           if (page()) {
             buildSubnav();
@@ -310,16 +300,24 @@
           if (pane.hidden) {
             return;
           }
+          // In Zen's search results: as tall as the matches
+          if (pane.hasAttribute("zf-searching")) {
+            frame.style.height = `${page()?.zfSearchHeight?.() ?? 480}px`;
+            return;
+          }
           const top = frame.getBoundingClientRect().top + prefsWin.scrollY;
           frame.style.height = `${Math.max(480, prefsWin.innerHeight - top - 12)}px`;
         };
         // Firefox's search() shows a pane by its hidden attribute; paneshown
         // never comes after Sine's pane (gotoPref throws on it)
         const shown = () => {
-          // During a search Firefox unhides every pane, visually-hidden
+          // During a search Firefox unhides every pane, visually-hidden;
+          // ours shows among the results without its sections
           subnav.toggleAttribute(
             "expanded",
-            !pane.hidden && !pane.classList.contains("visually-hidden"),
+            !pane.hidden &&
+              !pane.classList.contains("visually-hidden") &&
+              !pane.hasAttribute("zf-searching"),
           );
           markSelected();
           fit();
@@ -327,7 +325,7 @@
         const watcher = new prefsWin.MutationObserver(shown);
         watcher.observe(pane, {
           attributes: true,
-          attributeFilter: ["hidden", "class"],
+          attributeFilter: ["hidden", "class", "zf-searching"],
         });
         prefsWin.addEventListener("resize", fit);
         // Firefox's own start replaced an unknown #zenFluent with its default
@@ -346,6 +344,7 @@
         const remove = () => {
           removers.delete(remove);
           prefsWin.removeEventListener("resize", fit);
+          prefsWin.removeEventListener("PreferencesSearchCompleted", onSearch);
           watcher.disconnect();
           const visible = !pane.hidden;
           // Read before the frame goes
@@ -354,9 +353,6 @@
           button.remove();
           subnav.remove();
           pane.remove();
-          for (const result of results) {
-            result.remove();
-          }
           sheet.remove();
           if (visible && Services.prefs.getBoolPref(FEATURE, true)) {
             // A rebuild, not the feature turned off: the next run of this

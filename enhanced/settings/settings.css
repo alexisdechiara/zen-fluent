@@ -1578,6 +1578,35 @@ button {
   }
 }
 
+/* -------- Zen's search (settings.mjs, searchSettings) --------
+   The page shows inside Zen's search results, as tall as its matches (the
+   frame takes that height, no scroll of its own); the words found take
+   Firefox's find colors, the current one the accent. */
+:root[searching] body {
+  height: auto;
+  overflow: visible;
+}
+
+:root[searching] .main {
+  height: auto;
+  overflow: visible;
+  padding-bottom: 8px;
+}
+
+.search-view > .section:first-child > .section-title {
+  margin-top: 0;
+}
+
+::highlight(zf-search) {
+  background-color: #003eaa;
+  color: #fff;
+}
+
+::highlight(zf-search-current) {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
 /* -------- A setting found by Zen's search: a short accent outline -------- */
 
 [flash] {

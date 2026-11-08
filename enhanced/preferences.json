@@ -19,7 +19,7 @@
   },
   {
     "property": "zen-fluent.enhanced.settings-search",
-    "label": "Settings search as Ctrl+F ~go from one match to the next in Zen's settings, each category's count in the navigation~",
+    "label": "Settings search as Ctrl+F ~only the categories with matches, Zen Fluent's settings among the results, from one match to the next~",
     "type": "checkbox",
     "defaultValue": true
   },

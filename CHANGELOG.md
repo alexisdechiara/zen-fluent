@@ -18,10 +18,17 @@ one `vX.Y.Z` tag.
   expert mode, and a **Selected tile border** of its own, which wins over
   the selected style's ([Essentials](docs/settings/essentials.md)).
 - Zen Fluent Enhanced, **Settings search as Ctrl+F**
-  (`zen-fluent.enhanced.settings-search`, on): Zen's "Find in Settings"
-  counts its matches ("3 of 12") with Previous and Next (Enter, Shift+Enter,
-  F3), the current one in the accent, and each category with matches shows
-  its count in the navigation; a click on it goes to its first match.
+  (`zen-fluent.enhanced.settings-search`, on): while Zen's "Find in
+  Settings" searches, the navigation keeps only the categories with
+  matches, each with its count (a click goes to its first match); the
+  matches are counted ("3 of 12") with Previous and Next (Enter,
+  Shift+Enter, F3), the current one in the accent.
+
+### Changed
+
+- Zen's settings search shows Zen Fluent's matching settings among its
+  results, as real settings with the words highlighted, under Zen
+  Fluent's name, instead of a card per setting that opened its page.
 
 ## [0.5.0] - 2026-11-08
 

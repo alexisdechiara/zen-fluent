@@ -3965,6 +3965,101 @@ function settingsIndex() {
   return entries;
 }
 
+// -------- Zen's settings search (settings-page.uc.js) --------
+// While Zen's "Find in Settings" runs, this page shows inside its results:
+// only the settings whose words match (a page whose title matches brings
+// all of its settings), grouped by page, as real rows, the words
+// highlighted as Firefox highlights its own. settings-search.uc.js walks
+// the matches with zfSearchRanges() and zfSearchMark(). The text matched is
+// the text shown (French when Zen is), case-insensitively, as Firefox does.
+
+let searchRanges = [];
+const MATCH = "zf-search";
+const CURRENT = "zf-search-current";
+
+/** The ranges of `needle` in the text nodes under `root`. */
+function rangesOf(root, needle) {
+  const found = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    const text = node.data.toLocaleLowerCase();
+    for (
+      let at = text.indexOf(needle);
+      at >= 0;
+      at = text.indexOf(needle, at + needle.length)
+    ) {
+      const range = document.createRange();
+      range.setStart(node, at);
+      range.setEnd(node, at + needle.length);
+      found.push(range);
+    }
+  }
+  return found;
+}
+
+/** Shows the settings matching `query`, or the page again for "". Returns
+ * how many words it highlighted. */
+function searchSettings(query) {
+  const root = document.documentElement;
+  CSS.highlights.delete(MATCH);
+  CSS.highlights.delete(CURRENT);
+  searchRanges = [];
+  const needle = (query ?? "").trim().toLocaleLowerCase();
+  if (!needle) {
+    if (root.hasAttribute("searching")) {
+      root.removeAttribute("searching");
+      route();
+    }
+    return 0;
+  }
+  root.setAttribute("searching", "");
+  dropViewWatchers();
+  scopeShown = false;
+  const shown = (value) =>
+    String((l10n.language() ? l10n.t(value) : value) ?? "").toLocaleLowerCase();
+  const sections = [];
+  for (const page of pages) {
+    const prefs = (page.prefs ?? []).filter((pref) => conditionsMet(pref));
+    const all = shown(page.title).includes(needle);
+    const hits = all
+      ? prefs
+      : prefs.filter((pref) =>
+          `${shown(pref.title)} ${shown(pref.description)}`.includes(needle),
+        );
+    if (hits.length) {
+      sections.push(
+        section(page.title, ...hits.map((pref) => settingRow(pref))),
+      );
+    }
+  }
+  const view = el("div.view.search-view", {}, ...sections);
+  $("#main").replaceChildren(view);
+  // Translated now, not on the next mutation callback: the ranges need it
+  l10n.translate(view);
+  // Not filtered on being drawn: the pane is still hidden at this point
+  searchRanges = [
+    ...view.querySelectorAll(".section-title, .setting-title, .setting-desc"),
+  ].flatMap((node) => rangesOf(node, needle));
+  if (searchRanges.length) {
+    CSS.highlights.set(MATCH, new Highlight(...searchRanges));
+  }
+  return searchRanges.length;
+}
+
+/** The current match, in the accent: its element (to scroll to), or
+ * nothing for -1. */
+function markSearch(index) {
+  CSS.highlights.delete(CURRENT);
+  const range = searchRanges[index];
+  if (!range) {
+    return null;
+  }
+  const highlight = new Highlight(range);
+  highlight.priority = 1;
+  CSS.highlights.set(CURRENT, highlight);
+  return range.startContainer.parentElement;
+}
+
 /** Opens a setting's page and shows it: scrolled to, briefly outlined. */
 function reveal(property) {
   const pref = model.prefs.get(property);
@@ -4031,6 +4126,17 @@ async function start() {
   window.zfPages = pages.map(({ id, title, icon }) => ({ id, title, icon }));
   window.zfIndex = settingsIndex;
   window.zfReveal = reveal;
+  window.zfSearch = searchSettings;
+  window.zfSearchRanges = () => searchRanges;
+  window.zfSearchMark = markSearch;
+  window.zfSearchHeight = () => Math.ceil($("#main").scrollHeight);
+  // The search view's height changes (a row's condition, a window
+  // resize): the frame follows
+  new ResizeObserver(() => {
+    if (document.documentElement.hasAttribute("searching")) {
+      window.dispatchEvent(new CustomEvent("zf-search-resize"));
+    }
+  }).observe($("#main"));
   document.documentElement.setAttribute("ready", "");
   window.dispatchEvent(new CustomEvent("zf-settings-ready"));
 }

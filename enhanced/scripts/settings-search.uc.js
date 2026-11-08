@@ -5,11 +5,14 @@
 // which category each one lives. This adds, beside the search box, a count
 // ("3 of 12") with Previous / Next (Enter / Shift+Enter in the box, F3 /
 // Shift+F3 in the page): the current match takes the accent and scrolls into
-// view. Each category with matches gets its count in the navigation; a click
-// on it goes to its first match instead of leaving the search.
+// view. The navigation keeps only the categories with matches, each with
+// its count; a click on one goes to its first match instead of leaving the
+// search.
 // Matches are Firefox's own: the find selection's ranges (the highlighted
 // words, shadow trees included) and its search tooltips (a word matched in
-// a menu or a button's hidden text). Styles: core
+// a menu or a button's hidden text); and Zen Fluent's, from its pane shown
+// among the results by settings-page.uc.js (zfSearchRanges / zfSearchMark,
+// ranges in the pane's frame, refreshed on zf-ss-refresh). Styles: core
 // src/content/preferences/search.css (a user sheet, which reaches the
 // highlight inside shadow trees).
 {
@@ -24,8 +27,7 @@
   const ICON =
     "chrome://sine/content/Zen-Fluent-Enhanced/settings/icons/chevron-down.svg";
   const HIGHLIGHT = "zf-ss-current";
-  // Zen Fluent Enhanced's own result cards stand for its pane
-  const ALIASES = { paneZenFluentResults: "paneZenFluent" };
+  const ZF_PANE = "paneZenFluent";
 
   const feature = ZFFeature.attach(window, {
     name: "settings-search",
@@ -106,9 +108,7 @@
         const categoryOf = (node) => {
           for (let el = elementOf(node); el; el = parentOf(el)) {
             if (el.parentElement === main) {
-              const category =
-                el.dataset?.category ?? el.getAttribute("data-category");
-              return ALIASES[category] ?? category;
+              return el.dataset?.category ?? el.getAttribute("data-category");
             }
           }
           return null;
@@ -140,6 +140,24 @@
               found.push({ anchor, node, rect, category: categoryOf(anchor) });
             }
           }
+          // Zen Fluent's matches, in its pane's frame: placed in this page
+          const pane = doc.getElementById("zf-prefs-pane");
+          const frame = pane?.querySelector("iframe");
+          const ranges = pane?.zfSearchRanges?.() ?? [];
+          if (frame && ranges.length) {
+            const origin = frame.getBoundingClientRect();
+            ranges.forEach((range, frameIndex) => {
+              const r = range.getBoundingClientRect();
+              if (r.width || r.height) {
+                found.push({
+                  frameIndex,
+                  pane,
+                  rect: { top: origin.top + r.top, left: origin.left + r.left },
+                  category: ZF_PANE,
+                });
+              }
+            });
+          }
           found.sort(
             (a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left,
           );
@@ -168,6 +186,7 @@
           lifted = null;
           tooltip?.removeAttribute("zf-ss-current");
           tooltip = null;
+          doc.getElementById("zf-prefs-pane")?.zfSearchMark?.(-1);
         }
 
         function show(to, scroll = true) {
@@ -177,7 +196,14 @@
           index = (to + matches.length) % matches.length;
           clearCurrent();
           const match = matches[index];
-          if (match.range && prefsWin.Highlight && prefsWin.CSS?.highlights) {
+          let target = null;
+          if (match.pane) {
+            target = match.pane.zfSearchMark?.(match.frameIndex);
+          } else if (
+            match.range &&
+            prefsWin.Highlight &&
+            prefsWin.CSS?.highlights
+          ) {
             try {
               findSelection()?.removeRange(match.range);
               lifted = match.range;
@@ -192,7 +218,7 @@
           }
           count.textContent = t(`${index + 1} of ${matches.length}`);
           if (scroll) {
-            const target = match.range
+            target ??= match.range
               ? elementOf(match.range.startContainer)
               : match.anchor;
             target?.scrollIntoView({
@@ -204,6 +230,12 @@
 
         // -------- The categories with matches --------
         const badges = [];
+        // Every entry of the navigation, its links too (Keyboard Shortcuts,
+        // Extensions and themes), which never hold a match
+        const navItems = () =>
+          [...categories.children].filter(
+            (node) => node.localName === "moz-page-nav-button",
+          );
         function clearCategories() {
           for (const badge of badges.splice(0)) {
             const button = badge.parentElement;
@@ -211,6 +243,10 @@
             button?.removeAttribute("zf-ss-hit");
             button?.style.removeProperty("--zf-ss-hit");
           }
+          for (const item of navItems()) {
+            item.removeAttribute("zf-ss-miss");
+          }
+          categories.removeAttribute("zf-ss-filtering");
         }
         function markCategories() {
           clearCategories();
@@ -233,6 +269,16 @@
             button.style.setProperty("--zf-ss-hit", "1");
             badges.push(badge);
           }
+          // Only the categories with matches stay in the navigation
+          if (counts.size) {
+            categories.setAttribute("zf-ss-filtering", "");
+            for (const item of navItems()) {
+              item.toggleAttribute(
+                "zf-ss-miss",
+                !counts.has(item.getAttribute("view")),
+              );
+            }
+          }
         }
 
         function reset() {
@@ -245,7 +291,8 @@
           input.style.removeProperty("--zf-ss-active");
         }
 
-        // Firefox tells when a search is done (its tests wait for it)
+        // Firefox tells when a search is done (its tests wait for it);
+        // settings-page.uc.js, when Zen Fluent's pane has its matches
         const onSearch = (event) => {
           const query = event.detail ?? search.query ?? "";
           if (!query) {
@@ -254,7 +301,7 @@
           }
           // Its tooltips are placed after a layout flush: read them next tick
           prefsWin.setTimeout(() => {
-            if ((search.query ?? "") !== query) {
+            if (!query || (search.query ?? "") !== query) {
               return;
             }
             // Firefox drew a new find selection: the lifted range is gone
@@ -272,6 +319,8 @@
           }, 0);
         };
         prefsWin.addEventListener("PreferencesSearchCompleted", onSearch);
+        const onRefresh = () => onSearch({ detail: search.query ?? "" });
+        prefsWin.addEventListener("zf-ss-refresh", onRefresh);
 
         const step = (delta) => {
           if (!matches.length) {
@@ -324,6 +373,7 @@
           reset();
           bar.remove();
           prefsWin.removeEventListener("PreferencesSearchCompleted", onSearch);
+          prefsWin.removeEventListener("zf-ss-refresh", onRefresh);
           prefsWin.removeEventListener("keydown", onPageKey, true);
           input.removeEventListener("keydown", onInputKey, true);
           categories.removeEventListener("click", onCategory, true);
