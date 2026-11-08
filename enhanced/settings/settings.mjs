@@ -71,6 +71,7 @@ const FEATURES = {
   "adaptive-accent": "paint-brush",
   "site-color": "drop",
   "space-settings": "design-ideas",
+  welcome: "hand-wave",
   "extensions-below-essentials": "puzzle-piece",
   "tab-numbers": "tag",
   shortcuts: "flash",
@@ -3389,6 +3390,36 @@ function aboutSections() {
           "Open",
         ),
       ),
+      // The welcome tour (scripts/welcome.uc.js) shows again when its
+      // pref is cleared
+      Services.prefs.getBoolPref("zen-fluent.enhanced.welcome", true)
+        ? el(
+            "div.card.setting",
+            {},
+            el("span.card-icon", {}, icon("sparkle")),
+            el(
+              "div.setting-text",
+              {},
+              el("span.setting-title", {}, "Welcome tour"),
+              el(
+                "span.setting-desc",
+                {},
+                "The themes, the accent and the main features, over the window",
+              ),
+            ),
+            el(
+              "button.button",
+              {
+                onclick: () =>
+                  Services.prefs.setBoolPref(
+                    "zen-fluent.enhanced.welcome.seen",
+                    false,
+                  ),
+              },
+              "Show",
+            ),
+          )
+        : null,
     ),
     section(
       "Links",

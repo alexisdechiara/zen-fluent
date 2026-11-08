@@ -44,6 +44,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   profile, the way Sine itself installs mods, with consent for
   `sine.allow-unsafe-js` ([installer](installer/README.md)).
 
+- Zen Fluent Enhanced, **Welcome tour**: at the first start, a tour over
+  Zen's welcome video to pick a theme, the mode and the accent, turn on a
+  few features and find the settings page; **Show** in the settings page's
+  About section plays it again.
+
 ### Changed
 
 - Zen Fluent Enhanced, **Mods**: the marketplace and the installed mods

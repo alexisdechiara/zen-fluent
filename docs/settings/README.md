@@ -182,6 +182,7 @@ One checkbox per feature, with its options; what each feature does:
 | Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
+| Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
 | Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |

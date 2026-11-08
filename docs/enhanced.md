@@ -11,6 +11,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
+| Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
 | Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
@@ -151,6 +152,14 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   asks Sine to rebuild its CSS variable, which Sine only does by itself from
   its dialog. Presets, resets and imports can be undone from their toast.
 
+- **Welcome tour** (on by default): at the first start, over Zen's own
+  welcome video, a tour of Zen Fluent: a theme and the mode (applied at
+  once), the accent, a few features to turn on (Site color, Adaptive
+  accent, Tab hover cards, Tab archiving, Ctrl+Tab as Alt+Tab), then the
+  settings page, Quick Settings, settings per space and the shortcuts
+  sheet. It waits for another mod's welcome screen to close first, shows
+  once (`zen-fluent.enhanced.welcome.seen`), and **Show** in the settings
+  page's About section plays it again. Escape closes it.
 - **Icon colors**: reads the dominant color of each tab's icon (the most
   saturated color that covers enough of it, or the average of an icon with no
   color). With Zen Fluent's **Selected Essential color** on _Icon color_, the
