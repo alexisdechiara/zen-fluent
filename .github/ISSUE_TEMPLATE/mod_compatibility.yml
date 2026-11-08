@@ -1,0 +1,37 @@
+name: Mod compatibility
+description: Another Sine mod looks wrong or breaks with Zen Fluent.
+labels: ["compatibility", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Some whole themes replace Zen's look and cannot work with Zen Fluent (Nebula, Arc 2.0, Zia…): see [compatibility](https://github.com/alexisdechiara/zen-fluent/blob/main/docs/compatibility.md#whole-themes).
+        For the others, a compat rule can usually fix it.
+  - type: input
+    id: mod
+    attributes:
+      label: The mod
+      description: Its name and its GitHub address.
+      placeholder: "Zen Tidy Tabs, https://github.com/Vertex-Mods/Zen-Tidy-Tabs"
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Its version
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What breaks
+      description: What you see with both mods on, and how it looks with Zen Fluent off. Screenshots of both help most.
+    validations:
+      required: true
+  - type: input
+    id: zen
+    attributes:
+      label: Zen and Zen Fluent versions
+      placeholder: "Zen 1.24b, Zen Fluent 0.5.0"
+    validations:
+      required: true

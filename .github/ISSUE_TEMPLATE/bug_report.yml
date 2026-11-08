@@ -1,0 +1,87 @@
+name: Bug report
+description: Something in Zen Fluent or Zen Fluent Enhanced looks or works wrong.
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. A screenshot and the versions below are usually enough to find the cause.
+        Is a mod involved? Check [compatibility](https://github.com/alexisdechiara/zen-fluent/blob/main/docs/compatibility.md) first, or use **Mod compatibility** instead.
+  - type: dropdown
+    id: mod
+    attributes:
+      label: Which mod
+      options:
+        - Zen Fluent (the look)
+        - Zen Fluent Enhanced (a feature or the settings page)
+        - The Windows installer
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: What you see, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a new tab
+        2. Hover the Essentials
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or a short video
+      description: Drag images here. Hide anything private.
+  - type: input
+    id: zen
+    attributes:
+      label: Zen version
+      description: Zen's menu, Help, About Zen (for example 1.24b or 1.23.4t).
+    validations:
+      required: true
+  - type: input
+    id: zen-fluent
+    attributes:
+      label: Zen Fluent version
+      description: Zen's settings, Sine Mods, the version on Zen Fluent's card.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: System
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Settings that may matter
+      description: Style, material, mode, density, and any setting you changed near the problem.
+      placeholder: "Style: WinUI, material: Mica Alt, dark mode, compact density"
+  - type: textarea
+    id: mods
+    attributes:
+      label: Other mods installed
+      description: Zen's settings, Sine Mods. Does it still happen with them turned off?
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before sending
+      options:
+        - label: I restarted Zen after updating Zen Fluent.
+          required: true
+        - label: I searched the existing issues.
+          required: true

@@ -1,0 +1,16 @@
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: An idea to talk through before it becomes an issue. Pictures from Windows 11, Edge or another app make it easy to picture.
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Where it comes from
+      description: A screenshot or a link to what inspired it.

@@ -130,9 +130,14 @@ few conflict with it. The list: [docs/compatibility.md](docs/compatibility.md).
 
 ## Contributing
 
-Bug reports and ideas are welcome in the
-[issues](https://github.com/alexisdechiara/zen-fluent/issues). For code, the
-layout, rules and tests are in [docs/contributing.md](docs/contributing.md):
+Questions, ideas and setups go to
+[Discussions](https://github.com/alexisdechiara/zen-fluent/discussions), bugs
+and clashing mods to the
+[issues](https://github.com/alexisdechiara/zen-fluent/issues/new/choose).
+Want to help? Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
+[good first issues](https://github.com/alexisdechiara/zen-fluent/labels/good%20first%20issue).
+For code, the layout, rules and tests are in
+[docs/contributing.md](docs/contributing.md):
 
 ```sh
 npm install

@@ -1,0 +1,21 @@
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Zen and Zen Fluent versions
+      placeholder: "Zen 1.24b, Zen Fluent 0.5.0, Windows 11"
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installed with
+      options:
+        - The Windows installer
+        - Sine, from Zen's settings
+        - By hand
+        - Not installed yet
