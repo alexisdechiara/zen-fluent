@@ -546,8 +546,29 @@ public sealed partial class MainWindow : Window
         if (count == 0 || grid.ActualWidth <= 0) return;
         // Each item has a 12px margin on its right; the grid's -12px margin
         // gives it back on the last one
+        var items = grid.Items.OfType<FrameworkElement>().ToList();
+        var available = grid.ActualWidth - 12;
         var width = Math.Floor(grid.ActualWidth / Math.Max(count, 2)) - 12;
-        foreach (var item in grid.Items.OfType<FrameworkElement>()) item.Width = width;
+        foreach (var item in items) item.Width = width;
+        // The list adds a few pixels of its own between items: measured,
+        // then taken off, so the last tile ends where the cards below end
+        double excess;
+        try
+        {
+            grid.UpdateLayout();
+            var last = items[^1];
+            excess = last.TransformToVisual(grid).TransformPoint(new Windows.Foundation.Point(last.ActualWidth, 0)).X - available;
+        }
+        catch (Exception)
+        {
+            // Not on screen (a page kept aside): measured when shown
+            return;
+        }
+        if (excess > 0.5)
+        {
+            width -= Math.Ceiling(excess / count);
+            foreach (var item in items) item.Width = width;
+        }
     }
 
     // -------- Step 1: Zen version and profile --------
