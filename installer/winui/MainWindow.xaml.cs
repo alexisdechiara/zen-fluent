@@ -99,6 +99,9 @@ public sealed partial class MainWindow : Window
         PageStore.Children.Clear();
 
         BuildComponentTiles();
+        // Tiles built while their page was aside are measured once it shows
+        EditionGrid.Loaded += (_, _) => SizeTiles(EditionGrid);
+        ComponentGrid.Loaded += (_, _) => SizeTiles(ComponentGrid);
         // Something on screen at once, while Zen is looked for
         ShowPage(LoadingPage);
     }
