@@ -29,6 +29,7 @@
   (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/preferences/controls.css") not
   (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/preferences/search.css");
 @import url("src/content/sine/dialog.css") not
   (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/sine/pane.css") not

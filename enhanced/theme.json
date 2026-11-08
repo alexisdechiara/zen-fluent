@@ -117,6 +117,9 @@
     },
     "scripts/settings-page.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/settings-search.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
     }
   },
   "modules": ["https://github.com/alexisdechiara/zen-fluent"],

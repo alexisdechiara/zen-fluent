@@ -828,6 +828,43 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.border",
+    "label": "Tile border ~the line around each Essential~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Automatic (the fill's)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Subtle line",
+        "value": "subtle"
+      },
+      {
+        "label": "Strong line",
+        "value": "strong"
+      },
+      {
+        "label": "Icon color",
+        "value": "color"
+      },
+      {
+        "label": "Ring with a gap",
+        "value": "gap"
+      },
+      {
+        "label": "Colored ring with a gap",
+        "value": "gap-color"
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials.labels",
     "label": "Labels",
     "type": "dropdown",

@@ -1,0 +1,120 @@
+/* Zen Fluent: Zen's settings search as Ctrl+F (Zen Fluent Enhanced,
+   scripts/settings-search.uc.js).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* The count and Previous / Next sit inside the search box's end, as in
+   Edge's find bar; the current match takes the accent; each category with
+   matches shows its count in the navigation. Imported without the content
+   zone's condition (the feature works either way), hence the fallbacks
+   for the tokens of src/content/preferences/tokens.css. A user sheet: the
+   highlight reaches the words inside the settings' shadow trees. */
+
+@-moz-document url-prefix("about:preferences") {
+  ::highlight(zf-ss-current) {
+    background-color: var(--zf-accent, AccentColor) !important;
+    color: var(--zf-on-accent, AccentColorText) !important;
+  }
+
+  /* A word matched in a menu or a button: Firefox's tooltip over it */
+  .search-tooltip[zf-ss-current] {
+    outline: 2px solid var(--zf-accent, AccentColor) !important;
+    outline-offset: 1px !important;
+  }
+
+  #search-container {
+    & .zf-ss-bar {
+      position: absolute !important;
+      inset-block: 0 !important;
+      inset-inline-end: 4px !important;
+      z-index: 1 !important;
+      display: flex !important;
+      gap: 2px !important;
+      align-items: center !important;
+
+      &[hidden] {
+        display: none !important;
+      }
+    }
+
+    & .zf-ss-count {
+      padding-inline-end: 4px !important;
+      color: var(--zf-text-secondary, GrayText) !important;
+      font-size: 12px !important;
+      font-variant-numeric: tabular-nums !important;
+      white-space: nowrap !important;
+    }
+
+    /* WinUI subtle buttons, 24px */
+    & .zf-ss-button {
+      display: grid !important;
+      place-items: center !important;
+      width: 24px !important;
+      min-width: 0 !important;
+      height: 24px !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: var(--zf-radius-control, 4px) !important;
+      background: transparent !important;
+      color: inherit !important;
+
+      &:hover {
+        background: var(
+          --zf-fill-subtle-hover,
+          color-mix(in srgb, currentcolor 8%, transparent)
+        ) !important;
+      }
+
+      &:active {
+        background: var(
+          --zf-fill-subtle-press,
+          color-mix(in srgb, currentcolor 5%, transparent)
+        ) !important;
+      }
+
+      & > img {
+        width: 14px !important;
+        height: 14px !important;
+        -moz-context-properties: fill, fill-opacity !important;
+        fill: currentcolor !important;
+      }
+
+      &.zf-ss-up > img {
+        rotate: 180deg !important;
+      }
+    }
+  }
+
+  /* The query's text, and the field's clear button drawn at its end, stop
+     before the count (moz-input-search's input is in its shadow tree: the
+     host carries the flag) */
+  @container style(--zf-ss-active: 1) {
+    input {
+      padding-inline-end: 120px !important;
+    }
+  }
+
+  /* A category with matches: its count after its name, and its name strong */
+  moz-page-nav-button > .zf-ss-badge {
+    display: inline-block !important;
+    min-width: 18px !important;
+    margin-inline-start: 8px !important;
+    padding: 0 6px !important;
+    border-radius: 9px !important;
+    corner-shape: round !important;
+    background: var(--zf-accent, AccentColor) !important;
+    color: var(--zf-on-accent, AccentColorText) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 18px !important;
+    text-align: center !important;
+  }
+
+  /* Above src/content/preferences/layout.css's nav button weight */
+  @container style(--zf-ss-hit: 1) {
+    :is(button[role="tab"], a.moz-page-nav-link):has(> .page-nav-icon) {
+      font-weight: 600 !important;
+    }
+  }
+}

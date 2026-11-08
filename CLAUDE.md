@@ -164,6 +164,14 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   `history.replaceState()` throws SecurityError (use `location.hash`), and
   its ES modules stay cached until a restart (`clearResourceCache()` is not
   enough).
+- about:preferences search (`findInPage.js`, `gSearchResultsPane`): it
+  dispatches `PreferencesSearchCompleted` (detail = query) on the window
+  when done; matches are the ranges of its find selection
+  (`getFindSelection(win)`, shadow trees included) plus
+  `listSearchTooltips`. The find selection paints over a CSS custom
+  highlight: lift a range out of it to show it in another color
+  (`enhanced/scripts/settings-search.uc.js`). An author `<link>` in the
+  page does not reach shadow trees: `::highlight()` rules go in a user sheet.
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

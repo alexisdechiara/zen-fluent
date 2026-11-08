@@ -18,6 +18,12 @@
     "defaultValue": true
   },
   {
+    "property": "zen-fluent.enhanced.settings-search",
+    "label": "Settings search as Ctrl+F ~go from one match to the next in Zen's settings, each category's count in the navigation~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.welcome",
     "label": "Welcome tour ~shown once at the first start; Show it again from the settings page (About)~",
     "type": "checkbox",

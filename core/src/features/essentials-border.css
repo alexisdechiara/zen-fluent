@@ -1,0 +1,85 @@
+/* Zen Fluent: Border of the Essentials tiles (zen-fluent.essentials.border).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" keeps the fill's own edge (components/sidebar/essentials.css and
+   the variants). The others replace it on every tile: "none"; "subtle",
+   WinUI's card stroke on every fill; "strong", a line that reads on any
+   wallpaper; "color", the tile's icon color (Zen Fluent Enhanced's Icon
+   colors reads it exactly, --zf-favicon-color on each tab; without it, the
+   selected Essential's color); "gap" and "gap-color", a ring with a 2px gap
+   before the fill, neutral or in the icon's color. The gap is drawn inside
+   the tile (the fill clipped to the padding box's inside), so a ring never
+   spills over the next tile. Imported after the variants, before the
+   selected styles: Arc, Outline and Tint keep their own border on the
+   selected tile. The variants' strokes are box shadows: on the tiles at
+   rest, every value but "auto" removes them (the :is(*, :hover:active)
+   reaches the specificity of their pressed state). */
+
+@media not (forced-colors) {
+  @media (-moz-pref("zen-fluent.essentials.border", "none")) or (-moz-pref("zen-fluent.essentials.border", "subtle")) or (-moz-pref("zen-fluent.essentials.border", "strong")) or (-moz-pref("zen-fluent.essentials.border", "color")) or (-moz-pref("zen-fluent.essentials.border", "gap")) or (-moz-pref("zen-fluent.essentials.border", "gap-color")) {
+    .zen-essentials-container .tabbrowser-tab {
+      /* The tile's own color: its icon's when Enhanced read it, its
+         lightness kept between 0.45 and 0.85 so a black or white icon's
+         ring still shows */
+      --zf-essential-tile-color: oklch(
+        from
+          var(--zf-favicon-color, var(--zf-essential-color, var(--zf-accent)))
+          clamp(0.45, l, 0.85) c h
+      );
+
+      &:not([selected], [visuallyselected]):is(*, :hover:active)
+        > .tab-stack
+        > .tab-background {
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "none")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      border-color: transparent !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "subtle")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      border-color: var(--zf-stroke-control) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "strong")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      border-color: color-mix(
+        in srgb,
+        var(--zf-text-primary) 24%,
+        transparent
+      ) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "color")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      border: 1.5px solid
+        color-mix(in srgb, var(--zf-essential-tile-color) 75%, transparent) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "gap")) or (-moz-pref("zen-fluent.essentials.border", "gap-color")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      padding: 2px !important;
+      border: 1.5px solid
+        color-mix(in srgb, var(--zf-text-primary) 28%, transparent) !important;
+      background-clip: content-box !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.border", "gap-color")) {
+    .zen-essentials-container .tabbrowser-tab > .tab-stack > .tab-background {
+      border-color: color-mix(
+        in srgb,
+        var(--zf-essential-tile-color) 85%,
+        transparent
+      ) !important;
+    }
+  }
+}

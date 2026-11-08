@@ -11,6 +11,7 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
+| Settings search as Ctrl+F                      | `zen-fluent.enhanced.settings-search`             | `true`                                                               |
 | Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
 | Fluent defaults for mods                       | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |

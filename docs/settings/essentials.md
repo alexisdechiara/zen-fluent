@@ -11,6 +11,7 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 | Selected Essential color                   | `zen-fluent.essentials.selected-color` | `accent` Accent<br>`space` Space color<br>`icon` Icon color                                                                                                                                                                                   | `accent` |
 | Open page indicator                        | `zen-fluent.essentials.running`        | `none` None<br>`dot` Dot                                                                                                                                                                                                                      | `none`   |
 | Hover                                      | `zen-fluent.essentials.hover`          | `fill` Fill<br>`reveal` Fill and soft light                                                                                                                                                                                                   | `fill`   |
+| Tile border                                | `zen-fluent.essentials.border`         | `auto` Automatic (the fill's)<br>`none` None<br>`subtle` Subtle line<br>`strong` Strong line<br>`color` Icon color<br>`gap` Ring with a gap<br>`gap-color` Colored ring with a gap                                                            | `auto`   |
 | Labels                                     | `zen-fluent.essentials.labels`         | `hide` Icons only<br>`show` Icon and title                                                                                                                                                                                                    | `hide`   |
 | Essentials per row                         | `zen-fluent.essentials-per-row`        | `auto` Automatic<br>`2` 2<br>`3` 3<br>`4` 4<br>`5` 5<br>`6` 6                                                                                                                                                                                 | `auto`   |
 | Essentials width (automatic count per row) | `zen-fluent.essentials.width`          | `auto` Automatic (fill the row)<br>`40` 40 px<br>`48` 48 px<br>`56` 56 px<br>`64` 64 px<br>`72` 72 px<br>`80` 80 px                                                                                                                           | `auto`   |
@@ -22,6 +23,12 @@ Group header: `zen-fluent.ui.open-essentials` (open by default: `false`).
 
 ## Notes
 
+- **Tile border** replaces the fill's own edge on every tile. Icon color
+  and Colored ring with a gap take each tile's icon color when Zen Fluent
+  Enhanced's Icon colors is on, else the Selected Essential color. The
+  ring's gap is drawn inside the tile, so the tiles keep their size and
+  spacing. On the selected tile, Arc, Outline and Tint keep their own
+  border.
 - **Essentials per row**: Automatic keeps as many 36 px columns as fit, a lone row stretched across. A count sets 2 to 6 equal columns: the tiles keep their height and gap, and keep their width when their row is not full. A sidebar too narrow for the count keeps as many 36 px columns as fit; the collapsed sidebar stays one column.
 - **Essentials width**: with Essentials per row on Automatic, the tiles
   stretch to fill each row. A width keeps them that wide, as many per row as
