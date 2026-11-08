@@ -46,7 +46,10 @@ come later. The owner writes to Claude in French: answer in French.
   `installer/ZenFluentSetup.ps1`: the same steps for scripts (Windows
   PowerShell 5.1; UTF-8 with BOM or 5.1 misreads the accents). Keep both in
   step. Test a build without a window: `ZenFluentSetup.exe --selftest
-<file>` (the CI runs it). A WinUI app without a console vanishes on an
+<file>` (the CI runs it); `--screenshots <folder>` renders every page
+  to PNG (CI artifact `installer-screenshots`, stand-in Zen versions): look
+  at them after a layout change. A ScrollViewer clips at its padding: keep
+  a page's margin inside it. A WinUI app without a console vanishes on an
   exception in `InitializeComponent` (e.g. a `Checked` handler fired by
   `IsChecked` set in XAML before the controls below exist): set such
   values in code. Test it with `-NoGui` on a throwaway profile, then start the
@@ -176,6 +179,16 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   the matching rows (its frame, as tall as them), Firefox having hidden the
   pane (no text of its own matches). A range must not be filtered on
   `getClientRects()` while its pane is still hidden.
+- Zen's welcome (`ZenStartup.mjs`) is skipped headless (it sets
+  `zen.welcome-screen.seen`): test with `Services.scriptloader.loadSubScript(
+"chrome://browser/content/zen-components/ZenWelcome.mjs", window)`. It
+  sets `zen-welcome-stage` on the root until it ends, then fades the
+  window in; `gZenUIManager.motion` is its motion library (Motion's
+  `animate`, springs, `stagger`). Its screens and the toolbars are
+  `-moz-window-dragging: drag`: an overlay's clickable parts need `no-drag`,
+  or Windows takes the first click to move the window (a second click
+  reaches the button). `getComputedStyle` does not show that property:
+  read it with `InspectorUtils.getMatchingCSSRules`.
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`

@@ -26,6 +26,13 @@ one `vX.Y.Z` tag.
 
 ### Changed
 
+- Zen Fluent Enhanced, **Welcome tour**: it now comes after Zen's own
+  welcome (the window shows in Zen's look, then Zen Fluent's sweeps in),
+  over the dimmed window instead of Zen's video, so each choice shows
+  behind it; it moves with Zen's motion library, as smoothly as Zen's
+  welcome; it shows the settings people change most (window, tabs and
+  sidebar, URL bar and menus, motion), each with its values as buttons, and
+  ten features instead of a page saying there is more.
 - Windows installer: a fixed width and a height that fits each page
   (nothing to resize), tiles drawn with their own template (the accent
   ring covers the card's stroke, corners included), the log shown as it is
@@ -35,6 +42,15 @@ one `vX.Y.Z` tag.
 - Zen's settings search shows Zen Fluent's matching settings among its
   results, as real settings with the words highlighted, under Zen
   Fluent's name, instead of a card per setting that opened its page.
+
+### Fixed
+
+- Zen Fluent Enhanced, **Welcome tour**: a click on a button no longer
+  needs a second one. Zen's welcome screen and the toolbars under the tour
+  are window drag regions, and Windows took the first click to move the
+  window; the tour's card and start screen are now outside them.
+- Windows installer: the right tile's border (Zen Fluent Enhanced, Zen
+  Twilight) is no longer cut off.
 
 ## [0.5.0] - 2026-11-08
 

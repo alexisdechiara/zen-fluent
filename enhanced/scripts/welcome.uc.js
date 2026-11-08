@@ -1,21 +1,36 @@
 // Zen Fluent Enhanced: a welcome tour of Zen Fluent, once, over the window.
 //
-// Over Zen's own welcome video: a start screen, then four pages in a
-// Fluent card (text and buttons on the left, what they change on the
-// right): a theme and the mode, the accent, features to turn on, and the
-// rest (the settings page, Quick Settings, settings per space, shortcuts).
-// What you pick applies at once. It shows in the first browser window
-// while zen-fluent.enhanced.welcome.seen is false, waits for another mod's
-// welcome screen to close first, and sets the pref when it closes; the
-// settings page (About) clears it to show the tour again. Escape closes it.
-// Text in English, translated by lib/zf-l10n.sys.mjs (ids start with zf-).
+// After Zen's own welcome: when Zen's welcome screen ends (its
+// zen-welcome-stage attribute leaves the root), Zen Fluent's zones are
+// turned off while Zen fades its window in, so the window first shows in
+// Zen's look; Zen Fluent's look then sweeps in from the middle, and the
+// tour opens over the window, dimmed (what you pick shows behind it at
+// once). A start screen, then pages in a card (text and buttons on the
+// left, the choices on the right): a theme and the mode, the accent, the
+// window, tabs and sidebar, URL bar and menus, motion, Enhanced's
+// features, and where to find it all again. The setting pages are drawn
+// from core/preferences.json (labels, options; the Custom values left to
+// the settings page), the features from enhanced/preferences.json. It
+// shows in the first browser window while zen-fluent.enhanced.welcome.seen
+// is false, waits for Zen's and other mods' welcome screens to close, and
+// sets the pref when it closes; the settings page (About) clears it to
+// show the tour again. Escape closes it. Text in English, translated by
+// lib/zf-l10n.sys.mjs (ids and classes start with zf-).
 //
-// Motion (none with reduced motion): the window sweeps from Zen's look to
-// Zen Fluent's before the tour (its zones turned off, then back on in a
-// view transition growing from the middle); a theme or a mode crossfades
-// the window; an accent spreads from the swatch clicked; each feature row
-// has a small looping drawing; at the end the card flies to the button
-// that opens the settings again, which pulses.
+// Motion (none with reduced motion), with Zen's own motion library
+// (gZenUIManager.motion, the springs and staggers of Zen's welcome; the
+// Web Animations API when it is missing): the hero's letters rise one by
+// one, a page's text springs in from the side it comes from while the
+// previous one slides out, its rows rise in turn; a theme, a mode or a
+// setting crossfades the window (a view transition), an accent spreads
+// from the swatch clicked; each feature row has a small looping drawing;
+// at the end the card flies to the button that opens the settings again,
+// which pulses.
+//
+// Clicks: Zen's welcome and other screens mark the window as a drag
+// region, and Windows answers "caption" for a point in one before Gecko
+// sees the click (a first click moved the window, a second one reached the
+// button): the tour's card and start screen are no-drag (welcome.css).
 {
   const { ZFFeature } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
@@ -25,11 +40,18 @@
   );
 
   const SEEN = "zen-fluent.enhanced.welcome.seen";
-  const VIDEO = "chrome://browser/content/zen-videos/welcome-background.mp4";
+  // The zones' values while the tour shows Zen's look, kept in case Zen
+  // quits before they come back (restored at the next start)
+  const SAVED = "zen-fluent.enhanced.welcome.zones";
+  const CORE_PREFS = "chrome://sine/content/Zen-Fluent/core/preferences.json";
+  const ENHANCED_PREFS =
+    "chrome://sine/content/Zen-Fluent-Enhanced/preferences.json";
   const QUICK = "chrome://sine/content/Zen-Fluent-Enhanced/quick-settings.json";
   const ICONS = "chrome://sine/content/Zen-Fluent-Enhanced/icons/fluent/";
   const SCHEME = "zen.view.window.scheme";
   const ACCENT = "zen-fluent.accent";
+  // Marks a window whose zones the tour turned off
+  const ACTIVE = "zf-wl-active";
   // Other mods' welcome screens: the tour waits for them to close
   const OTHER_WELCOMES = "#bgp-welcome-root, #ltw-welcome-root";
   // Zen Fluent's zones (docs/settings/zones.md): off, the window looks like Zen
@@ -75,46 +97,70 @@
     { label: "Pink", value: "pink", color: "#e3008c" },
     { label: "Graphite", value: "graphite", color: "#69797e" },
   ];
-  // Features worth a switch on the first day: [pref, title, text, icon]
-  const FEATURES = [
-    [
-      "zen-fluent.enhanced.site-color",
-      "Site color",
-      "The window takes the color of the site you are on.",
-      "drop",
-    ],
-    [
-      "zen-fluent.enhanced.adaptive-accent",
-      "Adaptive accent",
-      "The accent follows the icon of the site.",
-      "paint-brush",
-    ],
-    [
-      "zen-fluent.enhanced.hover-cards",
-      "Tab hover cards",
-      "A preview and actions beside the tab under the pointer.",
-      "image",
-    ],
-    [
-      "zen-fluent.enhanced.tab-archive",
-      "Tab archiving",
-      "Tabs left unused close into a searchable archive.",
-      "archive",
-    ],
-    [
-      "zen-fluent.enhanced.tab-switcher",
-      "Ctrl+Tab as Alt+Tab",
-      "The space's tabs, last used first, with thumbnails.",
-      "shapes",
-    ],
+  // The settings people change most, by page: a property of
+  // core/preferences.json, or [property, a label of the tour's own or null,
+  // a description of its own ("" for none)]
+  const SETTING_PAGES = [
+    {
+      title: "The window",
+      text: "The material behind the window and how much it is tinted, the corners, the density and the font.",
+      settings: [
+        ["zen-fluent.material", null, ""],
+        "zen-fluent.tint-opacity",
+        "zen-fluent.corners",
+        "zen-fluent.corner-radius",
+        "zen-fluent.density",
+        "zen-fluent.font",
+      ],
+    },
+    {
+      title: "Tabs and sidebar",
+      text: "How the selected Essential and the selected tab stand out, where the extensions sit, and when tabs show their close button.",
+      settings: [
+        "zen-fluent.essentials.selected-style",
+        ["zen-fluent.essentials.align", "Essentials alignment"],
+        ["zen-fluent.extensions.position", "Extensions row"],
+        "zen-fluent.tab-pill",
+        "zen-fluent.tab-close-button",
+      ],
+    },
+    {
+      title: "URL bar and menus",
+      text: "The URL bar's shape and accent line, when it floats over the page, the caption buttons and the menus' tint.",
+      settings: [
+        "zen-fluent.url-style",
+        "zen-fluent.url-underline",
+        "zen.urlbar.behavior",
+        "zen-fluent.titlebar-style",
+        "zen-fluent.menu-tint",
+      ],
+    },
+    {
+      title: "Motion",
+      text: "How tabs, menus and the URL bar open, and the small animations of buttons and icons.",
+      settings: [
+        "zen-fluent.tab-switch-animation",
+        "zen-fluent.menu-animation",
+        "zen-fluent.urlbar-animation",
+        "zen-fluent.button-animations",
+        "zen-fluent.animated-icons",
+      ],
+    },
   ];
-  const DEFAULTS = {
-    "zen-fluent.enhanced.site-color": false,
-    "zen-fluent.enhanced.adaptive-accent": false,
-    "zen-fluent.enhanced.hover-cards": false,
-    "zen-fluent.enhanced.tab-archive": false,
-    "zen-fluent.enhanced.tab-switcher": false,
-  };
+  // Enhanced's features worth a switch on the first day: [feature, its
+  // drawing (welcome.css) or a Fluent icon]
+  const FEATURES = [
+    ["site-color", { art: true }],
+    ["adaptive-accent", { art: true }],
+    ["hover-cards", { art: true }],
+    ["tab-switcher", { art: true }],
+    ["tab-archive", { art: true }],
+    ["performance", { icon: "bed" }],
+    ["start-page", { icon: "home" }],
+    ["breadcrumbs", { icon: "folder" }],
+    ["focus-session", { icon: "timer" }],
+    ["shelf", { icon: "box" }],
+  ];
   const HIGHLIGHTS = [
     [
       "Settings page",
@@ -138,6 +184,47 @@
     ],
   ];
 
+  // Zen's welcome springs and fades (ZenWelcome.mjs)
+  const SPRING = { type: "spring", bounce: 0.3, visualDuration: 0.35 };
+  const EXIT = { duration: 0.12, ease: "easeIn" };
+  const FADE = { duration: 0.25, ease: "easeOut" };
+  const EASINGS = {
+    easeIn: "cubic-bezier(0.42, 0, 1, 1)",
+    easeOut: "cubic-bezier(0, 0, 0.58, 1)",
+    easeInOut: "cubic-bezier(0.42, 0, 0.58, 1)",
+  };
+
+  /** A Sine label: its title and the ~grey description~ after it. */
+  const splitLabel = (label = "") => {
+    const [title, description] = label.split("~");
+    return [title.trim(), description?.trim() || ""];
+  };
+
+  /** A pref's value whatever its type, or `fallback` while it is missing. */
+  function readPref(property, fallback) {
+    const prefs = Services.prefs;
+    switch (prefs.getPrefType(property)) {
+      case prefs.PREF_STRING:
+        return prefs.getStringPref(property);
+      case prefs.PREF_INT:
+        return String(prefs.getIntPref(property));
+      case prefs.PREF_BOOL:
+        return prefs.getBoolPref(property);
+    }
+    return fallback;
+  }
+
+  function writePref(property, value) {
+    const prefs = Services.prefs;
+    if (typeof value === "boolean") {
+      prefs.setBoolPref(property, value);
+    } else if (prefs.getPrefType(property) === prefs.PREF_INT) {
+      prefs.setIntPref(property, Number(value));
+    } else {
+      prefs.setStringPref(property, String(value));
+    }
+  }
+
   const feature = ZFFeature.attach(window, {
     name: "welcome",
     default: true,
@@ -145,9 +232,12 @@
       const win = ctx.window;
       const doc = ctx.document;
       let root = null;
+      let waiting = false;
 
       const firstWindow = () =>
         Services.wm.getMostRecentWindow("navigator:browser") === win;
+      const wait = (ms) =>
+        new Promise((resolve) => win.setTimeout(resolve, ms));
       const html = (tag, attributes = {}, ...children) => {
         const node = doc.createElementNS("http://www.w3.org/1999/xhtml", tag);
         for (const [name, value] of Object.entries(attributes)) {
@@ -172,6 +262,13 @@
           { class: `zf-wl-button${primary ? " zf-wl-primary" : ""}`, onclick },
           label,
         );
+      const json = async (url) => {
+        try {
+          return await (await win.fetch(url)).json();
+        } catch {
+          return null;
+        }
+      };
 
       // -------- Motion --------
 
@@ -183,11 +280,98 @@
             --count < 0 ? resolve() : win.requestAnimationFrame(step);
           step();
         });
+
+      /** One end of `keyframes` (0 or 1) as CSS values. */
+      function keyframe(keyframes, end) {
+        const at = (name, fallback) => {
+          const value = keyframes[name];
+          return value == null
+            ? fallback
+            : Array.isArray(value)
+              ? value[end ? value.length - 1 : 0]
+              : value;
+        };
+        const frame = {};
+        if ("opacity" in keyframes) {
+          frame.opacity = at("opacity", 1);
+        }
+        if ("x" in keyframes || "y" in keyframes || "scale" in keyframes) {
+          frame.transform = `translate(${at("x", 0)}px, ${at("y", 0)}px) scale(${at("scale", 1)})`;
+        }
+        if ("filter" in keyframes) {
+          frame.filter = at("filter", "none");
+        }
+        return frame;
+      }
+
+      /** Zen's motion library on `targets` (Motion's keyframes: opacity,
+       * x, y, scale, filter as [from, to]; its options, plus `stagger` and
+       * `delay` in seconds), or the Web Animations API; reduced motion
+       * goes straight to the end. Resolves when it has played. */
+      function move(targets, keyframes, options = {}) {
+        const { stagger = 0, delay = 0, ...rest } = options;
+        const list = (
+          targets instanceof win.Element ? [targets] : [...targets]
+        ).filter(Boolean);
+        if (!list.length) {
+          return Promise.resolve();
+        }
+        const settle = (node) =>
+          Object.assign(node.style, keyframe(keyframes, 1));
+        if (reduced()) {
+          list.forEach(settle);
+          return Promise.resolve();
+        }
+        const motion = win.gZenUIManager?.motion;
+        if (typeof motion?.animate === "function") {
+          try {
+            const played = motion.animate(list, keyframes, {
+              ...rest,
+              delay: stagger
+                ? motion.stagger(stagger, { startDelay: delay })
+                : delay,
+            });
+            return Promise.resolve(played).catch(() => list.forEach(settle));
+          } catch {
+            // The Web Animations API below
+          }
+        }
+        const spring = rest.type === "spring";
+        const duration =
+          (rest.duration ?? rest.visualDuration ?? 0.3) *
+          (spring ? 1400 : 1000);
+        const easing = spring
+          ? "cubic-bezier(0.2, 1.25, 0.35, 1)"
+          : (EASINGS[rest.ease] ?? EASINGS.easeOut);
+        const frames = [keyframe(keyframes, 0), keyframe(keyframes, 1)];
+        return Promise.all(
+          list.map((node, index) => {
+            settle(node);
+            return node
+              .animate(frames, {
+                duration,
+                easing,
+                delay: (delay + index * stagger) * 1000,
+                fill: "backwards",
+              })
+              .finished.catch(() => {});
+          }),
+        );
+      }
+
+      /** Out, then gone: Zen's quick exit, toward `x`. */
+      const leave = (node, x = 0) =>
+        move(node, { opacity: [1, 0], x: [0, x] }, EXIT).then(() =>
+          node.remove(),
+        );
+
       let transition = null;
 
       /** Runs `apply` (pref changes) in a view transition: a crossfade, or
        * a circle growing from `from` ({x, y}). The -moz-pref() media
-       * queries settle within a few ms, before the new snapshot. */
+       * queries settle within a few ms, before the new snapshot. A
+       * transition that waits too long for a frame is skipped, which still
+       * applies the change. */
       async function animate(apply, { from = null, kind = "ripple" } = {}) {
         const rootNode = doc.documentElement;
         if (reduced() || typeof doc.startViewTransition !== "function") {
@@ -206,21 +390,25 @@
           rootNode.style.setProperty("--zf-wl-r", `${Math.ceil(radius)}px`);
         }
         rootNode.setAttribute("zf-wl-motion", from ? kind : "fade");
+        let watchdog = 0;
         try {
           // Not requestAnimationFrame here: a view transition holds frames
           // back until this callback ends
-          transition = doc.startViewTransition(async () => {
+          const current = doc.startViewTransition(async () => {
             apply();
             applied = true;
             await new Promise((resolve) => win.setTimeout(resolve, 40));
             win.getComputedStyle(rootNode).color;
           });
-          await transition.finished;
+          transition = current;
+          watchdog = win.setTimeout(() => current.skipTransition(), 2500);
+          await current.finished;
         } catch {
           if (!applied) {
             apply();
           }
         } finally {
+          win.clearTimeout(watchdog);
           transition = null;
           rootNode.removeAttribute("zf-wl-motion");
         }
@@ -237,42 +425,84 @@
           : { x: win.innerWidth / 2, y: win.innerHeight / 2 };
       };
 
-      /** Zen's look, then Zen Fluent's sweeping in from the middle. The
-       * zones get back exactly the values they had. */
-      async function sweepIn() {
-        if (reduced() || typeof doc.startViewTransition !== "function") {
+      // -------- Zen's look, then Zen Fluent's --------
+
+      let saved = null;
+      /** The zones off (Zen's look), their values kept in SAVED. */
+      function hideFluent() {
+        if (saved) {
           return;
         }
-        const saved = ZONES.map((name) => [
+        saved = ZONES.map((name) => [
           name,
           Services.prefs.prefHasUserValue(name)
             ? Services.prefs.getBoolPref(name, true)
             : null,
         ]);
-        const restore = () => {
-          for (const [name, value] of saved) {
-            if (value === null) {
-              Services.prefs.clearUserPref(name);
-            } else {
-              Services.prefs.setBoolPref(name, value);
-            }
+        doc.documentElement.setAttribute(ACTIVE, "");
+        Services.prefs.setStringPref(SAVED, JSON.stringify(saved));
+        for (const name of ZONES) {
+          Services.prefs.setBoolPref(name, false);
+        }
+      }
+      /** The zones back, exactly as they were. */
+      function showFluent() {
+        if (!saved) {
+          return;
+        }
+        for (const [name, value] of saved) {
+          if (value === null) {
+            Services.prefs.clearUserPref(name);
+          } else {
+            Services.prefs.setBoolPref(name, value);
           }
-        };
-        ctx.onCleanup(restore);
+        }
+        saved = null;
+        Services.prefs.clearUserPref(SAVED);
+        doc.documentElement.removeAttribute(ACTIVE);
+      }
+      ctx.onCleanup(showFluent);
+
+      // Zen quit while the zones were off: they come back now (unless
+      // another window's tour has them off right now)
+      const leftover = Services.prefs.getStringPref(SAVED, "");
+      const busy = [...Services.wm.getEnumerator("navigator:browser")].some(
+        (other) =>
+          other !== win && other.document.documentElement.hasAttribute(ACTIVE),
+      );
+      if (leftover && !busy) {
         try {
-          for (const name of ZONES) {
-            Services.prefs.setBoolPref(name, false);
-          }
+          saved = JSON.parse(leftover);
+        } catch {
+          saved = [];
+        }
+        showFluent();
+      }
+
+      /** Zen's look sweeps into Zen Fluent's from the middle. The zones
+       * may already be off (after Zen's welcome); otherwise the window
+       * crossfades to Zen's look first. */
+      async function sweepIn() {
+        if (reduced() || typeof doc.startViewTransition !== "function") {
+          showFluent();
+          return;
+        }
+        if (!saved) {
+          await animate(hideFluent);
+          await wait(350);
+        }
+        try {
           await frames(2);
-          await new Promise((resolve) => win.setTimeout(resolve, 450));
-          await animate(restore, {
+          await animate(showFluent, {
             from: { x: win.innerWidth / 2, y: win.innerHeight / 2 },
             kind: "sweep",
           });
         } finally {
-          restore();
+          showFluent();
         }
       }
+
+      // -------- Closing --------
 
       /** The first settings button on screen. */
       const settingsButton = () =>
@@ -295,7 +525,7 @@
           win.setTimeout(() => node.remove(), 300);
           return;
         }
-        // The card shrinks into the button, the video fades, the button pulses
+        // The card shrinks into the button, the scrim fades, the button pulses
         const from = card.getBoundingClientRect();
         const to = target.getBoundingClientRect();
         const dx = to.left + to.width / 2 - (from.left + from.width / 2);
@@ -336,263 +566,397 @@
         ctx.onCleanup(() => ring.remove());
       }
 
-      /** A small looping drawing of a feature: a mini window in spans,
-       * animated by welcome.css (data-art = the feature). */
-      const art = (pref) =>
-        html(
-          "span",
-          {
-            class: "zf-wl-art",
-            "data-art": pref.replace("zen-fluent.enhanced.", ""),
-            "aria-hidden": "true",
-          },
-          ...Array.from({ length: 4 }, (_, i) =>
-            html("span", { class: `zf-wl-art-${i + 1}` }),
+      // -------- Controls --------
+
+      /** A group of buttons, one pressed: the pressed mark moves at once,
+       * then `pick` applies the value (in a crossfade, mostly). */
+      function choices(items, { current, pick, className, role = "radio" }) {
+        const group = html("div", {
+          class: className,
+          role: role === "radio" ? "radiogroup" : "group",
+        });
+        const state = role === "radio" ? "aria-checked" : "aria-pressed";
+        group.append(
+          ...items.map((item) =>
+            html(
+              "button",
+              {
+                class: item.className,
+                role: role === "radio" ? "radio" : null,
+                [state]: String(current(item)),
+                style: item.style,
+                onclick: (event) => {
+                  for (const other of group.children) {
+                    other.setAttribute(
+                      state,
+                      String(other === event.currentTarget),
+                    );
+                  }
+                  pick(item, event);
+                },
+              },
+              item.content,
+            ),
           ),
         );
-
-      async function loadPresets() {
-        try {
-          return (await (await win.fetch(QUICK)).json()).presets ?? [];
-        } catch {
-          return [];
-        }
+        return group;
       }
 
-      /** The theme cards, the selected one marked, applied on click. */
-      function themePage(presets) {
+      /** A WinUI ToggleSwitch, 40 x 20, writing `property`. */
+      function toggleSwitch(property, fallback, label) {
+        const toggle = html("button", {
+          class: "zf-wl-switch",
+          role: "switch",
+          "aria-label": label,
+        });
+        const value = () => readPref(property, fallback) === true;
+        const update = () =>
+          toggle.setAttribute("aria-checked", String(value()));
+        toggle.addEventListener("click", () => {
+          writePref(property, !value());
+          update();
+        });
+        update();
+        return toggle;
+      }
+
+      /** A settings card: a title, its description, and its control at the
+       * end (a switch) or under it (the values as buttons). */
+      function settingCard({ title, description, control, inline, lead }) {
+        return html(
+          "div",
+          { class: `zf-wl-setting${inline ? " zf-wl-inline" : ""}` },
+          lead,
+          html(
+            "span",
+            { class: "zf-wl-setting-text" },
+            html("span", { class: "zf-wl-setting-title" }, title),
+            description &&
+              html("span", { class: "zf-wl-setting-desc" }, description),
+          ),
+          control,
+        );
+      }
+
+      /** A setting of core/preferences.json as a card. */
+      function settingFromDef(def, ownLabel, ownDescription) {
+        const [label, sineDescription] = splitLabel(def.label);
+        const title = ownLabel ?? label;
+        const description = ownDescription ?? sineDescription;
+        if (def.type === "checkbox") {
+          return settingCard({
+            title,
+            description,
+            inline: true,
+            control: toggleSwitch(def.property, def.defaultValue, title),
+          });
+        }
+        const options = (def.options ?? []).filter(
+          (option) => option.value !== "custom",
+        );
+        return settingCard({
+          title,
+          description,
+          control: choices(
+            options.map((option) => ({
+              className: "zf-wl-chip",
+              value: String(option.value),
+              content: option.label,
+            })),
+            {
+              className: "zf-wl-chips",
+              current: (item) =>
+                item.value === String(readPref(def.property, def.defaultValue)),
+              pick: (item) =>
+                animate(() => writePref(def.property, item.value)),
+            },
+          ),
+        });
+      }
+
+      /** A small looping drawing of a feature: a mini window in spans,
+       * animated by welcome.css (data-art = the feature), or an icon in
+       * the same frame. */
+      const art = (name, look) =>
+        look.icon
+          ? html(
+              "span",
+              { class: "zf-wl-art", "data-art": "icon", "aria-hidden": "true" },
+              icon(look.icon),
+            )
+          : html(
+              "span",
+              { class: "zf-wl-art", "data-art": name, "aria-hidden": "true" },
+              ...Array.from({ length: 4 }, (_, i) =>
+                html("span", { class: `zf-wl-art-${i + 1}` }),
+              ),
+            );
+
+      // -------- Pages --------
+
+      /** The theme cards and the mode. */
+      function themePage(presets, defs) {
+        // A setting never changed reads as its default
+        const fallback = (property) =>
+          defs?.find((d) => d.property === property)?.defaultValue ?? "";
         const matches = (preset) =>
           Object.entries(preset.prefs).every(
             ([property, value]) =>
-              Services.prefs.getStringPref(property, "") === value,
+              String(readPref(property, fallback(property))) === value,
           );
-        const grid = html("div", { class: "zf-wl-themes" });
-        const draw = () =>
-          grid.replaceChildren(
-            ...presets.map((preset) =>
-              html(
-                "button",
-                {
-                  class: "zf-wl-theme",
-                  "aria-pressed": String(matches(preset)),
-                  onclick: () =>
-                    animate(() => {
-                      for (const [property, value] of Object.entries(
-                        preset.prefs,
-                      )) {
-                        Services.prefs.setStringPref(property, value);
-                      }
-                      draw();
-                    }),
-                },
-                html("span", { class: "zf-wl-theme-name" }, preset.name),
-                html("span", { class: "zf-wl-theme-desc" }, preset.description),
-              ),
-            ),
-          );
-        draw();
-        const mode = html("div", { class: "zf-wl-segmented", role: "group" });
-        const drawMode = () =>
-          mode.replaceChildren(
-            ...MODES.map(({ label, value }) =>
-              html(
-                "button",
-                {
-                  "aria-pressed": String(
-                    Services.prefs.getIntPref(SCHEME, 2) === value,
-                  ),
-                  onclick: () =>
-                    animate(() => {
-                      Services.prefs.setIntPref(SCHEME, value);
-                      drawMode();
-                    }),
-                },
-                label,
-              ),
-            ),
-          );
-        drawMode();
         return {
           title: "Your look",
           text: "Pick a theme: it sets the style, the material, the Essentials and the buttons at once. Then the mode. Everything applies right away, and every detail can change later.",
-          content: [
-            grid,
+          render: () => [
+            choices(
+              presets.map((preset) => ({
+                className: "zf-wl-theme",
+                preset,
+                content: [
+                  html("span", { class: "zf-wl-theme-name" }, preset.name),
+                  html(
+                    "span",
+                    { class: "zf-wl-theme-desc" },
+                    preset.description,
+                  ),
+                ],
+              })),
+              {
+                className: "zf-wl-themes",
+                role: "toggle",
+                current: (item) => matches(item.preset),
+                pick: (item) =>
+                  animate(() => {
+                    for (const [property, value] of Object.entries(
+                      item.preset.prefs,
+                    )) {
+                      Services.prefs.setStringPref(property, value);
+                    }
+                  }),
+              },
+            ),
             html("h3", { class: "zf-wl-subtitle" }, "Mode"),
-            mode,
+            choices(
+              MODES.map((mode) => ({ ...mode, content: mode.label })),
+              {
+                className: "zf-wl-segmented",
+                current: (item) =>
+                  Services.prefs.getIntPref(SCHEME, 2) === item.value,
+                pick: (item) =>
+                  animate(() => Services.prefs.setIntPref(SCHEME, item.value)),
+              },
+            ),
           ],
         };
       }
 
       function accentPage() {
-        const list = html("div", { class: "zf-wl-accents" });
-        const draw = () => {
-          const current = Services.prefs.getStringPref(ACCENT, "system");
-          list.replaceChildren(
-            ...ACCENTS.map(({ label, value, color }) =>
-              html(
-                "button",
-                {
-                  class: "zf-wl-accent",
-                  "aria-pressed": String(current === value),
-                  onclick: (event) =>
-                    animate(
-                      () => {
-                        Services.prefs.setStringPref(ACCENT, value);
-                        draw();
-                      },
-                      { from: origin(event) },
-                    ),
-                },
-                html("span", {
-                  class: "zf-wl-swatch",
-                  style: `--zf-wl-swatch: ${color}`,
-                }),
-                html("span", {}, label),
-              ),
-            ),
-          );
-        };
-        draw();
         return {
           title: "Accent color",
           text: "The color of selections, switches, the URL bar's line and the main buttons. Windows' own accent, your space's color, or one of these.",
-          content: [list],
+          render: () => [
+            choices(
+              ACCENTS.map((accent) => ({
+                ...accent,
+                className: "zf-wl-accent",
+                content: [
+                  html("span", {
+                    class: "zf-wl-swatch",
+                    style: `--zf-wl-swatch: ${accent.color}`,
+                  }),
+                  html("span", {}, accent.label),
+                ],
+              })),
+              {
+                className: "zf-wl-accents",
+                current: (item) =>
+                  Services.prefs.getStringPref(ACCENT, "system") === item.value,
+                pick: (item, event) =>
+                  animate(
+                    () => Services.prefs.setStringPref(ACCENT, item.value),
+                    {
+                      from: origin(event),
+                    },
+                  ),
+              },
+            ),
+          ],
         };
       }
 
-      function featuresPage() {
-        const rows = FEATURES.map(([pref, title, text]) => {
-          const toggle = html("button", {
-            class: "zf-wl-switch",
-            role: "switch",
-            "aria-label": title,
-          });
-          const update = () =>
-            toggle.setAttribute(
-              "aria-checked",
-              String(Services.prefs.getBoolPref(pref, DEFAULTS[pref])),
-            );
-          toggle.addEventListener("click", () => {
-            Services.prefs.setBoolPref(
-              pref,
-              !Services.prefs.getBoolPref(pref, DEFAULTS[pref]),
-            );
-            update();
-          });
-          update();
-          return html(
-            "div",
-            { class: "zf-wl-row" },
-            art(pref),
-            html(
-              "span",
-              { class: "zf-wl-row-text" },
-              html("span", { class: "zf-wl-row-title" }, title),
-              html("span", { class: "zf-wl-row-desc" }, text),
-            ),
-            toggle,
-          );
-        });
+      /** A page of core settings, those core/preferences.json declares. */
+      function settingsPage(page, defs) {
+        const cards = () =>
+          page.settings
+            .map((entry) => {
+              const [property, label = null, description = null] =
+                Array.isArray(entry) ? entry : [entry];
+              const def = defs.find((d) => d.property === property);
+              return def ? settingFromDef(def, label, description) : null;
+            })
+            .filter(Boolean);
+        return { title: page.title, text: page.text, render: cards };
+      }
+
+      function featuresPage(defs) {
         return {
           title: "Features",
           text: "Zen Fluent Enhanced adds features you can turn on or off at any time, each one a script of its own. A few to start with:",
-          content: [html("div", { class: "zf-wl-rows" }, rows)],
+          render: () =>
+            FEATURES.map(([name, look]) => {
+              const def = defs.find(
+                (d) => d.property === `zen-fluent.enhanced.${name}`,
+              );
+              if (!def) {
+                return null;
+              }
+              const [title, description] = splitLabel(def.label);
+              return settingCard({
+                title,
+                description,
+                inline: true,
+                lead: art(name, look),
+                control: toggleSwitch(
+                  def.property,
+                  def.defaultValue === true,
+                  title,
+                ),
+              });
+            }).filter(Boolean),
         };
       }
 
-      function morePage() {
+      function readyPage() {
         return {
-          title: "And there is more",
-          text: "The settings page has everything else, from the tab row height to the zones Zen Fluent styles, and Sine's marketplace with each mod's compatibility.",
-          content: [
-            html(
-              "div",
-              { class: "zf-wl-rows" },
-              HIGHLIGHTS.map(([title, text, iconName]) =>
-                html(
-                  "div",
-                  { class: "zf-wl-row" },
-                  icon(iconName),
-                  html(
-                    "span",
-                    { class: "zf-wl-row-text" },
-                    html("span", { class: "zf-wl-row-title" }, title),
-                    html("span", { class: "zf-wl-row-desc" }, text),
-                  ),
-                ),
-              ),
+          title: "You're all set",
+          text: "Change any of this later from these places, where every setting is.",
+          render: () =>
+            HIGHLIGHTS.map(([title, description, iconName]) =>
+              settingCard({
+                title,
+                description,
+                inline: true,
+                lead: icon(iconName),
+              }),
             ),
-          ],
           finish: true,
         };
       }
+
+      // -------- The tour --------
 
       async function show() {
         if (root || !firstWindow()) {
           return;
         }
+        const [quick, core, enhanced] = await Promise.all([
+          json(QUICK),
+          json(CORE_PREFS),
+          json(ENHANCED_PREFS),
+        ]);
+        if (root) {
+          return;
+        }
         const pages = [
-          themePage(await loadPresets()),
+          themePage(quick?.presets ?? [], core),
           accentPage(),
-          featuresPage(),
-          morePage(),
+          ...(core
+            ? SETTING_PAGES.map((page) => settingsPage(page, core))
+            : []),
+          ...(enhanced ? [featuresPage(enhanced)] : []),
+          readyPage(),
         ];
-        let index = 0;
+        let index = -1;
 
-        const video = html("video", {
-          class: "zf-wl-video",
-          src: VIDEO,
-          autoplay: true,
-          loop: true,
-          muted: true,
-        });
-        video.muted = true;
+        // The start screen: the hero's letters rise one by one
+        const hero = html(
+          "h1",
+          { class: "zf-wl-hero", "aria-label": "Zen Fluent" },
+          ..."Zen Fluent"
+            .split("")
+            .map((char) =>
+              char === " "
+                ? " "
+                : html(
+                    "span",
+                    { class: "zf-wl-char", "aria-hidden": "true" },
+                    char,
+                  ),
+            ),
+        );
+        const startButton = button("Get started", () => begin(), true);
+        const kicker = html("p", { class: "zf-wl-kicker" }, "Welcome to");
+        const lead = html(
+          "p",
+          { class: "zf-wl-lead" },
+          "Mica, Acrylic and the controls of Windows 11 for Zen.",
+        );
         const start = html(
           "div",
           { class: "zf-wl-start" },
-          html("p", { class: "zf-wl-kicker" }, "Welcome to"),
-          html("h1", { class: "zf-wl-hero" }, "Zen Fluent"),
-          html(
-            "p",
-            { class: "zf-wl-lead" },
-            "Mica, Acrylic and the controls of Windows 11 for Zen.",
-          ),
-          button("Get started", () => go(0), true),
+          kicker,
+          hero,
+          lead,
+          startButton,
         );
-        const counter = html("span", { class: "zf-wl-counter" });
-        const title = html("h2", { class: "zf-wl-title" });
-        const text = html("p", { class: "zf-wl-text" });
-        const content = html("div", { class: "zf-wl-content" });
-        const back = button("Back", () => go(index - 1));
+
+        // The card: the text on the left, the choices on the right
+        const back = html(
+          "button",
+          { class: "zf-wl-back", onclick: () => go(index - 1, -1) },
+          "Back",
+        );
+        const texts = html("div", { class: "zf-wl-texts" });
+        const dots = html(
+          "div",
+          { class: "zf-wl-dots" },
+          pages.map(() => html("span", { "aria-current": "false" })),
+        );
+        const actions = html("div", { class: "zf-wl-actions" });
+        const content = html("div", { class: "zf-wl-pages" });
+        const card = html(
+          "div",
+          { class: "zf-wl-card", hidden: true },
+          html("div", { class: "zf-wl-side" }, back, texts, dots, actions),
+          content,
+        );
+        const scrim = html("div", { class: "zf-wl-scrim" });
+
         const finish = () => {
           close({ fly: true });
           win.setTimeout(() => openSettings(win), reduced() ? 0 : 700);
         };
-        const next = button(
-          "Next",
-          () => (pages[index].finish ? finish() : go(index + 1)),
-          true,
-        );
-        const skip = button("Skip", () => close());
-        const dots = html("div", { class: "zf-wl-dots" });
-        const card = html(
-          "div",
-          { class: "zf-wl-card", hidden: true },
-          html(
-            "div",
-            { class: "zf-wl-side" },
-            counter,
-            title,
-            text,
-            dots,
-            html("div", { class: "zf-wl-actions" }, back, next),
-            skip,
-          ),
-          content,
-        );
 
-        function go(to) {
-          if (to < 0) {
+        let begun = false;
+        async function begin() {
+          if (begun) {
+            return;
+          }
+          begun = true;
+          await move(
+            [
+              kicker,
+              ...hero.querySelectorAll(".zf-wl-char"),
+              lead,
+              startButton,
+            ],
+            { opacity: [1, 0], y: [0, -14] },
+            { duration: 0.3, ease: "easeIn", stagger: 0.012 },
+          );
+          start.hidden = true;
+          card.hidden = false;
+          card.style.opacity = "0";
+          go(0, 1);
+          move(
+            card,
+            { opacity: [0, 1], scale: [0.96, 1], y: [24, 0] },
+            { ...SPRING, bounce: 0.25, visualDuration: 0.45 },
+          );
+        }
+
+        /** Shows page `to`, coming from `direction` (1 forward, -1 back). */
+        function go(to, direction) {
+          if (to < 0 || to === index) {
             return;
           }
           if (to >= pages.length) {
@@ -600,33 +964,73 @@
             return;
           }
           index = to;
-          start.hidden = true;
-          card.hidden = false;
           const page = pages[index];
-          counter.textContent = `${index + 1} / ${pages.length}`;
-          title.textContent = page.title;
-          text.textContent = page.text;
-          content.replaceChildren(...page.content);
-          back.hidden = index === 0;
-          skip.hidden = !!page.finish;
-          next.textContent = page.finish ? "Open the settings" : "Next";
-          dots.replaceChildren(
-            ...pages.map((_, i) =>
-              html("span", { "aria-current": String(i === index) }),
-            ),
-          );
-          card.querySelector(".zf-wl-finish")?.remove();
-          if (page.finish) {
-            card.querySelector(".zf-wl-actions").after(
-              html(
-                "div",
-                { class: "zf-wl-finish" },
-                button("Start browsing", () => close({ fly: true })),
-              ),
-            );
+
+          // The text: the old one slides out, the new one springs in
+          for (const old of [...texts.children]) {
+            if (!old.hasAttribute("zf-leaving")) {
+              old.setAttribute("zf-leaving", "");
+              leave(old, -80 * direction);
+            }
           }
-          next.focus();
+          const text = html(
+            "div",
+            { class: "zf-wl-text-page" },
+            html(
+              "span",
+              { class: "zf-wl-counter" },
+              `${index + 1} / ${pages.length}`,
+            ),
+            html("h2", { class: "zf-wl-title" }, page.title),
+            html("p", { class: "zf-wl-text" }, page.text),
+          );
+          texts.append(text);
+          for (const child of text.children) {
+            child.style.opacity = "0";
+          }
+          move(
+            text.children,
+            { opacity: [0, 1], x: [120 * direction, 0] },
+            { ...SPRING, bounce: 0.4, visualDuration: 0.3, stagger: 0.03 },
+          );
+
+          // The choices: the old ones fade, the new rows rise in turn
+          for (const old of [...content.children]) {
+            if (!old.hasAttribute("zf-leaving")) {
+              old.setAttribute("zf-leaving", "");
+              leave(old);
+            }
+          }
+          const body = html("div", { class: "zf-wl-page" }, ...page.render());
+          content.append(body);
+          move(body, { opacity: [0, 1] }, FADE);
+          for (const child of body.children) {
+            child.style.opacity = "0";
+          }
+          move(
+            body.children,
+            { opacity: [0, 1], y: [14, 0] },
+            { ...SPRING, bounce: 0.2, stagger: 0.035, delay: 0.04 },
+          );
+
+          back.toggleAttribute("disabled", index === 0);
+          [...dots.children].forEach((dot, i) =>
+            dot.setAttribute("aria-current", String(i === index)),
+          );
+          actions.replaceChildren(
+            ...(page.finish
+              ? [
+                  button("Start browsing", () => close({ fly: true })),
+                  button("Open the settings", finish, true),
+                ]
+              : [
+                  button("Skip", () => close()),
+                  button("Next", () => go(index + 1, 1), true),
+                ]),
+          );
+          actions.lastElementChild.focus();
         }
+
         root = html(
           "div",
           {
@@ -635,8 +1039,7 @@
             "aria-modal": "true",
             "aria-label": "Welcome to Zen Fluent",
           },
-          video,
-          html("div", { class: "zf-wl-scrim" }),
+          scrim,
           start,
           card,
         );
@@ -652,21 +1055,94 @@
         if (root !== node) {
           return;
         }
+        for (const part of [kicker, ...hero.children, lead, startButton]) {
+          part.style.opacity = "0";
+        }
         doc.documentElement.append(root);
-        start.querySelector("button")?.focus();
         ctx.onCleanup(() => root?.remove());
+        move(scrim, { opacity: [0, 1] }, { duration: 0.45, ease: "easeOut" });
+        move(
+          kicker,
+          { opacity: [0, 1], y: [12, 0], filter: ["blur(2px)", "blur(0px)"] },
+          { ...SPRING, delay: 0.15 },
+        );
+        await move(
+          hero.querySelectorAll(".zf-wl-char"),
+          { opacity: [0, 1], y: [50, 0] },
+          {
+            type: "spring",
+            bounce: 0.3,
+            visualDuration: 0.45,
+            stagger: 0.035,
+            delay: 0.25,
+          },
+        );
+        move(
+          lead,
+          { opacity: [0, 1], y: [12, 0] },
+          { ...FADE, duration: 0.35 },
+        );
+        await move(
+          startButton,
+          { opacity: [0, 1], y: [20, 0], filter: ["blur(2px)", "blur(0px)"] },
+          {
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+            mass: 1.8,
+            delay: 0.1,
+          },
+        );
+        if (!begun) {
+          startButton.focus();
+        }
       }
 
-      // Waits for another mod's welcome screen to close, then shows
+      // -------- When --------
+
+      /** Zen's own welcome screen is up. */
+      const zenWelcome = () =>
+        doc.documentElement.hasAttribute("zen-welcome-stage") ||
+        !!doc.getElementById("zen-welcome");
+
+      /** Waits for Zen's welcome and other mods' welcome screens to close,
+       * then shows. */
       function showWhenFree() {
-        if (Services.prefs.getBoolPref(SEEN, false) || root) {
+        if (Services.prefs.getBoolPref(SEEN, false) || root || waiting) {
+          return;
+        }
+        if (zenWelcome()) {
+          waiting = true;
+          const observer = new win.MutationObserver(() => {
+            if (zenWelcome()) {
+              return;
+            }
+            observer.disconnect();
+            // Zen fades its window in now: in Zen's look, for the sweep
+            if (!reduced() && firstWindow()) {
+              hideFluent();
+            }
+            ctx.timeout(() => {
+              waiting = false;
+              showWhenFree();
+            }, 1200);
+          });
+          observer.observe(doc.documentElement, {
+            attributes: true,
+            attributeFilter: ["zen-welcome-stage"],
+          });
+          ctx.onCleanup(() => observer.disconnect());
           return;
         }
         if (doc.querySelector(OTHER_WELCOMES)) {
+          waiting = true;
           const observer = new win.MutationObserver(() => {
             if (!doc.querySelector(OTHER_WELCOMES)) {
               observer.disconnect();
-              ctx.timeout(showWhenFree, 600);
+              ctx.timeout(() => {
+                waiting = false;
+                showWhenFree();
+              }, 600);
             }
           });
           observer.observe(doc.documentElement, {
@@ -685,7 +1161,11 @@
           showWhenFree();
         }
       });
-      // After the window has settled (session restore, other mods' screens)
+      // Zen's welcome starts with the window: look at once, then again
+      // once the window has settled (session restore, other mods' screens)
+      if (zenWelcome()) {
+        showWhenFree();
+      }
       ctx.timeout(showWhenFree, 2500);
     },
   });

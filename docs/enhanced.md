@@ -157,14 +157,23 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   asks Sine to rebuild its CSS variable, which Sine only does by itself from
   its dialog. Presets, resets and imports can be undone from their toast.
 
-- **Welcome tour** (on by default): at the first start, over Zen's own
-  welcome video, a tour of Zen Fluent: a theme and the mode (applied at
-  once), the accent, a few features to turn on (Site color, Adaptive
-  accent, Tab hover cards, Tab archiving, Ctrl+Tab as Alt+Tab), then the
-  settings page, Quick Settings, settings per space and the shortcuts
-  sheet. It waits for another mod's welcome screen to close first, shows
-  once (`zen-fluent.enhanced.welcome.seen`), and **Show** in the settings
-  page's About section plays it again. Escape closes it.
+- **Welcome tour** (on by default): at the first start, once Zen's own
+  welcome is done, the window shows in Zen's look, Zen Fluent's sweeps in,
+  and a tour opens over the dimmed window (each choice shows behind it at
+  once): a theme and the mode, the accent, then the settings people change
+  most, each with its values as buttons: the window (material, tint
+  opacity, corners, corner radius, density, font), tabs and sidebar
+  (selected Essential, Essentials alignment, extensions row, accent pill,
+  tab close button), URL bar and menus (shape, accent line, floating URL
+  bar, caption buttons, menu tint) and motion (tab switch, menu and URL
+  bar animations, button animations, animated icons); then ten features
+  to turn on (Site color, Adaptive accent, Tab hover cards, Ctrl+Tab as
+  Alt+Tab, Tab archiving, Sleeping tabs, Start page, Breadcrumb address,
+  Focus sessions, Widgets and shelf), and where to find it all again. It
+  moves with Zen's own motion library (the springs and staggers of Zen's
+  welcome). It waits for Zen's and other mods' welcome screens to close,
+  shows once (`zen-fluent.enhanced.welcome.seen`), and **Show** in the
+  settings page's About section plays it again. Escape closes it.
 - **Fluent defaults for mods** (on by default): for a mod Zen Fluent
   styles, the settings closest to Windows 11 while they were never changed.
   Zen Calmer Context Menu: icons on every option in the Fluent set, and the
