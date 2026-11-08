@@ -40,8 +40,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 - **Windows installer** (`ZenFluentSetup.exe`, built from
   `installer/ZenFluentSetup.ps1` and attached to each release): installs
-  Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the picked
-  profile, the way Sine itself installs mods, with consent for
+  Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the profile
+  picked from the chosen edition (Zen Browser or Zen Twilight), the way Sine itself installs mods, with consent for
   `sine.allow-unsafe-js` ([installer](installer/README.md)).
 
 - Zen Fluent Enhanced, **Welcome tour**: at the first start, a tour over

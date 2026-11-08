@@ -24,10 +24,13 @@
 
 .PARAMETER NoGui
   No window: install with the parameters below.
+.PARAMETER Edition
+  The Zen to set up: "Zen Browser" or "Zen Twilight" (a part of the name
+  is enough). Default: Zen Browser.
 .PARAMETER ZenDir
-  Zen's install folder (the one with zen.exe). Default: the first found.
+  Zen's install folder (the one with zen.exe), instead of -Edition.
 .PARAMETER ProfilePath
-  The profile folder. Default: the profile Zen opens by default.
+  The profile folder. Default: the one that edition opens by default.
 .PARAMETER Enhanced
   Also install Zen Fluent Enhanced (needs -AllowUnsafeJs).
 .PARAMETER AllowUnsafeJs
@@ -45,6 +48,7 @@
 [CmdletBinding()]
 param(
   [switch]$NoGui,
+  [string]$Edition,
   [string]$ZenDir,
   [string]$ProfilePath,
   [switch]$Enhanced,
@@ -77,7 +81,10 @@ if ($BootloaderZip -and $BootloaderTarget) {
 $French = (Get-UICulture).TwoLetterISOLanguageName -eq "fr"
 $Text = @{
   Title         = @("Zen Fluent setup", "Installation de Zen Fluent")
-  ZenFolder     = @("Zen's folder", "Dossier de Zen")
+  Edition       = @("Zen version", "Version de Zen")
+  OtherFolder   = @("Other folder…", "Autre dossier…")
+  TooOld        = @("Zen Fluent needs Zen 1.23 or later: update {0} first.", "Zen Fluent nécessite Zen 1.23 ou plus récent : mettez d'abord {0} à jour.")
+  OpensDefault  = @("opened by default", "ouvert par défaut")
   Profile       = @("Profile", "Profil")
   Browse        = @("Browse…", "Parcourir…")
   Components    = @("What to install", "À installer")
@@ -89,7 +96,7 @@ $Text = @{
   Install       = @("Install", "Installer")
   Close         = @("Close", "Fermer")
   NoZen         = @("Zen was not found. Pick its folder (the one with zen.exe).", "Zen est introuvable. Choisissez son dossier (celui qui contient zen.exe).")
-  NoProfile     = @("No Zen profile was found: open Zen once, then close it.", "Aucun profil Zen trouvé : ouvrez Zen une fois, puis fermez-le.")
+  NoProfile     = @("This version of Zen has no profile yet: open it once, then close it.", "Cette version de Zen n'a pas encore de profil : ouvrez-la une fois, puis fermez-la.")
   ZenRunning    = @("Zen is open on this profile. Close it (every window), then click Install again.", "Zen est ouvert sur ce profil. Fermez-le (toutes les fenêtres), puis cliquez de nouveau sur Installer.")
   NeedConsent   = @("Zen Fluent Enhanced runs scripts: check the box that allows them, or uncheck Zen Fluent Enhanced.", "Zen Fluent Enhanced exécute des scripts : cochez la case qui les autorise, ou décochez Zen Fluent Enhanced.")
   Downloading   = @("Downloading {0}…", "Téléchargement de {0}…")
@@ -107,33 +114,47 @@ $Text = @{
 function T([string]$Key) { return $Text[$Key][[int]$French] }
 
 # -------- Finding Zen and its profiles --------
-function Find-ZenDirs {
-  $candidates = @(
-    "$env:ProgramFiles\Zen Browser",
-    "$env:ProgramFiles\Zen Twilight",
-    "${env:ProgramFiles(x86)}\Zen Browser",
-    "$env:LOCALAPPDATA\Zen Browser",
-    "$env:LOCALAPPDATA\Programs\Zen Browser"
-  )
-  foreach ($key in @(
-      "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\zen.exe",
-      "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\zen.exe")) {
+# Zen's installer registers each edition under Software\Mozilla\<name>
+# (Zen Browser, Zen Twilight), with its version and folder; Firefox's
+# TaskBarIDs maps that folder to the install's id, the one profiles.ini
+# names in [Install<id>] for the profile that edition opens by default.
+function Get-ZenEditions {
+  $ids = @{}
+  foreach ($root in @("HKCU:\Software\Mozilla\Firefox\TaskBarIDs", "HKLM:\SOFTWARE\Mozilla\Firefox\TaskBarIDs")) {
     try {
-      $exe = (Get-ItemProperty -LiteralPath $key -ErrorAction Stop)."(default)"
-      if ($exe) { $candidates = @((Split-Path $exe -Parent)) + $candidates }
+      $item = Get-ItemProperty -LiteralPath $root -ErrorAction Stop
+      foreach ($p in $item.PSObject.Properties) {
+        if ($p.Name -notlike "PS*") { $ids[$p.Name.TrimEnd("\")] = [string]$p.Value }
+      }
     } catch { }
   }
-  $candidates | Where-Object { $_ -and (Test-Path (Join-Path $_ "zen.exe")) } |
-    Select-Object -Unique
-}
-
-# Zen names a channel's first profile after it ("Default (twilight)"): a
-# Twilight profile goes with a Twilight folder, the others with the rest
-function Select-ZenDirFor($ZenProfile, [string[]]$Dirs) {
-  $twilight = "$($ZenProfile.Name) $($ZenProfile.Folder)" -match "twilight"
-  $match = $Dirs | Where-Object { ($_ -match "twilight") -eq $twilight } | Select-Object -First 1
-  if ($match) { return $match }
-  return ($Dirs | Select-Object -First 1)
+  $editions = [ordered]@{}
+  foreach ($root in @("HKCU:\Software\Mozilla", "HKLM:\SOFTWARE\Mozilla", "HKLM:\SOFTWARE\WOW6432Node\Mozilla")) {
+    foreach ($key in @(Get-ChildItem -LiteralPath $root -ErrorAction SilentlyContinue)) {
+      # "Zen Browser", "Zen Twilight"; not "Zen Browser 1.24.1b" (one per version)
+      if ($key.PSChildName -notmatch '^Zen( [A-Za-z]+)?$') { continue }
+      try {
+        $current = (Get-ItemProperty -LiteralPath $key.PSPath -ErrorAction Stop).CurrentVersion
+        $main = Get-ItemProperty -LiteralPath (Join-Path $key.PSPath "$current\Main") -ErrorAction Stop
+        $dir = ([string]$main."Install Directory").TrimEnd("\")
+      } catch { continue }
+      if (-not $dir -or -not (Test-Path (Join-Path $dir "zen.exe")) -or $editions.Contains($dir)) { continue }
+      $editions[$dir] = [pscustomobject]@{
+        Name    = $key.PSChildName
+        Version = ($current -replace '\s*\(.*$', '')
+        Dir     = $dir
+        Id      = $ids[$dir]
+      }
+    }
+  }
+  # Folders the registry does not know (a portable copy)
+  foreach ($dir in @("$env:ProgramFiles\Zen Browser", "$env:ProgramFiles\Zen Twilight", "$env:LOCALAPPDATA\Zen Browser")) {
+    if ((Test-Path (Join-Path $dir "zen.exe")) -and -not $editions.Contains($dir)) {
+      $editions[$dir] = [pscustomobject]@{ Name = (Split-Path $dir -Leaf); Version = ""; Dir = $dir; Id = $ids[$dir] }
+    }
+  }
+  # Zen Browser before Twilight
+  @($editions.Values | Sort-Object -Property @{ Expression = { $_.Name -match "twilight" } }, Name)
 }
 
 function Get-ZenProfiles {
@@ -146,24 +167,50 @@ function Get-ZenProfiles {
     if ($line -match '^\[(.+)\]$') { $current = $Matches[1]; $sections[$current] = @{}; continue }
     if ($current -and $line -match '^([^=]+)=(.*)$') { $sections[$current][$Matches[1]] = $Matches[2] }
   }
-  # What Zen opens: an install's default, else the profile marked Default
-  $installDefaults = @($sections.Keys | Where-Object { $_ -like "Install*" } |
-      ForEach-Object { $sections[$_]["Default"] })
-  $profiles = foreach ($name in $sections.Keys) {
+  # [Install<id>] Default=<path>: the profile each edition opens
+  $owners = @{}
+  foreach ($name in $sections.Keys) {
+    if ($name -match '^Install(.+)$' -and $sections[$name]["Default"]) {
+      $path = $sections[$name]["Default"]
+      if (-not $owners.ContainsKey($path)) { $owners[$path] = @() }
+      $owners[$path] += $Matches[1]
+    }
+  }
+  foreach ($name in $sections.Keys) {
     $s = $sections[$name]
     if ($name -notlike "Profile*" -or -not $s["Path"]) { continue }
     $relative = $s["IsRelative"] -ne "0"
     $path = if ($relative) { Join-Path $root ($s["Path"] -replace "/", "\") } else { $s["Path"] }
+    $ownedBy = @()
+    if ($owners.ContainsKey($s["Path"])) { $ownedBy = $owners[$s["Path"]] }
     [pscustomobject]@{
-      Name      = $s["Name"]
-      Path      = $path
-      Folder    = Split-Path $path -Leaf
-      IsMain    = $s["Default"] -eq "1"
-      IsDefault = ($installDefaults -contains $s["Path"]) -or ($s["Default"] -eq "1")
+      Name    = $s["Name"]
+      Path    = $path
+      Folder  = Split-Path $path -Leaf
+      IsMain  = $s["Default"] -eq "1"
+      OwnedBy = $ownedBy
     }
   }
-  # The profile Zen opens first, then the other installs' defaults
-  @($profiles | Sort-Object -Property @{ Expression = { -not $_.IsMain } }, @{ Expression = { -not $_.IsDefault } }, Name)
+}
+
+# An edition's profiles: the one it opens by default first, then those no
+# other edition opens by default (any profile can be opened by any Zen)
+function Get-EditionProfiles($Edition, $AllProfiles) {
+  $mine = @()
+  $free = @()
+  foreach ($p in $AllProfiles) {
+    if ($Edition.Id -and $p.OwnedBy -contains $Edition.Id) { $mine += $p }
+    elseif (-not $p.OwnedBy.Count -or -not $Edition.Id) { $free += $p }
+  }
+  @($mine) + @($free | Sort-Object -Property @{ Expression = { -not $_.IsMain } }, Name)
+}
+
+# Zen Fluent needs Zen 1.23 or later
+function Test-ZenTooOld($Edition) {
+  if ($Edition.Version -match '^(\d+)\.(\d+)') {
+    return ([int]$Matches[1] -lt 1) -or ([int]$Matches[1] -eq 1 -and [int]$Matches[2] -lt 23)
+  }
+  return $false
 }
 
 # Zen holds parent.lock open, unshared, while it uses a profile: another
@@ -368,17 +415,21 @@ function Invoke-Setup {
 # -------- Without a window --------
 if ($NoGui) {
   $log = { param($message) Write-Host $message }
-  $found = Get-ZenProfiles
-  if (-not $ProfilePath) { $ProfilePath = ($found | Select-Object -First 1).Path }
-  if (-not $ProfilePath) { Write-Error (T "NoProfile"); exit 1 }
-  if (-not $ZenDir) {
-    $chosen = $found | Where-Object { $_.Path -eq $ProfilePath } | Select-Object -First 1
-    if (-not $chosen) { $chosen = [pscustomobject]@{ Name = ""; Folder = (Split-Path $ProfilePath -Leaf) } }
-    $ZenDir = Select-ZenDirFor $chosen @(Find-ZenDirs)
+  $editions = @(Get-ZenEditions)
+  if ($ZenDir) {
+    $chosen = $editions | Where-Object { $_.Dir -eq $ZenDir.TrimEnd("\") } | Select-Object -First 1
+    if (-not $chosen) { $chosen = [pscustomobject]@{ Name = (Split-Path $ZenDir -Leaf); Version = ""; Dir = $ZenDir; Id = $null } }
+  } elseif ($Edition) {
+    $chosen = $editions | Where-Object { $_.Name -like "*$Edition*" } | Select-Object -First 1
+  } else {
+    $chosen = $editions | Select-Object -First 1
   }
-  if (-not $ZenDir) { Write-Error (T "NoZen"); exit 1 }
+  if (-not $chosen) { Write-Error (T "NoZen"); exit 1 }
+  if (Test-ZenTooOld $chosen) { Write-Warning ((T "TooOld") -f "$($chosen.Name) $($chosen.Version)") }
+  if (-not $ProfilePath) { $ProfilePath = (Get-EditionProfiles $chosen @(Get-ZenProfiles) | Select-Object -First 1).Path }
+  if (-not $ProfilePath) { Write-Error (T "NoProfile"); exit 1 }
   try {
-    Invoke-Setup -Zen $ZenDir -ProfileDir $ProfilePath -WithEnhanced $Enhanced.IsPresent -Consent $AllowUnsafeJs.IsPresent -Log $log
+    Invoke-Setup -Zen $chosen.Dir -ProfileDir $ProfilePath -WithEnhanced $Enhanced.IsPresent -Consent $AllowUnsafeJs.IsPresent -Log $log
   } catch {
     Write-Error ((T "Failed") -f $_.Exception.Message)
     exit 1
@@ -392,7 +443,7 @@ Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 
 $form = New-Object Windows.Forms.Form
 $form.Text = T "Title"
-$form.ClientSize = New-Object Drawing.Size(560, 520)
+$form.ClientSize = New-Object Drawing.Size(560, 554)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedDialog"
 $form.MaximizeBox = $false
@@ -412,35 +463,84 @@ function Add-Label([string]$Caption, [int]$Y, [bool]$Bold = $false) {
 $header = Add-Label (T "Title") 16
 $header.Font = New-Object Drawing.Font("Segoe UI", 16, [Drawing.FontStyle]::Bold)
 
-Add-Label (T "ZenFolder") 64 $true | Out-Null
-$zenBox = New-Object Windows.Forms.ComboBox
-$zenBox.Location = New-Object Drawing.Point(20, 88)
-$zenBox.Size = New-Object Drawing.Size(420, 26)
-$zenBox.DropDownStyle = "DropDown"
-foreach ($dir in Find-ZenDirs) { [void]$zenBox.Items.Add($dir) }
-if ($ZenDir) { $zenBox.Text = $ZenDir } elseif ($zenBox.Items.Count) { $zenBox.SelectedIndex = 0 }
-$form.Controls.Add($zenBox)
+Add-Label (T "Edition") 64 $true | Out-Null
+$editions = [System.Collections.ArrayList]@(Get-ZenEditions)
+$editionBox = New-Object Windows.Forms.ComboBox
+$editionBox.Location = New-Object Drawing.Point(20, 88)
+$editionBox.Size = New-Object Drawing.Size(390, 26)
+$editionBox.DropDownStyle = "DropDownList"
+$form.Controls.Add($editionBox)
 $browse = New-Object Windows.Forms.Button
-$browse.Text = T "Browse"
-$browse.Location = New-Object Drawing.Point(450, 87)
-$browse.Size = New-Object Drawing.Size(90, 28)
-$browse.Add_Click({
-    $dialog = New-Object Windows.Forms.FolderBrowserDialog
-    if ($dialog.ShowDialog() -eq "OK") { $zenBox.Text = $dialog.SelectedPath }
-  })
+$browse.Text = T "OtherFolder"
+$browse.Location = New-Object Drawing.Point(420, 87)
+$browse.Size = New-Object Drawing.Size(120, 28)
 $form.Controls.Add($browse)
+$dirLabel = New-Object Windows.Forms.Label
+$dirLabel.Location = New-Object Drawing.Point(20, 118)
+$dirLabel.Size = New-Object Drawing.Size(520, 18)
+$dirLabel.ForeColor = [Drawing.Color]::FromArgb(96, 96, 96)
+$form.Controls.Add($dirLabel)
+$warning = New-Object Windows.Forms.Label
+$warning.Location = New-Object Drawing.Point(20, 138)
+$warning.Size = New-Object Drawing.Size(520, 18)
+$warning.ForeColor = [Drawing.Color]::FromArgb(157, 93, 0)
+$form.Controls.Add($warning)
 
-Add-Label (T "Profile") 128 $true | Out-Null
-$profiles = @(Get-ZenProfiles)
+Add-Label (T "Profile") 162 $true | Out-Null
+$allProfiles = @(Get-ZenProfiles)
+$profiles = @()
 $profileBox = New-Object Windows.Forms.ComboBox
-$profileBox.Location = New-Object Drawing.Point(20, 152)
+$profileBox.Location = New-Object Drawing.Point(20, 186)
 $profileBox.Size = New-Object Drawing.Size(520, 26)
 $profileBox.DropDownStyle = "DropDownList"
-foreach ($p in $profiles) { [void]$profileBox.Items.Add("$($p.Name)  ($($p.Folder))") }
-if ($profileBox.Items.Count) { $profileBox.SelectedIndex = 0 }
 $form.Controls.Add($profileBox)
 
-Add-Label (T "Components") 194 $true | Out-Null
+function Get-SelectedEdition {
+  if ($editionBox.SelectedIndex -lt 0) { return $null }
+  return $editions[$editionBox.SelectedIndex]
+}
+
+function Update-Editions([int]$Select = 0) {
+  $editionBox.Items.Clear()
+  foreach ($e in $editions) {
+    $label = if ($e.Version) { "$($e.Name) $($e.Version)" } else { $e.Name }
+    [void]$editionBox.Items.Add($label)
+  }
+  if ($editionBox.Items.Count) { $editionBox.SelectedIndex = [Math]::Min($Select, $editionBox.Items.Count - 1) }
+}
+
+# The chosen Zen's profiles, the one it opens by default first
+function Update-Profiles {
+  $edition = Get-SelectedEdition
+  $profileBox.Items.Clear()
+  $script:profiles = @()
+  if (-not $edition) { $dirLabel.Text = ""; $warning.Text = ""; return }
+  $dirLabel.Text = $edition.Dir
+  $warning.Text = if (Test-ZenTooOld $edition) { (T "TooOld") -f "$($edition.Name) $($edition.Version)" } else { "" }
+  $script:profiles = @(Get-EditionProfiles $edition $allProfiles)
+  foreach ($p in $script:profiles) {
+    $label = "$($p.Name)  ($($p.Folder))"
+    if ($edition.Id -and $p.OwnedBy -contains $edition.Id) { $label += "  — " + (T "OpensDefault") }
+    [void]$profileBox.Items.Add($label)
+  }
+  if ($profileBox.Items.Count) { $profileBox.SelectedIndex = 0 }
+}
+
+$browse.Add_Click({
+    $dialog = New-Object Windows.Forms.FolderBrowserDialog
+    if ($dialog.ShowDialog() -ne "OK") { return }
+    $dir = $dialog.SelectedPath.TrimEnd("\")
+    if (-not (Test-Path (Join-Path $dir "zen.exe"))) { & $log (T "NoZen"); return }
+    $known = -1
+    for ($i = 0; $i -lt $editions.Count; $i++) { if ($editions[$i].Dir -eq $dir) { $known = $i } }
+    if ($known -lt 0) {
+      [void]$editions.Add([pscustomobject]@{ Name = (Split-Path $dir -Leaf); Version = ""; Dir = $dir; Id = $null })
+      $known = $editions.Count - 1
+    }
+    Update-Editions $known
+  })
+
+Add-Label (T "Components") 228 $true | Out-Null
 function Add-Check([string]$Caption, [int]$Y, [bool]$Checked, [bool]$Enabled = $true) {
   $box = New-Object Windows.Forms.CheckBox
   $box.Text = $Caption
@@ -451,34 +551,31 @@ function Add-Check([string]$Caption, [int]$Y, [bool]$Checked, [bool]$Enabled = $
   $form.Controls.Add($box)
   return $box
 }
-$sineCheck = Add-Check (T "Sine") 218 $true $false
-$fluentCheck = Add-Check (T "Fluent") 244 $true $false
-$enhancedCheck = Add-Check (T "EnhancedLabel") 270 $true
-$consentCheck = Add-Check (T "UnsafeJs") 300 $false
+$sineCheck = Add-Check (T "Sine") 252 $true $false
+$fluentCheck = Add-Check (T "Fluent") 278 $true $false
+$enhancedCheck = Add-Check (T "EnhancedLabel") 304 $true
+$consentCheck = Add-Check (T "UnsafeJs") 334 $false
 $consentCheck.Size = New-Object Drawing.Size(516, 40)
 
 function Update-SineState {
+  $edition = Get-SelectedEdition
   $index = $profileBox.SelectedIndex
-  if ($index -lt 0 -or -not $zenBox.Text) { return }
-  $there = Test-SineInstalled $zenBox.Text $profiles[$index].Path
+  if (-not $edition -or $index -lt 0) { return }
+  $there = Test-SineInstalled $edition.Dir $script:profiles[$index].Path
   if ($there) { $sineCheck.Text = T "SineThere" } else { $sineCheck.Text = T "Sine" }
 }
-$zenDirs = @(Find-ZenDirs)
-$profileBox.Add_SelectedIndexChanged({
-    if (-not $ZenDir -and $profileBox.SelectedIndex -ge 0 -and $zenDirs.Count) {
-      $zenBox.Text = Select-ZenDirFor $profiles[$profileBox.SelectedIndex] $zenDirs
-    }
-    Update-SineState
-  })
-if (-not $ZenDir -and $profiles.Count -and $zenDirs.Count) {
-  $zenBox.Text = Select-ZenDirFor $profiles[0] $zenDirs
+$editionBox.Add_SelectedIndexChanged({ Update-Profiles; Update-SineState })
+$profileBox.Add_SelectedIndexChanged({ Update-SineState })
+$preferred = 0
+if ($Edition) {
+  for ($i = $editions.Count - 1; $i -ge 0; $i--) { if ($editions[$i].Name -like "*$Edition*") { $preferred = $i } }
 }
-$zenBox.Add_TextChanged({ Update-SineState })
+Update-Editions $preferred
 $enhancedCheck.Add_CheckedChanged({ $consentCheck.Enabled = $enhancedCheck.Checked })
 Update-SineState
 
 $logBox = New-Object Windows.Forms.TextBox
-$logBox.Location = New-Object Drawing.Point(20, 350)
+$logBox.Location = New-Object Drawing.Point(20, 384)
 $logBox.Size = New-Object Drawing.Size(520, 110)
 $logBox.Multiline = $true
 $logBox.ReadOnly = $true
@@ -488,7 +585,7 @@ $form.Controls.Add($logBox)
 
 $installButton = New-Object Windows.Forms.Button
 $installButton.Text = T "Install"
-$installButton.Location = New-Object Drawing.Point(340, 474)
+$installButton.Location = New-Object Drawing.Point(340, 508)
 $installButton.Size = New-Object Drawing.Size(96, 32)
 $installButton.BackColor = [Drawing.Color]::FromArgb(0, 95, 184)
 $installButton.ForeColor = [Drawing.Color]::White
@@ -498,7 +595,7 @@ $form.AcceptButton = $installButton
 
 $closeButton = New-Object Windows.Forms.Button
 $closeButton.Text = T "Close"
-$closeButton.Location = New-Object Drawing.Point(444, 474)
+$closeButton.Location = New-Object Drawing.Point(444, 508)
 $closeButton.Size = New-Object Drawing.Size(96, 32)
 $closeButton.Add_Click({ $form.Close() })
 $form.Controls.Add($closeButton)
@@ -511,12 +608,13 @@ $log = {
 
 $installButton.Add_Click({
     $logBox.Clear()
-    if (-not $zenBox.Text -or -not (Test-Path (Join-Path $zenBox.Text "zen.exe"))) { & $log (T "NoZen"); return }
+    $edition = Get-SelectedEdition
+    if (-not $edition) { & $log (T "NoZen"); return }
     if ($profileBox.SelectedIndex -lt 0) { & $log (T "NoProfile"); return }
     $installButton.Enabled = $false
     $form.UseWaitCursor = $true
     try {
-      Invoke-Setup -Zen $zenBox.Text -ProfileDir $profiles[$profileBox.SelectedIndex].Path `
+      Invoke-Setup -Zen $edition.Dir -ProfileDir $script:profiles[$profileBox.SelectedIndex].Path `
         -WithEnhanced $enhancedCheck.Checked -Consent $consentCheck.Checked -Log $log
       Update-SineState
     } catch {
@@ -527,6 +625,6 @@ $installButton.Add_Click({
     }
   })
 
-if (-not $profiles.Count) { & $log (T "NoProfile") }
-if (-not $zenBox.Items.Count -and -not $ZenDir) { & $log (T "NoZen") }
+if (-not $editions.Count) { & $log (T "NoZen") }
+elseif (-not $script:profiles.Count) { & $log (T "NoProfile") }
 [void]$form.ShowDialog()

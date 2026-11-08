@@ -4,14 +4,20 @@
 Zen profile, in one window. It is `ZenFluentSetup.ps1` (Windows PowerShell
 5.1, in every Windows 10 and 11) built into a window application by
 [ps2exe](https://github.com/MScholtes/PS2EXE): `.github/workflows/installer.yml`
-builds it on every pull request that touches this folder and attaches it to
-each release (`vX.Y.Z` tag), next to the script.
+builds it on every push and pull request that touches this folder and
+attaches it to each release (`vX.Y.Z` tag), next to the script. The
+installer installs the mods from the branch or tag it was built from. A
+branch push also publishes it as the pre-release `installer-<branch>`
+(replaced at each push): a stable download link to test a branch.
 
 ## What it does
 
-1. Finds Zen (`Program Files`, the App Paths registry key) and its profiles
-   (`%APPDATA%\zen\profiles.ini`): the profile Zen opens first is picked,
-   with the matching Zen folder (a Twilight profile goes with Zen Twilight).
+1. Lists the installed editions of Zen with their version (Zen Browser,
+   Zen Twilight: `Software\Mozilla\<edition>` in the registry, or a folder
+   picked by hand), then the chosen edition's profiles: first the one it
+   opens by default (`[Install<id>]` in `%APPDATA%\zen\profiles.ini`, the
+   id read from Firefox's `TaskBarIDs` key), then the profiles no other
+   edition opens by default. An edition older than Zen 1.23 gets a warning.
    A profile Zen is using (its `parent.lock` held) is refused: close Zen.
 2. Sine, unless it is there already (`config.js` in Zen's folder and
    `chrome\JS\sine.sys.mjs` in the profile; `-ReinstallSine` replaces it):
@@ -47,8 +53,9 @@ The window is in French when Windows is.
 | Parameter        | Meaning                                                    |
 | ---------------- | ---------------------------------------------------------- |
 | `-NoGui`         | No window: install with the parameters below.              |
-| `-ZenDir`        | Zen's folder (with `zen.exe`). Default: the one found.     |
-| `-ProfilePath`   | The profile folder. Default: the profile Zen opens first.  |
+| `-Edition`       | `Zen Browser` (default) or `Zen Twilight`.                 |
+| `-ZenDir`        | Zen's folder (with `zen.exe`), instead of `-Edition`.      |
+| `-ProfilePath`   | The profile folder. Default: the one the edition opens.    |
 | `-Enhanced`      | Also install Zen Fluent Enhanced (needs `-AllowUnsafeJs`). |
 | `-AllowUnsafeJs` | Consent to set `sine.allow-unsafe-js`.                     |
 | `-Ref`           | Branch or tag of this repository to install (`main`).      |
