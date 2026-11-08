@@ -74,14 +74,14 @@ public partial class App : Application
         }
     }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
         try
         {
             window = new MainWindow();
             if (SelfTestFile is { } file)
             {
-                File.WriteAllText(file, "ok " + ((MainWindow)window).SelfTestSummary);
+                File.WriteAllText(file, "ok " + await ((MainWindow)window).SelfTestAsync());
                 Environment.Exit(0);
             }
             window.Activate();

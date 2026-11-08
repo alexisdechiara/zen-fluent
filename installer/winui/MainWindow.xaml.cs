@@ -1,12 +1,16 @@
 // Zen Fluent setup: the window, a wizard.
 //
+// Start:      Loading (Zen looked for off the UI thread) -> NoZen | Zen
 // Install:    Zen (version + profile) -> What (Zen Fluent or Enhanced) -> Work -> Done
 // Uninstall:  Zen -> Uninstall (what to remove)                        -> Work -> Done
 //
-// Each page is a panel of MainWindow.xaml, kept out of the tree and put in
-// PageHost when shown: PageHost's EntranceThemeTransition slides it in.
-// Picking uses GridView tiles (WinUI's own selection: an accent outline,
-// keyboard arrows), not radio buttons.
+// The window has a fixed size made for its pages, in logical pixels scaled
+// to the monitor (no resizing needed), centered on its work area. Each page
+// is a panel of MainWindow.xaml, kept out of the tree and put in PageHost
+// when shown: PageHost's EntranceThemeTransition slides it in. Picking uses
+// GridView tiles (WinUI's own selection: an accent outline, keyboard
+// arrows), as wide as the row allows. Coming back to the window (after
+// installing Zen, or opening it once to make a profile) looks again.
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -20,14 +24,22 @@ namespace ZenFluentSetup;
 
 public sealed partial class MainWindow : Window
 {
-    private readonly List<ZenEdition> editions;
-    private readonly List<ZenProfile> allProfiles;
+    // The window's size, in logical pixels: the tallest page fits
+    private const int WindowWidth = 860;
+    private const int WindowHeight = 740;
+    private const string ZenDownload = "https://zen-browser.app/download";
+    private const string TwilightDownload = "https://zen-browser.app/download?twilight";
+
+    private List<ZenEdition> editions = new();
+    private List<ZenProfile> allProfiles = new();
     private List<ZenProfile> profiles = new();
     private readonly List<FrameworkElement> pages;
     private FrameworkElement? page;
+    private Task? loading;
     private bool uninstalling;
     private bool running;
     private bool succeeded;
+    private double sizedFor;
 
     [DllImport("user32.dll")]
     private static extern uint GetDpiForWindow(IntPtr hwnd);
@@ -40,15 +52,27 @@ public sealed partial class MainWindow : Window
         SystemBackdrop = MicaController.IsSupported() ? new MicaBackdrop() : new DesktopAcrylicBackdrop();
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
-        var scale = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this)) / 96.0;
-        if (scale <= 0) scale = 1;
-        AppWindow.Resize(new SizeInt32((int)(760 * scale), (int)(700 * scale)));
-        if (AppWindow.Presenter is OverlappedPresenter presenter) presenter.IsMaximizable = false;
+        if (AppWindow.Presenter is OverlappedPresenter presenter)
+        {
+            presenter.IsMaximizable = false;
+            presenter.IsResizable = false;
+        }
+        var dpi = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this));
+        FitWindow(dpi > 0 ? dpi / 96.0 : 1);
         // No closing halfway through: the profile would be left half done
         AppWindow.Closing += (_, args) => args.Cancel = running;
+        Activated += MainWindow_Activated;
 
         Title = S.Get("Title");
         TitleText.Text = Installer.SourceRef == "main" ? S.Get("Title") : $"{S.Get("Title")} · {Installer.SourceRef}";
+        LoadingTitle.Text = S.Get("LoadingTitle");
+        LoadingText.Text = S.Get("LoadingText");
+        NoZenTitle.Text = S.Get("NoZenTitle");
+        NoZenText.Text = S.Get("NoZenText");
+        DownloadZenText.Text = S.Get("DownloadZen");
+        DownloadTwilightText.Text = S.Get("DownloadTwilight");
+        TwilightHint.Text = S.Get("TwilightHint");
+        ElsewhereButton.Content = S.Get("ZenElsewhere");
         BrowseButton.Content = S.Get("OtherFolder");
         ProfileHeader.Text = S.Get("Profile");
         ConsentText.Text = S.Get("UnsafeJs");
@@ -56,7 +80,6 @@ public sealed partial class MainWindow : Window
         DetailsExpander.Header = S.Get("Details");
         DoneDetails.Header = S.Get("Details");
         ModeButton.Content = S.Get("UninstallMode");
-        BackButton.Content = S.Get("Back");
         DangerButton.Content = S.Get("Uninstall");
         RemoveModsCheck.Content = S.Get("RemoveMods");
         RemoveModsCheck.IsChecked = true;
@@ -65,30 +88,97 @@ public sealed partial class MainWindow : Window
         RemoveSineWarning.Message = S.Get("RemoveSineWarning");
 
         // The pages leave their store; one at a time goes into PageHost
-        pages = new() { ZenPage, WhatPage, UninstallPage, WorkPage, DonePage };
+        pages = new() { LoadingPage, NoZenPage, ZenPage, WhatPage, UninstallPage, WorkPage, DonePage };
         PageStore.Children.Clear();
 
         BuildComponentTiles();
-        editions = Zen.GetEditions();
-        allProfiles = Zen.GetProfiles();
-        BuildEditionTiles(0);
-        ShowPage(ZenPage);
+        // Something on screen at once, while Zen is looked for
+        ShowPage(LoadingPage);
     }
 
-    /// <summary>What the window found, for --selftest. It also shows every
-    /// page once, so a page that fails to build fails the test.</summary>
-    public string SelfTestSummary
+    /// <summary>For --selftest: looks for Zen, then shows every page once,
+    /// so a page that fails to build fails the test.</summary>
+    public async Task<string> SelfTestAsync()
     {
-        get
+        await (loading ??= LoadAsync(minimum: 0));
+        var found = $"editions={editions.Count} profiles={allProfiles.Count} tiles={EditionGrid.Items.Count}+{ComponentGrid.Items.Count}";
+        foreach (var p in pages) ShowPage(p);
+        uninstalling = true;
+        ShowPage(UninstallPage);
+        uninstalling = false;
+        ShowPage(editions.Count > 0 ? ZenPage : NoZenPage);
+        return $"{found} pages={pages.Count} source={Installer.SourceRef}";
+    }
+
+    // -------- Window --------
+
+    /// <summary>The fixed size at a given scale, centered on the work area
+    /// and never larger than it.</summary>
+    private void FitWindow(double scale)
+    {
+        if (scale <= 0 || Math.Abs(scale - sizedFor) < 0.01) return;
+        sizedFor = scale;
+        var area = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Primary).WorkArea;
+        var width = Math.Min((int)Math.Round(WindowWidth * scale), area.Width);
+        var height = Math.Min((int)Math.Round(WindowHeight * scale), area.Height);
+        AppWindow.Resize(new SizeInt32(width, height));
+        AppWindow.Move(new PointInt32(area.X + (area.Width - width) / 2, area.Y + (area.Height - height) / 2));
+    }
+
+    private void RootGrid_Loaded(object sender, RoutedEventArgs e)
+    {
+        // The scale XAML really draws at (the monitor the window opened on)
+        if (Content.XamlRoot is { } root)
         {
-            foreach (var p in pages) ShowPage(p);
-            uninstalling = true;
-            ShowPage(UninstallPage);
-            uninstalling = false;
-            ShowPage(ZenPage);
-            return $"editions={editions.Count} profiles={allProfiles.Count} tiles={EditionGrid.Items.Count}+{ComponentGrid.Items.Count} pages={pages.Count} source={Installer.SourceRef}";
+            FitWindow(root.RasterizationScale);
+            root.Changed += (_, _) => FitWindow(root.RasterizationScale);
+        }
+        loading ??= LoadAsync(minimum: 600);
+    }
+
+    /// <summary>Back to the window: Zen may have been installed, or opened
+    /// once to make a profile.</summary>
+    private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
+    {
+        if (args.WindowActivationState == WindowActivationState.Deactivated || running || loading is not { IsCompleted: true }) return;
+        if (page == NoZenPage || (page == ZenPage && profiles.Count == 0))
+        {
+            loading = LoadAsync(minimum: 0, quiet: true);
         }
     }
+
+    /// <summary>Looks for Zen and its profiles off the UI thread (the
+    /// loading screen stays at least `minimum` ms, so it never flashes).</summary>
+    private async Task LoadAsync(int minimum, bool quiet = false)
+    {
+        var timer = Stopwatch.StartNew();
+        var keep = Edition?.Dir;
+        var (foundEditions, foundProfiles) = await Task.Run(() => (Zen.GetEditions(), Zen.GetProfiles()));
+        if (timer.ElapsedMilliseconds < minimum) await Task.Delay(minimum - (int)timer.ElapsedMilliseconds);
+        // A folder picked by hand stays in the list
+        foreach (var e in editions.Where(e => !foundEditions.Any(f => string.Equals(f.Dir, e.Dir, StringComparison.OrdinalIgnoreCase))))
+        {
+            foundEditions.Add(e);
+        }
+        editions = foundEditions;
+        allProfiles = foundProfiles;
+        if (editions.Count == 0)
+        {
+            if (!quiet || page != NoZenPage) ShowPage(NoZenPage);
+            return;
+        }
+        var index = keep is null ? 0 : Math.Max(0, editions.FindIndex(x => string.Equals(x.Dir, keep, StringComparison.OrdinalIgnoreCase)));
+        BuildEditionTiles(index);
+        if (page != ZenPage) ShowPage(ZenPage);
+    }
+
+    private void PageScroller_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        // Pages drawn in the middle (loading, no Zen, result) center vertically
+        PageHost.MinHeight = Math.Max(0, PageScroller.ViewportHeight - PageScroller.Padding.Top - PageScroller.Padding.Bottom);
+    }
+
+    // -------- Pages --------
 
     private ZenEdition? Edition =>
         EditionGrid.SelectedIndex >= 0 && EditionGrid.SelectedIndex < editions.Count ? editions[EditionGrid.SelectedIndex] : null;
@@ -98,13 +188,12 @@ public sealed partial class MainWindow : Window
 
     private bool Enhanced => ComponentGrid.SelectedIndex != 0;
 
-    // -------- Pages --------
-
     private void ShowPage(FrameworkElement next)
     {
         page = next;
         PageHost.Children.Clear();
         PageHost.Children.Add(next);
+        LoadingRing.IsActive = next == LoadingPage;
         UpdateChrome();
     }
 
@@ -131,21 +220,23 @@ public sealed partial class MainWindow : Window
         PageLead.Text = lead;
         PageTitle.Visibility = title.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
         PageLead.Visibility = lead.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+        Header.Visibility = step > 0 || title.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
 
         // Footer: a link on the first page; Back, the main action, Close
         ModeButton.Visibility = page == ZenPage ? Visibility.Visible : Visibility.Collapsed;
-        BackButton.Visibility = page == WhatPage || page == UninstallPage ? Visibility.Visible : Visibility.Collapsed;
+        BackButton.Visibility = page == WhatPage || page == UninstallPage || page == NoZenPage ? Visibility.Visible : Visibility.Collapsed;
+        BackButton.Content = S.Get(page == NoZenPage ? "CheckAgain" : "Back");
         DangerButton.Visibility = page == UninstallPage ? Visibility.Visible : Visibility.Collapsed;
-        NextButton.Visibility = page == UninstallPage || page == WorkPage || (page == DonePage && uninstalling && succeeded)
-            ? Visibility.Collapsed
-            : Visibility.Visible;
+        NextButton.Visibility = page == ZenPage || page == WhatPage || (page == DonePage && !(uninstalling && succeeded))
+            ? Visibility.Visible
+            : Visibility.Collapsed;
         NextButton.Content = page switch
         {
             _ when page == WhatPage => S.Get("Install"),
             _ when page == DonePage => S.Get(succeeded ? "OpenZen" : "TryAgain"),
             _ => S.Get("Next"),
         };
-        CloseButton.Content = S.Get(page == DonePage ? "Close" : "Cancel");
+        CloseButton.Content = S.Get(page == DonePage || page == NoZenPage ? "Close" : "Cancel");
         CloseButton.IsEnabled = !running;
         CloseButton.Visibility = page == WorkPage ? Visibility.Collapsed : Visibility.Visible;
         UpdateNext();
@@ -181,7 +272,7 @@ public sealed partial class MainWindow : Window
         }
         else if (page == DonePage)
         {
-            if (succeeded) OpenZen();
+            if (succeeded) OpenZen(withProfile: true);
             else ShowPage(uninstalling ? UninstallPage : WhatPage);
         }
     }
@@ -189,6 +280,13 @@ public sealed partial class MainWindow : Window
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
         if (running) return;
+        if (page == NoZenPage)
+        {
+            // Look again, with the loading screen
+            ShowPage(LoadingPage);
+            loading = LoadAsync(minimum: 600);
+            return;
+        }
         uninstalling = false;
         ShowPage(ZenPage);
     }
@@ -220,12 +318,41 @@ public sealed partial class MainWindow : Window
         return true;
     }
 
-    private void ShowZenInfo(InfoBarSeverity severity, string message)
+    /// <summary>The first page's message, with an action button or none.</summary>
+    private void ShowZenInfo(InfoBarSeverity severity, string message, string? action = null, Action? onAction = null)
     {
         ZenInfo.Severity = severity;
         ZenInfo.Message = message;
+        if (action is not null && onAction is not null)
+        {
+            var button = new Button { Content = action };
+            button.Click += (_, _) => onAction();
+            ZenInfo.ActionButton = button;
+        }
+        else
+        {
+            ZenInfo.ActionButton = null;
+        }
         ZenInfo.IsOpen = message.Length > 0;
     }
+
+    private static void OpenLink(string url)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        catch
+        {
+        }
+    }
+
+    private static bool IsTwilight(ZenEdition? edition) =>
+        edition?.Name.Contains("twilight", StringComparison.OrdinalIgnoreCase) == true;
+
+    private void DownloadZenButton_Click(object sender, RoutedEventArgs e) => OpenLink(ZenDownload);
+
+    private void DownloadTwilightButton_Click(object sender, RoutedEventArgs e) => OpenLink(TwilightDownload);
 
     // -------- Tiles --------
 
@@ -245,9 +372,9 @@ public sealed partial class MainWindow : Window
     /// card, the hover and the accent outline of the picked tile.</summary>
     private static FrameworkElement Tile(string glyph, string title, string? badge, IEnumerable<UIElement> lines)
     {
-        var panel = new StackPanel { Spacing = 4, Padding = new Thickness(16), Width = 328, MinHeight = 156 };
-        var icon = new Border { Style = (Style)Application.Current.Resources["TileIconBox"], Margin = new Thickness(0, 0, 0, 8) };
-        icon.Child = new FontIcon { Glyph = glyph, FontSize = 24, Foreground = Brush("AccentTextFillColorPrimaryBrush") };
+        var panel = new StackPanel { Spacing = 4, Padding = new Thickness(18, 16, 18, 18), MinHeight = 150 };
+        var icon = new Border { Style = (Style)Application.Current.Resources["TileIconBox"], Margin = new Thickness(0, 0, 0, 10) };
+        icon.Child = new FontIcon { Glyph = glyph, FontSize = 22, Foreground = Brush("AccentTextFillColorPrimaryBrush") };
         panel.Children.Add(icon);
 
         var head = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
@@ -280,6 +407,23 @@ public sealed partial class MainWindow : Window
         return panel;
     }
 
+    /// <summary>The tiles share the row: as wide as it allows, the same
+    /// height (the StackPanel row stretches them to the tallest).</summary>
+    private void TileGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (sender is GridView grid) SizeTiles(grid);
+    }
+
+    private static void SizeTiles(GridView grid)
+    {
+        var count = grid.Items.Count;
+        if (count == 0 || grid.ActualWidth <= 0) return;
+        // Each item has a 12px margin on its right; the grid's -12px margin
+        // gives it back on the last one
+        var width = Math.Floor(grid.ActualWidth / Math.Max(count, 2)) - 12;
+        foreach (var item in grid.Items.OfType<FrameworkElement>()) item.Width = width;
+    }
+
     // -------- Step 1: Zen version and profile --------
 
     private void BuildEditionTiles(int select)
@@ -289,24 +433,24 @@ public sealed partial class MainWindow : Window
         {
             var lines = new List<UIElement>();
             if (!string.IsNullOrEmpty(e.Version)) lines.Add(Line(e.Version, "BodyTextBlockStyle"));
-            lines.Add(Line(e.Dir, "CaptionTextBlockStyle", "TextFillColorTertiaryBrush"));
+            var path = Line(e.Dir, "CaptionTextBlockStyle", "TextFillColorTertiaryBrush");
+            path.TextWrapping = TextWrapping.NoWrap;
+            path.TextTrimming = TextTrimming.CharacterEllipsis;
+            ToolTipService.SetToolTip(path, e.Dir);
+            lines.Add(path);
             if (e.TooOld)
             {
-                var warning = Line(string.Format(S.Get("TooOld"), e.Label), "CaptionTextBlockStyle", "SystemFillColorCautionBrush");
-                warning.Margin = new Thickness(0, 4, 0, 0);
+                var warning = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6, Margin = new Thickness(0, 6, 0, 0) };
+                warning.Children.Add(new FontIcon { Glyph = "", FontSize = 12, Foreground = Brush("SystemFillColorCautionBrush") });
+                warning.Children.Add(Line(S.Get("UpdateNeeded"), "CaptionTextBlockStyle", "SystemFillColorCautionBrush"));
                 lines.Add(warning);
             }
-            var twilight = e.Name.Contains("twilight", StringComparison.OrdinalIgnoreCase);
             // a moon for Twilight, a globe for Zen Browser
-            EditionGrid.Items.Add(Tile(twilight ? "" : "", e.Name, null, lines));
+            EditionGrid.Items.Add(Tile(IsTwilight(e) ? "" : "", e.Name, null, lines));
         }
-        if (editions.Count == 0)
-        {
-            ShowZenInfo(InfoBarSeverity.Warning, S.Get("NoZen"));
-            FillProfiles();
-            return;
-        }
+        SizeTiles(EditionGrid);
         EditionGrid.SelectedIndex = Math.Min(select, editions.Count - 1);
+        FillProfiles();
     }
 
     private void EditionGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -323,6 +467,7 @@ public sealed partial class MainWindow : Window
     /// <summary>The chosen Zen's profiles, the one it opens by default first.</summary>
     private void FillProfiles()
     {
+        var keep = Profile?.Path;
         ProfileBox.Items.Clear();
         profiles = new();
         var edition = Edition;
@@ -337,12 +482,31 @@ public sealed partial class MainWindow : Window
             }
         }
         ProfileBox.IsEnabled = profiles.Count > 0;
-        if (profiles.Count > 0) ProfileBox.SelectedIndex = 0;
+        if (profiles.Count > 0)
+        {
+            var index = keep is null ? -1 : profiles.FindIndex(p => string.Equals(p.Path, keep, StringComparison.OrdinalIgnoreCase));
+            ProfileBox.SelectedIndex = Math.Max(0, index);
+        }
 
         if (edition is null) return;
-        if (edition.TooOld) ShowZenInfo(InfoBarSeverity.Warning, string.Format(S.Get("TooOld"), edition.Label));
-        else if (profiles.Count == 0) ShowZenInfo(InfoBarSeverity.Warning, S.Get("NoProfile"));
-        else ShowZenInfo(InfoBarSeverity.Informational, "");
+        if (edition.TooOld)
+        {
+            // Too old: a way to the latest version of this edition
+            ShowZenInfo(InfoBarSeverity.Warning, string.Format(S.Get("TooOld"), edition.Label),
+                string.Format(S.Get("UpdateZen"), edition.Name),
+                () => OpenLink(IsTwilight(edition) ? TwilightDownload : ZenDownload));
+        }
+        else if (profiles.Count == 0)
+        {
+            // No profile yet: open Zen once; coming back looks again
+            ShowZenInfo(InfoBarSeverity.Warning, S.Get("NoProfile"),
+                string.Format(S.Get("OpenEdition"), edition.Name),
+                () => OpenZen(withProfile: false));
+        }
+        else
+        {
+            ShowZenInfo(InfoBarSeverity.Informational, "");
+        }
         UpdateProfile();
     }
 
@@ -370,9 +534,14 @@ public sealed partial class MainWindow : Window
         if (folder is null) return;
         if (!File.Exists(Path.Combine(folder.Path, "zen.exe")))
         {
-            ShowZenInfo(InfoBarSeverity.Warning, S.Get("NotZen"));
+            var info = page == NoZenPage ? NoZenInfo : ZenInfo;
+            info.Severity = InfoBarSeverity.Warning;
+            info.Message = S.Get("NotZen");
+            info.ActionButton = null;
+            info.IsOpen = true;
             return;
         }
+        NoZenInfo.IsOpen = false;
         var found = Zen.EditionFromFolder(folder.Path);
         var index = editions.FindIndex(x => string.Equals(x.Dir, found.Dir, StringComparison.OrdinalIgnoreCase));
         if (index < 0)
@@ -380,6 +549,7 @@ public sealed partial class MainWindow : Window
             editions.Add(found);
             index = editions.Count - 1;
         }
+        if (page != ZenPage) ShowPage(ZenPage);
         BuildEditionTiles(index);
     }
 
@@ -504,22 +674,26 @@ public sealed partial class MainWindow : Window
         if (succeeded) UpdateProfile();
     }
 
-    /// <summary>Starts the chosen Zen on the chosen profile, then closes.</summary>
-    private void OpenZen()
+    /// <summary>Starts the chosen Zen, on the chosen profile once installed
+    /// (then closes), or bare to make its first profile.</summary>
+    private void OpenZen(bool withProfile)
     {
-        if (Edition is not { } zen || Profile is not { } profile) return;
+        if (Edition is not { } zen) return;
         try
         {
-            Process.Start(new ProcessStartInfo(Path.Combine(zen.Dir, "zen.exe"))
+            var start = new ProcessStartInfo(Path.Combine(zen.Dir, "zen.exe")) { UseShellExecute = false };
+            if (withProfile && Profile is { } profile)
             {
-                ArgumentList = { "-profile", profile.Path },
-                UseShellExecute = false,
-            });
-            Close();
+                start.ArgumentList.Add("-profile");
+                start.ArgumentList.Add(profile.Path);
+            }
+            Process.Start(start);
+            if (withProfile) Close();
         }
         catch (Exception error)
         {
-            DoneText.Text = error.Message;
+            if (page == DonePage) DoneText.Text = error.Message;
+            else ShowZenInfo(InfoBarSeverity.Error, error.Message);
         }
     }
 }

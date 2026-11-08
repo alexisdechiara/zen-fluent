@@ -18,12 +18,22 @@ download link to test a branch.
 
 The window is a wizard, as Windows 11's own setup screens: a step and its
 pips, a title and a line, one page at a time sliding in, Back / Next at
-the bottom.
+the bottom. It has a fixed size made for its pages (860 x 740, scaled to
+the monitor, centered, never larger than the work area): nothing to
+resize.
+
+- **Looking for Zen…**: shown at once, while the versions of Zen and their
+  profiles are read off the UI thread.
+- **Install Zen first**, when no Zen is found: Download Zen Browser or Zen
+  Twilight (their download pages), or pick Zen's folder by hand. Coming
+  back to the window looks again, and **Check again** too.
 
 1. **Where should Zen Fluent go?** A tile per installed Zen version (its
-   version, folder, and a warning before Zen 1.23), then the chosen
-   version's profile in a settings card. Next waits for a recent enough
-   Zen and a profile, and stops with an error while Zen is open on it.
+   version, folder, and "Update needed" before Zen 1.23, with an
+   **Update** button to the edition's download page), then the chosen
+   version's profile in a settings card (no profile yet: **Open** that Zen
+   once; coming back looks again). Next waits for a recent enough Zen and a
+   profile, and stops with an error while Zen is open on it.
 2. **What do you want to install?** Zen Fluent or Zen Fluent Enhanced
    (recommended), two tiles. The box allowing scripts of mods outside
    Sine's store shows with Enhanced only, and turns red when Install is
