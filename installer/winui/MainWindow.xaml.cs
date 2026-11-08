@@ -56,6 +56,10 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    /// <summary>What the window found, for --selftest.</summary>
+    public string SelfTestSummary =>
+        $"editions={editions.Count} profiles={allProfiles.Count} source={Installer.SourceRef}";
+
     private ZenEdition? Edition =>
         EditionBox.SelectedIndex >= 0 && EditionBox.SelectedIndex < editions.Count ? editions[EditionBox.SelectedIndex] : null;
 
