@@ -31,8 +31,12 @@ one `vX.Y.Z` tag.
   over the dimmed window instead of Zen's video, so each choice shows
   behind it; it moves with Zen's motion library, as smoothly as Zen's
   welcome; it shows the settings people change most (window, tabs and
-  sidebar, URL bar and menus, motion), each with its values as buttons, and
-  ten features instead of a page saying there is more.
+  sidebar, URL bar and menus, motion) as rows of Windows' Settings, each
+  with a WinUI ComboBox (its list opens with the selected value over the
+  box) or a switch, and ten features instead of a page saying there is
+  more. The themes and the modes (Light, Dark, System) are drawn as small
+  windows, the accent page previews its controls, and the card is as tall
+  as each page needs.
 - Windows installer: a fixed width and a height that fits each page
   (nothing to resize), tiles drawn with their own template (the accent
   ring covers the card's stroke, corners included), the log shown as it is

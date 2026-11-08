@@ -89,8 +89,14 @@
     display: grid !important;
     grid-template-columns: 320px 1fr !important;
     width: min(1000px, calc(100vw - 48px)) !important;
-    height: min(620px, calc(100vh - 48px)) !important;
+    /* As tall as the page needs (set by the script), within the window */
+    height: min(
+      var(--zf-wl-height, 620px),
+      660px,
+      calc(100vh - 48px)
+    ) !important;
     overflow: hidden !important;
+    transition: height var(--zf-duration-slow) var(--zf-ease);
     border: 1px solid var(--zf-stroke-control) !important;
     border-radius: var(--zf-radius-overlay) !important;
     background: var(--zf-acrylic-over-page) !important;
@@ -270,14 +276,16 @@
     font-size: 15px !important;
   }
 
-  /* Theme cards */
-  & .zf-wl-themes {
+  /* Theme and mode tiles: a drawing, then the name (Windows' Themes page) */
+  & .zf-wl-themes,
+  & .zf-wl-modes {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     gap: 8px !important;
   }
 
   & .zf-wl-theme,
+  & .zf-wl-mode,
   & .zf-wl-accent {
     display: flex !important;
     flex-direction: column !important;
@@ -302,6 +310,24 @@
     }
   }
 
+  & .zf-wl-theme,
+  & .zf-wl-mode {
+    gap: 0 !important;
+    padding: 4px !important;
+  }
+
+  & .zf-wl-tile-text {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    padding: 8px 8px 6px !important;
+  }
+
+  & .zf-wl-mode .zf-wl-tile-text {
+    padding-block: 6px 4px !important;
+    font-weight: 600 !important;
+  }
+
   & .zf-wl-theme-name,
   & .zf-wl-setting-title {
     font-weight: 600 !important;
@@ -314,28 +340,230 @@
     line-height: 16px !important;
   }
 
-  /* Mode: a segmented control */
-  & .zf-wl-segmented {
-    display: inline-flex !important;
-    align-self: start !important;
-    padding: 2px !important;
-    border: 1px solid var(--zf-stroke-control) !important;
-    border-radius: var(--zf-radius-control) !important;
-    background: var(--zf-fill-control-alt) !important;
+  /* -------- Drawings of the window (themes, modes) --------
+     A wallpaper, and the window on it: the sidebar on its material (more
+     of the wallpaper through Acrylic, less through Mica Alt), three
+     Essentials with the theme's selected mark, three tabs, the page. Its
+     colors are light-dark() pairs: a mode's drawing sets color-scheme. */
+  & .zf-wl-preview {
+    --zf-pv-base: light-dark(#f3f3f3, #202020);
+    --zf-pv-page: light-dark(#fff, #2c2c2c);
+    --zf-pv-fill: light-dark(rgb(0 0 0 / 7%), rgb(255 255 255 / 9%));
+    --zf-pv-strong: light-dark(rgb(0 0 0 / 14%), rgb(255 255 255 / 18%));
+    --zf-pv-line: light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 12%));
+    --zf-pv-tint: 86%;
+    --zf-pv-mark: var(--zf-accent);
 
-    & > button {
-      min-width: 88px !important;
-      padding: 5px 12px !important;
-      border: 0 !important;
-      border-radius: calc(var(--zf-radius-control) - 1px) !important;
-      background: transparent !important;
-      transition: background-color var(--zf-duration-fast) linear;
+    position: relative !important;
+    display: block !important;
+    height: 92px !important;
+    overflow: hidden !important;
+    border-radius: calc(var(--zf-radius-card) - 2px) !important;
+    background:
+      radial-gradient(
+        circle at 80% 15%,
+        rgb(255 214 170 / 70%),
+        transparent 45%
+      ),
+      linear-gradient(135deg, #2f6fd8, #7a5ce8 55%, #e58a6a) !important;
+
+    &[data-material="mica-alt"] {
+      --zf-pv-tint: 94%;
     }
 
-    & > button[aria-checked="true"] {
-      background: var(--zf-fill-control) !important;
-      box-shadow: 0 0 0 1px var(--zf-stroke-control) !important;
-      font-weight: 600 !important;
+    &[data-material="acrylic"] {
+      --zf-pv-tint: 66%;
+    }
+  }
+
+  & .zf-wl-pv-window {
+    position: absolute !important;
+    inset: 14px -1px -1px 16px !important;
+    display: flex !important;
+    overflow: hidden !important;
+    border: 1px solid var(--zf-pv-line) !important;
+    border-radius: 6px 0 0 !important;
+    background: color-mix(
+      in srgb,
+      var(--zf-pv-base) var(--zf-pv-tint),
+      transparent
+    ) !important;
+    box-shadow: 0 6px 16px rgb(0 0 0 / 28%) !important;
+  }
+
+  & .zf-wl-pv-side {
+    display: flex !important;
+    flex: none !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 36% !important;
+    padding: 6px 5px !important;
+  }
+
+  & .zf-wl-pv-url,
+  & .zf-wl-pv-tab,
+  & .zf-wl-pv-ess > i,
+  & .zf-wl-pv-ext > i {
+    position: relative !important;
+    display: block !important;
+    border-radius: 2px !important;
+  }
+
+  & .zf-wl-pv-url {
+    height: 8px !important;
+    background: var(--zf-pv-fill) !important;
+  }
+
+  & .zf-wl-pv-ess {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 3px !important;
+    margin-block: 1px 2px !important;
+
+    & > i {
+      height: 12px !important;
+      border-radius: 3px !important;
+      background: var(--zf-pv-fill) !important;
+    }
+  }
+
+  & .zf-wl-pv-tab {
+    height: 7px !important;
+  }
+
+  & .zf-wl-pv-tab.zf-wl-pv-on {
+    background: var(--zf-pv-strong) !important;
+
+    /* WinUI's selection pill */
+    &::before {
+      position: absolute !important;
+      inset: 1px auto 1px 0 !important;
+      width: 2px !important;
+      border-radius: 1px !important;
+      background: var(--zf-pv-mark) !important;
+      content: "" !important;
+    }
+  }
+
+  & .zf-wl-pv-ext {
+    display: none !important;
+    gap: 3px !important;
+    margin-top: auto !important;
+
+    & > i {
+      width: 7px !important;
+      height: 7px !important;
+      border-radius: 50% !important;
+      corner-shape: round !important;
+      background: var(--zf-pv-strong) !important;
+    }
+  }
+
+  & .zf-wl-pv-page {
+    flex: 1 !important;
+    border-inline-start: 1px solid var(--zf-pv-line) !important;
+    background: var(--zf-pv-page) !important;
+  }
+
+  /* The style and the corners: Edge and Zen's corners float the page */
+  & .zf-wl-preview:is([data-style="edge"], [data-corners="zen"]) {
+    & .zf-wl-pv-page {
+      margin-top: 4px !important;
+      border: 1px solid var(--zf-pv-line) !important;
+      border-radius: 5px 0 0 !important;
+    }
+
+    & .zf-wl-pv-tab.zf-wl-pv-on::before {
+      display: none !important;
+    }
+  }
+
+  & .zf-wl-preview[data-style="edge"] .zf-wl-pv-tab.zf-wl-pv-on {
+    background: var(--zf-pv-page) !important;
+    box-shadow: 0 0 0 1px var(--zf-pv-line) !important;
+  }
+
+  & .zf-wl-preview[data-density="compact"] {
+    & .zf-wl-pv-side {
+      gap: 2px !important;
+    }
+
+    & .zf-wl-pv-tab {
+      height: 5px !important;
+    }
+
+    & .zf-wl-pv-ess > i {
+      height: 9px !important;
+    }
+  }
+
+  & .zf-wl-preview[data-align="center"] .zf-wl-pv-ess {
+    grid-template-columns: repeat(3, 12px) !important;
+    justify-content: center !important;
+  }
+
+  & .zf-wl-preview[data-extensions="bottom"] .zf-wl-pv-ext {
+    display: flex !important;
+  }
+
+  /* The selected Essential's mark */
+  & .zf-wl-pv-ess > i.zf-wl-pv-on {
+    background: color-mix(
+      in srgb,
+      var(--zf-pv-mark) 22%,
+      var(--zf-pv-fill)
+    ) !important;
+  }
+
+  & .zf-wl-preview[data-essentials="glow"] .zf-wl-pv-ess > i.zf-wl-pv-on {
+    box-shadow: 0 0 6px color-mix(in srgb, var(--zf-pv-mark) 70%, transparent) !important;
+  }
+
+  & .zf-wl-preview[data-essentials="arc"] .zf-wl-pv-ess > i.zf-wl-pv-on {
+    box-shadow:
+      inset 0 0 0 1px var(--zf-pv-mark),
+      0 1px 0 color-mix(in srgb, var(--zf-pv-mark) 60%, black) !important;
+  }
+
+  &
+    .zf-wl-preview:is([data-essentials="indicator"], [data-essentials="side"])
+    .zf-wl-pv-ess
+    > i.zf-wl-pv-on::after {
+    position: absolute !important;
+    border-radius: 1px !important;
+    background: var(--zf-pv-mark) !important;
+    content: "" !important;
+  }
+
+  &
+    .zf-wl-preview[data-essentials="indicator"]
+    .zf-wl-pv-ess
+    > i.zf-wl-pv-on::after {
+    inset: auto 30% -3px !important;
+    height: 2px !important;
+  }
+
+  &
+    .zf-wl-preview[data-essentials="side"]
+    .zf-wl-pv-ess
+    > i.zf-wl-pv-on::after {
+    inset: 2px auto 2px -2px !important;
+    width: 2px !important;
+  }
+
+  /* System: light, then dark, split across */
+  & .zf-wl-pv-split {
+    position: relative !important;
+    display: block !important;
+    height: 92px !important;
+
+    & > .zf-wl-preview {
+      position: absolute !important;
+      inset: 0 !important;
+    }
+
+    & > .zf-wl-preview + .zf-wl-preview {
+      clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%) !important;
     }
   }
 
@@ -362,60 +590,215 @@
     box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%) !important;
   }
 
-  /* Settings cards, as in Windows' Settings: the text, then the values as
-     buttons under it, or a switch at the end of the row */
+  /* The accent page's preview: WinUI controls in the accent, inert */
+  & .zf-wl-sample {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    padding: 16px !important;
+    border: 1px solid var(--zf-stroke-divider) !important;
+    border-radius: var(--zf-radius-card) !important;
+    background: var(--zf-fill-card) !important;
+  }
+
+  & .zf-wl-sample-row {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important;
+
+    & > .zf-wl-button {
+      display: inline-flex !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+    }
+  }
+
+  & .zf-wl-sample-check {
+    position: relative !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: var(--zf-accent) !important;
+
+    /* The check mark, drawn with two borders */
+    &::after {
+      position: absolute !important;
+      top: 4px !important;
+      left: 7px !important;
+      width: 4px !important;
+      height: 9px !important;
+      border: solid var(--zf-on-accent) !important;
+      border-width: 0 2px 2px 0 !important;
+      content: "" !important;
+      rotate: 45deg !important;
+    }
+  }
+
+  & .zf-wl-sample-slider {
+    position: relative !important;
+    flex: 1 !important;
+    height: 4px !important;
+    border-radius: 2px !important;
+    background: linear-gradient(
+      to right,
+      var(--zf-accent) 60%,
+      var(--zf-text-disabled) 60%
+    ) !important;
+  }
+
+  & .zf-wl-sample-thumb {
+    position: absolute !important;
+    top: 50% !important;
+    left: 60% !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: 50% !important;
+    corner-shape: round !important;
+    background: var(--zf-fill-control)
+      radial-gradient(circle, var(--zf-accent) 6px, transparent 6.5px) !important;
+    translate: -50% -50% !important;
+  }
+
+  & .zf-wl-sample-field {
+    flex: 1 !important;
+    box-sizing: border-box !important;
+    height: 32px !important;
+    padding: 5px 11px !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-bottom: 2px solid var(--zf-accent) !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: var(--zf-layer) !important;
+    color: var(--zf-text-secondary) !important;
+  }
+
+  & .zf-wl-sample-item {
+    position: relative !important;
+    flex: 1 !important;
+    padding: 6px 12px !important;
+    border-radius: var(--zf-radius-control) !important;
+    background: var(--zf-fill-selected) !important;
+
+    &::before {
+      position: absolute !important;
+      inset: 9px auto 9px 0 !important;
+      width: 3px !important;
+      border-radius: 1.5px !important;
+      corner-shape: round !important;
+      background: var(--zf-accent) !important;
+      content: "" !important;
+    }
+  }
+
+  /* Settings cards, as in Windows' Settings: the text, then the control
+     (a ComboBox or a switch) at the end of the row */
   & .zf-wl-setting {
     box-sizing: border-box !important;
     display: flex !important;
     flex: none !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    padding: 12px 16px !important;
+    gap: 14px !important;
+    align-items: center !important;
+    min-height: 64px !important;
+    padding: 10px 16px !important;
     border: 1px solid var(--zf-stroke-divider) !important;
     border-radius: var(--zf-radius-card) !important;
     background: var(--zf-fill-card) !important;
-
-    &.zf-wl-inline {
-      flex-direction: row !important;
-      gap: 14px !important;
-      align-items: center !important;
-      min-height: 64px !important;
-    }
   }
 
   & .zf-wl-setting-text {
     display: flex !important;
     flex: 1 !important;
     flex-direction: column !important;
+    min-width: 0 !important;
   }
 
-  & .zf-wl-chips {
+  /* WinUI ComboBox: 32px, the value, a chevron at the end */
+  & .zf-wl-combo {
     display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-  }
-
-  & .zf-wl-chip {
-    min-height: 30px !important;
-    padding: 4px 12px !important;
+    flex: none !important;
+    align-items: center !important;
+    min-width: 200px !important;
+    max-width: 260px !important;
+    height: 32px !important;
+    padding: 0 32px 1px 11px !important;
     border: 1px solid var(--zf-stroke-control) !important;
     border-radius: var(--zf-radius-control) !important;
-    background: var(--zf-fill-control) !important;
-    transition:
-      background-color var(--zf-duration-fast) linear,
-      color var(--zf-duration-fast) linear;
+    background: var(--zf-fill-control)
+      url("chrome://sine/content/Zen-Fluent-Enhanced/settings/icons/chevron-down.svg")
+      no-repeat right 10px center / 12px !important;
+    background-clip: padding-box !important;
+    text-align: start !important;
+    transition: background-color var(--zf-duration-fast) linear;
+    -moz-context-properties: fill !important;
+    fill: var(--zf-text-secondary) !important;
 
     &:hover {
-      background: var(--zf-fill-control-hover) !important;
+      background-color: var(--zf-fill-control-hover) !important;
     }
 
-    &[aria-checked="true"] {
-      border-color: transparent !important;
-      background: var(--zf-accent) !important;
-      color: var(--zf-on-accent) !important;
+    &:active,
+    &[aria-expanded="true"] {
+      background-color: var(--zf-fill-control-press) !important;
+    }
+  }
 
-      &:hover {
-        background: var(--zf-accent-hover) !important;
+  & .zf-wl-combo-text {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Its list: a flyout, the selected item over the box, WinUI's pill */
+  & .zf-wl-combo-list {
+    position: absolute !important;
+    z-index: 2 !important;
+    box-sizing: border-box !important;
+    max-height: min(360px, calc(100vh - 16px)) !important;
+    padding: 2px 0 !important;
+    overflow: auto !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    background: var(--zf-acrylic-over-page) !important;
+    box-shadow: var(--zf-shadow-flyout) !important;
+    scrollbar-width: thin !important;
+    -moz-window-dragging: no-drag !important;
+    transition: opacity 120ms linear;
+
+    &[zf-closing] {
+      opacity: 0;
+      pointer-events: none !important;
+    }
+  }
+
+  & .zf-wl-combo-item {
+    position: relative !important;
+    margin: 2px 4px !important;
+    padding: 6px 11px 7px !important;
+    border-radius: var(--zf-radius-control) !important;
+    white-space: nowrap !important;
+    outline: none !important;
+    transition: background-color var(--zf-duration-fast) linear;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--zf-fill-subtle-hover) !important;
+    }
+
+    &:active {
+      background: var(--zf-fill-subtle-press) !important;
+    }
+
+    &[aria-selected="true"] {
+      background: var(--zf-fill-selected) !important;
+
+      &::before {
+        position: absolute !important;
+        inset: 9px auto 9px 0 !important;
+        width: 3px !important;
+        border-radius: 1.5px !important;
+        corner-shape: round !important;
+        background: var(--zf-accent) !important;
+        content: "" !important;
       }
     }
   }

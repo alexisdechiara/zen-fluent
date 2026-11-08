@@ -79,10 +79,20 @@
   ];
 
   const MODES = [
-    { label: "System", value: 2 },
-    { label: "Light", value: 1 },
-    { label: "Dark", value: 0 },
+    { label: "Light", value: 1, scheme: "light" },
+    { label: "Dark", value: 0, scheme: "dark" },
+    { label: "System", value: 2, scheme: null },
   ];
+  // What a theme's drawing shows (welcome.css, .zf-wl-preview[data-*])
+  const PREVIEW_PREFS = {
+    style: "zen-fluent.style",
+    material: "zen-fluent.material",
+    corners: "zen-fluent.corners",
+    density: "zen-fluent.density",
+    essentials: "zen-fluent.essentials.selected-style",
+    align: "zen-fluent.essentials.align",
+    extensions: "zen-fluent.extensions.position",
+  };
   const ACCENTS = [
     { label: "Windows accent", value: "system", color: "AccentColor" },
     {
@@ -516,6 +526,7 @@
         if (!root) {
           return;
         }
+        openCombo?.close();
         const node = root;
         root = null;
         const target = fly && !reduced() ? settingsButton() : null;
@@ -620,12 +631,175 @@
         return toggle;
       }
 
-      /** A settings card: a title, its description, and its control at the
-       * end (a switch) or under it (the values as buttons). */
-      function settingCard({ title, description, control, inline, lead }) {
+      /** The ComboBox whose list is open: one at a time. */
+      let openCombo = null;
+
+      /** A WinUI ComboBox: the value's short label and a chevron; its list
+       * opens with the selected item over the box (as WinUI places it) and
+       * grows from that item. Arrow keys change the value while it is
+       * closed; Alt+Down, Enter or Space open it. */
+      function comboBox({ options, current, pick, label }) {
+        const short = (text) => text.replace(/\s*\(.*\)$/, "");
+        const text = html("span", { class: "zf-wl-combo-text" });
+        const box = html(
+          "button",
+          {
+            class: "zf-wl-combo",
+            "aria-haspopup": "listbox",
+            "aria-expanded": "false",
+            "aria-label": label,
+          },
+          text,
+        );
+        const selected = () =>
+          Math.max(
+            0,
+            options.findIndex((option) => option.value === current()),
+          );
+        const update = () => {
+          text.textContent = short(options[selected()]?.label ?? "");
+        };
+        const choose = (option) => {
+          if (option.value !== current()) {
+            pick(option);
+          }
+          update();
+        };
+
+        function openList() {
+          openCombo?.close();
+          if (!root) {
+            return;
+          }
+          const index = selected();
+          const list = html("div", {
+            class: "zf-wl-combo-list",
+            role: "listbox",
+            "aria-label": label,
+          });
+          const items = options.map((option, i) =>
+            html(
+              "div",
+              {
+                class: "zf-wl-combo-item",
+                role: "option",
+                tabindex: "-1",
+                "aria-selected": String(i === index),
+                onclick: () => {
+                  close();
+                  choose(option);
+                },
+              },
+              option.label,
+            ),
+          );
+          list.append(...items);
+          root.append(list);
+
+          // The selected item over the box, the list kept on screen
+          const rect = box.getBoundingClientRect();
+          list.style.minWidth = `${rect.width + 8}px`;
+          const item = items[index];
+          const height = list.offsetHeight;
+          const top = Math.min(
+            Math.max(
+              8,
+              rect.top - item.offsetTop - (item.offsetHeight - rect.height) / 2,
+            ),
+            win.innerHeight - height - 8,
+          );
+          const left = Math.min(
+            rect.left - 4,
+            win.innerWidth - list.offsetWidth - 8,
+          );
+          list.style.top = `${top}px`;
+          list.style.left = `${left}px`;
+          if (list.scrollHeight > list.clientHeight) {
+            item.scrollIntoView({ block: "center" });
+          }
+          if (!reduced()) {
+            const from = item.offsetTop - list.scrollTop;
+            const to = Math.max(0, height - from - item.offsetHeight);
+            list.animate(
+              [
+                { clipPath: `inset(${from}px 0 ${to}px 0)`, opacity: 0.5 },
+                { clipPath: "inset(0 0 0 0)", opacity: 1 },
+              ],
+              { duration: 250, easing: "cubic-bezier(0, 0, 0, 1)" },
+            );
+          }
+
+          const outside = (event) => {
+            if (!list.contains(event.target) && !box.contains(event.target)) {
+              close();
+            }
+          };
+          root.addEventListener("pointerdown", outside, true);
+          list.addEventListener("keydown", (event) => {
+            const at = items.indexOf(doc.activeElement);
+            if (event.key === "Escape" || event.key === "Tab") {
+              event.preventDefault();
+              event.stopPropagation();
+              close();
+              box.focus();
+            } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+              event.preventDefault();
+              const step = event.key === "ArrowDown" ? 1 : -1;
+              items[
+                Math.min(items.length - 1, Math.max(0, at + step))
+              ]?.focus();
+            } else if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              close();
+              box.focus();
+              if (at >= 0) {
+                choose(options[at]);
+              }
+            }
+          });
+
+          function close() {
+            if (openCombo?.list !== list) {
+              return;
+            }
+            openCombo = null;
+            root?.removeEventListener("pointerdown", outside, true);
+            box.setAttribute("aria-expanded", "false");
+            list.setAttribute("zf-closing", "");
+            win.setTimeout(() => list.remove(), reduced() ? 0 : 120);
+          }
+          openCombo = { list, close };
+          box.setAttribute("aria-expanded", "true");
+          item.focus();
+        }
+
+        box.addEventListener("click", () => openList());
+        box.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+            return;
+          }
+          event.preventDefault();
+          if (event.altKey) {
+            openList();
+            return;
+          }
+          const step = event.key === "ArrowDown" ? 1 : -1;
+          choose(
+            options[
+              Math.min(options.length - 1, Math.max(0, selected() + step))
+            ],
+          );
+        });
+        update();
+        return box;
+      }
+
+      /** A settings card, as in Windows' Settings: its title and
+       * description, then its control at the end of the row. */
+      function settingCard({ title, description, control, lead }) {
         return html(
           "div",
-          { class: `zf-wl-setting${inline ? " zf-wl-inline" : ""}` },
+          { class: "zf-wl-setting" },
           lead,
           html(
             "span",
@@ -638,7 +812,8 @@
         );
       }
 
-      /** A setting of core/preferences.json as a card. */
+      /** A setting of core/preferences.json as a card: a switch, or a
+       * ComboBox of its values. */
       function settingFromDef(def, ownLabel, ownDescription) {
         const [label, sineDescription] = splitLabel(def.label);
         const title = ownLabel ?? label;
@@ -647,31 +822,66 @@
           return settingCard({
             title,
             description,
-            inline: true,
             control: toggleSwitch(def.property, def.defaultValue, title),
           });
         }
-        const options = (def.options ?? []).filter(
-          (option) => option.value !== "custom",
-        );
         return settingCard({
           title,
           description,
-          control: choices(
-            options.map((option) => ({
-              className: "zf-wl-chip",
-              value: String(option.value),
-              content: option.label,
-            })),
-            {
-              className: "zf-wl-chips",
-              current: (item) =>
-                item.value === String(readPref(def.property, def.defaultValue)),
-              pick: (item) =>
-                animate(() => writePref(def.property, item.value)),
-            },
-          ),
+          control: comboBox({
+            label: title,
+            options: (def.options ?? [])
+              .filter((option) => option.value !== "custom")
+              .map((option) => ({ ...option, value: String(option.value) })),
+            current: () => String(readPref(def.property, def.defaultValue)),
+            pick: (option) =>
+              animate(() => writePref(def.property, option.value)),
+          }),
         });
+      }
+
+      /** A drawing of the window in a theme: the sidebar on its material,
+       * the Essentials and their selected mark, the tabs, the page. It
+       * follows the color scheme it sits in (light-dark() colors), so a
+       * mode's drawing sets its own. `value(property)` reads each setting
+       * it shows. */
+      function preview(value, scheme = null) {
+        const node = html(
+          "span",
+          {
+            class: "zf-wl-preview",
+            "aria-hidden": "true",
+            style: scheme ? `color-scheme: ${scheme}` : null,
+          },
+          html(
+            "span",
+            { class: "zf-wl-pv-window" },
+            html(
+              "span",
+              { class: "zf-wl-pv-side" },
+              html("span", { class: "zf-wl-pv-url" }),
+              html(
+                "span",
+                { class: "zf-wl-pv-ess" },
+                html("i"),
+                html("i", { class: "zf-wl-pv-on" }),
+                html("i"),
+              ),
+              html("span", { class: "zf-wl-pv-tab zf-wl-pv-on" }),
+              html("span", { class: "zf-wl-pv-tab" }),
+              html("span", { class: "zf-wl-pv-tab" }),
+              html("span", { class: "zf-wl-pv-ext" }, html("i"), html("i")),
+            ),
+            html("span", { class: "zf-wl-pv-page" }),
+          ),
+        );
+        node.zfUpdate = () => {
+          for (const [key, property] of Object.entries(PREVIEW_PREFS)) {
+            node.dataset[key] = value(property);
+          }
+        };
+        node.zfUpdate();
+        return node;
       }
 
       /** A small looping drawing of a feature: a mini window in spans,
@@ -704,51 +914,118 @@
             ([property, value]) =>
               String(readPref(property, fallback(property))) === value,
           );
+        const live = (property) =>
+          String(readPref(property, fallback(property)));
         return {
           title: "Your look",
           text: "Pick a theme: it sets the style, the material, the Essentials and the buttons at once. Then the mode. Everything applies right away, and every detail can change later.",
-          render: () => [
-            choices(
-              presets.map((preset) => ({
-                className: "zf-wl-theme",
-                preset,
-                content: [
-                  html("span", { class: "zf-wl-theme-name" }, preset.name),
-                  html(
-                    "span",
-                    { class: "zf-wl-theme-desc" },
-                    preset.description,
-                  ),
-                ],
-              })),
-              {
-                className: "zf-wl-themes",
-                role: "toggle",
-                current: (item) => matches(item.preset),
-                pick: (item) =>
-                  animate(() => {
-                    for (const [property, value] of Object.entries(
-                      item.preset.prefs,
-                    )) {
-                      Services.prefs.setStringPref(property, value);
-                    }
-                  }),
-              },
-            ),
-            html("h3", { class: "zf-wl-subtitle" }, "Mode"),
-            choices(
-              MODES.map((mode) => ({ ...mode, content: mode.label })),
-              {
-                className: "zf-wl-segmented",
-                current: (item) =>
-                  Services.prefs.getIntPref(SCHEME, 2) === item.value,
-                pick: (item) =>
-                  animate(() => Services.prefs.setIntPref(SCHEME, item.value)),
-              },
-            ),
-          ],
+          render: () => {
+            // The modes draw the window as it is now: a theme redraws them
+            const modeDrawings = [];
+            const modeDrawing = (mode) => {
+              if (mode.scheme) {
+                const node = preview(live, mode.scheme);
+                modeDrawings.push(node);
+                return node;
+              }
+              const halves = ["light", "dark"].map((scheme) => {
+                const node = preview(live, scheme);
+                modeDrawings.push(node);
+                return node;
+              });
+              return html("span", { class: "zf-wl-pv-split" }, ...halves);
+            };
+            return [
+              choices(
+                presets.map((preset) => ({
+                  className: "zf-wl-theme",
+                  preset,
+                  content: [
+                    preview(
+                      (property) => preset.prefs[property] ?? live(property),
+                    ),
+                    html(
+                      "span",
+                      { class: "zf-wl-tile-text" },
+                      html("span", { class: "zf-wl-theme-name" }, preset.name),
+                      html(
+                        "span",
+                        { class: "zf-wl-theme-desc" },
+                        preset.description,
+                      ),
+                    ),
+                  ],
+                })),
+                {
+                  className: "zf-wl-themes",
+                  role: "toggle",
+                  current: (item) => matches(item.preset),
+                  pick: (item) =>
+                    animate(() => {
+                      for (const [property, value] of Object.entries(
+                        item.preset.prefs,
+                      )) {
+                        Services.prefs.setStringPref(property, value);
+                      }
+                      modeDrawings.forEach((node) => node.zfUpdate());
+                    }),
+                },
+              ),
+              html("h3", { class: "zf-wl-subtitle" }, "Mode"),
+              choices(
+                MODES.map((mode) => ({
+                  ...mode,
+                  className: "zf-wl-mode",
+                  content: [
+                    modeDrawing(mode),
+                    html("span", { class: "zf-wl-tile-text" }, mode.label),
+                  ],
+                })),
+                {
+                  className: "zf-wl-modes",
+                  current: (item) =>
+                    Services.prefs.getIntPref(SCHEME, 2) === item.value,
+                  pick: (item) =>
+                    animate(() =>
+                      Services.prefs.setIntPref(SCHEME, item.value),
+                    ),
+                },
+              ),
+            ];
+          },
         };
       }
+
+      /** WinUI controls in the accent, for show (inert): a button, a
+       * switch, a check box, a slider, a focused text box, a selected
+       * item. */
+      const accentSample = () =>
+        html(
+          "div",
+          { class: "zf-wl-sample", inert: true, "aria-hidden": "true" },
+          html(
+            "div",
+            { class: "zf-wl-sample-row" },
+            html(
+              "span",
+              { class: "zf-wl-button zf-wl-primary" },
+              "Accent button",
+            ),
+            html("span", { class: "zf-wl-switch", "aria-checked": "true" }),
+            html("span", { class: "zf-wl-sample-check" }),
+            html(
+              "span",
+              { class: "zf-wl-sample-slider" },
+              html("span", { class: "zf-wl-sample-thumb" }),
+            ),
+          ),
+          html(
+            "div",
+            { class: "zf-wl-sample-row" },
+            html("span", { class: "zf-wl-sample-field" }, "Search or address"),
+            html("span", { class: "zf-wl-sample-item" }, "Selected tab"),
+          ),
+        );
 
       function accentPage() {
         return {
@@ -780,6 +1057,8 @@
                   ),
               },
             ),
+            html("h3", { class: "zf-wl-subtitle" }, "Preview"),
+            accentSample(),
           ],
         };
       }
@@ -814,7 +1093,7 @@
               return settingCard({
                 title,
                 description,
-                inline: true,
+
                 lead: art(name, look),
                 control: toggleSwitch(
                   def.property,
@@ -835,7 +1114,7 @@
               settingCard({
                 title,
                 description,
-                inline: true,
+
                 lead: icon(iconName),
               }),
             ),
@@ -965,6 +1244,7 @@
           }
           index = to;
           const page = pages[index];
+          openCombo?.close();
 
           // The text: the old one slides out, the new one springs in
           for (const old of [...texts.children]) {
@@ -1012,6 +1292,18 @@
             { opacity: [0, 1], y: [14, 0] },
             { ...SPRING, bounce: 0.2, stagger: 0.035, delay: 0.04 },
           );
+
+          // The card as tall as the page needs (the CSS caps it, and a
+          // longer page scrolls): no empty band under a short page
+          const bottom = (node) =>
+            node ? node.offsetTop + node.offsetHeight : 0;
+          const side = card.firstElementChild;
+          const needed = Math.max(
+            side.offsetHeight - texts.offsetHeight + bottom(text.lastChild),
+            bottom(body.lastElementChild) +
+              parseFloat(win.getComputedStyle(body).paddingBottom),
+          );
+          card.style.setProperty("--zf-wl-height", `${Math.ceil(needed)}px`);
 
           back.toggleAttribute("disabled", index === 0);
           [...dots.children].forEach((dot, i) =>

@@ -160,8 +160,9 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 - **Welcome tour** (on by default): at the first start, once Zen's own
   welcome is done, the window shows in Zen's look, Zen Fluent's sweeps in,
   and a tour opens over the dimmed window (each choice shows behind it at
-  once): a theme and the mode, the accent, then the settings people change
-  most, each with its values as buttons: the window (material, tint
+  once): a theme and the mode, each drawn as a small window, the accent
+  with a preview of its controls, then the settings people change most, as
+  rows of Windows' Settings with a ComboBox or a switch: the window (material, tint
   opacity, corners, corner radius, density, font), tabs and sidebar
   (selected Essential, Essentials alignment, extensions row, accent pill,
   tab close button), URL bar and menus (shape, accent line, floating URL
