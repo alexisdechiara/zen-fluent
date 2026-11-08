@@ -57,7 +57,11 @@ one `vX.Y.Z` tag.
 - Zen Fluent Enhanced, **Welcome tour**: at the first start, a tour over
   Zen's welcome video to pick a theme, the mode and the accent, turn on a
   few features and find the settings page; **Show** in the settings page's
-  About section plays it again.
+  About section plays it again. It moves like Windows 11: the window sweeps
+  from Zen's look to Zen Fluent's before it opens, a theme or a mode
+  crossfades the window, an accent spreads from its swatch, each feature
+  has a small looping drawing, and at the end the card flies to the button
+  that opens the settings again (nothing moves with reduced motion).
 
 - **Menu tint** (Window and menus): menus and panels stay WinUI's neutral
   Acrylic (default), or take a light tint of the accent or of the space's
