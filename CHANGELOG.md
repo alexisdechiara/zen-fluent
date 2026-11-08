@@ -36,7 +36,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   **Installed** is a greyed button of the Install button's size.
 - A weekly CI job checks the listed mods for new versions to check again
   and the Vertex Mods for repositories missing from the list
-  (`npm run check:mods`).
+  (`npm run check:mods`), Featured mods first. A new version tag opens an
+  issue to check every mod again (and Claude reviews their CSS when a
+  Claude secret is set); `/check-mods` runs the full check in Claude Code.
 
 - **Windows installer** (`ZenFluentSetup.exe`, built from
   `installer/ZenFluentSetup.ps1` and attached to each release): installs
@@ -48,6 +50,16 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   Zen's welcome video to pick a theme, the mode and the accent, turn on a
   few features and find the settings page; **Show** in the settings page's
   About section plays it again.
+
+- **Menu tint** (Window and menus): menus and panels stay WinUI's neutral
+  Acrylic (default), or take a light tint of the accent or of the space's
+  color.
+
+- Zen Calmer Context Menu in Fluent: its settings page takes Zen Fluent's
+  look, its Menu color choice gives way to the Menu tint, and Zen Fluent
+  Enhanced's **Fluent defaults for mods** sets the options never changed
+  closest to Windows 11 (Fluent icons on every option, the quick actions
+  row).
 
 ### Changed
 
@@ -67,6 +79,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   color scheme change.
 
 ### Fixed
+
+- With Zen Calmer Context Menu's "Apply the Zen space accent color", menus
+  were 40 % of the space color (blue with a blue space): they follow Zen
+  Fluent's **Menu tint**, neutral by default.
 
 - BetterZenGradientPicker: Zen Fluent's look of the gradient picker won
   over half of the mod's redesign; it steps aside while the mod's picker is

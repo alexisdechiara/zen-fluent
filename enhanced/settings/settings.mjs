@@ -72,6 +72,7 @@ const FEATURES = {
   "site-color": "drop",
   "space-settings": "design-ideas",
   welcome: "hand-wave",
+  "mod-defaults": "checkbox-checked",
   "extensions-below-essentials": "puzzle-piece",
   "tab-numbers": "tag",
   shortcuts: "flash",

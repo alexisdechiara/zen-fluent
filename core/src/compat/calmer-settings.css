@@ -1,0 +1,112 @@
+/* Zen Fluent: compatibility with Zen Calmer Context Menu (sinazadeh/zen-calmer-context-menu): its settings page in Fluent.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Calmer's settings page (a chrome:// page in a tab, which Sine's content
+   sheet reaches) draws itself from a few variables on :root: they take Zen
+   Fluent's tokens, as Zen's settings do (content/preferences/layout.css):
+   the Settings background, WinUI cards and strokes, the accent, the menu
+   preview in the menus' own surface. Corners follow WinUI (cards 8px,
+   controls 4px), the font Segoe UI Variable. Its "Menu color" choice (the
+   space's gradient or color) goes: Zen Fluent's Menu tint decides the
+   menus' color (features/menu-tint.css). */
+
+@-moz-document url-prefix("chrome://sine/content/zen-context-menu/context-menu/settings.html")
+{
+  :root {
+    --bg: color-mix(
+      in oklab,
+      var(--zf-accent) 4%,
+      light-dark(#f3f3f3, #202020)
+    ) !important;
+    --card: light-dark(#fbfbfb, #2b2b2b) !important;
+    --raised: var(--zf-fill-card-secondary) !important;
+    --text: var(--zf-text-primary) !important;
+    --muted: var(--zf-text-secondary) !important;
+    --border: var(--zf-stroke-divider) !important;
+    --accent: var(--zf-accent) !important;
+    --accent-text: var(--zf-on-accent) !important;
+    --hover: var(--zf-fill-subtle-hover) !important;
+    --menu: var(--zf-acrylic-solid) !important;
+    --menu-text: var(--zf-text-primary) !important;
+    --menu-hover: var(--zf-fill-selected) !important;
+    --menu-line: var(--zf-stroke-divider) !important;
+    --shadow: none !important;
+    --menu-shadow: var(--zf-shadow-flyout) !important;
+    --danger: light-dark(#c42b1c, #ff99a4) !important;
+  }
+
+  body {
+    font: 14px / 20px var(--zf-font) !important;
+  }
+
+  .intro h1 {
+    font: 600 28px / 36px var(--zf-font-display) !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* WinUI corners: cards and surfaces 8px, controls 4px, pills round */
+  :is(
+    .card,
+    .banner,
+    .rows,
+    .suggest,
+    .empty,
+    .preview,
+    .confirm,
+    .intro .startup-cache-note
+  ) {
+    border-radius: var(--zf-radius-card) !important;
+  }
+
+  :is(
+    .menu-tabs,
+    .search,
+    .button,
+    .segmented,
+    .support-link,
+    .drag-handle,
+    .disclose
+  ) {
+    border-radius: var(--zf-radius-control) !important;
+  }
+
+  :is(.menu-tab, .segmented button, .p-item) {
+    border-radius: calc(var(--zf-radius-control) - 1px) !important;
+  }
+
+  .card {
+    border-color: var(--zf-stroke-divider) !important;
+  }
+
+  /* The search box: WinUI TextBox, accent bottom line on focus */
+  .search {
+    border-color: var(--zf-stroke-control) !important;
+    border-bottom-color: var(--zf-stroke-field) !important;
+    background: var(--zf-fill-control) !important;
+
+    &:focus-within {
+      border-bottom-color: var(--zf-accent) !important;
+      box-shadow: inset 0 -1px 0 var(--zf-accent) !important;
+    }
+  }
+
+  /* Buttons: WinUI's standard button */
+  .button {
+    border: 1px solid var(--zf-stroke-control) !important;
+    background: var(--zf-fill-control) !important;
+
+    &:hover {
+      background: var(--zf-fill-control-hover) !important;
+    }
+  }
+
+  /* The menu preview is a menu: Zen Fluent's menu rows */
+  .preview {
+    border: 1px solid var(--zf-stroke-control) !important;
+  }
+
+  /* "Menu color": Zen Fluent's Menu tint replaces it */
+  .option:has(> .segmented[aria-label="Menu color"]) {
+    display: none !important;
+  }
+}

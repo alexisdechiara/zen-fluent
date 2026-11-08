@@ -10,6 +10,9 @@
 //
 //   npm run check:mods            report, exit 1 when a mod is gone
 //   GITHUB_TOKEN=… raises GitHub's rate limit (the CI passes it)
+//   MODS_REPORT=<file> also writes the report (Markdown) there
+// Featured mods (compatible-mods.json "featured") are starred and listed
+// first when they have a new version.
 //
 // In GitHub Actions the report also goes to the job summary and each
 // finding becomes a warning annotation.
@@ -130,6 +133,9 @@ const warnings = [];
 let failed = false;
 const ids = zenFluentIds();
 const known = new Set(registry.mods.map((mod) => mod.repo.toLowerCase()));
+const featured = new Set(registry.featured ?? []);
+// Featured mods (the top of the Mods page) to check again come first
+const featuredToCheck = [];
 
 lines.push(
   "| Mod | Status | Checked | Latest | Note |",
@@ -171,11 +177,14 @@ for (const mod of registry.mods) {
       notes.push(`touches ${touched.map((s) => `\`${s}\``).join(", ")}`);
     }
     warnings.push(
-      `${mod.name}: v${latest} out, checked with v${mod.tested.version}`,
+      `${featured.has(mod.id) ? "Featured: " : ""}${mod.name}: v${latest} out, checked with v${mod.tested.version}`,
     );
+    if (featured.has(mod.id)) {
+      featuredToCheck.push(`${mod.name} v${latest}`);
+    }
   }
   lines.push(
-    `| ${mod.name} | ${mod.status} | ${mod.tested?.version ?? ""} | ${latest || "?"} | ${notes.join("; ")} |`,
+    `| ${featured.has(mod.id) ? "★ " : ""}${mod.name} | ${mod.status} | ${mod.tested?.version ?? ""} | ${latest || "?"} | ${notes.join("; ")} |`,
   );
 }
 
@@ -204,7 +213,18 @@ for (const org of ORGS) {
   }
 }
 
+if (featuredToCheck.length) {
+  lines.unshift(
+    `**Featured mods with a new version to check:** ${featuredToCheck.join(", ")}.`,
+    "",
+  );
+}
+lines.push("", "★ Featured on the Mods page.");
 const report = lines.join("\n");
+// For the workflows that open an issue with it
+if (process.env.MODS_REPORT) {
+  fs.writeFileSync(process.env.MODS_REPORT, report);
+}
 console.log(report);
 if (process.env.GITHUB_ACTIONS) {
   for (const warning of warnings) {

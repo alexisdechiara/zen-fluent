@@ -278,6 +278,8 @@
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/hide-access-keys.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/menu-tint.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/context-navigation/list.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/context-navigation/commandbar.css") not

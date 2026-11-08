@@ -18,10 +18,23 @@
     "defaultValue": "winui",
     "placeholder": false,
     "options": [
-      { "label": "WinUI 3 (Windows 11)", "value": "winui" },
-      { "label": "Microsoft Edge (Fluent 2)", "value": "edge" }
+      {
+        "label": "WinUI 3 (Windows 11)",
+        "value": "winui"
+      },
+      {
+        "label": "Microsoft Edge (Fluent 2)",
+        "value": "edge"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.material",
@@ -30,9 +43,18 @@
     "defaultValue": "mica",
     "placeholder": false,
     "options": [
-      { "label": "Mica", "value": "mica" },
-      { "label": "Mica Alt (Tabbed)", "value": "mica-alt" },
-      { "label": "Acrylic", "value": "acrylic" }
+      {
+        "label": "Mica",
+        "value": "mica"
+      },
+      {
+        "label": "Mica Alt (Tabbed)",
+        "value": "mica-alt"
+      },
+      {
+        "label": "Acrylic",
+        "value": "acrylic"
+      }
     ]
   },
   {
@@ -42,12 +64,30 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the material’s)", "value": "auto" },
-      { "label": "None (the backdrop alone)", "value": "none" },
-      { "label": "Light (40 %)", "value": "light" },
-      { "label": "Strong (85 %)", "value": "strong" },
-      { "label": "Solid (no transparency)", "value": "solid" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the material’s)",
+        "value": "auto"
+      },
+      {
+        "label": "None (the backdrop alone)",
+        "value": "none"
+      },
+      {
+        "label": "Light (40 %)",
+        "value": "light"
+      },
+      {
+        "label": "Strong (85 %)",
+        "value": "strong"
+      },
+      {
+        "label": "Solid (no transparency)",
+        "value": "solid"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -57,7 +97,12 @@
     "defaultValue": "64%",
     "placeholder": "64%",
     "conditions": [
-      { "if": { "property": "zen-fluent.tint-opacity", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.tint-opacity",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -67,8 +112,14 @@
     "defaultValue": "zen",
     "placeholder": false,
     "options": [
-      { "label": "Zen's gradient, the material without one", "value": "zen" },
-      { "label": "Always the material", "value": "material" }
+      {
+        "label": "Zen's gradient, the material without one",
+        "value": "zen"
+      },
+      {
+        "label": "Always the material",
+        "value": "material"
+      }
     ]
   },
   {
@@ -78,15 +129,42 @@
     "defaultValue": "system",
     "placeholder": false,
     "options": [
-      { "label": "Windows accent", "value": "system" },
-      { "label": "Zen workspace color", "value": "zen" },
-      { "label": "Blue", "value": "blue" },
-      { "label": "Violet", "value": "violet" },
-      { "label": "Mint", "value": "mint" },
-      { "label": "Orange", "value": "orange" },
-      { "label": "Pink", "value": "pink" },
-      { "label": "Graphite", "value": "graphite" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Windows accent",
+        "value": "system"
+      },
+      {
+        "label": "Zen workspace color",
+        "value": "zen"
+      },
+      {
+        "label": "Blue",
+        "value": "blue"
+      },
+      {
+        "label": "Violet",
+        "value": "violet"
+      },
+      {
+        "label": "Mint",
+        "value": "mint"
+      },
+      {
+        "label": "Orange",
+        "value": "orange"
+      },
+      {
+        "label": "Pink",
+        "value": "pink"
+      },
+      {
+        "label": "Graphite",
+        "value": "graphite"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -97,7 +175,12 @@
     "placeholder": "#0078d4",
     "border": "value",
     "conditions": [
-      { "if": { "property": "zen-fluent.accent", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.accent",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -107,8 +190,14 @@
     "defaultValue": "winui",
     "placeholder": false,
     "options": [
-      { "label": "WinUI (no gaps)", "value": "winui" },
-      { "label": "Zen (rounded, with gaps)", "value": "zen" }
+      {
+        "label": "WinUI (no gaps)",
+        "value": "winui"
+      },
+      {
+        "label": "Zen (rounded, with gaps)",
+        "value": "zen"
+      }
     ]
   },
   {
@@ -118,12 +207,30 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Small (2 px)", "value": "small" },
-      { "label": "Medium (4 px)", "value": "medium" },
-      { "label": "Large (8 px)", "value": "large" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Small (2 px)",
+        "value": "small"
+      },
+      {
+        "label": "Medium (4 px)",
+        "value": "medium"
+      },
+      {
+        "label": "Large (8 px)",
+        "value": "large"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -133,7 +240,12 @@
     "defaultValue": "6px",
     "placeholder": "6px",
     "conditions": [
-      { "if": { "property": "zen-fluent.corner-radius", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.corner-radius",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -143,8 +255,14 @@
     "defaultValue": "standard",
     "placeholder": false,
     "options": [
-      { "label": "Standard", "value": "standard" },
-      { "label": "Compact (WinUI compact sizing)", "value": "compact" }
+      {
+        "label": "Standard",
+        "value": "standard"
+      },
+      {
+        "label": "Compact (WinUI compact sizing)",
+        "value": "compact"
+      }
     ]
   },
   {
@@ -160,16 +278,47 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "None", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "4 px", "value": "4" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "16 px", "value": "16" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "16 px",
+        "value": "16"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.page-gap-custom",
@@ -178,8 +327,18 @@
     "defaultValue": "6px",
     "placeholder": "6px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.page-gap", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.page-gap",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -189,16 +348,47 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "None", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "4 px", "value": "4" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "16 px", "value": "16" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "16 px",
+        "value": "16"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.page-gap-sidebar-custom",
@@ -207,8 +397,18 @@
     "defaultValue": "6px",
     "placeholder": "6px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.page-gap-sidebar", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.page-gap-sidebar",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -218,16 +418,47 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "Square", "value": "0" },
-      { "label": "4 px", "value": "4" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "16 px", "value": "16" },
-      { "label": "24 px", "value": "24" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "0"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "16 px",
+        "value": "16"
+      },
+      {
+        "label": "24 px",
+        "value": "24"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.page-radius-custom",
@@ -236,8 +467,18 @@
     "defaultValue": "10px",
     "placeholder": "10px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.page-radius", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.page-radius",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -247,10 +488,22 @@
     "defaultValue": "segoe",
     "placeholder": false,
     "options": [
-      { "label": "Segoe UI Variable", "value": "segoe" },
-      { "label": "Aptos", "value": "aptos" },
-      { "label": "System font", "value": "system" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Segoe UI Variable",
+        "value": "segoe"
+      },
+      {
+        "label": "Aptos",
+        "value": "aptos"
+      },
+      {
+        "label": "System font",
+        "value": "system"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -260,7 +513,12 @@
     "defaultValue": "",
     "placeholder": "Inter",
     "conditions": [
-      { "if": { "property": "zen-fluent.font", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.font",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -276,11 +534,26 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (20 px)", "value": "auto" },
-      { "label": "None", "value": "none" },
-      { "label": "Light (10 px)", "value": "light" },
-      { "label": "Strong (30 px, as in WinUI)", "value": "strong" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (20 px)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Light (10 px)",
+        "value": "light"
+      },
+      {
+        "label": "Strong (30 px, as in WinUI)",
+        "value": "strong"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -290,7 +563,12 @@
     "defaultValue": "20px",
     "placeholder": "20px",
     "conditions": [
-      { "if": { "property": "zen-fluent.acrylic-blur", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.acrylic-blur",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -312,8 +590,14 @@
     "defaultValue": "subtle",
     "placeholder": false,
     "options": [
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
-      { "label": "Standard (fill and border)", "value": "standard" }
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
+      {
+        "label": "Standard (fill and border)",
+        "value": "standard"
+      }
     ]
   },
   {
@@ -323,15 +607,43 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "None", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "5 px", "value": "5" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "5 px",
+        "value": "5"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.sidebar-padding-custom",
@@ -340,8 +652,18 @@
     "defaultValue": "6px",
     "placeholder": "6px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.sidebar-padding", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.sidebar-padding",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -363,9 +685,18 @@
     "defaultValue": "pill",
     "placeholder": false,
     "options": [
-      { "label": "Pill", "value": "pill" },
-      { "label": "Fill", "value": "fill" },
-      { "label": "Minimal", "value": "minimal" }
+      {
+        "label": "Pill",
+        "value": "pill"
+      },
+      {
+        "label": "Fill",
+        "value": "fill"
+      },
+      {
+        "label": "Minimal",
+        "value": "minimal"
+      }
     ]
   },
   {
@@ -399,16 +730,46 @@
     "defaultValue": "glow",
     "placeholder": false,
     "options": [
-      { "label": "Dash and favicon glow", "value": "glow" },
-      { "label": "Glow only", "value": "glow-only" },
-      { "label": "Arc (colored border, 3D edge)", "value": "arc" },
-      { "label": "Fill", "value": "fill" },
-      { "label": "Taskbar indicator", "value": "indicator" },
-      { "label": "Outline", "value": "outline" },
-      { "label": "Lift", "value": "lift" },
-      { "label": "Tint", "value": "tint" },
-      { "label": "Side bar", "value": "side" },
-      { "label": "None (fill only)", "value": "none" }
+      {
+        "label": "Dash and favicon glow",
+        "value": "glow"
+      },
+      {
+        "label": "Glow only",
+        "value": "glow-only"
+      },
+      {
+        "label": "Arc (colored border, 3D edge)",
+        "value": "arc"
+      },
+      {
+        "label": "Fill",
+        "value": "fill"
+      },
+      {
+        "label": "Taskbar indicator",
+        "value": "indicator"
+      },
+      {
+        "label": "Outline",
+        "value": "outline"
+      },
+      {
+        "label": "Lift",
+        "value": "lift"
+      },
+      {
+        "label": "Tint",
+        "value": "tint"
+      },
+      {
+        "label": "Side bar",
+        "value": "side"
+      },
+      {
+        "label": "None (fill only)",
+        "value": "none"
+      }
     ]
   },
   {
@@ -418,9 +779,18 @@
     "defaultValue": "accent",
     "placeholder": false,
     "options": [
-      { "label": "Accent", "value": "accent" },
-      { "label": "Space color", "value": "space" },
-      { "label": "Icon color", "value": "icon" }
+      {
+        "label": "Accent",
+        "value": "accent"
+      },
+      {
+        "label": "Space color",
+        "value": "space"
+      },
+      {
+        "label": "Icon color",
+        "value": "icon"
+      }
     ]
   },
   {
@@ -430,8 +800,14 @@
     "defaultValue": "none",
     "placeholder": false,
     "options": [
-      { "label": "None", "value": "none" },
-      { "label": "Dot", "value": "dot" }
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Dot",
+        "value": "dot"
+      }
     ]
   },
   {
@@ -441,8 +817,14 @@
     "defaultValue": "fill",
     "placeholder": false,
     "options": [
-      { "label": "Fill", "value": "fill" },
-      { "label": "Fill and soft light", "value": "reveal" }
+      {
+        "label": "Fill",
+        "value": "fill"
+      },
+      {
+        "label": "Fill and soft light",
+        "value": "reveal"
+      }
     ]
   },
   {
@@ -452,8 +834,14 @@
     "defaultValue": "hide",
     "placeholder": false,
     "options": [
-      { "label": "Icons only", "value": "hide" },
-      { "label": "Icon and title", "value": "show" }
+      {
+        "label": "Icons only",
+        "value": "hide"
+      },
+      {
+        "label": "Icon and title",
+        "value": "show"
+      }
     ]
   },
   {
@@ -463,13 +851,34 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (as many as fit)", "value": "auto" },
-      { "label": "2", "value": "2" },
-      { "label": "3", "value": "3" },
-      { "label": "4", "value": "4" },
-      { "label": "5", "value": "5" },
-      { "label": "6", "value": "6" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (as many as fit)",
+        "value": "auto"
+      },
+      {
+        "label": "2",
+        "value": "2"
+      },
+      {
+        "label": "3",
+        "value": "3"
+      },
+      {
+        "label": "4",
+        "value": "4"
+      },
+      {
+        "label": "5",
+        "value": "5"
+      },
+      {
+        "label": "6",
+        "value": "6"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -479,9 +888,17 @@
     "defaultValue": "7",
     "placeholder": "7",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
       {
-        "if": { "property": "zen-fluent.essentials-per-row", "value": "custom" }
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.essentials-per-row",
+          "value": "custom"
+        }
       }
     ]
   },
@@ -492,14 +909,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (fill the row)", "value": "auto" },
-      { "label": "40 px", "value": "40" },
-      { "label": "48 px", "value": "48" },
-      { "label": "56 px", "value": "56" },
-      { "label": "64 px", "value": "64" },
-      { "label": "72 px", "value": "72" },
-      { "label": "80 px", "value": "80" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (fill the row)",
+        "value": "auto"
+      },
+      {
+        "label": "40 px",
+        "value": "40"
+      },
+      {
+        "label": "48 px",
+        "value": "48"
+      },
+      {
+        "label": "56 px",
+        "value": "56"
+      },
+      {
+        "label": "64 px",
+        "value": "64"
+      },
+      {
+        "label": "72 px",
+        "value": "72"
+      },
+      {
+        "label": "80 px",
+        "value": "80"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -509,8 +950,18 @@
     "defaultValue": "60px",
     "placeholder": "60px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.essentials.width", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.essentials.width",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -520,9 +971,18 @@
     "defaultValue": "medium",
     "placeholder": false,
     "options": [
-      { "label": "Small (16 px)", "value": "small" },
-      { "label": "Medium (20 px)", "value": "medium" },
-      { "label": "Large (24 px)", "value": "large" }
+      {
+        "label": "Small (16 px)",
+        "value": "small"
+      },
+      {
+        "label": "Medium (20 px)",
+        "value": "medium"
+      },
+      {
+        "label": "Large (24 px)",
+        "value": "large"
+      }
     ]
   },
   {
@@ -532,13 +992,34 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the density’s)", "value": "auto" },
-      { "label": "32 px", "value": "32" },
-      { "label": "36 px", "value": "36" },
-      { "label": "42 px", "value": "42" },
-      { "label": "48 px", "value": "48" },
-      { "label": "56 px", "value": "56" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (the density’s)",
+        "value": "auto"
+      },
+      {
+        "label": "32 px",
+        "value": "32"
+      },
+      {
+        "label": "36 px",
+        "value": "36"
+      },
+      {
+        "label": "42 px",
+        "value": "42"
+      },
+      {
+        "label": "48 px",
+        "value": "48"
+      },
+      {
+        "label": "56 px",
+        "value": "56"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -548,9 +1029,17 @@
     "defaultValue": "40px",
     "placeholder": "40px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
       {
-        "if": { "property": "zen-fluent.essentials.height", "value": "custom" }
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.essentials.height",
+          "value": "custom"
+        }
       }
     ]
   },
@@ -561,14 +1050,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the density’s)", "value": "auto" },
-      { "label": "0 px", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "4 px", "value": "4" },
-      { "label": "6 px", "value": "6" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (the density’s)",
+        "value": "auto"
+      },
+      {
+        "label": "0 px",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "6 px",
+        "value": "6"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -578,8 +1091,18 @@
     "defaultValue": "5px",
     "placeholder": "5px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.essentials.gap", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.essentials.gap",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -589,8 +1112,14 @@
     "defaultValue": "start",
     "placeholder": false,
     "options": [
-      { "label": "Left", "value": "start" },
-      { "label": "Center", "value": "center" }
+      {
+        "label": "Left",
+        "value": "start"
+      },
+      {
+        "label": "Center",
+        "value": "center"
+      }
     ]
   },
   {
@@ -618,9 +1147,18 @@
     "defaultValue": "top",
     "placeholder": false,
     "options": [
-      { "label": "Above the Essentials", "value": "top" },
-      { "label": "Bottom of the sidebar", "value": "bottom" },
-      { "label": "Hidden", "value": "hidden" }
+      {
+        "label": "Above the Essentials",
+        "value": "top"
+      },
+      {
+        "label": "Bottom of the sidebar",
+        "value": "bottom"
+      },
+      {
+        "label": "Hidden",
+        "value": "hidden"
+      }
     ]
   },
   {
@@ -630,14 +1168,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (as many as fit)", "value": "auto" },
-      { "label": "3", "value": "3" },
-      { "label": "4", "value": "4" },
-      { "label": "5", "value": "5" },
-      { "label": "6", "value": "6" },
-      { "label": "7", "value": "7" },
-      { "label": "8", "value": "8" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (as many as fit)",
+        "value": "auto"
+      },
+      {
+        "label": "3",
+        "value": "3"
+      },
+      {
+        "label": "4",
+        "value": "4"
+      },
+      {
+        "label": "5",
+        "value": "5"
+      },
+      {
+        "label": "6",
+        "value": "6"
+      },
+      {
+        "label": "7",
+        "value": "7"
+      },
+      {
+        "label": "8",
+        "value": "8"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -647,9 +1209,17 @@
     "defaultValue": "9",
     "placeholder": "9",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
       {
-        "if": { "property": "zen-fluent.extensions.columns", "value": "custom" }
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.extensions.columns",
+          "value": "custom"
+        }
       }
     ]
   },
@@ -660,13 +1230,34 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (every row)", "value": "auto" },
-      { "label": "1", "value": "1" },
-      { "label": "2", "value": "2" },
-      { "label": "3", "value": "3" },
-      { "label": "4", "value": "4" },
-      { "label": "One row, scrolls sideways", "value": "scroll" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (every row)",
+        "value": "auto"
+      },
+      {
+        "label": "1",
+        "value": "1"
+      },
+      {
+        "label": "2",
+        "value": "2"
+      },
+      {
+        "label": "3",
+        "value": "3"
+      },
+      {
+        "label": "4",
+        "value": "4"
+      },
+      {
+        "label": "One row, scrolls sideways",
+        "value": "scroll"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -676,8 +1267,18 @@
     "defaultValue": "5",
     "placeholder": "5",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.extensions.rows", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.extensions.rows",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -687,14 +1288,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (16 px)", "value": "auto" },
-      { "label": "12 px", "value": "12" },
-      { "label": "14 px", "value": "14" },
-      { "label": "16 px", "value": "16" },
-      { "label": "18 px", "value": "18" },
-      { "label": "20 px", "value": "20" },
-      { "label": "24 px", "value": "24" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (16 px)",
+        "value": "auto"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "14 px",
+        "value": "14"
+      },
+      {
+        "label": "16 px",
+        "value": "16"
+      },
+      {
+        "label": "18 px",
+        "value": "18"
+      },
+      {
+        "label": "20 px",
+        "value": "20"
+      },
+      {
+        "label": "24 px",
+        "value": "24"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -704,7 +1329,12 @@
     "defaultValue": "22px",
     "placeholder": "22px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.extensions.icon-size",
@@ -720,13 +1350,34 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the density’s)", "value": "auto" },
-      { "label": "24 px", "value": "24" },
-      { "label": "28 px", "value": "28" },
-      { "label": "32 px", "value": "32" },
-      { "label": "36 px", "value": "36" },
-      { "label": "40 px", "value": "40" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (the density’s)",
+        "value": "auto"
+      },
+      {
+        "label": "24 px",
+        "value": "24"
+      },
+      {
+        "label": "28 px",
+        "value": "28"
+      },
+      {
+        "label": "32 px",
+        "value": "32"
+      },
+      {
+        "label": "36 px",
+        "value": "36"
+      },
+      {
+        "label": "40 px",
+        "value": "40"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -736,7 +1387,12 @@
     "defaultValue": "30px",
     "placeholder": "30px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.extensions.button-size",
@@ -752,14 +1408,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the density’s)", "value": "auto" },
-      { "label": "0 px", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "4 px", "value": "4" },
-      { "label": "6 px", "value": "6" },
-      { "label": "8 px", "value": "8" },
-      { "label": "12 px", "value": "12" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Automatic (the density’s)",
+        "value": "auto"
+      },
+      {
+        "label": "0 px",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "6 px",
+        "value": "6"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "12 px",
+        "value": "12"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -769,8 +1449,18 @@
     "defaultValue": "3px",
     "placeholder": "3px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.extensions.gap", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.extensions.gap",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -780,11 +1470,26 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "Stretch", "value": "stretch" },
-      { "label": "Start", "value": "start" },
-      { "label": "Center", "value": "center" },
-      { "label": "End", "value": "end" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "Stretch",
+        "value": "stretch"
+      },
+      {
+        "label": "Start",
+        "value": "start"
+      },
+      {
+        "label": "Center",
+        "value": "center"
+      },
+      {
+        "label": "End",
+        "value": "end"
+      }
     ]
   },
   {
@@ -794,9 +1499,18 @@
     "defaultValue": "show",
     "placeholder": false,
     "options": [
-      { "label": "Count", "value": "show" },
-      { "label": "Dot", "value": "dot" },
-      { "label": "Hidden", "value": "hide" }
+      {
+        "label": "Count",
+        "value": "show"
+      },
+      {
+        "label": "Dot",
+        "value": "dot"
+      },
+      {
+        "label": "Hidden",
+        "value": "hide"
+      }
     ]
   },
   {
@@ -812,20 +1526,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (each component's own)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (each component's own)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -835,10 +1567,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (each component's own)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (each component's own)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -848,20 +1592,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -871,10 +1633,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -884,20 +1658,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -907,10 +1699,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -920,20 +1724,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the row background setting)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (the row background setting)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -943,10 +1765,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (rounded)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (rounded)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -956,8 +1790,14 @@
     "defaultValue": "buttons",
     "placeholder": false,
     "options": [
-      { "label": "Each button", "value": "buttons" },
-      { "label": "The whole row", "value": "row" }
+      {
+        "label": "Each button",
+        "value": "buttons"
+      },
+      {
+        "label": "The whole row",
+        "value": "row"
+      }
     ],
     "conditions": [
       {
@@ -975,20 +1815,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -998,10 +1856,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1011,20 +1881,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1034,10 +1922,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1047,20 +1947,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1070,10 +1988,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1083,20 +2013,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1106,10 +2054,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1119,20 +2079,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1142,10 +2120,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1155,20 +2145,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1178,10 +2186,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1191,20 +2211,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1214,10 +2252,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1227,20 +2277,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1250,10 +2318,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1263,20 +2343,38 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Solid (opaque)", "value": "solid" },
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Solid (opaque)",
+        "value": "solid"
+      },
       {
         "label": "Standard (WinUI button: control fill and border)",
         "value": "standard"
       },
-      { "label": "Tint (tinted fill and border)", "value": "tint" },
-      { "label": "Outline (border only)", "value": "outline" },
-      { "label": "Subtle (fill on hover)", "value": "subtle" },
+      {
+        "label": "Tint (tinted fill and border)",
+        "value": "tint"
+      },
+      {
+        "label": "Outline (border only)",
+        "value": "outline"
+      },
+      {
+        "label": "Subtle (fill on hover)",
+        "value": "subtle"
+      },
       {
         "label": "Transparent (accent glyph on hover)",
         "value": "transparent"
       },
-      { "label": "Translucent (Zen’s own fill)", "value": "translucent" }
+      {
+        "label": "Translucent (Zen’s own fill)",
+        "value": "translucent"
+      }
     ]
   },
   {
@@ -1286,10 +2384,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (everywhere)", "value": "auto" },
-      { "label": "Square", "value": "square" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Pill", "value": "pill" }
+      {
+        "label": "Automatic (everywhere)",
+        "value": "auto"
+      },
+      {
+        "label": "Square",
+        "value": "square"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Pill",
+        "value": "pill"
+      }
     ]
   },
   {
@@ -1305,9 +2415,18 @@
     "defaultValue": "normal",
     "placeholder": false,
     "options": [
-      { "label": "Small", "value": "small" },
-      { "label": "Normal", "value": "normal" },
-      { "label": "Large", "value": "large" }
+      {
+        "label": "Small",
+        "value": "small"
+      },
+      {
+        "label": "Normal",
+        "value": "normal"
+      },
+      {
+        "label": "Large",
+        "value": "large"
+      }
     ]
   },
   {
@@ -1317,15 +2436,43 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "28 px", "value": "28" },
-      { "label": "32 px", "value": "32" },
-      { "label": "36 px", "value": "36" },
-      { "label": "40 px", "value": "40" },
-      { "label": "44 px", "value": "44" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "28 px",
+        "value": "28"
+      },
+      {
+        "label": "32 px",
+        "value": "32"
+      },
+      {
+        "label": "36 px",
+        "value": "36"
+      },
+      {
+        "label": "40 px",
+        "value": "40"
+      },
+      {
+        "label": "44 px",
+        "value": "44"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.tab-height-custom",
@@ -1334,8 +2481,18 @@
     "defaultValue": "38px",
     "placeholder": "38px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.tab-height", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.tab-height",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -1345,15 +2502,43 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "None", "value": "0" },
-      { "label": "2 px", "value": "2" },
-      { "label": "4 px", "value": "4" },
-      { "label": "6 px", "value": "6" },
-      { "label": "8 px", "value": "8" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "0"
+      },
+      {
+        "label": "2 px",
+        "value": "2"
+      },
+      {
+        "label": "4 px",
+        "value": "4"
+      },
+      {
+        "label": "6 px",
+        "value": "6"
+      },
+      {
+        "label": "8 px",
+        "value": "8"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
-    "conditions": [{ "if": { "property": "zen-fluent.expert", "value": true } }]
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      }
+    ]
   },
   {
     "property": "zen-fluent.tab-gap-custom",
@@ -1362,8 +2547,18 @@
     "defaultValue": "3px",
     "placeholder": "3px",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
-      { "if": { "property": "zen-fluent.tab-gap", "value": "custom" } }
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.tab-gap",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -1391,9 +2586,18 @@
     "defaultValue": "1",
     "placeholder": false,
     "options": [
-      { "label": "Selected tab and hover", "value": "1" },
-      { "label": "Hover only", "value": "2" },
-      { "label": "Never", "value": "3" }
+      {
+        "label": "Selected tab and hover",
+        "value": "1"
+      },
+      {
+        "label": "Hover only",
+        "value": "2"
+      },
+      {
+        "label": "Never",
+        "value": "3"
+      }
     ]
   },
   {
@@ -1403,9 +2607,18 @@
     "defaultValue": "default",
     "placeholder": false,
     "options": [
-      { "label": "Default (top start corner)", "value": "default" },
-      { "label": "Badge in the corner", "value": "overlay" },
-      { "label": "Hidden", "value": "hidden" }
+      {
+        "label": "Default (top start corner)",
+        "value": "default"
+      },
+      {
+        "label": "Badge in the corner",
+        "value": "overlay"
+      },
+      {
+        "label": "Hidden",
+        "value": "hidden"
+      }
     ]
   },
   {
@@ -1433,9 +2646,18 @@
     "defaultValue": "line",
     "placeholder": false,
     "options": [
-      { "label": "Colored line", "value": "line" },
-      { "label": "Colored line and tint", "value": "tint" },
-      { "label": "Zen’s look", "value": "none" }
+      {
+        "label": "Colored line",
+        "value": "line"
+      },
+      {
+        "label": "Colored line and tint",
+        "value": "tint"
+      },
+      {
+        "label": "Zen’s look",
+        "value": "none"
+      }
     ]
   },
   {
@@ -1457,10 +2679,22 @@
     "defaultValue": "auto",
     "placeholder": false,
     "options": [
-      { "label": "Automatic (the style’s)", "value": "auto" },
-      { "label": "Text box (WinUI)", "value": "textbox" },
-      { "label": "Pill (Edge)", "value": "pill" },
-      { "label": "Transparent", "value": "transparent" }
+      {
+        "label": "Automatic (the style’s)",
+        "value": "auto"
+      },
+      {
+        "label": "Text box (WinUI)",
+        "value": "textbox"
+      },
+      {
+        "label": "Pill (Edge)",
+        "value": "pill"
+      },
+      {
+        "label": "Transparent",
+        "value": "transparent"
+      }
     ]
   },
   {
@@ -1470,10 +2704,22 @@
     "defaultValue": "focus",
     "placeholder": false,
     "options": [
-      { "label": "On focus (WinUI)", "value": "focus" },
-      { "label": "On focus, animated (Fluent 2)", "value": "animated" },
-      { "label": "Always", "value": "always" },
-      { "label": "Never", "value": "none" }
+      {
+        "label": "On focus (WinUI)",
+        "value": "focus"
+      },
+      {
+        "label": "On focus, animated (Fluent 2)",
+        "value": "animated"
+      },
+      {
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "label": "Never",
+        "value": "none"
+      }
     ]
   },
   {
@@ -1483,9 +2729,18 @@
     "defaultValue": "solid",
     "placeholder": false,
     "options": [
-      { "label": "Solid (white or black, opaque)", "value": "solid" },
-      { "label": "Standard (the window’s material)", "value": "standard" },
-      { "label": "Tint (the space’s color, else the accent)", "value": "tint" },
+      {
+        "label": "Solid (white or black, opaque)",
+        "value": "solid"
+      },
+      {
+        "label": "Standard (the window’s material)",
+        "value": "standard"
+      },
+      {
+        "label": "Tint (the space’s color, else the accent)",
+        "value": "tint"
+      },
       {
         "label": "Translucent (see-through glass, as in Arc)",
         "value": "translucent"
@@ -1524,10 +2779,22 @@
     "placeholder": false,
     "disabledOn": ["macos"],
     "options": [
-      { "label": "Windows 11", "value": "windows11" },
-      { "label": "Rounded", "value": "rounded" },
-      { "label": "Rounded, accent color", "value": "rounded-accent" },
-      { "label": "Short", "value": "short" }
+      {
+        "label": "Windows 11",
+        "value": "windows11"
+      },
+      {
+        "label": "Rounded",
+        "value": "rounded"
+      },
+      {
+        "label": "Rounded, accent color",
+        "value": "rounded-accent"
+      },
+      {
+        "label": "Short",
+        "value": "short"
+      }
     ]
   },
   {
@@ -1543,8 +2810,14 @@
     "defaultValue": "winui",
     "placeholder": false,
     "options": [
-      { "label": "WinUI ProgressBar", "value": "winui" },
-      { "label": "Zen’s indicator", "value": "zen" }
+      {
+        "label": "WinUI ProgressBar",
+        "value": "winui"
+      },
+      {
+        "label": "Zen’s indicator",
+        "value": "zen"
+      }
     ]
   },
   {
@@ -1554,15 +2827,45 @@
     "defaultValue": false
   },
   {
+    "property": "zen-fluent.menu-tint",
+    "label": "Menu tint ~menus and panels; WinUI keeps them neutral~",
+    "type": "dropdown",
+    "defaultValue": "none",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "None (WinUI, white or dark gray)",
+        "value": "none"
+      },
+      {
+        "label": "Accent color",
+        "value": "accent"
+      },
+      {
+        "label": "Space color",
+        "value": "space"
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.context-navigation",
     "label": "Back / Forward in the context menu",
     "type": "dropdown",
     "defaultValue": "icons",
     "placeholder": false,
     "options": [
-      { "label": "Icons (Firefox)", "value": "icons" },
-      { "label": "List (WinUI)", "value": "list" },
-      { "label": "Command bar (File Explorer)", "value": "commandbar" }
+      {
+        "label": "Icons (Firefox)",
+        "value": "icons"
+      },
+      {
+        "label": "List (WinUI)",
+        "value": "list"
+      },
+      {
+        "label": "Command bar (File Explorer)",
+        "value": "commandbar"
+      }
     ]
   },
   {
@@ -1596,9 +2899,18 @@
     "defaultValue": "fluent",
     "placeholder": false,
     "options": [
-      { "label": "Fluent (entrance)", "value": "fluent" },
-      { "label": "Fade", "value": "fade" },
-      { "label": "None", "value": "none" }
+      {
+        "label": "Fluent (entrance)",
+        "value": "fluent"
+      },
+      {
+        "label": "Fade",
+        "value": "fade"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      }
     ]
   },
   {
@@ -1608,13 +2920,34 @@
     "defaultValue": "fade",
     "placeholder": false,
     "options": [
-      { "label": "Fade", "value": "fade" },
-      { "label": "Zoom", "value": "zoom" },
-      { "label": "Slide", "value": "slide" },
-      { "label": "Staggered results", "value": "stagger" },
-      { "label": "Staggered upward", "value": "stagger-up" },
-      { "label": "Bounce (Microsoft Store)", "value": "bounce" },
-      { "label": "None", "value": "none" }
+      {
+        "label": "Fade",
+        "value": "fade"
+      },
+      {
+        "label": "Zoom",
+        "value": "zoom"
+      },
+      {
+        "label": "Slide",
+        "value": "slide"
+      },
+      {
+        "label": "Staggered results",
+        "value": "stagger"
+      },
+      {
+        "label": "Staggered upward",
+        "value": "stagger-up"
+      },
+      {
+        "label": "Bounce (Microsoft Store)",
+        "value": "bounce"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      }
     ]
   },
   {
@@ -1624,10 +2957,22 @@
     "defaultValue": "flyout",
     "placeholder": false,
     "options": [
-      { "label": "Flyout (WinUI)", "value": "flyout" },
-      { "label": "From the button", "value": "popin" },
-      { "label": "Fade", "value": "fade" },
-      { "label": "None", "value": "none" }
+      {
+        "label": "Flyout (WinUI)",
+        "value": "flyout"
+      },
+      {
+        "label": "From the button",
+        "value": "popin"
+      },
+      {
+        "label": "Fade",
+        "value": "fade"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      }
     ]
   },
   {
@@ -1763,9 +3108,18 @@
     "defaultValue": "floating-on-type",
     "placeholder": false,
     "options": [
-      { "label": "When typing", "value": "floating-on-type" },
-      { "label": "Always", "value": "float" },
-      { "label": "Never", "value": "normal" }
+      {
+        "label": "When typing",
+        "value": "floating-on-type"
+      },
+      {
+        "label": "Always",
+        "value": "float"
+      },
+      {
+        "label": "Never",
+        "value": "normal"
+      }
     ]
   },
   {
@@ -1841,10 +3195,22 @@
     "defaultValue": "alt",
     "placeholder": false,
     "options": [
-      { "label": "Alt+click", "value": "alt" },
-      { "label": "Ctrl+click", "value": "ctrl" },
-      { "label": "Shift+click", "value": "shift" },
-      { "label": "Windows key+click (Cmd on macOS)", "value": "meta" }
+      {
+        "label": "Alt+click",
+        "value": "alt"
+      },
+      {
+        "label": "Ctrl+click",
+        "value": "ctrl"
+      },
+      {
+        "label": "Shift+click",
+        "value": "shift"
+      },
+      {
+        "label": "Windows key+click (Cmd on macOS)",
+        "value": "meta"
+      }
     ]
   },
   {

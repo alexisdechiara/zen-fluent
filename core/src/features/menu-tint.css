@@ -1,0 +1,50 @@
+/* Zen Fluent: Menu and panel tint (zen-fluent.menu-tint): WinUI's neutral Acrylic, or a light tint of the accent or of the space's color.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* WinUI menus and flyouts are neutral: Acrylic, white in light mode
+   (components/menus/surface.css). A tint mixes a little of a color into
+   that fill, the text keeping its color:
+   - none (default): neutral, and Zen Calmer Context Menu's "Apply the Zen
+     space accent color" (uc.fixcontext.applyzenaccent, 40 % of the space
+     color) gives way to it;
+   - accent: Zen Fluent's accent (Windows' accent by default);
+   - space: the space's color in Zen's gradient picker (--zen-primary-color).
+   :root outranks Calmer's bare menupopup / panel, which loads after. */
+
+@media not ((-moz-pref("zen-fluent.menu-tint", "accent")) or (-moz-pref("zen-fluent.menu-tint", "space"))) {
+  @media (-moz-pref("uc.fixcontext.applyzenaccent")) {
+    :root :is(menupopup, panel) {
+      --panel-background-color: var(--zf-acrylic) !important;
+      --background-color-canvas: inherit !important;
+
+      @media not (-moz-windows-mica-popups) {
+        --panel-background-color: var(--zf-acrylic-solid) !important;
+      }
+    }
+  }
+}
+
+@media (-moz-pref("zen-fluent.menu-tint", "accent")) or (-moz-pref("zen-fluent.menu-tint", "space")) {
+  :root :is(menupopup, panel) {
+    --zf-menu-tint: var(--zf-accent);
+
+    @media (-moz-pref("zen-fluent.menu-tint", "space")) {
+      --zf-menu-tint: var(--zen-primary-color, var(--zf-accent));
+    }
+
+    --panel-background-color: color-mix(
+      in srgb,
+      var(--zf-menu-tint) 14%,
+      var(--zf-acrylic)
+    ) !important;
+    --background-color-canvas: inherit !important;
+
+    @media not (-moz-windows-mica-popups) {
+      --panel-background-color: color-mix(
+        in srgb,
+        var(--zf-menu-tint) 14%,
+        var(--zf-acrylic-solid)
+      ) !important;
+    }
+  }
+}

@@ -40,6 +40,15 @@ Fluent 0.4.3, all installed through Sine together.
 **Featured**, at the top of the Mods page, lists the mods Zen Fluent
 recommends, in the order of `featured` in the same file.
 
+A new Zen Fluent version (a `vX.Y.Z` tag) opens an issue to check every
+mod again (`.github/workflows/mods-review.yml`), with the mods' current
+versions; with a Claude secret on the repository (`ANTHROPIC_API_KEY` or
+`CLAUDE_CODE_OAUTH_TOKEN`), Claude also reviews each mod's CSS and comments
+on it. The full check runs in Claude Code with `/check-mods`
+(`.claude/commands/check-mods.md`): every mod installed with Sine in a
+headless Zen next to Zen Fluent. The Featured list only names supported
+mods with a tested version (`npm run check`).
+
 A weekly CI job (`.github/workflows/mods.yml`, `npm run check:mods`) reads
 each mod's repository: a version newer than `tested` is flagged with the
 selectors of its CSS that touch an id Zen Fluent styles (what to look at
@@ -203,6 +212,16 @@ File: `core/src/compat/command-palette.css`.
   inset, 12 px before the label).
 
 File: `core/src/compat/calmer-context-menu.css`.
+
+Its settings page (a page in a tab) takes Zen Fluent's look: the Settings
+background, WinUI cards, strokes and corners, Segoe UI Variable, the
+accent. Its **Menu color** choice (the space's gradient or color, which
+turned menus blue with a blue space) is hidden there: Zen Fluent's **Menu
+tint** decides, neutral by default. Zen Fluent Enhanced's **Fluent defaults
+for mods** gives the options never changed the values closest to Windows
+11: icons on every option in the Fluent set, and the quick actions row.
+Files: `core/src/compat/calmer-settings.css`,
+`core/src/features/menu-tint.css`, `enhanced/scripts/mod-defaults.uc.js`.
 
 ## BetterZenGradientPicker
 

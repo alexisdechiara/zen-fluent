@@ -889,7 +889,6 @@
     "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library.": "Plus de sections dans la Bibliothèque et des onglets réordonnables : ses lignes d'historique, le réordonnancement et le mode édition suivent la Bibliothèque de Zen Fluent.",
     "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons.": "Des règles pour Glance et deux boutons Glance de plus, dessinés comme les boutons ronds Acrylic de Zen Fluent avec des icônes Fluent.",
     "Web panels in a second sidebar: the page card's radius and shadow, WinUI hovers, Acrylic over the page.": "Des panneaux web dans une seconde barre latérale : le rayon et l'ombre de la carte de page, les survols WinUI, l'Acrylic par-dessus la page.",
-    "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows.": "Replie et réordonne les entrées des menus contextuels : ses actions rapides et ses icônes s'alignent sur les lignes de menu de Zen Fluent.",
     "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font.": "Un canevas infini sur about:easel, dont les panneaux prennent l'accentuation, l'Acrylic, les contours et la police de Zen Fluent.",
     "Colors the window from the page, which is what Zen Fluent's material does: its layered rules win over Zen Fluent's.": "Colore la fenêtre d'après la page, ce que fait déjà le matériau de Zen Fluent : ses règles superposées l'emportent sur celles de Zen Fluent.",
     "Recolors the URL bar and frames the page its own way, over Zen Fluent's URL bar and page card.": "Recolore la barre d'adresse et encadre la page à sa façon, par-dessus la barre d'adresse et la carte de page de Zen Fluent.",
@@ -974,6 +973,12 @@
     "{0} / {1}": "{0} / {1}",
     "Welcome tour": "Visite guidée",
     "shown once at the first start; Show it again from the settings page (About)": "affichée une fois au premier démarrage ; le bouton Afficher de la page de paramètres (À propos) la relance",
-    "The themes, the accent and the main features, over the window": "Les thèmes, l'accentuation et les principales fonctions, par-dessus la fenêtre"
+    "The themes, the accent and the main features, over the window": "Les thèmes, l'accentuation et les principales fonctions, par-dessus la fenêtre",
+    "Menu tint": "Teinte des menus",
+    "menus and panels; WinUI keeps them neutral": "menus et panneaux ; WinUI les garde neutres",
+    "None (WinUI, white or dark gray)": "Aucune (WinUI, blanc ou gris foncé)",
+    "Fluent defaults for mods": "Valeurs Fluent pour les mods",
+    "Zen Calmer Context Menu: Fluent icons on every option and the quick actions row, for settings never changed": "Zen Calmer Context Menu : icônes Fluent sur chaque option et rangée d'actions rapides, pour les réglages jamais modifiés",
+    "Folds and reorders context menu entries: its settings page takes Zen Fluent's look, Zen Fluent picks Fluent defaults, and its menu color gives way to Zen Fluent's Menu tint.": "Replie et réordonne les entrées des menus contextuels : sa page de réglages prend le style de Zen Fluent, Zen Fluent choisit des valeurs Fluent, et sa couleur de menu laisse la place à la Teinte des menus de Zen Fluent."
   }
 }

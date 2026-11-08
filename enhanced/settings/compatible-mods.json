@@ -70,7 +70,7 @@
       "id": "zen-context-menu",
       "repo": "sinazadeh/zen-calmer-context-menu",
       "status": "supported",
-      "summary": "Folds and reorders context menu entries: its quick actions and icons line up with Zen Fluent's menu rows.",
+      "summary": "Folds and reorders context menu entries: its settings page takes Zen Fluent's look, Zen Fluent picks Fluent defaults, and its menu color gives way to Zen Fluent's Menu tint.",
       "tested": {
         "zenFluent": "0.4.3",
         "version": "5.5.1"

@@ -1,0 +1,72 @@
+name: Mods review
+
+# A new version of Zen Fluent (a vX.Y.Z tag) asks for every mod of
+# enhanced/settings/compatible-mods.json to be checked again: this opens an
+# issue with the mods' current versions (scripts/check-mods.mjs), the
+# Featured ones first, and the steps of the full check (the /check-mods
+# command of Claude Code, .claude/commands/check-mods.md, run locally:
+# it needs Zen). When the repository has a Claude secret
+# (ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN), Claude also reviews each
+# mod's CSS against Zen Fluent's and comments its findings on the issue.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    env:
+      HAS_CLAUDE: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read the mods' current versions
+        run: node scripts/check-mods.mjs || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MODS_REPORT: mods-report.md
+      - name: Open the review issue
+        id: issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$GITHUB_REF_NAME"
+          {
+            echo "Zen Fluent $version is out: every mod of \`enhanced/settings/compatible-mods.json\` needs checking again before its \`tested\` entry moves to $version."
+            echo
+            echo "## Current versions"
+            echo
+            cat mods-report.md
+            echo
+            echo "## Full check"
+            echo
+            echo "Run \`/check-mods\` in Claude Code on this repository (\`.claude/commands/check-mods.md\`): it installs every listed mod with Sine in a headless Zen next to Zen Fluent, looks at each one's UI, fixes or records conflicts, and updates \`tested\` and \`docs/compatibility.md\`."
+            echo
+            echo "- [ ] Featured mods"
+            echo "- [ ] Other supported mods"
+            echo "- [ ] Conflicting mods and whole themes (verdict unchanged?)"
+            echo "- [ ] \`compatible-mods.json\` and \`docs/compatibility.md\` updated"
+          } > issue.md
+          url=$(gh issue create --title "Check every mod with Zen Fluent $version" --body-file issue.md)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "number=${url##*/}" >> "$GITHUB_OUTPUT"
+      - name: Claude reviews the mods' CSS
+        if: env.HAS_CLAUDE == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: |
+            Zen Fluent ${{ github.ref_name }} was just released. Read CLAUDE.md, docs/compatibility.md and enhanced/settings/compatible-mods.json.
+            For every mod listed there, download its repository (git clone --depth 1, never run its code) and compare its CSS (and the elements its scripts create) with Zen Fluent's core/src and enhanced/src: list what both style, and whether Zen Fluent's compat rules (core/src/compat/) still cover it.
+            Then comment one report on issue #${{ steps.issue.outputs.number }} with gh issue comment: Featured mods first, one line per mod (still fine / to look at, and why), and the mods whose verdict may change. Do not edit files and do not open pull requests: the owner runs the full check with Zen.
+          claude_args: --max-turns 60 --allowedTools "Bash(git clone:*),Bash(gh issue comment:*),Read,Glob,Grep"

@@ -126,6 +126,7 @@ Values and notes: one page per group, linked from the first column.
 |                                         | Auto-hide the bookmarks toolbar                  | `zen-fluent.bookmarks-autohide`                                             | `false`            |
 |                                         | Page loading bar                                 | `zen-fluent.loading-bar`                                                    | `winui`            |
 |                                         | macOS-style arrows                               | `zen-fluent.mac-back-forward`                                               | `false`            |
+|                                         | Menu tint                                        | `zen-fluent.menu-tint`                                                      | `none`             |
 |                                         | Back / Forward in the context menu               | `zen-fluent.context-navigation`                                             | `icons`            |
 |                                         | Hide menu shortcuts                              | `zen-fluent.hide-shortcuts`                                                 | `false`            |
 |                                         | Hide underlined letters in menus                 | `zen-fluent.hide-access-keys`                                               | `false`            |
@@ -183,6 +184,7 @@ One checkbox per feature, with its options; what each feature does:
 | Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
 | Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
 | Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
+| Fluent defaults for mods                       | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
 | Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
 | Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
 | Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |

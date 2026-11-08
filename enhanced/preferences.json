@@ -24,6 +24,12 @@
     "defaultValue": true
   },
   {
+    "property": "zen-fluent.enhanced.mod-defaults",
+    "label": "Fluent defaults for mods ~Zen Calmer Context Menu: Fluent icons on every option and the quick actions row, for settings never changed~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.favicon-color",
     "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
     "type": "checkbox",
