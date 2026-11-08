@@ -1,8 +1,11 @@
 # Changelog
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow
-[Semantic Versioning](https://semver.org/); both mods share one version and one
-`vX.Y.Z` tag.
+[Semantic Versioning](https://semver.org/), paced by Zen: 1.0 when Zen leaves
+beta, a minor version when a Zen change (or one of the mod's) breaks something,
+a patch for each Zen update and everything that breaks nothing
+([versions](docs/contributing.md#versions)). Both mods share one version and
+one `vX.Y.Z` tag.
 
 ## [Unreleased]
 

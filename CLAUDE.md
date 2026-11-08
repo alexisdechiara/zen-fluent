@@ -69,7 +69,10 @@ come later. The owner writes to Claude in French: answer in French.
 - Names: `--zf-*`, `zf-` for ids, classes, attributes, keyframes.
 - A new setting: `core/preferences.json`, its CSS, a row with its default in
   `docs/settings/README.md` (checked), and `docs/settings/<group>.md`. A change: a `CHANGELOG.md` entry
-  under **Unreleased**. Release: `npm run release -- X.Y.Z`, then tag `vX.Y.Z`.
+  under **Unreleased**. Release: `npm run release -- X.Y.Z`, then tag `vX.Y.Z`. Versions
+  (owner's choice, 2026-11-08): 1.0 when Zen leaves beta; minor when a Zen
+  change or one of the mod's breaks something; patch for each Zen update and
+  anything that breaks nothing (`docs/contributing.md#versions`).
 - Code taken from another project keeps its licence notice:
   `THIRD-PARTY-NOTICES.md` plus a line in the file header. Nebula is GPL-3.0:
   never copy from it.
