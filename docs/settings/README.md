@@ -49,6 +49,7 @@ Values and notes: one page per group, linked from the first column.
 |                                         | Open page indicator                              | `zen-fluent.essentials.running`                                             | `none`             |
 |                                         | Hover                                            | `zen-fluent.essentials.hover`                                               | `fill`             |
 |                                         | Tile border                                      | `zen-fluent.essentials.border`                                              | `auto`             |
+|                                         | Selected tile border                             | `zen-fluent.essentials.selected-border`                                     | `auto`             |
 |                                         | Border width                                     | `zen-fluent.essentials.border-width`                                        | `auto`             |
 |                                         | Custom border width                              | `zen-fluent.essentials.border-width-custom`                                 | `2px`              |
 |                                         | Labels                                           | `zen-fluent.essentials.labels`                                              | `hide`             |

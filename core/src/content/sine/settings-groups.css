@@ -19,8 +19,9 @@
     }
   }
 
-  /* The border's width, only with a border that has one */
-  @media not ((-moz-pref("zen-fluent.essentials.border", "subtle")) or (-moz-pref("zen-fluent.essentials.border", "strong")) or (-moz-pref("zen-fluent.essentials.border", "color")) or (-moz-pref("zen-fluent.essentials.border", "gap")) or (-moz-pref("zen-fluent.essentials.border", "gap-color"))) {
+  /* The border's width, only with a border that has one (the tiles' or
+     the selected tile's) */
+  @media not ((-moz-pref("zen-fluent.essentials.border", "subtle")) or (-moz-pref("zen-fluent.essentials.border", "strong")) or (-moz-pref("zen-fluent.essentials.border", "color")) or (-moz-pref("zen-fluent.essentials.border", "gap")) or (-moz-pref("zen-fluent.essentials.border", "gap-color")) or (-moz-pref("zen-fluent.essentials.selected-border", "subtle")) or (-moz-pref("zen-fluent.essentials.selected-border", "strong")) or (-moz-pref("zen-fluent.essentials.selected-border", "color")) or (-moz-pref("zen-fluent.essentials.selected-border", "gap")) or (-moz-pref("zen-fluent.essentials.selected-border", "gap-color"))) {
     .sineItemPreferenceDialogContent
       > :is(
         #zen-fluent-essentials-border-width,

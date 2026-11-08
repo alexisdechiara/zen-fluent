@@ -865,6 +865,43 @@
     ]
   },
   {
+    "property": "zen-fluent.essentials.selected-border",
+    "label": "Selected tile border ~wins over the selected style's own~",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Automatic (the tiles' and the style's)",
+        "value": "auto"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Subtle line",
+        "value": "subtle"
+      },
+      {
+        "label": "Strong line",
+        "value": "strong"
+      },
+      {
+        "label": "Selected Essential color",
+        "value": "color"
+      },
+      {
+        "label": "Ring with a gap",
+        "value": "gap"
+      },
+      {
+        "label": "Colored ring with a gap",
+        "value": "gap-color"
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.essentials.border-width",
     "label": "Border width",
     "type": "dropdown",

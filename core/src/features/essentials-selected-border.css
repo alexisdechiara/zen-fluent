@@ -1,0 +1,86 @@
+/* Zen Fluent: Border of the selected Essential (zen-fluent.essentials.selected-border).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* "auto" leaves the selected tile to the other settings: the tiles' border
+   (features/essentials-border.css), then the selected style's own (Arc,
+   Outline, Tint). The other values win over both on the selected tile:
+   "none", "subtle", "strong", "color" (the Selected Essential color: the
+   accent, the space's or the icon's), and the rings with a 2px gap drawn
+   inside the tile, neutral or in that color. The width is
+   zen-fluent.essentials.border-width's (--zf-essential-border-width).
+   Imported after the selected styles and the icon color. Outline draws an
+   outline, not a border: a chosen border takes its place. */
+
+@media not (forced-colors) {
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "none")) or (-moz-pref("zen-fluent.essentials.selected-border", "subtle")) or (-moz-pref("zen-fluent.essentials.selected-border", "strong")) or (-moz-pref("zen-fluent.essentials.selected-border", "color")) or (-moz-pref("zen-fluent.essentials.selected-border", "gap")) or (-moz-pref("zen-fluent.essentials.selected-border", "gap-color")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      box-sizing: border-box !important;
+      outline: none !important;
+      padding: 0 !important;
+      background-clip: border-box !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "none")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border-color: transparent !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "subtle")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border: var(--zf-essential-border-width, 1px) solid
+        var(--zf-stroke-control) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "strong")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border: var(--zf-essential-border-width, 1px) solid
+        color-mix(in srgb, var(--zf-text-primary) 32%, transparent) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "color")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border: var(--zf-essential-border-width, 2px) solid
+        var(--zf-essential-color) !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "gap")) or (-moz-pref("zen-fluent.essentials.selected-border", "gap-color")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      padding: 2px !important;
+      border: var(--zf-essential-border-width, 1.5px) solid
+        color-mix(in srgb, var(--zf-text-primary) 40%, transparent) !important;
+      background-clip: content-box !important;
+    }
+  }
+
+  @media (-moz-pref("zen-fluent.essentials.selected-border", "gap-color")) {
+    .zen-essentials-container
+      .tabbrowser-tab:is([selected], [visuallyselected])
+      > .tab-stack
+      > .tab-background {
+      border-color: var(--zf-essential-color) !important;
+    }
+  }
+}
