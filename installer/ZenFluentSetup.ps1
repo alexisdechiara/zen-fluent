@@ -110,6 +110,8 @@ $Text = @{
   Done          = @("Done. Open Zen: Zen Fluent is in Zen's settings.", "Terminé. Ouvrez Zen : Zen Fluent est dans les paramètres de Zen.")
   Failed        = @("The installation failed: {0}", "L'installation a échoué : {0}")
   Backup        = @("Previous mods.json saved as {0}", "Ancien mods.json enregistré sous {0}")
+  GitHubDown    = @("{0} does not answer (GitHub may be down): try again in a few minutes.", "{0} ne répond pas (GitHub est peut-être en panne) : réessayez dans quelques minutes.")
+  Retry         = @("GitHub did not answer: trying again in {0} s…", "GitHub ne répond pas : nouvel essai dans {0} s…")
 }
 function T([string]$Key) { return $Text[$Key][[int]$French] }
 
@@ -236,15 +238,31 @@ function Initialize-Web {
   [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 }
 
+# GitHub sometimes answers 5xx or times out: each download is tried five
+# times over about a minute; a 404 fails at once, and a GitHub outage ends
+# with a message saying so
+$script:RetryLog = $null
 function Get-File([string]$Url, [string]$OutFile) {
-  Invoke-WebRequest -Uri $Url -OutFile $OutFile -UseBasicParsing -Headers @{ "User-Agent" = "ZenFluentSetup" }
+  $waits = @(3, 8, 15, 30)
+  for ($attempt = 0; ; $attempt++) {
+    try {
+      Invoke-WebRequest -Uri $Url -OutFile $OutFile -UseBasicParsing -TimeoutSec 60 -Headers @{ "User-Agent" = "ZenFluentSetup" }
+      return
+    } catch {
+      $status = $null
+      try { $status = [int]$_.Exception.Response.StatusCode } catch { }
+      if ($status -and $status -ge 400 -and $status -lt 500) { throw }
+      if ($attempt -ge $waits.Count) { throw ((T "GitHubDown") -f ([uri]$Url).Host) }
+      if ($script:RetryLog) { & $script:RetryLog ((T "Retry") -f $waits[$attempt]) }
+      Start-Sleep -Seconds $waits[$attempt]
+    }
+  }
 }
 
+# The latest release's file, without GitHub's API (rate limits, timeouts):
+# GitHub redirects releases/latest/download to it
 function Get-LatestAsset([string]$RepoName, [string]$Asset) {
-  $release = Invoke-RestMethod -Uri "https://api.github.com/repos/$RepoName/releases/latest" -UseBasicParsing -Headers @{ "User-Agent" = "ZenFluentSetup" }
-  $item = $release.assets | Where-Object { $_.name -eq $Asset } | Select-Object -First 1
-  if (-not $item) { throw "$Asset not found in $RepoName's latest release" }
-  $item.browser_download_url
+  "https://github.com/$RepoName/releases/latest/download/$Asset"
 }
 
 function Test-Writable([string]$Dir) {
@@ -392,6 +410,7 @@ function Invoke-Setup {
   if (Test-ProfileInUse $ProfileDir) { throw (T "ZenRunning") }
   if ($WithEnhanced -and -not $Consent) { throw (T "NeedConsent") }
   Initialize-Web
+  $script:RetryLog = $Log
   $temp = Join-Path ([IO.Path]::GetTempPath()) ("zen-fluent-setup-" + [guid]::NewGuid().ToString("N"))
   New-Item -ItemType Directory -Path $temp | Out-Null
   try {

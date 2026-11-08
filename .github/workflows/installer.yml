@@ -1,12 +1,14 @@
 name: Installer
 
-# Builds installer/ZenFluentSetup.ps1 into ZenFluentSetup.exe (ps2exe, a
-# window application without a console), which installs the mods from the
-# branch or tag it was built from (the script's -Ref default). Every run
-# keeps it as an artifact. A release tag (vX.Y.Z) attaches it to the GitHub
-# release (created when the tag has none yet); a branch push publishes it
-# as the pre-release "installer-<branch>", replaced at each push, for a
-# stable download link while testing.
+# Builds the WinUI 3 installer (installer/winui, Windows App SDK,
+# self-contained) into one ZenFluentSetup.exe, which installs the mods from
+# the branch or tag it was built from; installer/ZenFluentSetup.ps1 (the
+# same steps without a window, for scripts) is attached next to it with
+# the same default. Every run keeps both as an artifact. A release tag
+# (vX.Y.Z) attaches them to the GitHub release (created when the tag has
+# none yet); a branch push publishes them as the pre-release
+# "installer-<branch>", replaced at each push, for a stable download link
+# while testing.
 
 on:
   # Branch pushes that touch the installer; every release tag (GitHub
@@ -34,26 +36,27 @@ jobs:
       SOURCE_REF: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check the script parses in Windows PowerShell 5.1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build ZenFluentSetup.exe (WinUI 3)
+        shell: pwsh
+        run: |
+          $version = (Get-Content theme.json -Raw | ConvertFrom-Json).version
+          dotnet publish installer/winui/ZenFluentSetup.csproj -c Release -r win-x64 `
+            -p:Platform=x64 -p:SourceRef="$env:SOURCE_REF" -p:Version=$version -o publish
+          Copy-Item publish/ZenFluentSetup.exe ZenFluentSetup.exe
+          Get-Item ZenFluentSetup.exe | Select-Object Name, Length
+      - name: The script, with the same default branch
         shell: powershell
         run: |
           $errors = $null
           [void][System.Management.Automation.Language.Parser]::ParseFile("$PWD\installer\ZenFluentSetup.ps1", [ref]$null, [ref]$errors)
           if ($errors) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }
-      - name: Build ZenFluentSetup.exe
-        shell: powershell
-        run: |
-          # The default -Ref becomes the branch or tag being built
           $script = Get-Content installer\ZenFluentSetup.ps1 -Raw -Encoding UTF8
           $script = $script.Replace('[string]$Ref = "main"', "[string]`$Ref = `"$env:SOURCE_REF`"")
           New-Item -ItemType Directory -Force build | Out-Null
           [IO.File]::WriteAllText("$PWD\build\ZenFluentSetup.ps1", $script, (New-Object Text.UTF8Encoding $true))
-          Install-Module ps2exe -Scope CurrentUser -Force
-          $version = (Get-Content theme.json -Raw | ConvertFrom-Json).version
-          Invoke-ps2exe -inputFile build\ZenFluentSetup.ps1 -outputFile ZenFluentSetup.exe `
-            -noConsole -title "Zen Fluent setup" -product "Zen Fluent" `
-            -description "Installs Sine, Zen Fluent and Zen Fluent Enhanced ($env:SOURCE_REF)" `
-            -copyright "MIT, alexisdechiara" -version "$version.0"
       - uses: actions/upload-artifact@v4
         with:
           name: ZenFluentSetup
@@ -80,4 +83,4 @@ jobs:
           gh release create "$tag" ZenFluentSetup.exe build/ZenFluentSetup.ps1 \
             --prerelease --target "$GITHUB_SHA" \
             --title "Installer: $GITHUB_REF_NAME" \
-            --notes "Test build of the Windows installer from the \`$GITHUB_REF_NAME\` branch (commit ${GITHUB_SHA:0:7}). It installs Zen Fluent and Zen Fluent Enhanced from that branch. Replaced at each push that touches the installer; not a release."
+            --notes "Test build of the Windows installer (WinUI 3) from the \`$GITHUB_REF_NAME\` branch (commit ${GITHUB_SHA:0:7}). It installs Zen Fluent and Zen Fluent Enhanced from that branch. ZenFluentSetup.ps1 does the same without a window (-NoGui). Replaced at each push that touches the installer; not a release."

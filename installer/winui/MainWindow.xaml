@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Zen Fluent setup: one page of settings cards on Mica, the title bar
+     drawn into the window, the actions in a footer, as in Windows 11's
+     own setup dialogs. -->
+<Window
+    x:Class="ZenFluentSetup.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Title bar -->
+        <Grid x:Name="AppTitleBar" Padding="16,0,140,0" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <FontIcon Glyph="&#xE790;" FontSize="16" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+            <TextBlock x:Name="TitleText" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" />
+        </Grid>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel MaxWidth="720" Padding="32,4,32,24" Spacing="12">
+                <TextBlock Text="Zen Fluent" Style="{StaticResource TitleLargeTextBlockStyle}" />
+                <TextBlock x:Name="LeadText" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,8" />
+
+                <!-- Zen version -->
+                <Border Style="{StaticResource SettingsCard}">
+                    <StackPanel Spacing="8">
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Glyph="&#xE774;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock x:Name="EditionHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                                <Grid ColumnSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox x:Name="EditionBox" HorizontalAlignment="Stretch" SelectionChanged="EditionBox_SelectionChanged" />
+                                    <Button x:Name="BrowseButton" Grid.Column="1" Click="BrowseButton_Click" />
+                                </Grid>
+                                <TextBlock x:Name="DirText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                        </Grid>
+                        <InfoBar x:Name="VersionWarning" Severity="Warning" IsClosable="False" IsOpen="False" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Profile -->
+                <Border Style="{StaticResource SettingsCard}">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE77B;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
+                        <StackPanel Grid.Column="1" Spacing="8">
+                            <TextBlock x:Name="ProfileHeader" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            <ComboBox x:Name="ProfileBox" HorizontalAlignment="Stretch" SelectionChanged="ProfileBox_SelectionChanged" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- What to install -->
+                <Border Style="{StaticResource SettingsCard}">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE896;" FontSize="20" VerticalAlignment="Top" Margin="0,2,0,0" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock x:Name="ComponentsHeader" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,4" />
+                            <CheckBox x:Name="SineCheck" IsChecked="True" IsEnabled="False" />
+                            <CheckBox x:Name="FluentCheck" IsChecked="True" IsEnabled="False" />
+                            <CheckBox x:Name="EnhancedCheck" IsChecked="True" Checked="EnhancedCheck_Changed" Unchecked="EnhancedCheck_Changed" />
+                            <CheckBox x:Name="ConsentCheck" Margin="28,0,0,0">
+                                <TextBlock x:Name="ConsentText" TextWrapping="Wrap" />
+                            </CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <InfoBar x:Name="ResultBar" IsClosable="True" IsOpen="False" />
+                <ProgressBar x:Name="Progress" IsIndeterminate="True" Visibility="Collapsed" />
+
+                <Expander x:Name="DetailsExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <TextBlock x:Name="LogText" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
+                </Expander>
+
+                <TextBlock x:Name="SourceText" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Padding="24,16">
+                <Button x:Name="CloseButton" MinWidth="120" Click="CloseButton_Click" />
+                <Button x:Name="InstallButton" MinWidth="120" Style="{StaticResource AccentButtonStyle}" Click="InstallButton_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

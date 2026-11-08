@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Zen Fluent setup: a WinUI 3 window (Windows App SDK, unpackaged and
+       self-contained) that installs Sine, Zen Fluent and Zen Fluent
+       Enhanced. Built by .github/workflows/installer.yml:
+       dotnet publish -c Release -r win-x64 -p:Platform=x64 -p:SourceRef=<branch> -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>ZenFluentSetup</RootNamespace>
+    <AssemblyName>ZenFluentSetup</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Product>Zen Fluent</Product>
+    <Description>Installs Sine, Zen Fluent and Zen Fluent Enhanced</Description>
+    <Copyright>MIT, alexisdechiara</Copyright>
+    <Version Condition="'$(Version)' == ''">0.4.3</Version>
+    <!-- The branch or tag whose mods it installs -->
+    <SourceRef Condition="'$(SourceRef)' == ''">main</SourceRef>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="SourceRef" Value="$(SourceRef)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.*" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.*" />
+  </ItemGroup>
+</Project>
