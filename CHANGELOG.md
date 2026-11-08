@@ -40,8 +40,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
   issue to check every mod again (and Claude reviews their CSS when a
   Claude secret is set); `/check-mods` runs the full check in Claude Code.
 
-- **Windows installer** (`ZenFluentSetup.exe`, built from
-  `installer/ZenFluentSetup.ps1` and attached to each release): installs
+- **Windows installer** (`ZenFluentSetup.exe`, a WinUI 3 application
+  built from `installer/winui` and attached to each release, with
+  `installer/ZenFluentSetup.ps1` for scripts): installs
   Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the profile
   picked from the chosen edition (Zen Browser or Zen Twilight), the way Sine itself installs mods, with consent for
   `sine.allow-unsafe-js` ([installer](installer/README.md)).

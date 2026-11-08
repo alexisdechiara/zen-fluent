@@ -40,10 +40,12 @@ come later. The owner writes to Claude in French: answer in French.
   (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
   Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
-- `installer/ZenFluentSetup.ps1`: the Windows installer (Windows
-  PowerShell 5.1, WinForms; UTF-8 with BOM or 5.1 misreads the accents),
-  built into `ZenFluentSetup.exe` by `.github/workflows/installer.yml`
-  (ps2exe). Test it with `-NoGui` on a throwaway profile, then start the
+- `installer/winui/`: the Windows installer, a WinUI 3 app (C#, Windows
+  App SDK 1.6, unpackaged, self-contained single file), built only by
+  `.github/workflows/installer.yml` (no .NET SDK on the owner's PC).
+  `installer/ZenFluentSetup.ps1`: the same steps for scripts (Windows
+  PowerShell 5.1; UTF-8 with BOM or 5.1 misreads the accents). Keep both in
+  step. Test it with `-NoGui` on a throwaway profile, then start the
   real Zen on it. `components.json`: the components it knows
   (`installer/README.md`). Sine's release tag differs from its title
   (title v2.3.4c2, tag `v2.3.4.1c`). `docs/`: installation, `docs/settings/<group>.md`,

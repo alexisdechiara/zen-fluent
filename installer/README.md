@@ -1,14 +1,24 @@
 # Installer
 
 `ZenFluentSetup.exe` installs Sine, Zen Fluent and Zen Fluent Enhanced in a
-Zen profile, in one window. It is `ZenFluentSetup.ps1` (Windows PowerShell
-5.1, in every Windows 10 and 11) built into a window application by
-[ps2exe](https://github.com/MScholtes/PS2EXE): `.github/workflows/installer.yml`
-builds it on every push and pull request that touches this folder and
-attaches it to each release (`vX.Y.Z` tag), next to the script. The
-installer installs the mods from the branch or tag it was built from. A
-branch push also publishes it as the pre-release `installer-<branch>`
-(replaced at each push): a stable download link to test a branch.
+Zen profile. It is a WinUI 3 application (`installer/winui/`, C#, Windows
+App SDK, unpackaged and self-contained, about 63 MB): Mica behind the
+window, the title bar drawn in it, settings cards, InfoBars for warnings
+and results, the system's light or dark theme and accent, in French when
+Windows is. `ZenFluentSetup.ps1` does the same steps without a window
+(Windows PowerShell 5.1, for scripts; `-NoGui`).
+
+`.github/workflows/installer.yml` builds both on every push and pull
+request that touches this folder (`dotnet publish -c Release -r win-x64
+-p:Platform=x64 -p:SourceRef=<branch>`; no SDK needed locally) and attaches
+them to each release (`vX.Y.Z` tag). They install the mods from the branch
+or tag they were built from. A branch push also publishes them as the
+pre-release `installer-<branch>` (replaced at each push): a stable
+download link to test a branch.
+
+Downloads do not use GitHub's API (the latest bootloader comes from
+`releases/latest/download`) and are tried five times over about a minute
+on 5xx answers and timeouts, then the installer says GitHub may be down.
 
 ## What it does
 
@@ -42,8 +52,6 @@ branch push also publishes it as the pre-release `installer-<branch>`
    is required to install it).
 5. Clears the profile's startup cache.
 
-The window is in French when Windows is.
-
 ## Without the window
 
 ```powershell
@@ -62,6 +70,10 @@ The window is in French when Windows is.
 | `-ReinstallSine` | Install Sine even when it is there.                        |
 
 ## Testing it
+
+The application starts its bootloader step without a window
+(`ZenFluentSetup.exe --bootloader <zip> <folder>`, what its elevated copy
+runs): a quick check that a build starts. The script:
 
 Point it at a throwaway profile and a folder with a `zen.exe` file in it;
 then start the real Zen on that profile (`-no-remote -profile <folder>`):
