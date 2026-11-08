@@ -4,8 +4,10 @@
 // Install:    Zen (version + profile) -> What (Zen Fluent or Enhanced) -> Work -> Done
 // Uninstall:  Zen -> Uninstall (what to remove)                        -> Work -> Done
 //
-// The window has a fixed size made for its pages, in logical pixels scaled
-// to the monitor (no resizing needed), centered on its work area. Each page
+// The window has a fixed width and the height of the page shown (header,
+// page and footer as laid out), in logical pixels scaled to the monitor; it
+// opens centered on its work area, then keeps its top edge as pages change
+// (never past the work area: the page scrolls then). Each page
 // is a panel of MainWindow.xaml, kept out of the tree and put in PageHost
 // when shown: PageHost's EntranceThemeTransition slides it in. Picking uses
 // GridView tiles (WinUI's own selection: an accent outline, keyboard
@@ -24,9 +26,11 @@ namespace ZenFluentSetup;
 
 public sealed partial class MainWindow : Window
 {
-    // The window's size, in logical pixels: the tallest page fits
+    // The window's width, in logical pixels; its height fits the page shown.
+    // Pages drawn in the middle (loading, no Zen) get at least this height.
     private const int WindowWidth = 860;
-    private const int WindowHeight = 740;
+    private const int FirstHeight = 560;
+    private const int CenteredPageHeight = 380;
     private const string ZenDownload = "https://zen-browser.app/download";
     private const string TwilightDownload = "https://zen-browser.app/download?twilight";
 
@@ -39,7 +43,9 @@ public sealed partial class MainWindow : Window
     private bool uninstalling;
     private bool running;
     private bool succeeded;
-    private double sizedFor;
+    private double scale = 1;
+    private bool placed;
+    private int fittedHeight;
 
     [DllImport("user32.dll")]
     private static extern uint GetDpiForWindow(IntPtr hwnd);
@@ -58,7 +64,8 @@ public sealed partial class MainWindow : Window
             presenter.IsResizable = false;
         }
         var dpi = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this));
-        FitWindow(dpi > 0 ? dpi / 96.0 : 1);
+        scale = dpi > 0 ? dpi / 96.0 : 1;
+        FitWindow();
         // No closing halfway through: the profile would be left half done
         AppWindow.Closing += (_, args) => args.Cancel = running;
         Activated += MainWindow_Activated;
@@ -77,8 +84,8 @@ public sealed partial class MainWindow : Window
         ProfileHeader.Text = S.Get("Profile");
         ConsentText.Text = S.Get("UnsafeJs");
         ConsentErrorText.Text = S.Get("ConsentNeeded");
-        DetailsExpander.Header = S.Get("Details");
-        DoneDetails.Header = S.Get("Details");
+        DetailsTitle.Text = S.Get("Details");
+        DoneDetailsTitle.Text = S.Get("Details");
         ModeButton.Content = S.Get("UninstallMode");
         DangerButton.Content = S.Get("Uninstall");
         RemoveModsCheck.Content = S.Get("RemoveMods");
@@ -110,19 +117,136 @@ public sealed partial class MainWindow : Window
         return $"{found} pages={pages.Count} source={Installer.SourceRef}";
     }
 
+    /// <summary>For --screenshots (the CI): every page, and the states that
+    /// change its height, rendered to PNG files in `dir`, with the window's
+    /// client size in each name. A runner has no Zen: two editions and two
+    /// profiles stand in for it.</summary>
+    public async Task<string> ScreenshotsAsync(string dir)
+    {
+        Directory.CreateDirectory(dir);
+        // A render has no Mica behind it
+        RootGrid.Background = Brush("SolidBackgroundFillColorBaseBrush");
+        await (loading ??= LoadAsync(minimum: 0));
+        var shots = new List<string>();
+
+        async Task Shot(string name, Action show)
+        {
+            show();
+            // The entrance transition, then the window fitting the page
+            await Task.Delay(900);
+            var bitmap = new Microsoft.UI.Xaml.Media.Imaging.RenderTargetBitmap();
+            await bitmap.RenderAsync(RootGrid);
+            var pixels = System.Runtime.InteropServices.WindowsRuntime.WindowsRuntimeBufferExtensions.ToArray(await bitmap.GetPixelsAsync());
+            var size = AppWindow.ClientSize;
+            var file = Path.Combine(dir, $"{shots.Count + 1:00}-{name}-{size.Width}x{size.Height}.png");
+            using (var stream = new Windows.Storage.Streams.InMemoryRandomAccessStream())
+            {
+                var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(Windows.Graphics.Imaging.BitmapEncoder.PngEncoderId, stream);
+                encoder.SetPixelData(Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8, Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
+                    (uint)bitmap.PixelWidth, (uint)bitmap.PixelHeight, 96, 96, pixels);
+                await encoder.FlushAsync();
+                stream.Seek(0);
+                var reader = new Windows.Storage.Streams.DataReader(stream);
+                await reader.LoadAsync((uint)stream.Size);
+                var bytes = new byte[stream.Size];
+                reader.ReadBytes(bytes);
+                await File.WriteAllBytesAsync(file, bytes);
+            }
+            shots.Add(Path.GetFileName(file));
+        }
+
+        await Shot("loading", () => ShowPage(LoadingPage));
+        await Shot("no-zen", () => ShowPage(NoZenPage));
+        var temp = Path.GetTempPath();
+        editions = new()
+        {
+            new ZenEdition("Zen Browser", "1.24.2b", @"C:\Program Files\Zen Browser", "A"),
+            new ZenEdition("Zen Twilight", "1.25t", @"C:\Program Files\Zen Twilight", "B"),
+        };
+        allProfiles = new()
+        {
+            new ZenProfile("Default (release)", Path.Combine(temp, "zf-shot-1"), true, new List<string> { "A" }),
+            new ZenProfile("Test Zen Fluent", Path.Combine(temp, "zf-shot-2"), false, new List<string>()),
+        };
+        await Shot("zen", () =>
+        {
+            BuildEditionTiles(0);
+            ShowPage(ZenPage);
+        });
+        await Shot("zen-running", () => ShowZenInfo(InfoBarSeverity.Error, S.Get("ZenRunning")));
+        await Shot("what-enhanced", () =>
+        {
+            ShowZenInfo(InfoBarSeverity.Informational, "");
+            ShowPage(WhatPage);
+        });
+        await Shot("what-consent", () => SetConsentError(true));
+        await Shot("what-core", () =>
+        {
+            SetConsentError(false);
+            ComponentGrid.SelectedIndex = 0;
+        });
+        ComponentGrid.SelectedIndex = 1;
+        await Shot("work", () =>
+        {
+            ShowPage(WorkPage);
+            var lines = Enumerable.Range(1, 14).Select(i => $"Step {i}: copying chrome\\sine-mods\\Zen-Fluent… done");
+            LogText.Text = string.Join("\n", lines);
+            WorkStep.Text = lines.Last();
+            ScrollToEnd(LogScroller);
+        });
+        await Shot("done", () => ShowDone(null));
+        await Shot("failed", () => ShowDone("The profile is in use: close Zen, then try again."));
+        await Shot("uninstall", () =>
+        {
+            uninstalling = true;
+            ShowPage(UninstallPage);
+        });
+        return string.Join(" ", shots);
+    }
+
     // -------- Window --------
 
-    /// <summary>The fixed size at a given scale, centered on the work area
-    /// and never larger than it.</summary>
-    private void FitWindow(double scale)
+    /// <summary>The height the page shown needs: the title bar, the header,
+    /// the page with its padding, and the footer, as laid out.</summary>
+    private double ContentHeight()
     {
-        if (scale <= 0 || Math.Abs(scale - sizedFor) < 0.01) return;
-        sizedFor = scale;
+        if (PageHost.ActualHeight <= 0) return FirstHeight;
+        var header = Header.Visibility == Visibility.Visible ? Header.ActualHeight : 0;
+        return AppTitleBar.ActualHeight + header + PageScroller.Padding.Top + PageScroller.Padding.Bottom
+               + PageHost.ActualHeight + Footer.ActualHeight;
+    }
+
+    /// <summary>Fixed width, the page's height, both scaled and never larger
+    /// than the work area: centered the first time, then the top edge stays
+    /// where it is (moved up only when the bottom would leave the screen).</summary>
+    private void FitWindow()
+    {
         var area = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Primary).WorkArea;
         var width = Math.Min((int)Math.Round(WindowWidth * scale), area.Width);
-        var height = Math.Min((int)Math.Round(WindowHeight * scale), area.Height);
-        AppWindow.Resize(new SizeInt32(width, height));
-        AppWindow.Move(new PointInt32(area.X + (area.Width - width) / 2, area.Y + (area.Height - height) / 2));
+        var height = (int)Math.Ceiling(ContentHeight() * scale);
+        // The frame Windows adds around the client area
+        var frame = Math.Max(0, AppWindow.Size.Height - AppWindow.ClientSize.Height);
+        height = Math.Min(height, area.Height - frame);
+        if (placed && height == fittedHeight && AppWindow.ClientSize.Width == width) return;
+        fittedHeight = height;
+        AppWindow.ResizeClient(new SizeInt32(width, height));
+        var outer = AppWindow.Size;
+        if (!placed)
+        {
+            placed = PageHost.ActualHeight > 0;
+            AppWindow.Move(new PointInt32(area.X + (area.Width - outer.Width) / 2, area.Y + (area.Height - outer.Height) / 2));
+            return;
+        }
+        var position = AppWindow.Position;
+        var top = Math.Max(area.Y, Math.Min(position.Y, area.Y + area.Height - outer.Height));
+        if (top != position.Y) AppWindow.Move(new PointInt32(position.X, top));
+    }
+
+    /// <summary>The header, the page or the footer changed height (a page
+    /// shown, an InfoBar opened, text wrapping): the window follows.</summary>
+    private void Content_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (Math.Abs(e.NewSize.Height - e.PreviousSize.Height) >= 0.5) FitWindow();
     }
 
     private void RootGrid_Loaded(object sender, RoutedEventArgs e)
@@ -130,8 +254,14 @@ public sealed partial class MainWindow : Window
         // The scale XAML really draws at (the monitor the window opened on)
         if (Content.XamlRoot is { } root)
         {
-            FitWindow(root.RasterizationScale);
-            root.Changed += (_, _) => FitWindow(root.RasterizationScale);
+            scale = root.RasterizationScale;
+            FitWindow();
+            root.Changed += (_, _) =>
+            {
+                if (Math.Abs(root.RasterizationScale - scale) < 0.01) return;
+                scale = root.RasterizationScale;
+                FitWindow();
+            };
         }
         loading ??= LoadAsync(minimum: 600);
     }
@@ -172,12 +302,6 @@ public sealed partial class MainWindow : Window
         if (page != ZenPage) ShowPage(ZenPage);
     }
 
-    private void PageScroller_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        // Pages drawn in the middle (loading, no Zen, result) center vertically
-        PageHost.MinHeight = Math.Max(0, PageScroller.ViewportHeight - PageScroller.Padding.Top - PageScroller.Padding.Bottom);
-    }
-
     // -------- Pages --------
 
     private ZenEdition? Edition =>
@@ -193,6 +317,8 @@ public sealed partial class MainWindow : Window
         page = next;
         PageHost.Children.Clear();
         PageHost.Children.Add(next);
+        // Pages drawn in the middle keep some room around them
+        PageHost.MinHeight = next == LoadingPage || next == NoZenPage ? CenteredPageHeight : 0;
         LoadingRing.IsActive = next == LoadingPage;
         UpdateChrome();
     }
@@ -636,13 +762,13 @@ public sealed partial class MainWindow : Window
         running = true;
         LogText.Text = "";
         WorkStep.Text = "";
-        DetailsExpander.IsExpanded = false;
         ShowPage(WorkPage);
         var queue = DispatcherQueue;
         var installer = new Installer(message => queue.TryEnqueue(() =>
         {
             LogText.Text += (LogText.Text.Length > 0 ? "\n" : "") + message;
             WorkStep.Text = message;
+            ScrollToEnd(LogScroller);
         }));
         string? failure = null;
         try
@@ -669,9 +795,17 @@ public sealed partial class MainWindow : Window
             : (uninstalling ? "UninstallFailed" : "Failed"));
         DoneText.Text = failure ?? S.Get(uninstalling ? "UninstalledText" : "DoneText");
         DoneLog.Text = LogText.Text;
-        DoneDetails.IsExpanded = !succeeded;
+        DoneDetails.Visibility = DoneLog.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
         ShowPage(DonePage);
+        ScrollToEnd(DoneScroller);
         if (succeeded) UpdateProfile();
+    }
+
+    /// <summary>The log follows its last line, once laid out.</summary>
+    private void ScrollToEnd(ScrollViewer scroller)
+    {
+        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Low,
+            () => scroller.ChangeView(null, scroller.ScrollableHeight, null, disableAnimation: true));
     }
 
     /// <summary>Starts the chosen Zen, on the chosen profile once installed

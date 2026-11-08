@@ -19,17 +19,86 @@
                 <Setter Property="MinHeight" Value="68" />
             </Style>
 
-            <!-- Tiles to pick from (GridView): WinUI's own selection, an accent
-                 outline on the picked tile, no check box -->
-            <Style x:Key="TileItemStyle" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
+            <!-- Tiles to pick from (GridView): WinUI's own selection and arrow
+                 keys, drawn by this template rather than the item presenter
+                 (whose selection border and inner line do not follow the
+                 card's 1px stroke and 8px corners). The card is one Border;
+                 the accent ring is another of the same outer size on top, so
+                 it covers the stroke exactly, corners included. -->
+            <Style x:Key="TileItemStyle" TargetType="GridViewItem">
                 <Setter Property="Margin" Value="0,0,12,12" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="FocusVisualMargin" Value="-3" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewItem">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="Card.Background" Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="Card.Background" Value="{ThemeResource ControlFillColorTertiaryBrush}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Target="Ring.Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOverSelected">
+                                            <VisualState.Setters>
+                                                <Setter Target="Card.Background" Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+                                                <Setter Target="Ring.Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PressedSelected">
+                                            <VisualState.Setters>
+                                                <Setter Target="Card.Background" Value="{ThemeResource ControlFillColorTertiaryBrush}" />
+                                                <Setter Target="Ring.Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid x:Name="Card" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                                    <Grid.BackgroundTransition>
+                                        <BrushTransition Duration="0:0:0.083" />
+                                    </Grid.BackgroundTransition>
+                                    <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                                </Grid>
+                                <Border x:Name="Ring" CornerRadius="8" BorderThickness="2" Opacity="0" IsHitTestVisible="False"
+                                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}">
+                                    <Border.OpacityTransition>
+                                        <ScalarTransition Duration="0:0:0.083" />
+                                    </Border.OpacityTransition>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- The log, shown as it is written: a card with its own scroll -->
+            <Style x:Key="LogBox" TargetType="ScrollViewer">
                 <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="14,10" />
+                <Setter Property="MaxHeight" Value="168" />
+                <Setter Property="HorizontalScrollMode" Value="Disabled" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
             </Style>
 
             <!-- An icon in a tinted rounded square, as Windows 11's Settings

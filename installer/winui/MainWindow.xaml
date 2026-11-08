@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Zen Fluent setup: a wizard, as Windows 11's own setup screens. A fixed
-     window sized for its pages (nothing to resize), a header (the step, its
+     width and a height that fits the page shown (nothing to resize), a header (the step, its
      pips, the page's title and line), one page at a time sliding in, and a
      footer with Back / Next. Pages: a loading screen while Zen is looked for,
      "install Zen first" when it is missing, the Zen version and its profile,
@@ -33,7 +33,7 @@
         </Grid>
 
         <!-- Header: the step, then the page's title and line -->
-        <Grid x:Name="Header" Grid.Row="1" Padding="40,8,40,4" RowSpacing="6">
+        <Grid x:Name="Header" Grid.Row="1" Padding="40,8,40,4" RowSpacing="6" SizeChanged="Content_SizeChanged">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -47,9 +47,10 @@
             <TextBlock x:Name="PageLead" Grid.Row="2" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
         </Grid>
 
-        <!-- The page shown; a safety scroll for large text settings -->
-        <ScrollViewer x:Name="PageScroller" Grid.Row="2" Padding="40,16,40,24" SizeChanged="PageScroller_SizeChanged">
-            <Grid x:Name="PageHost">
+        <!-- The page shown, at its own height (the window fits it); a scroll
+             when the screen is too short -->
+        <ScrollViewer x:Name="PageScroller" Grid.Row="2" Padding="40,16,40,24">
+            <Grid x:Name="PageHost" VerticalAlignment="Top" SizeChanged="Content_SizeChanged">
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="40" FromVerticalOffset="0" />
@@ -156,21 +157,27 @@
             <StackPanel x:Name="WorkPage" Spacing="12">
                 <ProgressBar IsIndeterminate="True" Margin="0,8,0,0" />
                 <TextBlock x:Name="WorkStep" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" />
-                <Expander x:Name="DetailsExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                    <TextBlock x:Name="LogText" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
-                </Expander>
+                <StackPanel Spacing="6">
+                    <TextBlock x:Name="DetailsTitle" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <ScrollViewer x:Name="LogScroller" Style="{StaticResource LogBox}">
+                        <TextBlock x:Name="LogText" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
+                    </ScrollViewer>
+                </StackPanel>
             </StackPanel>
 
             <!-- 4. The result -->
-            <StackPanel x:Name="DonePage" Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="500">
+            <StackPanel x:Name="DonePage" Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="560">
                 <Border x:Name="DoneBadge" Width="80" Height="80" CornerRadius="40" HorizontalAlignment="Center" Background="{ThemeResource AccentFillColorDefaultBrush}">
                     <FontIcon x:Name="DoneGlyph" Glyph="&#xE73E;" FontSize="34" Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" />
                 </Border>
                 <TextBlock x:Name="DoneTitle" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
                 <TextBlock x:Name="DoneText" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
-                <Expander x:Name="DoneDetails" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                    <TextBlock x:Name="DoneLog" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
-                </Expander>
+                <StackPanel x:Name="DoneDetails" Spacing="6" Margin="0,4,0,0">
+                    <TextBlock x:Name="DoneDetailsTitle" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <ScrollViewer x:Name="DoneScroller" Style="{StaticResource LogBox}">
+                        <TextBlock x:Name="DoneLog" TextWrapping="Wrap" IsTextSelectionEnabled="True" FontFamily="Cascadia Mono, Consolas" FontSize="12" />
+                    </ScrollViewer>
+                </StackPanel>
             </StackPanel>
 
             <!-- Uninstall: what to remove from the chosen profile -->
@@ -200,7 +207,7 @@
         </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="3" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
+        <Border x:Name="Footer" Grid.Row="3" SizeChanged="Content_SizeChanged" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0">
             <Grid Padding="24,16">
                 <HyperlinkButton x:Name="ModeButton" HorizontalAlignment="Left" Click="ModeButton_Click" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">

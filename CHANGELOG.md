@@ -26,8 +26,10 @@ one `vX.Y.Z` tag.
 
 ### Changed
 
-- Windows installer: a fixed window made for its pages (nothing to resize),
-  a loading screen while it looks for Zen, an **Install Zen first** page
+- Windows installer: a fixed width and a height that fits each page
+  (nothing to resize), tiles drawn with their own template (the accent
+  ring covers the card's stroke, corners included), the log shown as it is
+  written instead of under a Details expander, a loading screen while it looks for Zen, an **Install Zen first** page
   with the download pages of Zen Browser and Zen Twilight when Zen is
   missing, and an **Update** button when a Zen is older than 1.23.
 - Zen's settings search shows Zen Fluent's matching settings among its

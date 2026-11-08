@@ -84,6 +84,23 @@ jobs:
           $result = if (Test-Path $out) { Get-Content $out -Raw } else { "no result (exit code $($process.ExitCode))" }
           Write-Host $result
           if ($process.ExitCode -ne 0 -or -not $result.StartsWith("ok")) { throw "the window does not build: $result" }
+      # Each page rendered to a PNG (the runner's desktop shows the window
+      # for a few seconds), to look at the layout without a Windows PC
+      - name: Screenshots of the pages (--screenshots)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $dir = "$env:RUNNER_TEMP\screenshots"
+          $process = Start-Process -FilePath .\ZenFluentSetup.exe -ArgumentList "--screenshots `"$dir`"" -PassThru
+          if (-not $process.WaitForExit(180000)) { $process.Kill(); throw "--screenshots did not finish in 3 minutes" }
+          $result = Join-Path $dir "result.txt"
+          Write-Host $(if (Test-Path $result) { Get-Content $result -Raw } else { "no result (exit code $($process.ExitCode))" })
+      - uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: installer-screenshots
+          path: ${{ runner.temp }}/screenshots
+          if-no-files-found: ignore
       - name: The script, with the same default branch
         shell: powershell
         run: |

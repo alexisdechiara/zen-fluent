@@ -18,9 +18,11 @@ download link to test a branch.
 
 The window is a wizard, as Windows 11's own setup screens: a step and its
 pips, a title and a line, one page at a time sliding in, Back / Next at
-the bottom. It has a fixed size made for its pages (860 x 740, scaled to
-the monitor, centered, never larger than the work area): nothing to
-resize.
+the bottom. Its width is fixed (860, scaled to the monitor) and its height
+fits the page shown: the header, the page and the footer as laid out,
+following an InfoBar that opens. It opens centered, then keeps its top
+edge as the pages change, never larger than the work area (the page
+scrolls then): nothing to resize.
 
 - **Looking for Zen…**: shown at once, while the versions of Zen and their
   profiles are read off the UI thread.
@@ -38,9 +40,10 @@ resize.
    (recommended), two tiles. The box allowing scripts of mods outside
    Sine's store shows with Enhanced only, and turns red when Install is
    clicked without it.
-3. The progress, the current step, and the log under Details.
+3. The progress, the current step, and the log under Details, shown as it
+   is written (a card that scrolls to its last line).
 4. The result: **Open Zen** starts the chosen Zen on the chosen profile;
-   on a failure, the error, the log open, and **Try again**.
+   on a failure, the error and **Try again**; the log under both.
 
 Tiles are `GridView` items: WinUI's own selection (an accent outline,
 arrow keys), no radio buttons.
@@ -139,7 +142,11 @@ on 5xx answers and timeouts, then the installer says GitHub may be down.
 `ZenFluentSetup.exe --selftest <file>` builds the window without showing
 it (XAML, the Zen editions and profiles found) and writes `ok …` or the
 error to `<file>`: the CI runs it on every build, and it checks a build on
-a desktop without opening anything. Any failure at startup is written to
+a desktop without opening anything. `--screenshots <folder>` shows the
+window and renders each page (and the states that change its height) to a
+PNG, the window's client size in each name, then quits: the CI uploads
+them as the `installer-screenshots` artifact, with stand-in Zen versions
+and profiles (a runner has no Zen). Any failure at startup is written to
 `%TEMP%\ZenFluentSetup-error.log` and shown in a message box. The script:
 
 Point it at a throwaway profile and a folder with a `zen.exe` file in it;
