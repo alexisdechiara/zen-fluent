@@ -336,6 +336,13 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   corners), only while that tab is `[busy]`; Zen fades it by script and sets
   `[long-load]` after 3 s. A Glance tab is never `[busy]`: no bar there. Only the
   focused split pane has `.deck-selected`.
+- Right to left (`intl.l10n.pseudo` = `bidi`, restart): the sidebar goes
+  to the right without `zen-right-side`, so corners and positions must be
+  logical (`border-start-start-radius`, never a four-value `border-radius`
+  for one corner). A restored (pending) tab with a left-to-right title
+  keeps `textoverflow` and aligns its label left: Firefox's, not the mod's.
+  Zen draws the end of the pinned tabs' separator as a background on the
+  **Clear** button, from its left edge.
 - Zen sets `breakout-extend` on focus (bar opened in place): the accent line
   follows `[focused]` and `[breakout-extend]`.
 - The Library never covers the page, except 8px in compact mode with WinUI
@@ -553,7 +560,9 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
   behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
   shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
   Calmer's accent menus.
-- Not checked live yet: right-to-left (animated Back / Forward / Reload), a
+- Not checked live yet: right-to-left menus and animated icons by eye
+  (layout, URL bar, page card and navigation icons checked headless with
+  `intl.l10n.pseudo` = `bidi` on 2026-11-11), a
   real Windows contrast theme (only `ui.useAccessibilityTheme` emulation),
   Picture-in-Picture, Glance, the media card and `about:addons` /
   `about:config` in contrast mode, the blur values on the real desktop.
