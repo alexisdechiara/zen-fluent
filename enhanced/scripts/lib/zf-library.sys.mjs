@@ -33,7 +33,7 @@ const HTML = "http://www.w3.org/1999/xhtml";
 const L10N_SOURCE = "zen-fluent-enhanced";
 const L10N_FILE = "zen-fluent-enhanced.ftl";
 const L10N_PATH = "chrome://sine/content/Zen-Fluent-Enhanced/l10n/{locale}/";
-const L10N_LOCALES = ["en-US", "fr"];
+const L10N_LOCALES = ["en-US", "fr", "es"];
 const STATE = Symbol.for("zf-library-sections");
 const LIBRARY_PREF = "zen.library.enabled";
 // The order of our tabs, after Zen's own
