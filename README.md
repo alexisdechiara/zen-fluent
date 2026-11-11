@@ -81,7 +81,8 @@ rule for `zen`; Zen Fluent tints it.
 **Linux and macOS**: Zen Fluent works too, with your compositor's blur.
 
 Step by step, Mica For Everyone, Linux blur, a manual install without Sine:
-[docs/installation.md](docs/installation.md).
+[docs/installation.md](docs/installation.md)
+([en français](docs/fr/installation.md)).
 
 ## Zen Fluent Enhanced
 

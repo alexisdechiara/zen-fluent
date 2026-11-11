@@ -24,6 +24,10 @@ one `vX.Y.Z` tag.
   matches are counted ("3 of 12") with Previous and Next (Enter,
   Shift+Enter, F3), the current one in the accent.
 
+- Docs: the installation page in French, `docs/fr/installation.md`, the
+  first page of the French documentation
+  ([#13](https://github.com/alexisdechiara/zen-fluent/issues/13)).
+
 ### Changed
 
 - Compatible mods checked again with Zen Fluent 0.5.0 on Zen 1.24.1b
