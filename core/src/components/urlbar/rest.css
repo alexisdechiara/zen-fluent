@@ -28,3 +28,40 @@
     font-size: 13px !important;
   }
 }
+
+/* Compact density: the text box and the transparent field are as tall as
+   the compact pill (--zf-size-url-field, 28px). Zen writes --urlbar-height
+   inline and sizes the bar and its toolbar item from it (38px in the
+   sidebar, 32px in the toolbar): the bar keeps that box, so nothing around
+   it moves, and the field is centred in it, like the pill
+   (features/url-style/pill.css). */
+@media (-moz-pref("zen-fluent.density", "compact")) and (not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))))) {
+  #urlbar:not([breakout-extend]) {
+    & .urlbar-background {
+      box-sizing: border-box !important;
+      height: var(--zf-url-h) !important;
+      margin-block: auto !important;
+    }
+
+    /* Firefox's 26px buttons would touch the stroke. In the sidebar Zen
+       sizes the page actions itself and shows them on hover: left alone. */
+    & #identity-box {
+      height: var(--zf-url-chip) !important;
+    }
+
+    &
+      :is(
+        #zen-site-data-icon-button,
+        #identity-icon-box,
+        #identity-permission-box,
+        #tracking-protection-icon-container,
+        #remote-control-box,
+        :root:not([zen-single-toolbar="true"]) .urlbar-page-action
+      ) {
+      box-sizing: border-box !important;
+      height: var(--zf-url-chip) !important;
+      padding-block: calc((var(--zf-url-chip) - 16px) / 2) !important;
+      margin-block: 0 !important;
+    }
+  }
+}

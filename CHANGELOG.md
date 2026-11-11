@@ -55,6 +55,11 @@ one `vX.Y.Z` tag.
   window; the tour's card and start screen are now outside them.
 - Windows installer: the right tile's border (Zen Fluent Enhanced, Zen
   Twilight) is no longer cut off.
+- **Density: Compact**: the text box and transparent URL bars are now as
+  compact as the pill (a 28 px field with 24 px buttons, centred in Zen's
+  box), and so is the place the bar leaves while it floats; in the sidebar
+  that place now also follows the pill's height
+  ([#12](https://github.com/alexisdechiara/zen-fluent/issues/12)).
 - URL bar: in the selected suggestion, the part you typed (bold in the
   title and the address) is no longer white on the light fill. Zen paints
   everything in that row white for its accent fill.

@@ -553,9 +553,6 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
   behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
   shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
   Calmer's accent menus.
-- Density: the text box URL bar keeps Zen's height in compact (Zen writes
-  `--urlbar-height` inline and sizes its container itself); only the pill
-  follows `--zf-size-url-field`.
 - Not checked live yet: right-to-left (animated Back / Forward / Reload), a
   real Windows contrast theme (only `ui.useAccessibilityTheme` emulation),
   Picture-in-Picture, Glance, the media card and `about:addons` /

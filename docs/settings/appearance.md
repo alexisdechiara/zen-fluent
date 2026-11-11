@@ -53,8 +53,8 @@ Group header: `zen-fluent.ui.open-appearance` (open by default: `true`).
   text boxes, combo boxes) go from 32 to 24 px, list rows from 40 to 32 px,
   sidebar tabs, folders and Library rows from 36 to 32 px, tree rows from 32 to
   24 px, menu rows from 32 to 28 px, toolbar and icon buttons to 28 px, and
-  Essentials from 42 to 36 px, and the pill URL bar from 32 to 28 px (the text
-  box URL bar keeps Zen’s height). Text keeps its size. Dialogs and internal pages
+  Essentials from 42 to 36 px, and the URL bar’s field to 28 px in every shape
+  (the bar keeps Zen’s box, so nothing around it moves). Text keeps its size. Dialogs and internal pages
   keep the standard sizes. It is not Zen’s compact mode, which hides the
   sidebar and the toolbar.
 - **Custom color** accepts any CSS color (`#0078d4`, `rgb(0 120 212)`,

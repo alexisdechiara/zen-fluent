@@ -22,10 +22,12 @@
   }
 }
 
-/* Pill: the field's height, centred in Zen's, so nothing below moves */
+/* Pill: the field's height, centred in Zen's, so nothing below moves (in
+   the sidebar Firefox's min-height is the toolbar item's) */
 @media (-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))) {
   #urlbar-container:has(> #urlbar[open][zen-floating-urlbar="true"]) {
     height: var(--zf-url-h) !important;
+    min-height: 0 !important;
     margin-block: calc((var(--urlbar-height) - var(--zf-url-h)) / 2) !important;
     border-radius: calc(var(--zf-url-h) / 2) !important;
     corner-shape: round !important;
@@ -37,5 +39,15 @@
   #urlbar-container:has(> #urlbar[open][zen-floating-urlbar="true"]) {
     background-color: transparent !important;
     border-color: transparent !important;
+  }
+}
+
+/* Compact density: the text box and the transparent field are centred in
+   Zen's height too (components/urlbar/rest.css) */
+@media (-moz-pref("zen-fluent.density", "compact")) and (not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))))) {
+  #urlbar-container:has(> #urlbar[open][zen-floating-urlbar="true"]) {
+    height: var(--zf-url-h) !important;
+    min-height: 0 !important;
+    margin-block: calc((var(--urlbar-height) - var(--zf-url-h)) / 2) !important;
   }
 }
