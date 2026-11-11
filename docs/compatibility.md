@@ -35,7 +35,8 @@ version. A check updates `tested` in the same commit.
 They were checked in Zen 1.23.4b against each mod's CSS at the version given
 below, with the elements their scripts create built by hand. The Vertex Mods
 and the mods of **Featured** were checked again on Zen 1.24b with Zen
-Fluent 0.4.3, all installed through Sine together.
+Fluent 0.4.3, all installed through Sine together, and every supported mod
+but Zen Easel (read, never run) on Zen 1.24.1b with Zen Fluent 0.5.0.
 
 **Featured**, at the top of the Mods page, lists the mods Zen Fluent
 recommends, in the order of `featured` in the same file.
@@ -106,6 +107,9 @@ Files: `core/src/compat/advanced-tab-groups.css`,
 - Its colored Library icons and outlines use Zen Fluent's folder tint (the
   accent), its bookmark folders take the Fluent folder icons, and the row a
   context menu was opened on keeps the hover fill.
+- Its **Bookmarks** tab has a label id no translation file defines; next
+  to Zen Fluent Enhanced's tabs it showed "Quick settings". Zen Fluent
+  Enhanced now provides that label (`enhanced/l10n/`).
 
 Files: `core/src/compat/zen-library-tweaks.css`,
 `core/src/components/library/history.css`,
@@ -128,7 +132,7 @@ File: `core/src/features/fluent-icons/glance-split.css`.
 ## Zen Second Sidebar Enhanced
 
 [sinazadeh/zen-second-sidebar-enhanced](https://github.com/sinazadeh/zen-second-sidebar-enhanced)
-(checked: 1.13.8). Web panels in a second sidebar.
+(checked: 1.13.12). Web panels in a second sidebar.
 
 - The web panel takes the page card's radius and shadow (Edge: 8 px and the
   hairline), its toolbar the WinUI layer of Firefox's sidebar, its text that
@@ -138,7 +142,9 @@ File: `core/src/features/fluent-icons/glance-split.css`.
 - What floats over the page (an unpinned panel, the auto-hide launcher) is
   solid Acrylic, as everything Zen Fluent lays over the page: Firefox does not
   blur the page behind a translucent surface. A pinned panel stays transparent
-  on the window's material, as Zen's sidebar does.
+  on the window's material, as Zen's sidebar does. Since 1.13.12 the
+  auto-hide launcher is translucent with Zen's **Acrylic sidebar** option:
+  it stays solid too.
 
 Files: `core/src/compat/second-sidebar.css`,
 `core/src/components/firefox-sidebar/panel.css`.
@@ -152,7 +158,7 @@ Variable, WinUI fills and strokes, the accent, the control / card / overlay
 radii, the flyout and dialog shadows); what floats over the page takes the
 solid surface, since Firefox does not blur web content. A theme picked in a
 mod's own settings (Search Engine Select's light or AMOLED) still wins.
-File: `core/src/compat/zenux.css`. Checked (Zen 1.24b, Zen Fluent 0.4.3):
+File: `core/src/compat/zenux.css`. Checked (Zen 1.24.1b, Zen Fluent 0.5.0):
 
 - **Advanced Tab Groups** 3.12.1, **Zen Command Palette** 2.0.0: see their
   own sections.
@@ -199,7 +205,7 @@ File: `core/src/compat/command-palette.css`.
 ## Zen Calmer Context Menu
 
 [sinazadeh/zen-calmer-context-menu](https://github.com/sinazadeh/zen-calmer-context-menu)
-(checked: 5.4.3). Hides, folds and reorders context menu entries.
+(checked: 5.5.3). Hides, folds and reorders context menu entries.
 
 - **Apply the Zen space accent color** tints menus and panels in place of the
   Acrylic: it is a choice you make in its settings, and Zen Fluent lets it.
@@ -301,7 +307,7 @@ Zen Fluent off.
 | ------------------------------------------------------------------------ | ----------------- |
 | [Nebula](https://github.com/JustADumbPrsn/Zen-Nebula)                    | 3.3.3             |
 | [Arc 2.0](https://github.com/YashjitPal/Arc-2.0)                         | 3.4               |
-| [Zia](https://github.com/z1n-k/zia)                                      | 2.114.1           |
+| [Zia](https://github.com/z1n-k/zia)                                      | 2.122.2           |
 | [Neo Zen](https://github.com/JustVibingWhileCoding/Neo-Zen)              | 1.21.3-neo.1      |
 | [Livs Theme](https://github.com/designlivs/livstheme)                    | 1.0.0             |
 | [macaron](https://github.com/SehajveerSingh2005/macaron)                 | 1.5.6             |

@@ -26,6 +26,11 @@ one `vX.Y.Z` tag.
 
 ### Changed
 
+- Compatible mods checked again with Zen Fluent 0.5.0 on Zen 1.24.1b
+  ([#5](https://github.com/alexisdechiara/zen-fluent/issues/5)): every
+  supported mod installed through Sine together (Zen Easel is read, not
+  run), with Zen Second Sidebar Enhanced 1.13.12 and Zen Calmer Context Menu 5.5.3; Zia 2.122.2 is still
+  a whole theme.
 - Zen Fluent Enhanced, **Welcome tour**: it now comes after Zen's own
   welcome (the window shows in Zen's look, then Zen Fluent's sweeps in),
   over the dimmed window instead of Zen's video, so each choice shows
@@ -60,6 +65,12 @@ one `vX.Y.Z` tag.
   box), and so is the place the bar leaves while it floats; in the sidebar
   that place now also follows the pill's height
   ([#12](https://github.com/alexisdechiara/zen-fluent/issues/12)).
+- Zen Second Sidebar Enhanced 1.13.12: its auto-hide launcher, translucent
+  over the page with Zen's Acrylic sidebar option, stays solid like
+  everything Zen Fluent lays over the page
+  ([#17](https://github.com/alexisdechiara/zen-fluent/issues/17)).
+- Zen Fluent Enhanced with ZenLibraryTweaks: its Bookmarks tab of the
+  Library no longer reads "Quick settings".
 - URL bar: in the selected suggestion, the part you typed (bold in the
   title and the address) is no longer white on the light fill. Zen paints
   everything in that row white for its accent fill.

@@ -3,3 +3,6 @@
 zf-library-widgets = Widgets
 zf-library-focus = Concentration
 zf-library-quick-settings = Réglages rapides
+
+# ZenLibraryTweaks' Bookmarks tab, whose id no file defines (see en-US).
+library-bookmarks-section-title = Marque-pages

@@ -20,6 +20,8 @@
   --sb2-zen-floating-surface: var(--zf-acrylic-over-page) !important;
   --sb2-zen-floating-acrylic-surface: var(--zf-acrylic-over-page) !important;
   --sb2-zen-overlay-surface: var(--zf-acrylic-over-page) !important;
+  /* 1.13.12: the overlay launcher with Zen's Acrylic sidebar option */
+  --sb2-zen-overlay-acrylic-surface: var(--zf-acrylic-over-page) !important;
 
   /* Edge: the page card's 8px (its shadow token is already the hairline)
      and Edge's button fills */

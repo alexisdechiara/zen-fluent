@@ -17,7 +17,7 @@
       "status": "supported",
       "summary": "Firefox's tab groups: their headers take the row of a Zen folder, with the folder icon tinted in the group's color.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "3.12.1"
       }
     },
@@ -28,7 +28,7 @@
       "status": "supported",
       "summary": "More Library sections and reorderable tabs: its History rows, reordering and edit mode follow Zen Fluent's Library.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.5.1 for Zen 1.23.3b"
       }
     },
@@ -39,7 +39,7 @@
       "status": "supported",
       "summary": "Glance rules and two more Glance buttons, drawn as Zen Fluent's round Acrylic buttons with Fluent icons.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.0"
       }
     },
@@ -50,8 +50,8 @@
       "status": "supported",
       "summary": "Web panels in a second sidebar: the page card's radius and shadow, WinUI hovers, Acrylic over the page.",
       "tested": {
-        "zenFluent": "0.3.0",
-        "version": "1.13.8"
+        "zenFluent": "0.5.0",
+        "version": "1.13.12"
       }
     },
     {
@@ -61,7 +61,7 @@
       "status": "supported",
       "summary": "Commands in the URL bar: its panels and Commands pill take Zen Fluent's accent, font, corners and surfaces.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "2.0.0"
       }
     },
@@ -72,8 +72,8 @@
       "status": "supported",
       "summary": "Folds and reorders context menu entries: its settings page takes Zen Fluent's look, Zen Fluent picks Fluent defaults, and its menu color gives way to Zen Fluent's Menu tint.",
       "tested": {
-        "zenFluent": "0.4.3",
-        "version": "5.5.1"
+        "zenFluent": "0.5.0",
+        "version": "5.5.3"
       }
     },
     {
@@ -83,7 +83,7 @@
       "status": "supported",
       "summary": "An infinite canvas at about:easel, whose panels take Zen Fluent's accent, Acrylic, strokes and font.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "0.9.0"
       }
     },
@@ -94,7 +94,7 @@
       "status": "supported",
       "summary": "It redraws the gradient picker: Zen Fluent's own look of the picker steps aside while it is there, and its gradients tint the window as in Zen.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "2.1 for Zen 1.23b"
       }
     },
@@ -105,7 +105,7 @@
       "status": "supported",
       "summary": "Sorts a space's tabs into folders with Firefox's local AI: its sort button and wave line sit in Zen Fluent's tab list.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "2.0.1"
       }
     },
@@ -116,7 +116,7 @@
       "status": "supported",
       "summary": "Renames finished downloads with AI: its cards and tooltip float by the Library button over Zen Fluent's sidebar.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "4.2.3"
       }
     },
@@ -127,7 +127,7 @@
       "status": "supported",
       "summary": "A searchable menu of recently closed tabs: its panel takes Zen Fluent's font, accent, corners and surfaces.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.9"
       }
     },
@@ -138,7 +138,7 @@
       "status": "supported",
       "summary": "Turns Ctrl+F into a floating AI chat: the card takes Zen Fluent's solid surface over the page, its corners, stroke and accent.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "3.0.0"
       }
     },
@@ -149,7 +149,7 @@
       "status": "supported",
       "summary": "A wallpaper per space, set from the gradient picker: its button sits among the picker's own.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "0.2.2"
       }
     },
@@ -160,7 +160,7 @@
       "status": "supported",
       "summary": "A search box and filters on Zen's keyboard shortcuts page, inside Zen Fluent's settings layout.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.6"
       }
     },
@@ -171,7 +171,7 @@
       "status": "supported",
       "summary": "A floating engine switcher on search result pages: it takes Zen Fluent's tokens, and its own light or AMOLED theme still wins when picked.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.33"
       }
     },
@@ -182,7 +182,7 @@
       "status": "supported",
       "summary": "Folds the settings' navigation into an icon strip: Zen Fluent's pane gives way to it, and the search box moves to the top of the page.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.4"
       }
     },
@@ -193,7 +193,7 @@
       "status": "supported",
       "summary": "Unpins the Firefox sidebar over the page: unpinned, it becomes a Zen Fluent card with a solid surface and a shadow.",
       "tested": {
-        "zenFluent": "0.4.3",
+        "zenFluent": "0.5.0",
         "version": "1.1.3"
       }
     },
@@ -271,8 +271,8 @@
       "status": "breaks",
       "summary": "Rebuilds Zen with its own page card, site-colored toolbar and sidebar, over every part Zen Fluent styles: the two together break the window.",
       "tested": {
-        "zenFluent": "0.4.3",
-        "version": "2.114.1"
+        "zenFluent": "0.5.0",
+        "version": "2.122.2"
       }
     },
     {
