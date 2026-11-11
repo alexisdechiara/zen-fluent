@@ -34,3 +34,19 @@
   color: var(--zf-text-tertiary) !important;
   font-size: 12px !important;
 }
+
+/* Right to left: Zen's icon set draws the same arrows in both directions
+   (a row that opens a subview, the subview's Back), over Firefox's mirrored
+   ones. */
+.subviewbutton-nav:-moz-locale-dir(rtl)::after {
+  content: url("chrome://browser/skin/zen-icons/arrow-right.svg") !important;
+  scale: -1 1 !important;
+}
+
+.subviewbutton-back:-moz-locale-dir(rtl) {
+  list-style-image: url("chrome://browser/skin/zen-icons/arrow-left.svg") !important;
+
+  & > .toolbarbutton-icon {
+    scale: -1 1 !important;
+  }
+}

@@ -80,7 +80,11 @@ one `vX.Y.Z` tag.
   ([#10](https://github.com/alexisdechiara/zen-fluent/issues/10)): with
   WinUI corners the page's rounded corner is on the sidebar's side again
   (it stayed at the top left, away from the sidebar), and the line under
-  the pinned tabs no longer has a 4 px break before **Clear**.
+  the pinned tabs no longer has a 4 px break before **Clear**. In the app
+  menu, the arrow of a row that opens a subview and the subview's Back
+  arrow point the right way (Zen's icons drew them as in left-to-right).
+  With **Back / Forward in the context menu** on List or Command bar, the
+  labels are no longer mirrored with their icons.
 - URL bar: in the selected suggestion, the part you typed (bold in the
   title and the address) is no longer white on the light fill. Zen paints
   everything in that row white for its accent fill.

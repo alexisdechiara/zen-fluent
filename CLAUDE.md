@@ -350,7 +350,11 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   for one corner). A restored (pending) tab with a left-to-right title
   keeps `textoverflow` and aligns its label left: Firefox's, not the mod's.
   Zen draws the end of the pinned tabs' separator as a background on the
-  **Clear** button, from its left edge.
+  **Clear** button, from its left edge. Zen's icon set (`zen-icons/icons.css`)
+  overrides Firefox's mirrored subview arrows (`.subviewbutton-nav::after`,
+  `.subviewbutton-back`) with one direction. Firefox mirrors
+  `#context-back` / `-forward` / `-reload` whole (`transform: scaleX(-1)`
+  on the menuitem): a label drawn in their `::after` is mirrored too.
 - Zen sets `breakout-extend` on focus (bar opened in place): the accent line
   follows `[focused]` and `[breakout-extend]`.
 - The Library never covers the page, except 8px in compact mode with WinUI
@@ -566,9 +570,9 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
   behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
   shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
   Calmer's accent menus.
-- Not checked live yet: right-to-left menus and animated icons by eye
-  (layout, URL bar, page card and navigation icons checked headless with
-  `intl.l10n.pseudo` = `bidi` on 2026-11-11), a
+- Not checked live yet: right to left by eye (layout, URL bar, page card,
+  navigation icons, tab and page context menus, app menu and its subviews
+  measured headless with `intl.l10n.pseudo` = `bidi` on 2026-11-11), a
   real Windows contrast theme (only `ui.useAccessibilityTheme` emulation),
   Picture-in-Picture, Glance, the media card and `about:addons` /
   `about:config` in contrast mode, the blur values on the real desktop.
