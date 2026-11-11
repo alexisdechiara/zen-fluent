@@ -128,6 +128,15 @@ come later. The owner writes to Claude in French: answer in French.
   is older than `main`'s (to test an update without pushing, rewind
   `updatedAt` in `sine-mods/mods.json`). Sine only reads `main`: a release
   tagged on another branch does not reach Sine users until it is merged.
+- Sine's store (`sineorg/store`, read 2026-11-11): no written rules. A
+  submission is an issue titled `[add-theme]: ` with the mod's GitHub
+  address (`/tree/<branch>/<folder>` accepted); a workflow reads its
+  `theme.json` (`id`, `name`, `author`) and opens a pull request a
+  maintainer reviews. The store keeps its own zip of each mod at a pinned
+  commit (`mods/<id>/mod.zip`), and a mod installed from it
+  (`origin: "store"`) updates from the store's `marketplace.json`, not from
+  its homepage: each version waits for a store pull request. Optional `ai`
+  field in `theme.json` (`no`, `partial`, `yes`). Neither mod is listed.
 - A profile mod cannot run code in web pages: `ChromeUtils.registerWindowActor`
   with a `chrome://sine/...` module registers, but `getActor` in a
   `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
