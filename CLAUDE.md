@@ -120,6 +120,14 @@ come later. The owner writes to Claude in French: answer in French.
   opens them, the pref is missing. Enhanced features read it with their
   `default` (checked against `enhanced/preferences.json`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
+- Checked end to end from GitHub on 2026-11-11 (fresh profile, Sine
+  2.3.4.1c): `installMod("alexisdechiara/zen-fluent")` and
+  `…/zen-fluent/tree/main/enhanced` (short or full address) install both
+  mods as described above, Enhanced alone brings Zen Fluent, and
+  `updateMods("manual")` downloads a mod again when the stored `updatedAt`
+  is older than `main`'s (to test an update without pushing, rewind
+  `updatedAt` in `sine-mods/mods.json`). Sine only reads `main`: a release
+  tagged on another branch does not reach Sine users until it is merged.
 - A profile mod cannot run code in web pages: `ChromeUtils.registerWindowActor`
   with a `chrome://sine/...` module registers, but `getActor` in a
   `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
@@ -550,8 +558,6 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
 
 ## To do
 
-- Check the install from GitHub with Sine for both mods (root URL and
-  `…/tree/<branch>/enhanced`), which needs a pushed branch.
 - Run the campaign again on the Windows 11 desktop for the Edge / Mica Alt / new
   settings batch: compare by eye the opaque Mica Alt color of surfaces over the
   page, the "From the button" animation with Mica menus, the context menu
