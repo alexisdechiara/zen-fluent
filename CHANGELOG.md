@@ -55,6 +55,9 @@ one `vX.Y.Z` tag.
   window; the tour's card and start screen are now outside them.
 - Windows installer: the right tile's border (Zen Fluent Enhanced, Zen
   Twilight) is no longer cut off.
+- URL bar: in the selected suggestion, the part you typed (bold in the
+  title and the address) is no longer white on the light fill. Zen paints
+  everything in that row white for its accent fill.
 
 ## [0.5.0] - 2026-11-08
 

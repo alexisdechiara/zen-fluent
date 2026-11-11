@@ -77,6 +77,15 @@
   }
 }
 
+/* Zen paints every descendant of the selected row white, for its accent
+   fill: on our light fill the typed part of the title and URL (a <strong>)
+   vanished. Each part takes its parent's color back; zero specificity, so
+   the colors set above still win. */
+:where(.urlbarView-row[selected]) *,
+:where(.urlbarView-row[selected]) .urlbarView-title-separator::before {
+  color: inherit !important;
+}
+
 .urlbarView-row:first-child .urlbarView-title {
   font-weight: 600 !important;
 }
