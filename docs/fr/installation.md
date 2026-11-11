@@ -1,9 +1,9 @@
 # Installation
 
-Traduction de [docs/installation.md](../installation.md). Les autres pages
-de la documentation sont encore en anglais
-([#13](https://github.com/alexisdechiara/zen-fluent/issues/13)). Les noms
-des réglages sont donnés tels que Sine les affiche, en anglais ; Zen Fluent
+Traduction de [docs/installation.md](../installation.md). Les autres pages :
+[Zen Fluent](core.md), [réglages](settings/README.md),
+[Zen Fluent Enhanced](enhanced.md), [compatibilité](compatibility.md),
+[contribuer](contributing.md). Les noms des réglages sont donnés tels que Sine les affiche, en anglais ; Zen Fluent
 Enhanced les traduit dans sa page de réglages quand Zen est en français.
 
 ## Windows : l'installateur
@@ -47,8 +47,7 @@ Installez-le aussi depuis GitHub, depuis son dossier :
 manque. Sine n'exécute le JavaScript des mods hors de sa boutique que si
 **Enable installing JS from unofficial sources** est coché dans les réglages
 de Sine (`sine.allow-unsafe-js`). Redémarrez Zen après l'installation. Ses
-fonctions et leurs interrupteurs : [enhanced.md](../enhanced.md) (en
-anglais).
+fonctions et leurs interrupteurs : [enhanced.md](enhanced.md).
 
 ## Icônes Fluent
 
@@ -78,7 +77,7 @@ préférence n'est pas à `true` (**Allow the mod's icons** dans Sine, ou
    (créez les fichiers au besoin ; les imports passent avant toute autre
    règle).
 4. Dans `about:config`, créez les préférences `zen-fluent.*` du
-   [tableau des réglages](../settings/README.md) avec leurs valeurs par
+   [tableau des réglages](../settings/README.md) (en anglais) avec leurs valeurs par
    défaut : sans Sine, rien ne les écrit. Mettez aussi
    `svg.context-properties.content.enabled` à `true` pour les icônes.
 5. Redémarrez Zen.
@@ -113,7 +112,7 @@ Fluent ne fait que le teinter.
 Teinte posée sur le fond de Mica For Everyone (une seule couche) : Mica
 64 %, Acrylic 80,64 % en clair et 87,04 % en sombre, Mica Alt 0 % ; **Tint
 opacity** (« Opacité de la teinte ») la change
-([appearance](../settings/appearance.md), en anglais). La Bibliothèque n'a
+([appearance](settings/appearance.md)). La Bibliothèque n'a
 pas de surface à elle : elle montre le matériau de la fenêtre, comme la barre
 latérale qu'elle remplace.
 

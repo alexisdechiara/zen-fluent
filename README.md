@@ -13,7 +13,8 @@ settings, nothing to edit by hand.
   <a href="#zen-fluent-enhanced">Enhanced</a> ·
   <a href="docs/settings/README.md">Settings</a> ·
   <a href="docs/compatibility.md">Compatible mods</a> ·
-  <a href="CHANGELOG.md">Changelog</a>
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="docs/fr/README.md">Français</a>
 </p>
 
 ## What you get
