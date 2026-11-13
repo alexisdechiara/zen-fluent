@@ -147,6 +147,32 @@ npm run lint       # prettier + stylelint
 npm run check      # imports, settings, docs, versions
 ```
 
+## Code signing policy
+
+`ZenFluentSetup.exe` is not signed yet
+([#15](https://github.com/alexisdechiara/zen-fluent/issues/15)); this is the
+policy its signing follows once SignPath Foundation accepts the project.
+
+- Free code signing provided by [SignPath.io](https://signpath.io),
+  certificate by [SignPath Foundation](https://signpath.org).
+- The exe is built from this repository by its GitHub workflow
+  ([installer.yml](.github/workflows/installer.yml)), never on a personal
+  computer, and each signing request is approved by hand.
+- Committers and reviewers:
+  [the repository's contributors](https://github.com/alexisdechiara/zen-fluent/graphs/contributors),
+  through pull requests reviewed by the owner.
+- Approvers: [Alexis De Chiara](https://github.com/alexisdechiara), the
+  repository's owner.
+
+**Privacy**: this program will not transfer any information to other
+networked systems unless specifically requested by the user or the person
+installing or operating it. The installer downloads what you ask it to
+install, from GitHub (Sine, its bootloader, Zen Fluent and Zen Fluent
+Enhanced), and sends nothing else. The mods themselves make no request,
+except where a feature you turn on says so in
+[docs/enhanced.md](docs/enhanced.md) (browsing, installing or updating mods through
+Sine, opening a page you click).
+
 ## Credits
 
 - [Firefox-WinUI](https://github.com/Lockframe/Firefox-WinUI) (Jhen, MIT): WinUI

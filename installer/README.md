@@ -73,7 +73,7 @@ anyway). [SignPath Foundation](https://signpath.org) signs open source
 projects for free. Its terms ask for an OSI licence (MIT), builds from this
 repository's CI, team roles with multi-factor authentication, a manual
 approval of each release, a "Code signing policy" section on the home and
-download pages, and an uninstaller for an installer (Uninstall…, above).
+download pages (in the [README](../README.md#code-signing-policy)), and an uninstaller for an installer (Uninstall…, above).
 Once accepted, the repository gets the secret `SIGNPATH_API_TOKEN` and the
 variables `SIGNPATH_ORGANIZATION_ID`, `SIGNPATH_PROJECT_SLUG` and
 `SIGNPATH_POLICY_SLUG`: the CI then signs the exe

@@ -10,7 +10,15 @@
 // it reads one preferences.json.
 
 const BASE = "chrome://sine/content/Zen-Fluent-Enhanced/l10n/";
+// Every language Enhanced speaks besides English: the one list to add a
+// language to, with its folder enhanced/l10n/<language>/ (strings.json and
+// zen-fluent-enhanced.ftl)
 const LANGUAGES = new Set(["fr"]);
+// The Fluent file, for the labels Zen sets by id (the Library's tabs, its
+// sidebar notification)
+const FLUENT_SOURCE = "zen-fluent-enhanced";
+const FLUENT_FILE = "zen-fluent-enhanced.ftl";
+const FLUENT_ADDED = Symbol.for("zf-fluent-added");
 const ATTRIBUTES = [
   "label",
   "tooltiptext",
@@ -20,6 +28,30 @@ const ATTRIBUTES = [
   "aria-description",
 ];
 const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "INPUT", "CODE", "KBD"]);
+
+/**
+ * Makes enhanced/l10n/<locale>/zen-fluent-enhanced.ftl available to the
+ * document's localization, once per process and per document.
+ *
+ * @param {Document} doc
+ */
+export function useFluent(doc) {
+  const registry = L10nRegistry.getInstance();
+  if (!registry.hasSource(FLUENT_SOURCE)) {
+    registry.registerSources([
+      new L10nFileSource(
+        FLUENT_SOURCE,
+        "app",
+        ["en-US", ...LANGUAGES],
+        `${BASE}{locale}/`,
+      ),
+    ]);
+  }
+  if (!doc[FLUENT_ADDED]) {
+    doc[FLUENT_ADDED] = true;
+    doc.l10n?.addResourceIds([FLUENT_FILE]);
+  }
+}
 
 /** The language of the interface, or null for English. */
 export function language() {

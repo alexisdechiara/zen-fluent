@@ -14,13 +14,6 @@ const THEMES = [
 ];
 export const SEEN_PREF = "zen-fluent.enhanced.update-card.seen";
 const REPOSITORY = "https://github.com/alexisdechiara/zen-fluent";
-// Shared with lib/zf-library.sys.mjs: the Fluent file is added once per
-// document, whichever of the two adds it first
-const L10N_SOURCE = "zen-fluent-enhanced";
-const L10N_FILE = "zen-fluent-enhanced.ftl";
-const L10N_PATH = "chrome://sine/content/Zen-Fluent-Enhanced/l10n/{locale}/";
-const L10N_LOCALES = ["en-US", "fr"];
-const L10N_ADDED = Symbol.for("zf-library-sections");
 
 let claimed = null;
 
@@ -115,21 +108,5 @@ export function notesUrl(version) {
     : `${REPOSITORY}/blob/main/CHANGELOG.md`;
 }
 
-/**
- * Makes Enhanced's Fluent file (enhanced/l10n/<locale>/zen-fluent-enhanced.ftl)
- * available to the document's localization, once per process and document.
- *
- * @param {Document} doc
- */
-export function useFluent(doc) {
-  const registry = L10nRegistry.getInstance();
-  if (!registry.hasSource(L10N_SOURCE)) {
-    registry.registerSources([
-      new L10nFileSource(L10N_SOURCE, "app", L10N_LOCALES, L10N_PATH),
-    ]);
-  }
-  if (!doc[L10N_ADDED]) {
-    doc[L10N_ADDED] = true;
-    doc.l10n?.addResourceIds([L10N_FILE]);
-  }
-}
+// The labels of Zen's sidebar notification are Fluent ids
+export { useFluent } from "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs";

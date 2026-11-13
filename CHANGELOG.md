@@ -11,6 +11,9 @@ one `vX.Y.Z` tag.
 
 ### Added
 
+- A **Code signing policy** section in the README, as SignPath Foundation
+  asks before signing the installer
+  ([#15](https://github.com/alexisdechiara/zen-fluent/issues/15)).
 - Zen Fluent Enhanced, **Downloads card**
   (`zen-fluent.enhanced.downloads-card`, off): a card in the sidebar
   follows each download (icon, name, WinUI progress bar, time left and
