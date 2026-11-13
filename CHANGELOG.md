@@ -11,6 +11,45 @@ one `vX.Y.Z` tag.
 
 ### Added
 
+- Zen Fluent Enhanced, **Downloads card**
+  (`zen-fluent.enhanced.downloads-card`, off): a card in the sidebar
+  follows each download (icon, name, WinUI progress bar, time left and
+  speed, Pause / Resume, Cancel; Done with Open and Show in folder), up to
+  three at once with a summary beyond. A few seconds after the end the card
+  shrinks into a dot that flies into the Library button, which pulses (a
+  fade with reduced motion). Each window lists only its own kind of
+  downloads, private or not.
+- Zen Fluent Enhanced, **Private session card**
+  (`zen-fluent.enhanced.private-session`, on, private windows only): how
+  long the private session has lasted and how many trackers were blocked,
+  and **End session** (click twice), which closes the other private windows
+  and every tab, clears the private session's data and leaves one fresh
+  private tab (Firefox's own steps, off in Zen). **End session also empties
+  the clipboard** (`zen-fluent.enhanced.private-session.clipboard`, off).
+- Zen Fluent Enhanced, **Veil over private pages in the background**
+  (`zen-fluent.enhanced.private-veil`, off): an opaque veil with a lock
+  covers the pages of a private window while it is not the active window.
+- Private windows show Firefox's "Private browsing" label again, as a
+  Fluent pill at the top of the sidebar (Window zone).
+- Zen Fluent Enhanced, **Efficiency card**
+  (`zen-fluent.enhanced.efficiency-card`, off): as Edge's efficiency mode, a
+  card in the sidebar shows only when the computer runs on battery below a
+  threshold (20 %) or Zen uses a lot of memory (automatic: a quarter of the
+  computer's memory, 2 to 8 GB), with a button that puts to sleep the tabs
+  Sleeping tabs would. Closing it keeps it away until the condition ends
+  and comes back.
+- Zen Fluent Enhanced, **Update card** (`zen-fluent.enhanced.update-card`,
+  on): the first start after Zen Fluent updates, Zen's own sidebar card
+  says "Zen Fluent updated to X.Y.Z", with What's new (that version's
+  release notes) and Settings; once per update, never in a private window,
+  after Zen's own update card.
+- Zen's sidebar notifications (the card Zen shows after an update) are
+  WinUI cards like the media card: a title at the start, a subtle close
+  button, list rows with the accent on What's new, and a thin accent
+  ProgressBar for the countdown (Notifications zone).
+- The sidebar cards of Zen Fluent Enhanced share one column above the
+  bottom row and one look; the VPN card shows the time it connected at the
+  end of its line.
 - **URL bar shape** › **Flat (File Explorer)** (`zen-fluent.url-style` =
   `flat`): the text box without its stroke and its stronger bottom line,
   as the search box of Windows 11's File Explorer; the accent line still

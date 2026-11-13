@@ -10,7 +10,9 @@ réglages. Pas de JavaScript, pas de fx-autoconfig.
 Conçu pour Zen 1.23 (testé avec la 1.23.4b sous Windows 11 et Linux) :
 
 - la fenêtre : Mica, Mica Alt ou Acrylic, la carte de la page, les boutons de
-  la barre de titre ;
+  la barre de titre, et dans une fenêtre privée l'étiquette « Navigation
+  privée » de Firefox en pastille en haut de la barre latérale, dans le style
+  InPrivate d'Edge (l'icône seule quand la barre latérale est repliée) ;
 - la barre latérale : onglets, dossiers, Essentials, espaces de travail,
   boutons de barre d'outils, extensions épinglées, mode compact, et la barre
   latérale repliée (icônes seules) en volet compact de NavigationView WinUI ;
@@ -23,7 +25,9 @@ Conçu pour Zen 1.23 (testé avec la 1.23.4b sous Windows 11 et Linux) :
   pistage, téléchargements, extensions), les boîtes de dialogue, les
   infobulles, l'aperçu des onglets ;
 - les notifications : barres de notification du site et globales (InfoBar
-  WinUI), demandes de permission (un TeachingTip), toasts de Zen ;
+  WinUI), demandes de permission (un TeachingTip), toasts de Zen et ses cartes de la barre latérale (la carte de mise à
+  jour : une carte WinUI avec des lignes de liste et une fine barre de
+  progression en accent) ;
 - les écrans de Zen : le formulaire de création d'espace, le sélecteur de
   thème, le panneau Ctrl+Tab, la barre de marque-pages ;
 - les pages internes : `about:preferences` (les volets de Zen et de Sine, les

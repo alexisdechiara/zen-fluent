@@ -6,60 +6,68 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 
 ## Features
 
-| Feature                                        | Setting                                           | Default                                                              |
-| ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
-| Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
-| Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
-| Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
-| Settings search as Ctrl+F                      | `zen-fluent.enhanced.settings-search`             | `true`                                                               |
-| Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
-| Fluent defaults for mods                       | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
-| Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
-| Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
-| Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
-| Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
-| Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
-| Settings per space                             | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
-| Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
-| Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
-| Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
-| Tab archiving                                  | `zen-fluent.enhanced.tab-archive`                 | `false`                                                              |
-| Archive tabs unused for (hours)                | `zen-fluent.enhanced.tab-archive.after`           | `12`                                                                 |
-| Keep archived tabs (days)                      | `zen-fluent.enhanced.tab-archive.keep`            | `90`                                                                 |
-| Archive pinned tabs too                        | `zen-fluent.enhanced.tab-archive.pinned`          | `false`                                                              |
-| Archive tabs in folders too                    | `zen-fluent.enhanced.tab-archive.folders`         | `false`                                                              |
-| PDF viewer                                     | `zen-fluent.enhanced.pdf-viewer`                  | `true`                                                               |
-| Fluent controls on websites                    | `zen-fluent.enhanced.web-controls`                | `false`                                                              |
-| Browsing stats                                 | `zen-fluent.enhanced.browsing-stats`              | `false`                                                              |
-| Folder colors                                  | `zen-fluent.enhanced.folder-colors`               | `true`                                                               |
-| Fluent icons in the icon picker                | `zen-fluent.enhanced.icon-picker`                 | `true`                                                               |
-| Tab hover cards                                | `zen-fluent.enhanced.hover-cards`                 | `false`                                                              |
-| Hover card delay (ms)                          | `zen-fluent.enhanced.hover-cards.delay`           | `500`                                                                |
-| Page thumbnails in hover cards                 | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`                                                               |
-| Glance link preview                            | `zen-fluent.enhanced.glance`                      | `true`                                                               |
-| Breadcrumb address                             | `zen-fluent.enhanced.breadcrumbs`                 | `false`                                                              |
-| Command Palette actions                        | `zen-fluent.enhanced.command-palette`             | `true`                                                               |
-| Keyboard shortcuts sheet                       | `zen-fluent.enhanced.shortcut-overlay`            | `true`                                                               |
-| Snap layouts for split view                    | `zen-fluent.enhanced.snap-layouts`                | `true`                                                               |
-| Ctrl+Tab as Alt+Tab                            | `zen-fluent.enhanced.tab-switcher`                | `false`                                                              |
-| Boost editor extras                            | `zen-fluent.enhanced.boost-extras`                | `true`                                                               |
-| Sleeping tabs and Performance panel            | `zen-fluent.enhanced.performance`                 | `false`                                                              |
-| Put inactive tabs to sleep after (minutes)     | `zen-fluent.enhanced.performance.sleep-after`     | `30`                                                                 |
-| Tab notes                                      | `zen-fluent.enhanced.tab-notes`                   | `false`                                                              |
-| AI controls page                               | `zen-fluent.enhanced.ai-controls`                 | `false`                                                              |
-| AI chatbot panel                               | `zen-fluent.enhanced.ai-chat`                     | `false`                                                              |
-| Focus sessions                                 | `zen-fluent.enhanced.focus-session`               | `false`                                                              |
-| Focus session length (minutes)                 | `zen-fluent.enhanced.focus-session.minutes`       | `25`                                                                 |
-| Hide the sidebar during a focus session        | `zen-fluent.enhanced.focus-session.compact`       | `true`                                                               |
-| Mute tabs playing sound during a focus session | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
-| Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
-| Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
-| Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
-| Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
-| Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
-| VPN card                                       | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
-| Show the VPN card in normal windows            | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
-| Show the VPN card in private windows           | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
+| Feature                                          | Setting                                           | Default                                                              |
+| ------------------------------------------------ | ------------------------------------------------- | -------------------------------------------------------------------- |
+| Quick Settings                                   | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
+| Settings page                                    | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
+| Open Zen's settings on Zen Fluent                | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
+| Settings search as Ctrl+F                        | `zen-fluent.enhanced.settings-search`             | `true`                                                               |
+| Welcome tour                                     | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
+| Update card                                      | `zen-fluent.enhanced.update-card`                 | `true`                                                               |
+| Fluent defaults for mods                         | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
+| Icon colors                                      | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
+| Adaptive accent                                  | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Window glow                                      | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
+| Site color                                       | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
+| Site color strength                              | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
+| Settings per space                               | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
+| Extensions under the Essentials                  | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
+| Tab numbers while Ctrl is held                   | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
+| Shortcuts                                        | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
+| Tab archiving                                    | `zen-fluent.enhanced.tab-archive`                 | `false`                                                              |
+| Archive tabs unused for (hours)                  | `zen-fluent.enhanced.tab-archive.after`           | `12`                                                                 |
+| Keep archived tabs (days)                        | `zen-fluent.enhanced.tab-archive.keep`            | `90`                                                                 |
+| Archive pinned tabs too                          | `zen-fluent.enhanced.tab-archive.pinned`          | `false`                                                              |
+| Archive tabs in folders too                      | `zen-fluent.enhanced.tab-archive.folders`         | `false`                                                              |
+| PDF viewer                                       | `zen-fluent.enhanced.pdf-viewer`                  | `true`                                                               |
+| Fluent controls on websites                      | `zen-fluent.enhanced.web-controls`                | `false`                                                              |
+| Browsing stats                                   | `zen-fluent.enhanced.browsing-stats`              | `false`                                                              |
+| Folder colors                                    | `zen-fluent.enhanced.folder-colors`               | `true`                                                               |
+| Fluent icons in the icon picker                  | `zen-fluent.enhanced.icon-picker`                 | `true`                                                               |
+| Tab hover cards                                  | `zen-fluent.enhanced.hover-cards`                 | `false`                                                              |
+| Hover card delay (ms)                            | `zen-fluent.enhanced.hover-cards.delay`           | `500`                                                                |
+| Page thumbnails in hover cards                   | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`                                                               |
+| Glance link preview                              | `zen-fluent.enhanced.glance`                      | `true`                                                               |
+| Breadcrumb address                               | `zen-fluent.enhanced.breadcrumbs`                 | `false`                                                              |
+| Command Palette actions                          | `zen-fluent.enhanced.command-palette`             | `true`                                                               |
+| Keyboard shortcuts sheet                         | `zen-fluent.enhanced.shortcut-overlay`            | `true`                                                               |
+| Snap layouts for split view                      | `zen-fluent.enhanced.snap-layouts`                | `true`                                                               |
+| Ctrl+Tab as Alt+Tab                              | `zen-fluent.enhanced.tab-switcher`                | `false`                                                              |
+| Boost editor extras                              | `zen-fluent.enhanced.boost-extras`                | `true`                                                               |
+| Sleeping tabs and Performance panel              | `zen-fluent.enhanced.performance`                 | `false`                                                              |
+| Put inactive tabs to sleep after (minutes)       | `zen-fluent.enhanced.performance.sleep-after`     | `30`                                                                 |
+| Tab notes                                        | `zen-fluent.enhanced.tab-notes`                   | `false`                                                              |
+| AI controls page                                 | `zen-fluent.enhanced.ai-controls`                 | `false`                                                              |
+| AI chatbot panel                                 | `zen-fluent.enhanced.ai-chat`                     | `false`                                                              |
+| Focus sessions                                   | `zen-fluent.enhanced.focus-session`               | `false`                                                              |
+| Focus session length (minutes)                   | `zen-fluent.enhanced.focus-session.minutes`       | `25`                                                                 |
+| Hide the sidebar during a focus session          | `zen-fluent.enhanced.focus-session.compact`       | `true`                                                               |
+| Mute tabs playing sound during a focus session   | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
+| Block distracting sites during a focus session   | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
+| Distracting sites                                | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
+| Widgets and shelf                                | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
+| Start page                                       | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
+| Quick window                                     | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
+| Downloads card                                   | `zen-fluent.enhanced.downloads-card`              | `false`                                                              |
+| Efficiency card                                  | `zen-fluent.enhanced.efficiency-card`             | `false`                                                              |
+| Show the efficiency card on battery below        | `zen-fluent.enhanced.efficiency-card.battery`     | `20`                                                                 |
+| Show the efficiency card when Zen uses more than | `zen-fluent.enhanced.efficiency-card.memory`      | `auto`                                                               |
+| VPN card                                         | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
+| Show the VPN card in normal windows              | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
+| Show the VPN card in private windows             | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
+| Private session card                             | `zen-fluent.enhanced.private-session`             | `true`                                                               |
+| End session also empties the clipboard           | `zen-fluent.enhanced.private-session.clipboard`   | `false`                                                              |
+| Veil over private pages in the background        | `zen-fluent.enhanced.private-veil`                | `false`                                                              |
 
 - **Quick Settings**: the **Quick settings** tab of Zen's Library (see
   [Boards in the Library](#boards-in-the-library)). It has a gallery of presets and Zen Fluent's main
@@ -486,6 +494,75 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   your public address, country or server. On Linux and macOS Firefox
   does not watch for a VPN, so the card stays hidden there. It is off by default because it adds a card to every sidebar
   and most people use no VPN.
+- **Update card** (on by default): the first start after Zen Fluent
+  updates, the card Zen shows in its sidebar after its own updates says
+  **Zen Fluent updated to 0.5.1**, with **What's new** (that version's
+  release notes on GitHub) and **Settings** (Zen Fluent's settings page,
+  while it is on). It hides itself after 15 seconds, like Zen's (the
+  countdown stops while the pointer is over it). Once per update, in one
+  window, never in a private one; nothing on the first install (the
+  welcome tour does that). It waits for Zen's own update card to close,
+  and for a collapsed sidebar to expand; on a Zen without that card, a
+  toast says it instead. The last version shown is kept in
+  `zen-fluent.enhanced.update-card.seen`.
+- **Downloads card** (off by default): while a file downloads, a card in
+  the sidebar, above the bottom row, shows its icon and name, a progress
+  bar (moving while the size is unknown), the time left and the speed, with
+  **Pause** / **Resume** and **Cancel**. Once it is done the card says
+  **Done** with its size and offers **Open** and **Show in folder**; a
+  failed, blocked or canceled download says so (**Retry** after a failure).
+  A few seconds later (5 s, or 8 s after a failure; the countdown waits
+  while the pointer or the focus is on the card), or as soon as you open,
+  show or cancel the file, the card shrinks into a dot that flies into
+  Zen's Library button, which pulses as it lands. Without a visible Library
+  button the dot drops and fades; with reduced motion the card just fades
+  out. Up to three downloads get a card each; beyond that the top card sums
+  up the oldest ones ("2 more downloads", their combined progress, a button
+  to the Library). In the collapsed sidebar the card is its file icon with
+  a thin progress bar. A private window only shows its private downloads
+  and a normal window only its own. Zen's own animation, from the click to
+  the Library when a download starts, still plays. It is off by default
+  because Zen's Library button already shows downloads.
+- **Efficiency card** (off by default): as Edge's efficiency mode and
+  performance detector, a card in the sidebar, among the other cards, that
+  only shows when it has something to say: the computer runs on battery at
+  or below **Show the efficiency card on battery below** (20 % by default),
+  or Zen's processes together use more than **Show the efficiency card when
+  Zen uses more than** for about 30 seconds (automatic by default: a quarter
+  of the computer's memory, between 2 and 8 GB; or 2, 4, 8, 16 GB, never, or
+  any value in expert mode). It says **Battery at 18%** or **Zen is using
+  3.4 GB**, and **Put N tabs to sleep** puts to sleep the tabs of this
+  window that Sleeping tabs would: never the tab you are on, tabs playing
+  sound or sharing the camera, microphone or screen, Picture-in-Picture,
+  Glance, the split view on screen, or a page that would ask before
+  leaving. The card then says how many for a moment and goes.
+  **Performance** opens the Performance panel when Sleeping tabs and
+  Performance is on. With no tab to put to sleep the card stays hidden.
+  Closing it (or using its button) hides it in every window until that
+  condition ends (the charger is plugged in or the battery climbs above the
+  threshold; the memory falls under 90 % of it) and comes back; memory that
+  grows by half again brings it back too. Memory is read every 30 seconds,
+  only while a window is on screen; nothing is written to disk.
+- **Private session card** (on by default, private windows only): a card at
+  the top of the sidebar's column of cards says **Private session**, how
+  long the private session has lasted (since its oldest open private
+  window), and how many trackers were blocked in this window (distinct
+  origins, counted in memory; nothing is written or sent). **End session**
+  (click twice: the button turns into **Click again to end** for 4 seconds)
+  does what Firefox's own "end private session" button does, which Zen
+  turns off: it closes the other private windows and every tab, clears the
+  private session's data (cookies, storage, cache) and leaves one fresh
+  private tab, then says **Private session ended**. **End session also
+  empties the clipboard** (off) empties the clipboard too, whatever it
+  holds. Zen blocks tracking content in private windows only if
+  `privacy.trackingprotection.pbmode.enabled` is on (off by default in
+  Zen); tracker cookies blocked by the standard protection count too.
+- **Veil over private pages in the background** (off by default): while a
+  private window is not the active window, its pages (every pane of a split
+  view too) are covered by a solid veil in the window's black with a lock,
+  so Alt+Tab, the taskbar preview or someone behind you see nothing of
+  them; the sidebar stays as it is. Activating the window lifts it at once;
+  a menu or a panel of the window does not bring it.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

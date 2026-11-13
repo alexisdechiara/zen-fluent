@@ -30,6 +30,12 @@
     "defaultValue": true
   },
   {
+    "property": "zen-fluent.enhanced.update-card",
+    "label": "Update card ~after Zen Fluent updates, Zen's own sidebar card says so once, with What's new and Settings~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.mod-defaults",
     "label": "Fluent defaults for mods ~Zen Calmer Context Menu: Fluent icons on every option and the quick actions row, for settings never changed~",
     "type": "checkbox",
@@ -561,6 +567,105 @@
     "defaultValue": false
   },
   {
+    "property": "zen-fluent.enhanced.downloads-card",
+    "label": "Downloads card ~a card in the sidebar follows each download (progress, pause, open) and flies into the Library when it is done~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card",
+    "label": "Efficiency card ~a card in the sidebar offers to put tabs to sleep when the battery runs low or Zen uses a lot of memory~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.battery",
+    "label": "Show the efficiency card on battery below",
+    "type": "dropdown",
+    "defaultValue": "20",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "10%",
+        "value": "10"
+      },
+      {
+        "label": "20%",
+        "value": "20"
+      },
+      {
+        "label": "30%",
+        "value": "30"
+      },
+      {
+        "label": "50%",
+        "value": "50"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.memory",
+    "label": "Show the efficiency card when Zen uses more than",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Automatic (a quarter of the computer's memory)",
+        "value": "auto"
+      },
+      {
+        "label": "2 GB",
+        "value": "2"
+      },
+      {
+        "label": "4 GB",
+        "value": "4"
+      },
+      {
+        "label": "8 GB",
+        "value": "8"
+      },
+      {
+        "label": "16 GB",
+        "value": "16"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.memory-custom",
+    "label": "Custom memory threshold ~in GB, for example 6~",
+    "type": "string",
+    "defaultValue": "6",
+    "placeholder": "6",
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.enhanced.efficiency-card.memory",
+          "value": "custom"
+        }
+      }
+    ]
+  },
+  {
     "property": "zen-fluent.enhanced.vpn-card",
     "label": "VPN card ~a card in the sidebar says whether the computer goes through a VPN, and which adapter~",
     "type": "checkbox",
@@ -607,5 +712,23 @@
         "value": "never"
       }
     ]
+  },
+  {
+    "property": "zen-fluent.enhanced.private-session",
+    "label": "Private session card ~in private windows, a card in the sidebar says how long the session has lasted and how many trackers were blocked, and ends it~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.private-session.clipboard",
+    "label": "End session also empties the clipboard ~whatever it holds, copied from any app~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.private-veil",
+    "label": "Veil over private pages in the background ~while a private window is not the active one, its pages are covered~",
+    "type": "checkbox",
+    "defaultValue": false
   }
 ]

@@ -238,6 +238,8 @@
   const feature = ZFFeature.attach(window, {
     name: "welcome",
     default: true,
+    // A private window is not the place for a tour
+    private: false,
     start(ctx) {
       const win = ctx.window;
       const doc = ctx.document;

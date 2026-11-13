@@ -420,6 +420,8 @@
   (-moz-pref("zen-fluent.fluent-notifications", false));
 @import url("src/components/notifications/toast.css") not
   (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/sidebar-notification.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
 
 /* Dialogs */
 @import url("src/components/dialogs/smoke.css") not
@@ -482,6 +484,8 @@
 
 /* Caption buttons */
 @import url("src/components/window/caption-buttons.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/components/window/private-pill.css") not
   (-moz-pref("zen-fluent.fluent-window", false));
 @import url("src/a11y/forced-colors-window.css") not
   (-moz-pref("zen-fluent.fluent-window", false));

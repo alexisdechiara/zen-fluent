@@ -1,0 +1,59 @@
+/* Zen Fluent Enhanced: the veil over the page of a private window in the background (zen-fluent.enhanced.private-veil).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/private-veil.uc.js sets zf-private-veil on the root of private
+   windows. While such a window is inactive, each page pane
+   (.browserSidebarContainer: the tab, every pane of a split view, a Glance
+   tab) is covered by its ::after, the window's near-black (Zen's private
+   background over the solid base, so it is opaque), and its ::before draws
+   a lock in the middle. Firefox does not blur web content behind
+   backdrop-filter, so the veil hides by being opaque. The pane is
+   positioned and clips to the page corners. No transition: the veil comes
+   and goes at once.
+
+   The lock is a mask filled with a token: -moz-context-properties does
+   not reach a mod's SVG drawn as a background image (checked on Zen
+   1.24.1b, it paints nothing), only Firefox's own chrome:// icons. */
+
+:root[zf-private-veil]:-moz-window-inactive .browserSidebarContainer {
+  &::after,
+  &::before {
+    content: "" !important;
+    position: absolute !important;
+    display: block !important;
+    pointer-events: none !important;
+  }
+
+  &::after {
+    inset: 0 !important;
+    z-index: 2147483646 !important;
+    background-color: var(--zf-solid-base) !important;
+    background-image: linear-gradient(
+      var(--zen-main-browser-background),
+      var(--zen-main-browser-background)
+    ) !important;
+  }
+
+  &::before {
+    inset: 0 !important;
+    z-index: 2147483647 !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin: auto !important;
+    background-color: var(--zf-text-tertiary) !important;
+    mask: url("../icons/fluent/lock-closed.svg") center / contain no-repeat !important;
+  }
+}
+
+/* Contrast themes: the system's window color and text color */
+@media (forced-colors) {
+  :root[zf-private-veil]:-moz-window-inactive .browserSidebarContainer {
+    &::after {
+      background: Canvas !important;
+    }
+
+    &::before {
+      background-color: CanvasText !important;
+    }
+  }
+}

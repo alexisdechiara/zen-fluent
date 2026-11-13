@@ -509,6 +509,88 @@ sous `zen-fluent.enhanced.*`). Ce que fait chacune :
   ne surveille pas les VPN : la carte y reste masquée. Elle est désactivée par défaut parce qu'elle ajoute une
   carte à chaque barre latérale et que la plupart des gens n'utilisent pas
   de VPN.
+- **Update card** (activé par défaut) : au premier démarrage après une
+  mise à jour de Zen Fluent, la carte que Zen affiche dans sa barre
+  latérale après ses propres mises à jour indique **Zen Fluent mis à jour
+  en 0.5.1**, avec **Nouveautés** (les notes de cette version sur GitHub)
+  et **Paramètres** (la page de réglages de Zen Fluent, quand elle est
+  activée). Elle se masque après 15 secondes, comme celle de Zen (le
+  décompte s'arrête quand le pointeur est dessus). Une fois par mise à
+  jour, dans une seule fenêtre, jamais dans une fenêtre privée ; rien à la
+  première installation (la visite d'accueil s'en charge). Elle attend que
+  la carte de mise à jour de Zen se ferme, et qu'une barre latérale repliée
+  se déploie ; sur un Zen sans cette carte, un toast l'annonce à la place.
+  La dernière version affichée est gardée dans
+  `zen-fluent.enhanced.update-card.seen`.
+- **Downloads card** (désactivé par défaut) : pendant un téléchargement,
+  une carte dans la barre latérale, au-dessus de la rangée du bas, montre
+  l'icône et le nom du fichier, une barre de progression (animée quand la
+  taille est inconnue), le temps restant et la vitesse, avec **Mettre en
+  pause** / **Reprendre** et **Annuler**. Une fois le fichier arrivé, la
+  carte affiche **Terminé** et sa taille, et propose **Ouvrir** et
+  **Afficher dans le dossier** ; un téléchargement en échec, bloqué ou
+  annulé l'indique (**Réessayer** après un échec). Quelques secondes plus
+  tard (5 s, ou 8 s après un échec ; le délai attend tant que le pointeur
+  ou le focus est sur la carte), ou dès qu'on ouvre, affiche ou annule le
+  fichier, la carte se réduit en un point qui file dans le bouton
+  Bibliothèque de Zen, lequel pulse à son arrivée. Sans bouton Bibliothèque
+  visible, le point descend et s'efface ; avec les animations réduites, la
+  carte s'estompe simplement. Jusqu'à trois téléchargements ont chacun leur
+  carte ; au-delà, la carte du haut regroupe les plus anciens (« 2 autres
+  téléchargements », leur progression cumulée, un bouton vers la
+  Bibliothèque). Dans la barre latérale repliée, la carte se résume à
+  l'icône du fichier avec une fine barre de progression. Une fenêtre privée
+  n'affiche que ses téléchargements privés, une fenêtre normale que les
+  siens. L'animation de Zen, du clic vers la Bibliothèque au début d'un
+  téléchargement, est conservée. Elle est désactivée par défaut parce que
+  le bouton Bibliothèque de Zen montre déjà les téléchargements.
+- **Efficiency card** (désactivé par défaut) : comme le mode efficacité et
+  le détecteur de performances d'Edge, une carte dans la barre latérale,
+  parmi les autres cartes, qui n'apparaît que quand elle a quelque chose à
+  dire : l'ordinateur est sur batterie à **Show the efficiency card on
+  battery below** ou moins (20 % par défaut), ou les processus de Zen
+  utilisent ensemble plus de **Show the efficiency card when Zen uses more
+  than** pendant environ 30 secondes (automatique par défaut : un quart de
+  la mémoire de l'ordinateur, entre 2 et 8 Go ; ou 2, 4, 8, 16 Go, jamais,
+  ou n'importe quelle valeur en mode expert). Elle indique **Batterie à
+  18 %** ou **Zen utilise 3,4 Go**, et **Mettre en veille N onglets** met en
+  veille les onglets de cette fenêtre que Sleeping tabs mettrait en
+  veille : jamais l'onglet affiché, ni les onglets qui jouent du son ou
+  partagent la caméra, le micro ou l'écran, le Picture-in-Picture, Glance,
+  la vue scindée à l'écran, ou une page qui demanderait confirmation avant
+  d'être quittée. La carte dit alors combien, un instant, puis disparaît.
+  **Performance** ouvre le panneau Performance quand Sleeping tabs and
+  Performance est activé. Sans onglet à mettre en veille, la carte reste
+  masquée. La fermer (ou utiliser son bouton) la masque dans toutes les
+  fenêtres jusqu'à ce que la condition cesse (le chargeur est branché ou la
+  batterie repasse au-dessus du seuil ; la mémoire redescend sous 90 % du
+  seuil) puis revienne ; une mémoire qui augmente encore de moitié la fait
+  aussi revenir. La mémoire est lue toutes les 30 secondes, seulement quand
+  une fenêtre est à l'écran ; rien n'est écrit sur le disque.
+- **Private session card** (activé par défaut, fenêtres privées
+  seulement) : une carte en haut de la colonne de cartes de la barre
+  latérale indique **Session privée**, depuis quand dure la session privée
+  (depuis sa plus ancienne fenêtre privée ouverte) et combien de traqueurs
+  ont été bloqués dans cette fenêtre (origines distinctes, comptées en
+  mémoire ; rien n'est écrit ni envoyé). **Terminer la session** (deux
+  clics : le bouton devient **Cliquez encore pour terminer** pendant 4
+  secondes) fait ce que fait le bouton « Terminer la session privée » de
+  Firefox, que Zen désactive : il ferme les autres fenêtres privées et tous
+  les onglets, efface les données de la session privée (cookies, stockage,
+  cache) et laisse un seul nouvel onglet privé, puis affiche **Session
+  privée terminée**. **End session also empties the clipboard** (désactivé)
+  vide aussi le presse-papiers, quel que soit son contenu. Zen ne bloque le
+  contenu de pistage dans les fenêtres privées que si
+  `privacy.trackingprotection.pbmode.enabled` est activé (désactivé par
+  défaut dans Zen) ; les cookies de traqueurs bloqués par la protection
+  standard comptent aussi.
+- **Veil over private pages in the background** (désactivé par défaut) :
+  tant qu'une fenêtre privée n'est pas la fenêtre active, ses pages (chaque
+  volet d'une vue scindée aussi) sont recouvertes d'un voile opaque, du
+  noir de la fenêtre, avec un cadenas : Alt+Tab, l'aperçu de la barre des
+  tâches ou quelqu'un derrière vous n'en voient rien ; la barre latérale
+  reste visible. Activer la fenêtre le lève aussitôt ; un menu ou un
+  panneau de la fenêtre ne le déclenche pas.
 - **Shortcuts** : Ctrl+Alt+Maj+D change la densité (standard ou compacte),
   Ctrl+Alt+Maj+T le thème de la fenêtre (automatique, clair, sombre :
   Affichage › Apparence de Zen), Ctrl+Alt+Maj+M le matériau (Mica, Mica Alt,

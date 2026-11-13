@@ -7,7 +7,10 @@ No JavaScript, no fx-autoconfig.
 
 Built for Zen 1.23 (tested with 1.23.4b on Windows 11 and Linux):
 
-- the window: Mica, Mica Alt or Acrylic, the page card, caption buttons;
+- the window: Mica, Mica Alt or Acrylic, the page card, caption buttons,
+  and in a private window Firefox's "Private browsing" label as a pill at
+  the top of the sidebar, in Edge's InPrivate style (the glyph alone in
+  the collapsed sidebar);
 - the sidebar: tabs, folders, Essentials, workspaces, toolbar buttons, pinned
   extensions, compact mode, and the collapsed sidebar (icons only) as a WinUI
   NavigationView compact pane;
@@ -17,7 +20,8 @@ Built for Zen 1.23 (tested with 1.23.4b on Windows 11 and Linux):
 - menus, panels (site panel, permissions, tracking protection, downloads,
   extensions), dialogs, tooltips, the tab preview;
 - notifications: site and global notification bars (WinUI InfoBars),
-  permission prompts (a TeachingTip), Zen’s toasts;
+  permission prompts (a TeachingTip), Zen’s toasts and its sidebar cards (the update card: a WinUI card with
+  list rows and a thin accent progress bar);
 - Zen’s screens: the space creation form, the theme picker, the Ctrl+Tab
   panel, the bookmarks toolbar;
 - internal pages: `about:preferences` (Zen's and Sine's panes, the mod's own

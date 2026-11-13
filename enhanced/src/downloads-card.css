@@ -1,0 +1,285 @@
+/* Zen Fluent Enhanced: the downloads card in the sidebar (zen-fluent.enhanced.downloads-card).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/downloads-card.uc.js adds a .zf-dl-card per download to the
+   column of sidebar cards (src/sidebar-cards.css gives it the card's
+   look), and .zf-dl-summary past three. zf-state = running, paused, done,
+   failed, blocked or canceled; each has its own words and buttons, so the
+   state never rests on the bar's color alone. */
+
+.zf-dl-card:not([hidden]) {
+  /* The file's own icon, in color: not a glyph */
+  & .zf-dl-icon:not(.zf-dl-glyph) {
+    width: 24px !important;
+    height: 24px !important;
+    margin-inline: -2px !important;
+  }
+
+  /* The state (the time left), and the speed or the size at the end of
+     its line: in a narrow sidebar the speed gives way first */
+  & .zf-card-detail {
+    gap: 8px !important;
+  }
+
+  & .zf-dl-state {
+    flex: none !important;
+    max-width: 100% !important;
+  }
+
+  & .zf-dl-meta {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    text-align: end !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  /* Too narrow for both (two buttons in a slim sidebar): the speed or
+     the size goes, the tooltip keeps it, rather than a cut number */
+  & .zf-card-text {
+    container: zf-dl-text / inline-size !important;
+  }
+
+  @container zf-dl-text (width < 128px) {
+    & .zf-dl-meta {
+      display: none !important;
+    }
+  }
+
+  & .zf-dl-button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+
+    & img {
+      width: 16px !important;
+      height: 16px !important;
+      -moz-context-properties: fill !important;
+      fill: currentcolor !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-focus-outer) !important;
+      outline-offset: -2px !important;
+    }
+  }
+
+  /* WinUI ProgressBar: a 1px track, a 3px rounded bar in the accent */
+  & .zf-dl-bar {
+    position: relative !important;
+    height: 3px !important;
+    margin-block: 4px 2px !important;
+    overflow: clip !important;
+    border-radius: 2px !important;
+    background: linear-gradient(var(--zf-stroke-field), var(--zf-stroke-field))
+      center / 100% 1px no-repeat !important;
+
+    &[hidden] {
+      display: none !important;
+    }
+  }
+
+  & .zf-dl-bar-fill {
+    width: calc(var(--zf-dl-ratio, 0) * 100%) !important;
+    height: 100% !important;
+    border-radius: 2px !important;
+    background-color: var(--zf-accent) !important;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: width var(--zf-duration-slow) var(--zf-ease) !important;
+    }
+  }
+
+  /* The size unknown: a segment runs across, or sits still with reduced
+     motion */
+  & .zf-dl-bar[zf-indeterminate] .zf-dl-bar-fill {
+    width: 40% !important;
+    transition: none !important;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: zf-dl-indeterminate 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  }
+
+  /* Paused: the caution color; failed: the critical one */
+  &[zf-state="paused"] .zf-dl-bar-fill {
+    background-color: var(--zf-caution) !important;
+  }
+
+  &:is([zf-state="failed"], [zf-state="blocked"]) {
+    & .zf-dl-bar-fill {
+      width: 100% !important;
+      background-color: var(--zf-critical) !important;
+    }
+
+    & .zf-dl-state {
+      color: var(--zf-critical) !important;
+    }
+  }
+}
+
+/* Collapsed sidebar: the card is its icon alone; a thin bar along its
+   bottom edge keeps the progress in sight */
+:root:not([zen-sidebar-expanded="true"])
+  .zf-dl-card:not([hidden]):is([zf-state="running"], [zf-state="paused"]) {
+  position: relative !important;
+
+  &::before,
+  &[zf-known]::after {
+    content: "" !important;
+    position: absolute !important;
+    inset-block-end: 4px !important;
+    inset-inline-start: 8px !important;
+    height: 3px !important;
+    border-radius: 2px !important;
+  }
+
+  &::before {
+    inset-inline-end: 8px !important;
+    background: linear-gradient(var(--zf-stroke-field), var(--zf-stroke-field))
+      center / 100% 1px no-repeat !important;
+  }
+
+  &[zf-known]::after {
+    width: calc((100% - 16px) * var(--zf-dl-ratio, 0)) !important;
+    background-color: var(--zf-accent) !important;
+  }
+
+  &[zf-state="paused"]::after {
+    background-color: var(--zf-caution) !important;
+  }
+}
+
+/* The way out: the card's place closes up (transitions beat the cards'
+   !important layout, animations would not). The id outweighs the
+   collapsed sidebar's card rules. */
+#zf-sidebar-cards
+  > .zf-dl-card:is([zf-leaving="measure"], [zf-leaving="fold"]) {
+  height: var(--zf-dl-height) !important;
+  min-height: 0 !important;
+  overflow: clip !important;
+  transition:
+    height 220ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    padding-block 220ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    margin-block-start 220ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    opacity 120ms linear !important;
+  transition-delay: var(--zf-dl-fold-delay, 0ms) !important;
+  pointer-events: none !important;
+}
+
+#zf-sidebar-cards > .zf-dl-card[zf-leaving="fold"] {
+  height: 0 !important;
+  padding-block: 0 !important;
+  /* The column's gap above it closes too, unless it is the first card */
+  margin-block-start: -5px !important;
+  opacity: 0 !important;
+
+  &:first-child {
+    margin-block-start: 0 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+  }
+}
+
+/* The summary's glyph follows the text, as the other cards' icons */
+.zf-dl-card .zf-dl-glyph {
+  -moz-context-properties: fill !important;
+  fill: var(--zf-text-secondary) !important;
+}
+
+/* The flyer: the card's surface, which shrinks into a dot around the
+   file's icon and flies into the Library button. Its place and size are
+   animated: none of them is set here. */
+.zf-dl-flyer {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  box-sizing: border-box !important;
+  pointer-events: none !important;
+  overflow: clip !important;
+  background-color: var(--zf-acrylic-over-page) !important;
+  background-image: linear-gradient(
+    var(--zf-fill-card),
+    var(--zf-fill-card)
+  ) !important;
+  outline: 1px solid var(--zf-stroke-control) !important;
+  outline-offset: -1px !important;
+  box-shadow: var(--zf-shadow-flyout) !important;
+  transition: background-color var(--zf-duration-slow) linear !important;
+
+  /* In flight it is the accent's dot */
+  &[zf-flying] {
+    background-color: var(--zf-accent) !important;
+    background-image: none !important;
+    outline-color: transparent !important;
+  }
+
+  /* A copy of the card's content, which fades as the card shrinks: the
+     flyer is already its surface */
+  & > .zf-dl-ghost {
+    position: absolute !important;
+    inset-block-start: 0 !important;
+    inset-inline-start: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+
+    & .zf-dl-icon {
+      visibility: hidden !important;
+    }
+  }
+
+  & .zf-dl-flyer-icon {
+    position: absolute !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+@keyframes zf-dl-indeterminate {
+  from {
+    translate: -100% 0;
+  }
+
+  to {
+    translate: 250% 0;
+  }
+}
+
+/* Right to left: the segment runs the other way */
+.zf-dl-bar[zf-indeterminate]:dir(rtl) {
+  scale: -1 1 !important;
+}
+
+/* Contrast themes: system colors */
+@media (forced-colors) {
+  .zf-dl-card:not([hidden]) {
+    & .zf-dl-bar {
+      background: CanvasText !important;
+      background-size: 100% 1px !important;
+    }
+
+    & .zf-dl-bar-fill,
+    &[zf-state] .zf-dl-bar-fill {
+      background-color: Highlight !important;
+    }
+
+    & .zf-dl-state {
+      color: CanvasText !important;
+    }
+
+    & .zf-dl-button img {
+      fill: ButtonText !important;
+    }
+  }
+
+  .zf-dl-flyer,
+  .zf-dl-flyer[zf-flying] {
+    background: Highlight !important;
+    outline-color: CanvasText !important;
+    box-shadow: none !important;
+  }
+}

@@ -182,62 +182,71 @@ closed; only **Appearance** is open by default) and `zen-fluent.ui.expand-all`
 One checkbox per feature, with its options; what each feature does:
 [../enhanced.md](../enhanced.md).
 
-| Feature                                        | Preference                                        | Default                                                              |
-| ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
-| Quick Settings                                 | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
-| Settings page                                  | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
-| Open Zen's settings on Zen Fluent              | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
-| Settings search as Ctrl+F                      | `zen-fluent.enhanced.settings-search`             | `true`                                                               |
-| Welcome tour                                   | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
-| Fluent defaults for mods                       | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
-| Icon colors                                    | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
-| Adaptive accent                                | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
-| Window glow                                    | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
-| Site color                                     | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
-| Site color strength                            | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
-| Settings per space                             | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
-| Extensions under the Essentials                | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
-| Tab numbers while Ctrl is held                 | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
-| Shortcuts                                      | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
-| Tab archiving                                  | `zen-fluent.enhanced.tab-archive`                 | `false`                                                              |
-| Archive tabs unused for (hours)                | `zen-fluent.enhanced.tab-archive.after`           | `12`                                                                 |
-|                                                | Custom time before archiving                      | `zen-fluent.enhanced.tab-archive.after-custom`                       | `36`  |
-| Keep archived tabs (days)                      | `zen-fluent.enhanced.tab-archive.keep`            | `90`                                                                 |
-|                                                | Custom time archived tabs are kept                | `zen-fluent.enhanced.tab-archive.keep-custom`                        | `60`  |
-| Archive pinned tabs too                        | `zen-fluent.enhanced.tab-archive.pinned`          | `false`                                                              |
-| Archive tabs in folders too                    | `zen-fluent.enhanced.tab-archive.folders`         | `false`                                                              |
-| PDF viewer                                     | `zen-fluent.enhanced.pdf-viewer`                  | `true`                                                               |
-| Fluent controls on websites                    | `zen-fluent.enhanced.web-controls`                | `false`                                                              |
-| Browsing stats                                 | `zen-fluent.enhanced.browsing-stats`              | `false`                                                              |
-| Folder colors                                  | `zen-fluent.enhanced.folder-colors`               | `true`                                                               |
-| Fluent icons in the icon picker                | `zen-fluent.enhanced.icon-picker`                 | `true`                                                               |
-| Tab hover cards                                | `zen-fluent.enhanced.hover-cards`                 | `false`                                                              |
-| Hover card delay (ms)                          | `zen-fluent.enhanced.hover-cards.delay`           | `500`                                                                |
-|                                                | Custom hover card delay                           | `zen-fluent.enhanced.hover-cards.delay-custom`                       | `400` |
-| Page thumbnails in hover cards                 | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`                                                               |
-| Glance link preview                            | `zen-fluent.enhanced.glance`                      | `true`                                                               |
-| Breadcrumb address                             | `zen-fluent.enhanced.breadcrumbs`                 | `false`                                                              |
-| Command Palette actions                        | `zen-fluent.enhanced.command-palette`             | `true`                                                               |
-| Keyboard shortcuts sheet                       | `zen-fluent.enhanced.shortcut-overlay`            | `true`                                                               |
-| Snap layouts for split view                    | `zen-fluent.enhanced.snap-layouts`                | `true`                                                               |
-| Ctrl+Tab as Alt+Tab                            | `zen-fluent.enhanced.tab-switcher`                | `false`                                                              |
-| Boost editor extras                            | `zen-fluent.enhanced.boost-extras`                | `true`                                                               |
-| Sleeping tabs and Performance panel            | `zen-fluent.enhanced.performance`                 | `false`                                                              |
-| Put inactive tabs to sleep after (minutes)     | `zen-fluent.enhanced.performance.sleep-after`     | `30`                                                                 |
-|                                                | Custom time before tabs sleep                     | `zen-fluent.enhanced.performance.sleep-after-custom`                 | `45`  |
-| Tab notes                                      | `zen-fluent.enhanced.tab-notes`                   | `false`                                                              |
-| AI controls page                               | `zen-fluent.enhanced.ai-controls`                 | `false`                                                              |
-| AI chatbot panel                               | `zen-fluent.enhanced.ai-chat`                     | `false`                                                              |
-| Focus sessions                                 | `zen-fluent.enhanced.focus-session`               | `false`                                                              |
-| Focus session length (minutes)                 | `zen-fluent.enhanced.focus-session.minutes`       | `25`                                                                 |
-|                                                | Custom focus session length                       | `zen-fluent.enhanced.focus-session.minutes-custom`                   | `50`  |
-| Hide the sidebar during a focus session        | `zen-fluent.enhanced.focus-session.compact`       | `true`                                                               |
-| Mute tabs playing sound during a focus session | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
-| Block distracting sites during a focus session | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
-| Distracting sites                              | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
-| Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
-| Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
-| Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
-| VPN card                                       | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
-| Show the VPN card in normal windows            | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
-| Show the VPN card in private windows           | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
+| Feature                                          | Preference                                        | Default                                                              |
+| ------------------------------------------------ | ------------------------------------------------- | -------------------------------------------------------------------- |
+| Quick Settings                                   | `zen-fluent.enhanced.quick-settings`              | `true`                                                               |
+| Settings page                                    | `zen-fluent.enhanced.settings-page`               | `true`                                                               |
+| Open Zen's settings on Zen Fluent                | `zen-fluent.enhanced.settings-page.home`          | `true`                                                               |
+| Settings search as Ctrl+F                        | `zen-fluent.enhanced.settings-search`             | `true`                                                               |
+| Welcome tour                                     | `zen-fluent.enhanced.welcome`                     | `true`                                                               |
+| Update card                                      | `zen-fluent.enhanced.update-card`                 | `true`                                                               |
+| Fluent defaults for mods                         | `zen-fluent.enhanced.mod-defaults`                | `true`                                                               |
+| Icon colors                                      | `zen-fluent.enhanced.favicon-color`               | `true`                                                               |
+| Adaptive accent                                  | `zen-fluent.enhanced.adaptive-accent`             | `false`                                                              |
+| Window glow                                      | `zen-fluent.enhanced.window-glow`                 | `true`                                                               |
+| Site color                                       | `zen-fluent.enhanced.site-color`                  | `false`                                                              |
+| Site color strength                              | `zen-fluent.enhanced.site-color.strength`         | `light`                                                              |
+| Settings per space                               | `zen-fluent.enhanced.space-settings`              | `true`                                                               |
+| Extensions under the Essentials                  | `zen-fluent.enhanced.extensions-below-essentials` | `false`                                                              |
+| Tab numbers while Ctrl is held                   | `zen-fluent.enhanced.tab-numbers`                 | `true`                                                               |
+| Shortcuts                                        | `zen-fluent.enhanced.shortcuts`                   | `true`                                                               |
+| Tab archiving                                    | `zen-fluent.enhanced.tab-archive`                 | `false`                                                              |
+| Archive tabs unused for (hours)                  | `zen-fluent.enhanced.tab-archive.after`           | `12`                                                                 |
+|                                                  | Custom time before archiving                      | `zen-fluent.enhanced.tab-archive.after-custom`                       | `36`  |
+| Keep archived tabs (days)                        | `zen-fluent.enhanced.tab-archive.keep`            | `90`                                                                 |
+|                                                  | Custom time archived tabs are kept                | `zen-fluent.enhanced.tab-archive.keep-custom`                        | `60`  |
+| Archive pinned tabs too                          | `zen-fluent.enhanced.tab-archive.pinned`          | `false`                                                              |
+| Archive tabs in folders too                      | `zen-fluent.enhanced.tab-archive.folders`         | `false`                                                              |
+| PDF viewer                                       | `zen-fluent.enhanced.pdf-viewer`                  | `true`                                                               |
+| Fluent controls on websites                      | `zen-fluent.enhanced.web-controls`                | `false`                                                              |
+| Browsing stats                                   | `zen-fluent.enhanced.browsing-stats`              | `false`                                                              |
+| Folder colors                                    | `zen-fluent.enhanced.folder-colors`               | `true`                                                               |
+| Fluent icons in the icon picker                  | `zen-fluent.enhanced.icon-picker`                 | `true`                                                               |
+| Tab hover cards                                  | `zen-fluent.enhanced.hover-cards`                 | `false`                                                              |
+| Hover card delay (ms)                            | `zen-fluent.enhanced.hover-cards.delay`           | `500`                                                                |
+|                                                  | Custom hover card delay                           | `zen-fluent.enhanced.hover-cards.delay-custom`                       | `400` |
+| Page thumbnails in hover cards                   | `zen-fluent.enhanced.hover-cards.thumbnails`      | `true`                                                               |
+| Glance link preview                              | `zen-fluent.enhanced.glance`                      | `true`                                                               |
+| Breadcrumb address                               | `zen-fluent.enhanced.breadcrumbs`                 | `false`                                                              |
+| Command Palette actions                          | `zen-fluent.enhanced.command-palette`             | `true`                                                               |
+| Keyboard shortcuts sheet                         | `zen-fluent.enhanced.shortcut-overlay`            | `true`                                                               |
+| Snap layouts for split view                      | `zen-fluent.enhanced.snap-layouts`                | `true`                                                               |
+| Ctrl+Tab as Alt+Tab                              | `zen-fluent.enhanced.tab-switcher`                | `false`                                                              |
+| Boost editor extras                              | `zen-fluent.enhanced.boost-extras`                | `true`                                                               |
+| Sleeping tabs and Performance panel              | `zen-fluent.enhanced.performance`                 | `false`                                                              |
+| Put inactive tabs to sleep after (minutes)       | `zen-fluent.enhanced.performance.sleep-after`     | `30`                                                                 |
+|                                                  | Custom time before tabs sleep                     | `zen-fluent.enhanced.performance.sleep-after-custom`                 | `45`  |
+| Tab notes                                        | `zen-fluent.enhanced.tab-notes`                   | `false`                                                              |
+| AI controls page                                 | `zen-fluent.enhanced.ai-controls`                 | `false`                                                              |
+| AI chatbot panel                                 | `zen-fluent.enhanced.ai-chat`                     | `false`                                                              |
+| Focus sessions                                   | `zen-fluent.enhanced.focus-session`               | `false`                                                              |
+| Focus session length (minutes)                   | `zen-fluent.enhanced.focus-session.minutes`       | `25`                                                                 |
+|                                                  | Custom focus session length                       | `zen-fluent.enhanced.focus-session.minutes-custom`                   | `50`  |
+| Hide the sidebar during a focus session          | `zen-fluent.enhanced.focus-session.compact`       | `true`                                                               |
+| Mute tabs playing sound during a focus session   | `zen-fluent.enhanced.focus-session.mute`          | `true`                                                               |
+| Block distracting sites during a focus session   | `zen-fluent.enhanced.focus-session.block`         | `true`                                                               |
+| Distracting sites                                | `zen-fluent.enhanced.focus-session.sites`         | `youtube.com,reddit.com,x.com,facebook.com,instagram.com,tiktok.com` |
+| Widgets and shelf                                | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
+| Start page                                       | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
+| Quick window                                     | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
+| Downloads card                                   | `zen-fluent.enhanced.downloads-card`              | `false`                                                              |
+| Efficiency card                                  | `zen-fluent.enhanced.efficiency-card`             | `false`                                                              |
+| Show the efficiency card on battery below        | `zen-fluent.enhanced.efficiency-card.battery`     | `20`                                                                 |
+| Show the efficiency card when Zen uses more than | `zen-fluent.enhanced.efficiency-card.memory`      | `auto`                                                               |
+|                                                  | Custom memory threshold                           | `zen-fluent.enhanced.efficiency-card.memory-custom`                  | `6`   |
+| VPN card                                         | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
+| Show the VPN card in normal windows              | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
+| Show the VPN card in private windows             | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
+| Private session card                             | `zen-fluent.enhanced.private-session`             | `true`                                                               |
+| End session also empties the clipboard           | `zen-fluent.enhanced.private-session.clipboard`   | `false`                                                              |
+| Veil over private pages in the background        | `zen-fluent.enhanced.private-veil`                | `false`                                                              |

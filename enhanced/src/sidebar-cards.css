@@ -115,7 +115,7 @@
     }
 
     &:hover:active {
-      background-color: var(--zf-fill-subtle-pressed) !important;
+      background-color: var(--zf-fill-subtle-press) !important;
       color: var(--zf-text-secondary) !important;
     }
   }

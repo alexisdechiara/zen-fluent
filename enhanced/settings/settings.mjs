@@ -99,6 +99,11 @@ const FEATURES = {
   "start-page": "home",
   "quick-window": "desktop",
   "vpn-card": "shield",
+  "update-card": "megaphone",
+  "downloads-card": "folder",
+  "efficiency-card": "leaf-two",
+  "private-session": "lock-closed",
+  "private-veil": "desktop",
 };
 // The Home page's shortcuts to the main choices
 const EXPERT = "zen-fluent.expert";
