@@ -520,7 +520,8 @@ sous `zen-fluent.enhanced.*`). Ce que fait chacune :
   première installation (la visite d'accueil s'en charge). Elle attend que
   la carte de mise à jour de Zen se ferme, et qu'une barre latérale repliée
   se déploie ; sur un Zen sans cette carte, un toast l'annonce à la place.
-  La dernière version affichée est gardée dans
+  Une carte retirée avant la fin (Sine relance les scripts) s'affiche de
+  nouveau. La dernière version affichée est gardée dans
   `zen-fluent.enhanced.update-card.seen`.
 - **Downloads card** (désactivé par défaut) : pendant un téléchargement,
   une carte dans la barre latérale, au-dessus de la rangée du bas, montre

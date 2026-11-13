@@ -29,7 +29,7 @@
   const { ZFFeature } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
-  const { addCard } = ChromeUtils.importESModule(
+  const { addCard, removeCard } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-cards.sys.mjs",
   );
   const { t } = ChromeUtils.importESModule(
@@ -64,6 +64,14 @@
       const reducedMotion = win.matchMedia("(prefers-reduced-motion: reduce)");
       let stopped = false;
       ctx.onCleanup(() => (stopped = true));
+
+      // The dots in flight, taken away if the feature stops meanwhile
+      const flyers = new Set();
+      ctx.onCleanup(() => {
+        for (const flyer of flyers) {
+          flyer.remove();
+        }
+      });
 
       /** download -> its entry: { download, card, parts, timer, leaving } */
       const entries = new Map();
@@ -501,7 +509,7 @@
         if (i !== -1) {
           order.splice(i, 1);
         }
-        entry.card.remove();
+        removeCard(ctx, entry.card);
       };
 
       // -------- The exit --------
@@ -558,7 +566,7 @@
           if (i !== -1) {
             order.splice(i, 1);
           }
-          card.remove();
+          removeCard(ctx, card);
           if (!stopped) {
             layout();
           }
@@ -657,7 +665,7 @@
         ghost.style.height = `${from.height}px`;
         flyer.prepend(ghost);
         (doc.body ?? doc.documentElement).append(flyer);
-        ctx.onCleanup(() => flyer.remove());
+        flyers.add(flyer);
         card.style.visibility = "hidden";
         ghost.animate([{ opacity: 1 }, { opacity: 0 }], {
           duration: 140,
@@ -791,6 +799,7 @@
           }
         } finally {
           flyer.remove();
+          flyers.delete(flyer);
         }
       };
 

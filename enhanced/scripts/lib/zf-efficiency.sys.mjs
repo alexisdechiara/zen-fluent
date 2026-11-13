@@ -151,8 +151,7 @@ function rearm() {
   }
 }
 
-function notify() {
-  rearm();
+function tellAll() {
   for (const { fn } of watchers) {
     try {
       fn();
@@ -160,6 +159,11 @@ function notify() {
       console.error("[Zen Fluent Enhanced] efficiency-card:", error);
     }
   }
+}
+
+function notify() {
+  rearm();
+  tellAll();
 }
 
 function anyVisible() {
@@ -219,9 +223,7 @@ export function dismiss() {
   if (s.memoryHigh) {
     muted.set("memory", s.total);
   }
-  for (const { fn } of watchers) {
-    fn();
-  }
+  tellAll();
 }
 
 const prefObserver = () => {

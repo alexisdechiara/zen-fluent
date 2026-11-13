@@ -503,7 +503,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   window, never in a private one; nothing on the first install (the
   welcome tour does that). It waits for Zen's own update card to close,
   and for a collapsed sidebar to expand; on a Zen without that card, a
-  toast says it instead. The last version shown is kept in
+  toast says it instead. A card taken away before its time (Sine running
+  the scripts again) shows again. The last version shown is kept in
   `zen-fluent.enhanced.update-card.seen`.
 - **Downloads card** (off by default): while a file downloads, a card in
   the sidebar, above the bottom row, shows its icon and name, a progress

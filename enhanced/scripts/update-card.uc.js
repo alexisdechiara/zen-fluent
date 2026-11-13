@@ -58,12 +58,23 @@
       let shown = false;
       let stopped = false;
 
+      // The version is only recorded as seen once the card has gone by
+      // itself (its countdown, its close button, a link): a card taken
+      // away with the feature (Sine rerunning the scripts, the window
+      // closing) shows again
+      let told = false;
+      const tell = () => {
+        if (!told) {
+          told = true;
+          markSeen(version);
+        }
+      };
       ctx.onCleanup(() => {
         stopped = true;
         if (card?.isConnected) {
           card.remove();
-        } else if (version && !shown) {
-          // Not shown here: the next start (or a rerun) tries again
+        }
+        if (version && !told) {
           releaseUpdate(version);
         }
       });
@@ -97,6 +108,7 @@
             // Zen only closes the card itself for a link with a url
             action: () => {
               openSettings(win);
+              tell();
               card?.remove();
             },
             l10nId: "zf-update-card-settings",
@@ -110,7 +122,7 @@
         showToast(win, t("Zen Fluent updated to {0}").replace("{0}", version), {
           action: { label: t("What's new"), run: openNotes },
         });
-        markSeen(version);
+        tell();
       };
 
       // Zen's card, as createSidebarNotification makes it, after the media
@@ -135,7 +147,9 @@
         });
         card.setAttribute(MARK, "");
         anchor.insertAdjacentElement("afterend", card);
-        markSeen(version);
+        if (!anchor.parentElement) {
+          tell();
+        }
         // The heading takes the version: Lit leaves data-l10n-args alone,
         // and the shadow root is connected to the document's localization
         await card.updateComplete;
@@ -148,6 +162,10 @@
       };
 
       const tryShow = () => {
+        // Our card left the sidebar by itself: the user was told
+        if (shown && card && !card.isConnected && !stopped) {
+          tell();
+        }
         if (stopped || shown || zenCard()) {
           return;
         }

@@ -12,6 +12,8 @@
 // The column only exists while a card does.
 
 const HOST_ID = "zf-sidebar-cards";
+// context -> the cards it still has in the column
+const byContext = new WeakMap();
 
 /**
  * Adds a card to the sidebar's column, removed when the feature stops.
@@ -45,11 +47,39 @@ export function addCard(ctx, { id, order = 50, role = "group", live = "" }) {
   card.hidden = true;
   card.style.order = String(order);
   host.append(card);
-  ctx.onCleanup(() => {
-    card.remove();
-    if (!host.childElementCount) {
-      host.remove();
-    }
-  });
+  let cards = byContext.get(ctx);
+  if (!cards) {
+    cards = new Set();
+    byContext.set(ctx, cards);
+    // One clean-up per feature, however many cards come and go
+    ctx.onCleanup(() => {
+      for (const one of cards) {
+        one.remove();
+      }
+      cards.clear();
+      dropHost(doc);
+    });
+  }
+  cards.add(card);
   return card;
+}
+
+/**
+ * Takes a card away before the feature stops (a download's card once the
+ * download is done).
+ *
+ * @param {object} ctx - The feature's context the card was added with.
+ * @param {Element} card
+ */
+export function removeCard(ctx, card) {
+  byContext.get(ctx)?.delete(card);
+  card.remove();
+  dropHost(card.ownerDocument);
+}
+
+function dropHost(doc) {
+  const host = doc.getElementById(HOST_ID);
+  if (host && !host.childElementCount) {
+    host.remove();
+  }
 }

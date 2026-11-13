@@ -128,8 +128,9 @@
         const s = efficiency.state();
         const battery = s.batteryLow && !s.muted.battery;
         const memory = s.memoryHigh && !s.muted.memory;
-        const n = sleepable().length;
         const showDone = done && Date.now() < done.until;
+        // The tabs are only gone through when a condition may show the card
+        const n = battery || memory ? sleepable().length : 0;
         card.hidden = !showDone && (!(battery || memory) || n === 0);
         card.toggleAttribute("zf-simulated", s.simulated);
         if (card.hidden) {
@@ -218,16 +219,16 @@
         .catch(() => {});
 
       // The number of tabs that may sleep changes with the tabs
-      let queued = false;
+      let queued = 0;
       const soon = () => {
         if (!queued) {
-          queued = true;
-          win.requestAnimationFrame(() => {
-            queued = false;
+          queued = win.requestAnimationFrame(() => {
+            queued = 0;
             render();
           });
         }
       };
+      ctx.onCleanup(() => win.cancelAnimationFrame(queued));
       for (const type of [
         "TabOpen",
         "TabClose",
