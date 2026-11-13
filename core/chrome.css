@@ -167,6 +167,7 @@
 /* URL bar */
 @import url("src/tokens/urlbar.css");
 @import url("src/tokens/urlbar-edge.css");
+@import url("src/tokens/urlbar-flat.css");
 @import url("src/tokens/url-underline.css");
 @import url("src/components/urlbar/rest.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));

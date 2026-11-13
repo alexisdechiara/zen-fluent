@@ -35,7 +35,7 @@
    sidebar, 32px in the toolbar): the bar keeps that box, so nothing around
    it moves, and the field is centred in it, like the pill
    (features/url-style/pill.css). */
-@media (-moz-pref("zen-fluent.density", "compact")) and (not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent")))))) {
+@media (-moz-pref("zen-fluent.density", "compact")) and (not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent"))) and (not (-moz-pref("zen-fluent.url-style", "flat")))))) {
   #urlbar:not([breakout-extend]) {
     & .urlbar-background {
       box-sizing: border-box !important;

@@ -9,7 +9,7 @@ En-tête du groupe : `zen-fluent.ui.open-urlbar` (ouvert par défaut :
 
 | Réglage                                                          | Préférence                        | Valeurs                                                                                                                                                                                                           | Défaut  |
 | ---------------------------------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| URL bar shape                                                    | `zen-fluent.url-style`            | `auto` Automatic (celle du style)<br>`textbox` Text box (WinUI)<br>`pill` Pill (Edge)<br>`transparent` Transparent                                                                                                | `auto`  |
+| URL bar shape                                                    | `zen-fluent.url-style`            | `auto` Automatic (celle du style)<br>`textbox` Text box (WinUI)<br>`flat` Flat (Explorateur de fichiers)<br>`pill` Pill (Edge)<br>`transparent` Transparent                                                       | `auto`  |
 | Accent line under the URL bar                                    | `zen-fluent.url-underline`        | `focus` On focus (WinUI)<br>`animated` On focus, animated (Fluent 2)<br>`always` Always<br>`none` Never                                                                                                           | `focus` |
 | Floating URL bar color                                           | `zen-fluent.url-floating-color`   | `solid` Solid (blanc ou noir, opaque)<br>`standard` Standard (le matériau de la fenêtre)<br>`tint` Tint (la couleur de l'espace, sinon l'accent)<br>`translucent` Translucent (verre translucide, comme dans Arc) | `solid` |
 | Centered URL                                                     | `zen-fluent.url-centered`         | `true` / `false`                                                                                                                                                                                                  | `false` |
@@ -19,7 +19,10 @@ En-tête du groupe : `zen-fluent.ui.open-urlbar` (ouvert par défaut :
 ## Notes
 
 - **URL bar shape** : suivre le style (champ de texte WinUI, pilule Edge),
-  champ de texte, pilule ou transparent. La pilule est une vraie pilule
+  champ de texte, plat, pilule ou transparent. Flat est le champ de texte
+  sans ses bords, comme le champ de recherche de l'Explorateur de fichiers
+  de Windows 11 : le fond de contrôle seul, sans trait ni ligne inférieure
+  plus marquée au repos ; la ligne d'accent s'affiche toujours au focus. La pilule est une vraie pilule
   (rayon = la moitié de la hauteur), avec le bouton du site au début et des
   boutons ronds de 28 px centrés sur les extrémités. Ouverte, la surface
   grandit de 4 px tout autour (rayon 20) ; flottante, c'est une carte au

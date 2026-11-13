@@ -11,6 +11,10 @@ one `vX.Y.Z` tag.
 
 ### Added
 
+- **URL bar shape** › **Flat (File Explorer)** (`zen-fluent.url-style` =
+  `flat`): the text box without its stroke and its stronger bottom line,
+  as the search box of Windows 11's File Explorer; the accent line still
+  shows on focus ([URL bar](docs/settings/url-bar.md)).
 - **Tile border** (Essentials, `zen-fluent.essentials.border`): the line
   around each Essential: the fill's own (default), none, a subtle or strong
   line, the icon's color, or a ring with a gap, neutral or in the icon's
