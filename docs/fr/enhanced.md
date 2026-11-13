@@ -186,7 +186,8 @@ sous `zen-fluent.enhanced.*`). Ce que fait chacune :
   (30 %) ou _Strong_ (50 %) ; la couleur est gardée claire dans une fenêtre
   claire et sombre dans une fenêtre sombre pour que le texte reste lisible.
   Désactivé par défaut ; fonctionne avec **Adaptive accent** (l'accent suit
-  l'icône).
+  l'icône). Jamais dans une fenêtre privée, qui reste noire comme Zen la
+  dessine ; **Adaptive accent** et **Window glow** n'y tournent pas non plus.
 - **Settings per space** : un espace peut donner sa propre valeur aux
   réglages qui changent toute la fenêtre : le mode (clair, sombre, système),
   le style, le matériau et sa teinte, la couleur de l'espace, l'accent, la

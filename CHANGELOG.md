@@ -85,6 +85,10 @@ one `vX.Y.Z` tag.
   arrow point the right way (Zen's icons drew them as in left-to-right).
   With **Back / Forward in the context menu** on List or Command bar, the
   labels are no longer mirrored with their icons.
+- Zen Fluent Enhanced, private windows: **Site color** tinted the window
+  and gave Zen's black back on every page change. **Site color**,
+  **Adaptive accent** and **Window glow** no longer run in a private
+  window, which stays black.
 - URL bar: in the selected suggestion, the part you typed (bold in the
   title and the address) is no longer white on the light fill. Zen paints
   everything in that row white for its accent fill.

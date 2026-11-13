@@ -28,6 +28,8 @@
 
   const feature = ZFFeature.attach(window, {
     name: "site-color",
+    // Zen keeps a private window black: no site color there
+    private: false,
     start(ctx) {
       const root = ctx.document.documentElement;
       // Last color read per page, shown as soon as its tab is selected again

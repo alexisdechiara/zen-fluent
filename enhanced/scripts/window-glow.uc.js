@@ -26,6 +26,8 @@
   const feature = ZFFeature.attach(window, {
     name: "window-glow",
     default: true,
+    // A private window never changes color
+    private: false,
     start(ctx) {
       const win = ctx.window;
       const root = ctx.document.documentElement;

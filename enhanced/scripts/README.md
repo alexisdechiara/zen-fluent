@@ -25,6 +25,7 @@ editor: `chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml`
   const feature = ZFFeature.attach(window, {
     name: "<name>",
     // default: true,  // when the checkbox is on by default
+    // private: false, // never in a private window (the features that color the window)
     start(ctx) {
       // Everything added through ctx is undone when the feature stops:
       // ctx.listen(target, type, fn), ctx.observePref(name, fn),

@@ -25,6 +25,8 @@
 
   const feature = ZFFeature.attach(window, {
     name: "adaptive-accent",
+    // A private window keeps one look, whatever the site
+    private: false,
     start(ctx) {
       const root = ctx.document.documentElement;
       let running = true;

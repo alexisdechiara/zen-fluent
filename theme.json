@@ -7,6 +7,7 @@
   "version": "0.5.0",
   "createdAt": "2026-10-26",
   "updatedAt": "2026-11-08T10:43:34Z",
+  "ai": "yes",
   "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/README.md",
   "image": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/screenshots/dark-mica.png",
   "style": {

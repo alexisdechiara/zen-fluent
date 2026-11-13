@@ -206,7 +206,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   site's color, default), _Medium_ (30 %) or _Strong_ (50 %); the color is
   kept light in a light window and dark in a dark one so text stays
   readable. Off by default; it works with **Adaptive accent** (the accent
-  follows the icon).
+  follows the icon). Never in a private window, which stays black as
+  Zen draws it; **Adaptive accent** and **Window glow** stay out of it too.
 - **Settings per space**: a space can give its own value to the settings
   that change the whole window: the mode (light, dark, system), the style,
   the material and its tint, the space color, the accent, the density, the

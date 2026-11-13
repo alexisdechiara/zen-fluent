@@ -26,6 +26,7 @@
 // ES modules are loaded once per process.
 
 import { watchWindow } from "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs";
+import { PrivateBrowsingUtils } from "resource://gre/modules/PrivateBrowsingUtils.sys.mjs";
 
 const PREF_PREFIX = "zen-fluent.enhanced.";
 const LOG_PREFIX = "[Zen Fluent Enhanced]";
@@ -166,7 +167,8 @@ export class ZFFeature {
    * @param {Window} win - The window the feature runs in.
    * @param {object} spec - name (the pref is zen-fluent.enhanced.<name>),
    *   start(context), and optionally default (true for a feature on by
-   *   default, as in enhanced/preferences.json) and stop(context).
+   *   default, as in enhanced/preferences.json), stop(context) and
+   *   private (false for a feature that never runs in a private window).
    * @returns {ZFFeature}
    */
   static attach(win, spec) {
@@ -204,6 +206,12 @@ export class ZFFeature {
   }
 
   get enabled() {
+    if (
+      this.#spec.private === false &&
+      PrivateBrowsingUtils.isWindowPrivate(this.#window)
+    ) {
+      return false;
+    }
     return Services.prefs.getBoolPref(this.pref, this.#spec.default ?? false);
   }
 
