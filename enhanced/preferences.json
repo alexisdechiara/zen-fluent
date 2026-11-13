@@ -559,5 +559,53 @@
     "label": "Quick window ~Ctrl+Alt+Shift+O or a link's menu: a small window outside your spaces~",
     "type": "checkbox",
     "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card",
+    "label": "VPN card ~a card in the sidebar says whether the computer goes through a VPN, and which adapter~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card.normal",
+    "label": "Show the VPN card in normal windows",
+    "type": "dropdown",
+    "defaultValue": "connected",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Only while a VPN is connected",
+        "value": "connected"
+      },
+      {
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card.private",
+    "label": "Show the VPN card in private windows",
+    "type": "dropdown",
+    "defaultValue": "always",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Only while a VPN is connected",
+        "value": "connected"
+      },
+      {
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
   }
 ]

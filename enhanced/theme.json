@@ -116,6 +116,9 @@
     "scripts/quick-window.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
+    "scripts/vpn-card.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/settings-page.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },

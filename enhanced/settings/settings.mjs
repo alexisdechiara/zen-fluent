@@ -98,6 +98,7 @@ const FEATURES = {
   shelf: "box",
   "start-page": "home",
   "quick-window": "desktop",
+  "vpn-card": "shield",
 };
 // The Home page's shortcuts to the main choices
 const EXPERT = "zen-fluent.expert";

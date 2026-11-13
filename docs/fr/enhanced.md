@@ -461,7 +461,8 @@ sous `zen-fluent.enhanced.*`). Ce que fait chacune :
   éléments peuvent être glissés de nouveau au-dehors, vers une page ou la
   barre d'adresse ; × (ou Suppr) en retire un. L'étagère est gardée dans le
   profil (`zen-fluent-shelf.json`, 100 éléments au plus) et partagée par
-  toutes les fenêtres.
+  toutes les fenêtres. Une fenêtre privée peut utiliser l'étagère mais n'y
+  ajoute rien, et ne liste que les téléchargements de sa session.
 - **Window glow** (activé par défaut) : quand la fenêtre change de couleur
   (un autre espace ou thème, le mode clair ou sombre), son fond s'éclaire
   doucement dans la nouvelle couleur, sous le contenu de la barre latérale
@@ -488,6 +489,26 @@ sous `zen-fluent.enhanced.*`). Ce que fait chacune :
   window**, en bas de la page, déplace son onglet vers la fenêtre d'où il
   vient et la ferme ; fermer la fenêtre rapide abandonne simplement
   l'onglet.
+- **VPN card** (désactivé par défaut) : une carte dans la barre latérale,
+  sous la carte média de Zen et au-dessus de la rangée du bas, affiche
+  **VPN connecté** (un bouclier plein avec une coche) ou **VPN non
+  connecté** (un bouclier vide avec une croix), et en dessous la carte
+  réseau du VPN quand Windows la nomme (par exemple `ProtonVPN`), et depuis
+  quand, si le VPN s'est connecté pendant que Zen était ouvert. La barre
+  latérale réduite n'affiche que le bouclier, son info-bulle donne le
+  reste. **Show the VPN card in normal windows** : seulement quand un VPN
+  est connecté (par défaut), toujours ou jamais ; **in private windows** :
+  toujours (par défaut : on voit d'un coup d'œil si le VPN est actif),
+  seulement quand il est connecté, ou jamais. Zen le sait par la
+  surveillance du réseau de Firefox, qui signale un VPN quand une carte
+  réseau de tunnel est active (sous Windows une carte PPP ou virtuelle, ou
+  dont le nom contient VPN) ; le nom de la carte vient du registre, et n'est pas
+  affiché quand plusieurs cartes installées ressemblent à un VPN. Aucun
+  service web n'est interrogé : la carte n'affiche donc jamais votre
+  adresse publique, votre pays ni le serveur. Sous Linux et macOS, Firefox
+  ne surveille pas les VPN : la carte y reste masquée. Elle est désactivée par défaut parce qu'elle ajoute une
+  carte à chaque barre latérale et que la plupart des gens n'utilisent pas
+  de VPN.
 - **Shortcuts** : Ctrl+Alt+Maj+D change la densité (standard ou compacte),
   Ctrl+Alt+Maj+T le thème de la fenêtre (automatique, clair, sombre :
   Affichage › Apparence de Zen), Ctrl+Alt+Maj+M le matériau (Mica, Mica Alt,

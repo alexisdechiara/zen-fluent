@@ -57,6 +57,9 @@ strict minimum: anything CSS can do lives in Zen Fluent.
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
 | Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
 | Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
+| VPN card                                       | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
+| Show the VPN card in normal windows            | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
+| Show the VPN card in private windows           | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
 
 - **Quick Settings**: the **Quick settings** tab of Zen's Library (see
   [Boards in the Library](#boards-in-the-library)). It has a gallery of presets and Zen Fluent's main
@@ -442,6 +445,8 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   items can be dragged out again, to a page or the address bar; × (or
   Delete) takes one away. The shelf is kept in the profile
   (`zen-fluent-shelf.json`, 100 items at most) and shared by every window.
+  A private window can use the shelf but adds nothing to it, and lists only
+  its own session's downloads.
 - **Window glow** (on by default): when the window changes color (another
   space or theme, light or dark mode), its background lights up softly in
   the new color, under the sidebar's content and the page, and fades out.
@@ -464,6 +469,23 @@ strict minimum: anything CSS can do lives in Zen Fluent.
   its URL bar opens to type an address or a search. **Open in main
   window**, at the bottom of the page, moves its tab to the window it came
   from and closes it; closing the quick window simply drops the tab.
+- **VPN card** (off by default): a card in the sidebar, below Zen's media
+  card and above the bottom row, says **VPN connected** (a filled shield
+  with a check) or **VPN not connected** (an outlined shield with a cross),
+  and under it the VPN's network adapter when Windows names it (for
+  example `ProtonVPN`), and since when, if the VPN came up while Zen was
+  open. The collapsed sidebar shows the shield alone, its tooltip the
+  rest. **Show the VPN card in normal windows**: only while a VPN is
+  connected (default), always, or never; **in private windows**: always
+  (default: you see at a glance whether the VPN is on), only while
+  connected, or never. Zen learns it from Firefox's own network watch,
+  which flags a VPN when a tunnel adapter is up (on Windows a PPP or
+  virtual adapter, or one whose name says VPN); the adapter's name comes
+  from the registry, and is left out when several installed adapters look
+  like a VPN. No web service is asked, so the card never shows
+  your public address, country or server. On Linux and macOS Firefox
+  does not watch for a VPN, so the card stays hidden there. It is off by default because it adds a card to every sidebar
+  and most people use no VPN.
 - **Shortcuts**: Ctrl+Alt+Shift+D switches the density (standard or
   compact), Ctrl+Alt+Shift+T the window theme (automatic, light, dark: Zen's
   View › Appearance), Ctrl+Alt+Shift+M the material (Mica, Mica Alt,

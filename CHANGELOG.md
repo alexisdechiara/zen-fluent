@@ -27,6 +27,14 @@ one `vX.Y.Z` tag.
   matches, each with its count (a click goes to its first match); the
   matches are counted ("3 of 12") with Previous and Next (Enter,
   Shift+Enter, F3), the current one in the accent.
+- Zen Fluent Enhanced, **VPN card** (`zen-fluent.enhanced.vpn-card`,
+  off): a card in the sidebar, below the media card, says whether the
+  computer goes through a VPN and through which adapter (Windows), from
+  Firefox's own network watch and the registry, without asking any web
+  service. **Show the VPN card in normal windows** (only while connected,
+  always, never; default: while connected) and **in private windows**
+  (default: always, so "VPN not connected" shows too)
+  ([Zen Fluent Enhanced](docs/enhanced.md)).
 
 - Docs: the README in French (`README.fr.md`) and the documentation in
   French under `docs/fr/` (installation, Zen Fluent, each settings group,
@@ -89,6 +97,11 @@ one `vX.Y.Z` tag.
   arrow point the right way (Zen's icons drew them as in left-to-right).
   With **Back / Forward in the context menu** on List or Command bar, the
   labels are no longer mirrored with their icons.
+- Zen Fluent Enhanced, **Widgets and shelf** in a private window: **Add
+  this page** and dropped items wrote to the shelf's file on disk, and the
+  Downloads widget mixed private and normal downloads in every window. A
+  private window now reads the shelf without adding to it, and each kind
+  of window lists its own downloads.
 - Zen Fluent Enhanced, private windows: **Site color** tinted the window
   and gave Zen's black back on every page change. **Site color**,
   **Adaptive accent** and **Window glow** no longer run in a private

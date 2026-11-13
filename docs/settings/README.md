@@ -238,3 +238,6 @@ One checkbox per feature, with its options; what each feature does:
 | Widgets and shelf                              | `zen-fluent.enhanced.shelf`                       | `false`                                                              |
 | Start page                                     | `zen-fluent.enhanced.start-page`                  | `false`                                                              |
 | Quick window                                   | `zen-fluent.enhanced.quick-window`                | `false`                                                              |
+| VPN card                                       | `zen-fluent.enhanced.vpn-card`                    | `false`                                                              |
+| Show the VPN card in normal windows            | `zen-fluent.enhanced.vpn-card.normal`             | `connected`                                                          |
+| Show the VPN card in private windows           | `zen-fluent.enhanced.vpn-card.private`            | `always`                                                             |
