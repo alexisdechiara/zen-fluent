@@ -14,7 +14,7 @@ settings, nothing to edit by hand.
   <a href="docs/settings/README.md">Settings</a> ·
   <a href="docs/compatibility.md">Compatible mods</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
-  <a href="docs/fr/README.md">Français</a>
+  <a href="README.fr.md">Français</a>
 </p>
 
 ## What you get

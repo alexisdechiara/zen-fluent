@@ -3,6 +3,7 @@
 La documentation de Zen Fluent en français. L'anglais reste la référence :
 chaque page indique la page anglaise qu'elle traduit.
 
+- [Présentation](../../README.fr.md) : le README du projet.
 - [Installation](installation.md) : l'installateur Windows, Sine, Mica For
   Everyone, le flou sous Linux, l'installation manuelle.
 - [Zen Fluent](core.md) : ce que le mod habille, le style Edge,
