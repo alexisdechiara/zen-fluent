@@ -6,8 +6,8 @@
 // when this browser saw it come up. Nothing is asked of a web service, so
 // no public address, country or server.
 //
-// When it shows, per kind of window (the card sits where Zen's media card
-// lives, below it, so both stack):
+// When it shows, per kind of window (the card sits in the column of
+// sidebar cards, lib/zf-cards.sys.mjs, below Zen's media card):
 //   zen-fluent.enhanced.vpn-card.normal   connected (default), always, never
 //   zen-fluent.enhanced.vpn-card.private  always (default), connected, never
 // In a private window "always" also shows "VPN not connected": you see at
@@ -22,6 +22,9 @@
   const { PrivateBrowsingUtils } = ChromeUtils.importESModule(
     "resource://gre/modules/PrivateBrowsingUtils.sys.mjs",
   );
+  const { addCard } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-cards.sys.mjs",
+  );
   const { t } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs",
   );
@@ -34,10 +37,6 @@
     start(ctx) {
       const win = ctx.window;
       const doc = ctx.document;
-      const foot = doc.getElementById("zen-sidebar-foot-buttons");
-      if (!foot) {
-        return;
-      }
       const isPrivate = PrivateBrowsingUtils.isWindowPrivate(win);
       const modePref = `${PREF}.${isPrivate ? "private" : "normal"}`;
       const mode = () =>
@@ -46,39 +45,34 @@
           isPrivate ? "always" : "connected",
         );
 
-      // Below the media card (which grows upwards over the tabs), above the
-      // bottom row; outside the customizable tab strip
-      const card = ctx.element("hbox", {
+      const card = addCard(ctx, {
         id: "zf-vpn-card",
-        class: "zf-vpn-card",
-        align: "center",
+        order: 40,
         role: "status",
-        "aria-live": "polite",
-        hidden: "true",
+        live: "polite",
       });
-      foot.before(card);
-      const icon = ctx.element(
+      if (!card) {
+        return;
+      }
+      const el = (tag, attributes, parent) => {
+        const node = doc.createXULElement(tag);
+        for (const [key, value] of Object.entries(attributes)) {
+          node.setAttribute(key, value);
+        }
+        parent.append(node);
+        return node;
+      };
+      const icon = el(
         "image",
-        { class: "zf-vpn-icon", "aria-hidden": "true" },
+        { class: "zf-card-icon", "aria-hidden": "true" },
         card,
       );
-      const text = ctx.element(
-        "vbox",
-        { class: "zf-vpn-text", flex: "1" },
-        card,
-      );
-      const title = ctx.element(
-        "label",
-        { class: "zf-vpn-title", crop: "end" },
-        text,
-      );
-      const detail = ctx.element("vbox", { class: "zf-vpn-detail" }, text);
-      const name = ctx.element(
-        "label",
-        { class: "zf-vpn-name", crop: "end" },
-        detail,
-      );
-      const since = ctx.element("label", { class: "zf-vpn-since" }, detail);
+      const text = el("vbox", { class: "zf-card-text" }, card);
+      const title = el("label", { class: "zf-card-title", crop: "end" }, text);
+      // The adapter, and since when at the end of the line
+      const detail = el("hbox", { class: "zf-card-detail" }, text);
+      const name = el("label", { class: "zf-vpn-name", crop: "end" }, detail);
+      const since = el("label", { class: "zf-vpn-since" }, detail);
 
       const time = (ms) =>
         new Intl.DateTimeFormat(Services.locale.appLocalesAsBCP47, {
@@ -125,7 +119,9 @@
             unknown: "This system does not say",
           }[kind];
         since.hidden = !(kind === "connected" && s.since);
-        since.textContent = since.hidden ? "" : `Since ${time(s.since)}`;
+        // The time alone at the end of the line; the tooltip says "Since"
+        since.textContent = since.hidden ? "" : time(s.since);
+        since.setAttribute("translate", "no");
         // The whole text in the tooltip: the only text of the collapsed
         // sidebar's icon. t() for the parts zf-l10n translates in the card
         const parts = [t(title.textContent), adapter ?? t(name.textContent)];
@@ -133,7 +129,7 @@
           parts[1] += ` (${s.driver})`;
         }
         if (!since.hidden) {
-          parts.push(t(since.textContent));
+          parts.push(t(`Since ${time(s.since)}`));
         }
         if (s.simulated) {
           parts.push("test-state");
