@@ -1,0 +1,140 @@
+name: Installer
+
+# Builds the WinUI 3 installer (installer/winui, Windows App SDK,
+# self-contained) into one ZenFluentSetup.exe, which installs the mods from
+# the branch or tag it was built from; installer/ZenFluentSetup.ps1 (the
+# same steps without a window, for scripts) is attached next to it with
+# the same default. Every run keeps both as an artifact. A release tag
+# (vX.Y.Z) attaches them to the GitHub release (created when the tag has
+# none yet); a branch push publishes them as the pre-release
+# "installer-<branch>", replaced at each push, for a stable download link
+# while testing.
+
+on:
+  # Branch pushes that touch the installer; every release tag (GitHub
+  # does not apply path filters to tags)
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+    paths:
+      - installer/**
+      - .github/workflows/installer.yml
+  pull_request:
+    paths:
+      - installer/**
+      - .github/workflows/installer.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      # The branch (or tag) the installer installs Zen Fluent from
+      SOURCE_REF: ${{ github.head_ref || github.ref_name }}
+      HAS_SIGNPATH: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build ZenFluentSetup.exe (WinUI 3)
+        shell: pwsh
+        run: |
+          $version = (Get-Content theme.json -Raw | ConvertFrom-Json).version
+          dotnet publish installer/winui/ZenFluentSetup.csproj -c Release -r win-x64 `
+            -p:Platform=x64 -p:SourceRef="$env:SOURCE_REF" -p:Version=$version -o publish
+          Copy-Item publish/ZenFluentSetup.exe ZenFluentSetup.exe
+          Get-Item ZenFluentSetup.exe | Select-Object Name, Length
+      # Signing with SignPath Foundation (free for open source), once the
+      # project is accepted: the repository then gets the secret
+      # SIGNPATH_API_TOKEN and the variables SIGNPATH_ORGANIZATION_ID,
+      # SIGNPATH_PROJECT_SLUG and SIGNPATH_POLICY_SLUG. Without them the
+      # exe stays unsigned.
+      - name: Upload the unsigned exe for signing
+        id: unsigned
+        if: env.HAS_SIGNPATH == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZenFluentSetup-unsigned
+          path: ZenFluentSetup.exe
+      - name: Sign with SignPath
+        if: env.HAS_SIGNPATH == 'true'
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_POLICY_SLUG }}
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+      - name: Use the signed exe
+        if: env.HAS_SIGNPATH == 'true'
+        shell: pwsh
+        run: Copy-Item signed/ZenFluentSetup.exe ZenFluentSetup.exe -Force
+      - name: The window builds (--selftest, never shown)
+        shell: pwsh
+        run: |
+          $out = "$env:RUNNER_TEMP\selftest.txt"
+          $process = Start-Process -FilePath .\ZenFluentSetup.exe -ArgumentList "--selftest `"$out`"" -PassThru
+          if (-not $process.WaitForExit(120000)) { $process.Kill(); throw "--selftest did not finish in 2 minutes" }
+          $result = if (Test-Path $out) { Get-Content $out -Raw } else { "no result (exit code $($process.ExitCode))" }
+          Write-Host $result
+          if ($process.ExitCode -ne 0 -or -not $result.StartsWith("ok")) { throw "the window does not build: $result" }
+      # Each page rendered to a PNG (the runner's desktop shows the window
+      # for a few seconds), to look at the layout without a Windows PC
+      - name: Screenshots of the pages (--screenshots)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $dir = "$env:RUNNER_TEMP\screenshots"
+          $process = Start-Process -FilePath .\ZenFluentSetup.exe -ArgumentList "--screenshots `"$dir`"" -PassThru
+          if (-not $process.WaitForExit(180000)) { $process.Kill(); throw "--screenshots did not finish in 3 minutes" }
+          $result = Join-Path $dir "result.txt"
+          Write-Host $(if (Test-Path $result) { Get-Content $result -Raw } else { "no result (exit code $($process.ExitCode))" })
+      - uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: installer-screenshots
+          path: ${{ runner.temp }}/screenshots
+          if-no-files-found: ignore
+      - name: The script, with the same default branch
+        shell: powershell
+        run: |
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile("$PWD\installer\ZenFluentSetup.ps1", [ref]$null, [ref]$errors)
+          if ($errors) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }
+          $script = Get-Content installer\ZenFluentSetup.ps1 -Raw -Encoding UTF8
+          $script = $script.Replace('[string]$Ref = "main"', "[string]`$Ref = `"$env:SOURCE_REF`"")
+          New-Item -ItemType Directory -Force build | Out-Null
+          [IO.File]::WriteAllText("$PWD\build\ZenFluentSetup.ps1", $script, (New-Object Text.UTF8Encoding $true))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ZenFluentSetup
+          path: |
+            ZenFluentSetup.exe
+            build/ZenFluentSetup.ps1
+      - name: Attach to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1 ||
+            gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes
+          gh release upload "$GITHUB_REF_NAME" ZenFluentSetup.exe build/ZenFluentSetup.ps1 --clobber
+      - name: Publish the branch pre-release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="installer-${GITHUB_REF_NAME//\//-}"
+          gh release delete "$tag" --cleanup-tag --yes > /dev/null 2>&1 || true
+          gh release create "$tag" ZenFluentSetup.exe build/ZenFluentSetup.ps1 \
+            --prerelease --target "$GITHUB_SHA" \
+            --title "Installer: $GITHUB_REF_NAME" \
+            --notes "Test build of the Windows installer (WinUI 3) from the \`$GITHUB_REF_NAME\` branch (commit ${GITHUB_SHA:0:7}). It installs Zen Fluent and Zen Fluent Enhanced from that branch. ZenFluentSetup.ps1 does the same without a window (-NoGui). Replaced at each push that touches the installer; not a release."

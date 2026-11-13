@@ -4,9 +4,10 @@
   "author": "alexisdechiara",
   "name": "Zen Fluent Enhanced",
   "description": "JavaScript features for Zen Fluent, each one can be turned off. Installs Zen Fluent if it is missing.",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "createdAt": "2026-10-29",
-  "updatedAt": "2026-11-01T19:31:26Z",
+  "updatedAt": "2026-11-08T10:43:34Z",
+  "ai": "yes",
   "readme": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/docs/enhanced.md",
   "image": "https://raw.githubusercontent.com/alexisdechiara/zen-fluent/main/screenshots/dark-mica.png",
   "style": {
@@ -27,6 +28,15 @@
       "include": ["chrome://browser/content/browser.xhtml"]
     },
     "scripts/site-color.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/space-settings.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/welcome.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/mod-defaults.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
     "scripts/extensions-below-essentials.uc.js": {
@@ -106,7 +116,28 @@
     "scripts/quick-window.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     },
+    "scripts/vpn-card.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
     "scripts/settings-page.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/settings-search.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/update-card.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/efficiency-card.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/private-session.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/private-veil.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"]
+    },
+    "scripts/downloads-card.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]
     }
   },

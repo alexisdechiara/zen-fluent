@@ -1,0 +1,54 @@
+name: Feature or setting
+description: An idea for the look, a setting, or a Zen Fluent Enhanced feature.
+labels: ["enhancement", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Zen Fluent follows Windows 11's design (WinUI 3 and Fluent 2). Ideas that bring something from Windows, Edge or a Microsoft app are the easiest to accept: link what you mean.
+        Not sure yet? Start in [Ideas](https://github.com/alexisdechiara/zen-fluent/discussions/categories/ideas).
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Window, materials and colors
+        - Sidebar, tabs, Essentials, folders
+        - URL bar
+        - Menus, panels, dialogs, notifications
+        - Zen's settings and internal pages
+        - Zen Fluent Enhanced feature
+        - Settings page (about:zen-fluent)
+        - Windows installer
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would it solve
+      description: What you are trying to do, and what gets in the way today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you have in mind
+      description: How it should look or behave. A sketch, a screenshot from Windows or another app, or a link helps a lot.
+    validations:
+      required: true
+  - type: dropdown
+    id: setting
+    attributes:
+      label: For everyone, or as a setting
+      options:
+        - A setting, off by default
+        - A setting, on by default
+        - The new default look for everyone
+        - Not sure
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contributing
+      options:
+        - label: I would like to work on it myself.

@@ -1,26 +1,171 @@
-# Installer (later)
+# Installer
 
-A `.exe` where you pick the components. It will read `components.json` at the
-root of the repository. Nothing is written yet.
+`ZenFluentSetup.exe` installs Sine, Zen Fluent and Zen Fluent Enhanced in a
+Zen profile. It is a WinUI 3 application (`installer/winui/`, C#, Windows
+App SDK, unpackaged and self-contained, about 63 MB): Mica behind the
+window, the title bar drawn in it, settings cards, InfoBars for warnings
+and results, the system's light or dark theme and accent, in French when
+Windows is. `ZenFluentSetup.ps1` does the same steps without a window
+(Windows PowerShell 5.1, for scripts; `-NoGui`).
 
-## What the installer will do
+`.github/workflows/installer.yml` builds both on every push and pull
+request that touches this folder (`dotnet publish -c Release -r win-x64
+-p:Platform=x64 -p:SourceRef=<branch>`; no SDK needed locally) and attaches
+them to each release (`vX.Y.Z` tag). They install the mods from the branch
+or tag they were built from. A branch push also publishes them as the
+pre-release `installer-<branch>` (replaced at each push): a stable
+download link to test a branch.
 
-1. Close Zen, find its install folder and the profile
-   (`%APPDATA%\zen\profiles.ini`).
-2. Install Sine from its release (loader in Zen's folder, engine in the
-   profile), then clear the profile's `startupCache`. Never install
-   fx-autoconfig as well: it writes the same files.
-3. Install the chosen mods the way Sine does: the mod's files in
-   `chrome/sine-mods/<id>/`, an entry in `chrome/sine-mods/mods.json`
-   (`theme.json` fields, `style` / `preferences` paths relative to the mod
-   folder, `enabled: true`, `"no-updates": false`, the installed version's
-   `updatedAt`). Never write `"origin": "store"` for a mod that does not come
-   from the store: that is Sine's safety check for JavaScript. The simplest path
-   is to let Sine install the mod (Import button, or `installMod`).
-4. Set the `prefs` (in `user.js` or through Sine). Ask before setting
-   `sine.allow-unsafe-js`.
-5. On Windows 11, offer Mica For Everyone and its `zen` rule.
-6. Offer third-party mods: downloaded from their authors, never bundled.
+The window is a wizard, as Windows 11's own setup screens: a step and its
+pips, a title and a line, one page at a time sliding in, Back / Next at
+the bottom. Its width is fixed (860, scaled to the monitor) and its height
+fits the page shown: the header, the page and the footer as laid out,
+following an InfoBar that opens. It opens centered, then keeps its top
+edge as the pages change, never larger than the work area (the page
+scrolls then): nothing to resize.
+
+- **Looking for Zen…**: shown at once, while the versions of Zen and their
+  profiles are read off the UI thread.
+- **Install Zen first**, when no Zen is found: Download Zen Browser or Zen
+  Twilight (their download pages), or pick Zen's folder by hand. Coming
+  back to the window looks again, and **Check again** too.
+
+1. **Where should Zen Fluent go?** A tile per installed Zen version (its
+   version, folder, and "Update needed" before Zen 1.23, with an
+   **Update** button to the edition's download page), then the chosen
+   version's profile in a settings card (no profile yet: **Open** that Zen
+   once; coming back looks again). Next waits for a recent enough Zen and a
+   profile, and stops with an error while Zen is open on it.
+2. **What do you want to install?** Zen Fluent or Zen Fluent Enhanced
+   (recommended), two tiles. The box allowing scripts of mods outside
+   Sine's store shows with Enhanced only, and turns red when Install is
+   clicked without it.
+3. The progress, the current step, and the log under Details, shown as it
+   is written (a card that scrolls to its last line).
+4. The result: **Open Zen** starts the chosen Zen on the chosen profile;
+   on a failure, the error and **Try again**; the log under both.
+
+Tiles are `GridView` items: WinUI's own selection (an accent outline,
+arrow keys), no radio buttons.
+
+## Uninstalling
+
+**Uninstall Zen Fluent…**, at the bottom of the first page, keeps the Zen
+version and profile and asks what to remove (a red Uninstall button):
+
+- Zen Fluent and Zen Fluent Enhanced (always): their folders in
+  `chrome\sine-mods` and their entries in `mods.json`, the file saved as
+  `mods.json.zen-fluent-setup.bak` first;
+- their settings: every `zen-fluent.*` preference in `prefs.js`;
+- Sine and every mod it installed: the profile's `chrome\JS`, `utils` and
+  `sine-mods`, and Sine's loader in Zen's folder (`config.js` and
+  `defaults\pref\config-prefs.js`, only when `config.js` is Sine's;
+  administrator rights when the folder is protected). Sine then stops
+  loading in every profile of that Zen version.
+
+The startup cache is cleared, and the profile must not be in use. Without
+the window: `-NoGui -Uninstall`, with `-RemoveSettings` and `-RemoveSine`.
+
+## Signing
+
+The exe is not signed yet: SmartScreen may warn about it (More info › Run
+anyway). [SignPath Foundation](https://signpath.org) signs open source
+projects for free. Its terms ask for an OSI licence (MIT), builds from this
+repository's CI, team roles with multi-factor authentication, a manual
+approval of each release, a "Code signing policy" section on the home and
+download pages (in the [README](../README.md#code-signing-policy)), and an uninstaller for an installer (Uninstall…, above).
+Once accepted, the repository gets the secret `SIGNPATH_API_TOKEN` and the
+variables `SIGNPATH_ORGANIZATION_ID`, `SIGNPATH_PROJECT_SLUG` and
+`SIGNPATH_POLICY_SLUG`: the CI then signs the exe
+(`signpath/github-action-submit-signing-request`) before publishing it.
+
+## Downloads
+
+Downloads do not use GitHub's API (the latest bootloader comes from
+`releases/latest/download`) and are tried five times over about a minute
+on 5xx answers and timeouts, then the installer says GitHub may be down.
+
+## What it does
+
+1. Lists the installed editions of Zen with their version (Zen Browser,
+   Zen Twilight: `Software\Mozilla\<edition>` in the registry, or a folder
+   picked by hand), then the chosen edition's profiles: first the one it
+   opens by default (`[Install<id>]` in `%APPDATA%\zen\profiles.ini`, the
+   id read from Firefox's `TaskBarIDs` key), then the profiles no other
+   edition opens by default. An edition older than Zen 1.23 gets a warning.
+   A profile Zen is using (its `parent.lock` held) is refused: close Zen.
+2. Sine, unless it is there already (`config.js` in Zen's folder and
+   `chrome\JS\sine.sys.mjs` in the profile; `-ReinstallSine` replaces it):
+   - the bootloader of [sineorg/bootloader](https://github.com/sineorg/bootloader)
+     (latest release): `program.zip` into Zen's folder, asking Windows for
+     administrator rights for that step only when the folder is protected,
+     `profile.zip` into `<profile>\chrome`;
+   - Sine's `engine.zip` into `<profile>\chrome`, from the release Zen Fluent
+     is tested with (`$SineTag`, the same as `components.json`).
+3. Zen Fluent, and Zen Fluent Enhanced if checked, the way Sine installs a
+   mod: the repository's files in `chrome\sine-mods\Zen-Fluent\` (Enhanced:
+   the `enhanced` folder in `chrome\sine-mods\Zen-Fluent-Enhanced\`) and
+   their entries in `chrome\sine-mods\mods.json`: `theme.json`, the entry
+   points, `"no-updates": false`, `enabled`, never `"origin": "store"`. The
+   other mods are kept; the previous file is saved as
+   `mods.json.zen-fluent-setup.bak`. Sine rebuilds its mods at every start,
+   so they load at the next one, and its own updates take over from there.
+4. Preferences in `prefs.js` (not `user.js`, so they can be changed later):
+   `svg.context-properties.content.enabled` (the mod's icons) and, only
+   when the box is checked, `sine.allow-unsafe-js` (scripts of mods
+   installed outside Sine's store: Zen Fluent Enhanced needs it, the box
+   is required to install it).
+5. Clears the profile's startup cache.
+
+## Without the window
+
+```powershell
+.\ZenFluentSetup.ps1 -NoGui -Enhanced -AllowUnsafeJs
+```
+
+| Parameter         | Meaning                                                    |
+| ----------------- | ---------------------------------------------------------- |
+| `-NoGui`          | No window: install with the parameters below.              |
+| `-Edition`        | `Zen Browser` (default) or `Zen Twilight`.                 |
+| `-ZenDir`         | Zen's folder (with `zen.exe`), instead of `-Edition`.      |
+| `-ProfilePath`    | The profile folder. Default: the one the edition opens.    |
+| `-Enhanced`       | Also install Zen Fluent Enhanced (needs `-AllowUnsafeJs`). |
+| `-AllowUnsafeJs`  | Consent to set `sine.allow-unsafe-js`.                     |
+| `-Ref`            | Branch or tag of this repository to install (`main`).      |
+| `-ReinstallSine`  | Install Sine even when it is there.                        |
+| `-Uninstall`      | Remove Zen Fluent and Zen Fluent Enhanced instead.         |
+| `-RemoveSettings` | With `-Uninstall`: also every `zen-fluent.*` preference.   |
+| `-RemoveSine`     | With `-Uninstall`: also Sine and every mod it installed.   |
+
+## Testing it
+
+`ZenFluentSetup.exe --selftest <file>` builds the window without showing
+it (XAML, the Zen editions and profiles found) and writes `ok …` or the
+error to `<file>`: the CI runs it on every build, and it checks a build on
+a desktop without opening anything. `--screenshots <folder>` shows the
+window and renders each page (and the states that change its height) to a
+PNG, the window's client size in each name, then quits: the CI uploads
+them as the `installer-screenshots` artifact, with stand-in Zen versions
+and profiles (a runner has no Zen). Any failure at startup is written to
+`%TEMP%\ZenFluentSetup-error.log` and shown in a message box. The script:
+
+Point it at a throwaway profile and a folder with a `zen.exe` file in it;
+then start the real Zen on that profile (`-no-remote -profile <folder>`):
+Zen's own folder already has the bootloader when Sine is installed.
+
+```powershell
+.\ZenFluentSetup.ps1 -NoGui -ZenDir C:\tmp\zen -ProfilePath C:\tmp\profile -Enhanced -AllowUnsafeJs -Ref <branch>
+```
+
+Checked on 2026-11-07 (Zen 1.24b, Sine 2.3.4.1c, bootloader 0.1.4): on a
+new profile, Sine loads Zen Fluent and Zen Fluent Enhanced at the first
+start, with Enhanced's scripts running.
+
+## Later
+
+- macOS and Linux (a shell script doing the same steps).
+- Mica For Everyone and its `zen` rule on Windows 11 (`components.json`).
+- The third-party mods of `components.json`, downloaded from their authors.
 
 ## `components.json`
 

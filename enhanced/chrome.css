@@ -25,5 +25,12 @@
 @import url("src/focus-session.css");
 @import url("src/shelf.css");
 @import url("src/quick-window.css");
+@import url("src/sidebar-cards.css");
+@import url("src/downloads-card.css");
+@import url("src/vpn-card.css");
+@import url("src/efficiency-card.css");
+@import url("src/private-session.css");
+@import url("src/private-veil.css");
 @import url("src/library-sections.css");
 @import url("src/window-glow.css");
+@import url("src/welcome.css");

@@ -29,6 +29,7 @@
   (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/preferences/controls.css") not
   (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/content/preferences/search.css");
 @import url("src/content/sine/dialog.css") not
   (-moz-pref("zen-fluent.fluent-content", false));
 @import url("src/content/sine/pane.css") not
@@ -43,6 +44,10 @@
 @import url("src/content/accent-selection.css");
 @import url("src/content/thin-scrollbars-web.css");
 @import url("src/compat/easel.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/compat/compact-settings.css") not
+  (-moz-pref("zen-fluent.fluent-content", false));
+@import url("src/compat/calmer-settings.css") not
   (-moz-pref("zen-fluent.fluent-content", false));
 
 /* Dialogs of about:preferences */

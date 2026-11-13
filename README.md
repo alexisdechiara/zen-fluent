@@ -13,7 +13,8 @@ settings, nothing to edit by hand.
   <a href="#zen-fluent-enhanced">Enhanced</a> ·
   <a href="docs/settings/README.md">Settings</a> ·
   <a href="docs/compatibility.md">Compatible mods</a> ·
-  <a href="CHANGELOG.md">Changelog</a>
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="README.fr.md">Français</a>
 </p>
 
 ## What you get
@@ -60,7 +61,12 @@ Windows 11 with Mica For Everyone, Zen 1.24. The pages are the ones of
 
 ## Install
 
-You need Zen 1.23 or later and [Sine](https://github.com/CosmoCreeper/Sine),
+**Windows**: download `ZenFluentSetup.exe` from the
+[latest release](https://github.com/alexisdechiara/zen-fluent/releases/latest),
+close Zen and run it: it installs Sine, Zen Fluent and Zen Fluent Enhanced
+([details](installer/README.md)).
+
+By hand, you need Zen 1.23 or later and [Sine](https://github.com/CosmoCreeper/Sine),
 Zen's mod manager (download its installer from
 [its releases](https://github.com/CosmoCreeper/Sine/releases), run it, restart
 Zen).
@@ -76,7 +82,8 @@ rule for `zen`; Zen Fluent tints it.
 **Linux and macOS**: Zen Fluent works too, with your compositor's blur.
 
 Step by step, Mica For Everyone, Linux blur, a manual install without Sine:
-[docs/installation.md](docs/installation.md).
+[docs/installation.md](docs/installation.md)
+([en français](docs/fr/installation.md)).
 
 ## Zen Fluent Enhanced
 
@@ -125,15 +132,46 @@ few conflict with it. The list: [docs/compatibility.md](docs/compatibility.md).
 
 ## Contributing
 
-Bug reports and ideas are welcome in the
-[issues](https://github.com/alexisdechiara/zen-fluent/issues). For code, the
-layout, rules and tests are in [docs/contributing.md](docs/contributing.md):
+Questions, ideas and setups go to
+[Discussions](https://github.com/alexisdechiara/zen-fluent/discussions), bugs
+and clashing mods to the
+[issues](https://github.com/alexisdechiara/zen-fluent/issues/new/choose).
+Want to help? Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
+[good first issues](https://github.com/alexisdechiara/zen-fluent/labels/good%20first%20issue).
+For code, the layout, rules and tests are in
+[docs/contributing.md](docs/contributing.md):
 
 ```sh
 npm install
 npm run lint       # prettier + stylelint
 npm run check      # imports, settings, docs, versions
 ```
+
+## Code signing policy
+
+`ZenFluentSetup.exe` is not signed yet
+([#15](https://github.com/alexisdechiara/zen-fluent/issues/15)); this is the
+policy its signing follows once SignPath Foundation accepts the project.
+
+- Free code signing provided by [SignPath.io](https://signpath.io),
+  certificate by [SignPath Foundation](https://signpath.org).
+- The exe is built from this repository by its GitHub workflow
+  ([installer.yml](.github/workflows/installer.yml)), never on a personal
+  computer, and each signing request is approved by hand.
+- Committers and reviewers:
+  [the repository's contributors](https://github.com/alexisdechiara/zen-fluent/graphs/contributors),
+  through pull requests reviewed by the owner.
+- Approvers: [Alexis De Chiara](https://github.com/alexisdechiara), the
+  repository's owner.
+
+**Privacy**: this program will not transfer any information to other
+networked systems unless specifically requested by the user or the person
+installing or operating it. The installer downloads what you ask it to
+install, from GitHub (Sine, its bootloader, Zen Fluent and Zen Fluent
+Enhanced), and sends nothing else. The mods themselves make no request,
+except where a feature you turn on says so in
+[docs/enhanced.md](docs/enhanced.md) (browsing, installing or updating mods through
+Sine, opening a page you click).
 
 ## Credits
 

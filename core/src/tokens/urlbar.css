@@ -1,8 +1,10 @@
 /* Zen Fluent: URL bar tokens: WinUI field colours, pill geometry, accent line thickness.
    User sheet: declarations take !important to win over Zen's own CSS. */
 
-/* Three shapes (zen-fluent.url-style), two colour sets (zen-fluent.style):
+/* Four shapes (zen-fluent.url-style), two colour sets (zen-fluent.style):
    - textbox: a WinUI TextBox (control fill, 1px stroke, stronger bottom edge);
+   - flat: the text box without its edges, as File Explorer's search box
+     (tokens/urlbar-flat.css);
    - pill: Edge's address bar, a true pill whose round buttons sit on the
      centres of its end caps (Edge 156, measured);
    - transparent: no field until hovered or focused.

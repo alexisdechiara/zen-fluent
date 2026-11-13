@@ -1,0 +1,42 @@
+/* Zen Fluent Enhanced: the VPN card in the sidebar (zen-fluent.enhanced.vpn-card).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/vpn-card.uc.js adds #zf-vpn-card to the column of sidebar cards
+   (src/sidebar-cards.css gives it the card's look). zf-state = connected,
+   disconnected or unknown: each has its own icon (a filled shield with a
+   check, an outlined shield with a cross) and title, so the state never
+   rests on color alone. */
+
+#zf-vpn-card:not([hidden]) {
+  &[zf-state="connected"] .zf-card-icon {
+    fill: var(--zf-success) !important;
+  }
+
+  /* A private window without a VPN: the caution color, besides the cross
+     and the title */
+  &[zf-private][zf-state="disconnected"] .zf-card-icon {
+    fill: var(--zf-caution) !important;
+  }
+
+  /* The adapter, and the time at the end of its line: the name gives way
+     (an ellipsis), the time never does */
+  & .zf-card-detail {
+    gap: 8px !important;
+  }
+
+  & .zf-vpn-name {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  & .zf-vpn-since {
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+@media (forced-colors) {
+  #zf-vpn-card[zf-state] .zf-card-icon {
+    fill: CanvasText !important;
+  }
+}

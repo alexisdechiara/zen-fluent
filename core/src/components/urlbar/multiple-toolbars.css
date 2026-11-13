@@ -24,7 +24,7 @@
    the surface's top corners and stroke at the window's edge. The row is
    the field plus 3px all round, as tall as the toolbar, at its top (the
    pill shape sizes its own: features/url-style/pill.css). */
-@media not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent"))))) {
+@media not ((-moz-pref("zen-fluent.url-style", "pill")) or ((-moz-pref("zen-fluent.style", "edge")) and (not (-moz-pref("zen-fluent.url-style", "textbox"))) and (not (-moz-pref("zen-fluent.url-style", "transparent"))) and (not (-moz-pref("zen-fluent.url-style", "flat"))))) {
   :root:not([zen-single-toolbar="true"])
     #urlbar[breakout-extend]:not([zen-floating-urlbar="true"]) {
     --urlbar-container-height: calc(var(--urlbar-height) + 6px) !important;

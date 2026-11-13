@@ -18,7 +18,7 @@ core/
     compat/              rules for third-party mods (docs/compatibility.md)
 enhanced/                Zen Fluent Enhanced (id Zen-Fluent-Enhanced)
   theme.json · chrome.css · scripts/
-components.json          manifest for the future installer (installer/README.md)
+components.json          components the installer knows (installer/README.md)
 scripts/                 check.mjs, release.mjs
 docs/
 ```
@@ -99,13 +99,27 @@ into `chrome/sine-mods/Zen-Fluent` (a junction), declared in
 computed style of the element on screen (not its container). Chrome and user
 sheets report no CSS errors to the console: stylelint validates the values.
 
+## Versions
+
+Zen Fluent follows Zen, so its version follows Zen's state too:
+
+- **1.0.0** comes when Zen leaves beta. Until then, versions stay `0.x.y`.
+- **Minor** (`0.5.0` → `0.6.0`): a Zen change that breaks something in
+  the mod, usually a major Zen feature (a new Library, a redesigned URL
+  bar, a renamed element), and a change of the mod's own that breaks
+  something for its users (a setting renamed or removed, a different
+  default look).
+- **Patch** (`0.5.0` → `0.5.1`): each Zen update the mod follows, and
+  everything that breaks nothing: fixes, compatibility, new features and
+  settings.
+
 ## Release
 
 ```sh
-npm run release -- 0.2.0
+npm run release -- 0.5.1
 ```
 
 It sets the version in `package.json`, both `theme.json` and
 `components.json`, stamps `updatedAt` (Sine only updates a mod when that date
 grows) and turns the CHANGELOG's **Unreleased** section into the release. Then
-commit, tag `v0.2.0` and push.
+commit, tag `v0.5.1` and push.

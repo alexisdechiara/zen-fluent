@@ -11,7 +11,10 @@
 //     A click opens a link or an image in a new tab and copies a text;
 //     items can be dragged out again; × takes one away.
 // The shelf is a JSON file in the profile (zen-fluent-shelf.json, written
-// through a temporary file), shared by every window.
+// through a temporary file), shared by every window. A private window can
+// read and use it but adds nothing to it, and each kind of window lists
+// its own downloads only: nothing of a private session reaches the disk or
+// a normal window.
 {
   const { ZFFeature } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
@@ -24,6 +27,9 @@
   );
   const { Downloads } = ChromeUtils.importESModule(
     "resource://gre/modules/Downloads.sys.mjs",
+  );
+  const { PrivateBrowsingUtils } = ChromeUtils.importESModule(
+    "resource://gre/modules/PrivateBrowsingUtils.sys.mjs",
   );
 
   const HTML = "http://www.w3.org/1999/xhtml";
@@ -109,6 +115,7 @@
       const win = ctx.window;
       const doc = ctx.document;
       const gBrowser = win.gBrowser;
+      const isPrivate = PrivateBrowsingUtils.isWindowPrivate(win);
       const html = (tag, attributes = {}, text = "") => {
         const el = doc.createElementNS(HTML, tag);
         for (const [name, value] of Object.entries(attributes)) {
@@ -203,9 +210,13 @@
       const renderDownloads = async () => {
         let list = [];
         try {
-          list = await (await Downloads.getList(Downloads.ALL)).getAll();
+          list = await (
+            await Downloads.getList(
+              isPrivate ? Downloads.PRIVATE : Downloads.PUBLIC,
+            )
+          ).getAll();
         } catch {
-          // no downloads list (private window): left empty
+          // no downloads list: left empty
         }
         const rows = list
           .sort((a, b) => b.startTime - a.startTime)
@@ -262,7 +273,10 @@
           showToast(win, "Only web pages can go on the shelf");
         }
       });
-      shelfHeader.append(html("h3", {}, "Shelf"), addPage);
+      shelfHeader.append(html("h3", {}, "Shelf"));
+      if (!isPrivate) {
+        shelfHeader.append(addPage);
+      }
       const items = html("ul", { class: "zf-sh-items" });
       const drop = html(
         "p",
@@ -339,14 +353,19 @@
             return li;
           }),
         );
-        drop.textContent = list.length
-          ? "Drop links, text or images here"
-          : "The shelf is empty. Drop links, text or images here, or add this page.";
+        drop.textContent = isPrivate
+          ? "Nothing is added to the shelf from a private window."
+          : list.length
+            ? "Drop links, text or images here"
+            : "The shelf is empty. Drop links, text or images here, or add this page.";
       };
 
       const accept = (event) => {
-        // not the shelf's own items
-        if (event.dataTransfer.mozSourceNode?.closest?.("#zf-shelf")) {
+        // not the shelf's own items, and nothing from a private window
+        if (
+          isPrivate ||
+          event.dataTransfer.mozSourceNode?.closest?.("#zf-shelf")
+        ) {
           return false;
         }
         event.preventDefault();

@@ -32,5 +32,15 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
     }
+
+    /* Right to left: Firefox mirrors Back, Forward and Reload whole, to turn
+       their icons; the label would read backwards. Only the icon turns. */
+    &:-moz-locale-dir(rtl) {
+      transform: none !important;
+
+      &:is(#context-back, #context-forward, #context-reload) > .menu-icon {
+        scale: -1 1 !important;
+      }
+    }
   }
 }

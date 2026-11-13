@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or help with the install
+    url: https://github.com/alexisdechiara/zen-fluent/discussions/categories/q-a
+    about: Ask in Discussions, Q&A.
+  - name: Show your setup
+    url: https://github.com/alexisdechiara/zen-fluent/discussions/categories/show-and-tell
+    about: Share a screenshot of your Zen Fluent and its settings.
+  - name: Documentation
+    url: https://zen-fluent.vercel.app
+    about: Every setting, the features and the install steps.

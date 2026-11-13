@@ -28,6 +28,11 @@
     /* keeps the slot's margins inside, away from Zen's collapse margin */
     display: flow-root !important;
 
+    /* Zen in French (the window's lang, set from Zen's language) */
+    &:lang(fr)::before {
+      content: "Déposez des onglets ici" !important;
+    }
+
     &::before {
       content: "Drag tabs here" !important;
       display: block !important;

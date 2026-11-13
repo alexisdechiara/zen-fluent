@@ -1,1 +1,7 @@
 node_modules/
+installer/winui/bin/
+installer/winui/obj/
+publish/
+build/
+.impeccable/
+demo/

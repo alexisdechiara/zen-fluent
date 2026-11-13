@@ -12,8 +12,9 @@ what Zen Fluent does about it.
 | [Zen Second Sidebar Enhanced](#zen-second-sidebar-enhanced) | Works, with Zen Fluent's compat rules |
 | [Zen Command Palette](#zen-command-palette)                 | Works, with Zen Fluent's compat rules |
 | [Zen Calmer Context Menu](#zen-calmer-context-menu)         | Works, with Zen Fluent's compat rules |
-| [BetterZenGradientPicker](#betterzengradientpicker)         | Works                                 |
+| [BetterZenGradientPicker](#betterzengradientpicker)         | Works, with Zen Fluent's compat rules |
 | [Zen Easel](#zen-easel)                                     | Works, with Zen Fluent's compat rules |
+| [Vertex Mods](#vertex-mods)                                 | Works, with Zen Fluent's compat rules |
 | [Zen Page Tint](#zen-page-tint)                             | Conflicts: do not use both            |
 | [Blended Addressbar](#blended-addressbar)                   | Conflicts: do not use both            |
 | [Better Find Bar](#better-find-bar)                         | Conflicts: do not use both            |
@@ -32,7 +33,28 @@ in the Marketplace the latest one on GitHub); otherwise **Not tested with
 this version**. Conflicting mods say **Incompatible** whatever their
 version. A check updates `tested` in the same commit.
 They were checked in Zen 1.23.4b against each mod's CSS at the version given
-below, with the elements their scripts create built by hand.
+below, with the elements their scripts create built by hand. The Vertex Mods
+and the mods of **Featured** were checked again on Zen 1.24b with Zen
+Fluent 0.4.3, all installed through Sine together, and every supported mod
+but Zen Easel (read, never run) on Zen 1.24.1b with Zen Fluent 0.5.0.
+
+**Featured**, at the top of the Mods page, lists the mods Zen Fluent
+recommends, in the order of `featured` in the same file.
+
+A new Zen Fluent version (a `vX.Y.Z` tag) opens an issue to check every
+mod again (`.github/workflows/mods-review.yml`), with the mods' current
+versions; with a Claude secret on the repository (`ANTHROPIC_API_KEY` or
+`CLAUDE_CODE_OAUTH_TOKEN`), Claude also reviews each mod's CSS and comments
+on it. The full check runs in Claude Code with `/check-mods`
+(`.claude/commands/check-mods.md`): every mod installed with Sine in a
+headless Zen next to Zen Fluent. The Featured list only names supported
+mods with a tested version (`npm run check`).
+
+A weekly CI job (`.github/workflows/mods.yml`, `npm run check:mods`) reads
+each mod's repository: a version newer than `tested` is flagged with the
+selectors of its CSS that touch an id Zen Fluent styles (what to look at
+again), an archived or missing repository too, and an active Vertex Mods
+repository (not archived, pushed this year) missing from the list.
 
 ## How mods share the page
 
@@ -85,6 +107,9 @@ Files: `core/src/compat/advanced-tab-groups.css`,
 - Its colored Library icons and outlines use Zen Fluent's folder tint (the
   accent), its bookmark folders take the Fluent folder icons, and the row a
   context menu was opened on keeps the hover fill.
+- Its **Bookmarks** tab has a label id no translation file defines; next
+  to Zen Fluent Enhanced's tabs it showed "Quick settings". Zen Fluent
+  Enhanced now provides that label (`enhanced/l10n/`).
 
 Files: `core/src/compat/zen-library-tweaks.css`,
 `core/src/components/library/history.css`,
@@ -107,7 +132,7 @@ File: `core/src/features/fluent-icons/glance-split.css`.
 ## Zen Second Sidebar Enhanced
 
 [sinazadeh/zen-second-sidebar-enhanced](https://github.com/sinazadeh/zen-second-sidebar-enhanced)
-(checked: 1.13.8). Web panels in a second sidebar.
+(checked: 1.13.12). Web panels in a second sidebar.
 
 - The web panel takes the page card's radius and shadow (Edge: 8 px and the
   hairline), its toolbar the WinUI layer of Firefox's sidebar, its text that
@@ -117,10 +142,52 @@ File: `core/src/features/fluent-icons/glance-split.css`.
 - What floats over the page (an unpinned panel, the auto-hide launcher) is
   solid Acrylic, as everything Zen Fluent lays over the page: Firefox does not
   blur the page behind a translucent surface. A pinned panel stays transparent
-  on the window's material, as Zen's sidebar does.
+  on the window's material, as Zen's sidebar does. Since 1.13.12 the
+  auto-hide launcher is translucent with Zen's **Acrylic sidebar** option:
+  it stays solid too.
 
 Files: `core/src/compat/second-sidebar.css`,
 `core/src/components/firefox-sidebar/panel.css`.
+
+## Vertex Mods
+
+The [Vertex Mods](https://github.com/orgs/Vertex-Mods/repositories) share a
+small design system: every panel, popup and dialog is drawn from
+`--zenux-*` tokens. Zen Fluent gives those tokens its own values (Segoe UI
+Variable, WinUI fills and strokes, the accent, the control / card / overlay
+radii, the flyout and dialog shadows); what floats over the page takes the
+solid surface, since Firefox does not blur web content. A theme picked in a
+mod's own settings (Search Engine Select's light or AMOLED) still wins.
+File: `core/src/compat/zenux.css`. Checked (Zen 1.24.1b, Zen Fluent 0.5.0):
+
+- **Advanced Tab Groups** 3.12.1, **Zen Command Palette** 2.0.0: see their
+  own sections.
+- **Zen Tidy Tabs** 2.0.1: its sort button and wave line sit in the tab
+  list as they are.
+- **Tidy Downloads** 4.2.3: its cards and tooltip, by the Library button.
+- **Reopen Closed Tabs Menu** 1.1.9 and **Search Engine Select** 1.1.33:
+  their panels take the tokens above.
+- **Browse Bot** 3.0.0: with its AI find bar on, Ctrl+F is a card floating
+  in a corner of the page; Zen Fluent's find bar strip gave it a
+  see-through Layer fill and a top divider. The card takes the solid
+  surface, an overlay's corners, a stroke and the flyout shadow. File:
+  `core/src/compat/browse-bot.css`.
+- **Compact Settings** 1.1.4: it folds the settings' navigation into an
+  icon strip that opens on hover, and its rules win over Zen Fluent's
+  320px pane. Zen Fluent kept the search box under the pane's title, where
+  it floated over the page, and showed the title's first letter in the
+  strip: while the mod is on, the search box goes to the top of the page,
+  the title stays hidden as the mod draws it, and Zen Fluent's sections
+  stay folded until the strip opens. Files:
+  `core/src/compat/compact-settings.css`,
+  `enhanced/settings/preferences-nav.css`.
+- **Floating Sidebar** 1.1.3: unpinned, the Firefox sidebar floats over the
+  page and showed it through Zen Fluent's sidebar fill; it becomes a card
+  with the solid surface and the dialog shadow. Pinned, it keeps Zen
+  Fluent's docked look. File: `core/src/compat/floating-sidebar.css`.
+- **Zen Auto Wallpaper** 0.2.2: its button sits in the gradient picker.
+- **Search Keyboard Shortcuts** 1.1.6: its search and filters on Zen's
+  keyboard shortcuts page.
 
 ## Zen Command Palette
 
@@ -138,7 +205,7 @@ File: `core/src/compat/command-palette.css`.
 ## Zen Calmer Context Menu
 
 [sinazadeh/zen-calmer-context-menu](https://github.com/sinazadeh/zen-calmer-context-menu)
-(checked: 5.4.3). Hides, folds and reorders context menu entries.
+(checked: 5.5.3). Hides, folds and reorders context menu entries.
 
 - **Apply the Zen space accent color** tints menus and panels in place of the
   Acrylic: it is a choice you make in its settings, and Zen Fluent lets it.
@@ -152,14 +219,30 @@ File: `core/src/compat/command-palette.css`.
 
 File: `core/src/compat/calmer-context-menu.css`.
 
+Its settings page (a page in a tab) takes Zen Fluent's look: the Settings
+background, WinUI cards, strokes and corners, Segoe UI Variable, the
+accent. Its **Menu color** choice (the space's gradient or color, which
+turned menus blue with a blue space) is hidden there: Zen Fluent's **Menu
+tint** decides, neutral by default. Zen Fluent Enhanced's **Fluent defaults
+for mods** gives the options never changed the values closest to Windows
+11: icons on every option in the Fluent set, and the quick actions row.
+Files: `core/src/compat/calmer-settings.css`,
+`core/src/features/menu-tint.css`, `enhanced/scripts/mod-defaults.uc.js`.
+
 ## BetterZenGradientPicker
 
-[JustAdumbPrsn/BetterZenGradientPicker](https://github.com/JustAdumbPrsn/BetterZenGradientPicker).
-Since Zen Fluent 0.4 a space's gradient tints the window (**Space color**, on
-by default), so the gradient it writes shows over the backdrop, as in Zen;
-its colors reach the accent through **Accent color** › **Zen workspace
-color**. Checked headless on Zen 1.24b: the gradient reaches the window's
-background layer. Its first run opens a welcome screen over the window.
+[JustAdumbPrsn/BetterZenGradientPicker](https://github.com/JustAdumbPrsn/BetterZenGradientPicker)
+(checked: 2.1 for Zen 1.23b, on Zen 1.24b). It redraws Zen's gradient
+picker. Sine loads its sheet before Zen Fluent's (`BetterZenGradientPicker`
+sorts before `Zen-Fluent`), so Zen Fluent's picker rules won over half of
+its design and the two mixed. While its picker is there (its lightness
+wave, `#zen-picker-lightness-wrapper`, marks it), Zen Fluent's look of the
+picker steps aside; the panel keeps Zen Fluent's surface and Zen's 10px
+padding. Since Zen Fluent 0.4 a space's gradient tints the window (**Space
+color**, on by default), so the gradient it writes shows over the
+backdrop, as in Zen; its colors reach the accent through **Accent color** ›
+**Zen workspace color**. Its first run opens a welcome screen over the
+window. File: `core/src/components/panels/gradient-picker.css`.
 
 ## Zen Easel
 
@@ -224,7 +307,7 @@ Zen Fluent off.
 | ------------------------------------------------------------------------ | ----------------- |
 | [Nebula](https://github.com/JustADumbPrsn/Zen-Nebula)                    | 3.3.3             |
 | [Arc 2.0](https://github.com/YashjitPal/Arc-2.0)                         | 3.4               |
-| [Zia](https://github.com/z1n-k/zia)                                      | 2.114.1           |
+| [Zia](https://github.com/z1n-k/zia)                                      | 2.122.2           |
 | [Neo Zen](https://github.com/JustVibingWhileCoding/Neo-Zen)              | 1.21.3-neo.1      |
 | [Livs Theme](https://github.com/designlivs/livstheme)                    | 1.0.0             |
 | [macaron](https://github.com/SehajveerSingh2005/macaron)                 | 1.5.6             |

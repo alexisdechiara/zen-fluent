@@ -78,3 +78,16 @@ export function openSettings(win, section = "") {
     triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal(),
   });
 }
+
+// The section a settings page showed when Sine ran the scripts again (an
+// install, a mod turned on or off): the next run of settings-page.uc.js
+// shows it again instead of leaving Zen's settings on another pane
+const returns = new WeakMap();
+export function rememberSection(doc, section) {
+  returns.set(doc, section);
+}
+export function takeSection(doc) {
+  const section = returns.get(doc) ?? null;
+  returns.delete(doc);
+  return section;
+}

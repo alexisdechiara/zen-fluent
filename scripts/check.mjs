@@ -296,6 +296,31 @@ if (quick) {
   }
 }
 
+// ---- Mods: the Featured list (the Mods page) only names supported mods
+const modsList = fs.existsSync(
+  path.join(root, "enhanced/settings/compatible-mods.json"),
+)
+  ? json("enhanced/settings/compatible-mods.json")
+  : null;
+if (modsList) {
+  const byId = new Map(modsList.mods.map((m) => [m.id, m]));
+  for (const id of modsList.featured ?? []) {
+    const mod = byId.get(id);
+    if (!mod)
+      fail(
+        `enhanced/settings/compatible-mods.json: featured ${id} is not in mods`,
+      );
+    else if (mod.status !== "supported")
+      fail(
+        `enhanced/settings/compatible-mods.json: featured ${id} is ${mod.status}, not supported`,
+      );
+    else if (!mod.tested?.version)
+      fail(
+        `enhanced/settings/compatible-mods.json: featured ${id} has no tested version`,
+      );
+  }
+}
+
 // ---- Fluent icons: icons.json and the SVG files match, each with its notice
 const iconDir = "enhanced/icons/fluent";
 if (fs.existsSync(path.join(root, iconDir))) {

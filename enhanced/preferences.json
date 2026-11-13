@@ -12,6 +12,36 @@
     "defaultValue": true
   },
   {
+    "property": "zen-fluent.enhanced.settings-page.home",
+    "label": "Open Zen's settings on Zen Fluent ~the settings button opens the Overview~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.settings-search",
+    "label": "Settings search as Ctrl+F ~only the categories with matches, Zen Fluent's settings among the results, from one match to the next~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.welcome",
+    "label": "Welcome tour ~shown once at the first start; Show it again from the settings page (About)~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.update-card",
+    "label": "Update card ~after Zen Fluent updates, Zen's own sidebar card says so once, with What's new and Settings~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.mod-defaults",
+    "label": "Fluent defaults for mods ~Zen Calmer Context Menu: Fluent icons on every option and the quick actions row, for settings never changed~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
     "property": "zen-fluent.enhanced.favicon-color",
     "label": "Icon colors ~reads the exact color of each icon, for the Essentials' Icon color~",
     "type": "checkbox",
@@ -42,10 +72,25 @@
     "defaultValue": "light",
     "placeholder": false,
     "options": [
-      { "label": "Light", "value": "light" },
-      { "label": "Medium", "value": "medium" },
-      { "label": "Strong", "value": "strong" }
+      {
+        "label": "Light",
+        "value": "light"
+      },
+      {
+        "label": "Medium",
+        "value": "medium"
+      },
+      {
+        "label": "Strong",
+        "value": "strong"
+      }
     ]
+  },
+  {
+    "property": "zen-fluent.enhanced.space-settings",
+    "label": "Settings per space ~a space can have its own mode, material, accent, site color… (settings page, Spaces)~",
+    "type": "checkbox",
+    "defaultValue": true
   },
   {
     "property": "zen-fluent.enhanced.extensions-below-essentials",
@@ -78,14 +123,38 @@
     "defaultValue": "12",
     "placeholder": false,
     "options": [
-      { "label": "1 hour", "value": "1" },
-      { "label": "3 hours", "value": "3" },
-      { "label": "6 hours", "value": "6" },
-      { "label": "12 hours", "value": "12" },
-      { "label": "1 day", "value": "24" },
-      { "label": "2 days", "value": "48" },
-      { "label": "1 week", "value": "168" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "1 hour",
+        "value": "1"
+      },
+      {
+        "label": "3 hours",
+        "value": "3"
+      },
+      {
+        "label": "6 hours",
+        "value": "6"
+      },
+      {
+        "label": "12 hours",
+        "value": "12"
+      },
+      {
+        "label": "1 day",
+        "value": "24"
+      },
+      {
+        "label": "2 days",
+        "value": "48"
+      },
+      {
+        "label": "1 week",
+        "value": "168"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -95,7 +164,12 @@
     "defaultValue": "36",
     "placeholder": "36",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.enhanced.tab-archive.after",
@@ -111,12 +185,30 @@
     "defaultValue": "90",
     "placeholder": false,
     "options": [
-      { "label": "7 days", "value": "7" },
-      { "label": "30 days", "value": "30" },
-      { "label": "90 days", "value": "90" },
-      { "label": "1 year", "value": "365" },
-      { "label": "Forever", "value": "forever" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "7 days",
+        "value": "7"
+      },
+      {
+        "label": "30 days",
+        "value": "30"
+      },
+      {
+        "label": "90 days",
+        "value": "90"
+      },
+      {
+        "label": "1 year",
+        "value": "365"
+      },
+      {
+        "label": "Forever",
+        "value": "forever"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -126,7 +218,12 @@
     "defaultValue": "60",
     "placeholder": "60",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.enhanced.tab-archive.keep",
@@ -190,11 +287,26 @@
     "defaultValue": "500",
     "placeholder": false,
     "options": [
-      { "label": "Short (0.3 s)", "value": "300" },
-      { "label": "Medium (0.5 s)", "value": "500" },
-      { "label": "Long (0.8 s)", "value": "800" },
-      { "label": "Longer (1.2 s)", "value": "1200" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Short (0.3 s)",
+        "value": "300"
+      },
+      {
+        "label": "Medium (0.5 s)",
+        "value": "500"
+      },
+      {
+        "label": "Long (0.8 s)",
+        "value": "800"
+      },
+      {
+        "label": "Longer (1.2 s)",
+        "value": "1200"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -204,7 +316,12 @@
     "defaultValue": "400",
     "placeholder": "400",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.enhanced.hover-cards.delay",
@@ -274,14 +391,38 @@
     "defaultValue": "30",
     "placeholder": false,
     "options": [
-      { "label": "Never", "value": "never" },
-      { "label": "5 minutes", "value": "5" },
-      { "label": "15 minutes", "value": "15" },
-      { "label": "30 minutes", "value": "30" },
-      { "label": "1 hour", "value": "60" },
-      { "label": "2 hours", "value": "120" },
-      { "label": "4 hours", "value": "240" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "Never",
+        "value": "never"
+      },
+      {
+        "label": "5 minutes",
+        "value": "5"
+      },
+      {
+        "label": "15 minutes",
+        "value": "15"
+      },
+      {
+        "label": "30 minutes",
+        "value": "30"
+      },
+      {
+        "label": "1 hour",
+        "value": "60"
+      },
+      {
+        "label": "2 hours",
+        "value": "120"
+      },
+      {
+        "label": "4 hours",
+        "value": "240"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -291,7 +432,12 @@
     "defaultValue": "45",
     "placeholder": "45",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.enhanced.performance.sleep-after",
@@ -331,12 +477,30 @@
     "defaultValue": "25",
     "placeholder": false,
     "options": [
-      { "label": "15 minutes", "value": "15" },
-      { "label": "25 minutes", "value": "25" },
-      { "label": "45 minutes", "value": "45" },
-      { "label": "1 hour", "value": "60" },
-      { "label": "1 hour 30", "value": "90" },
-      { "label": "Custom (expert mode)", "value": "custom" }
+      {
+        "label": "15 minutes",
+        "value": "15"
+      },
+      {
+        "label": "25 minutes",
+        "value": "25"
+      },
+      {
+        "label": "45 minutes",
+        "value": "45"
+      },
+      {
+        "label": "1 hour",
+        "value": "60"
+      },
+      {
+        "label": "1 hour 30",
+        "value": "90"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
     ]
   },
   {
@@ -346,7 +510,12 @@
     "defaultValue": "50",
     "placeholder": "50",
     "conditions": [
-      { "if": { "property": "zen-fluent.expert", "value": true } },
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
       {
         "if": {
           "property": "zen-fluent.enhanced.focus-session.minutes",
@@ -394,6 +563,171 @@
   {
     "property": "zen-fluent.enhanced.quick-window",
     "label": "Quick window ~Ctrl+Alt+Shift+O or a link's menu: a small window outside your spaces~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.downloads-card",
+    "label": "Downloads card ~a card in the sidebar follows each download (progress, pause, open) and flies into the Library when it is done~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card",
+    "label": "Efficiency card ~a card in the sidebar offers to put tabs to sleep when the battery runs low or Zen uses a lot of memory~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.battery",
+    "label": "Show the efficiency card on battery below",
+    "type": "dropdown",
+    "defaultValue": "20",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "10%",
+        "value": "10"
+      },
+      {
+        "label": "20%",
+        "value": "20"
+      },
+      {
+        "label": "30%",
+        "value": "30"
+      },
+      {
+        "label": "50%",
+        "value": "50"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.memory",
+    "label": "Show the efficiency card when Zen uses more than",
+    "type": "dropdown",
+    "defaultValue": "auto",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Automatic (a quarter of the computer's memory)",
+        "value": "auto"
+      },
+      {
+        "label": "2 GB",
+        "value": "2"
+      },
+      {
+        "label": "4 GB",
+        "value": "4"
+      },
+      {
+        "label": "8 GB",
+        "value": "8"
+      },
+      {
+        "label": "16 GB",
+        "value": "16"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      },
+      {
+        "label": "Custom (expert mode)",
+        "value": "custom"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.efficiency-card.memory-custom",
+    "label": "Custom memory threshold ~in GB, for example 6~",
+    "type": "string",
+    "defaultValue": "6",
+    "placeholder": "6",
+    "conditions": [
+      {
+        "if": {
+          "property": "zen-fluent.expert",
+          "value": true
+        }
+      },
+      {
+        "if": {
+          "property": "zen-fluent.enhanced.efficiency-card.memory",
+          "value": "custom"
+        }
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card",
+    "label": "VPN card ~a card in the sidebar says whether the computer goes through a VPN, and which adapter~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card.normal",
+    "label": "Show the VPN card in normal windows",
+    "type": "dropdown",
+    "defaultValue": "connected",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Only while a VPN is connected",
+        "value": "connected"
+      },
+      {
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.vpn-card.private",
+    "label": "Show the VPN card in private windows",
+    "type": "dropdown",
+    "defaultValue": "always",
+    "placeholder": false,
+    "options": [
+      {
+        "label": "Only while a VPN is connected",
+        "value": "connected"
+      },
+      {
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "property": "zen-fluent.enhanced.private-session",
+    "label": "Private session card ~in private windows, a card in the sidebar says how long the session has lasted and how many trackers were blocked, and ends it~",
+    "type": "checkbox",
+    "defaultValue": true
+  },
+  {
+    "property": "zen-fluent.enhanced.private-session.clipboard",
+    "label": "End session also empties the clipboard ~whatever it holds, copied from any app~",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
+    "property": "zen-fluent.enhanced.private-veil",
+    "label": "Veil over private pages in the background ~while a private window is not the active one, its pages are covered~",
     "type": "checkbox",
     "defaultValue": false
   }

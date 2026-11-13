@@ -11,13 +11,22 @@
   #tabbrowser-tabpanels:not([zen-split-view="true"])
     .browserSidebarContainer:not(.zen-glance-overlay) {
     box-shadow: none !important;
-    border-radius: var(--zf-page-radius-set, var(--zf-radius-overlay)) 0 0 0 !important;
+    /* Logical corners: right to left, the sidebar is on the other side */
+    border-radius: 0 !important;
+    border-start-start-radius: var(
+      --zf-page-radius-set,
+      var(--zf-radius-overlay)
+    ) !important;
     border-top: 1px solid var(--zf-stroke-control);
     border-inline-start: 1px solid var(--zf-stroke-control);
 
     /* The stroke follows the sidebar, not the window edge */
     :root[zen-right-side="true"] & {
-      border-radius: 0 var(--zf-page-radius-set, var(--zf-radius-overlay)) 0 0 !important;
+      border-start-start-radius: 0 !important;
+      border-start-end-radius: var(
+        --zf-page-radius-set,
+        var(--zf-radius-overlay)
+      ) !important;
       border-inline-start: 0;
       border-inline-end: 1px solid var(--zf-stroke-control);
     }

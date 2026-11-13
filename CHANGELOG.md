@@ -1,10 +1,220 @@
 # Changelog
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow
-[Semantic Versioning](https://semver.org/); both mods share one version and one
-`vX.Y.Z` tag.
+[Semantic Versioning](https://semver.org/), paced by Zen: 1.0 when Zen leaves
+beta, a minor version when a Zen change (or one of the mod's) breaks something,
+a patch for each Zen update and everything that breaks nothing
+([versions](docs/contributing.md#versions)). Both mods share one version and
+one `vX.Y.Z` tag.
 
 ## [Unreleased]
+
+### Added
+
+- A **Code signing policy** section in the README, as SignPath Foundation
+  asks before signing the installer
+  ([#15](https://github.com/alexisdechiara/zen-fluent/issues/15)).
+- Zen Fluent Enhanced, **Downloads card**
+  (`zen-fluent.enhanced.downloads-card`, off): a card in the sidebar
+  follows each download (icon, name, WinUI progress bar, time left and
+  speed, Pause / Resume, Cancel; Done with Open and Show in folder), up to
+  three at once with a summary beyond. A few seconds after the end the card
+  shrinks into a dot that flies into the Library button, which pulses (a
+  fade with reduced motion). Each window lists only its own kind of
+  downloads, private or not.
+- Zen Fluent Enhanced, **Private session card**
+  (`zen-fluent.enhanced.private-session`, on, private windows only): how
+  long the private session has lasted and how many trackers were blocked,
+  and **End session** (click twice), which closes the other private windows
+  and every tab, clears the private session's data and leaves one fresh
+  private tab (Firefox's own steps, off in Zen). **End session also empties
+  the clipboard** (`zen-fluent.enhanced.private-session.clipboard`, off).
+- Zen Fluent Enhanced, **Veil over private pages in the background**
+  (`zen-fluent.enhanced.private-veil`, off): an opaque veil with a lock
+  covers the pages of a private window while it is not the active window.
+- Private windows show Firefox's "Private browsing" label again, as a
+  Fluent pill at the top of the sidebar (Window zone).
+- Zen Fluent Enhanced, **Efficiency card**
+  (`zen-fluent.enhanced.efficiency-card`, off): as Edge's efficiency mode, a
+  card in the sidebar shows only when the computer runs on battery below a
+  threshold (20 %) or Zen uses a lot of memory (automatic: a quarter of the
+  computer's memory, 2 to 8 GB), with a button that puts to sleep the tabs
+  Sleeping tabs would. Closing it keeps it away until the condition ends
+  and comes back.
+- Zen Fluent Enhanced, **Update card** (`zen-fluent.enhanced.update-card`,
+  on): the first start after Zen Fluent updates, Zen's own sidebar card
+  says "Zen Fluent updated to X.Y.Z", with What's new (that version's
+  release notes) and Settings; once per update, never in a private window,
+  after Zen's own update card.
+- Zen's sidebar notifications (the card Zen shows after an update) are
+  WinUI cards like the media card: a title at the start, a subtle close
+  button, list rows with the accent on What's new, and a thin accent
+  ProgressBar for the countdown (Notifications zone).
+- The sidebar cards of Zen Fluent Enhanced share one column above the
+  bottom row and one look; the VPN card shows the time it connected at the
+  end of its line.
+- **URL bar shape** › **Flat (File Explorer)** (`zen-fluent.url-style` =
+  `flat`): the text box without its stroke and its stronger bottom line,
+  as the search box of Windows 11's File Explorer; the accent line still
+  shows on focus ([URL bar](docs/settings/url-bar.md)).
+- **Tile border** (Essentials, `zen-fluent.essentials.border`): the line
+  around each Essential: the fill's own (default), none, a subtle or strong
+  line, the icon's color, or a ring with a gap, neutral or in the icon's
+  color, with its **Border width**: thin, medium, thick, or any width in
+  expert mode, and a **Selected tile border** of its own, which wins over
+  the selected style's ([Essentials](docs/settings/essentials.md)).
+- Zen Fluent Enhanced, **Settings search as Ctrl+F**
+  (`zen-fluent.enhanced.settings-search`, on): while Zen's "Find in
+  Settings" searches, the navigation keeps only the categories with
+  matches, each with its count (a click goes to its first match); the
+  matches are counted ("3 of 12") with Previous and Next (Enter,
+  Shift+Enter, F3), the current one in the accent.
+- Zen Fluent Enhanced, **VPN card** (`zen-fluent.enhanced.vpn-card`,
+  off): a card in the sidebar, below the media card, says whether the
+  computer goes through a VPN and through which adapter (Windows), from
+  Firefox's own network watch and the registry, without asking any web
+  service. **Show the VPN card in normal windows** (only while connected,
+  always, never; default: while connected) and **in private windows**
+  (default: always, so "VPN not connected" shows too)
+  ([Zen Fluent Enhanced](docs/enhanced.md)).
+
+- Docs: the README in French (`README.fr.md`) and the documentation in
+  French under `docs/fr/` (installation, Zen Fluent, each settings group,
+  Zen Fluent Enhanced, compatibility, contributing), linked from the README
+  ([#13](https://github.com/alexisdechiara/zen-fluent/issues/13)).
+
+### Changed
+
+- Compatible mods checked again with Zen Fluent 0.5.0 on Zen 1.24.1b
+  ([#5](https://github.com/alexisdechiara/zen-fluent/issues/5)): every
+  supported mod installed through Sine together (Zen Easel is read, not
+  run), with Zen Second Sidebar Enhanced 1.13.12 and Zen Calmer Context Menu 5.5.3; Zia 2.122.2 is still
+  a whole theme.
+- Zen Fluent Enhanced, **Welcome tour**: it now comes after Zen's own
+  welcome (the window shows in Zen's look, then Zen Fluent's sweeps in),
+  over the dimmed window instead of Zen's video, so each choice shows
+  behind it; it moves with Zen's motion library, as smoothly as Zen's
+  welcome; it shows the settings people change most (window, tabs and
+  sidebar, URL bar and menus, motion) as rows of Windows' Settings, each
+  with a WinUI ComboBox (its list opens with the selected value over the
+  box) or a switch, and ten features instead of a page saying there is
+  more. The themes and the modes (Light, Dark, System) are drawn as small
+  windows, the accent page previews its controls, and the card is as tall
+  as each page needs.
+- Windows installer: a fixed width and a height that fits each page
+  (nothing to resize), tiles drawn with their own template (the accent
+  ring covers the card's stroke, corners included), the log shown as it is
+  written instead of under a Details expander, a loading screen while it looks for Zen, an **Install Zen first** page
+  with the download pages of Zen Browser and Zen Twilight when Zen is
+  missing, and an **Update** button when a Zen is older than 1.23.
+- Zen's settings search shows Zen Fluent's matching settings among its
+  results, as real settings with the words highlighted, under Zen
+  Fluent's name, instead of a card per setting that opened its page.
+
+### Fixed
+
+- Zen Fluent Enhanced, **Welcome tour**: a click on a button no longer
+  needs a second one. Zen's welcome screen and the toolbars under the tour
+  are window drag regions, and Windows took the first click to move the
+  window; the tour's card and start screen are now outside them.
+- Windows installer: the right tile's border (Zen Fluent Enhanced, Zen
+  Twilight) is no longer cut off.
+- **Density: Compact**: the text box and transparent URL bars are now as
+  compact as the pill (a 28 px field with 24 px buttons, centred in Zen's
+  box), and so is the place the bar leaves while it floats; in the sidebar
+  that place now also follows the pill's height
+  ([#12](https://github.com/alexisdechiara/zen-fluent/issues/12)).
+- Zen Second Sidebar Enhanced 1.13.12: its auto-hide launcher, translucent
+  over the page with Zen's Acrylic sidebar option, stays solid like
+  everything Zen Fluent lays over the page
+  ([#17](https://github.com/alexisdechiara/zen-fluent/issues/17)).
+- Zen Fluent Enhanced with ZenLibraryTweaks: its Bookmarks tab of the
+  Library no longer reads "Quick settings".
+- Right-to-left interfaces
+  ([#10](https://github.com/alexisdechiara/zen-fluent/issues/10)): with
+  WinUI corners the page's rounded corner is on the sidebar's side again
+  (it stayed at the top left, away from the sidebar), and the line under
+  the pinned tabs no longer has a 4 px break before **Clear**. In the app
+  menu, the arrow of a row that opens a subview and the subview's Back
+  arrow point the right way (Zen's icons drew them as in left-to-right).
+  With **Back / Forward in the context menu** on List or Command bar, the
+  labels are no longer mirrored with their icons.
+- Zen Fluent Enhanced, **Widgets and shelf** in a private window: **Add
+  this page** and dropped items wrote to the shelf's file on disk, and the
+  Downloads widget mixed private and normal downloads in every window. A
+  private window now reads the shelf without adding to it, and each kind
+  of window lists its own downloads.
+- Zen Fluent Enhanced, private windows: **Site color** tinted the window
+  and gave Zen's black back on every page change. **Site color**,
+  **Adaptive accent** and **Window glow** no longer run in a private
+  window, which stays black.
+- URL bar: in the selected suggestion, the part you typed (bold in the
+  title and the address) is no longer white on the light fill. Zen paints
+  everything in that row white for its accent fill.
+
+## [0.5.0] - 2026-11-08
+
+### Added
+
+- Zen Fluent Enhanced, **Settings per space**: a space can have its own
+  mode, style, material and tint, space color, accent, density, floating URL
+  bar color, and Enhanced's site color, adaptive accent and window glow. Set
+  them on the settings page's new **Spaces** page (or **Space settings…**
+  in a space's context menu), or on each settings page with **Settings
+  for** in its header
+  ([Enhanced](docs/enhanced.md#features)).
+
+- Zen Fluent Enhanced in **French** when Zen is: the settings page, Zen's
+  settings entries, menus, toasts, Library boards and Command Palette
+  actions (`enhanced/l10n/fr/strings.json`). Sine's own dialog keeps the
+  English labels. The empty folder hint of Zen Fluent follows too.
+- **Open Zen's settings on Zen Fluent** (on by default): the settings
+  button opens Zen Fluent's Overview.
+
+- Compatibility with the active Vertex Mods (Zen Tidy Tabs, Tidy
+  Downloads, Reopen Closed Tabs Menu, Browse Bot, Zen Auto Wallpaper,
+  Search Keyboard Shortcuts, Search Engine Select, Compact Settings,
+  Floating Sidebar): their shared `--zenux-*` tokens take Zen Fluent's, and
+  Browse Bot's floating find bar, Compact Settings' icon strip and Floating
+  Sidebar's unpinned sidebar get compat rules
+  ([compatibility](docs/compatibility.md#vertex-mods)).
+- Zen Fluent Enhanced, **Mods**: a **Featured** section (Zen Fluent's
+  picks), **Details** opens the mod's card in a dialog (what it does, its
+  compatibility, version, links) instead of the documentation, and
+  **Installed** is a greyed button of the Install button's size.
+- A weekly CI job checks the listed mods for new versions to check again
+  and the Vertex Mods for repositories missing from the list
+  (`npm run check:mods`), Featured mods first. A new version tag opens an
+  issue to check every mod again (and Claude reviews their CSS when a
+  Claude secret is set); `/check-mods` runs the full check in Claude Code.
+
+- **Windows installer** (`ZenFluentSetup.exe`, a WinUI 3 application
+  built from `installer/winui` and attached to each release, with
+  `installer/ZenFluentSetup.ps1` for scripts): installs
+  Sine if it is missing, Zen Fluent and Zen Fluent Enhanced in the profile
+  picked from the chosen edition (Zen Browser or Zen Twilight), the way Sine itself installs mods, with consent for
+  `sine.allow-unsafe-js`; **Uninstall…** takes Zen Fluent out again, with
+  its settings and Sine if asked ([installer](installer/README.md)). A wizard: the Zen version and profile, then what to install, the
+  progress and the result (Open Zen).
+
+- Zen Fluent Enhanced, **Welcome tour**: at the first start, a tour over
+  Zen's welcome video to pick a theme, the mode and the accent, turn on a
+  few features and find the settings page; **Show** in the settings page's
+  About section plays it again. It moves like Windows 11: the window sweeps
+  from Zen's look to Zen Fluent's before it opens, a theme or a mode
+  crossfades the window, an accent spreads from its swatch, each feature
+  has a small looping drawing, and at the end the card flies to the button
+  that opens the settings again (nothing moves with reduced motion).
+
+- **Menu tint** (Window and menus): menus and panels stay WinUI's neutral
+  Acrylic (default), or take a light tint of the accent or of the space's
+  color.
+
+- Zen Calmer Context Menu in Fluent: its settings page takes Zen Fluent's
+  look, its Menu color choice gives way to the Menu tint, and Zen Fluent
+  Enhanced's **Fluent defaults for mods** sets the options never changed
+  closest to Windows 11 (Fluent icons on every option, the quick actions
+  row).
 
 ### Changed
 
@@ -25,6 +235,32 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 
 ### Fixed
 
+- With Zen Calmer Context Menu's "Apply the Zen space accent color", menus
+  were 40 % of the space color (blue with a blue space): they follow Zen
+  Fluent's **Menu tint**, neutral by default.
+
+- BetterZenGradientPicker: Zen Fluent's look of the gradient picker won
+  over half of the mod's redesign; it steps aside while the mod's picker is
+  there.
+- Themes: the previews of the Taskbar and Compact themes now draw their
+  Subtle fill (nothing filled at rest).
+
+- Installing, turning on or off a mod from the Mods page left Zen's
+  settings on another pane: the page comes back on its section once Sine
+  has run the scripts again.
+
+- Text on the accent (selected text, the autofilled part of the floating
+  URL bar, accent buttons) picks black or white by the accent's lightness:
+  a light adaptive or custom accent gave white text on a light color.
+- The media card in the sidebar is opaque: the tab titles under it showed
+  through, hovered or not.
+- Windows: clicking the window's very top-right corner (the cursor thrown
+  there) only lit Close up: that strip was still part of the window's drag
+  region.
+- Zen Fluent Enhanced, **Fluent controls on websites**: only fields and
+  buttons without a class or a style attribute change. Styled ones, such as
+  Google's search box, got the accent line and borders on the sides they
+  left alone.
 - Mods: the button that opens a mod's page (and the links of the settings
   page) did nothing: Firefox refuses the system principal for a web link.
 - **Window glow** flashed the whole window on tab switches: Zen rewrites

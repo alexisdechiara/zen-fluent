@@ -10,7 +10,8 @@
       "source": {
         "type": "github-release",
         "repo": "CosmoCreeper/Sine",
-        "tested": "2.3.4.1c"
+        "tested": "2.3.4.1c",
+        "tag": "v2.3.4.1c"
       },
       "conflicts": ["fx-autoconfig"],
       "notes": "Installs its own bootloader (a fork of fx-autoconfig 0.10.7): config.js and defaults/pref/config-prefs.js in the Zen folder, chrome/utils and chrome/JS in the profile. Clear the profile's startupCache after installing."
@@ -21,7 +22,10 @@
       "kind": "loader",
       "install": false,
       "license": "MPL-2.0",
-      "source": { "type": "github", "repo": "MrOtherGuy/fx-autoconfig" },
+      "source": {
+        "type": "github",
+        "repo": "MrOtherGuy/fx-autoconfig"
+      },
       "conflicts": ["sine"],
       "notes": "Not used: it writes the same config.js and chrome/utils files as Sine's bootloader."
     },
@@ -38,7 +42,10 @@
         "tested": "2.0.6.0"
       },
       "configure": {
-        "rule": { "process": "zen", "backdrop": "zen-fluent.material" },
+        "rule": {
+          "process": "zen",
+          "backdrop": "zen-fluent.material"
+        },
         "notes": "Backdrop type follows zen-fluent.material: mica = Mica, mica-alt = Tabbed, acrylic = Acrylic. Title bar color: Default."
       }
     },
@@ -47,7 +54,7 @@
       "name": "Zen Fluent",
       "kind": "mod",
       "required": true,
-      "version": "0.4.3",
+      "version": "0.5.0",
       "license": "MIT",
       "js": false,
       "source": {
@@ -56,14 +63,16 @@
         "homepage": "https://github.com/alexisdechiara/zen-fluent"
       },
       "requires": ["sine"],
-      "prefs": { "svg.context-properties.content.enabled": true }
+      "prefs": {
+        "svg.context-properties.content.enabled": true
+      }
     },
     {
       "id": "zen-fluent-enhanced",
       "name": "Zen Fluent Enhanced",
       "kind": "mod",
       "optional": true,
-      "version": "0.4.3",
+      "version": "0.5.0",
       "license": "MIT",
       "js": true,
       "source": {
@@ -72,7 +81,9 @@
         "homepage": "https://github.com/alexisdechiara/zen-fluent/tree/main/enhanced"
       },
       "requires": ["sine", "zen-fluent"],
-      "prefs": { "sine.allow-unsafe-js": true },
+      "prefs": {
+        "sine.allow-unsafe-js": true
+      },
       "notes": "sine.allow-unsafe-js is needed while the mod is not in the Sine store: ask the user before setting it."
     },
     {

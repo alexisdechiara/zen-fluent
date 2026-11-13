@@ -1,0 +1,39 @@
+/* Zen Fluent: compatibility with Compact Settings (Vertex-Mods/Compact-Settings): its icon strip replaces Zen Fluent's navigation pane.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Compact Settings folds the settings' navigation into a 54px strip that
+   opens on hover (its rules are more specific than ours and win). Zen
+   Fluent's Windows Settings layout (content/preferences/layout.css) kept
+   placing the search box under a 320px pane's title: it floated over the
+   page and the title was cut. While Compact Settings is on, the search box
+   goes back to the top of the content, sticky, as in Firefox, and the
+   pane's title room goes. Same condition as the mod's own sheet. */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:settings") {
+  @media (-moz-pref("compact-settings.enabled")) and (width > 950px) {
+    #search-container {
+      position: sticky !important;
+      top: 0 !important;
+      inset-inline-start: auto !important;
+      width: auto !important;
+      margin: 0 0 16px !important;
+      padding: 12px 0 !important;
+      background: var(--zf-settings-bg) !important;
+    }
+
+    .page-nav-heading-wrapper {
+      margin: 16px 0 8px !important;
+    }
+
+    /* Icons only, as the mod draws it (its --font-size-xlarge: 0): Zen
+       Fluent's 20px title showed its first letter in the strip. The title
+       sits in the nav's shadow tree, out of reach of a :hover on it */
+    .page-nav-heading {
+      font-size: 0 !important;
+    }
+
+    .main-content {
+      padding-inline-start: 24px !important;
+    }
+  }
+}

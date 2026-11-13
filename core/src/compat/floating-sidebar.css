@@ -1,0 +1,19 @@
+/* Zen Fluent: compatibility with Floating Sidebar (Vertex-Mods/Floating-Sidebar): the unpinned Firefox sidebar is a card over the page.
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* Unpinned (extension.sidebar-float), the Firefox sidebar (Ctrl+B) floats
+   over the page: Zen Fluent's see-through sidebar fill showed the page
+   through it, sharp. It takes the surface of what floats over the page,
+   with an overlay's corners, stroke and shadow. Pinned, it keeps Zen
+   Fluent's docked look. */
+
+@media (-moz-pref("extension.sidebar-float")) and (not (forced-colors)) {
+  /* Three ids: over the docked corners (features/corners-winui) */
+  #main-window #browser #sidebar-box {
+    overflow: clip !important;
+    border: 1px solid var(--zf-stroke-control) !important;
+    border-radius: var(--zf-radius-overlay) !important;
+    background-color: var(--zf-acrylic-over-page) !important;
+    box-shadow: var(--zf-shadow-dialog) !important;
+  }
+}

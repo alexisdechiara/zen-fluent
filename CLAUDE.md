@@ -40,8 +40,22 @@ come later. The owner writes to Claude in French: answer in French.
   (rules in `enhanced/scripts/README.md`), `quick-settings.json` (the Quick
   Settings list and presets, checked against `core/preferences.json`).
   Installed from `…/tree/main/enhanced`. Preferences `zen-fluent.enhanced.*`.
-- `components.json`: manifest for the future `.exe` installer
-  (`installer/README.md`). `docs/`: installation, `docs/settings/<group>.md`,
+- `installer/winui/`: the Windows installer, a WinUI 3 app (C#, Windows
+  App SDK 1.6, unpackaged, self-contained single file), built only by
+  `.github/workflows/installer.yml` (no .NET SDK on the owner's PC).
+  `installer/ZenFluentSetup.ps1`: the same steps for scripts (Windows
+  PowerShell 5.1; UTF-8 with BOM or 5.1 misreads the accents). Keep both in
+  step. Test a build without a window: `ZenFluentSetup.exe --selftest
+<file>` (the CI runs it); `--screenshots <folder>` renders every page
+  to PNG (CI artifact `installer-screenshots`, stand-in Zen versions): look
+  at them after a layout change. A ScrollViewer clips at its padding: keep
+  a page's margin inside it. A WinUI app without a console vanishes on an
+  exception in `InitializeComponent` (e.g. a `Checked` handler fired by
+  `IsChecked` set in XAML before the controls below exist): set such
+  values in code. Test it with `-NoGui` on a throwaway profile, then start the
+  real Zen on it. `components.json`: the components it knows
+  (`installer/README.md`). Sine's release tag differs from its title
+  (title v2.3.4c2, tag `v2.3.4.1c`). `docs/`: installation, `docs/settings/<group>.md`,
   Enhanced, contributing.
 
 ## Conventions
@@ -58,7 +72,10 @@ come later. The owner writes to Claude in French: answer in French.
 - Names: `--zf-*`, `zf-` for ids, classes, attributes, keyframes.
 - A new setting: `core/preferences.json`, its CSS, a row with its default in
   `docs/settings/README.md` (checked), and `docs/settings/<group>.md`. A change: a `CHANGELOG.md` entry
-  under **Unreleased**. Release: `npm run release -- X.Y.Z`, then tag `vX.Y.Z`.
+  under **Unreleased**. Release: `npm run release -- X.Y.Z`, then tag `vX.Y.Z`. Versions
+  (owner's choice, 2026-11-08): 1.0 when Zen leaves beta; minor when a Zen
+  change or one of the mod's breaks something; patch for each Zen update and
+  anything that breaks nothing (`docs/contributing.md#versions`).
 - Code taken from another project keeps its licence notice:
   `THIRD-PARTY-NOTICES.md` plus a line in the file header. Nebula is GPL-3.0:
   never copy from it.
@@ -103,6 +120,23 @@ come later. The owner writes to Claude in French: answer in French.
   opens them, the pref is missing. Enhanced features read it with their
   `default` (checked against `enhanced/preferences.json`).
 - `modules` (homepages) installs missing dependencies; no version constraint.
+- Checked end to end from GitHub on 2026-11-11 (fresh profile, Sine
+  2.3.4.1c): `installMod("alexisdechiara/zen-fluent")` and
+  `…/zen-fluent/tree/main/enhanced` (short or full address) install both
+  mods as described above, Enhanced alone brings Zen Fluent, and
+  `updateMods("manual")` downloads a mod again when the stored `updatedAt`
+  is older than `main`'s (to test an update without pushing, rewind
+  `updatedAt` in `sine-mods/mods.json`). Sine only reads `main`: a release
+  tagged on another branch does not reach Sine users until it is merged.
+- Sine's store (`sineorg/store`, read 2026-11-11): no written rules. A
+  submission is an issue titled `[add-theme]: ` with the mod's GitHub
+  address (`/tree/<branch>/<folder>` accepted); a workflow reads its
+  `theme.json` (`id`, `name`, `author`) and opens a pull request a
+  maintainer reviews. The store keeps its own zip of each mod at a pinned
+  commit (`mods/<id>/mod.zip`), and a mod installed from it
+  (`origin: "store"`) updates from the store's `marketplace.json`, not from
+  its homepage: each version waits for a store pull request. Optional `ai`
+  field in `theme.json` (`no`, `partial`, `yes`). Neither mod is listed.
 - A profile mod cannot run code in web pages: `ChromeUtils.registerWindowActor`
   with a `chrome://sine/...` module registers, but `getActor` in a
   `webIsolated` tab throws "doesn't match remote type" (any `remoteTypes`),
@@ -150,6 +184,28 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   `history.replaceState()` throws SecurityError (use `location.hash`), and
   its ES modules stay cached until a restart (`clearResourceCache()` is not
   enough).
+- about:preferences search (`findInPage.js`, `gSearchResultsPane`): it
+  dispatches `PreferencesSearchCompleted` (detail = query) on the window
+  when done; matches are the ranges of its find selection
+  (`getFindSelection(win)`, shadow trees included) plus
+  `listSearchTooltips`. The find selection paints over a CSS custom
+  highlight: lift a range out of it to show it in another color
+  (`enhanced/scripts/settings-search.uc.js`). An author `<link>` in the
+  page does not reach shadow trees: `::highlight()` rules go in a user sheet.
+  Zen Fluent's pane joins the results: settings.mjs `zfSearch(query)` draws
+  the matching rows (its frame, as tall as them), Firefox having hidden the
+  pane (no text of its own matches). A range must not be filtered on
+  `getClientRects()` while its pane is still hidden.
+- Zen's welcome (`ZenStartup.mjs`) is skipped headless (it sets
+  `zen.welcome-screen.seen`): test with `Services.scriptloader.loadSubScript(
+"chrome://browser/content/zen-components/ZenWelcome.mjs", window)`. It
+  sets `zen-welcome-stage` on the root until it ends, then fades the
+  window in; `gZenUIManager.motion` is its motion library (Motion's
+  `animate`, springs, `stagger`). Its screens and the toolbars are
+  `-moz-window-dragging: drag`: an overlay's clickable parts need `no-drag`,
+  or Windows takes the first click to move the window (a second click
+  reaches the button). `getComputedStyle` does not show that property:
+  read it with `InspectorUtils.getMatchingCSSRules`.
 - A tooltip's `popupshowing` (`#tabbrowser-tab-tooltip`) does not bubble to
   the window: listen in the capture phase to cancel it.
 - DOM full screen (`:root[inDOMFullscreen="true"]`): Zen keeps `#urlbar`
@@ -297,6 +353,17 @@ scale, bg)` gives an ImageBitmap (Enhanced's site color reads the top strip).
   corners), only while that tab is `[busy]`; Zen fades it by script and sets
   `[long-load]` after 3 s. A Glance tab is never `[busy]`: no bar there. Only the
   focused split pane has `.deck-selected`.
+- Right to left (`intl.l10n.pseudo` = `bidi`, restart): the sidebar goes
+  to the right without `zen-right-side`, so corners and positions must be
+  logical (`border-start-start-radius`, never a four-value `border-radius`
+  for one corner). A restored (pending) tab with a left-to-right title
+  keeps `textoverflow` and aligns its label left: Firefox's, not the mod's.
+  Zen draws the end of the pinned tabs' separator as a background on the
+  **Clear** button, from its left edge. Zen's icon set (`zen-icons/icons.css`)
+  overrides Firefox's mirrored subview arrows (`.subviewbutton-nav::after`,
+  `.subviewbutton-back`) with one direction. Firefox mirrors
+  `#context-back` / `-forward` / `-reload` whole (`transform: scaleX(-1)`
+  on the menuitem): a label drawn in their `::after` is mirrored too.
 - Zen sets `breakout-extend` on focus (bar opened in place): the accent line
   follows `[focused]` and `[breakout-extend]`.
 - The Library never covers the page, except 8px in compact mode with WinUI
@@ -391,6 +458,28 @@ zenSyncedWindow: false })` opens an unsynced window. A split's layout tree
   `#sync`. BetterZenGradientPicker opens a welcome screen over the window on
   its first run (remove `#bgp-welcome-root` in tests).
 
+- Mods (checked 2026-11-07, Zen 1.24b): Sine's mod sheets are all user
+  sheets, imported in id order: `BetterZenGradientPicker` (capital B) loads
+  before `Zen-Fluent`, so Zen Fluent wins ties against it (its picker rules
+  step aside with `:has(#zen-picker-lightness-wrapper)`). Compact Settings
+  wins over `content/preferences/layout.css` by specificity
+  (`#preferences-stack #categories`). Vertex Mods share `--zenux-*` tokens
+  on `:root` (`core/src/compat/zenux.css`). BetterZenGradientPicker and
+  ZenLibraryTweaks open a welcome screen that hides `#browser`'s children
+  inline: set `zen.better-gradient-picker.welcome-screen.seen` and
+  `librarytweaks-welcome-seen` in tests. `npm run check:mods` checks the
+  listed mods' repositories (weekly CI).
+- Enhanced's French interface (`lib/zf-l10n.sys.mjs`): a dictionary keyed
+  by the English text, applied to the settings page DOM and to `zf-`
+  elements of the browser windows; user names take `translate="no"`. Two
+  UI texts with one English wording and two French ones must differ in
+  English ("Installed" button, "Installed mods" section). Test with
+  `intl.locale.requested` = `fr` (Zen ships `fr`); the root's `lang`
+  follows (`:lang(fr)` works in chrome CSS).
+- Sine reruns every script after an install or a toggle: a feature's
+  clean-up runs, then its new start. `settings-page.uc.js` remembers the
+  shown section across that (`rememberSection` in `zf-settings.sys.mjs`).
+
 ## Tests
 
 Final campaign on 2026-10-28 on Windows 11 (26 checks out of 26, README
@@ -482,8 +571,6 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
 
 ## To do
 
-- Check the install from GitHub with Sine for both mods (root URL and
-  `…/tree/<branch>/enhanced`), which needs a pushed branch.
 - Run the campaign again on the Windows 11 desktop for the Edge / Mica Alt / new
   settings batch: compare by eye the opaque Mica Alt color of surfaces over the
   page, the "From the button" animation with Mica menus, the context menu
@@ -492,10 +579,9 @@ of `chrome://userscripts/content/core/manager.sys.mjs`; its
   behind notification bars, toasts, dimmed and tinted tab rows; the Ctrl+Tab
   shadow and corners; sound bars at 125 / 150 % DPI; the Second Sidebar panel and
   Calmer's accent menus.
-- Density: the text box URL bar keeps Zen's height in compact (Zen writes
-  `--urlbar-height` inline and sizes its container itself); only the pill
-  follows `--zf-size-url-field`.
-- Not checked live yet: right-to-left (animated Back / Forward / Reload), a
+- Not checked live yet: right to left by eye (layout, URL bar, page card,
+  navigation icons, tab and page context menus, app menu and its subviews
+  measured headless with `intl.l10n.pseudo` = `bidi` on 2026-11-11), a
   real Windows contrast theme (only `ui.useAccessibilityTheme` emulation),
   Picture-in-Picture, Glance, the media card and `about:addons` /
   `about:config` in contrast mode, the blur values on the real desktop.

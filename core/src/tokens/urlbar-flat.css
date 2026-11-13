@@ -1,0 +1,17 @@
+/* Zen Fluent: URL bar field without edges for the Flat shape (zen-fluent.url-style).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* File Explorer's search box (Windows 11): the control fill alone, no
+   stroke and no stronger bottom edge; the accent line still shows on
+   focus. Measured on Explorer: #fdfdfd on its #f8f8f8 command bar, which
+   is the 70 % white control fill, without a border pixel. The field keeps
+   the text box's geometry. */
+@media (-moz-pref("zen-fluent.url-style", "flat")) {
+  #urlbar-container,
+  #urlbar {
+    --zf-url-stroke: transparent;
+    --zf-url-stroke-hover: transparent;
+    --zf-url-stroke-bottom: transparent;
+    --zf-url-stroke-bottom-hover: transparent;
+  }
+}

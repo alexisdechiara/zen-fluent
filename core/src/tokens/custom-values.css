@@ -28,6 +28,51 @@
   }
 }
 
+@property --zf-cv-essentials-border-width {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2px;
+}
+
+@property --zf-cv-essentials-border-width-l {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: -1px;
+}
+
+@property --zf-cv-essentials-border-width-n {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: -1;
+}
+
+@media (-moz-pref("zen-fluent.expert")) and (-moz-pref("zen-fluent.essentials.border-width", "custom")) {
+  :root {
+    --zf-cv-essentials-border-width-l: var(
+      --zen-fluent-essentials-border-width-custom
+    );
+    --zf-cv-essentials-border-width-n: var(
+      --zen-fluent-essentials-border-width-custom
+    );
+    --zf-cv-essentials-border-width-raw: max(
+      var(--zf-cv-essentials-border-width-l),
+      var(--zf-cv-essentials-border-width-n) * 1px
+    );
+    --zf-cv-essentials-border-width-ok: calc(
+      (sign(var(--zf-cv-essentials-border-width-raw) + 0.5px) + 1) / 2
+    );
+    /* At most 8px: past that, a border covers the tile's icon */
+    --zf-cv-essentials-border-width: min(
+      8px,
+      calc(
+        var(--zf-cv-essentials-border-width-ok) *
+          var(--zf-cv-essentials-border-width-raw) +
+          (1 - var(--zf-cv-essentials-border-width-ok)) * 2px
+      )
+    );
+  }
+}
+
 @property --zf-cv-essentials-width {
   syntax: "<length>";
   inherits: true;

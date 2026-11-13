@@ -8,7 +8,14 @@
    scheme (light-dark() follows its color-scheme): the control fill and
    stroke with the darker bottom edge, 4px corners, the text field's accent
    bottom line on focus. The font stays the browser's. Contrast themes keep
-   the system's controls. */
+   the system's controls.
+
+   Only controls without a class or a style attribute: a page that styles
+   a field often sets a few properties only (Google's search box: no
+   border, a transparent fill, but no box-shadow), and the rest of the
+   WinUI look leaked into its design (the accent line, corners, a border
+   on the sides it left alone). The browser's bare controls, which this
+   sheet is for, rarely carry one. */
 
 @-moz-document url-prefix("http://"), url-prefix("https://"), url-prefix("file://")
 {
@@ -18,9 +25,14 @@
     }
 
     /* -------- Buttons -------- */
-    button,
-    input:is([type="button"], [type="submit"], [type="reset"]),
-    ::file-selector-button {
+    :is(button, input:is([type="button"], [type="submit"], [type="reset"])):not(
+      [class]:not([class=""]),
+      [style]
+    ),
+    input[type="file"]:not(
+        [class]:not([class=""]),
+        [style]
+      )::file-selector-button {
       appearance: none;
       padding: 3px 10px;
       border: 1px solid light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));
@@ -70,22 +82,24 @@
     }
 
     /* -------- Text fields -------- */
-    textarea,
-    input:is(
-      :not([type]),
-      [type="text"],
-      [type="search"],
-      [type="email"],
-      [type="url"],
-      [type="tel"],
-      [type="password"],
-      [type="number"],
-      [type="date"],
-      [type="time"],
-      [type="datetime-local"],
-      [type="month"],
-      [type="week"]
-    ) {
+    :is(
+      textarea,
+      input:is(
+        :not([type]),
+        [type="text"],
+        [type="search"],
+        [type="email"],
+        [type="url"],
+        [type="tel"],
+        [type="password"],
+        [type="number"],
+        [type="date"],
+        [type="time"],
+        [type="datetime-local"],
+        [type="month"],
+        [type="week"]
+      )
+    ):not([class]:not([class=""]), [style]) {
       appearance: none;
       padding: 3px 8px;
       border: 1px solid light-dark(rgb(0 0 0 / 5.78%), rgb(255 255 255 / 6.98%));

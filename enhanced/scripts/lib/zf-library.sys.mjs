@@ -27,31 +27,16 @@
 // of its code is run here.
 //
 // Labels come from enhanced/l10n/<locale>/zen-fluent-enhanced.ftl,
-// registered once per process as a Fluent source.
+// registered by lib/zf-l10n.sys.mjs (useFluent).
+
+import { useFluent } from "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-l10n.sys.mjs";
 
 const HTML = "http://www.w3.org/1999/xhtml";
-const L10N_SOURCE = "zen-fluent-enhanced";
-const L10N_FILE = "zen-fluent-enhanced.ftl";
-const L10N_PATH = "chrome://sine/content/Zen-Fluent-Enhanced/l10n/{locale}/";
-const L10N_LOCALES = ["en-US", "fr"];
 const STATE = Symbol.for("zf-library-sections");
 const LIBRARY_PREF = "zen.library.enabled";
 // The order of our tabs, after Zen's own
 const ORDER = ["zf-shelf", "zf-focus", "zf-quick-settings"];
 const byOrder = ([a], [b]) => ORDER.indexOf(a) - ORDER.indexOf(b);
-
-function useLabels(doc) {
-  const registry = L10nRegistry.getInstance();
-  if (!registry.hasSource(L10N_SOURCE)) {
-    registry.registerSources([
-      new L10nFileSource(L10N_SOURCE, "app", L10N_LOCALES, L10N_PATH),
-    ]);
-  }
-  if (!doc[STATE]) {
-    doc[STATE] = true;
-    doc.l10n?.addResourceIds([L10N_FILE]);
-  }
-}
 
 /** The sections Zen Fluent Enhanced adds to this window's Library. */
 function stateOf(library) {
@@ -226,7 +211,7 @@ export function librarySurface(ctx, spec) {
   }
 
   function addSection() {
-    useLabels(doc);
+    useFluent(doc);
     const state = stateOf(library);
     state.standIns.delete(spec.id);
     state.sections.set(spec.id, Section);

@@ -1,0 +1,90 @@
+/* Zen Fluent Enhanced: the private session card in the sidebar (zen-fluent.enhanced.private-session).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/private-session.uc.js adds #zf-private-session to the column of
+   sidebar cards in private windows (src/sidebar-cards.css gives it the
+   card's look): the title with how long the session has lasted at the end
+   of its line, how many trackers were blocked, then End session under the
+   text, where the narrow sidebar leaves it room. zf-confirm marks the button while a
+   second click would end the session. */
+
+#zf-private-session:not([hidden]) {
+  /* The icon beside the title, not the middle of three lines (the card's
+     align="center" is a XUL rule a user sheet cannot beat) */
+  & .zf-card-icon {
+    align-self: start !important;
+  }
+
+  /* The title gives way (an ellipsis), the time at the end of its line
+     never does */
+  & .zf-ps-head {
+    gap: 8px !important;
+    min-width: 0 !important;
+
+    & .zf-card-title {
+      flex: 1 !important;
+      min-width: 0 !important;
+    }
+  }
+
+  & .zf-ps-time {
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+    font-size: var(--zf-sidebar-font-size-small) !important;
+    color: var(--zf-text-tertiary) !important;
+  }
+
+  & .zf-card-actions {
+    margin-block-start: 6px !important;
+  }
+
+  /* A standard WinUI button: it ends something, so it shows as one */
+  & .zf-ps-end {
+    background-color: var(--zf-fill-control) !important;
+    outline: 1px solid var(--zf-stroke-control) !important;
+    outline-offset: -1px !important;
+
+    &:hover {
+      background-color: var(--zf-fill-control-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-fill-control-press) !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--zf-text-primary) !important;
+      outline-offset: 1px !important;
+    }
+
+    /* The second click ends the session: said in the critical color, and
+       by the label */
+    &[zf-confirm] {
+      color: var(--zf-critical) !important;
+      outline-color: currentcolor !important;
+    }
+
+    &:disabled {
+      color: var(--zf-text-disabled) !important;
+      background-color: var(--zf-fill-control-disabled) !important;
+    }
+  }
+}
+
+@media (forced-colors) {
+  #zf-private-session .zf-ps-end {
+    background-color: ButtonFace !important;
+    color: ButtonText !important;
+    outline-color: ButtonText !important;
+
+    &[zf-confirm] {
+      color: Highlight !important;
+      outline: 2px solid Highlight !important;
+    }
+
+    &:disabled {
+      color: GrayText !important;
+      outline-color: GrayText !important;
+    }
+  }
+}

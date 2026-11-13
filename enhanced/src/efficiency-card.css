@@ -1,0 +1,116 @@
+/* Zen Fluent Enhanced: the efficiency card in the sidebar (zen-fluent.enhanced.efficiency-card).
+   User sheet: declarations take !important to win over Zen's own CSS. */
+
+/* scripts/efficiency-card.uc.js adds #zf-efficiency-card to the column of
+   sidebar cards (src/sidebar-cards.css gives it the card's look).
+   zf-state = battery, memory or done: each has its own icon (a low
+   battery, a heart with a pulse, a check) and title, so the state never
+   rests on color alone. Under the icon and the text, a row with the accent
+   button that puts tabs to sleep and the Performance button; the close
+   button stays at the top of the end edge. Nothing moves here beyond the card's own
+   fade, which reduced motion already stops. */
+
+#zf-efficiency-card:not([hidden]) {
+  &[zf-state="battery"] .zf-card-icon {
+    fill: var(--zf-caution) !important;
+  }
+
+  &[zf-state="done"] .zf-card-icon {
+    fill: var(--zf-success) !important;
+  }
+
+  /* The icon and the close button by the title, not the card's middle */
+  & :is(.zf-card-icon, .zf-card-actions) {
+    align-self: flex-start !important;
+  }
+
+  & .zf-card-icon {
+    margin-block-start: 2px !important;
+  }
+
+  /* The buttons on a row of their own, as wide as the card; they wrap
+     under each other in a narrow sidebar */
+  flex-wrap: wrap !important;
+  row-gap: 6px !important;
+
+  & .zf-efficiency-buttons:not([hidden]) {
+    display: flex !important;
+    flex-basis: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+  }
+
+  /* Two lines at most rather than an ellipsis: the detail, and the
+     title that says what was done (it stands alone then) */
+  & .zf-card-detail,
+  &[zf-state="done"] .zf-card-title {
+    margin: 0 !important;
+    white-space: normal !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+  }
+
+  & .zf-efficiency-buttons .zf-card-button {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* The action, as a WinUI InfoBar's: an accent button */
+  & .zf-efficiency-sleep {
+    background-color: var(--zf-accent) !important;
+    color: var(--zf-on-accent) !important;
+
+    &:hover {
+      background-color: var(--zf-accent-hover) !important;
+    }
+
+    &:hover:active {
+      background-color: var(--zf-accent-pressed) !important;
+      color: var(--zf-on-accent) !important;
+    }
+  }
+
+  & .zf-efficiency-close {
+    padding: 0 !important;
+    background-image: url("chrome://global/skin/icons/close.svg") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px !important;
+  }
+
+  & .zf-card-button:focus-visible {
+    outline: 2px solid var(--zf-focus-outer) !important;
+    outline-offset: 1px !important;
+  }
+}
+
+/* Collapsed sidebar: the icon alone (sidebar-cards.css hides the text and
+   the close button; the buttons' row is this card's own) */
+:root:not([zen-sidebar-expanded="true"])
+  #zf-efficiency-card
+  .zf-efficiency-buttons {
+  display: none !important;
+}
+
+@media (forced-colors) {
+  #zf-efficiency-card[zf-state] {
+    & .zf-card-icon {
+      fill: CanvasText !important;
+    }
+
+    & .zf-efficiency-sleep {
+      outline: 1px solid ButtonText !important;
+      background-color: ButtonFace !important;
+      color: ButtonText !important;
+    }
+
+    & .zf-efficiency-close {
+      fill: CanvasText !important;
+    }
+  }
+}

@@ -6,7 +6,7 @@ Group header: `zen-fluent.ui.open-urlbar` (open by default: `false`).
 
 | Setting                                                      | Preference                        | Values                                                                                                                                                                                                | Default |
 | ------------------------------------------------------------ | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| URL bar shape                                                | `zen-fluent.url-style`            | `auto` Automatic (the style’s)<br>`textbox` Text box (WinUI)<br>`pill` Pill (Edge)<br>`transparent` Transparent                                                                                       | `auto`  |
+| URL bar shape                                                | `zen-fluent.url-style`            | `auto` Automatic (the style’s)<br>`textbox` Text box (WinUI)<br>`flat` Flat (File Explorer)<br>`pill` Pill (Edge)<br>`transparent` Transparent                                                        | `auto`  |
 | Accent line under the URL bar                                | `zen-fluent.url-underline`        | `focus` On focus (WinUI)<br>`animated` On focus, animated (Fluent 2)<br>`always` Always<br>`none` Never                                                                                               | `focus` |
 | Floating URL bar color                                       | `zen-fluent.url-floating-color`   | `solid` Solid (white or black, opaque)<br>`standard` Standard (the window’s material)<br>`tint` Tint (the space’s color, else the accent)<br>`translucent` Translucent (see-through glass, as in Arc) | `solid` |
 | Centered URL                                                 | `zen-fluent.url-centered`         | `true` / `false`                                                                                                                                                                                      | `false` |
@@ -16,7 +16,10 @@ Group header: `zen-fluent.ui.open-urlbar` (open by default: `false`).
 ## Notes
 
 - **URL bar shape**: follow the style (WinUI text box, Edge pill), text box,
-  pill or transparent. The pill is a real pill (radius = half the height), with
+  flat, pill or transparent. Flat is the text box without its edges, as the
+  search box of Windows 11's File Explorer: the control fill alone, no
+  stroke and no stronger bottom line at rest; the accent line still shows
+  on focus. The pill is a real pill (radius = half the height), with
   the site button at the start and round 28 px buttons centered on the ends.
   Open, the surface grows by 4 px all around (radius 20); floating, it is a card
   with a 24 px radius, a full pill when there are no results.

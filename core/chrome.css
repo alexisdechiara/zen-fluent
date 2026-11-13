@@ -87,11 +87,15 @@
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/variants/essentials.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-border.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-color.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-selected-style.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-icon-color.css") not
+  (-moz-pref("zen-fluent.fluent-sidebar", false));
+@import url("src/features/essentials-selected-border.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
 @import url("src/features/essentials-running.css") not
   (-moz-pref("zen-fluent.fluent-sidebar", false));
@@ -163,6 +167,7 @@
 /* URL bar */
 @import url("src/tokens/urlbar.css");
 @import url("src/tokens/urlbar-edge.css");
+@import url("src/tokens/urlbar-flat.css");
 @import url("src/tokens/url-underline.css");
 @import url("src/components/urlbar/rest.css") not
   (-moz-pref("zen-fluent.fluent-urlbar", false));
@@ -277,6 +282,8 @@
 @import url("src/features/hide-shortcuts.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/hide-access-keys.css") not
+  (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/features/menu-tint.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
 @import url("src/features/context-navigation/list.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
@@ -413,6 +420,8 @@
   (-moz-pref("zen-fluent.fluent-notifications", false));
 @import url("src/components/notifications/toast.css") not
   (-moz-pref("zen-fluent.fluent-notifications", false));
+@import url("src/components/notifications/sidebar-notification.css") not
+  (-moz-pref("zen-fluent.fluent-notifications", false));
 
 /* Dialogs */
 @import url("src/components/dialogs/smoke.css") not
@@ -476,6 +485,8 @@
 /* Caption buttons */
 @import url("src/components/window/caption-buttons.css") not
   (-moz-pref("zen-fluent.fluent-window", false));
+@import url("src/components/window/private-pill.css") not
+  (-moz-pref("zen-fluent.fluent-window", false));
 @import url("src/a11y/forced-colors-window.css") not
   (-moz-pref("zen-fluent.fluent-window", false));
 
@@ -537,5 +548,10 @@
   (-moz-pref("zen-fluent.fluent-urlbar", false));
 @import url("src/compat/calmer-context-menu.css") not
   (-moz-pref("zen-fluent.fluent-menus", false));
+@import url("src/compat/zenux.css");
+@import url("src/compat/floating-sidebar.css") not
+  (-moz-pref("zen-fluent.fluent-firefox-sidebar", false));
+@import url("src/compat/browse-bot.css") not
+  (-moz-pref("zen-fluent.fluent-findbar", false));
 
 /* Add your own CSS below. */

@@ -25,6 +25,7 @@ editor: `chrome://browser/content/zen-components/windows/zen-boost-editor.xhtml`
   const feature = ZFFeature.attach(window, {
     name: "<name>",
     // default: true,  // when the checkbox is on by default
+    // private: false, // never in a private window (the features that color the window)
     start(ctx) {
       // Everything added through ctx is undone when the feature stops:
       // ctx.listen(target, type, fn), ctx.observePref(name, fn),
@@ -68,6 +69,15 @@ url)` (dominant color of an icon, cached per process), `pageTopColor(window, bro
   a tab of Zen's Library (a panel from a bottom-row button while the
   Library is off); compatible with ZenLibraryTweaks' sections. Tab labels
   in `enhanced/l10n/<locale>/zen-fluent-enhanced.ftl`.
+- `zf-l10n.sys.mjs`: the interface in French when Zen is: `t(text)`,
+  `translate(node)`, `watch(doc)`, and every element with a `zf-` id or
+  class in the browser windows (from `ZFFeature.attach`). Strings live in
+  `enhanced/l10n/fr/strings.json`, keyed by the English text; write UI text
+  in English, then add its translation there. A name the user gave takes
+  `translate="no"`.
+- `zf-spaces.sys.mjs`: settings per space (`SETTINGS`, `activate(space)`,
+  `setOverride`, `clearSpace`, `restoreAll`), shared by
+  `space-settings.uc.js` and the settings page's Spaces page.
 - `zf-toast.sys.mjs`: `showToast(window, text, { action })`, a short message at the bottom
   of the window (`enhanced/src/toast.css`); Zen's own toasts only take its
   Fluent string ids.

@@ -10,6 +10,7 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
 | Auto-hide the bookmarks toolbar (shown while the pointer is over the toolbar) | `zen-fluent.bookmarks-autohide`  | `true` / `false`                                                                                       | `false`     |
 | Page loading bar (while a page loads, with Zen’s loading indicator on)        | `zen-fluent.loading-bar`         | `winui` WinUI ProgressBar<br>`zen` Zen’s indicator                                                     | `winui`     |
 | macOS-style arrows                                                            | `zen-fluent.mac-back-forward`    | `true` / `false`                                                                                       | `false`     |
+| Menu tint (menus and panels; WinUI keeps them neutral)                        | `zen-fluent.menu-tint`           | `none` None (WinUI, white or dark gray)<br>`accent` Accent color<br>`space` Space color                | `none`      |
 | Back / Forward in the context menu                                            | `zen-fluent.context-navigation`  | `icons` Icons (Firefox)<br>`list` List (WinUI)<br>`commandbar` Command bar (File Explorer)             | `icons`     |
 | Hide menu shortcuts                                                           | `zen-fluent.hide-shortcuts`      | `true` / `false`                                                                                       | `false`     |
 | Hide underlined letters in menus                                              | `zen-fluent.hide-access-keys`    | `true` / `false`                                                                                       | `false`     |
@@ -36,3 +37,9 @@ Group header: `zen-fluent.ui.open-window` (open by default: `false`).
   Library, menus). The web pages option goes through `core/userContent.css`:
   with Sine under Zen 1.23, a mod's content sheet only reaches internal pages,
   so the option only works for a [manual install](../installation.md#manual-install).
+
+**Menu tint**: WinUI menus and flyouts are neutral Acrylic, white in light
+mode. **Accent color** mixes 14 % of Zen Fluent's accent (Windows' accent by
+default) into them, **Space color** 14 % of the space's color. With
+**None**, Zen Calmer Context Menu's "Apply the Zen space accent color"
+gives way too: Zen Fluent decides the menus' color.

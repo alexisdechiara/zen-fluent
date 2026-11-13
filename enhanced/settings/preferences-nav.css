@@ -119,64 +119,23 @@
   background: transparent;
 }
 
-/* Zen's search: a card per Zen Fluent setting that matches, a link to it
-   (WinUI's search results open the setting's page). Its path comes from an
-   attribute, which Firefox's search does not read. */
-.zf-search-result {
-  margin-bottom: 4px;
+/* Zen's search: the pane shows among the results, under its name, as a
+   group of Firefox's results does (settings-page.uc.js) */
+#zf-prefs-pane > .zf-search-heading {
+  display: none;
+  margin: 28px 0 8px;
+  font: 600 20px / 28px var(--zf-font-display, inherit);
 }
 
-.zf-sr-card {
-  appearance: none;
-  display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
-  gap: 2px 16px;
-  align-items: center;
-  width: 100%;
-  min-height: 68px;
-  padding: 12px 40px 12px 16px;
-  border: 1px solid var(--zf-stroke-control, rgb(128 128 128 / 20%));
-  border-radius: var(--zf-radius-card, 8px);
-  background: var(--zf-fill-card, transparent) url("icons/chevron-right.svg")
-    no-repeat right 16px center / 12px;
-  color: var(--zf-text-primary, inherit);
-  font: inherit;
-  text-align: start;
-  -moz-context-properties: fill;
-  fill: currentcolor;
-
-  &:hover {
-    background-color: var(--zf-fill-control-hover, rgb(128 128 128 / 8%));
-  }
-
-  &:active {
-    background-color: var(--zf-fill-control-press, rgb(128 128 128 / 4%));
-  }
-
-  &::after {
-    grid-column: 2;
-    color: var(--zf-text-secondary, GrayText);
-    content: attr(data-path);
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  & img {
-    grid-row: span 2;
-    width: 20px;
-    height: 20px;
-    -moz-context-properties: fill;
-    fill: currentcolor;
-  }
+#zf-prefs-pane[zf-searching] > .zf-search-heading {
+  display: block;
 }
 
-.zf-sr-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.zf-sr-desc {
-  color: var(--zf-text-secondary, GrayText);
-  font-size: 12px;
-  line-height: 16px;
+/* Compact Settings (Vertex-Mods/Compact-Settings) folds the navigation
+   into an icon strip that opens on hover: the sections stay folded with
+   it, or their 18 rows pushed Zen's own panes out of the strip */
+@media (-moz-pref("compact-settings.enabled")) and (width > 950px) {
+  #categories:not(:hover) #zf-prefs-subnav {
+    display: none;
+  }
 }

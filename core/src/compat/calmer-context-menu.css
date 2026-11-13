@@ -5,9 +5,9 @@
    last) and wins ties of equal specificity. */
 
 /* -------- Menu fill -------- */
-/* "Apply the Zen space accent color" (uc.fixcontext.applyzenaccent) is an
-   explicit choice that works: it tints menus and panels in place of the
-   Acrylic, and is left to win. "Apply the Zen space gradient"
+/* "Apply the Zen space accent color" (uc.fixcontext.applyzenaccent) tints
+   menus at 40 % of the space color: Zen Fluent's Menu tint decides instead
+   (features/menu-tint.css; None, the default, keeps WinUI's neutral menus). "Apply the Zen space gradient"
    (uc.fixcontext.applyzengradient) paints #zen-browser-background into the
    menu, which is empty under Zen Fluent (the window shows Mica): it would
    only swap the Acrylic for Zen's flat panel color, so the Acrylic of

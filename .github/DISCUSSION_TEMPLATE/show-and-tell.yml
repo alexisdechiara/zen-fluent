@@ -1,0 +1,13 @@
+body:
+  - type: textarea
+    id: shot
+    attributes:
+      label: Your setup
+      description: A screenshot of your Zen with Zen Fluent. Hide anything private.
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Its settings
+      description: Style, material, accent, preset or theme file, other mods.

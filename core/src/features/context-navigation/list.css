@@ -29,6 +29,12 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+
+      /* Right to left: Firefox mirrors Back, Forward and Reload whole, to
+         turn their icons; the label would read backwards */
+      &:-moz-locale-dir(rtl) {
+        transform: none !important;
+      }
     }
   }
 }

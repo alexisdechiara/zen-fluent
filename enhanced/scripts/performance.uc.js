@@ -19,6 +19,14 @@
   const { ZFFeature, choice } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-feature.sys.mjs",
   );
+  const {
+    loaded,
+    canSleep: mayRest,
+    sleepTabs,
+    zenMemory,
+  } = ChromeUtils.importESModule(
+    "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-sleep.sys.mjs",
+  );
   const { showToast } = ChromeUtils.importESModule(
     "chrome://sine/content/Zen-Fluent-Enhanced/scripts/lib/zf-toast.sys.mjs",
   );
@@ -57,34 +65,9 @@
         return el;
       };
 
-      const loaded = (tab) =>
-        !tab.closing &&
-        !tab.hasAttribute("pending") &&
-        !tab.hasAttribute("zen-empty-tab") &&
-        tab.linkedPanel &&
-        tab.linkedBrowser?.isRemoteBrowser;
-
-      const onScreenSplit = (tab) => {
-        const splitter = win.gZenViewSplitter;
-        return (
-          tab.splitView &&
-          splitter?.currentView >= 0 &&
-          splitter._data[splitter.currentView]?.tabs.includes(tab)
-        );
-      };
-
-      /** Tabs that may sleep, the selected one aside. */
-      const canSleep = (tab) =>
-        loaded(tab) &&
-        !tab.selected &&
-        !tab.hasAttribute("soundplaying") &&
-        !tab.hasAttribute("sharing") &&
-        !tab.pictureinpicture &&
-        !tab.hasAttribute("zen-glance-tab") &&
-        !onScreenSplit(tab);
-
-      const sleep = (tabs) =>
-        tabs.filter((tab) => gBrowser.discardBrowser(tab, false)).length;
+      // The rules shared with the efficiency card (lib/zf-sleep.sys.mjs)
+      const canSleep = (tab) => mayRest(win, tab);
+      const sleep = (tabs) => sleepTabs(win, tabs);
 
       // -------- Sleeping tabs --------
       const sweep = () => {
@@ -115,13 +98,7 @@
 
       /** { tab: bytes } for loaded tabs, and Zen's total. */
       async function memory() {
-        const info = await ChromeUtils.requestProcInfo();
-        let total = info.memory;
-        const byPid = new Map();
-        for (const child of info.children) {
-          total += child.memory;
-          byPid.set(child.pid, child.memory);
-        }
+        const { total, byPid } = await zenMemory();
         const tabsByPid = new Map();
         for (const tab of gBrowser.tabs.filter(loaded)) {
           const pid =
